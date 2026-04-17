@@ -1,0 +1,74 @@
+# ═══════════════════════════════════════════════
+#  PROMPTAHOLICS — Netlify Configuration
+#  Fixes: timeout errors, slow loads, mobile issues
+# ═══════════════════════════════════════════════
+
+[build]
+  publish = "."
+
+# ── PERFORMANCE HEADERS ──────────────────────────
+# Caches the site so returning visitors load instantly
+# Adds security headers that also improve performance
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+    # Performance: tell browsers to cache everything for 1 hour
+    # Netlify CDN caches it globally — loads from nearest server worldwide
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    # HTML files: cache for 5 minutes, always revalidate
+    # This means updates push instantly but repeat visits are fast
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── REDIRECTS ────────────────────────────────────
+# Ensures custom domain always loads correctly
+# Prevents timeout from wrong URL routing
+
+[[redirects]]
+  from = "http://promptaholics.com/*"
+  to   = "https://www.promptaholics.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from = "http://www.promptaholics.com/*"
+  to   = "https://www.promptaholics.com/:splat"
+  status = 301
+  force  = true
+
+# ── PRELOADING ───────────────────────────────────
+# Tells Netlify CDN to pre-warm pages before users visit
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.css]
+  bundle = false
+  minify = false
+
+[build.processing.js]
+  bundle = false
+  minify = false
