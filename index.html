@@ -292,6 +292,8 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   .phero{padding:36px 16px 28px;}
   footer{padding:18px 14px;}
 }
+
+
 </style>
 </head>
 <body>
@@ -345,11 +347,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   <span>🔌 <strong>Powered by Netlify Forms</strong> — Community submissions go straight to your Netlify dashboard.</span>
 </div>
 
-<!-- FEATURED STRIP -->
-<div class="feat-strip">
-  <div class="feat-inner">
-    <div class="feat-lbl">⭐ Featured</div>
-    <div class="feat-items" id="featItems"></div>
+<div class="feat-items" id="featItems"></div>
   </div>
 </div>
 
@@ -419,6 +417,17 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <h2>Share a <span style="color:var(--orange);font-style:italic">Prompt</span></h2>
       <p>Submit your best prompts. Every submission helps the whole community — free forever.</p>
     </div>
+
+    <!-- ✦ SUPPORT NUDGE — shown on submit page ── -->
+    <div style="background:rgba(255,129,63,.07);border:1px solid rgba(255,129,63,.25);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:14px;">
+      <span style="font-size:26px;flex-shrink:0;">☕</span>
+      <div>
+        <div style="font-family:'Syne','Georgia',serif;font-size:15px;font-weight:700;color:#FF813F;margin-bottom:4px;">Enjoying Promptaholics?</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6;">It's free and always will be. If it's saved you time, consider buying me a coffee — it keeps the library growing!
+          <a href="https://buymeacoffee.com/promptaholics.com" target="_blank" rel="noopener" style="color:#FF813F;font-weight:700;text-decoration:none;margin-left:6px;">☕ Support →</a>
+        </div>
+      </div>
+    </div>
     <div class="nf-info">
       <div class="nf-info-icon">🔌</div>
       <div class="nf-info-body">
@@ -484,6 +493,8 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   </div>
 </div>
 
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="fbrand">
@@ -494,12 +505,13 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
         <path d="M10 10l-4 8 3.5-4H6l4-8-3.5 4H10z" fill="white"/>
       </svg>
     </div>
-    <div class="ftxt"><strong>Promptaholics</strong> — Free AI Prompt Library. Open to everyone.</div>
+    <div class="ftxt"><strong>Promptaholics</strong> — Free AI Prompt Library. Open to everyone. &nbsp;·&nbsp; <a href="https://buymeacoffee.com/promptaholics.com" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none;font-weight:600;">☕ Buy me a coffee</a></div>
   </div>
   <div class="flinks">
     <a href="#" onclick="goLib();return false">Library</a>
     <a href="#" onclick="showPage('submit');return false">Submit</a>
     <a href="#" onclick="showPage('favorites');return false">Saved</a>
+    <a href="privacy.html">Privacy Policy</a>
   </div>
 </footer>
 
@@ -827,6 +839,9 @@ function getList(){
   else                    list.sort((a,b) => parseInt(b.id) - parseInt(a.id));
   return list;
 }
+    result.push(cards[cards.length-1]);
+    return result.join('');
+  }
 
 function renderCards(){
   const list = getList();
@@ -987,5 +1002,21 @@ if(document.readyState === 'loading'){
   init();
 }
 </script>
+
+<!-- ✦ BUY ME A COFFEE WIDGET ✦ -->
+<!-- Floating coffee button — appears on every page, bottom right -->
+<script
+  data-name="BMC-Widget"
+  data-cfasync="false"
+  src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+  data-id="promptaholics.com"
+  data-description="Support me on Buy me a coffee!"
+  data-message="Help me reach $50/month to keep the library free"
+  data-color="#FF813F"
+  data-position="Right"
+  data-x_margin="18"
+  data-y_margin="18">
+</script>
+
 </body>
 </html>
