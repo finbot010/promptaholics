@@ -4,10 +4,43 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Promptaholics — Free AI Prompt Library</title>
-<meta name="description" content="Promptaholics — The world's best free AI prompt library. Copy-ready prompts for ChatGPT, Midjourney, DALL-E, and more."/>
-<meta property="og:title" content="Promptaholics — Free AI Prompt Library"/>
-<meta property="og:description" content="Curated, searchable, copy-ready AI prompts. Free forever."/>
+<!-- ✦ SEO META TAGS ✦ -->
+<meta name="description" content="Promptaholics — 140+ free AI prompts for ChatGPT, Midjourney, DALL-E, Stable Diffusion and more. Copy-ready, searchable, organized by category. No sign-up required."/>
+<meta name="keywords" content="AI prompts, ChatGPT prompts, Midjourney prompts, free prompt library, DALL-E prompts, AI writing prompts, best ChatGPT prompts 2025, prompt engineering"/>
+<meta name="author" content="Promptaholics"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://promptaholics.com"/>
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://promptaholics.com"/>
+<meta property="og:title" content="Promptaholics — 140+ Free AI Prompts for ChatGPT, Midjourney & More"/>
+<meta property="og:description" content="The best free AI prompt library. Copy-ready prompts for ChatGPT, Midjourney, DALL-E, Stable Diffusion and more. No sign-up. No paywalls. 140+ prompts across 13 categories."/>
+<meta property="og:image" content="https://promptaholics.com/og-image.png"/>
+<meta property="og:site_name" content="Promptaholics"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:url" content="https://promptaholics.com"/>
+<meta name="twitter:title" content="Promptaholics — 140+ Free AI Prompts"/>
+<meta name="twitter:description" content="The best free AI prompt library. ChatGPT, Midjourney, DALL-E & more. No sign-up needed."/>
+<meta name="twitter:image" content="https://promptaholics.com/og-image.png"/>
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Promptaholics",
+  "url": "https://promptaholics.com",
+  "description": "Free AI prompt library with 140+ copy-ready prompts for ChatGPT, Midjourney, DALL-E and more",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://promptaholics.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 
 <!-- ✦ GOOGLE ANALYTICS ✦ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
@@ -272,6 +305,172 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   .phero{padding:36px 16px 28px;}
   footer{padding:18px 14px;}
 }
+
+/* ══ PROMPT OF THE DAY ══ */
+.potd-banner{
+  background:linear-gradient(135deg,rgba(255,98,36,.12),rgba(139,92,246,.08));
+  border-bottom:1px solid rgba(255,98,36,.25);
+  padding:16px 30px;display:flex;align-items:center;gap:16px;
+  flex-wrap:wrap;transition:background .3s,border .3s;
+}
+.potd-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--orange);white-space:nowrap;flex-shrink:0;
+}
+.potd-label span{font-size:18px;}
+.potd-content{flex:1;min-width:200px;}
+.potd-name{font-family:'Syne','Georgia',serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.potd-preview{font-size:12px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.potd-actions{display:flex;gap:8px;flex-shrink:0;}
+.potd-btn{
+  background:var(--orange);color:#fff;border:none;padding:8px 16px;
+  border-radius:8px;cursor:pointer;font-family:'Instrument Sans',sans-serif;
+  font-size:12px;font-weight:700;transition:background .17s;white-space:nowrap;
+}
+.potd-btn:hover{background:var(--orange2);}
+.potd-btn.outline{background:none;border:1px solid var(--orange);color:var(--orange);}
+.potd-btn.outline:hover{background:var(--orange);color:#fff;}
+
+/* ══ PROMPT OF THE WEEK BANNER ══ */
+.potw-wrap{padding:20px 24px 0;}
+.potw-card{
+  background:linear-gradient(135deg,var(--surface) 0%,rgba(255,98,36,.05) 100%);
+  border:1px solid rgba(255,98,36,.3);border-radius:16px;padding:20px 24px;
+  display:flex;align-items:center;gap:20px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.potw-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--orange),var(--violet));
+}
+.potw-star{font-size:36px;flex-shrink:0;}
+.potw-body{flex:1;}
+.potw-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+.potw-title{font-family:'Syne','Georgia',serif;font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.potw-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.potw-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;}
+
+/* ══ COPY COUNTER ══ */
+.copy-count{font-size:10px;color:var(--text3);margin-top:4px;text-align:center;}
+.copy-count span{color:var(--teal);font-weight:600;}
+
+/* ══ RATING SYSTEM ══ */
+.rating-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.rating-btn{
+  background:none;border:1px solid var(--border);color:var(--text3);
+  padding:4px 10px;border-radius:20px;cursor:pointer;font-size:12px;
+  transition:all .15s;display:flex;align-items:center;gap:4px;
+}
+.rating-btn:hover,.rating-btn.voted-up{background:rgba(34,197,94,.1);border-color:var(--green);color:var(--green);}
+.rating-btn.voted-down{background:rgba(240,48,112,.1);border-color:var(--pink);color:var(--pink);}
+.rating-score{font-size:11px;color:var(--text3);font-weight:600;}
+
+/* ══ SOCIAL SHARE ══ */
+.share-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.share-btn{
+  display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;
+  cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;
+  border:none;transition:all .15s;text-decoration:none;white-space:nowrap;
+}
+.share-x{background:rgba(0,0,0,.8);color:#fff;}
+.share-x:hover{background:#000;}
+[data-theme="light"] .share-x{background:#1a1a1a;}
+.share-linkedin{background:rgba(0,119,181,.15);color:#0077b5;border:1px solid rgba(0,119,181,.3);}
+.share-linkedin:hover{background:#0077b5;color:#fff;}
+.share-whatsapp{background:rgba(37,211,102,.12);color:#25d366;border:1px solid rgba(37,211,102,.3);}
+.share-whatsapp:hover{background:#25d366;color:#fff;}
+.share-copy{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+.share-copy:hover{border-color:var(--orange);color:var(--orange);}
+
+/* ══ MOBILE BOTTOM NAV ══ */
+.mobile-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:8px 0 max(8px, env(safe-area-inset-bottom));
+  transition:background .3s,border .3s;
+}
+.mobile-nav-inner{display:flex;justify-content:space-around;align-items:center;}
+.mnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;cursor:pointer;padding:6px 16px;
+  color:var(--text3);font-family:'Instrument Sans',sans-serif;
+  font-size:10px;font-weight:600;transition:color .15s;
+  text-transform:uppercase;letter-spacing:.5px;
+}
+.mnav-btn.active{color:var(--orange);}
+.mnav-btn:hover{color:var(--text);}
+.mnav-icon{font-size:20px;line-height:1;}
+.mnav-badge{
+  background:var(--pink);color:#fff;font-size:9px;border-radius:20px;
+  padding:1px 5px;min-width:16px;text-align:center;font-weight:700;
+  position:absolute;top:-4px;right:-4px;
+}
+.mnav-btn-wrap{position:relative;display:inline-block;}
+@media(max-width:768px){
+  .mobile-nav{display:block;}
+  body{padding-bottom:72px;}
+  .hdr-right .nav-tabs{display:none;}
+}
+
+/* ══ LEARN TO PROMPT PAGE ══ */
+.learn-hero{
+  padding:60px 40px 50px;text-align:center;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(255,98,36,.06),rgba(139,92,246,.04));
+}
+.learn-hero h2{font-family:'Syne','Georgia',serif;font-size:clamp(28px,4vw,52px);font-weight:800;letter-spacing:-1.5px;margin-bottom:10px;}
+.learn-hero p{color:var(--text2);font-size:16px;max-width:560px;margin:0 auto;}
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding:32px 28px;max-width:1200px;margin:0 auto;}
+.learn-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:24px;transition:all .2s;
+}
+.learn-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 10px 36px var(--shadow);}
+.learn-card-icon{font-size:32px;margin-bottom:14px;display:block;}
+.learn-card-title{font-family:'Syne','Georgia',serif;font-size:17px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.learn-card-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;}
+.learn-card-tips{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.learn-card-tips li{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:8px;line-height:1.55;}
+.learn-card-tips li::before{content:'→';color:var(--orange);flex-shrink:0;font-weight:700;}
+.learn-example{
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;font-family:'Courier New',monospace;font-size:11.5px;
+  color:var(--text);line-height:1.6;cursor:pointer;transition:border .15s;
+  position:relative;
+}
+.learn-example:hover{border-color:var(--orange);}
+.learn-example-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;font-family:'Instrument Sans',sans-serif;}
+.learn-copy-hint{position:absolute;top:10px;right:10px;font-size:10px;color:var(--text3);font-family:'Instrument Sans',sans-serif;}
+.learn-section-title{
+  font-family:'Syne','Georgia',serif;font-size:22px;font-weight:800;
+  padding:24px 28px 0;max-width:1200px;margin:0 auto;color:var(--text);
+}
+.learn-resources{padding:0 28px 40px;max-width:1200px;margin:0 auto;}
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:16px;}
+.resource-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:16px 18px;display:flex;align-items:center;gap:14px;
+  text-decoration:none;transition:all .15s;
+}
+.resource-card:hover{border-color:var(--orange);transform:translateX(4px);}
+.resource-icon{font-size:24px;flex-shrink:0;}
+.resource-body{}
+.resource-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.resource-desc{font-size:12px;color:var(--text3);line-height:1.5;}
+.resource-arrow{margin-left:auto;color:var(--text3);font-size:16px;flex-shrink:0;}
+
+/* ══ PROMPT MODAL SHARE SECTION ══ */
+.modal-share{margin-bottom:20px;}
+.modal-share-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+
+@media(max-width:640px){
+  .potd-banner{padding:12px 16px;}
+  .potw-wrap{padding:14px 14px 0;}
+  .learn-hero{padding:40px 16px 36px;}
+  .learn-grid{padding:20px 14px;gap:14px;}
+  .learn-resources{padding:0 14px 30px;}
+}
 </style>
 </head>
 <body>
@@ -314,10 +513,24 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <button class="ntab active" onclick="showPage('library')">Library</button>
       <button class="ntab" onclick="showPage('favorites')">Saved <span class="fbadge" id="fbadge">0</span></button>
       <button class="ntab" onclick="showPage('submit')">+ Submit</button>
+      <button class="ntab" onclick="showPage('learn')">📚 Learn</button>
     </div>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
   </div>
 </header>
+
+<!-- ✦ PROMPT OF THE DAY ✦ -->
+<div class="potd-banner" id="potdBanner">
+  <div class="potd-label"><span>☀️</span>Prompt of the Day</div>
+  <div class="potd-content">
+    <div class="potd-name" id="potdName">Loading...</div>
+    <div class="potd-preview" id="potdPreview"></div>
+  </div>
+  <div class="potd-actions">
+    <button class="potd-btn outline" onclick="copyPotd()">📋 Copy</button>
+    <button class="potd-btn" onclick="openModal(potdId)">View →</button>
+  </div>
+</div>
 
 <!-- NETLIFY BANNER -->
 <div class="nf-banner">
@@ -361,6 +574,21 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <div class="sb-sec"><div class="sb-lbl">Tags</div><div class="tag-cloud" id="tagCloud"></div></div>
     </aside>
     <div class="main">
+      <!-- ✦ PROMPT OF THE WEEK ✦ -->
+      <div class="potw-wrap" id="potwWrap">
+        <div class="potw-card">
+          <div class="potw-star">🏆</div>
+          <div class="potw-body">
+            <div class="potw-eyebrow">⭐ Prompt of the Week</div>
+            <div class="potw-title" id="potwName">Loading...</div>
+            <div class="potw-desc" id="potwDesc"></div>
+          </div>
+          <div class="potw-actions">
+            <button class="potd-btn outline" onclick="copyPotw()">📋 Copy</button>
+            <button class="potd-btn" onclick="openModal(potwId)">Full Prompt →</button>
+          </div>
+        </div>
+      </div>
       <div class="toolbar">
         <div class="rcnt" id="rcnt"></div>
         <div class="sw"><label>Sort:</label>
@@ -464,6 +692,228 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   </div>
 </div>
 
+<!-- ✦ LEARN TO PROMPT PAGE ✦ -->
+<div class="page" id="page-learn">
+  <div class="learn-hero">
+    <div class="pill">📚 Free Guide</div>
+    <h2>Learn to <span style="color:var(--orange)">Prompt</span> Like a Pro</h2>
+    <p>Master the art of AI prompting. These techniques work with ChatGPT, Midjourney, Claude, Gemini and every other AI tool.</p>
+  </div>
+
+  <div class="learn-grid">
+
+    <!-- Card 1 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">🎯</span>
+      <div class="learn-card-title">Be Specific & Detailed</div>
+      <div class="learn-card-desc">Vague prompts get vague answers. The more context and detail you provide, the better and more useful the AI's response will be.</div>
+      <ul class="learn-card-tips">
+        <li>Include who, what, where, why, and how</li>
+        <li>Specify the format you want (list, paragraph, table)</li>
+        <li>Give the target audience and desired tone</li>
+        <li>Add a word count or length target</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">❌ Weak prompt</div>
+        Write a blog post about coffee.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+      <br/>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Strong prompt</div>
+        Write a 1200-word SEO blog post about the health benefits of black coffee for busy professionals aged 30-45. Use an engaging hook, 5 subheadings, and end with a clear CTA to try a morning coffee ritual.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">🎭</span>
+      <div class="learn-card-title">Assign a Role or Persona</div>
+      <div class="learn-card-desc">Telling the AI who to "be" dramatically improves output quality. It activates relevant knowledge and sets the right tone automatically.</div>
+      <ul class="learn-card-tips">
+        <li>Start with "Act as a [expert role]..."</li>
+        <li>Be specific about experience level</li>
+        <li>Combine role with audience: "senior lawyer explaining to a layperson"</li>
+        <li>Use fictional roles for creative tasks</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Role prompt</div>
+        Act as a senior UX designer with 10 years of SaaS experience. Review this onboarding flow and identify the 3 biggest friction points that cause user drop-off.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">📋</span>
+      <div class="learn-card-title">Use the Chain-of-Thought Technique</div>
+      <div class="learn-card-desc">Ask the AI to think step by step before answering. This dramatically improves accuracy on complex tasks, math, and reasoning problems.</div>
+      <ul class="learn-card-tips">
+        <li>Add "think step by step" to any prompt</li>
+        <li>Ask it to show its reasoning</li>
+        <li>Use "First... then... finally..." structure</li>
+        <li>Ask it to consider pros and cons before deciding</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Chain-of-thought prompt</div>
+        Should I quit my job to freelance? Think through this step by step, considering: my financial runway, marketable skills, risk tolerance, and market demand. Then give me a clear recommendation.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">🔄</span>
+      <div class="learn-card-title">Iterate & Refine</div>
+      <div class="learn-card-desc">The first response is rarely the best. Great prompting is a conversation — refine, adjust, and build on each response to get exactly what you need.</div>
+      <ul class="learn-card-tips">
+        <li>"Make it more concise / detailed / casual / formal"</li>
+        <li>"Rewrite this but focus more on [specific aspect]"</li>
+        <li>"Give me 3 alternative versions of the opening"</li>
+        <li>"What's missing from this that would make it better?"</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Refinement prompt</div>
+        This is good but too formal. Rewrite it in a conversational tone, cut it by 30%, and make the opening hook more surprising. Keep all the key data points.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">📐</span>
+      <div class="learn-card-title">Specify Format & Structure</div>
+      <div class="learn-card-desc">Tell the AI exactly how to structure its response. This saves editing time and makes outputs immediately usable.</div>
+      <ul class="learn-card-tips">
+        <li>Request bullet points, numbered lists, or tables</li>
+        <li>Specify headers: "use H2 headings for each section"</li>
+        <li>Ask for JSON, markdown, or plain text output</li>
+        <li>Define sections: "include: intro, 3 tips, conclusion"</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Format prompt</div>
+        Summarize this meeting in a table with 3 columns: Decision Made, Owner, Deadline. Then add a separate section with the 3 biggest risks discussed and how we plan to mitigate each.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">🖼️</span>
+      <div class="learn-card-title">Image Prompts: The Formula</div>
+      <div class="learn-card-desc">Great image prompts follow a proven formula that consistently produces stunning results in Midjourney, DALL-E, and Stable Diffusion.</div>
+      <ul class="learn-card-tips">
+        <li><strong>Subject</strong> — what/who is in the image</li>
+        <li><strong>Style</strong> — photorealistic, oil painting, anime, etc.</li>
+        <li><strong>Lighting</strong> — golden hour, studio, dramatic</li>
+        <li><strong>Camera</strong> — 85mm lens, wide angle, macro</li>
+        <li><strong>Mood</strong> — cinematic, dreamy, gritty</li>
+        <li><strong>Quality</strong> — 8K, award-winning, trending</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Image formula prompt</div>
+        Portrait of an elderly fisherman, photorealistic, golden hour lighting, shot on 85mm f/1.4 lens, shallow depth of field, weathered face with kind eyes, cinematic mood, award-winning photography --ar 4:5 --v 7
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">⚡</span>
+      <div class="learn-card-title">Use Constraints Creatively</div>
+      <div class="learn-card-desc">Constraints spark creativity. Giving the AI limitations forces it to think more inventively and produce more original output.</div>
+      <ul class="learn-card-tips">
+        <li>"Explain this using only analogies from cooking"</li>
+        <li>"Write this without using the word 'very' or 'really'"</li>
+        <li>"Give me 10 ideas, but they must all be free to implement"</li>
+        <li>"Write a marketing email in under 100 words"</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Constraint prompt</div>
+        Explain blockchain technology using only analogies from everyday banking that a 60-year-old who has never used a smartphone would immediately understand. Maximum 150 words.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="learn-card">
+      <span class="learn-card-icon">🧪</span>
+      <div class="learn-card-title">Ask for Multiple Options</div>
+      <div class="learn-card-desc">Never settle for the first answer. Ask for variations, alternatives, and options — then choose the best or combine elements from several.</div>
+      <ul class="learn-card-tips">
+        <li>"Give me 5 versions with different tones"</li>
+        <li>"Write 3 alternatives: conservative, bold, and unconventional"</li>
+        <li>"What are the top 3 approaches to this problem?"</li>
+        <li>"Create A/B test versions of this headline"</li>
+      </ul>
+      <div class="learn-example" onclick="copyLearnExample(this)">
+        <div class="learn-example-label">✅ Multiple options prompt</div>
+        Write 5 email subject lines for our product launch. Version A: curiosity-driven. Version B: benefit-led. Version C: urgency. Version D: social proof. Version E: question format. Each under 50 characters.
+        <div class="learn-copy-hint">click to copy</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RESOURCES SECTION -->
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="learn-section-title">📖 Recommended Resources</div>
+    <div class="learn-resources">
+      <div class="resource-grid">
+        <a href="https://www.promptingguide.ai" target="_blank" rel="noopener" class="resource-card">
+          <span class="resource-icon">📘</span>
+          <div class="resource-body">
+            <div class="resource-name">Prompt Engineering Guide</div>
+            <div class="resource-desc">The most comprehensive free guide to prompt engineering by DAIR.AI</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://learnprompting.org" target="_blank" rel="noopener" class="resource-card">
+          <span class="resource-icon">🎓</span>
+          <div class="resource-body">
+            <div class="resource-name">Learn Prompting</div>
+            <div class="resource-desc">Free open-source course on prompt engineering from basics to advanced</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noopener" class="resource-card">
+          <span class="resource-icon">🤖</span>
+          <div class="resource-body">
+            <div class="resource-name">OpenAI Prompt Engineering</div>
+            <div class="resource-desc">Official OpenAI guide to getting the best results from GPT models</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://docs.midjourney.com/docs/prompts-2" target="_blank" rel="noopener" class="resource-card">
+          <span class="resource-icon">🎨</span>
+          <div class="resource-body">
+            <div class="resource-name">Midjourney Prompt Docs</div>
+            <div class="resource-desc">Official Midjourney documentation on writing effective image prompts</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://anthropic.com/research/claude-s-constitution" target="_blank" rel="noopener" class="resource-card">
+          <span class="resource-icon">🧠</span>
+          <div class="resource-body">
+            <div class="resource-name">Anthropic Claude Tips</div>
+            <div class="resource-desc">How to get the best results from Claude AI with clear, structured prompts</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://promptaholics.com" onclick="showPage('library');return false;" class="resource-card">
+          <span class="resource-icon">⚡</span>
+          <div class="resource-body">
+            <div class="resource-name">Browse Our Library</div>
+            <div class="resource-desc">140+ copy-ready prompts across 13 categories — all free, all tested</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="fbrand">
@@ -495,6 +945,14 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <div class="flbl">Tags</div>
       <div class="mtags" id="mTg"></div>
       <div class="mdesc" id="mD"></div>
+      <div class="modal-share">
+        <div class="modal-share-label">Share this prompt</div>
+        <div class="share-row" id="modalShareRow">
+          <button class="share-btn share-x" onclick="sharePrompt(modalP&&modalP.id,'x',event)">𝕏 Share</button>
+          <button class="share-btn share-linkedin" onclick="sharePrompt(modalP&&modalP.id,'linkedin',event)">in LinkedIn</button>
+          <button class="share-btn share-whatsapp" onclick="sharePrompt(modalP&&modalP.id,'whatsapp',event)">💬 WhatsApp</button>
+        </div>
+      </div>
       <div class="mactions">
         <button class="mbcopy" onclick="copyModal()">📋 Copy Prompt</button>
         <button class="mbfav" id="mFav" onclick="favModal()">♡</button>
@@ -629,69 +1087,57 @@ const PROMPTS = [
   {id:'99',name:"AI System Prompt Designer",tool:"other",cat:"Other",tags:["system prompt","AI customization","ChatGPT","Claude","prompt engineering"],text:"Design a custom system prompt for an AI assistant with the following personality and function:\n\nRole: [WHAT THE AI WILL DO]\nPersonality traits: [3-5 TRAITS]\nTone: [HOW IT SHOULD COMMUNICATE]\nDo's: [WHAT IT SHOULD ALWAYS DO]\nDon'ts: [WHAT IT SHOULD NEVER DO]\nAudience: [WHO WILL USE IT]\nSpecialty knowledge: [DOMAIN EXPERTISE]\nOutput format preferences: [HOW RESPONSES SHOULD BE STRUCTURED]\n\nCreate a system prompt that:\n- Opens with the role definition\n- Establishes personality with specific behavioral instructions\n- Includes 3 example exchanges showing ideal behavior\n- Has guardrails for edge cases\n- Ends with a reminder of the primary goal",desc:"Builds custom AI personas and system prompts — essential for businesses using AI assistants, chatbots, and custom GPTs.",feat:false},
   {id:'100',name:"The Ultimate Brainstorm Session",tool:"chatgpt",cat:"Other",tags:["brainstorm","creativity","ideas","problem solving","innovation"],text:"Facilitate a world-class brainstorming session for [PROBLEM/OPPORTUNITY].\n\nContext: [BACKGROUND INFORMATION]\nGoal: [WHAT WE ARE TRYING TO ACHIEVE]\nConstraints: [BUDGET/TIME/RESOURCES]\nWhat we have already tried: [PREVIOUS ATTEMPTS]\nWild card: [ONE CRAZY THING WE HAVE CONSIDERED]\n\nRun four brainstorming rounds:\n\nRound 1 — QUANTITY (20 ideas, no judgment, even bad ones)\nRound 2 — STEAL & ADAPT (how would Apple/Disney/NASA/a 5-year-old solve this?)\nRound 3 — INVERSION (how would we make this problem worse? Now reverse it)\nRound 4 — SYNTHESIS (combine 3 of the best ideas into one hybrid solution)\n\nEnd with: Top 3 ideas ranked by impact vs effort, and the very next action for the best one.",desc:"A structured four-round creative brainstorming session that consistently produces breakthrough ideas — used by innovation teams.",feat:true},
 
-  /* ════ BATCH 3: NEW CATEGORIES + MORE PROMPTS ════ */
+  /* ════ LEGAL (8 prompts) ════ */
+  {id:'101',name:"Contract Plain English Explainer",tool:"chatgpt",cat:"Legal",tags:["contract","legal","plain English","business"],text:"You are a plain-language legal explainer. I need to understand this document before signing.\n\n[PASTE THE CONTRACT OR SECTION HERE]\n\nPlease:\n1. Summarize what I am agreeing to in plain English\n2. Highlight the 5 most important clauses\n3. Flag RED FLAGS — unusual, unfair, or risky terms\n4. Identify what I am giving up or waiving\n5. List any deadlines, penalties, or auto-renewals\n6. Suggest 3 questions to ask before signing\n\nNote: For educational understanding only. Always consult a licensed attorney.",desc:"Breaks any contract into plain English — flags risks, key clauses, and red flags before you sign.",feat:true},
+  {id:'102',name:"Cease and Desist Letter",tool:"chatgpt",cat:"Legal",tags:["cease and desist","legal letter","copyright","IP"],text:"Draft a professional cease and desist letter.\n\nSender: [YOUR NAME/COMPANY]\nRecipient: [THEIR NAME/COMPANY]\nViolation: [DESCRIBE — copyright infringement, defamation, harassment, etc.]\nEvidence: [DESCRIBE YOUR EVIDENCE]\nWhat to stop: [SPECIFIC ACTION]\nDeadline: [NUMBER OF DAYS]\n\nThe letter should:\n- Reference the specific legal basis\n- Be firm but professional\n- State consequences if ignored\n- Include a clear demand\n\nNote: Have a licensed attorney review before sending.",desc:"Professional cease and desist letter for copyright, harassment, or IP violations.",feat:false},
+  {id:'103',name:"Privacy Policy Generator",tool:"chatgpt",cat:"Legal",tags:["privacy policy","website","GDPR","legal","compliance"],text:"Generate a comprehensive Privacy Policy for my website/app.\n\nBusiness name: [NAME] | URL: [URL]\nData collected: [EMAIL/NAME/PAYMENT/USAGE DATA/COOKIES]\nHow data is used: [MARKETING/SERVICE DELIVERY/ANALYTICS]\nThird-party services: [GOOGLE ANALYTICS/STRIPE/MAILCHIMP/ETC]\nUsers location: [US ONLY/EU/WORLDWIDE]\nContact email: [EMAIL]\n\nInclude sections for:\n- Information collected and why\n- How data is used and shared\n- Cookies and tracking\n- User rights (GDPR/CCPA)\n- Data retention\n- Third-party services\n- Contact information",desc:"Complete Privacy Policy for websites and apps covering GDPR, CCPA, and standard requirements.",feat:false},
+  {id:'104',name:"Terms of Service Generator",tool:"chatgpt",cat:"Legal",tags:["terms of service","legal","website","business","compliance"],text:"Write Terms of Service for my [WEBSITE/APP/SAAS/MARKETPLACE].\n\nBusiness: [DESCRIBE]\nPermitted uses: [WHAT USERS CAN DO]\nProhibited: [FORBIDDEN ACTIONS]\nPayment terms: [DESCRIBE IF ANY]\nRefund policy: [DESCRIBE]\nIP ownership: [WHO OWNS WHAT]\nJurisdiction: [STATE/COUNTRY FOR DISPUTES]\n\nMust include:\n- Acceptance of terms\n- User responsibilities\n- Prohibited conduct\n- Intellectual property rights\n- Disclaimers and liability limits\n- Termination conditions\n- Governing law",desc:"Complete Terms of Service for any website, app, or online business.",feat:false},
+  {id:'105',name:"Tenant Rights Advisor",tool:"chatgpt",cat:"Legal",tags:["tenant rights","landlord","rental","lease","housing"],text:"Act as a tenant rights educator for my rental situation.\n\nSituation: [DESCRIBE — security deposit dispute, eviction notice, habitability issues, illegal entry, rent increase]\nState/Province: [LOCATION]\nLease type: [MONTH TO MONTH/ANNUAL/VERBAL]\nDuration lived there: [HOW LONG]\n\nProvide:\n1. Tenant rights that apply to this situation\n2. What my landlord can and cannot legally do\n3. Steps to take immediately — what to document\n4. How to communicate with landlord in writing\n5. Local resources: tenant advocacy, legal aid\n6. When to escalate to an attorney\n\nNote: Laws vary by location — always verify locally.",desc:"Know your rights as a tenant — deposits, evictions, habitability, and illegal entry.",feat:false},
+  {id:'106',name:"Small Claims Court Prep",tool:"chatgpt",cat:"Legal",tags:["small claims","court","dispute","legal","money"],text:"Help me prepare for small claims court.\n\nMy claim: [DESCRIBE — contractor didn't finish, seller won't refund, tenant damage]\nAmount: $[AMOUNT] | State: [STATE]\nEvidence I have: [LIST]\nDefendant's likely argument: [WHAT THEY WILL SAY]\n\nProvide:\n1. Whether small claims is the right venue\n2. Maximum claim limit in my state\n3. How to file step by step\n4. How to organize and present evidence\n5. Simple opening statement script\n6. How to counter their defense\n7. What to bring on the day\n8. What to do if I win but they don't pay",desc:"Complete small claims court prep — filing, evidence, scripts, and strategy.",feat:false},
+  {id:'107',name:"Employment Rights Explainer",tool:"chatgpt",cat:"Legal",tags:["employment law","workers rights","HR","workplace"],text:"Act as an employment law educator for my workplace situation.\n\nSituation: [DESCRIBE — wrongful termination, discrimination, unpaid wages, harassment]\nLocation: [STATE/COUNTRY]\nEmployment type: [FULL TIME/PART TIME/CONTRACTOR]\nCompany size: [APPROXIMATE NUMBER]\n\nExplain:\n1. Laws that generally apply to this situation\n2. Rights I likely have\n3. Documentation to collect immediately\n4. Process: internal HR vs. external agencies\n5. Relevant agencies (EEOC, Department of Labor)\n6. When I absolutely need a lawyer\n\nNote: General education only — not legal advice.",desc:"Understand workplace rights around termination, discrimination, wages, and harassment.",feat:false},
+  {id:'108',name:"NDA Generator",tool:"chatgpt",cat:"Legal",tags:["NDA","confidentiality","contract","business","legal"],text:"Draft a Non-Disclosure Agreement for the following situation.\n\nDisclosing party: [NAME/COMPANY]\nReceiving party: [NAME/COMPANY]\nPurpose: [WHY YOU ARE SHARING INFORMATION]\nInformation to protect: [DESCRIBE — trade secrets, business plans, client data]\nDuration: [YEARS]\nJurisdiction: [STATE/COUNTRY]\nType: [ONE-WAY/MUTUAL]\n\nInclude:\n- Definition of confidential information\n- Exclusions from confidentiality\n- Obligations of receiving party\n- Term and termination\n- Remedies for breach\n- Governing law\n\nNote: Have a licensed attorney review before using.",desc:"Custom NDA for business partnerships, employees, and contractors.",feat:false},
 
-  /* ── LEGAL ── */
-  {id:'101',name:"Contract Plain English Explainer",tool:"chatgpt",cat:"Legal",tags:["contract","legal","plain English","business"],text:"You are a plain-language legal explainer. I have a contract or legal document I need to understand before signing.\n\n[PASTE THE CONTRACT OR SECTION HERE]\n\nPlease:\n1. Summarize what this document is and what I am agreeing to\n2. Highlight the 5 most important clauses I must understand\n3. Flag any RED FLAGS — unusual, unfair, or risky terms\n4. Identify what I am giving up or waiving\n5. List any deadlines, penalties, or automatic renewals\n6. Suggest 3 questions to ask the other party before signing\n\nImportant: This is for educational understanding only, not legal advice. Always consult a licensed attorney for final decisions.",desc:"Breaks down any contract into plain English — flags risks, key clauses, and red flags before you sign.",feat:true},
-  {id:'102',name:"Cease and Desist Letter",tool:"chatgpt",cat:"Legal",tags:["cease and desist","legal letter","copyright","IP"],text:"Draft a professional cease and desist letter for the following situation:\n\nSender: [YOUR NAME/COMPANY]\nRecipient: [THEIR NAME/COMPANY]\nViolation: [DESCRIBE WHAT THEY ARE DOING — copyright infringement, defamation, harassment, etc.]\nEvidence: [DESCRIBE YOUR EVIDENCE]\nWhat you want them to stop: [SPECIFIC ACTION]\nDeadline: [NUMBER OF DAYS]\n\nThe letter should:\n- Reference the specific legal basis for the claim\n- Be firm but professional (not threatening)\n- State consequences if ignored\n- Include a response deadline\n- End with a clear demand\n\nNote: Have a licensed attorney review before sending.",desc:"Professional cease and desist letter for copyright, harassment, defamation, or IP violations.",feat:false},
-  {id:'103',name:"Employment Rights Explainer",tool:"chatgpt",cat:"Legal",tags:["employment law","workers rights","HR","workplace"],text:"Act as an employment law educator. I have a workplace situation I need to understand my rights around.\n\nSituation: [DESCRIBE YOUR WORKPLACE ISSUE — wrongful termination, discrimination, unpaid wages, harassment, etc.]\nLocation: [STATE/COUNTRY]\nEmployment type: [FULL TIME/PART TIME/CONTRACTOR]\nCompany size: [APPROXIMATE NUMBER OF EMPLOYEES]\n\nExplain:\n1. What laws generally apply to this situation\n2. What rights I likely have\n3. What documentation I should collect immediately\n4. The typical process for addressing this (internal HR vs external agencies)\n5. Relevant government agencies to contact (EEOC, Department of Labor, etc.)\n6. When I absolutely need a lawyer\n\nNote: This is general education only — not legal advice.",desc:"Understand your workplace rights around termination, discrimination, wages, and harassment.",feat:false},
-  {id:'104',name:"Privacy Policy Generator",tool:"chatgpt",cat:"Legal",tags:["privacy policy","website","GDPR","legal","compliance"],text:"Generate a comprehensive Privacy Policy for my website/app.\n\nBusiness name: [NAME]\nWebsite/App URL: [URL]\nWhat data you collect: [EMAIL/NAME/PAYMENT/USAGE DATA/COOKIES/ETC]\nHow you use data: [MARKETING/SERVICE DELIVERY/ANALYTICS/ETC]\nThird-party services used: [GOOGLE ANALYTICS/STRIPE/MAILCHIMP/ETC]\nUsers location: [US ONLY/EU/WORLDWIDE]\nContact email: [EMAIL]\n\nInclude sections for:\n- Information collected and why\n- How data is used and shared\n- Cookies and tracking\n- User rights (GDPR/CCPA where applicable)\n- Data retention\n- Third-party services\n- Contact information\n- Last updated date",desc:"Complete Privacy Policy for websites and apps covering GDPR, CCPA, and standard requirements.",feat:false},
-  {id:'105',name:"Terms of Service Generator",tool:"chatgpt",cat:"Legal",tags:["terms of service","legal","website","business","compliance"],text:"Write Terms of Service for my [WEBSITE/APP/SAAS PRODUCT/MARKETPLACE].\n\nBusiness: [DESCRIBE YOUR BUSINESS]\nWhat users can do: [PERMITTED USES]\nWhat is prohibited: [FORBIDDEN ACTIONS]\nPayment terms (if any): [DESCRIBE]\nRefund policy: [DESCRIBE]\nIntellectual property: [WHO OWNS WHAT]\nJurisdiction: [STATE/COUNTRY FOR DISPUTES]\n\nMust include:\n- Acceptance of terms\n- User accounts and responsibilities\n- Prohibited conduct\n- Intellectual property rights\n- Disclaimers and limitation of liability\n- Termination conditions\n- Governing law\n- Contact information\n\nTone: Professional and clear. Plain language where possible.",desc:"Complete Terms of Service for any website, app, or online business.",feat:false},
-  {id:'106',name:"Tenant Rights Advisor",tool:"chatgpt",cat:"Legal",tags:["tenant rights","landlord","rental","lease","housing"],text:"Act as a tenant rights educator for the following rental situation.\n\nSituation: [DESCRIBE — security deposit dispute, eviction notice, habitability issues, illegal entry, rent increase, etc.]\nState/Province: [LOCATION]\nLease type: [MONTH TO MONTH/ANNUAL/VERBAL]\nHow long you have lived there: [DURATION]\n\nProvide:\n1. General tenant rights that apply to this situation\n2. What your landlord is and is not legally allowed to do\n3. Steps to take immediately — including what to document\n4. How to communicate with your landlord in writing\n5. Local resources: tenant advocacy groups, housing courts, legal aid\n6. When to escalate to an attorney\n\nNote: Laws vary significantly by location — always verify with local resources.",desc:"Know your rights as a tenant — security deposits, evictions, habitability, illegal entry, and more.",feat:false},
-  {id:'107',name:"Small Claims Court Prep",tool:"chatgpt",cat:"Legal",tags:["small claims","court","dispute","legal","money"],text:"Help me prepare for a small claims court case.\n\nMy claim: [DESCRIBE YOUR DISPUTE — contractor didn't finish work, seller won't refund, tenant damage, etc.]\nAmount: $[AMOUNT]\nState: [STATE]\nEvidence I have: [LIST YOUR EVIDENCE]\nDefendant's likely argument: [WHAT THEY WILL SAY]\n\nProvide:\n1. Whether small claims court is the right venue for this\n2. The maximum claim limit in my state\n3. How to file (step by step)\n4. How to organize and present my evidence\n5. A simple opening statement script\n6. How to counter their likely defense\n7. What to bring on the day\n8. What to do if I win but they do not pay",desc:"Complete small claims court preparation — filing, evidence, scripts, and strategy.",feat:false},
+  /* ════ REAL ESTATE (8 prompts) ════ */
+  {id:'109',name:"Property Listing Description",tool:"chatgpt",cat:"Real Estate",tags:["listing","real estate","property","agent","MLS"],text:"Write a compelling property listing description.\n\nProperty details:\n- Type: [HOUSE/CONDO/TOWNHOUSE/LAND]\n- Beds: [#] | Baths: [#] | Sq Ft: [#]\n- Location: [NEIGHBORHOOD/CITY]\n- Key features: [LIST 5-8 STANDOUT FEATURES]\n- Recent updates: [RENOVATIONS/NEW APPLIANCES]\n- Nearby: [SCHOOLS/PARKS/SHOPS/TRANSIT]\n- Price: $[PRICE] | Target buyer: [WHO]\n\nWrite two versions:\n1. Full MLS description (200-250 words)\n2. Social media caption (under 150 words with emojis)\n\nHighlight lifestyle benefits first. Lead with the strongest selling point.",desc:"MLS-ready property descriptions that sell the lifestyle, not just the specs.",feat:true},
+  {id:'110',name:"Rental Property ROI Calculator",tool:"chatgpt",cat:"Real Estate",tags:["rental","investment","ROI","cash flow","real estate"],text:"Analyze the return on investment for this rental property.\n\nPurchase price: $[PRICE] | Down payment: [%]\nInterest rate: [%] | Loan term: [YEARS]\nExpected monthly rent: $[RENT]\nProperty tax (annual): $[TAX]\nInsurance (annual): $[INSURANCE]\nHOA (monthly): $[HOA or 0]\nMaintenance (monthly): $[AMOUNT]\nProperty management: [%] or self-managed\nVacancy rate: [%]\n\nCalculate and explain:\n1. Monthly mortgage payment\n2. Total monthly expenses\n3. Monthly cash flow\n4. Cash-on-cash return\n5. Cap rate\n6. Break-even analysis\n7. 5 and 10-year projections\n8. Verdict: good deal or pass?",desc:"Full rental property investment analysis — cash flow, ROI, cap rate, and 10-year projections.",feat:false},
+  {id:'111',name:"Home Buyer Negotiation Script",tool:"chatgpt",cat:"Real Estate",tags:["negotiation","buying","home","offer","real estate"],text:"Help me negotiate the purchase of a property.\n\nAsking price: $[PRICE] | My offer: $[OFFER]\nDays on market: [DAYS]\nComparable sales: [DESCRIBE COMPS]\nInspection issues: [LIST ANY]\nMy situation: [CASH/PRE-APPROVED/FLEXIBLE CLOSING]\nSeller situation (if known): [MOTIVATED/RELOCATED/DOWNSIZING]\n\nProvide:\n1. My negotiating position analysis\n2. Recommended offer strategy\n3. Word-for-word offer letter language\n4. Concessions to ask beyond price\n5. How to counter if they reject\n6. Walk-away price guidance\n7. Inspection contingency language to protect me",desc:"Complete home buying negotiation strategy with scripts and contingency language.",feat:false},
+  {id:'112',name:"First-Time Home Buyer Guide",tool:"chatgpt",cat:"Real Estate",tags:["first time buyer","mortgage","home buying","real estate"],text:"Create a personalized first-time home buyer guide.\n\nIncome: $[ANNUAL] | Savings: $[DOWN PAYMENT]\nCredit score: [APPROXIMATE]\nMonthly debts: $[AMOUNT]\nDesired location: [CITY/AREA]\nMust-haves: [LIST] | Nice-to-haves: [LIST]\nTimeline: [MONTHS]\n\nProvide:\n1. How much house I can likely afford\n2. Down payment options: 3%, 5%, 20% pros and cons\n3. First-time buyer programs and grants to research\n4. Steps in order: pre-approval to closing\n5. Hidden costs to budget for\n6. Red flags to watch for\n7. Questions to ask at every showing\n8. What NOT to do before closing",desc:"Step-by-step personalized guide for first-time home buyers from affordability to closing.",feat:false},
+  {id:'113',name:"Home Seller Action Plan",tool:"chatgpt",cat:"Real Estate",tags:["selling","home","real estate","listing","seller"],text:"Create a complete home selling action plan.\n\nHome type: [HOUSE/CONDO/TOWNHOUSE]\nLocation: [CITY/NEIGHBORHOOD]\nEstimated value: $[VALUE] | Timeline: [MONTHS]\nCondition: [MOVE-IN READY/NEEDS UPDATES/FIXER UPPER]\nMortgage remaining: $[AMOUNT]\nGoal: [TOP DOLLAR/FAST SALE/BOTH]\n\nProvide:\n1. Pre-listing checklist (repairs, staging, cleaning)\n2. Improvements with best ROI\n3. Pricing strategy\n4. Marketing plan (MLS, social, open houses)\n5. Showing preparation tips\n6. How to evaluate offers beyond price\n7. Common seller mistakes to avoid\n8. Estimated net proceeds calculation",desc:"Complete home selling plan from pre-listing prep to closing — maximizes price and minimizes stress.",feat:false},
+  {id:'114',name:"Real Estate Agent Bio",tool:"chatgpt",cat:"Real Estate",tags:["real estate agent","bio","marketing","personal brand"],text:"Write a compelling real estate agent bio.\n\nName: [NAME] | Years experience: [YEARS]\nSpecialties: [BUYER REP/LUXURY/INVESTMENT/FIRST-TIME BUYERS]\nTop markets: [AREAS YOU SERVE]\nAchievements: [AWARDS/SALES VOLUME/CERTIFICATIONS]\nPersonal: [LOCAL ROOTS/FAMILY/HOBBIES]\nWhy real estate: [YOUR STORY]\nWhat makes you different: [UNIQUE APPROACH]\n\nWrite three versions:\n1. Full bio (300-350 words) for website About page\n2. Short bio (100 words) for directories\n3. First-person social media version (150 words, conversational)",desc:"Three-format real estate agent bio that builds trust and converts visitors to clients.",feat:false},
+  {id:'115',name:"Investment Property Analyzer",tool:"chatgpt",cat:"Real Estate",tags:["investment","property","real estate","analysis","strategy"],text:"Analyze this real estate investment opportunity.\n\nStrategy: [BUY-AND-HOLD/FLIP/SHORT-TERM RENTAL/COMMERCIAL]\nProperty: [DESCRIBE TYPE AND CONDITION]\nPurchase price: $[PRICE]\nEstimated repairs: $[COST]\nARV (after repair value): $[ESTIMATED]\nMarket: [CITY/NEIGHBORHOOD]\n\nAnalyze:\n1. Is this the right strategy for this property?\n2. All-in cost calculation\n3. Projected profit or monthly cash flow\n4. Risk factors specific to this deal\n5. Exit strategy options\n6. Key due diligence steps before committing\n7. Verdict: strong deal, pass, or negotiate harder?",desc:"Full investment property analysis covering strategy, numbers, risks, and deal verdict.",feat:false},
+  {id:'116',name:"Property Listing Social Pack",tool:"chatgpt",cat:"Real Estate",tags:["social media","real estate","listing","Instagram","marketing"],text:"Create a complete social media content pack for a property listing.\n\nProperty: [ADDRESS or DESCRIPTION]\nKey features: [LIST 5 FEATURES]\nPrice: $[PRICE] | Open house: [DATE/TIME if applicable]\nAgent contact: [NAME/PHONE]\nTarget buyer: [DESCRIBE]\n\nCreate:\n1. Instagram carousel captions (lead slide + 5 feature slides)\n2. Facebook listing post (detailed, shareable)\n3. Instagram Story text overlays (5 slides)\n4. Tweet/X post (under 280 chars)\n5. LinkedIn post (professional investor angle)\n6. Email subject line to send to your database\n7. SMS blast (under 160 chars)",desc:"Full social media content pack for any property listing across all major platforms.",feat:false},
 
-  /* ── REAL ESTATE ── */
-  {id:'108',name:"Property Listing Description",tool:"chatgpt",cat:"Real Estate",tags:["listing","real estate","property","agent","MLS"],text:"Write a compelling property listing description for MLS and marketing materials.\n\nProperty details:\n- Type: [HOUSE/CONDO/TOWNHOUSE/LAND]\n- Bedrooms: [NUMBER] | Bathrooms: [NUMBER]\n- Square footage: [SQ FT]\n- Location: [NEIGHBORHOOD/CITY]\n- Key features: [LIST 5-8 STANDOUT FEATURES]\n- Recent updates: [RENOVATIONS/NEW APPLIANCES/ETC]\n- Nearby amenities: [SCHOOLS/PARKS/SHOPS/TRANSIT]\n- Price: $[PRICE]\n- Target buyer: [FAMILY/INVESTOR/FIRST-TIME BUYER/DOWNSIZER]\n\nWrite two versions:\n1. Full MLS description (200-250 words)\n2. Social media version (under 150 words with emojis)\n\nHighlight lifestyle benefits, not just features. Lead with the most compelling selling point.",desc:"MLS-ready property listing descriptions that sell the lifestyle, not just the specs.",feat:true},
-  {id:'109',name:"Home Buyer Negotiation Script",tool:"chatgpt",cat:"Real Estate",tags:["negotiation","buying","home","offer","real estate"],text:"Help me negotiate the purchase of a property.\n\nAsking price: $[PRICE]\nMy offer: $[OFFER]\nDays on market: [DAYS]\nRecent comparable sales: [DESCRIBE OR PASTE COMPS]\nProperty issues found in inspection: [LIST ANY ISSUES]\nMy situation: [CASH BUYER/PRE-APPROVED/FLEXIBLE CLOSING/ETC]\nSeller's situation (if known): [MOTIVATED/RELOCATED/DOWNSIZING/ETC]\n\nProvide:\n1. Analysis of my negotiating position (strong/weak and why)\n2. Recommended offer strategy with reasoning\n3. Word-for-word offer letter language\n4. Concessions to ask for beyond price (closing costs, repairs, appliances)\n5. How to counter if they reject or counter\n6. Walk-away price guidance\n7. Inspection contingency language to protect me",desc:"Complete home buying negotiation strategy with scripts, counteroffers, and contingency language.",feat:false},
-  {id:'110',name:"Rental Property ROI Calculator",tool:"chatgpt",cat:"Real Estate",tags:["rental","investment","ROI","cash flow","real estate"],text:"Analyze the return on investment for this rental property.\n\nPurchase price: $[PRICE]\nDown payment: [PERCENT]%\nInterest rate: [RATE]%\nLoan term: [YEARS] years\nExpected monthly rent: $[RENT]\nProperty tax (annual): $[TAX]\nInsurance (annual): $[INSURANCE]\nHOA (monthly, if any): $[HOA]\nExpected maintenance (monthly): $[MAINTENANCE]\nProperty management fee: [PERCENT]% (or $0 if self-managing)\nVacancy rate assumption: [PERCENT]%\n\nCalculate and explain:\n1. Monthly mortgage payment\n2. Total monthly expenses\n3. Monthly cash flow (positive or negative)\n4. Cash-on-cash return\n5. Annual ROI\n6. Cap rate\n7. Break-even analysis\n8. 5-year and 10-year projection with 3% annual rent increase\n9. Verdict: Is this a good investment?",desc:"Full rental property investment analysis — cash flow, ROI, cap rate, and 10-year projections.",feat:false},
-  {id:'111',name:"Real Estate Agent Bio Writer",tool:"chatgpt",cat:"Real Estate",tags:["real estate agent","bio","marketing","personal brand"],text:"Write a compelling real estate agent bio for my website and marketing materials.\n\nYour name: [NAME]\nYears of experience: [YEARS]\nSpecialties: [BUYER REPRESENTATION/LUXURY/INVESTMENT/FIRST-TIME BUYERS/COMMERCIAL]\nTop markets/neighborhoods: [AREAS YOU SERVE]\nNotable achievements: [AWARDS/SALES VOLUME/RANKINGS/CERTIFICATIONS]\nPersonal background: [BRIEF PERSONAL INFO — local roots, family, hobbies]\nWhy you got into real estate: [YOUR STORY]\nUnique approach: [WHAT MAKES YOU DIFFERENT]\n\nWrite three versions:\n1. Full bio (300-350 words) for website About page\n2. Short bio (100 words) for business cards and directories\n3. First-person social media version (under 150 words, conversational)",desc:"Three-format real estate agent bio that builds trust, shows expertise, and converts visitors to clients.",feat:false},
-  {id:'112',name:"Home Seller Action Plan",tool:"chatgpt",cat:"Real Estate",tags:["selling","home","real estate","listing","seller"],text:"Create a complete home selling action plan.\n\nHome type: [HOUSE/CONDO/TOWNHOUSE]\nLocation: [CITY/NEIGHBORHOOD]\nEstimated value: $[VALUE]\nTimeline to sell: [MONTHS]\nCondition: [MOVE-IN READY/NEEDS UPDATES/FIXER UPPER]\nMortgage remaining: $[AMOUNT] (or owned free and clear)\nGoal: [TOP DOLLAR/FAST SALE/BOTH]\n\nProvide:\n1. Pre-listing checklist (repairs, staging, cleaning)\n2. Improvements with best ROI for my price range\n3. Pricing strategy (aggressive, market rate, premium)\n4. Marketing plan (MLS, social, open houses, agent outreach)\n5. Showing preparation tips\n6. How to evaluate offers beyond just price\n7. Common seller mistakes to avoid\n8. Estimated net proceeds calculation",desc:"Complete home selling plan from pre-listing prep to closing — maximizes price and minimizes stress.",feat:false},
-  {id:'113',name:"First-Time Home Buyer Guide",tool:"chatgpt",cat:"Real Estate",tags:["first time buyer","mortgage","home buying","real estate"],text:"Create a personalized first-time home buyer guide for my situation.\n\nIncome: $[ANNUAL INCOME]\nSavings for down payment: $[SAVINGS]\nCredit score (approximate): [SCORE]\nMonthly debt payments: $[DEBT]\nDesired location: [CITY/AREA]\nMust-haves: [LIST]\nNice-to-haves: [LIST]\nTimeline: [MONTHS]\n\nProvide:\n1. How much house I can likely afford\n2. Down payment options (3%, 5%, 20% — pros and cons)\n3. First-time buyer programs and grants I should research\n4. Steps in order: pre-approval → search → offer → closing\n5. Hidden costs I must budget for (closing costs, inspection, moving)\n6. Red flags to watch for in homes and deals\n7. Questions to ask at every showing\n8. What not to do before closing (common mistakes that kill loans)",desc:"Personalized step-by-step guide for first-time home buyers — from affordability to closing day.",feat:false},
-  {id:'114',name:"Property Listing Social Media Pack",tool:"chatgpt",cat:"Real Estate",tags:["social media","real estate","listing","Instagram","Facebook"],text:"Create a complete social media content pack for a property listing.\n\nProperty: [ADDRESS or DESCRIPTION]\nKey features: [LIST 5 FEATURES]\nPrice: $[PRICE]\nOpen house date/time: [IF APPLICABLE]\nAgent contact: [NAME/PHONE/EMAIL]\nTarget buyer: [DESCRIBE]\n\nCreate:\n1. Instagram carousel caption (lead slide + 5 feature slide captions)\n2. Facebook listing post (detailed, shareable)\n3. Instagram Story text overlays (5 slides)\n4. Tweet/X post (under 280 chars)\n5. LinkedIn post (professional investor angle)\n6. 5 relevant hashtags for each platform\n7. Email subject line to send to your database\n8. SMS/text blast (under 160 chars)",desc:"Full social media content pack for any property listing across all platforms.",feat:false},
+  /* ════ WELLNESS (8 prompts) ════ */
+  {id:'117',name:"Stress Relief Action Plan",tool:"chatgpt",cat:"Wellness",tags:["stress","anxiety","wellness","mental health","self care"],text:"Act as a certified wellness coach. Create a practical stress relief plan for me.\n\nMain stressors: [LIST YOUR TOP 3]\nHow stress shows up: [PHYSICAL/EMOTIONAL/BEHAVIORAL]\nTime available daily: [MINUTES]\nWhat I have tried: [WHAT HAS/HASN'T WORKED]\nLifestyle: [WORK HOURS/FAMILY/ACTIVITY LEVEL]\n\nCreate:\n1. Immediate relief techniques (under 5 minutes, do anywhere)\n2. Daily stress prevention habits (morning and evening)\n3. Weekly reset rituals\n4. How to reframe my specific stressors\n5. Boundary-setting scripts for my top stressor\n6. A 30-day stress reduction challenge\n\nFocus on what is realistic for my actual life.",desc:"Personalized stress relief plan with immediate techniques, daily habits, and 30-day challenge.",feat:true},
+  {id:'118',name:"Burnout Recovery Roadmap",tool:"chatgpt",cat:"Wellness",tags:["burnout","recovery","mental health","work life balance"],text:"Help me recover from burnout and prevent it from returning.\n\nMy symptoms: [EXHAUSTION/CYNICISM/DETACHMENT/REDUCED PERFORMANCE]\nHow long: [DURATION]\nMain source: [WORK/CAREGIVING/FINANCIAL/RELATIONSHIP]\nCan I take time off: [YES/NO/PARTIALLY]\nSupport available: [PARTNER/FRIENDS/THERAPIST]\n\nProvide:\n1. Burnout severity assessment\n2. Immediate changes to make this week\n3. Recovery plan weeks 1-4\n4. Energy audit: what drains vs. restores me\n5. How to talk to my employer about what I need\n6. Structural changes to prevent recurrence\n7. Green flags that I am recovering",desc:"A phased burnout recovery plan from immediate relief to structural prevention.",feat:false},
+  {id:'119',name:"Sleep Optimization Protocol",tool:"chatgpt",cat:"Wellness",tags:["sleep","insomnia","wellness","health","rest"],text:"Design a personalized sleep improvement protocol.\n\nCurrent sleep: [HOURS/NIGHT]\nIssues: [TROUBLE FALLING ASLEEP/STAYING ASLEEP/WAKING EARLY/NOT RESTED]\nBedtime: [TIME] | Wake time: [TIME]\nCaffeine: [AMOUNT AND TIMING]\nScreens before bed: [HABITS]\nSleep environment: [DARK/NOISY/HOT/SHARED BED]\nStress level: [1-10]\n\nProvide:\n1. Root cause analysis of my sleep problems\n2. Single highest-impact change to make immediately\n3. 2-week sleep improvement protocol\n4. Bedroom environment optimization checklist\n5. 60-minute wind-down routine\n6. What to do when I cannot sleep\n7. Evidence-based foods and supplements",desc:"Science-backed personalized sleep protocol addressing root causes, environment, and habits.",feat:false},
+  {id:'120',name:"Digital Detox Plan",tool:"chatgpt",cat:"Wellness",tags:["digital detox","screen time","social media","wellness","mindfulness"],text:"Help me create a sustainable digital detox plan.\n\nCurrent screen time: [HOURS/DAY]\nBiggest habits: [SOCIAL MEDIA/STREAMING/GAMING/NEWS/DOOM SCROLLING]\nPlatforms hardest to quit: [LIST]\nWhy I want to detox: [ANXIETY/SLEEP/FOCUS/RELATIONSHIPS]\nWork requires screens: [YES/NO — describe]\nGoal: [REDUCE BY X HOURS/FULL BREAK/SPECIFIC PLATFORM]\n\nCreate:\n1. Digital audit — which habits cost me most\n2. Realistic 30-day reduction plan (not cold turkey)\n3. Phone-free zones and times for my home\n4. Replacement activities for each habit\n5. How to manage FOMO and withdrawal\n6. App settings and tools to make this easier\n7. What to do with the time I reclaim",desc:"A realistic 30-day digital detox plan that reduces screen time without going cold turkey.",feat:false},
+  {id:'121',name:"Mindfulness Meditation Program",tool:"chatgpt",cat:"Wellness",tags:["meditation","mindfulness","stress","wellness","mental health"],text:"Create a personalized mindfulness meditation program.\n\nExperience: [COMPLETE BEGINNER/SOME EXPERIENCE/INTERMEDIATE]\nGoal: [REDUCE ANXIETY/BETTER FOCUS/EMOTIONAL REGULATION/SLEEP/GENERAL WELLNESS]\nTime available: [5/10/15/20] minutes daily\nBest time of day: [MORNING/LUNCH/EVENING]\nChallenges I expect: [RACING THOUGHTS/RESTLESSNESS/FALLING ASLEEP/SKEPTICISM]\n\nProvide:\n1. Why meditation works for my specific goal (the science)\n2. The best technique for a beginner with my goal\n3. Week 1-4 progressive program\n4. Guided script for a 10-minute session\n5. How to handle a wandering mind\n6. Secular options for skeptics\n7. How to know it is working",desc:"Personalized 4-week meditation program with guided scripts and progressive training.",feat:false},
+  {id:'122',name:"Habit Stacking Blueprint",tool:"chatgpt",cat:"Wellness",tags:["habits","behavior change","wellness","productivity","self improvement"],text:"Design a habit stacking system for the habits I want to build.\n\nHabits I want: [LIST 3-5 DESIRED HABITS]\nExisting consistent habits: [LIST ANCHOR HABITS]\nHighest willpower time: [MORNING/MIDDAY/EVENING]\nBiggest obstacle: [MOTIVATION/TIME/FORGETTING/ENVIRONMENT]\nPast failures: [WHAT AND WHY THEY FAILED]\n\nCreate:\n1. Habit stack using my existing routines as anchors\n2. Tiny version of each habit to start with\n3. Environment design changes to make habits automatic\n4. Tracking system under 60 seconds\n5. How to handle missed days without quitting\n6. 66-day implementation timeline\n7. Identity statements to reinforce each habit",desc:"Science-based habit stacking built around your existing routines — no motivation required.",feat:false},
+  {id:'123',name:"Emotional Intelligence Builder",tool:"chatgpt",cat:"Wellness",tags:["emotional intelligence","EQ","relationships","communication","self awareness"],text:"Help me develop stronger emotional intelligence in a specific area.\n\nArea to improve: [SELF-AWARENESS/EMPATHY/EMOTIONAL REGULATION/SOCIAL SKILLS]\nSpecific situation I struggle with: [DESCRIBE A RECENT EXAMPLE]\nMy typical reaction: [WHAT YOU USUALLY DO]\nIdeal outcome: [WHAT YOU WISH HAD HAPPENED]\nContext: [WORK/PARTNER/FAMILY/FRIENDS]\n\nProvide:\n1. Analysis of what is happening emotionally in my example\n2. The EQ skill gap this reveals\n3. A 5-step framework for handling this better\n4. 30-day practice exercises\n5. Scripts for 3 common scenarios where this comes up\n6. How to repair relationships damaged by this pattern\n7. How to measure progress",desc:"Targeted EQ development with frameworks, scripts, and 30-day practice plan.",feat:false},
+  {id:'124',name:"Morning Routine Designer",tool:"chatgpt",cat:"Wellness",tags:["morning routine","productivity","habits","wellness","daily routine"],text:"Design my ideal morning routine.\n\nWake-up time: [TIME]\nTime available before obligations: [DURATION]\nMain goal: [ENERGY/FOCUS/CALM/FITNESS/CREATIVITY]\nCurrent struggles: [WHAT IS NOT WORKING]\nMust-haves: [NON-NEGOTIABLES]\nThings I hate: [WHAT TO AVOID]\n\nCreate:\n1. Minute-by-minute schedule\n2. The science behind each element included\n3. A 5-minute emergency version for chaotic mornings\n4. The one habit that anchors the whole routine\n5. How to make this sustainable long-term\n6. What to track to know it is actually working",desc:"A science-backed morning routine built around your goals — not a generic 5am cold shower plan.",feat:false},
 
-  /* ── WELLNESS ── */
-  {id:'115',name:"Stress Relief Action Plan",tool:"chatgpt",cat:"Wellness",tags:["stress","anxiety","wellness","mental health","self care"],text:"Act as a certified wellness coach. Help me create a practical stress relief plan.\n\nMy main stressors: [LIST YOUR TOP 3 STRESSORS]\nHow stress shows up for me: [PHYSICAL SYMPTOMS/EMOTIONAL/BEHAVIORAL]\nTime available daily for self-care: [MINUTES]\nThings I have tried: [WHAT HAS OR HASN'T WORKED]\nMy lifestyle: [WORK HOURS/FAMILY SITUATION/ACTIVITY LEVEL]\n\nCreate:\n1. Immediate relief techniques (under 5 minutes, do anywhere)\n2. Daily stress prevention habits (morning and evening)\n3. Weekly reset rituals\n4. How to reframe my specific stressors cognitively\n5. Boundary-setting scripts for my top stressor\n6. When professional support is worth considering\n7. A 30-day stress reduction challenge\n\nFocus on what is realistic for my situation, not generic advice.",desc:"Personalized stress relief plan with immediate techniques, daily habits, and 30-day challenge.",feat:true},
-  {id:'116',name:"Burnout Recovery Roadmap",tool:"chatgpt",cat:"Wellness",tags:["burnout","recovery","mental health","work life balance","wellness"],text:"Help me recover from burnout and prevent it from returning.\n\nMy burnout symptoms: [EXHAUSTION/CYNICISM/DETACHMENT/REDUCED PERFORMANCE/ETC]\nHow long I have felt this way: [DURATION]\nMain source: [WORK/CAREGIVING/FINANCIAL/RELATIONSHIP STRESS]\nCan I take time off: [YES/NO/PARTIALLY]\nSupport available: [PARTNER/FRIENDS/THERAPIST/ETC]\n\nProvide:\n1. Burnout assessment — how severe is mine based on symptoms\n2. Immediate changes to make this week\n3. Recovery phase plan (weeks 1-4)\n4. Energy audit: what drains vs. restores me\n5. How to talk to my employer/family about what I need\n6. Structural changes to prevent recurrence\n7. Green flags that I am recovering\n8. When to seek professional help",desc:"A phased burnout recovery plan from immediate relief to structural prevention.",feat:false},
-  {id:'117',name:"Sleep Optimization Protocol",tool:"chatgpt",cat:"Wellness",tags:["sleep","insomnia","wellness","health","rest"],text:"Design a personalized sleep improvement protocol for me.\n\nCurrent sleep: [HOURS PER NIGHT]\nIssues: [TROUBLE FALLING ASLEEP/STAYING ASLEEP/WAKING EARLY/NOT RESTED/ETC]\nBedtime: [TIME] | Wake time: [TIME]\nCaffeine consumption: [AMOUNT AND TIMING]\nScreen time before bed: [HABITS]\nSleep environment: [DARK/NOISY/HOT/SHARED BED/ETC]\nStress level: [1-10]\nExercise: [FREQUENCY AND TIMING]\n\nProvide:\n1. Root cause analysis of my sleep problems\n2. The single highest-impact change to make immediately\n3. A 2-week sleep improvement protocol (week by week)\n4. Bedroom environment optimization checklist\n5. Wind-down routine (60 min before bed)\n6. What to do when I cannot sleep (instead of lying there)\n7. Foods and supplements with evidence behind them\n8. When sleep issues indicate a medical concern",desc:"Science-backed personalized sleep protocol addressing root causes, environment, and habits.",feat:false},
-  {id:'118',name:"Digital Detox Plan",tool:"chatgpt",cat:"Wellness",tags:["digital detox","screen time","social media","wellness","mindfulness"],text:"Help me create a sustainable digital detox plan.\n\nCurrent screen time: [HOURS PER DAY]\nBiggest digital habits: [SOCIAL MEDIA/STREAMING/GAMING/NEWS/WORK EMAIL]\nPlatforms I struggle to quit: [LIST]\nWhy I want to detox: [ANXIETY/SLEEP/FOCUS/RELATIONSHIPS/ETC]\nWork requires screens: [YES/NO — describe requirements]\nDetox goal: [REDUCE BY X HOURS/TOTAL BREAK/SPECIFIC PLATFORM]\n\nCreate:\n1. Digital audit — which habits are costing me the most\n2. A realistic 30-day reduction plan (not cold turkey)\n3. Phone-free zone and time rules for my home\n4. Replacement activities for each digital habit\n5. How to manage FOMO and withdrawal\n6. Tools and app settings to make this easier\n7. What to do with the time I reclaim",desc:"A realistic 30-day digital detox plan that reduces screen time without going cold turkey.",feat:false},
-  {id:'119',name:"Mindfulness Meditation Guide",tool:"chatgpt",cat:"Wellness",tags:["meditation","mindfulness","stress","wellness","mental health"],text:"Create a personalized mindfulness meditation program for me.\n\nExperience level: [COMPLETE BEGINNER/SOME EXPERIENCE/INTERMEDIATE]\nGoal: [REDUCE ANXIETY/BETTER FOCUS/EMOTIONAL REGULATION/SLEEP/GENERAL WELLNESS]\nTime available: [5/10/15/20] minutes per day\nBest time of day: [MORNING/LUNCH/EVENING]\nChallenges I expect: [RACING THOUGHTS/RESTLESSNESS/FALLING ASLEEP/SKEPTICISM]\n\nProvide:\n1. Why meditation works for my specific goal (the science)\n2. The single best technique for a beginner with my goal\n3. Week 1-4 progressive program (start small, build up)\n4. A guided script for a 10-minute session I can record or follow\n5. How to handle a wandering mind (most people quit here)\n6. Secular options for skeptics\n7. How to know it is working",desc:"A personalized 4-week meditation program with guided scripts, progressive training, and troubleshooting.",feat:false},
-  {id:'120',name:"Emotional Intelligence Builder",tool:"chatgpt",cat:"Wellness",tags:["emotional intelligence","EQ","relationships","communication","self awareness"],text:"Help me develop stronger emotional intelligence in a specific area.\n\nArea I want to improve: [SELF-AWARENESS/EMPATHY/EMOTIONAL REGULATION/SOCIAL SKILLS/MOTIVATION]\nSpecific situation I struggle with: [DESCRIBE A RECENT EXAMPLE]\nMy typical reaction: [WHAT YOU USUALLY DO]\nIdeal outcome: [WHAT YOU WISH HAD HAPPENED]\nRelationship context: [WORK/PARTNER/FAMILY/FRIENDS]\n\nProvide:\n1. Analysis of what is happening emotionally in my example\n2. The EQ skill gap this reveals\n3. A 5-step framework for handling this situation better\n4. Practice exercises to build this skill over 30 days\n5. Scripts for 3 common scenarios where this comes up\n6. How to repair relationships where this pattern has caused damage\n7. How to measure my progress",desc:"Targeted emotional intelligence development with frameworks, scripts, and 30-day practice plan.",feat:false},
-  {id:'121',name:"Habit Stacking Blueprint",tool:"chatgpt",cat:"Wellness",tags:["habits","behavior change","wellness","productivity","self improvement"],text:"Design a habit stacking system for the habits I want to build.\n\nHabits I want to build: [LIST 3-5 DESIRED HABITS]\nHabits I already do consistently: [LIST EXISTING ANCHOR HABITS]\nTime of day I have most willpower: [MORNING/MIDDAY/EVENING]\nBiggest obstacle to habits: [MOTIVATION/TIME/FORGETTING/ENVIRONMENT]\nPast habit attempts that failed: [WHAT AND WHY]\n\nCreate:\n1. A habit stack using my existing routines as anchors\n2. The tiny version of each habit to start with\n3. Environment design changes to make habits automatic\n4. A tracking system that takes under 60 seconds\n5. How to handle missed days without quitting\n6. A 66-day implementation timeline (research-backed habit formation)\n7. Identity statements to reinforce each habit",desc:"A science-based habit stacking system built around your existing routines — no motivation required.",feat:false},
+  /* ════ HEALTH (8 prompts) ════ */
+  {id:'125',name:"Doctor Appointment Prep",tool:"chatgpt",cat:"Health",tags:["health","doctor","symptoms","medical","preparation"],text:"Help me prepare for a doctor appointment about my health concerns.\n\nMain symptoms: [DESCRIBE — what, when, how long, severity 1-10]\nWhen started: [DATE/DURATION]\nWhat makes it better or worse: [TRIGGERS/RELIEF]\nCurrent medications: [LIST]\nMedical history: [PAST CONDITIONS/SURGERIES/FAMILY HISTORY]\nAge and general health: [AGE/WEIGHT/ACTIVITY LEVEL]\n\nHelp me:\n1. Organize my symptoms clearly for the doctor\n2. Create a symptom timeline\n3. Write a concise summary to hand to the doctor\n4. List the 5 most important questions to ask\n5. Understand what tests might be relevant\n6. Know how to advocate if I feel dismissed\n\nNote: Preparation assistance only — not medical diagnosis.",desc:"Organizes symptoms and prepares you to communicate effectively with your doctor.",feat:true},
+  {id:'126',name:"90-Day Health Transformation",tool:"chatgpt",cat:"Health",tags:["health goals","weight loss","fitness","nutrition","90 day plan"],text:"Create a realistic 90-day health transformation plan.\n\nPrimary goal: [LOSE WEIGHT/BUILD STRENGTH/MORE ENERGY/OVERALL HEALTH]\nSpecific target: [LOSE X LBS/RUN X MILES/ETC]\nCurrent stats: [WEIGHT/HEIGHT/AGE/ANY CONDITIONS]\nActivity level: [SEDENTARY/LIGHT/MODERATE/ACTIVE]\nCurrent diet: [DESCRIBE TYPICAL EATING]\nTime available: [MINUTES/DAY]\nBiggest obstacle: [MOTIVATION/TIME/COST/HEALTH LIMITATION]\n\nProvide:\n1. Month 1 focus and daily actions\n2. Month 2 progression and adjustments\n3. Month 3 consolidation and habit locking\n4. Nutrition framework (not a rigid diet)\n5. Exercise progression from where I am now\n6. Weekly check-in questions\n7. How to handle setbacks without quitting",desc:"A phased 90-day health plan with monthly progressions, nutrition, and exercise guidance.",feat:false},
+  {id:'127',name:"Gut Health Reset Plan",tool:"chatgpt",cat:"Health",tags:["gut health","digestion","microbiome","nutrition","health"],text:"Create a gut health improvement plan based on my symptoms.\n\nSymptoms: [BLOATING/IBS/CONSTIPATION/DIARRHEA/ACID REFLUX/GAS]\nCurrent diet: [DESCRIBE TYPICAL MEALS]\nTrigger foods: [FOODS THAT SEEM TO CAUSE ISSUES]\nMedications: [ESPECIALLY ANTIBIOTICS OR ANTACIDS]\nStress level: [1-10] | Sleep quality: [GOOD/FAIR/POOR]\n\nProvide:\n1. How my symptoms relate to gut health\n2. The gut-brain connection and stress impact\n3. Elimination approach to identify trigger foods\n4. Gut-healing foods to prioritize\n5. Probiotic and prebiotic guidance\n6. Lifestyle factors that most impact gut health\n7. A 4-week gut reset protocol\n8. When symptoms need medical investigation",desc:"Comprehensive gut health reset plan covering diet, lifestyle, probiotics, and trigger identification.",feat:false},
+  {id:'128',name:"Mental Health Self-Assessment",tool:"chatgpt",cat:"Health",tags:["mental health","depression","anxiety","assessment","wellness"],text:"Guide me through a mental health self-assessment to better understand how I am doing.\n\nI want to assess: [DEPRESSION/ANXIETY/STRESS/GENERAL WELLNESS/ALL]\nChanges I have noticed: [MOOD/SLEEP/APPETITE/ENERGY/CONCENTRATION/SOCIAL WITHDRAWAL]\nDuration: [HOW LONG]\nRecent life events: [ANY MAJOR STRESSORS OR CHANGES]\nSupport system: [DESCRIBE]\nPrevious mental health experience: [THERAPY/MEDICATION/DIAGNOSIS]\n\nHelp me:\n1. Understand what my symptoms might indicate\n2. Differentiate normal responses from clinical concerns\n3. Rate the urgency of professional support\n4. What type of professional to see first\n5. What to say when making the first appointment\n6. Self-care strategies for my level of concern\n7. Crisis resources if needed\n\nNote: This is not a diagnosis — a tool to help communicate with professionals.",desc:"Structured mental health self-assessment to understand symptoms and decide on next steps.",feat:false},
+  {id:'129',name:"Chronic Pain Management Plan",tool:"chatgpt",cat:"Health",tags:["chronic pain","pain management","health","wellness","lifestyle"],text:"Help me build a chronic pain management approach.\n\nType of pain: [BACK/JOINT/NERVE/FIBROMYALGIA/HEADACHES]\nDuration: [HOW LONG] | Pain average: [1-10]\nCurrent treatments: [MEDICATIONS/PHYSICAL THERAPY]\nWhat helps: [ANY RELIEF STRATEGIES]\nImpact on life: [WORK/SLEEP/RELATIONSHIPS/MOBILITY]\n\nProvide a holistic plan:\n1. Evidence-based non-medication approaches\n2. Movement and exercise modifications (stay active safely)\n3. Sleep strategies specific to pain sufferers\n4. Diet and anti-inflammatory approaches\n5. Mind-body techniques with evidence for pain\n6. How to talk to doctors about pain effectively\n7. Pacing strategies to avoid boom-bust cycles\n8. Mental health strategies for chronic pain\n\nNote: Consult your healthcare provider before changing treatment.",desc:"Holistic chronic pain management covering movement, diet, mind-body, and doctor communication.",feat:false},
+  {id:'130',name:"Medication & Supplement Guide",tool:"chatgpt",cat:"Health",tags:["medication","supplements","health","drug interactions","wellness"],text:"Help me understand my medications and supplements.\n\nMedications: [LIST WITH DOSAGES AND TIMING]\nSupplements: [LIST]\nHealth conditions: [DESCRIBE]\nConcerns: [SIDE EFFECTS/INTERACTIONS/TIMING]\n\nProvide:\n1. Plain-English explanation of what each medication does\n2. Known interactions between my medications and supplements\n3. Best times to take each for maximum effectiveness\n4. Side effects to watch for and when they are concerning\n5. Foods or activities to avoid with each\n6. Questions to ask my pharmacist\n7. Signs a medication may not be working\n\nImportant: Never stop medications without consulting your doctor.",desc:"Plain-English guide to your medications and supplements — interactions, timing, and side effects.",feat:false},
+  {id:'131',name:"Nutrition Label Decoder",tool:"chatgpt",cat:"Health",tags:["nutrition","food","health","diet","labels"],text:"Help me make smarter food choices by decoding nutrition labels.\n\nHealth goal: [LOSE WEIGHT/BUILD MUSCLE/MANAGE DIABETES/HEART HEALTH/GENERAL]\nDietary restrictions: [NONE/VEGETARIAN/VEGAN/GLUTEN FREE/DAIRY FREE/LOW SODIUM]\nFoods I am confused about: [LIST SPECIFIC FOODS OR PASTE LABEL INFO]\nGrocery budget: [LOW/MEDIUM/HIGH]\n\nExplain:\n1. How to read a nutrition label in 60 seconds\n2. The 5 numbers that matter most for my goal\n3. Ingredients list red flags to avoid\n4. Misleading marketing claims to ignore\n5. Best food swaps for my most common purchases\n6. How to compare two products quickly\n7. One simple rule I can apply to any food choice",desc:"Teaches you to read nutrition labels, spot misleading claims, and make smarter food choices.",feat:false},
+  {id:'132',name:"Personal Fitness Program Builder",tool:"chatgpt",cat:"Health",tags:["fitness","workout","health","exercise","training"],text:"Design a personalized fitness program for me.\n\nGoal: [LOSE WEIGHT/BUILD MUSCLE/IMPROVE ENDURANCE/OVERALL FITNESS]\nCurrent level: [BEGINNER/INTERMEDIATE/ADVANCED]\nDays per week: [NUMBER]\nEquipment access: [GYM/HOME/BODYWEIGHT ONLY]\nTime per session: [MINUTES]\nInjuries or limitations: [DESCRIBE OR NONE]\n\nProvide:\n1. Weekly training split with specific workouts\n2. Exercise list with sets, reps, and rest times\n3. Progressive overload plan for 8 weeks\n4. Warm-up and cool-down routines\n5. Nutrition basics that support this goal\n6. How to track progress\n7. What to do when motivation drops",desc:"A fully personalized fitness program designed around your goals, schedule, and equipment.",feat:false},
 
-  /* ── HEALTH ── */
-  {id:'122',name:"Symptom Journal & Doctor Prep",tool:"chatgpt",cat:"Health",tags:["health","doctor","symptoms","medical","preparation"],text:"Help me prepare for a doctor's appointment about my health concerns.\n\nMain symptoms: [DESCRIBE IN DETAIL — what, when, how long, severity 1-10]\nWhen symptoms started: [DATE/DURATION]\nWhat makes it better or worse: [TRIGGERS/RELIEF]\nMedications I currently take: [LIST]\nRelevant medical history: [PAST CONDITIONS/SURGERIES/FAMILY HISTORY]\nMy age and general health: [AGE/WEIGHT/ACTIVITY LEVEL]\n\nHelp me:\n1. Organize my symptoms clearly for the doctor\n2. Create a symptom timeline\n3. Write a concise summary to hand to the doctor\n4. List the 5 most important questions to ask\n5. Understand what tests might be relevant\n6. Know what information the doctor will need\n7. Advocate for myself if I feel dismissed\n\nNote: This is preparation assistance only — not medical diagnosis.",desc:"Organizes your symptoms and prepares you to communicate effectively with your doctor.",feat:true},
-  {id:'123',name:"Medication & Supplement Guide",tool:"chatgpt",cat:"Health",tags:["medication","supplements","health","drug interactions","wellness"],text:"Help me understand my medications and supplements.\n\nMedications I take: [LIST WITH DOSAGES AND TIMING]\nSupplements I take: [LIST]\nHealth conditions: [DESCRIBE]\nConcerns: [SIDE EFFECTS/INTERACTIONS/TIMING/ETC]\n\nPlease provide:\n1. Plain-English explanation of what each medication does\n2. Known interactions between my medications and supplements\n3. Best times to take each for maximum effectiveness\n4. Side effects I should watch for and when they are concerning\n5. Foods, drinks, or activities to avoid with each\n6. Questions to ask my pharmacist at my next visit\n7. Signs that a medication may not be working for me\n\nImportant: Never stop or change medications without consulting your doctor. This is educational information only.",desc:"Plain-English guide to your medications and supplements — interactions, timing, and side effects.",feat:false},
-  {id:'124',name:"Chronic Pain Management Plan",tool:"chatgpt",cat:"Health",tags:["chronic pain","pain management","health","wellness","lifestyle"],text:"Help me build a comprehensive chronic pain management approach.\n\nType of pain: [BACK/JOINT/NERVE/FIBROMYALGIA/HEADACHES/ETC]\nDuration: [HOW LONG YOU HAVE HAD IT]\nPain level average: [1-10]\nCurrent treatments: [MEDICATIONS/PHYSICAL THERAPY/ETC]\nWhat helps: [ANY RELIEF STRATEGIES]\nImpact on life: [WORK/SLEEP/RELATIONSHIPS/MOBILITY]\n\nProvide a holistic plan covering:\n1. Evidence-based non-medication approaches for my pain type\n2. Movement and exercise modifications (stay active safely)\n3. Sleep strategies specific to pain sufferers\n4. Diet and anti-inflammatory approaches\n5. Mind-body techniques with evidence for pain\n6. How to talk to doctors about pain effectively\n7. Pacing strategies to avoid boom-bust cycles\n8. Mental health strategies for living with chronic pain\n\nNote: Consult your healthcare provider before changing any treatment.",desc:"Holistic chronic pain management covering movement, diet, mind-body, and doctor communication.",feat:false},
-  {id:'125',name:"Health Goal 90-Day Plan",tool:"chatgpt",cat:"Health",tags:["health goals","weight loss","fitness","nutrition","90 day plan"],text:"Create a realistic 90-day health transformation plan.\n\nPrimary goal: [LOSE WEIGHT/BUILD STRENGTH/MORE ENERGY/BETTER BLOOD WORK/OVERALL HEALTH]\nSpecific target: [LOSE X LBS/RUN X MILES/ETC]\nCurrent health stats: [WEIGHT/HEIGHT/AGE/ANY CONDITIONS]\nActivity level now: [SEDENTARY/LIGHT/MODERATE/ACTIVE]\nDiet now: [DESCRIBE TYPICAL EATING]\nTime available: [MINUTES PER DAY FOR HEALTH ACTIVITIES]\nBiggest obstacle: [MOTIVATION/TIME/COST/HEALTH LIMITATION]\n\nProvide:\n1. Month 1 focus and specific daily actions\n2. Month 2 progression and adjustments\n3. Month 3 consolidation and habit locking\n4. Nutrition framework (not a rigid diet)\n5. Exercise progression from where I am now\n6. Weekly check-in questions to stay on track\n7. How to handle setbacks without quitting\n8. How to know I am succeeding (beyond the scale)",desc:"A realistic phased 90-day health plan with monthly progressions, nutrition, and exercise guidance.",feat:false},
-  {id:'126',name:"Mental Health Self-Assessment",tool:"chatgpt",cat:"Health",tags:["mental health","depression","anxiety","assessment","wellness"],text:"Guide me through a mental health self-assessment to better understand how I am doing.\n\nI want to assess: [DEPRESSION/ANXIETY/STRESS/GENERAL MENTAL WELLNESS/ALL]\nRecent changes I have noticed: [MOOD/SLEEP/APPETITE/ENERGY/CONCENTRATION/SOCIAL WITHDRAWAL]\nDuration of these changes: [HOW LONG]\nLife events recently: [ANY MAJOR STRESSORS OR CHANGES]\nSupport system: [DESCRIBE]\nPrevious mental health experience: [THERAPY/MEDICATION/DIAGNOSIS]\n\nHelp me:\n1. Understand what my symptoms might indicate (ranges from mild to significant)\n2. Differentiate between normal responses and clinical concerns\n3. Rate the urgency of getting professional support\n4. What type of professional to see first (GP, therapist, psychiatrist)\n5. What to say when making the first appointment\n6. Self-care strategies appropriate for my level of concern\n7. Crisis resources if needed\n\nNote: This is not a diagnosis — it is a tool to help you communicate with professionals.",desc:"A structured mental health self-assessment to understand your symptoms and decide on next steps.",feat:false},
-  {id:'127',name:"Gut Health Improvement Plan",tool:"chatgpt",cat:"Health",tags:["gut health","digestion","microbiome","nutrition","health"],text:"Create a gut health improvement plan based on my symptoms.\n\nDigestive symptoms: [BLOATING/IBS/CONSTIPATION/DIARRHEA/ACID REFLUX/GAS/ETC]\nCurrent diet: [DESCRIBE TYPICAL MEALS]\nFoods that seem to trigger issues: [LIST]\nMedications: [ESPECIALLY ANTIBIOTICS OR ANTACIDS]\nStress level: [1-10]\nSleep quality: [GOOD/FAIR/POOR]\n\nProvide:\n1. How my symptoms relate to gut health\n2. The gut-brain connection and how stress affects my symptoms\n3. An elimination approach to identify trigger foods\n4. Gut-healing foods to prioritize\n5. Probiotic and prebiotic guidance\n6. Lifestyle factors that most impact gut health\n7. A 4-week gut reset protocol\n8. When symptoms warrant medical investigation\n\nNote: Consult a gastroenterologist for persistent or severe symptoms.",desc:"A comprehensive gut health reset plan covering diet, lifestyle, probiotics, and trigger identification.",feat:false},
-
-  /* ── EXTRA PROMPTS FOR EXISTING CATEGORIES ── */
-
-  /* Writing & Content */
-  {id:'128',name:"Book Outline & Chapter Planner",tool:"chatgpt",cat:"Writing & Content",tags:["book","writing","outline","non-fiction","author"],text:"Help me outline and plan my book.\n\nBook type: [NON-FICTION/MEMOIR/SELF-HELP/BUSINESS/FICTION]\nWorking title: [TITLE]\nCore premise: [ONE SENTENCE — what is this book about and why does it matter]\nTarget reader: [WHO IS THIS FOR AND WHAT IS THEIR PROBLEM]\nYour unique angle: [WHAT MAKES YOUR TAKE DIFFERENT]\nEstimated length: [SHORT 20K/STANDARD 60K/LONG 80K+ WORDS]\n\nProvide:\n1. Refined premise statement and hook\n2. Full chapter outline (12-15 chapters) with one-line descriptions\n3. Opening chapter approach that hooks the reader immediately\n4. The transformational arc (where reader starts vs. ends)\n5. Key stories, frameworks, or research to include\n6. Writing schedule to finish in [YOUR TIMEFRAME]\n7. Publishing path recommendation (traditional vs. self-publishing)",desc:"Complete book outline with chapter structure, transformational arc, and writing schedule.",feat:false},
-  {id:'129',name:"Email Subject Line Generator",tool:"chatgpt",cat:"Writing & Content",tags:["email","subject line","marketing","open rate","copywriting"],text:"Generate high-converting email subject lines for my campaign.\n\nEmail content/offer: [DESCRIBE WHAT THE EMAIL IS ABOUT]\nAudience: [WHO IS RECEIVING THIS]\nGoal: [OPEN RATE/CLICK/PURCHASE/REGISTRATION]\nTone: [PROFESSIONAL/CASUAL/URGENT/FRIENDLY/BOLD]\nAvoid: [ANY WORDS OR APPROACHES TO SKIP]\n\nWrite 20 subject lines using these proven formulas:\n1. Curiosity gap (5 examples)\n2. Benefit + specificity (5 examples)\n3. Question (3 examples)\n4. Urgency or scarcity (3 examples)\n5. Personalization or pattern interrupt (4 examples)\n\nFor each: note the formula used and the emotion it triggers.\nAlso provide: 5 preview text options that complement the top subject lines.",desc:"20 high-converting email subject lines using 5 proven formulas with emotion analysis.",feat:false},
-  {id:'130',name:"Case Study Writer",tool:"chatgpt",cat:"Writing & Content",tags:["case study","content","B2B","testimonial","marketing"],text:"Write a compelling customer case study for our business.\n\nClient: [COMPANY NAME — anonymize if needed]\nIndustry: [INDUSTRY]\nThe problem they had before: [DESCRIBE THE PAIN POINT]\nHow we helped: [YOUR SOLUTION]\nResults achieved: [SPECIFIC METRICS — time saved, revenue, growth, etc.]\nTimeline: [HOW LONG IT TOOK]\nClient quote: [PASTE QUOTE OR WRITE PLACEHOLDER]\n\nWrite a full case study with these sections:\n- Headline: Result-focused (not just 'Company X Case Study')\n- The Challenge: Make it vivid and relatable\n- The Solution: How you approached it\n- The Results: Lead with numbers\n- Key Takeaways: What others can learn\n- CTA: What to do next\n\nAlso provide: a 3-sentence summary for social media",desc:"Persuasive B2B case studies that turn client results into powerful sales and marketing assets.",feat:false},
-
-  /* Business & Marketing */
-  {id:'131',name:"Competitor Analysis Report",tool:"chatgpt",cat:"Business & Marketing",tags:["competitor analysis","market research","strategy","business","competitive"],text:"Conduct a thorough competitor analysis for my business.\n\nMy business: [DESCRIBE YOUR PRODUCT/SERVICE]\nMy target market: [DESCRIBE]\nMain competitors: [LIST 3-5 COMPETITORS]\nMy current strengths: [WHAT YOU DO WELL]\nMy current weaknesses: [WHERE YOU STRUGGLE]\n\nFor each competitor analyze:\n1. Their core offering and positioning\n2. Pricing strategy\n3. Target customer\n4. Marketing channels and messaging\n5. Apparent strengths and weaknesses\n6. Customer reviews themes (positive and negative)\n\nThen provide:\n- Gap analysis: what needs are unmet in this market\n- My differentiation opportunities\n- Features or services I should add\n- Positioning statement that sets me apart\n- The one thing I should steal from each competitor",desc:"Comprehensive competitor analysis with gap identification and differentiation strategy.",feat:false},
-  {id:'132',name:"Pitch Deck Story Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["pitch deck","startup","investor","fundraising","presentation"],text:"Help me build a compelling investor pitch deck narrative.\n\nStartup: [NAME]\nWhat you do: [ONE SENTENCE]\nProblem: [THE PAIN POINT YOU SOLVE]\nSolution: [YOUR PRODUCT/SERVICE]\nMarket size: [TAM/SAM/SOM if known]\nBusiness model: [HOW YOU MAKE MONEY]\nTraction: [REVENUE/USERS/GROWTH/PARTNERSHIPS]\nTeam: [KEY MEMBERS AND RELEVANT BACKGROUND]\nFunding ask: $[AMOUNT] for [USE OF FUNDS]\nCompetition: [WHO ELSE IS IN THIS SPACE]\n\nCreate:\n1. The 10-slide deck outline (problem to ask)\n2. Compelling narrative thread connecting all slides\n3. The hook opening that makes investors lean forward\n4. Key metrics to highlight on each relevant slide\n5. The single most important thing each slide must communicate\n6. Anticipated investor questions and strong answers\n7. The closing ask — specific and confident",desc:"Complete investor pitch deck narrative with slide-by-slide guidance and investor Q&A prep.",feat:false},
-
-  /* Education & Learning */
-  {id:'133',name:"Socratic Tutor Session",tool:"chatgpt",cat:"Education & Learning",tags:["Socratic method","tutoring","learning","critical thinking","education"],text:"Act as a Socratic tutor for the subject I am trying to master.\n\nSubject: [TOPIC/COURSE/CONCEPT]\nMy current understanding: [DESCRIBE WHAT YOU KNOW]\nSpecific confusion: [WHERE YOU ARE STUCK]\nLearning goal: [WHAT YOU WANT TO UNDERSTAND BY END OF SESSION]\nPreferred learning style: [VISUAL/ANALOGIES/EXAMPLES/STEP-BY-STEP/DEBATE]\n\nInstead of just explaining, guide me to the answer through questions.\n\nStart by asking me what I already know. Then:\n- Ask probing questions that reveal gaps in my thinking\n- When I am wrong, ask questions that help me discover why\n- Use analogies relevant to things I already understand\n- Only give direct explanations when questions are not working\n- End each exchange by asking what I now understand\n\nDo not move forward until I can explain it back to you correctly.",desc:"An interactive Socratic tutoring session that builds deep understanding through guided questioning.",feat:false},
-  {id:'134',name:"Speed Reading & Retention System",tool:"chatgpt",cat:"Education & Learning",tags:["speed reading","reading","retention","learning","books"],text:"Design a speed reading and retention system for me.\n\nCurrent reading speed: [SLOW/AVERAGE/FAST — or words per minute if known]\nTypes of content I read: [TEXTBOOKS/BUSINESS BOOKS/ARTICLES/RESEARCH PAPERS]\nRetention problem: [FORGET QUICKLY/CANNOT RECALL KEY POINTS/NOTES UNUSED]\nReading goal: [MORE BOOKS/STUDY FOR EXAM/STAY CURRENT IN FIELD]\nTime available: [HOURS PER WEEK]\n\nProvide:\n1. Speed reading techniques proven to work (not just skimming)\n2. Pre-reading strategy that primes comprehension\n3. Active reading system (markup, questions, engagement)\n4. The best note-taking format for retention\n5. Spaced repetition schedule for what I read\n6. How to read non-fiction for maximum extraction in minimum time\n7. A 30-day reading challenge to build the habit\n8. Tools and apps that help",desc:"A complete speed reading and retention system — read more, remember more, in less time.",feat:false},
-
-  /* Code & Tech */
-  {id:'135',name:"Tech Stack Advisor",tool:"chatgpt",cat:"Code & Tech",tags:["tech stack","architecture","software","startup","developer"],text:"Help me choose the right tech stack for my project.\n\nProject type: [WEB APP/MOBILE APP/API/SAAS/E-COMMERCE/ETC]\nDescription: [WHAT IT DOES]\nExpected users: [NUMBER AND USAGE PATTERN]\nTeam: [SOLO DEVELOPER/SMALL TEAM/AGENCY]\nBudget: [BOOTSTRAP/FUNDED/ENTERPRISE]\nTimeline: [MVP IN X WEEKS/MONTHS]\nExisting skills: [LANGUAGES/FRAMEWORKS YOU KNOW]\nScale requirements: [STAY SMALL/PLAN TO SCALE TO MILLIONS]\n\nRecommend:\n1. Frontend framework and why\n2. Backend language/framework and why\n3. Database type and specific recommendation\n4. Hosting/infrastructure recommendation\n5. Authentication solution\n6. Payment processing (if needed)\n7. What NOT to use for this use case\n8. The stack that maximizes speed-to-market for a solo developer\n9. What to add later when you scale",desc:"Expert tech stack recommendation matched to your project type, team, and timeline.",feat:false},
-  {id:'136',name:"Bug Report Writer",tool:"chatgpt",cat:"Code & Tech",tags:["bug report","QA","testing","developer","software"],text:"Help me write a professional, comprehensive bug report.\n\nBug summary: [ONE LINE DESCRIPTION]\nSeverity: [CRITICAL/HIGH/MEDIUM/LOW]\nEnvironment: [BROWSER/OS/DEVICE/APP VERSION]\nSteps to reproduce:\n1. [STEP 1]\n2. [STEP 2]\n3. [STEP 3]\nExpected behavior: [WHAT SHOULD HAPPEN]\nActual behavior: [WHAT ACTUALLY HAPPENS]\nFrequency: [ALWAYS/SOMETIMES/RARELY]\nError messages: [PASTE ANY ERROR TEXT]\nScreenshots/logs: [DESCRIBE OR PASTE]\nImpact: [WHO IS AFFECTED AND HOW BADLY]\n\nFormat this as a professional bug report for a Jira/GitHub/Linear ticket including:\n- Title\n- Description\n- Steps to reproduce (numbered)\n- Expected vs Actual\n- Environment details\n- Priority justification\n- Suggested fix (if you have one)",desc:"Professional bug reports formatted for Jira, GitHub, and Linear — clear, complete, and actionable.",feat:false},
-
-  /* Creative & Art */
-  {id:'137',name:"Creative Block Breaker",tool:"chatgpt",cat:"Creative & Art",tags:["creative block","creativity","writing","art","inspiration"],text:"Help me break through a creative block.\n\nWhat I am working on: [PROJECT TYPE — novel, painting, music, design, etc.]\nWhere I am stuck: [DESCRIBE THE SPECIFIC BLOCK]\nHow long blocked: [DURATION]\nWhat I have tried: [APPROACHES THAT HAVEN'T WORKED]\nDeadline pressure: [YES/NO — describe]\nUsual creative process: [HOW YOU NORMALLY WORK]\n\nProvide:\n1. Diagnosis — which type of creative block this likely is\n2. Three techniques to unstick this specific type of block\n3. A 15-minute creative exercise to do right now\n4. Permission structures (reframes to reduce pressure)\n5. How to use constraints to spark creativity\n6. What the block might be telling me about the work\n7. A 7-day creative momentum plan\n8. How to protect creative flow once it returns",desc:"Diagnoses your specific creative block type and provides targeted techniques to break through it.",feat:false},
-  {id:'138',name:"Brand Identity Naming System",tool:"chatgpt",cat:"Creative & Art",tags:["naming","branding","brand identity","startup","creative"],text:"Help me name my business, product, or project.\n\nWhat it is: [DESCRIBE YOUR BUSINESS/PRODUCT]\nTarget audience: [WHO IS IT FOR]\nCore values: [3-5 VALUES YOUR BRAND STANDS FOR]\nTone: [SERIOUS/PLAYFUL/BOLD/ELEGANT/TECHNICAL/APPROACHABLE]\nCompetitors to differentiate from: [LIST]\nNames I like (for reference): [EXAMPLES]\nNames to avoid: [STYLE OR SPECIFIC NAMES]\nMust avoid: [EXISTING TRADEMARKS OR CONFUSING TERMS]\n\nGenerate:\n1. 10 real-word names with brand rationale\n2. 10 invented/coined names (unique, memorable)\n3. 5 compound or portmanteau names\n4. 3 metaphor-based names\nFor each: explain the meaning, appeal, and potential domain availability (.com, .io, .co)\n\nTop 5 recommendation with strongest rationale",desc:"Creative naming system generating 28+ name options across 4 categories with brand rationale.",feat:false},
-
-  /* Other */
-  {id:'139',name:"AI Ethics & Bias Checker",tool:"chatgpt",cat:"Other",tags:["AI ethics","bias","responsible AI","content review","fairness"],text:"Review the following AI-generated content or system for bias, ethical concerns, and fairness.\n\nContent to review: [PASTE TEXT, POLICY, ALGORITHM DESCRIPTION, OR AI OUTPUT]\nContext: [WHAT THIS WILL BE USED FOR]\nAudience: [WHO WILL BE AFFECTED]\nConcerns I already have: [ANY SPECIFIC WORRIES]\n\nAnalyze for:\n1. Demographic bias (gender, race, age, disability, culture)\n2. Confirmation bias or one-sided framing\n3. Exclusionary language or assumptions\n4. Power imbalances embedded in recommendations\n5. Missing perspectives or underrepresented viewpoints\n6. Potential for harm to specific groups\n7. Transparency issues (what is not disclosed)\n\nProvide:\n- A bias score (Low/Medium/High) for each category\n- Specific problematic passages with explanation\n- Revised versions of flagged content\n- Recommendations for more inclusive alternatives",desc:"Identifies bias, ethical issues, and fairness problems in AI-generated content and systems.",feat:false},
-  {id:'140',name:"Crisis Communication Plan",tool:"chatgpt",cat:"Other",tags:["crisis communication","PR","reputation","business","emergency"],text:"Help me create a crisis communication plan for the following situation.\n\nOrganization: [COMPANY/PERSONAL BRAND/NONPROFIT]\nCrisis type: [DATA BREACH/PRODUCT FAILURE/SCANDAL/NATURAL DISASTER/EMPLOYEE INCIDENT/ETC]\nCurrent status: [HAS IT GONE PUBLIC? TIMELINE?]\nStakeholders affected: [CUSTOMERS/EMPLOYEES/INVESTORS/MEDIA/PUBLIC]\nFacts confirmed: [WHAT YOU KNOW FOR CERTAIN]\nFacts unknown: [WHAT YOU ARE STILL INVESTIGATING]\n\nProvide:\n1. Immediate 24-hour action checklist\n2. First public statement (transparent, empathetic, action-oriented)\n3. Internal communication to employees/team\n4. Social media response strategy\n5. Media inquiry handling script\n6. What NOT to say (common mistakes that worsen crises)\n7. Recovery roadmap (Week 1, Month 1, Month 3)\n8. How to rebuild trust long-term",desc:"Complete crisis communication plan with statements, social strategy, and recovery roadmap.",feat:false},
+  /* ════ AI AGENTS (10 prompts) ════ */
+  {id:'133',name:"Build Your First AI Agent",tool:"chatgpt",cat:"AI Agents",tags:["AI agent","automation","build","beginner","workflow"],text:"Help me build my first AI agent for the following task.\n\nTask to automate: [DESCRIBE EXACTLY WHAT THE AGENT SHOULD DO]\nInputs the agent receives: [WHAT DATA/FILES/TRIGGERS GO IN]\nOutputs I need: [WHAT SHOULD COME OUT]\nTools available: [CHATGPT/CLAUDE/ZAPIER/MAKE/PYTHON/N8N]\nTechnical skill: [BEGINNER/INTERMEDIATE/ADVANCED]\nBudget: [FREE/LOW COST/FLEXIBLE]\n\nProvide:\n1. Whether this task is good for an AI agent (ROI analysis)\n2. Recommended tool stack for my skill level\n3. Step-by-step blueprint to build it\n4. How the agent handles errors and edge cases\n5. How to test before going live\n6. Estimated time saved per week\n7. How to expand it later",desc:"Complete beginner-friendly guide to building your first AI agent for any task.",feat:true},
+  {id:'134',name:"AI Agent System Prompt Designer",tool:"chatgpt",cat:"AI Agents",tags:["system prompt","AI agent","custom GPT","Claude","prompt engineering"],text:"Design a production-grade system prompt for an AI agent.\n\nAgent role: [WHAT THE AGENT DOES]\nPersonality traits: [3-5 TRAITS]\nTone: [HOW IT COMMUNICATES]\nAlways do: [BEHAVIORS IT MUST ALWAYS PERFORM]\nNever do: [BEHAVIORS IT MUST NEVER PERFORM]\nAudience: [WHO USES IT]\nDomain expertise: [SPECIALTY KNOWLEDGE]\nOutput format: [HOW RESPONSES SHOULD BE STRUCTURED]\n\nCreate a system prompt that:\n- Opens with a clear role definition\n- Establishes personality with specific behavioral examples\n- Includes 3 example exchanges showing ideal behavior\n- Has guardrails for edge cases and sensitive situations\n- Ends with the primary success metric",desc:"Builds production-ready AI agent system prompts for custom GPTs, Claude, and other platforms.",feat:false},
+  {id:'135',name:"Customer Service AI Agent",tool:"chatgpt",cat:"AI Agents",tags:["customer service","AI agent","chatbot","support","automation"],text:"Design a customer service AI agent for my business.\n\nBusiness: [DESCRIBE YOUR PRODUCT/SERVICE]\nTop 10 customer questions: [LIST THEM]\nTone: [FRIENDLY/PROFESSIONAL/CASUAL]\nEscalation triggers: [WHEN TO HAND OFF TO A HUMAN]\nPlatform: [WEBSITE/WHATSAPP/INSTAGRAM/EMAIL]\nLanguages: [ENGLISH ONLY/MULTILINGUAL]\n\nProvide:\n1. Complete system prompt for the agent\n2. Response templates for each of the top 10 questions\n3. Escalation handoff message\n4. How to handle angry or frustrated customers\n5. Fallback response when it cannot answer\n6. How to collect info before escalating\n7. How to measure if the agent is performing well\n8. Recommended tools to deploy (free and paid)",desc:"Complete customer service AI agent with system prompt, response templates, and escalation logic.",feat:false},
+  {id:'136',name:"Research AI Agent Workflow",tool:"chatgpt",cat:"AI Agents",tags:["research","AI agent","automation","information gathering","workflow"],text:"Build an AI research agent workflow for my needs.\n\nResearch task: [WHAT I NEED TO RESEARCH REGULARLY]\nFrequency: [DAILY/WEEKLY/ON DEMAND]\nSources to monitor: [WEBSITES/RSS/NEWSLETTERS/SOCIAL MEDIA]\nOutput format: [SUMMARY/BULLET POINTS/REPORT/DATABASE]\nDelivery: [EMAIL/SLACK/NOTION/GOOGLE DOCS]\nTools available: [PERPLEXITY/CHATGPT/ZAPIER/MAKE/PYTHON]\n\nDesign:\n1. Research workflow step by step\n2. Prompts for each research stage\n3. How to filter noise and keep only relevant info\n4. How to summarize in my preferred format\n5. Automation setup to run without manual work\n6. How to verify accuracy of AI-gathered info\n7. Full prompt chain to run this manually right now",desc:"Fully automated research agent that gathers, filters, and delivers insights on any topic.",feat:false},
+  {id:'137',name:"Content Creation AI Agent",tool:"chatgpt",cat:"AI Agents",tags:["content creation","AI agent","social media","automation","marketing"],text:"Design an AI content creation agent for my brand.\n\nBrand: [NAME AND DESCRIPTION]\nContent types: [BLOG/SOCIAL POSTS/EMAILS/VIDEOS/ALL]\nPosting frequency: [DAILY/3X WEEK/WEEKLY]\nPlatforms: [INSTAGRAM/LINKEDIN/TWITTER/TIKTOK]\nBrand voice: [DESCRIBE TONE AND STYLE]\nContent pillars: [LIST 5-10 TOPICS]\nInput I can provide: [ROUGH IDEAS/KEYWORDS/LINKS/VOICE MEMOS]\n\nBuild:\n1. Content ideation agent (30 ideas from minimal input)\n2. Writing agent (platform-specific drafts)\n3. Repurposing agent (one piece into 5 formats)\n4. Scheduling logic (best times per platform)\n5. Full prompt chain to run end-to-end\n6. How to review before publishing\n7. Tool stack recommendation (free vs paid)",desc:"End-to-end content creation agent that ideates, writes, repurposes, and schedules content.",feat:false},
+  {id:'138',name:"Email Management AI Agent",tool:"chatgpt",cat:"AI Agents",tags:["email","AI agent","automation","productivity","inbox"],text:"Build an AI email management agent for my inbox.\n\nEmail volume: [EMAILS/DAY]\nMain email types: [CLIENT REQUESTS/NEWSLETTERS/SUPPORT/SALES/INTERNAL]\nActions needed: [DRAFT REPLIES/CATEGORIZE/SUMMARIZE/FLAG URGENT]\nEmail client: [GMAIL/OUTLOOK/OTHER]\nTool comfort: [ZAPIER/MAKE/PYTHON/JUST CHATGPT MANUALLY]\nPriority contacts: [WHO ALWAYS GETS FAST REPLIES]\n\nDesign:\n1. Email triage system (urgent/reply/read/delete/archive)\n2. Reply drafting prompts for each email type\n3. Daily digest summary prompt\n4. Template library for common responses\n5. How to automate with available tools\n6. How to handle sensitive or complex emails\n7. Weekly audit to improve over time",desc:"Complete email management agent that triages, drafts, and automates your entire inbox.",feat:false},
+  {id:'139',name:"Sales Outreach AI Agent",tool:"chatgpt",cat:"AI Agents",tags:["sales","AI agent","outreach","CRM","automation"],text:"Build an AI sales outreach agent for my business.\n\nProduct/Service: [DESCRIBE]\nIdeal prospect: [DESCRIBE TARGET CUSTOMER]\nOutreach channels: [EMAIL/LINKEDIN/COLD CALL/ALL]\nMonthly volume: [NUMBER OF PROSPECTS]\nCurrent CRM: [HUBSPOT/SALESFORCE/AIRTABLE/SPREADSHEET]\nBiggest challenge: [LOW RESPONSE RATE/FINDING LEADS/FOLLOW-UP/CLOSING]\n\nBuild:\n1. Prospect research prompt (qualify leads in 60 seconds)\n2. Personalized outreach message generator\n3. Follow-up sequence (5 touches over 3 weeks)\n4. Objection handler prompt library\n5. Meeting booking script\n6. CRM update prompt after each interaction\n7. Weekly pipeline review prompt\n8. How to A/B test messages for improvement",desc:"Complete AI sales agent covering prospect research, outreach, follow-up, and pipeline management.",feat:false},
+  {id:'140',name:"Zapier AI Agent Builder",tool:"other",cat:"AI Agents",tags:["Zapier","AI agent","no code","automation","workflow"],text:"Help me build an AI-powered automation in Zapier.\n\nTask to automate: [DESCRIBE EXACTLY]\nTrigger: [WHAT STARTS IT — new email, form submission, calendar event]\nApps involved: [LIST ALL APPS — Gmail, Slack, Notion, Airtable, etc.]\nAI step needed: [SUMMARIZE/CLASSIFY/DRAFT/EXTRACT/TRANSLATE]\nOutput destination: [WHERE RESULT SHOULD GO]\nZapier plan: [FREE/STARTER/PROFESSIONAL]\n\nProvide:\n1. Complete Zap structure (trigger to actions in order)\n2. Which Zapier AI action to use and why\n3. Exact prompt to use inside the AI step\n4. How to format data between steps\n5. How to test the Zap before activating\n6. Common failure points and how to handle them\n7. Cost estimate in Zapier tasks per month",desc:"Build AI-powered Zapier automations with the right structure, prompts, and error handling.",feat:false},
+  {id:'141',name:"Make.com AI Scenario Builder",tool:"other",cat:"AI Agents",tags:["Make","AI agent","no code","automation","scenario"],text:"Help me build an AI-powered scenario in Make (formerly Integromat).\n\nGoal: [WHAT THIS AUTOMATION ACHIEVES]\nTrigger module: [WHAT STARTS IT]\nApps to connect: [LIST ALL APPS]\nAI processing needed: [WHAT THE AI SHOULD DO WITH THE DATA]\nOutput: [FINAL DESTINATION AND FORMAT]\nMake plan: [FREE/CORE/PRO]\n\nDesign:\n1. Full scenario map module by module\n2. Which Make AI module to use\n3. Exact prompt for the AI module\n4. Data mapping between modules\n5. Filters and routers for conditional logic\n6. Error handling setup\n7. How to schedule vs. trigger on demand\n8. Operations cost estimate per month",desc:"Complete Make.com AI scenario blueprints with module-by-module design and cost estimates.",feat:false},
+  {id:'142',name:"AI Agent Evaluation Framework",tool:"chatgpt",cat:"AI Agents",tags:["AI agent","evaluation","testing","quality","performance"],text:"Help me evaluate and improve my AI agent's performance.\n\nAgent type: [CUSTOMER SERVICE/RESEARCH/CONTENT/SALES/CUSTOM]\nCurrent issues: [DESCRIBE WHAT IS GOING WRONG]\nSample bad outputs: [PASTE 2-3 EXAMPLES OF POOR RESPONSES]\nIdeal outputs: [DESCRIBE WHAT GOOD LOOKS LIKE]\nMeasurement tools: [SPREADSHEET/LANGSMITH/HELICONE/NONE]\n\nProvide:\n1. Root cause analysis of performance issues\n2. A 10-point evaluation rubric for my agent type\n3. How to create a test set of 20 diverse inputs\n4. Prompt improvements based on the bad examples\n5. How to measure improvement quantitatively\n6. Red teaming: 5 ways users will try to break my agent\n7. Ongoing monitoring checklist\n8. When to fine-tune vs. improve the prompt",desc:"Complete framework for evaluating, testing, and systematically improving any AI agent.",feat:false},
 ];
 
 /* ════════════════════════════════════════
@@ -710,7 +1156,8 @@ const CATS = [
   {n:'Code & Tech',i:'💻'},{n:'Education & Learning',i:'📚'},
   {n:'Creative & Art',i:'🖼️'},{n:'Photography',i:'📷'},
   {n:'Legal',i:'⚖️'},{n:'Real Estate',i:'🏠'},
-  {n:'Wellness',i:'🧘'},{n:'Health',i:'💊'},{n:'Other',i:'⚙️'}
+  {n:'Wellness',i:'🧘'},{n:'Health',i:'💊'},
+  {n:'AI Agents',i:'🤖'},{n:'Other',i:'⚙️'}
 ];
 
 /* ════════════════════════════════════════
@@ -892,6 +1339,9 @@ function cardHTML(p, i, pre){
   const bc  = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
   const tl  = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
   const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/\n/g,' ');
+  const copies = getCopyCount(p.id);
+  const rating = getRating(p.id);
+  const userVote = getUserVote(p.id);
   return `<div class="card${p.feat?' feat-card':''}" style="animation-delay:${Math.min(i*.035,.5)}s">
     <div class="ctop">
       <div class="cname">${p.name}</div>
@@ -900,6 +1350,11 @@ function cardHTML(p, i, pre){
     <div class="badge ${bc}">${tl}</div>
     <div class="cprev">${prev}</div>
     <div class="ctags">${p.tags.slice(0,4).map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
+    <div class="rating-row">
+      <button class="rating-btn${userVote==='up'?' voted-up':''}" onclick="ratePrompt('${p.id}','up',event)" title="Helpful">👍 <span>${rating.up}</span></button>
+      <button class="rating-btn${userVote==='down'?' voted-down':''}" onclick="ratePrompt('${p.id}','down',event)" title="Not helpful">👎 <span>${rating.down}</span></button>
+      ${copies>0?`<span class="copy-count">📋 Copied <span>${copies.toLocaleString()}</span>x</span>`:''}
+    </div>
     <div class="cfoot">
       <button class="bcopy" id="${pre}${p.id}" onclick="doCopy('${p.id}','${pre}${p.id}',event)">📋 Copy</button>
       <button class="bprev" onclick="openModal('${p.id}')">Preview →</button>
@@ -915,7 +1370,9 @@ function doCopy(id, btnId, e){
   const p = PROMPTS.find(x => x.id === id);
   if(!p) return;
   safeCopy(p.text, btnId);
+  incrementCopy(id);
   gaTrack('copy_prompt', {prompt_name: p.name, tool: p.tool, category: p.cat});
+  setTimeout(renderCards, 100);
 }
 function copyModal(){
   if(!modalP) return;
@@ -1004,8 +1461,11 @@ function showPage(p){
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.ntab').forEach(x => x.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.ntab')[['library','favorites','submit'].indexOf(p)].classList.add('active');
+  const tabIdx = ['library','favorites','submit','learn'].indexOf(p);
+  if(tabIdx !== -1) document.querySelectorAll('.ntab')[tabIdx].classList.add('active');
   if(p === 'favorites') renderFavGrid();
+  setMobileNav(p);
+  updateMobileNavBadge();
   gaTrack('page_view', {page_name: p});
 }
 function goLib(){ showPage('library'); }
@@ -1013,10 +1473,160 @@ function goLib(){ showPage('library'); }
 /* ════════════════════════════════════════
    INIT
 ════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   RATINGS SYSTEM
+════════════════════════════════════════ */
+function getRatings(){ return JSON.parse(localStorage.getItem('pa_ratings') || '{}'); }
+function saveRatings(r){ localStorage.setItem('pa_ratings', JSON.stringify(r)); }
+function getVotes(){ return JSON.parse(localStorage.getItem('pa_votes') || '{}'); }
+function saveVotes(v){ localStorage.setItem('pa_votes', JSON.stringify(v)); }
+
+function getRating(id){
+  const r = getRatings();
+  return r[id] || {up:0, down:0};
+}
+function getUserVote(id){
+  return getVotes()[id] || null;
+}
+function ratePrompt(id, dir, e){
+  if(e) e.stopPropagation();
+  const votes = getVotes();
+  const ratings = getRatings();
+  const prev = votes[id];
+  if(!ratings[id]) ratings[id] = {up:0, down:0};
+  // Toggle off if same vote
+  if(prev === dir){
+    ratings[id][dir] = Math.max(0, ratings[id][dir] - 1);
+    delete votes[id];
+  } else {
+    // Remove previous vote
+    if(prev) ratings[id][prev] = Math.max(0, ratings[id][prev] - 1);
+    ratings[id][dir]++;
+    votes[id] = dir;
+  }
+  saveRatings(ratings);
+  saveVotes(votes);
+  renderCards();
+  if(curPage === 'favorites') renderFavGrid();
+}
+
+/* ════════════════════════════════════════
+   COPY COUNTER
+════════════════════════════════════════ */
+function getCopyCounts(){ return JSON.parse(localStorage.getItem('pa_copies') || '{}'); }
+function getCopyCount(id){ return getCopyCounts()[id] || 0; }
+function incrementCopy(id){
+  const counts = getCopyCounts();
+  counts[id] = (counts[id] || 0) + 1;
+  localStorage.setItem('pa_copies', JSON.stringify(counts));
+}
+
+/* ════════════════════════════════════════
+   SOCIAL SHARING
+════════════════════════════════════════ */
+function sharePrompt(id, platform, e){
+  if(e) e.stopPropagation();
+  const p = PROMPTS.find(x => x.id === id);
+  if(!p) return;
+  const url = encodeURIComponent('https://promptaholics.com');
+  const text = encodeURIComponent(`"${p.name}" — free AI prompt from Promptaholics`);
+  const fullText = encodeURIComponent(`Check out this free AI prompt: "${p.name}"\n\npromptaholics.com`);
+  const urls = {
+    'x':        `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+    'linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    'whatsapp': `https://wa.me/?text=${fullText}`,
+  };
+  if(urls[platform]) window.open(urls[platform], '_blank', 'width=600,height=400');
+  gaTrack('share_prompt', {prompt_name: p.name, platform});
+}
+
+/* ════════════════════════════════════════
+   PROMPT OF THE DAY
+════════════════════════════════════════ */
+let potdId = null;
+let potwId = null;
+
+function setupPotd(){
+  // Pick prompt based on day of year (changes daily, consistent for all visitors)
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  const idx = dayOfYear % PROMPTS.length;
+  const p = PROMPTS[idx];
+  potdId = p.id;
+  document.getElementById('potdName').textContent = p.name;
+  document.getElementById('potdPreview').textContent = p.text.slice(0,100).replace(/\n/g,' ')+'…';
+  gaTrack('potd_view', {prompt_name: p.name});
+}
+
+function copyPotd(){
+  const p = PROMPTS.find(x => x.id === potdId);
+  if(!p) return;
+  safeCopy(p.text, null);
+  incrementCopy(potdId);
+  const btn = document.querySelector('.potd-btn.outline');
+  if(btn){ btn.textContent = '✅ Copied!'; setTimeout(()=>btn.textContent='📋 Copy', 2000); }
+  gaTrack('copy_prompt', {prompt_name: p.name, source: 'potd'});
+}
+
+/* ════════════════════════════════════════
+   PROMPT OF THE WEEK
+════════════════════════════════════════ */
+function setupPotw(){
+  // Pick featured prompt based on week number
+  const weekNum = Math.floor(Date.now() / (7 * 86400000));
+  const featured = PROMPTS.filter(p => p.feat);
+  if(!featured.length) return;
+  const p = featured[weekNum % featured.length];
+  potwId = p.id;
+  document.getElementById('potwName').textContent = p.name;
+  document.getElementById('potwDesc').textContent = p.desc || p.text.slice(0,120).replace(/\n/g,' ')+'…';
+}
+
+function copyPotw(){
+  const p = PROMPTS.find(x => x.id === potwId);
+  if(!p) return;
+  safeCopy(p.text, null);
+  incrementCopy(potwId);
+  const btn = document.querySelector('.potw-actions .potd-btn.outline');
+  if(btn){ btn.textContent = '✅ Copied!'; setTimeout(()=>btn.textContent='📋 Copy', 2000); }
+  gaTrack('copy_prompt', {prompt_name: p.name, source: 'potw'});
+}
+
+/* ════════════════════════════════════════
+   LEARN PAGE — COPY EXAMPLE
+════════════════════════════════════════ */
+function copyLearnExample(el){
+  const text = el.innerText.replace(/click to copy/gi,'').replace(/[❌✅].+\n/,'').trim();
+  safeCopy(text, null);
+  const orig = el.style.borderColor;
+  el.style.borderColor = 'var(--orange)';
+  const hint = el.querySelector('.learn-copy-hint');
+  if(hint){ const oh = hint.textContent; hint.textContent = '✅ Copied!'; setTimeout(()=>{ hint.textContent = oh; el.style.borderColor = orig; }, 2000); }
+}
+
+/* ════════════════════════════════════════
+   MOBILE NAV
+════════════════════════════════════════ */
+function setMobileNav(page){
+  document.querySelectorAll('.mnav-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('mn-'+page);
+  if(btn) btn.classList.add('active');
+}
+function updateMobileNavBadge(){
+  const badge = document.getElementById('mnFavBadge');
+  if(!badge) return;
+  if(favs.length > 0){ badge.style.display='block'; badge.textContent=favs.length; }
+  else badge.style.display='none';
+}
+
+
 function init(){
   applyTheme(theme);
   renderAll();
   updateBadge();
+  setupPotd();
+  setupPotw();
+  updateMobileNavBadge();
   document.getElementById('searchInput').addEventListener('input', () => {
     gaTrack('search', {search_term: document.getElementById('searchInput').value});
     renderCards();
@@ -1034,6 +1644,28 @@ if(document.readyState === 'loading'){
   init();
 }
 </script>
+
+<!-- ✦ MOBILE BOTTOM NAVIGATION ✦ -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mnav-btn active" id="mn-library" onclick="showPage('library');setMobileNav('library')">
+      <span class="mnav-icon">🔍</span>Library
+    </button>
+    <button class="mnav-btn" id="mn-learn" onclick="showPage('learn');setMobileNav('learn')">
+      <span class="mnav-icon">📚</span>Learn
+    </button>
+    <button class="mnav-btn" id="mn-submit" onclick="showPage('submit');setMobileNav('submit')">
+      <span class="mnav-icon">✍️</span>Submit
+    </button>
+    <button class="mnav-btn" id="mn-favorites" onclick="showPage('favorites');setMobileNav('favorites')">
+      <div class="mnav-btn-wrap">
+        <span class="mnav-icon">♥</span>
+        <span class="mnav-badge" id="mnFavBadge" style="display:none">0</span>
+      </div>Saved
+    </button>
+  </div>
+</nav>
+
 
 <!-- ✦ BUY ME A COFFEE WIDGET ✦ -->
 <script
