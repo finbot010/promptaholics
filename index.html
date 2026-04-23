@@ -11,6 +11,9 @@
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://promptaholics.com"/>
 
+<!-- ✦ GRAMMARLY AFFILIATE VERIFICATION ✦ -->
+<meta name='impact-site-verification' value='b4606a47-696e-498a-ad77-a9f1b4dd13f3'/>
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://promptaholics.com"/>
@@ -471,6 +474,252 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   .learn-grid{padding:20px 14px;gap:14px;}
   .learn-resources{padding:0 14px 30px;}
 }
+
+/* ══ AI SEARCH ENGINE ══ */
+.ai-search-wrap{
+  padding:24px 30px 0;max-width:880px;margin:0 auto;
+}
+.ai-search-box{
+  position:relative;
+  background:var(--surface);
+  border:2px solid var(--orange);
+  border-radius:16px;
+  box-shadow:0 0 0 4px rgba(255,98,36,.08);
+  transition:all .2s;
+  overflow:hidden;
+}
+.ai-search-box:focus-within{
+  box-shadow:0 0 0 5px rgba(255,98,36,.14);
+  border-color:var(--orange);
+}
+.ai-search-top{display:flex;align-items:center;gap:0;}
+.ai-search-badge{
+  display:flex;align-items:center;gap:6px;
+  padding:0 16px;border-right:1px solid var(--border);
+  font-size:11px;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--orange);
+  white-space:nowrap;height:56px;flex-shrink:0;
+  background:rgba(255,98,36,.06);
+}
+.ai-search-badge span{font-size:18px;}
+#aiSearchInput{
+  flex:1;background:none;border:none;
+  color:var(--text);padding:16px 20px;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:15px;outline:none;
+  min-width:0;
+}
+#aiSearchInput::placeholder{color:var(--text3);}
+.ai-search-actions{
+  display:flex;align-items:center;gap:8px;
+  padding:0 14px;flex-shrink:0;
+}
+.ai-search-btn{
+  background:var(--orange);color:#fff;border:none;
+  padding:9px 18px;border-radius:10px;cursor:pointer;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:13px;font-weight:700;
+  transition:background .15s;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;
+}
+.ai-search-btn:hover{background:var(--orange2);}
+.ai-search-btn:disabled{opacity:.6;cursor:not-allowed;}
+.ai-search-clear{
+  background:none;border:none;color:var(--text3);
+  cursor:pointer;font-size:18px;padding:4px 8px;
+  transition:color .14s;display:none;
+}
+.ai-search-clear:hover{color:var(--text);}
+.ai-search-clear.show{display:block;}
+
+/* AI RESULTS PANEL */
+.ai-results{
+  border-top:1px solid var(--border);
+  display:none;max-height:420px;overflow-y:auto;
+  scrollbar-width:thin;
+}
+.ai-results.show{display:block;}
+.ai-results-header{
+  padding:10px 18px;
+  font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);
+  background:var(--surface2);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ai-results-count{
+  background:var(--orange);color:#fff;
+  font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;
+}
+.ai-result-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .14s;
+}
+.ai-result-item:last-child{border-bottom:none;}
+.ai-result-item:hover{background:var(--surface2);}
+.ai-result-rank{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,98,36,.1);color:var(--orange);
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.ai-result-rank.top{background:var(--orange);color:#fff;}
+.ai-result-body{flex:1;min-width:0;}
+.ai-result-name{
+  font-family:'Syne','Georgia',serif;
+  font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;
+}
+.ai-result-reason{
+  font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:6px;
+}
+.ai-result-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ai-result-cat{
+  font-size:10px;font-weight:600;
+  background:var(--surface2);color:var(--text3);
+  padding:2px 8px;border-radius:20px;border:1px solid var(--border);
+}
+.ai-result-tool{font-size:10px;color:var(--text3);}
+.ai-result-actions{
+  display:flex;gap:6px;flex-shrink:0;align-items:center;
+}
+.ai-result-copy{
+  background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);
+  color:var(--orange);padding:5px 10px;border-radius:7px;
+  cursor:pointer;font-size:11px;font-weight:700;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  transition:all .14s;white-space:nowrap;
+}
+.ai-result-copy:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.ai-result-view{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);padding:5px 10px;border-radius:7px;
+  cursor:pointer;font-size:11px;font-weight:600;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  transition:all .14s;white-space:nowrap;
+}
+.ai-result-view:hover{border-color:var(--violet);color:var(--violet);}
+
+/* AI THINKING STATE */
+.ai-thinking{
+  padding:20px 18px;display:none;
+  align-items:center;gap:12px;
+}
+.ai-thinking.show{display:flex;}
+.ai-dots{display:flex;gap:5px;}
+.ai-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--orange);animation:aiPulse 1.2s infinite;
+}
+.ai-dot:nth-child(2){animation-delay:.2s;}
+.ai-dot:nth-child(3){animation-delay:.4s;}
+@keyframes aiPulse{0%,80%,100%{opacity:.2;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+.ai-thinking-text{font-size:13px;color:var(--text2);font-style:italic;}
+
+/* AI EMPTY STATE */
+.ai-empty{
+  padding:28px 18px;text-align:center;display:none;
+}
+.ai-empty.show{display:block;}
+.ai-empty-icon{font-size:36px;display:block;margin-bottom:10px;}
+.ai-empty-title{font-family:'Syne','Georgia',serif;font-size:16px;font-weight:700;margin-bottom:6px;color:var(--text);}
+.ai-empty-desc{font-size:13px;color:var(--text3);}
+
+/* EXAMPLE QUERIES */
+.ai-examples{
+  display:flex;flex-wrap:wrap;gap:7px;
+  padding:12px 18px;border-top:1px solid var(--border);
+}
+.ai-example{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);padding:5px 12px;border-radius:20px;
+  font-size:12px;cursor:pointer;transition:all .14s;
+}
+.ai-example:hover{border-color:var(--orange);color:var(--orange);}
+
+
+/* ══ WEB SEARCH RESULTS ══ */
+.web-results-section{
+  border-top:2px dashed var(--border);
+  margin-top:0;
+}
+.web-results-header{
+  padding:10px 18px;
+  font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--violet);
+  background:rgba(139,92,246,.05);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.web-results-header span{display:flex;align-items:center;gap:6px;}
+.web-badge{
+  background:var(--violet);color:#fff;
+  font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;
+}
+.web-result-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  transition:background .14s;
+}
+.web-result-item:last-child{border-bottom:none;}
+.web-result-item:hover{background:var(--surface2);}
+.web-result-rank{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(139,92,246,.1);color:var(--violet);
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.web-result-body{flex:1;min-width:0;}
+.web-result-title{
+  font-family:'Syne','Georgia',serif;
+  font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;
+}
+.web-result-desc{
+  font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:6px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.web-result-source{
+  font-size:10px;color:var(--text3);
+  display:flex;align-items:center;gap:5px;
+}
+.web-result-source::before{content:'🌐';font-size:10px;}
+.web-result-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;}
+.web-result-use{
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);
+  color:var(--violet);padding:5px 10px;border-radius:7px;
+  cursor:pointer;font-size:11px;font-weight:700;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  transition:all .14s;white-space:nowrap;text-decoration:none;
+  display:inline-block;
+}
+.web-result-use:hover{background:var(--violet);color:#fff;border-color:var(--violet);}
+.web-searching-msg{
+  padding:12px 18px;font-size:12px;color:var(--text3);
+  display:flex;align-items:center;gap:8px;font-style:italic;
+  border-top:1px dashed var(--border);
+}
+.ai-search-footer{
+  padding:8px 18px;
+  font-size:11px;color:var(--text3);
+  border-top:1px solid var(--border);
+  background:var(--surface2);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:6px;
+}
+.ai-search-footer a{color:var(--orange);text-decoration:none;font-weight:600;}
+.ai-search-footer a:hover{text-decoration:underline;}
+
+/* KEEP OLD SEARCH — hidden when AI search active */
+.searchbar{padding-top:12px;}
+
+@media(max-width:640px){
+  .ai-search-wrap{padding:16px 14px 0;}
+  .ai-search-badge{padding:0 10px;font-size:9px;}
+  .ai-search-btn span{display:none;}
+  .ai-search-btn{padding:9px 12px;}
+}
 </style>
 </head>
 <body>
@@ -561,10 +810,66 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <div class="hs"><span class="hs-n">∞</span><div class="hs-l">Free Forever</div></div>
     </div>
   </div>
+  <!-- ✦ AI SEARCH ENGINE ✦ -->
+  <div class="ai-search-wrap">
+    <div class="ai-search-box" id="aiSearchBox">
+      <div class="ai-search-top">
+        <div class="ai-search-badge"><span>🤖</span>AI Search</div>
+        <input
+          type="text"
+          id="aiSearchInput"
+          placeholder="Describe what you want to do… e.g. 'write a viral tweet' or 'create a fantasy landscape'"
+          autocomplete="off"
+        />
+        <div class="ai-search-actions">
+          <button class="ai-search-clear" id="aiClearBtn" onclick="clearAiSearch()" title="Clear">✕</button>
+          <button class="ai-search-btn" id="aiSearchBtn" onclick="runAiSearch()">
+            <span>✨</span> Find Prompts
+          </button>
+        </div>
+      </div>
+      <!-- Examples shown before first search -->
+      <div class="ai-examples" id="aiExamples">
+        <span class="ai-example" onclick="setAiQuery(this)">write a viral tweet</span>
+        <span class="ai-example" onclick="setAiQuery(this)">create a fantasy landscape image</span>
+        <span class="ai-example" onclick="setAiQuery(this)">negotiate a salary raise</span>
+        <span class="ai-example" onclick="setAiQuery(this)">build an AI agent for email</span>
+        <span class="ai-example" onclick="setAiQuery(this)">help me sleep better</span>
+        <span class="ai-example" onclick="setAiQuery(this)">write a real estate listing</span>
+        <span class="ai-example" onclick="setAiQuery(this)">understand my legal contract</span>
+        <span class="ai-example" onclick="setAiQuery(this)">plan my workout routine</span>
+      </div>
+      <!-- Thinking animation -->
+      <div class="ai-thinking" id="aiThinking">
+        <div class="ai-dots">
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+        </div>
+        <span class="ai-thinking-text">AI is analyzing your request and finding the best prompts…</span>
+      </div>
+      <!-- Results -->
+      <div class="ai-results" id="aiResults">
+        <div class="ai-results-header">
+          <span>Best matches for your request</span>
+          <span class="ai-results-count" id="aiResultCount">0</span>
+        </div>
+        <div id="aiResultsList"></div>
+      </div>
+      <!-- Empty state -->
+      <div class="ai-empty" id="aiEmpty">
+        <span class="ai-empty-icon">🔍</span>
+        <div class="ai-empty-title">No great matches found</div>
+        <div class="ai-empty-desc">Try describing your goal differently, or browse categories below.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSIC SEARCH (fallback + power users) -->
   <div class="searchbar">
     <div class="si">
       <span class="sico">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search prompts, categories, tags…" autocomplete="off"/>
+      <input type="text" id="searchInput" placeholder="Or type keywords to filter all prompts…" autocomplete="off"/>
       <span class="skb">⌘K</span>
     </div>
   </div>
@@ -861,6 +1166,22 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     <div class="learn-section-title">📖 Recommended Resources</div>
     <div class="learn-resources">
       <div class="resource-grid">
+        <a href="https://promptmetheus.com/?via=fin" target="_blank" rel="noopener sponsored" class="resource-card">
+          <span class="resource-icon">⚡</span>
+          <div class="resource-body">
+            <div class="resource-name">Promptmetheus</div>
+            <div class="resource-desc">The one-shot prompt IDE — build, test, and optimize AI prompts like a pro</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://www.grammarly.com/ai?_gl=1*k78i*_gcl_au*MTY1MDcxNTA1My4xNzc2ODU5NzE3" target="_blank" rel="noopener sponsored" class="resource-card">
+          <span class="resource-icon">✍️</span>
+          <div class="resource-body">
+            <div class="resource-name">Grammarly AI</div>
+            <div class="resource-desc">AI-powered writing assistant — write clearer, sharper prompts and content every time</div>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
         <a href="https://www.promptingguide.ai" target="_blank" rel="noopener" class="resource-card">
           <span class="resource-icon">📘</span>
           <div class="resource-body">
@@ -869,14 +1190,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
           </div>
           <span class="resource-arrow">→</span>
         </a>
-        <a href="https://learnprompting.org" target="_blank" rel="noopener" class="resource-card">
-          <span class="resource-icon">🎓</span>
-          <div class="resource-body">
-            <div class="resource-name">Learn Prompting</div>
-            <div class="resource-desc">Free open-source course on prompt engineering from basics to advanced</div>
-          </div>
-          <span class="resource-arrow">→</span>
-        </a>
+
         <a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noopener" class="resource-card">
           <span class="resource-icon">🤖</span>
           <div class="resource-body">
@@ -885,7 +1199,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
           </div>
           <span class="resource-arrow">→</span>
         </a>
-        <a href="https://docs.midjourney.com/docs/prompts-2" target="_blank" rel="noopener" class="resource-card">
+        <a href="https://docs.midjourney.com/hc/en-us/articles/32023408776205-Prompt-Basics" target="_blank" rel="noopener" class="resource-card">
           <span class="resource-icon">🎨</span>
           <div class="resource-body">
             <div class="resource-name">Midjourney Prompt Docs</div>
@@ -893,7 +1207,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
           </div>
           <span class="resource-arrow">→</span>
         </a>
-        <a href="https://anthropic.com/research/claude-s-constitution" target="_blank" rel="noopener" class="resource-card">
+        <a href="https://www.anthropic.com/learn" target="_blank" rel="noopener" class="resource-card">
           <span class="resource-icon">🧠</span>
           <div class="resource-body">
             <div class="resource-name">Anthropic Claude Tips</div>
@@ -1620,6 +1934,321 @@ function updateMobileNavBadge(){
 }
 
 
+
+/* ════════════════════════════════════════
+   AI SEARCH ENGINE
+   Uses Claude claude-sonnet-4-20250514 to understand user intent
+   and rank the best matching prompts from the library
+════════════════════════════════════════ */
+
+let aiSearchActive = false;
+let aiSearchTimeout = null;
+
+function setAiQuery(el){
+  document.getElementById('aiSearchInput').value = el.textContent;
+  runAiSearch();
+}
+
+function clearAiSearch(){
+  document.getElementById('aiSearchInput').value = '';
+  document.getElementById('aiResults').classList.remove('show');
+  document.getElementById('aiEmpty').classList.remove('show');
+  document.getElementById('aiThinking').classList.remove('show');
+  document.getElementById('aiExamples').style.display = 'flex';
+  document.getElementById('aiClearBtn').classList.remove('show');
+  document.getElementById('aiSearchBtn').disabled = false;
+  aiSearchActive = false;
+  renderCards(); // restore full library
+}
+
+async function runAiSearch(){
+  const query = document.getElementById('aiSearchInput').value.trim();
+  if(!query) return;
+
+  // UI: show thinking state
+  document.getElementById('aiExamples').style.display = 'none';
+  document.getElementById('aiResults').classList.remove('show');
+  document.getElementById('aiEmpty').classList.remove('show');
+  document.getElementById('aiThinking').classList.add('show');
+  document.getElementById('aiSearchBtn').disabled = true;
+  document.getElementById('aiClearBtn').classList.add('show');
+  aiSearchActive = true;
+
+  gaTrack('ai_search', {query});
+
+  // Build compact catalog for Claude
+  const catalog = PROMPTS.map(p => ({
+    id: p.id,
+    name: p.name,
+    cat: p.cat,
+    tags: p.tags.join(', '),
+    desc: p.desc || p.text.slice(0,80)
+  }));
+
+  const systemPrompt = `You are an expert AI prompt librarian. Your job is to find the most relevant prompts from a library based on what a user wants to accomplish.
+
+You will receive:
+1. A user's natural language description of what they want to do
+2. A catalog of available prompts
+
+Return a JSON object with:
+- "results": array of top matches (max 5), each with id and reason (max 12 words)
+- "confidence": "high" if you found great matches, "low" if matches are weak or none
+- "suggestion": a short web search query to find better prompts if confidence is low (null if high)
+
+Rules:
+- Return ONLY valid JSON, no markdown, no extra text
+- Only include results that are genuinely relevant
+- If nothing matches well at all, return empty results array and low confidence
+- Be honest about confidence — don't force bad matches
+
+Format:
+{"results":[{"id":"23","reason":"Perfect for creating viral social media content"},{"id":"7","reason":"Helps craft engaging hooks for any platform"}],"confidence":"high","suggestion":null}`;
+
+  const userMessage = `User wants to: "${query}"
+
+Prompt catalog:
+${JSON.stringify(catalog)}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userMessage }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '{"results":[],"confidence":"low","suggestion":null}';
+
+    let parsed = { results: [], confidence: 'low', suggestion: null };
+    try {
+      const clean = raw.replace(/```json|```/g, '').trim();
+      parsed = JSON.parse(clean);
+    } catch(e) {
+      console.error('Parse error:', e, raw);
+    }
+
+    document.getElementById('aiThinking').classList.remove('show');
+    document.getElementById('aiSearchBtn').disabled = false;
+
+    // Show library results
+    showAiResults(parsed.results, query);
+
+    // If confidence is low — trigger web search automatically
+    if(parsed.confidence === 'low' || parsed.results.length < 2){
+      const webQuery = parsed.suggestion || query + ' AI prompt';
+      showWebSearching(webQuery);
+      await runWebSearch(webQuery, query);
+    } else {
+      // High confidence — show footer with option to search web anyway
+      showSearchFooter(query);
+    }
+
+  } catch(err) {
+    console.error('AI Search error:', err);
+    document.getElementById('aiThinking').classList.remove('show');
+    document.getElementById('aiSearchBtn').disabled = false;
+    fallbackSearch(query);
+  }
+}
+
+function showWebSearching(webQuery){
+  const panel = document.getElementById('aiResults');
+  panel.classList.add('show');
+  // Add "searching web" message
+  const existing = document.getElementById('webSearchingMsg');
+  if(existing) existing.remove();
+  const msg = document.createElement('div');
+  msg.id = 'webSearchingMsg';
+  msg.className = 'web-searching-msg';
+  msg.innerHTML = '<div class="ai-dots" style="display:flex;gap:4px"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div> Searching the web for more prompts…';
+  panel.appendChild(msg);
+}
+
+async function runWebSearch(webQuery, originalQuery){
+  // Web search requires Netlify Functions (paid plan)
+  // Gracefully skip and just show footer with submit link
+  const msg = document.getElementById('webSearchingMsg');
+  if(msg) msg.remove();
+  showSearchFooter(originalQuery);
+}
+
+
+function showWebResults(results, query){
+  const panel = document.getElementById('aiResults');
+  panel.classList.add('show');
+
+  // Remove any existing web section
+  const existing = document.getElementById('webResultsSection');
+  if(existing) existing.remove();
+
+  const section = document.createElement('div');
+  section.id = 'webResultsSection';
+  section.className = 'web-results-section';
+  section.innerHTML = `
+    <div class="web-results-header">
+      <span>🌐 From Around the Web</span>
+      <span class="web-badge">${results.length} found</span>
+    </div>
+    ${results.map((r, i) => `
+    <div class="web-result-item">
+      <div class="web-result-rank">${i+1}</div>
+      <div class="web-result-body">
+        <div class="web-result-title">${r.title || 'Prompt Found'}</div>
+        <div class="web-result-desc">${r.description || ''}</div>
+        <div class="web-result-source">${r.source || 'web'}</div>
+      </div>
+      <div class="web-result-actions">
+        <span class="web-result-use" onclick="copyWebResult('${encodeURIComponent(r.description||r.title)}', this)">📋 Copy</span>
+      </div>
+    </div>`).join('')}
+  `;
+
+  panel.appendChild(section);
+  showSearchFooter(query);
+  gaTrack('web_search_results', {query, count: results.length});
+}
+
+function copyWebResult(encodedText, btn){
+  const text = decodeURIComponent(encodedText);
+  safeCopy(text, null);
+  btn.textContent = '✅ Copied!';
+  setTimeout(() => btn.textContent = '📋 Copy', 2000);
+  gaTrack('copy_web_prompt', {});
+}
+
+function showSearchFooter(query){
+  const panel = document.getElementById('aiResults');
+  panel.classList.add('show');
+  const existing = document.getElementById('aiSearchFooter');
+  if(existing) existing.remove();
+  const footer = document.createElement('div');
+  footer.id = 'aiSearchFooter';
+  footer.className = 'ai-search-footer';
+  footer.innerHTML = `
+    <span>💡 Not finding what you need? <a href="#" onclick="showPage('submit');return false;">Submit a prompt</a> to the library</span>
+    <span>Powered by Claude AI</span>
+  `;
+  panel.appendChild(footer);
+}
+
+function showAiResults(results, query){
+  const list  = document.getElementById('aiResultsList');
+  const panel = document.getElementById('aiResults');
+  const empty = document.getElementById('aiEmpty');
+  const count = document.getElementById('aiResultCount');
+
+  // Clear old web results
+  const oldWeb = document.getElementById('webResultsSection');
+  if(oldWeb) oldWeb.remove();
+  const oldFooter = document.getElementById('aiSearchFooter');
+  if(oldFooter) oldFooter.remove();
+
+  if(!results || results.length === 0){
+    list.innerHTML = '';
+    count.textContent = '0';
+    // Don't show empty yet — web search might fill it
+    return;
+  }
+
+  empty.classList.remove('show');
+  count.textContent = results.length;
+
+  list.innerHTML = results.map((r, i) => {
+    const p = PROMPTS.find(x => x.id === r.id);
+    if(!p) return '';
+    const toolLabel = p.tool === 'chatgpt' ? '🤖 ChatGPT'
+                    : p.tool === 'midjourney' ? '🎨 Midjourney' : '⚙️ Other';
+    return `
+    <div class="ai-result-item" onclick="openModal('${p.id}')">
+      <div class="ai-result-rank${i===0?' top':''}">${i+1}</div>
+      <div class="ai-result-body">
+        <div class="ai-result-name">${p.name}</div>
+        <div class="ai-result-reason">✨ ${r.reason || 'Strong match for your request'}</div>
+        <div class="ai-result-meta">
+          <span class="ai-result-cat">${p.cat}</span>
+          <span class="ai-result-tool">${toolLabel}</span>
+        </div>
+      </div>
+      <div class="ai-result-actions">
+        <button class="ai-result-copy" onclick="aiResultCopy('${p.id}',event)">📋 Copy</button>
+        <button class="ai-result-view" onclick="openModal('${p.id}');event.stopPropagation()">View →</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  panel.classList.add('show');
+
+  // Filter main grid to matched prompts
+  const matchedIds = results.map(r => r.id);
+  renderAiFiltered(matchedIds);
+}
+
+function renderAiFiltered(ids){
+  const g = document.getElementById('mainGrid');
+  const matched = ids.map(id => PROMPTS.find(p => p.id === id)).filter(Boolean);
+  if(!matched.length) return;
+  g.innerHTML = matched.map((p, i) => cardHTML(p, i, 'c')).join('');
+  document.getElementById('rcnt').innerHTML =
+    `AI found <strong>${matched.length}</strong> best matches`;
+}
+
+function aiResultCopy(id, e){
+  e.stopPropagation();
+  const p = PROMPTS.find(x => x.id === id);
+  if(!p) return;
+  safeCopy(p.text, null);
+  incrementCopy(id);
+  gaTrack('copy_prompt', {prompt_name: p.name, source: 'ai_search'});
+  const btn = e.target;
+  btn.textContent = '✅ Copied!';
+  setTimeout(() => btn.textContent = '📋 Copy', 2000);
+}
+
+function fallbackSearch(query){
+  const q = query.toLowerCase();
+  const scored = PROMPTS.map(p => {
+    let score = 0;
+    if(p.name.toLowerCase().includes(q)) score += 10;
+    if(p.cat.toLowerCase().includes(q)) score += 6;
+    if(p.tags.some(t => t.includes(q))) score += 5;
+    if((p.desc||'').toLowerCase().includes(q)) score += 4;
+    if(p.text.toLowerCase().includes(q)) score += 2;
+    q.split(' ').forEach(word => {
+      if(word.length < 3) return;
+      if(p.name.toLowerCase().includes(word)) score += 3;
+      if(p.tags.some(t => t.includes(word))) score += 2;
+    });
+    return { id: p.id, score, reason: 'Keyword match for your search' };
+  }).filter(x => x.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .slice(0, 5);
+
+  showAiResults(scored, query);
+  showSearchFooter(query);
+}
+// Allow Enter key to trigger search
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('aiSearchInput');
+  if(inp){
+    inp.addEventListener('keydown', e => {
+      if(e.key === 'Enter') runAiSearch();
+    });
+    inp.addEventListener('input', () => {
+      const val = inp.value.trim();
+      document.getElementById('aiClearBtn').classList.toggle('show', val.length > 0);
+      // If user clears the input manually, reset
+      if(!val && aiSearchActive) clearAiSearch();
+    });
+  }
+});
+
+
 function init(){
   applyTheme(theme);
   renderAll();
@@ -1632,7 +2261,7 @@ function init(){
     renderCards();
   });
   document.addEventListener('keydown', e => {
-    if((e.metaKey||e.ctrlKey) && e.key==='k'){ e.preventDefault(); document.getElementById('searchInput').focus(); }
+    if((e.metaKey||e.ctrlKey) && e.key==='k'){ e.preventDefault(); document.getElementById('aiSearchInput').focus(); }
     if(e.key === 'Escape') closeModal();
   });
 }
