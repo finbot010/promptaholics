@@ -720,6 +720,113 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   .ai-search-btn span{display:none;}
   .ai-search-btn{padding:9px 12px;}
 }
+
+/* ── Instagram header icon ── */
+#igHeaderLink:hover{
+  border-color:#E1306C !important;
+  background:rgba(225,48,108,.1) !important;
+}
+
+/* ══ MULTI-TOOL COMPAT TAGS ══ */
+.compat-wrap{margin-bottom:16px;}
+.compat-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;}
+.compat-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.compat-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;
+  background:rgba(0,204,170,.08);color:var(--teal);
+  border:1px solid rgba(0,204,170,.2);
+}
+
+
+/* ══ HOW DO I PAGE ══ */
+.howdoi-hero{
+  padding:56px 40px 44px;text-align:center;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(0,204,170,.04));
+}
+.howdoi-hero h2{
+  font-family:'Syne','Georgia',serif;
+  font-size:clamp(28px,4vw,52px);font-weight:800;
+  letter-spacing:-1.5px;margin-bottom:10px;
+}
+.howdoi-hero p{color:var(--text2);font-size:15px;max-width:560px;margin:0 auto;}
+.howdoi-search-wrap{padding:20px 28px 0;max-width:680px;margin:0 auto;}
+.howdoi-search{
+  display:flex;align-items:center;
+  background:var(--surface);border:2px solid var(--border);
+  border-radius:12px;overflow:hidden;transition:border .2s;
+}
+.howdoi-search:focus-within{border-color:var(--violet);}
+.howdoi-search input{
+  flex:1;background:none;border:none;color:var(--text);
+  padding:14px 18px;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:14px;outline:none;
+}
+.howdoi-search input::placeholder{color:var(--text3);}
+.howdoi-cats{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding:16px 28px 0;max-width:1200px;margin:0 auto;
+}
+.howdoi-cat-pill{
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text2);padding:6px 14px;border-radius:20px;
+  font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;
+}
+.howdoi-cat-pill.active,.howdoi-cat-pill:hover{
+  background:var(--violet);border-color:var(--violet);color:#fff;
+}
+.howdoi-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:16px;padding:20px 28px 40px;max-width:1200px;margin:0 auto;
+}
+.howdoi-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:20px;transition:all .2s;
+}
+.howdoi-card:hover{
+  border-color:var(--violet);transform:translateY(-2px);
+  box-shadow:0 8px 28px var(--shadow);
+}
+.howdoi-task{
+  font-family:'Syne','Georgia',serif;font-size:15px;font-weight:700;
+  color:var(--text);margin-bottom:12px;
+  display:flex;align-items:flex-start;gap:8px;line-height:1.4;
+}
+.howdoi-task-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.howdoi-recs{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.howdoi-rec{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:9px;padding:10px 13px;cursor:pointer;transition:all .15s;
+}
+.howdoi-rec:hover{border-color:var(--orange);background:rgba(255,98,36,.04);}
+.howdoi-rec-name{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.howdoi-rec-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.howdoi-rec-tool{
+  font-size:10px;font-weight:600;
+  background:rgba(255,98,36,.1);color:var(--orange);
+  padding:2px 7px;border-radius:10px;
+}
+.howdoi-rec-cat{font-size:10px;color:var(--text3);}
+.howdoi-tools{
+  font-size:11px;color:var(--text3);
+  display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:8px;
+}
+.howdoi-tools strong{color:var(--text2);}
+.howdoi-tool-chip{
+  background:var(--surface2);border:1px solid var(--border);
+  padding:2px 8px;border-radius:10px;font-size:10px;
+}
+.howdoi-tip{
+  font-size:11.5px;color:var(--teal);line-height:1.55;
+  background:rgba(0,204,170,.07);border:1px solid rgba(0,204,170,.15);
+  border-radius:8px;padding:8px 12px;
+}
+@media(max-width:640px){
+  .howdoi-hero{padding:40px 16px 32px;}
+  .howdoi-grid,.howdoi-cats,.howdoi-search-wrap{padding-left:14px;padding-right:14px;}
+}
 </style>
 </head>
 <body>
@@ -760,10 +867,29 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   <div class="hdr-right">
     <div class="nav-tabs">
       <button class="ntab active" onclick="showPage('library')">Library</button>
-      <button class="ntab" onclick="showPage('favorites')">Saved <span class="fbadge" id="fbadge">0</span></button>
+      <button class="ntab" onclick="showPage('favorites')" title="Saved locally on this device — clears if browser data is cleared">Saved <span class="fbadge" id="fbadge">0</span></button>
       <button class="ntab" onclick="showPage('submit')">+ Submit</button>
       <button class="ntab" onclick="showPage('learn')">📚 Learn</button>
+      <button class="ntab" onclick="showPage('howdoi')">💡 How Do I…</button>
     </div>
+    <a href="https://www.instagram.com/promptaholics/" target="_blank" rel="noopener" id="igHeaderLink"
+      title="Follow us on Instagram"
+      style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);transition:all .18s;flex-shrink:0;text-decoration:none;">
+      <svg width="17" height="17" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="igH" cx="30%" cy="107%" r="150%">
+            <stop offset="0%" stop-color="#fdf497"/>
+            <stop offset="10%" stop-color="#fdf497"/>
+            <stop offset="50%" stop-color="#fd5949"/>
+            <stop offset="68%" stop-color="#d6249f"/>
+            <stop offset="100%" stop-color="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#igH)"/>
+        <circle cx="12" cy="12" r="4.5" fill="none" stroke="white" stroke-width="1.8"/>
+        <circle cx="17.3" cy="6.7" r="1.2" fill="white"/>
+      </svg>
+    </a>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
   </div>
 </header>
@@ -805,7 +931,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     <p class="hero-sub">Copy-ready prompts for ChatGPT, Midjourney, DALL-E, Stable Diffusion and more. No sign-up. No paywalls.</p>
     <div class="hstats">
       <div class="hs"><span class="hs-n" id="totCnt">0</span><div class="hs-l">Prompts</div></div>
-      <div class="hs"><span class="hs-n">3</span><div class="hs-l">AI Tools</div></div>
+      <div class="hs"><span class="hs-n" id="toolCnt">3</span><div class="hs-l">AI Tools</div></div>
       <div class="hs"><span class="hs-n">8</span><div class="hs-l">Categories</div></div>
       <div class="hs"><span class="hs-n">∞</span><div class="hs-l">Free Forever</div></div>
     </div>
@@ -818,7 +944,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
         <input
           type="text"
           id="aiSearchInput"
-          placeholder="Describe what you want to do… e.g. 'write a viral tweet' or 'create a fantasy landscape'"
+          placeholder="What are you creating today? e.g. 'write a LinkedIn post' or 'create a fantasy image'"
           autocomplete="off"
         />
         <div class="ai-search-actions">
@@ -914,7 +1040,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   <div class="phero">
     <div class="pill">♥ Your Collection</div>
     <h2>Saved <span style="color:var(--orange)">Prompts</span></h2>
-    <p>Your bookmarked prompts — ready to copy anytime.</p>
+    <p>Your bookmarked prompts — ready to copy anytime. <span style="font-size:12px;color:var(--text3);">💾 Saves are stored locally on this device.</span></p>
   </div>
   <div class="export-row"><button class="expbtn" onclick="exportPDF()">📄 Export as PDF</button></div>
   <div class="main" style="max-width:1200px;margin:16px auto 0;">
@@ -968,6 +1094,11 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
               <option>Education & Learning</option>
               <option>Creative & Art</option>
               <option>Photography</option>
+              <option>Legal</option>
+              <option>Real Estate</option>
+              <option>Wellness</option>
+              <option>Health</option>
+              <option>AI Agents</option>
               <option>Other</option>
             </select>
           </div>
@@ -1228,6 +1359,24 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   </div>
 </div>
 
+<!-- ✦ HOW DO I PAGE ✦ -->
+<div class="page" id="page-howdoi">
+  <div class="howdoi-hero">
+    <div class="pill">💡 Task Navigator</div>
+    <h2>How Do I <span style="color:var(--violet)">…?</span></h2>
+    <p>Pick a goal and we'll match you to the right prompts and AI tools. Perfect for beginners navigating 142+ prompts.</p>
+  </div>
+  <div class="howdoi-search-wrap">
+    <div class="howdoi-search">
+      <input type="text" id="howdoiInput"
+        placeholder="e.g. write a LinkedIn post, create an image, negotiate my salary…"
+        oninput="filterHowdoi(this.value)" autocomplete="off"/>
+    </div>
+  </div>
+  <div class="howdoi-cats" id="howdoiCats"></div>
+  <div class="howdoi-grid" id="howdoiGrid"></div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="fbrand">
@@ -1245,6 +1394,24 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     <a href="#" onclick="showPage('submit');return false">Submit</a>
     <a href="#" onclick="showPage('favorites');return false">Saved</a>
     <a href="privacy.html" target="_blank">Privacy Policy</a>
+    <a href="https://www.instagram.com/promptaholics/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#E1306C !important;font-weight:600;">
+      <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="igGrad" cx="30%" cy="107%" r="150%">
+            <stop offset="0%" stop-color="#fdf497"/>
+            <stop offset="10%" stop-color="#fdf497"/>
+            <stop offset="50%" stop-color="#fd5949"/>
+            <stop offset="68%" stop-color="#d6249f"/>
+            <stop offset="100%" stop-color="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#igGrad)"/>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="0"/>
+        <circle cx="12" cy="12" r="4.5" fill="none" stroke="white" stroke-width="1.8"/>
+        <circle cx="17.3" cy="6.7" r="1.2" fill="white"/>
+      </svg>
+      Instagram
+    </a>
   </div>
 </footer>
 
@@ -1266,6 +1433,11 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
           <button class="share-btn share-linkedin" onclick="sharePrompt(modalP&&modalP.id,'linkedin',event)">in LinkedIn</button>
           <button class="share-btn share-whatsapp" onclick="sharePrompt(modalP&&modalP.id,'whatsapp',event)">💬 WhatsApp</button>
         </div>
+      </div>
+      <!-- ✦ MULTI-TOOL COMPAT ✦ -->
+      <div class="compat-wrap" id="mCompat" style="display:none;">
+        <div class="compat-label">Also works with</div>
+        <div class="compat-tags" id="mCompatTags"></div>
       </div>
       <div class="mactions">
         <button class="mbcopy" onclick="copyModal()">📋 Copy Prompt</button>
@@ -1665,8 +1837,8 @@ function cardHTML(p, i, pre){
     <div class="cprev">${prev}</div>
     <div class="ctags">${p.tags.slice(0,4).map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
     <div class="rating-row">
-      <button class="rating-btn${userVote==='up'?' voted-up':''}" onclick="ratePrompt('${p.id}','up',event)" title="Helpful">👍 <span>${rating.up}</span></button>
-      <button class="rating-btn${userVote==='down'?' voted-down':''}" onclick="ratePrompt('${p.id}','down',event)" title="Not helpful">👎 <span>${rating.down}</span></button>
+      <button class="rating-btn${userVote==='up'?' voted-up':''}" onclick="ratePrompt('${p.id}','up',event)" title="Helpful — vote saves on this device">👍 <span>${rating.up}</span></button>
+      <button class="rating-btn${userVote==='down'?' voted-down':''}" onclick="ratePrompt('${p.id}','down',event)" title="Not helpful — vote saves on this device">👎 <span>${rating.down}</span></button>
       ${copies>0?`<span class="copy-count">📋 Copied <span>${copies.toLocaleString()}</span>x</span>`:''}
     </div>
     <div class="cfoot">
@@ -1737,6 +1909,184 @@ function exportPDF(){
 /* ════════════════════════════════════════
    MODAL
 ════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   MULTI-TOOL COMPATIBILITY
+════════════════════════════════════════ */
+const TOOL_COMPAT = {
+  chatgpt:    [{name:'Claude',    icon:'🧠', url:'https://claude.ai'},
+               {name:'Gemini',   icon:'✨', url:'https://gemini.google.com'}],
+  midjourney: [{name:'DALL·E 3', icon:'🖼️', url:'https://openai.com/dall-e-3'},
+               {name:'Stable Diffusion', icon:'🎨', url:'https://stability.ai'}],
+  other:      [{name:'ChatGPT',  icon:'🤖', url:'https://chat.openai.com'},
+               {name:'Claude',   icon:'🧠', url:'https://claude.ai'},
+               {name:'Gemini',   icon:'✨', url:'https://gemini.google.com'}],
+};
+
+
+
+/* ════════════════════════════════════════
+   HOW DO I PAGE — Task Navigator
+════════════════════════════════════════ */
+const HOW_DO_I = [
+  {task:"Write a viral LinkedIn post", icon:"💼", cat:"Social Media",
+   prompts:["LinkedIn Thought Leadership","Hook Formula Master","Brand Voice & Tone Guide"],
+   tools:["ChatGPT","Claude","Gemini"],
+   tip:"Use the hook formula first, then apply your brand voice."},
+  {task:"Create a fantasy landscape image", icon:"🏔️", cat:"Image Generation",
+   prompts:["Fantasy Epic Landscape","Cinematic Portrait","Dreamy Surreal Architecture"],
+   tools:["Midjourney","DALL·E 3"],
+   tip:"Add --ar 16:9 and --stylize 1000 in Midjourney for epic results."},
+  {task:"Write a cold email that gets replies", icon:"📧", cat:"Business",
+   prompts:["Cold Email Outreach","Hook Formula Master","Negotiation Script Writer"],
+   tools:["ChatGPT","Claude"],
+   tip:"Keep it under 130 words. One ask only."},
+  {task:"Build an AI agent for my business", icon:"🤖", cat:"AI Agents",
+   prompts:["Build Your First AI Agent","AI Agent System Prompt Designer","Customer Service AI Agent"],
+   tools:["ChatGPT","Claude"],
+   tip:"Start with the system prompt designer before building anything."},
+  {task:"Grow my Instagram or TikTok", icon:"📱", cat:"Social Media",
+   prompts:["Viral Content Idea Generator","Hook Formula Master","Instagram Caption Pack"],
+   tools:["ChatGPT","Claude","Gemini"],
+   tip:"Generate 25 ideas, then pick the 3 most counterintuitive ones."},
+  {task:"Negotiate a higher salary", icon:"💰", cat:"Career",
+   prompts:["Negotiation Script Writer","Interview Prep Coach","10-Year Career Roadmap"],
+   tools:["ChatGPT","Claude"],
+   tip:"Run the script 3 times with different scenarios before the meeting."},
+  {task:"Create a product ad photo", icon:"📸", cat:"Image Generation",
+   prompts:["Studio Product Photography","Luxury Brand Product Ad","Hyperrealistic Food Photography"],
+   tools:["Midjourney","DALL·E 3"],
+   tip:"Use --style raw in Midjourney for the most photorealistic product shots."},
+  {task:"Write a blog post that ranks on Google", icon:"📝", cat:"Writing",
+   prompts:["Professional Blog Post Writer","SEO Content Brief Builder","Hook Formula Master"],
+   tools:["ChatGPT","Claude","Gemini"],
+   tip:"Build the SEO brief first, then write the post — not the other way around."},
+  {task:"Recover from burnout", icon:"🧘", cat:"Wellness",
+   prompts:["Burnout Recovery Roadmap","Morning Routine Designer","Stress Relief Action Plan"],
+   tools:["ChatGPT","Claude"],
+   tip:"Start with the burnout assessment before jumping to solutions."},
+  {task:"Build a startup pitch deck", icon:"🚀", cat:"Business",
+   prompts:["Pitch Deck Narrative Builder","Business Plan One-Pager","Competitor Analysis Report"],
+   tools:["ChatGPT","Claude"],
+   tip:"Lead with the problem. Investors fund solutions to big problems."},
+  {task:"Understand a legal contract", icon:"⚖️", cat:"Legal",
+   prompts:["Contract Plain English Explainer","NDA Generator","Terms of Service Generator"],
+   tools:["ChatGPT","Claude"],
+   tip:"Always paste the actual contract text — never describe it from memory."},
+  {task:"Buy my first home", icon:"🏠", cat:"Real Estate",
+   prompts:["First-Time Home Buyer Guide","Home Buyer Negotiation Script","Rental Property ROI Calculator"],
+   tools:["ChatGPT","Claude"],
+   tip:"Run the ROI calculator on any property before making an offer."},
+  {task:"Get fit in 90 days", icon:"💪", cat:"Health",
+   prompts:["90-Day Health Transformation","Personal Fitness Program Builder","Doctor Appointment Prep"],
+   tools:["ChatGPT","Claude"],
+   tip:"The meal plan is 80% of the result. Start there, not the workout."},
+  {task:"Write a children's book", icon:"📚", cat:"Creative",
+   prompts:["Children's Story Creator","Character Design Brief","World Building Guide"],
+   tools:["ChatGPT","Claude"],
+   tip:"Set the age group first — vocabulary and sentence length change dramatically."},
+  {task:"Create a cinematic portrait", icon:"🎬", cat:"Image Generation",
+   prompts:["Cinematic Portrait","Cinematic Car Night Scene","Fashion Editorial Shot"],
+   tools:["Midjourney","DALL·E 3"],
+   tip:"Add 'shallow depth of field, 85mm f/1.4' to any portrait prompt."},
+  {task:"Start a side hustle", icon:"💡", cat:"Business",
+   prompts:["Side Hustle Blueprint","Viral Content Idea Generator","Cold Email Outreach"],
+   tools:["ChatGPT","Claude"],
+   tip:"The blueprint finds your speed-to-first-dollar path — start there."},
+  {task:"Automate tasks with AI", icon:"⚙️", cat:"AI Agents",
+   prompts:["Zapier AI Agent Builder","Make.com AI Scenario Builder","Email Management AI Agent"],
+   tools:["ChatGPT","Claude"],
+   tip:"Map the task on paper before touching any automation tool."},
+  {task:"Generate a logo or brand identity", icon:"🎨", cat:"Design",
+   prompts:["Minimalist Logo Concept","Brand Identity Naming System","Abstract Bauhaus Poster"],
+   tools:["Midjourney","DALL·E 3"],
+   tip:"Request 'multiple layout variations' to get more options in one generation."},
+  {task:"Prepare for a doctor visit", icon:"🏥", cat:"Health",
+   prompts:["Doctor Appointment Prep","Medication & Supplement Guide","Mental Health Self-Assessment"],
+   tools:["ChatGPT","Claude"],
+   tip:"Print the summary the AI creates and hand it to your doctor."},
+  {task:"Sell my home fast", icon:"🏡", cat:"Real Estate",
+   prompts:["Home Seller Action Plan","Property Listing Description","Property Listing Social Pack"],
+   tools:["ChatGPT","Claude"],
+   tip:"The pre-listing checklist alone can add thousands to your sale price."},
+];
+
+let activeHowdoiCat = 'All';
+
+function renderHowdoiPage(){
+  const cats = ['All', ...new Set(HOW_DO_I.map(h => h.cat))];
+  const catsEl = document.getElementById('howdoiCats');
+  if(catsEl){
+    catsEl.innerHTML = cats.map(c =>
+      `<span class="howdoi-cat-pill${c===activeHowdoiCat?' active':''}"
+        onclick="setHowdoiCat('${c}')">${c}</span>`
+    ).join('');
+  }
+  renderHowdoiGrid('');
+}
+
+function setHowdoiCat(cat){
+  activeHowdoiCat = cat;
+  renderHowdoiPage();
+}
+
+function filterHowdoi(q){
+  renderHowdoiGrid(q);
+}
+
+function renderHowdoiGrid(q){
+  const g = document.getElementById('howdoiGrid');
+  if(!g) return;
+  let items = HOW_DO_I;
+  if(activeHowdoiCat !== 'All')
+    items = items.filter(h => h.cat === activeHowdoiCat);
+  if(q && q.trim()){
+    const lq = q.toLowerCase();
+    items = items.filter(h =>
+      h.task.toLowerCase().includes(lq) ||
+      h.cat.toLowerCase().includes(lq) ||
+      h.tools.some(t => t.toLowerCase().includes(lq))
+    );
+  }
+  if(!items.length){
+    g.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <span class="empty-e">🔍</span>
+      <h3>No tasks found</h3>
+      <p>Try a different search or browse all categories.</p>
+    </div>`;
+    return;
+  }
+  g.innerHTML = items.map(h => {
+    const matched = h.prompts
+      .map(name => PROMPTS.find(p => p.name === name))
+      .filter(Boolean);
+    const toolLabel = t =>
+      t==='chatgpt'?'🤖 ChatGPT':t==='midjourney'?'🎨 Midjourney':'⚙️ Other';
+    return `
+    <div class="howdoi-card">
+      <div class="howdoi-task">
+        <span class="howdoi-task-icon">${h.icon}</span>
+        "I want to ${h.task}"
+      </div>
+      <div class="howdoi-recs">
+        ${matched.map(p => `
+          <div class="howdoi-rec" onclick="openModal('${p.id}')">
+            <div class="howdoi-rec-name">${p.name}</div>
+            <div class="howdoi-rec-meta">
+              <span class="howdoi-rec-tool">${toolLabel(p.tool)}</span>
+              <span class="howdoi-rec-cat">${p.cat}</span>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="howdoi-tools">
+        <strong>Best tools:</strong>
+        ${h.tools.map(t=>`<span class="howdoi-tool-chip">${t}</span>`).join('')}
+      </div>
+      ${h.tip?`<div class="howdoi-tip">💡 ${h.tip}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
 function openModal(id){
   const p = PROMPTS.find(x => x.id === id);
   if(!p) return;
@@ -1759,6 +2109,23 @@ function openModal(id){
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   gaTrack('view_prompt', {prompt_name: p.name, tool: p.tool});
+
+  // Show multi-tool compat tags
+  const compat = TOOL_COMPAT[p.tool] || [];
+  const compatWrap = document.getElementById('mCompat');
+  const compatTags = document.getElementById('mCompatTags');
+  if(compatWrap && compatTags){
+    if(compat.length > 0){
+      compatTags.innerHTML = compat.map(t =>
+        `<a class="compat-tag" href="${t.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+          ${t.icon} ${t.name}
+        </a>`
+      ).join('');
+      compatWrap.style.display = 'block';
+    } else {
+      compatWrap.style.display = 'none';
+    }
+  }
 }
 function closeModal(){
   document.getElementById('overlay').classList.remove('open');
@@ -1775,8 +2142,11 @@ function showPage(p){
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.ntab').forEach(x => x.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
-  const tabIdx = ['library','favorites','submit','learn'].indexOf(p);
-  if(tabIdx !== -1) document.querySelectorAll('.ntab')[tabIdx].classList.add('active');
+  const tabIdx = ['library','favorites','submit','learn','howdoi'].indexOf(p);
+  if(tabIdx !== -1 && document.querySelectorAll('.ntab')[tabIdx]){
+    document.querySelectorAll('.ntab')[tabIdx].classList.add('active');
+  }
+  if(p === 'howdoi') renderHowdoiPage();
   if(p === 'favorites') renderFavGrid();
   setMobileNav(p);
   updateMobileNavBadge();
@@ -2256,6 +2626,12 @@ function init(){
   setupPotd();
   setupPotw();
   updateMobileNavBadge();
+  // Update AI Tools count dynamically from PROMPTS array
+  const uniqueTools = new Set(PROMPTS.map(p => p.tool)).size;
+  const toolEl = document.getElementById('toolCnt');
+  if(toolEl) toolEl.textContent = uniqueTools;
+  // Update categories count dynamically
+  const uniqueCats = new Set(PROMPTS.filter(p=>p.cat!=='Other').map(p=>p.cat)).size;
   document.getElementById('searchInput').addEventListener('input', () => {
     gaTrack('search', {search_term: document.getElementById('searchInput').value});
     renderCards();
@@ -2285,6 +2661,9 @@ if(document.readyState === 'loading'){
     </button>
     <button class="mnav-btn" id="mn-submit" onclick="showPage('submit');setMobileNav('submit')">
       <span class="mnav-icon">✍️</span>Submit
+    </button>
+    <button class="mnav-btn" id="mn-howdoi" onclick="showPage('howdoi');setMobileNav('howdoi')">
+      <span class="mnav-icon">💡</span>How Do I
     </button>
     <button class="mnav-btn" id="mn-favorites" onclick="showPage('favorites');setMobileNav('favorites')">
       <div class="mnav-btn-wrap">
