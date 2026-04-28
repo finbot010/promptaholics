@@ -2,6 +2,8 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
+<!-- ✦ GOOGLE SEARCH CONSOLE VERIFICATION ✦ -->
+<meta name="google-site-verification" content="bgi20GH0vmCJsvKWsTBaHkdYhd_dJrz4Qp6izLdpwD4"/>
 <!-- ✦ GOOGLE ADSENSE ✦ -->
 <meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,6 +14,7 @@
 <meta name="author" content="Promptaholics"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://promptaholics.com"/>
+<link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
 
 <!-- ✦ GRAMMARLY AFFILIATE VERIFICATION ✦ -->
 <meta name='impact-site-verification' value='b4606a47-696e-498a-ad77-a9f1b4dd13f3'/>
@@ -890,6 +893,129 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   .card{padding:14px;}
   .cname{font-size:13px;}
 }
+
+/* ══ PREMIUM COMING SOON BANNER ══ */
+.premium-banner{
+  background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(255,98,36,.08));
+  border-bottom:1px solid rgba(139,92,246,.25);
+  padding:14px 30px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  transition:background .3s;
+}
+.premium-banner-left{display:flex;align-items:center;gap:12px;}
+.premium-banner-icon{
+  font-size:24px;flex-shrink:0;
+  animation:pulse 2.5s infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
+.premium-banner-text{}
+.premium-banner-title{
+  font-family:'Syne','Georgia',serif;font-size:15px;font-weight:800;
+  color:var(--text);margin-bottom:2px;
+}
+.premium-banner-sub{font-size:12px;color:var(--text2);line-height:1.5;}
+.premium-banner-sub strong{color:var(--violet);}
+.premium-banner-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.premium-notify-form{display:flex;gap:8px;align-items:center;}
+.premium-notify-input{
+  background:var(--surface);border:1px solid rgba(139,92,246,.35);
+  color:var(--text);padding:9px 14px;border-radius:9px;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:13px;outline:none;width:220px;
+  transition:border .2s;
+}
+.premium-notify-input:focus{border-color:var(--violet);}
+.premium-notify-input::placeholder{color:var(--text3);}
+.premium-notify-btn{
+  background:var(--violet);color:#fff;border:none;
+  padding:9px 18px;border-radius:9px;cursor:pointer;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:13px;font-weight:700;transition:background .15s;
+  white-space:nowrap;
+}
+.premium-notify-btn:hover{background:#7c3aed;}
+.premium-notify-btn:disabled{opacity:.6;cursor:not-allowed;}
+.premium-success{
+  font-size:13px;color:var(--teal);font-weight:600;
+  display:none;align-items:center;gap:6px;
+}
+.premium-success.show{display:flex;}
+.premium-badge{
+  background:rgba(139,92,246,.15);color:var(--violet);
+  border:1px solid rgba(139,92,246,.3);
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
+  letter-spacing:.8px;text-transform:uppercase;flex-shrink:0;
+}
+
+/* ══ PREMIUM PAGE SECTION ══ */
+.premium-section{
+  padding:56px 30px;
+  background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(255,98,36,.04));
+  border-bottom:1px solid var(--border);
+}
+.premium-section-inner{max-width:900px;margin:0 auto;}
+.premium-section-head{text-align:center;margin-bottom:40px;}
+.premium-section-head h2{
+  font-family:'Syne','Georgia',serif;
+  font-size:clamp(26px,4vw,44px);font-weight:800;
+  letter-spacing:-1.2px;margin-bottom:10px;
+}
+.premium-section-head p{color:var(--text2);font-size:16px;max-width:520px;margin:0 auto;}
+.packs-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;margin-bottom:36px;
+}
+.pack-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:22px;position:relative;overflow:hidden;
+  transition:all .2s;
+}
+.pack-card:hover{border-color:rgba(139,92,246,.4);transform:translateY(-2px);box-shadow:0 10px 36px var(--shadow);}
+.pack-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--violet),var(--orange));
+}
+.pack-soon-badge{
+  position:absolute;top:16px;right:16px;
+  background:rgba(139,92,246,.12);color:var(--violet);
+  border:1px solid rgba(139,92,246,.25);
+  font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.8px;
+}
+.pack-icon{font-size:32px;margin-bottom:12px;display:block;}
+.pack-name{
+  font-family:'Syne','Georgia',serif;font-size:17px;font-weight:800;
+  color:var(--text);margin-bottom:6px;
+}
+.pack-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;}
+.pack-features{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:16px;}
+.pack-features li{
+  font-size:12px;color:var(--text2);
+  display:flex;align-items:center;gap:7px;
+}
+.pack-features li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;}
+.pack-price-row{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.pack-price{font-family:'Syne',serif;font-size:22px;font-weight:800;color:var(--text);}
+.pack-price span{font-size:13px;color:var(--text3);font-family:'Instrument Sans',sans-serif;font-weight:400;}
+.pack-notify-btn{
+  background:rgba(139,92,246,.1);color:var(--violet);
+  border:1px solid rgba(139,92,246,.28);
+  padding:8px 16px;border-radius:9px;cursor:pointer;
+  font-family:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  font-size:12px;font-weight:700;transition:all .15s;white-space:nowrap;
+}
+.pack-notify-btn:hover{background:var(--violet);color:#fff;border-color:var(--violet);}
+.pack-card.featured-pack{border-color:rgba(139,92,246,.35);}
+.premium-cta-row{text-align:center;}
+.premium-cta-row p{font-size:13px;color:var(--text3);margin-top:10px;}
+
+@media(max-width:640px){
+  .premium-banner{padding:12px 16px;}
+  .premium-notify-input{width:160px;}
+  .premium-section{padding:40px 16px;}
+  .packs-grid{grid-template-columns:1fr;}
+}
 </style>
 
 <!-- ✦ PROMPT DATA — edit prompts.js to add/modify prompts ✦ -->
@@ -977,6 +1103,25 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 <div class="nf-banner">
   <div class="nf-dot"></div>
   <span>🔌 <strong>Powered by Netlify Forms</strong> — Community submissions go straight to your Netlify dashboard.</span>
+</div>
+
+<!-- ✦ PREMIUM COMING SOON BANNER ✦ -->
+<div class="premium-banner" id="premiumBanner">
+  <div class="premium-banner-left">
+    <span class="premium-banner-icon">⚡</span>
+    <div class="premium-banner-text">
+      <div class="premium-banner-title">Premium Content Creation Pack — Coming Soon</div>
+      <div class="premium-banner-sub">50+ deep content creation prompts for creators, marketers & brands. <strong>Be first to know.</strong></div>
+    </div>
+  </div>
+  <div class="premium-banner-right">
+    <span class="premium-badge">Coming Soon</span>
+    <div class="premium-notify-form">
+      <input type="email" class="premium-notify-input" id="bannerEmail" placeholder="your@email.com" autocomplete="email"/>
+      <button class="premium-notify-btn" onclick="notifyMe('bannerEmail','bannerSuccess')">Notify Me</button>
+    </div>
+    <div class="premium-success" id="bannerSuccess">✅ You're on the list!</div>
+  </div>
 </div>
 
 <!-- FEATURED STRIP -->
@@ -1441,6 +1586,106 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   </div>
   <div class="howdoi-cats" id="howdoiCats"></div>
   <div class="howdoi-grid" id="howdoiGrid"></div>
+</div>
+
+<!-- ✦ PREMIUM PACKS SECTION ✦ -->
+<div class="premium-section" id="premium-packs">
+  <div class="premium-section-inner">
+    <div class="premium-section-head">
+      <div class="pill" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.28);color:var(--violet);">⚡ Premium</div>
+      <h2>Premium Prompt <span style="color:var(--violet)">Packs</span></h2>
+      <p>Go deeper with curated packs of 50+ specialized prompts. Built for professionals who need more than a starting point.</p>
+    </div>
+    <div class="packs-grid">
+
+      <!-- PACK 1: Content Creation (FEATURED — launching first) -->
+      <div class="pack-card featured-pack">
+        <div class="pack-soon-badge">Launching First</div>
+        <span class="pack-icon">🎬</span>
+        <div class="pack-name">Content Creation Pack</div>
+        <div class="pack-desc">50+ prompts for creators, marketers, and brands. From viral scripts to full content calendars — everything you need to create consistently.</div>
+        <ul class="pack-features">
+          <li>YouTube scripts, hooks, thumbnails</li>
+          <li>TikTok & Reels viral frameworks</li>
+          <li>Email newsletters & sequences</li>
+          <li>LinkedIn thought leadership</li>
+          <li>Content calendar planning</li>
+          <li>Brand voice & tone system</li>
+        </ul>
+        <div class="pack-price-row">
+          <div class="pack-price">$9 <span>one-time</span></div>
+          <button class="pack-notify-btn" onclick="notifyMe('packEmail1','packSuccess1')">🔔 Notify Me</button>
+        </div>
+        <input type="email" id="packEmail1" placeholder="your@email.com"
+          style="width:100%;margin-top:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;"/>
+        <div class="premium-success" id="packSuccess1" style="margin-top:8px;">✅ You're on the list!</div>
+      </div>
+
+      <!-- PACK 2: AI Agents -->
+      <div class="pack-card">
+        <div class="pack-soon-badge">Coming Soon</div>
+        <span class="pack-icon">🤖</span>
+        <div class="pack-name">AI Agent Builder Pack</div>
+        <div class="pack-desc">50+ prompts for building, deploying, and optimizing AI agents with Zapier, Make, n8n, and custom tools.</div>
+        <ul class="pack-features">
+          <li>System prompt templates</li>
+          <li>Zapier & Make workflows</li>
+          <li>Customer service agents</li>
+          <li>Research automation</li>
+          <li>Sales outreach agents</li>
+        </ul>
+        <div class="pack-price-row">
+          <div class="pack-price">$12 <span>one-time</span></div>
+          <button class="pack-notify-btn" onclick="notifyMe('packEmail2','packSuccess2')">🔔 Notify Me</button>
+        </div>
+        <input type="email" id="packEmail2" placeholder="your@email.com"
+          style="width:100%;margin-top:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;"/>
+        <div class="premium-success" id="packSuccess2" style="margin-top:8px;">✅ You're on the list!</div>
+      </div>
+
+      <!-- PACK 3: Midjourney Master -->
+      <div class="pack-card">
+        <div class="pack-soon-badge">Coming Soon</div>
+        <span class="pack-icon">🎨</span>
+        <div class="pack-name">Midjourney Master Pack</div>
+        <div class="pack-desc">75+ image generation prompts covering portraits, landscapes, product photography, architecture, and viral social media trends.</div>
+        <ul class="pack-features">
+          <li>Cinematic portrait formulas</li>
+          <li>Viral social media styles</li>
+          <li>Product & commercial shots</li>
+          <li>Architecture & interiors</li>
+          <li>Parameter cheat sheets</li>
+        </ul>
+        <div class="pack-price-row">
+          <div class="pack-price">$15 <span>one-time</span></div>
+          <button class="pack-notify-btn" onclick="notifyMe('packEmail3','packSuccess3')">🔔 Notify Me</button>
+        </div>
+        <input type="email" id="packEmail3" placeholder="your@email.com"
+          style="width:100%;margin-top:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;"/>
+        <div class="premium-success" id="packSuccess3" style="margin-top:8px;">✅ You're on the list!</div>
+      </div>
+
+    </div>
+
+    <!-- Bundle teaser -->
+    <div class="premium-cta-row">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 28px;display:inline-flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;max-width:600px;">
+        <div style="text-align:left;">
+          <div style="font-family:'Syne',serif;font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px;">🚀 Complete Bundle</div>
+          <div style="font-size:13px;color:var(--text2);">All packs + future releases. One payment, forever access.</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Syne',serif;font-size:26px;font-weight:800;color:var(--orange);">$39</div>
+          <div style="font-size:11px;color:var(--text3);">one-time · all packs</div>
+        </div>
+        <button class="pack-notify-btn" onclick="notifyMe('bundleEmail','bundleSuccess')" style="background:var(--orange);border-color:var(--orange);color:#fff;">🔔 Notify Me</button>
+      </div>
+      <input type="email" id="bundleEmail" placeholder="your@email.com"
+        style="display:block;margin:10px auto 0;max-width:280px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;width:100%;"/>
+      <div class="premium-success" id="bundleSuccess" style="justify-content:center;margin-top:8px;">✅ You're on the list!</div>
+      <p>Free library stays free forever. Premium packs are optional extras.</p>
+    </div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -2510,6 +2755,36 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+/* ════════════════════════════════════════
+   PREMIUM NOTIFY ME
+   Submits email to Netlify form
+   No backend needed — goes to Netlify dashboard
+════════════════════════════════════════ */
+function notifyMe(inputId, successId){
+  const input   = document.getElementById(inputId);
+  const success = document.getElementById(successId);
+  if(!input) return;
+  const email = input.value.trim();
+  if(!email || !email.includes('@')){
+    input.style.borderColor = 'var(--pink)';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+  // Submit to Netlify form
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({'form-name':'premium-notify','email':email}).toString()
+  }).catch(() => {}); // fail silently — show success either way
+
+  // Show success
+  input.style.display = 'none';
+  if(success){ success.classList.add('show'); }
+  gaTrack('premium_notify', {email_captured: true});
+}
+
 function init(){
   applyTheme(theme);
   renderAll();
@@ -2579,5 +2854,11 @@ if(document.readyState === 'loading'){
   data-x_margin="18"
   data-y_margin="18">
 </script>
+
+<!-- Hidden Netlify form for premium notify emails -->
+<form name="premium-notify" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email"/>
+  <input type="text" name="bot-field"/>
+</form>
 </body>
 </html>

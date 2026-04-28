@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- ✦ HOMEPAGE — main prompt library app -->
+  <url>
+    <loc>https://promptaholics.com/</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ✦ SEO ARTICLE PAGE — targets "AI prompt library" keyword -->
+  <url>
+    <loc>https://promptaholics.com/ai-prompt-library.html</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ✦ PRIVACY POLICY -->
+  <url>
+    <loc>https://promptaholics.com/privacy.html</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

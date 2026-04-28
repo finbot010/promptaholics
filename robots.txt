@@ -1,0 +1,10 @@
+# ═══════════════════════════════════════
+#  PROMPTAHOLICS — robots.txt
+#  Tells search engines how to crawl the site
+# ═══════════════════════════════════════
+
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap
+Sitemap: https://promptaholics.com/sitemap.xml
