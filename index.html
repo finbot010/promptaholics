@@ -1267,7 +1267,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     <h1 class="ht">AI Prompts for<br/><span class="acc">Every</span> <span class="ita">Creator</span></h1>
     <p class="hero-sub">Copy-ready prompts for ChatGPT, Midjourney, DALL-E, Stable Diffusion and more. No sign-up. No paywalls.</p>
     <div class="hstats">
-      <div class="hs"><span class="hs-n" id="totCnt">181</span><div class="hs-l">Prompts</div></div>
+      <div class="hs"><span class="hs-n" id="totCnt">245</span><div class="hs-l">Prompts</div></div>
       <div class="hs"><span class="hs-n" id="toolCnt">3</span><div class="hs-l">AI Tools</div></div>
       <div class="hs"><span class="hs-n">8</span><div class="hs-l">Categories</div></div>
       <div class="hs"><span class="hs-n">∞</span><div class="hs-l">Free Forever</div></div>
@@ -1697,7 +1697,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
   <div class="howdoi-hero">
     <div class="pill">💡 Task Navigator</div>
     <h2>How Do I <span style="color:var(--violet)">…?</span></h2>
-    <p>Pick a goal and we'll match you to the right prompts and AI tools. Perfect for beginners navigating 142+ prompts.</p>
+    <p>Pick a goal and we'll match you to the right prompts and AI tools. Perfect for beginners navigating 245+ prompts.</p>
   </div>
   <div class="howdoi-search-wrap">
     <div class="howdoi-search">
@@ -2957,9 +2957,17 @@ function init(){
   setupPotd();
   updateMobileNavBadge();
   // Update AI Tools count dynamically from PROMPTS array
+  // Update stats dynamically from PROMPTS array
   const uniqueTools = new Set(PROMPTS.map(p => p.tool)).size;
   const toolEl = document.getElementById('toolCnt');
   if(toolEl) toolEl.textContent = uniqueTools;
+  const totEl = document.getElementById('totCnt');
+  if(totEl) totEl.textContent = PROMPTS.length;
+  const catEl = document.getElementById('catCnt');
+  if(catEl){
+    const uniqueCats = new Set(PROMPTS.filter(p=>p.cat!=='Other').map(p=>p.cat)).size;
+    catEl.textContent = uniqueCats;
+  }
   // Update categories count dynamically
   const uniqueCats = new Set(PROMPTS.filter(p=>p.cat!=='Other').map(p=>p.cat)).size;
   document.getElementById('searchInput').addEventListener('input', () => {
