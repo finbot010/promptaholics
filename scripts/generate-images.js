@@ -185,9 +185,23 @@ async function main() {
     console.log(`\n[${i + 1}/${PROMPTS.length}] Generating: ${p.name}`);
 
     try {
-      // Generate via DALL·E 3
+      // Generate via DALL·E 3 — retry up to 3 times on failure
       console.log(`  → Calling DALL·E 3 API...`);
-      const imageUrl = await generateImage(p.dalle_prompt);
+      let imageUrl = null;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          imageUrl = await generateImage(p.dalle_prompt);
+          break;
+        } catch (retryErr) {
+          if (attempt < 3) {
+            console.log(`  ⚠️ Attempt ${attempt} failed: ${retryErr.message}`);
+            console.log(`  ⏳ Retrying in 30 seconds...`);
+            await new Promise(r => setTimeout(r, 30000));
+          } else {
+            throw retryErr;
+          }
+        }
+      }
       console.log(`  ✅ Image generated`);
 
       // Download and save
@@ -205,9 +219,11 @@ async function main() {
       results.push({ ...p, success: false, error: err.message });
     }
 
-    // Small delay between API calls to be respectful
+    // Wait 65 seconds between calls to respect OpenAI's rate limit
+    // (1 image per minute for DALL·E 3 HD)
     if (i < PROMPTS.length - 1) {
-      await new Promise(r => setTimeout(r, 1000));
+      console.log(`  ⏳ Waiting 65 seconds before next image (rate limit)...`);
+      await new Promise(r => setTimeout(r, 65000));
     }
   }
 
@@ -226,7 +242,8 @@ async function main() {
   console.log(`📁 Images saved to: ${IMAGES_DIR}`);
   console.log('🚀 Netlify will auto-deploy on next push');
 
-  process.exit(failures > 0 ? 1 : 0);
+  // Only fail if ALL images failed — partial success is OK
+  process.exit(failures === PROMPTS.length ? 1 : 0);
 }
 
 main().catch(err => {
