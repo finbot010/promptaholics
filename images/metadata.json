@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-05-05T22:58:25.397Z",
+  "week": 18,
+  "images": [
+    {
+      "filename": "golden-hour-portrait.jpg",
+      "name": "Golden Hour Portrait",
+      "category": "Photography",
+      "tool": "DALL·E 3",
+      "library_prompt": "Editorial portrait of [SUBJECT DESCRIPTION] during golden hour, warm amber and coral light from the side, shot on Sony A7R V with 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, natural outdoor setting [LOCATION], Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw"
+    },
+    {
+      "filename": "action-figure-box.jpg",
+      "name": "AI Action Figure Box",
+      "category": "Image Generation",
+      "tool": "DALL·E 3",
+      "library_prompt": "Photorealistic collectible toy packaging — [PERSON] as an action figure in a clear plastic clamshell blister pack, branded cardboard backing, name [NAME] in bold retro toy font, accessories: [LIST 3 ITEMS], shelf-ready retail photography, studio lighting, stark white background --ar 2:3 --v 7 --stylize 500"
+    },
+    {
+      "filename": "urban-street-photography.jpg",
+      "name": "Urban Street Photography",
+      "category": "Photography",
+      "tool": "DALL·E 3",
+      "library_prompt": "Decisive moment street photography in [CITY], [SUBJECT/SCENE], shot on Leica M11 with 35mm Summilux, available light only, high contrast black and white, authentic grain, geometric shadows, Henri Cartier-Bresson documentary style --ar 3:2 --v 6.1 --style raw --stylize 400"
+    },
+    {
+      "filename": "character-forge.jpg",
+      "name": "The Character Forge",
+      "category": "Creative & Art",
+      "tool": "DALL·E 3",
+      "library_prompt": "Design an original character: [CHARACTER CONCEPT]. Full character sheet with front, 3/4, and profile views. Art style: [anime / western comic / semi-realistic / Pixar 3D / concept art]. Include detailed elements: facial features and expression, hairstyle and color, outfit design with accessories, signature weapon or item, color palette swatch. The character should convey [PERSONALITY TRAITS]. Professional concept art quality, clean lines, dynamic pose."
+    }
+  ]
+}
