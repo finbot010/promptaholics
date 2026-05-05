@@ -1223,6 +1223,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <button class="ntab" onclick="showPage('favorites')" title="Saved locally on this device — clears if browser data is cleared">Saved <span class="fbadge" id="fbadge">0</span></button>
       <button class="ntab" onclick="showPage('submit')">+ Submit</button>
       <button class="ntab" onclick="showPage('learn')">📚 Learn</button>
+      <a class="ntab" href="creationstation.html" target="_blank" style="text-decoration:none;">⚡ AI Tools</a>
       <button class="ntab" onclick="showPage('about')">About</button>
       <button class="ntab" onclick="showPage('contact')">Contact</button>
       <button class="ntab" onclick="showPage('howdoi')">💡 How Do I…</button>
@@ -1487,6 +1488,21 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 
 <!-- ✦ LEARN TO PROMPT PAGE ✦ -->
 <div class="page" id="page-learn">
+  <!-- Creation Station Banner -->
+  <a href="creationstation.html" target="_blank" style="
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(139,92,246,.08));
+    border:1px solid rgba(255,98,36,.25);border-radius:14px;
+    padding:16px 20px;margin-bottom:20px;text-decoration:none;
+    transition:all .15s;
+  " onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='rgba(255,98,36,.25)'">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:4px;">⚡ New Page</div>
+      <div style="font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:3px;">Creation Station</div>
+      <div style="font-size:13px;color:var(--text2);">50+ curated AI tools for creators — Writing, Video, Audio, Code & more</div>
+    </div>
+    <div style="font-size:22px;flex-shrink:0;">→</div>
+  </a>
   <div class="learn-hero">
     <div class="pill">📚 Free Guide</div>
     <h2>Learn to <span style="color:var(--orange)">Prompt</span> Like a Pro</h2>
@@ -1855,6 +1871,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     <a href="#" onclick="showPage('favorites');return false">Saved</a>
     <a href="privacy.html" target="_blank">Privacy Policy</a>
     <a href="ai-prompt-library.html" target="_blank">Prompt Library Guide</a>
+    <a href="creationstation.html" target="_blank">⚡ Creation Station</a>
     <a href="#" onclick="showPage('about');return false;">About</a>
     <a href="#" onclick="showPage('contact');return false;">Contact</a>
     <a href="https://www.instagram.com/promptaholics/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:#E1306C !important;font-weight:600;">
@@ -3058,6 +3075,9 @@ if(document.readyState === 'loading'){
     <button class="mnav-btn" id="mn-about" onclick="showPage('about');setMobileNav('about')">
       <span class="mnav-icon">✦</span>About
     </button>
+    <a class="mnav-btn" href="creationstation.html" style="text-decoration:none;">
+      <span class="mnav-icon">⚡</span>AI Tools
+    </a>
     <button class="mnav-btn" id="mn-favorites" onclick="showPage('favorites');setMobileNav('favorites')">
       <div class="mnav-btn-wrap">
         <span class="mnav-icon">♥</span>
