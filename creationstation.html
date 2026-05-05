@@ -687,6 +687,21 @@ footer{
 .mag-card:hover .mag-real-img{transform:scale(1.06);}
 .mag-img-bg{position:relative;}
 
+
+/* ── IMAGE LOADING PLACEHOLDER ── */
+.mag-img-bg{
+  display:flex;align-items:center;justify-content:center;
+}
+.mag-coming-label{
+  position:absolute;top:12px;left:12px;
+  font-size:9px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;
+  background:rgba(255,98,36,.15);
+  border:0.5px solid rgba(255,98,36,.3);
+  color:var(--orange);padding:3px 8px;border-radius:8px;
+  z-index:3;
+}
+
 </style>
 </head>
 <body>
@@ -756,7 +771,7 @@ footer{
     <div class="mag-ey-line"></div>
     <div class="mag-ey-text">Image Prompts</div>
     <div class="mag-ey-rule"></div>
-    <div class="mag-ey-count">Auto-generated weekly · DALL·E 3 · 29 image prompts in library</div>
+    <div class="mag-ey-count">AI-generated weekly · hover to copy prompt</div>
   </div>
 
   <div class="mag-grid">
@@ -764,9 +779,10 @@ footer{
     <!-- HERO CARD — Golden Hour Portrait (auto-generated weekly) -->
     <div class="mag-card hero-card" style="grid-row:1/3;" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#1a0800,#2d1200);">
-        <img src="/images/golden-hour-portrait.jpg" alt="Golden Hour Portrait" class="mag-real-img" onerror="this.style.display='none'"/>
+        <img src="/images/golden-hour-portrait.jpg" alt="Golden Hour Portrait" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);"></div>
+      <div class="mag-coming-label">Images generating Monday</div>
       <div class="mag-info">
         <div class="mag-cat-label">Photography · Auto-Generated Weekly</div>
         <div class="mag-card-name">Golden Hour<br>Portrait</div>
@@ -784,7 +800,7 @@ footer{
     <!-- TOP RIGHT — AI Action Figure Box -->
     <div class="mag-card" style="border-radius:0 14px 0 0;" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#000d1a,#001a33);">
-        <img src="/images/action-figure-box.jpg" alt="AI Action Figure Box" class="mag-real-img" onerror="this.style.display='none'"/>
+        <img src="/images/action-figure-box.jpg" alt="AI Action Figure Box" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🤖</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 55%);"></div>
       <div class="mag-info">
@@ -804,7 +820,7 @@ footer{
     <!-- MIDDLE RIGHT — Urban Street Photography -->
     <div class="mag-card" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0a0a,#1a1a1a);">
-        <img src="/images/urban-street-photography.jpg" alt="Urban Street Photography" class="mag-real-img" onerror="this.style.display='none'"/>
+        <img src="/images/urban-street-photography.jpg" alt="Urban Street Photography" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🏙️</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
@@ -824,7 +840,7 @@ footer{
     <!-- BOTTOM RIGHT — The Character Forge -->
     <div class="mag-card" style="border-radius:0 0 14px 0;" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0010,#1a0035);">
-        <img src="/images/character-forge.jpg" alt="The Character Forge" class="mag-real-img" onerror="this.style.display='none'"/>
+        <img src="/images/character-forge.jpg" alt="The Character Forge" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🎨</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
