@@ -1,67 +1,33 @@
-name: Weekly Image Generator 🎨
+name: Weekly Image Generator
 
 on:
   schedule:
     - cron: '0 14 * * 1'
   workflow_dispatch:
-    inputs:
-      reason:
-        description: 'Why are you running this manually?'
-        required: false
-        default: 'Manual refresh'
 
 jobs:
   generate-images:
-    name: Generate Weekly Images
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Generate images via DALL·E 3
+      - name: Generate images
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          node scripts/generate-images.js
+        run: node scripts/generate-images.js
 
-      - name: Check for new images
-        id: check-images
+      - name: Commit images
         run: |
-          if [ -d "images" ] && [ "$(ls -A images/*.jpg 2>/dev/null)" ]; then
-            echo "images_exist=true" >> $GITHUB_OUTPUT
-            echo "✅ Images found:"
-            ls -lh images/*.jpg
-          else
-            echo "images_exist=false" >> $GITHUB_OUTPUT
-            echo "⚠️ No images found"
-          fi
-
-      - name: Commit and push new images
-        if: steps.check-images.outputs.images_exist == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Promptaholics Bot"
-          git add images/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            WEEK=$(date +"%Y-W%V")
-            git commit -m "Weekly image refresh — $WEEK"
-            git push
-            echo "✅ Images pushed — Netlify will deploy"
-          fi
-
-      - name: Done
-        if: always()
-        run: echo "Workflow complete — $(date)"
+          git config user.email "action@github.com"
+          git config user.name "Promptaholics Bot"
+          git add images/ || true
+          git diff --staged --quiet || git commit -m "Weekly image refresh"
+          git push || true
