@@ -345,7 +345,11 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 .copy-count{font-size:10px;color:var(--text3);margin-top:4px;text-align:center;}
 .copy-count span{color:var(--teal);font-weight:600;}
 
-/* Rating system removed */
+
+/* ── Rating stubs (system removed — kept for safety) ── */
+function getRating(id){ return {up:0,down:0}; }
+function getUserVote(id){ return null; }
+
 
 /* ══ SOCIAL SHARE ══ */
 .share-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
@@ -2168,8 +2172,6 @@ function cardHTML(p, i, pre){
   const tl  = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
   const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/\n/g,' ');
   const copies = getCopyCount(p.id);
-  const rating = getRating(p.id);
-  const userVote = getUserVote(p.id);
   return `<div class="card${p.feat?' feat-card':''}" style="animation-delay:${Math.min(i*.035,.5)}s">
     <div class="ctop">
       <div class="cname">${p.name}</div>
@@ -2178,6 +2180,7 @@ function cardHTML(p, i, pre){
     <div class="badge ${bc}">${tl}</div>
     <div class="cprev">${prev}</div>
     <div class="ctags">${p.tags.slice(0,4).map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
+    ${copies > 0 ? `<div class="copy-count"><span>${copies}x</span></div>` : ''}
     <div class="cfoot">
       <button class="bcopy" id="${pre}${p.id}" onclick="doCopy('${p.id}','${pre}${p.id}',event)">📋 Copy</button>
       <button class="bprev" onclick="openModal('${p.id}')">Preview →</button>
