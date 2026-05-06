@@ -345,16 +345,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 .copy-count{font-size:10px;color:var(--text3);margin-top:4px;text-align:center;}
 .copy-count span{color:var(--teal);font-weight:600;}
 
-/* ══ RATING SYSTEM ══ */
-.rating-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.rating-btn{
-  background:none;border:1px solid var(--border);color:var(--text3);
-  padding:4px 10px;border-radius:20px;cursor:pointer;font-size:12px;
-  transition:all .15s;display:flex;align-items:center;gap:4px;
-}
-.rating-btn:hover,.rating-btn.voted-up{background:rgba(34,197,94,.1);border-color:var(--green);color:var(--green);}
-.rating-btn.voted-down{background:rgba(240,48,112,.1);border-color:var(--pink);color:var(--pink);}
-.rating-score{font-size:11px;color:var(--text3);font-weight:600;}
+/* Rating system removed */
 
 /* ══ SOCIAL SHARE ══ */
 .share-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
@@ -1177,6 +1168,21 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 .social-icon.yt:hover svg{fill:#FF0000;}
 .social-icon.tw:hover svg{fill:#1DA1F2;}
 .social-icon.li:hover svg{fill:#0077B5;}
+
+/* ══ CREATION STATION HERO BUTTON ══ */
+.cs-hero-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:16px;
+  background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(139,92,246,.07));
+  border:1px solid rgba(255,98,36,.28);
+  border-radius:12px;padding:12px 20px;
+  text-decoration:none;transition:all .2s;
+}
+.cs-hero-btn:hover{
+  border-color:var(--orange);
+  background:rgba(255,98,36,.15);
+  transform:translateY(-1px);
+}
 </style>
 
 <!-- ✦ PROMPT DATA — edit prompts.js to add/modify prompts ✦ -->
@@ -1294,6 +1300,22 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
       <div class="hs"><span class="hs-n" id="catCnt">13</span><div class="hs-l">Categories</div></div>
       <div class="hs"><span class="hs-n">∞</span><div class="hs-l">Free Forever</div></div>
     </div>
+    <!-- ✦ CREATION STATION CTA ✦ -->
+    <a href="creationstation.html" target="_blank" rel="noopener" style="
+      display:inline-flex;align-items:center;gap:10px;
+      margin-top:16px;
+      background:linear-gradient(135deg,rgba(255,98,36,.12),rgba(139,92,246,.08));
+      border:1px solid rgba(255,98,36,.3);
+      border-radius:12px;padding:12px 20px;
+      text-decoration:none;transition:all .2s;
+    " onmouseover="this.style.borderColor='var(--orange)';this.style.background='rgba(255,98,36,.18)'"
+       onmouseout="this.style.borderColor='rgba(255,98,36,.3)';this.style.background='linear-gradient(135deg,rgba(255,98,36,.12),rgba(139,92,246,.08))'">
+      <span style="font-size:20px;">⚡</span>
+      <div>
+        <div style="font-family:'Syne','Georgia',serif;font-size:14px;font-weight:800;color:var(--text);line-height:1.2;">Creation Station</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:1px;">50+ curated AI tools for creators →</div>
+      </div>
+    </a>
   </div>
   <!-- ✦ AI SEARCH ENGINE ✦ -->
   <div class="ai-search-wrap">
@@ -1302,7 +1324,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
         <div class="ai-search-badge"><span>🤖</span>AI Search</div>
         <input
           type="text"
-          id="aiSearchInput"
+          id="aiSearchInput" data-ad-region="ai-search"
           placeholder="What are you creating today? e.g. 'write a LinkedIn post' or 'create a fantasy image'"
           autocomplete="off"
         />
@@ -1359,7 +1381,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
     </div>
   </div>
   <!-- ✦ DAILY COPY LIMIT BAR ✦ -->
-<div class="copy-limit-bar" id="copyLimitBar">
+<div class="copy-limit-bar" id="copyLimitBar" data-ad-region="copy-limit-bar">
   <div class="copy-limit-dots">
     <div class="copy-dot"></div>
     <div class="copy-dot"></div>
@@ -1912,7 +1934,7 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 </footer>
 
 <!-- MODAL -->
-<div class="overlay" id="overlay" onclick="obgc(event)">
+<div class="overlay" id="overlay" onclick="obgc(event)" data-ad-region="modal-overlay">
   <div class="modal">
     <div class="mhead"><div class="mtitle" id="mT"></div><button class="mx" onclick="closeModal()">✕</button></div>
     <div class="mbody">
@@ -2156,11 +2178,6 @@ function cardHTML(p, i, pre){
     <div class="badge ${bc}">${tl}</div>
     <div class="cprev">${prev}</div>
     <div class="ctags">${p.tags.slice(0,4).map(t=>`<span class="ctag">${t}</span>`).join('')}</div>
-    <div class="rating-row">
-      <button class="rating-btn${userVote==='up'?' voted-up':''}" onclick="ratePrompt('${p.id}','up',event)" title="Helpful — vote saves on this device">👍 <span>${rating.up}</span></button>
-      <button class="rating-btn${userVote==='down'?' voted-down':''}" onclick="ratePrompt('${p.id}','down',event)" title="Not helpful — vote saves on this device">👎 <span>${rating.down}</span></button>
-      ${copies>0?`<span class="copy-count">📋 Copied <span>${copies.toLocaleString()}</span>x</span>`:''}
-    </div>
     <div class="cfoot">
       <button class="bcopy" id="${pre}${p.id}" onclick="doCopy('${p.id}','${pre}${p.id}',event)">📋 Copy</button>
       <button class="bprev" onclick="openModal('${p.id}')">Preview →</button>
@@ -2576,36 +2593,9 @@ function getRatings(){ return JSON.parse(localStorage.getItem('pa_ratings') || '
 function saveRatings(r){ localStorage.setItem('pa_ratings', JSON.stringify(r)); }
 function getVotes(){ return JSON.parse(localStorage.getItem('pa_votes') || '{}'); }
 function saveVotes(v){ localStorage.setItem('pa_votes', JSON.stringify(v)); }
-
-function getRating(id){
-  const r = getRatings();
-  return r[id] || {up:0, down:0};
-}
 function getUserVote(id){
   return getVotes()[id] || null;
 }
-function ratePrompt(id, dir, e){
-  if(e) e.stopPropagation();
-  const votes = getVotes();
-  const ratings = getRatings();
-  const prev = votes[id];
-  if(!ratings[id]) ratings[id] = {up:0, down:0};
-  // Toggle off if same vote
-  if(prev === dir){
-    ratings[id][dir] = Math.max(0, ratings[id][dir] - 1);
-    delete votes[id];
-  } else {
-    // Remove previous vote
-    if(prev) ratings[id][prev] = Math.max(0, ratings[id][prev] - 1);
-    ratings[id][dir]++;
-    votes[id] = dir;
-  }
-  saveRatings(ratings);
-  saveVotes(votes);
-  renderCards();
-  if(curPage === 'favorites') renderFavGrid();
-}
-
 /* ════════════════════════════════════════
    COPY COUNTER
 ════════════════════════════════════════ */
@@ -3060,7 +3050,7 @@ if(document.readyState === 'loading'){
 </script>
 
 <!-- ✦ MOBILE BOTTOM NAVIGATION ✦ -->
-<nav class="mobile-nav" id="mobileNav">
+<nav class="mobile-nav" id="mobileNav" data-ad-region="mobile-nav">
   <div class="mobile-nav-inner">
     <button class="mnav-btn active" id="mn-library" onclick="showPage('library');setMobileNav('library')">
       <span class="mnav-icon">🔍</span>Library
@@ -3111,7 +3101,7 @@ if(document.readyState === 'loading'){
 </form>
 
 <!-- ✦ COPY LIMIT TOAST ✦ -->
-<div class="copy-gate-toast" id="copyGateToast">
+<div class="copy-gate-toast" id="copyGateToast" data-ad-region="copy-toast">
   <span class="copy-gate-icon">⏰</span>
   <div class="copy-gate-title">You've copied 10 prompts today 🎉</div>
   <div class="copy-gate-msg">You've used your 10 free copies for today. Come back tomorrow for 10 more — the library is free, always.</div>
