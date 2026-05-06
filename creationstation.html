@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -34,6 +34,20 @@
   --font-sans:'Instrument Sans','Segoe UI',Arial,sans-serif;
   --font-display:'Syne','Georgia',serif;
 }
+
+/* ── LIGHT MODE ── */
+.light-mode{
+  --bg:#f8f8f5;--surface:#ffffff;--surface2:#f0f0ed;--surface3:#e8e8e4;
+  --border:#e0ddd6;--border2:#c8c4bc;
+  --text:#18170f;--text2:#58554e;--text3:#9a9590;
+  --shadow:rgba(0,0,0,.08);
+}
+.light-mode header{background:rgba(248,248,245,.96);}
+.light-mode .filter-bar{background:rgba(248,248,245,.97);}
+.light-mode .mag-card{box-shadow:0 2px 12px var(--shadow);}
+.light-mode .tool-card{box-shadow:0 1px 4px var(--shadow);}
+.light-mode .flip-front{border-color:var(--border2);}
+.light-mode .hero-ghost{-webkit-text-stroke-color:rgba(0,0,0,.05);}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-sans);line-height:1.65;font-size:15px;}
@@ -237,18 +251,93 @@ footer{
 .footer-links a:hover{color:var(--orange);}
 
 /* ── RESPONSIVE ── */
+/* ══ COMPREHENSIVE MOBILE OPTIMIZATION ══ */
 @media(max-width:768px){
-  header{padding:0 16px;}
-  .breadcrumb{padding:10px 16px;}
-  .hero{padding:48px 16px 40px;}
-  .hero h1{letter-spacing:-2px;}
-  .filter-bar{padding:0 16px;}
-  .main{padding:28px 16px 60px;}
-  .tools-grid{grid-template-columns:1fr;gap:12px;}
-  .hero-stats{flex-direction:column;}
-  .hstat{border-right:none;border-bottom:1px solid var(--border);padding:12px 20px;}
-  .hstat:last-child{border-bottom:none;}
-  footer{padding:18px 16px;}
+
+  /* Header */
+  header{padding:0 14px;height:52px;}
+  .header-link{display:none;}
+  .logo-name{font-size:14px;}
+
+  /* Breadcrumb */
+  .breadcrumb{padding:8px 16px;font-size:11px;}
+
+  /* Hero */
+  .hero{padding:36px 16px 32px;}
+  .hero h1{font-size:clamp(32px,9vw,56px);letter-spacing:-2px;}
+  .hero-sub{font-size:14px;}
+  .hero-ghost{font-size:80px;right:8px;top:-5px;}
+  .hero-stats{
+    display:grid;grid-template-columns:1fr 1fr;
+    width:100%;border-radius:12px;
+  }
+  .hstat{padding:10px 14px;}
+  .hstat-n{font-size:20px;}
+  .hero-ctas{flex-direction:column;width:100%;}
+  .hero-ctas .btn-primary,.hero-ctas .btn-ghost{
+    width:100%;justify-content:center;padding:13px;
+  }
+
+  /* Filter bar */
+  .filter-bar{padding:0 4px;}
+  .filter-tab{padding:0 12px;font-size:11px;}
+
+  /* Magazine gallery */
+  .mag-eyebrow{padding:20px 16px 14px;}
+  .mag-grid{
+    grid-template-columns:1fr;
+    grid-template-rows:260px 180px 180px 180px;
+    gap:4px;
+    padding:0 16px;
+  }
+  .mag-card.hero-card{
+    grid-column:1;grid-row:1;
+    border-radius:14px 14px 0 0;
+  }
+  .mag-card:nth-child(2){grid-column:1;grid-row:2;border-radius:0;}
+  .mag-card:nth-child(3){grid-column:1;grid-row:3;border-radius:0;}
+  .mag-card:nth-child(4){grid-column:1;grid-row:4;border-radius:0 0 14px 14px;}
+  .mag-card.hero-card .mag-card-name{font-size:17px;}
+  .mag-footer-row{padding:12px 16px 20px;flex-direction:column;gap:8px;}
+
+  /* Section headers */
+  .section-header{padding:24px 16px 14px;flex-direction:column;align-items:flex-start;gap:4px;}
+  .sh-count{font-size:28px;}
+
+  /* Tools grid */
+  .tools-grid{
+    grid-template-columns:1fr;
+    margin:0 16px;
+    gap:0;
+  }
+  .tool-card{border-radius:0;padding:16px;}
+
+  /* Flip cards */
+  .flip-section-head{padding:20px 16px 14px;flex-direction:column;gap:10px;}
+  .fsh-hint{font-size:10px;}
+
+  /* CTA banner */
+  #cta-banner{margin:24px 16px;padding:32px 20px;}
+  #cta-banner h3{font-size:22px;}
+
+  /* Affiliate note */
+  .aff-note{margin:0 16px;font-size:11px;}
+  .section-divider{margin:0 16px;}
+
+  /* Footer */
+  footer{padding:20px 16px;}
+  .footer-inner{flex-direction:column;gap:16px;}
+  .footer-bottom{flex-direction:column;gap:6px;}
+  .flinks{flex-wrap:wrap;gap:12px;}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:30px;letter-spacing:-1.5px;}
+  .mag-grid{padding:0 12px;}
+  .tools-grid{margin:0 12px;}
+  .filter-tab{padding:0 10px;font-size:10px;}
+  .tool-name{font-size:13px;}
+  .tool-desc{font-size:12px;}
 }
 
 /* ══ PROMPT FLIP CARDS SECTION ══ */
@@ -403,16 +492,32 @@ footer{
 .mag-grid{
   display:grid;
   grid-template-columns:1.6fr 1fr;
-  grid-template-rows:280px 200px;
-  gap:3px;
+  grid-template-rows:160px 160px 160px;
+  gap:4px;
   padding:0 40px;
 }
 .mag-card{
   border-radius:0;overflow:hidden;position:relative;cursor:pointer;
+  min-height:0;
 }
-.mag-card:first-child{border-radius:14px 0 0 14px;}
-.mag-card:last-child{border-radius:0 0 14px 0;}
-.mag-card:nth-child(2){border-radius:0 14px 0 0;}
+/* Hero card — left column, spans all 3 rows = 480px tall */
+.mag-card.hero-card{
+  grid-column:1;
+  grid-row:1/4;
+  border-radius:14px 0 0 14px;
+}
+/* Right column cards */
+.mag-card:nth-child(2){
+  grid-column:2;grid-row:1;
+  border-radius:0 14px 0 0;
+}
+.mag-card:nth-child(3){
+  grid-column:2;grid-row:2;
+}
+.mag-card:nth-child(4){
+  grid-column:2;grid-row:3;
+  border-radius:0 0 14px 0;
+}
 
 .mag-img-bg{
   position:absolute;inset:0;
@@ -665,11 +770,11 @@ footer{
   footer{padding:20px;}
 }
 @media(max-width:640px){
-  .mag-grid{grid-template-columns:1fr 1fr;grid-template-rows:200px 160px;}
-  .mag-card.hero-card{grid-column:1/3;grid-row:1;}
-  .mag-card:first-child{border-radius:14px 14px 0 0;}
-  .mag-card:nth-child(2){border-radius:0 0 0 14px;}
-  .mag-card:last-child{border-radius:0 0 14px 0;}
+  .mag-grid{grid-template-columns:1fr;grid-template-rows:280px 200px 200px 200px;}
+  .mag-card.hero-card{grid-column:1;grid-row:1;border-radius:14px 14px 0 0;}
+  .mag-card:nth-child(2){grid-column:1;grid-row:2;border-radius:0;}
+  .mag-card:nth-child(3){grid-column:1;grid-row:3;border-radius:0;}
+  .mag-card:nth-child(4){grid-column:1;grid-row:4;border-radius:0 0 14px 14px;}
   .hero-ghost{font-size:90px;right:10px;}
   .flip-grid{grid-template-columns:1fr 1fr;}
   .flip-card{height:240px;}
@@ -681,11 +786,15 @@ footer{
 .mag-real-img{
   position:absolute;inset:0;
   width:100%;height:100%;
-  object-fit:cover;object-position:center;
+  object-fit:cover;object-position:center top;
   transition:transform .5s ease;
+  border-radius:inherit;
 }
 .mag-card:hover .mag-real-img{transform:scale(1.06);}
-.mag-img-bg{position:relative;}
+.mag-img-bg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
 
 
 /* ── IMAGE LOADING PLACEHOLDER ── */
@@ -717,6 +826,12 @@ footer{
   <div class="header-right">
     <a class="header-link" href="https://promptaholics.com">Prompt Library</a>
     <a class="header-link" href="https://promptaholics.com/ai-prompt-library.html">Guide</a>
+    <button id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode" style="
+      background:var(--surface2);border:1px solid var(--border);
+      color:var(--text2);width:36px;height:36px;border-radius:9px;
+      cursor:pointer;font-size:16px;display:flex;align-items:center;
+      justify-content:center;transition:all .15s;flex-shrink:0;
+    ">🌙</button>
     <a class="header-cta" href="https://promptaholics.com">Browse Prompts →</a>
   </div>
 </header>
@@ -777,7 +892,7 @@ footer{
   <div class="mag-grid">
 
     <!-- HERO CARD — Golden Hour Portrait (auto-generated weekly) -->
-    <div class="mag-card hero-card" style="grid-row:1/3;" onclick="magCopy(this)">
+    <div class="mag-card hero-card" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#1a0800,#2d1200);">
         <img src="/images/golden-hour-portrait.jpg" alt="Golden Hour Portrait" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
       </div>
@@ -2603,6 +2718,29 @@ function flipCopy(btn, e) {
     gtag('event', 'flip_card_copy', {prompt_name: name});
   }
 }
+
+
+/* ── THEME TOGGLE ── */
+(function(){
+  const saved = localStorage.getItem('cs_theme');
+  if(saved === 'light') document.documentElement.classList.add('light-mode');
+})();
+
+function toggleTheme(){
+  const isLight = document.documentElement.classList.toggle('light-mode');
+  localStorage.setItem('cs_theme', isLight ? 'light' : 'dark');
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.textContent = isLight ? '☀️' : '🌙';
+}
+
+// Set correct icon on load
+window.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('themeToggle');
+  if(btn){
+    const isLight = document.documentElement.classList.contains('light-mode');
+    btn.textContent = isLight ? '☀️' : '🌙';
+  }
+});
 
 // ── FILTER / CATEGORY TABS ──
 function showCat(cat, btn) {
