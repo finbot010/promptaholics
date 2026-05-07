@@ -25,6 +25,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- ✦ SEO PAGE 3 — targets "best Midjourney prompts" keyword -->
+  <url>
+    <loc>https://promptaholics.com/best-midjourney-prompts.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- ✦ SEO ARTICLE PAGE — targets "AI prompt library" keyword -->
   <url>
     <loc>https://promptaholics.com/ai-prompt-library.html</loc>
