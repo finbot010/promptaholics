@@ -1268,257 +1268,225 @@ function getUserVote(id){ return null; }
 
 
 <!-- PROMPTS must load before JS -->
-<script src="prompts.js?v=299"></script>
-
+</body>
+</html><script src="prompts.js?v=299"></script>
 <script>
-// ═══════════════════════════════════════
-//  LIBRARY PAGE — Self-contained JS
-// ═══════════════════════════════════════
+// STATE
+var favs = JSON.parse(localStorage.getItem('pa_favs') || '[]');
+var activeCat = 'All';
+var activeTag = '';
+var modalP = null;
+var COPY_LIMIT = 10;
 
-// ── STATE ──
-let favs      = JSON.parse(localStorage.getItem('pa_favs') || '[]');
-let activeCat = 'All';
-let activeTag = '';
-let modalP    = null;
-
-const CATS = [
+var CATS = [
   {n:'All',i:'✦'},{n:'Writing & Content',i:'✍️'},{n:'Business & Marketing',i:'💼'},
   {n:'Image Generation',i:'🎨'},{n:'Code & Tech',i:'💻'},{n:'Creative & Art',i:'🎭'},
   {n:'Education & Learning',i:'📚'},{n:'AI Agents',i:'🤖'},{n:'Other',i:'⚙️'},
   {n:'Wellness',i:'🧘'},{n:'Health',i:'💊'},{n:'Photography',i:'📸'},
-  {n:'Real Estate',i:'🏠'},{n:'Legal',i:'⚖️'},
+  {n:'Real Estate',i:'🏠'},{n:'Legal',i:'⚖️'}
 ];
 
-// ── THEME ──
-const theme = localStorage.getItem('pa_theme') || 'dark';
+// THEME
+var theme = localStorage.getItem('pa_theme') || 'dark';
 if(theme === 'light') document.documentElement.classList.add('light-mode');
 function toggleTheme(){
   localStorage.setItem('pa_theme', theme === 'dark' ? 'light' : 'dark');
   location.reload();
 }
 
-// ── GA ──
-function gaTrack(event, params){ try{ if(typeof gtag!=='undefined') gtag('event',event,params||{}); }catch(e){} }
+// GA
+function gaTrack(ev, p){ try{ if(typeof gtag !== 'undefined') gtag('event', ev, p||{}); }catch(e){} }
 
-// ── COPY LIMIT ──
-const COPY_LIMIT = 10;
-function getTodayKey(){ const d=new Date(); return 'pa_daily_'+d.getFullYear()+'_'+(d.getMonth()+1)+'_'+d.getDate(); }
+// COPY LIMIT
+function getTodayKey(){ var d=new Date(); return 'pa_daily_'+d.getFullYear()+'_'+(d.getMonth()+1)+'_'+d.getDate(); }
 function getDailyCopies(){ try{ return parseInt(localStorage.getItem(getTodayKey())||'0'); }catch(e){ return 0; } }
 function canCopy(){ return getDailyCopies() < COPY_LIMIT; }
 function incrementDailyCopy(){ try{ localStorage.setItem(getTodayKey(), getDailyCopies()+1); }catch(e){} }
-
 function updateCopyLimitBar(){
-  const used = getDailyCopies();
-  const remaining = Math.max(0, COPY_LIMIT - used);
-  document.querySelectorAll('.copy-dot').forEach((d,i) => {
+  var used = getDailyCopies();
+  var remaining = Math.max(0, COPY_LIMIT - used);
+  document.querySelectorAll('.copy-dot').forEach(function(d,i){
     d.style.background = i < used ? 'var(--orange)' : 'var(--surface3)';
   });
-  const lbl = document.querySelector('.copy-limit-label');
-  if(lbl) lbl.innerHTML = remaining > 0
-    ? '<strong>'+remaining+'</strong> free copies left today'
-    : '<strong>Come back tomorrow</strong> for 10 more free copies';
+  var lbl = document.querySelector('.copy-limit-label');
+  if(lbl) lbl.innerHTML = remaining > 0 ? '<strong>'+remaining+'</strong> free copies left today' : '<strong>Come back tomorrow</strong> for 10 more';
 }
+function hideGateToast(){ var t=document.getElementById('copyGateToast'); if(t) t.style.display='none'; }
+function showGateToast(){ var t=document.getElementById('copyGateToast'); if(t){ t.style.display='block'; setTimeout(function(){ t.style.display='none'; }, 8000); } }
 
-function hideGateToast(){
-  const t = document.getElementById('copyGateToast');
-  if(t) t.style.display = 'none';
-}
-function showGateToast(){
-  const t = document.getElementById('copyGateToast');
-  if(t){ t.style.display = 'block'; setTimeout(() => t.style.display='none', 8000); }
-}
-
-// ── SAFE COPY ──
+// COPY
 function safeCopy(text, btnId){
-  const btn = btnId ? document.getElementById(btnId) : null;
-  const orig = btn ? btn.innerHTML : '';
+  var btn = btnId ? document.getElementById(btnId) : null;
+  var orig = btn ? btn.innerHTML : '';
   if(navigator.clipboard){
-    navigator.clipboard.writeText(text).then(() => {
-      if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(()=>btn.innerHTML=orig, 2000); }
+    navigator.clipboard.writeText(text).then(function(){
+      if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(function(){ btn.innerHTML=orig; }, 2000); }
     });
   } else {
-    const ta = document.createElement('textarea');
-    ta.value=text; ta.style.cssText='position:fixed;top:-9999px;opacity:0;';
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
     document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(()=>btn.innerHTML=orig, 2000); }
+    if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(function(){ btn.innerHTML=orig; }, 2000); }
   }
 }
-
 function doCopy(id, btnId, e){
   if(e) e.stopPropagation();
   if(!canCopy()){ showGateToast(); return; }
-  const p = PROMPTS.find(x => x.id === id);
+  var p = PROMPTS.find(function(x){ return x.id === id; });
   if(!p) return;
   safeCopy(p.text, btnId);
   incrementDailyCopy();
   updateCopyLimitBar();
-  gaTrack('copy_prompt', {prompt_id: id, prompt_name: p.name});
 }
+function getCopyCounts(){ return JSON.parse(localStorage.getItem('pa_copies')||'{}'); }
+function getCopyCount(id){ return getCopyCounts()[id] || 0; }
 
-// ── FAVORITES ──
+// FAVORITES
 function togFav(id, e){
   if(e) e.stopPropagation();
-  const i = favs.indexOf(id);
+  var i = favs.indexOf(id);
   if(i === -1) favs.push(id); else favs.splice(i,1);
   localStorage.setItem('pa_favs', JSON.stringify(favs));
   renderCards();
 }
 
-// ── CARD HTML ──
-function cardHTML(p, i, pre){
-  const fav = favs.includes(p.id);
-  const bc  = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
-  const tl  = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
-  const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/
-/g,' ');
-  const copies = getCopyCount(p.id);
-  const tagHTML = p.tags.slice(0,4).map(function(t){
-    return '<span class="ctag">' + t + '</span>';
-  }).join('');
-  const copyCount = copies > 0 ? '<div class="copy-count"><span>'+copies+'x</span></div>' : '';
-  return '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.035,.5)+'s">'
-    +'<div class="ctop"><div class="cname">'+p.name+'</div>'
-    +'<button class="favbtn'+(fav?' on':'')+'" onclick="togFav(''+p.id+'',event)">'+(fav?'♥':'♡')+'</button></div>'
-    +'<div class="badge '+bc+'">'+tl+'</div>'
-    +'<div class="cprev">'+prev+'</div>'
-    +'<div class="ctags">'+tagHTML+'</div>'
-    +copyCount
-    +'<div class="cfoot">'
-    +'<button class="bcopy" id="'+pre+p.id+'" onclick="doCopy(''+p.id+'',''+pre+p.id+'',event)">📋 Copy</button>'
-    +'<button class="bprev" onclick="openModal(''+p.id+'')">Preview →</button>'
-    +'</div></div>';
+// CARD HTML - uses var to avoid any scope issues
+function cardHTML(p, idx, pre){
+  var fav = favs.indexOf(p.id) !== -1;
+  var bc = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
+  var tl = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
+  var prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/\n/g,' ');
+  var copies = getCopyCount(p.id);
+  var tagHTML = '';
+  for(var ti=0; ti < Math.min(p.tags.length,4); ti++){
+    tagHTML += '<span class="ctag">'+p.tags[ti]+'</span>';
+  }
+  var copyCountHTML = copies > 0 ? '<div class="copy-count"><span>'+copies+'x</span></div>' : '';
+  var html = '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(idx*.035,.5)+'s">';
+  html += '<div class="ctop"><div class="cname">'+p.name+'</div>';
+  html += '<button class="favbtn'+(fav?' on':'')+'" onclick="togFav(\''+p.id+'\',event)">'+(fav?'♥':'♡')+'</button>';
+  html += '</div>';
+  html += '<div class="badge '+bc+'">'+tl+'</div>';
+  html += '<div class="cprev">'+prev+'</div>';
+  html += '<div class="ctags">'+tagHTML+'</div>';
+  html += copyCountHTML;
+  html += '<div class="cfoot">';
+  html += '<button class="bcopy" id="'+pre+p.id+'" onclick="doCopy(\''+p.id+'\',\''+pre+p.id+'\',event)">📋 Copy</button>';
+  html += '<button class="bprev" onclick="openModal(\''+p.id+'\')">Preview →</button>';
+  html += '</div></div>';
+  return html;
 }
 
-// ── COPY COUNT ──
-function getCopyCounts(){ return JSON.parse(localStorage.getItem('pa_copies')||'{}'); }
-function getCopyCount(id){ return getCopyCounts()[id] || 0; }
-function incrementCopy(id){
-  const c = getCopyCounts(); c[id]=(c[id]||0)+1;
-  localStorage.setItem('pa_copies', JSON.stringify(c));
-}
-
-// ── GET LIST ──
+// GET LIST
 function getList(){
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  const s = document.getElementById('sortSel').value;
-  let list = [...PROMPTS];
-  if(activeCat !== 'All') list = list.filter(p => p.cat === activeCat);
-  if(activeTag) list = list.filter(p => p.tags.includes(activeTag));
-  if(q) list = list.filter(p =>
-    p.name.toLowerCase().includes(q) ||
-    p.text.toLowerCase().includes(q) ||
-    p.tags.some(t => t.includes(q)) ||
-    p.cat.toLowerCase().includes(q) ||
-    (p.desc||'').toLowerCase().includes(q)
-  );
-  if(s === 'oldest') list.sort((a,b) => parseInt(a.id)-parseInt(b.id));
-  else if(s === 'newest') list.sort((a,b) => parseInt(b.id)-parseInt(a.id));
-  else list.sort((a,b) => a.name.localeCompare(b.name));
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  var s = document.getElementById('sortSel').value;
+  var list = PROMPTS.slice();
+  if(activeCat !== 'All') list = list.filter(function(p){ return p.cat === activeCat; });
+  if(activeTag) list = list.filter(function(p){ return p.tags.indexOf(activeTag) !== -1; });
+  if(q) list = list.filter(function(p){
+    return p.name.toLowerCase().indexOf(q) !== -1
+      || p.text.toLowerCase().indexOf(q) !== -1
+      || p.cat.toLowerCase().indexOf(q) !== -1
+      || (p.desc||'').toLowerCase().indexOf(q) !== -1
+      || p.tags.some(function(t){ return t.indexOf(q) !== -1; });
+  });
+  if(s === 'oldest') list.sort(function(a,b){ return parseInt(a.id)-parseInt(b.id); });
+  else if(s === 'newest') list.sort(function(a,b){ return parseInt(b.id)-parseInt(a.id); });
+  else list.sort(function(a,b){ return a.name.localeCompare(b.name); });
   return list;
 }
 
-// ── RENDER CARDS ──
+// RENDER CARDS
 function renderCards(){
-  const list = getList();
-  const rcnt = document.getElementById('rcnt');
+  var list = getList();
+  var rcnt = document.getElementById('rcnt');
   if(rcnt) rcnt.innerHTML = 'Showing <strong>'+list.length+'</strong> of <strong>'+PROMPTS.length+'</strong> prompts';
-  const g = document.getElementById('mainGrid');
+  var g = document.getElementById('mainGrid');
   if(!g) return;
   if(!list.length){
     g.innerHTML = '<div class="empty"><span class="empty-e">🔍</span><h3>No prompts found</h3><p>Try a different search or category.</p></div>';
     return;
   }
-  g.innerHTML = list.map((p,i) => cardHTML(p, i, 'c')).join('');
+  var out = '';
+  for(var i=0; i<list.length; i++) out += cardHTML(list[i], i, 'c');
+  g.innerHTML = out;
 }
 
-// ── RENDER CATS ──
+// RENDER CATS
 function renderCats(){
-  const html = CATS.map(c => {
-    const cnt = c.n==='All' ? PROMPTS.length : PROMPTS.filter(p => p.cat===c.n).length;
-    return '<button class="cbtn'+(activeCat===c.n?' active':'')+'" onclick="setCat(''+c.n+'')"><span class="cico">'+c.i+'</span>'+c.n+'<span class="ccnt">'+cnt+'</span></button>';
-  }).join('');
-  const desktop = document.getElementById('catList');
-  const mobile  = document.getElementById('mobileCatBar');
+  var html = '';
+  for(var i=0; i<CATS.length; i++){
+    var c = CATS[i];
+    var cnt = c.n==='All' ? PROMPTS.length : PROMPTS.filter(function(p){ return p.cat===c.n; }).length;
+    html += '<button class="cbtn'+(activeCat===c.n?' active':'')+'" onclick="setCat(\''+c.n+'\')"><span class="cico">'+c.i+'</span>'+c.n+'<span class="ccnt">'+cnt+'</span></button>';
+  }
+  var desktop = document.getElementById('catList');
+  var mobile = document.getElementById('mobileCatBar');
   if(desktop) desktop.innerHTML = html;
-  if(mobile)  mobile.innerHTML  = html;
+  if(mobile) mobile.innerHTML = html;
 }
 
-// ── RENDER TAGS ──
+// RENDER TAGS
 function renderTags(){
-  const tags = [...new Set(PROMPTS.flatMap(p => p.tags))].sort();
-  const cloud = document.getElementById('tagCloud');
-  if(cloud) cloud.innerHTML = tags.map(t =>
-    '<span class="tpill'+(activeTag===t?' active':'')+'" onclick="setTag(''+t+'')">'+t+'</span>'
-  ).join('');
+  var tagSet = {};
+  PROMPTS.forEach(function(p){ p.tags.forEach(function(t){ tagSet[t]=1; }); });
+  var tags = Object.keys(tagSet).sort();
+  var cloud = document.getElementById('tagCloud');
+  if(!cloud) return;
+  var html = '';
+  for(var i=0; i<tags.length; i++){
+    html += '<span class="tpill'+(activeTag===tags[i]?' active':'')+'" onclick="setTag(\''+tags[i]+'\')">'+tags[i]+'</span>';
+  }
+  cloud.innerHTML = html;
 }
 
-// ── SET CAT / TAG ──
-function setCat(n){
-  activeCat = n; activeTag = '';
-  renderCats(); renderCards();
-}
-function setTag(t){
-  activeTag = activeTag===t ? '' : t;
-  renderTags(); renderCards();
-}
+// SET CAT / TAG
+function setCat(n){ activeCat=n; activeTag=''; renderCats(); renderCards(); }
+function setTag(t){ activeTag = activeTag===t ? '' : t; renderTags(); renderCards(); }
 
-// ── MODAL ──
+// MODAL
 function openModal(id){
-  const p = PROMPTS.find(x => x.id === id);
+  var p = PROMPTS.find(function(x){ return x.id===id; });
   if(!p) return;
   modalP = p;
-  const tl = p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-  const el = id2 => document.getElementById(id2);
-  if(el('mTitle'))   el('mTitle').textContent   = p.name;
-  if(el('mCat'))     el('mCat').textContent     = p.cat;
-  if(el('mTool'))    el('mTool').textContent    = tl;
-  if(el('mText'))    el('mText').textContent    = p.text;
-  if(el('mDesc'))    el('mDesc').textContent    = p.desc || '';
-  if(el('mTags'))    el('mTags').innerHTML      = (p.tags||[]).map(t=>'<span class="mtag">'+t+'</span>').join('');
-  if(el('mCopyBtn')) el('mCopyBtn').id          = 'mCopyBtn';
-  const compat = el('mCompat');
-  if(compat) compat.innerHTML = [p.tool==='chatgpt'?'ChatGPT':'',p.tool==='midjourney'?'Midjourney':'','DALL·E 3','Claude'].filter(Boolean).map(x=>'<span class="compat-pill">'+x+'</span>').join('');
-  const fav = el('mFav');
-  if(fav) fav.innerHTML = favs.includes(p.id) ? '♥' : '♡';
-  const ov = el('overlay');
+  var tl = p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
+  function el(i){ return document.getElementById(i); }
+  if(el('mTitle')) el('mTitle').textContent = p.name;
+  if(el('mCat')) el('mCat').textContent = p.cat;
+  if(el('mTool')) el('mTool').textContent = tl;
+  if(el('mText')) el('mText').textContent = p.text;
+  if(el('mDesc')) el('mDesc').textContent = p.desc || '';
+  if(el('mTags')) el('mTags').innerHTML = (p.tags||[]).map(function(t){ return '<span class="mtag">'+t+'</span>'; }).join('');
+  var compat = el('mCompat');
+  if(compat) compat.innerHTML = ['ChatGPT','Midjourney','DALL·E 3','Claude'].map(function(x){ return '<span class="compat-pill">'+x+'</span>'; }).join('');
+  var fav = el('mFav');
+  if(fav) fav.innerHTML = favs.indexOf(p.id) !== -1 ? '♥' : '♡';
+  var ov = el('overlay');
   if(ov){ ov.style.display='flex'; document.body.style.overflow='hidden'; }
 }
-function closeModal(){
-  const ov = document.getElementById('overlay');
-  if(ov){ ov.style.display='none'; document.body.style.overflow=''; }
-}
+function closeModal(){ var ov=document.getElementById('overlay'); if(ov){ ov.style.display='none'; document.body.style.overflow=''; } }
 function obgc(e){ if(e.target===e.currentTarget) closeModal(); }
-function favModal(){
-  if(!modalP) return;
-  togFav(modalP.id);
-  const fav = document.getElementById('mFav');
-  if(fav) fav.innerHTML = favs.includes(modalP.id)?'♥':'♡';
-}
+function favModal(){ if(!modalP) return; togFav(modalP.id); var fav=document.getElementById('mFav'); if(fav) fav.innerHTML=favs.indexOf(modalP.id)!==-1?'♥':'♡'; }
 
-// ── STUB — stubs for functions called from modal HTML ──
-function getRating(id){ return {up:0,down:0}; }
-function getUserVote(id){ return null; }
-function sharePrompt(id, platform, e){ if(e) e.stopPropagation(); }
-function notifyMe(){ }
-function goLib(){ }
+// STUBS
+function getRating(){ return {up:0,down:0}; }
+function getUserVote(){ return null; }
+function sharePrompt(id,pl,e){ if(e) e.stopPropagation(); }
+function notifyMe(){}
+function goLib(){}
 
-// ── BOOT ──
+// BOOT
 document.addEventListener('DOMContentLoaded', function(){
-  // Theme button
-  const tb = document.getElementById('themeBtn');
+  var tb = document.getElementById('themeBtn');
   if(tb) tb.textContent = theme==='light' ? '☀️' : '🌙';
-
-  // Render everything
   renderCats();
   renderTags();
   renderCards();
   updateCopyLimitBar();
-
-  // Mobile cats
-  const mob = document.getElementById('mobileCatBar');
+  var mob = document.getElementById('mobileCatBar');
   if(mob && window.innerWidth < 900) mob.style.display = 'flex';
 });
 </script>
-
 </body>
 </html>
