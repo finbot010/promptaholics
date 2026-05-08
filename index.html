@@ -2726,6 +2726,91 @@ function clearAiSearch(){
   renderCards(); // restore full library
 }
 
+async 
+/* ── SMART KEYWORD SEARCH ENGINE ── */
+function keywordSearch(query){
+  const q = query.toLowerCase();
+  const words = q.split(/\s+/).filter(w => w.length > 2);
+
+  // Intent mapping — common phrases → relevant categories/tags
+  const intentMap = {
+    'write': ['writing','content','copywriting'],
+    'image': ['image generation','midjourney','dalle','art'],
+    'art': ['image generation','creative','midjourney'],
+    'photo': ['photography','portrait','midjourney'],
+    'business': ['business','marketing','entrepreneur'],
+    'market': ['marketing','business','social'],
+    'code': ['code','programming','tech','developer'],
+    'tweet': ['twitter','social','viral'],
+    'linkedin': ['linkedin','business','professional'],
+    'tiktok': ['tiktok','viral','social'],
+    'youtube': ['youtube','video','script'],
+    'email': ['email','outreach','copywriting'],
+    'story': ['story','fiction','creative'],
+    'legal': ['legal','contract','lawyer'],
+    'real estate': ['real estate','property','listing'],
+    'health': ['health','wellness','medical'],
+    'sleep': ['sleep','wellness','health'],
+    'workout': ['fitness','workout','health'],
+    'agent': ['agent','automation','ai agent'],
+    'startup': ['startup','business','entrepreneur'],
+    'brand': ['branding','brand','identity'],
+    'seo': ['seo','marketing','content'],
+    'sales': ['sales','copywriting','business'],
+    'resume': ['resume','career','job'],
+    'productivity': ['productivity','focus','deep work'],
+    'morning': ['routine','habits','productivity'],
+    'fantasy': ['fantasy','image generation','midjourney'],
+    'midjourney': ['midjourney','image generation'],
+    'chatgpt': ['chatgpt','writing','business'],
+    'prompt': ['prompt engineering','ai tools'],
+  };
+
+  // Expand query with intent words
+  let expandedWords = [...words];
+  Object.keys(intentMap).forEach(phrase => {
+    if(q.includes(phrase)) expandedWords = [...expandedWords, ...intentMap[phrase]];
+  });
+
+  const scored = PROMPTS.map(p => {
+    const hay = [
+      p.name.toLowerCase(),
+      p.cat.toLowerCase(),
+      p.tags.join(' ').toLowerCase(),
+      (p.desc || '').toLowerCase(),
+    ].join(' ');
+
+    let score = 0;
+    expandedWords.forEach(w => {
+      if(p.name.toLowerCase().includes(w)) score += 5;       // name match = highest
+      else if(p.cat.toLowerCase().includes(w)) score += 3;   // category match
+      else if(p.tags.join(' ').toLowerCase().includes(w)) score += 2; // tag match
+      else if(hay.includes(w)) score += 1;                   // desc match
+    });
+
+    // Boost featured prompts slightly
+    if(p.feat && score > 0) score += 1;
+
+    return { id: p.id, score };
+  })
+  .filter(x => x.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 5)
+  .map(x => ({
+    id: x.id,
+    reason: getReason(x.id, words)
+  }));
+
+  return scored;
+}
+
+function getReason(id, words){
+  const p = PROMPTS.find(x => x.id === id);
+  if(!p) return 'Matches your search';
+  if(p.feat) return 'Top rated in ' + p.cat;
+  return 'Great match for ' + p.cat.toLowerCase();
+}
+
 async function runAiSearch(){
   const query = document.getElementById('aiSearchInput').value.trim();
   if(!query) return;
@@ -2741,75 +2826,12 @@ async function runAiSearch(){
 
   gaTrack('ai_search', {query});
 
-  // ── Smart catalog — send compact version to save tokens ──
-  // Only send id, name, tags, desc — no full prompt text
-  const catalog = PROMPTS.map(p => `${p.id}|${p.name}|${p.cat}|${p.tags.slice(0,4).join(',')}|${(p.desc||p.text).slice(0,60)}`).join('\n');
-
-  const systemPrompt = `You are a prompt library search engine. Find the top 5 most relevant prompts from this catalog for what the user wants to do.
-
-Return ONLY a JSON object — no markdown, no explanation:
-{"results":[{"id":"23","reason":"Perfect for viral social media content"},{"id":"7","reason":"Helps craft engaging hooks"}],"confidence":"high"}
-
-Rules:
-- confidence is "high" if 3+ good matches found, "low" if fewer than 2
-- reason must be under 10 words
-- only return genuinely relevant matches
-- if nothing matches, return empty results array`;
-
-  const userMessage = `User goal: "${query}"
-
-CATALOG (id|name|category|tags|description):
-${catalog}`;
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 400,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userMessage }]
-      })
-    });
-
-    const data = await response.json();
-    const raw = data.content?.[0]?.text || '{"results":[],"confidence":"low","suggestion":null}';
-
-    let parsed = { results: [], confidence: 'low', suggestion: null };
-    try {
-      const clean = raw.replace(/```json|```/g, '').trim();
-      parsed = JSON.parse(clean);
-    } catch(e) {
-      console.error('Parse error:', e, raw);
-    }
-
-    document.getElementById('aiThinking').classList.remove('show');
-    document.getElementById('aiSearchBtn').disabled = false;
-
-    // Show library results
-    showAiResults(parsed.results, query);
-
-    // If confidence is low — trigger web search automatically
-    if(parsed.confidence === 'low' || parsed.results.length < 2){
-      const webQuery = parsed.suggestion || query + ' AI prompt';
-      showWebSearching(webQuery);
-      await runWebSearch(webQuery, query);
-    } else {
-      // High confidence — show footer with option to search web anyway
-      showSearchFooter(query);
-    }
-
-  } catch(err) {
-    console.error('AI Search error:', err);
-    document.getElementById('aiThinking').classList.remove('show');
-    document.getElementById('aiSearchBtn').disabled = false;
-    fallbackSearch(query);
-  }
+  // ── ALWAYS run keyword search first — instant results ──
+  const keywordResults = keywordSearch(query);
+  document.getElementById('aiThinking').classList.remove('show');
+  document.getElementById('aiSearchBtn').disabled = false;
+  showAiResults(keywordResults, query);
+  showSearchFooter(query);
 }
 
 function showWebSearching(webQuery){
