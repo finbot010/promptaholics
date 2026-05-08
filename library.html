@@ -1164,12 +1164,7 @@ function getUserVote(id){ return null; }
 }
 </style>
 <style>
-.lib-header{
-  background:rgba(8,8,11,.96);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);height:var(--hh);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;position:sticky;top:0;z-index:100;
-}
+.lib-header{background:rgba(8,8,11,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:100;}
 .light-mode .lib-header{background:rgba(245,245,240,.96);}
 .lib-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .lib-logo-mark{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
@@ -1180,7 +1175,6 @@ function getUserVote(id){ return null; }
 .lib-nav a:hover{color:var(--orange);}
 .lib-cta{background:var(--orange)!important;color:#fff!important;font-weight:700!important;border-radius:9px!important;}
 .lib-cta:hover{background:var(--orange2)!important;}
-.lib-theme{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;}
 @media(max-width:640px){.lib-nav a:not(.lib-cta){display:none;}}
 </style>
 </head>
@@ -1195,46 +1189,46 @@ function getUserVote(id){ return null; }
   </a>
   <div class="lib-nav">
     <a href="/">Home</a>
-    <a href="library.html">📚 Library</a>
     <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
-    <button class="lib-theme" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button style="background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <a href="/" class="lib-cta">← Home</a>
   </div>
 </header>
 
-<div class="page active" id="page-library">
-  <div id="copyLimitBar" data-ad-region="copy-limit-bar" style="background:var(--surface);border-bottom:1px solid var(--border);padding:8px 24px;display:flex;align-items:center;gap:12px;">
-    <div class="copy-limit-dots">
-      <div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div>
-      <div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div>
-    </div>
-    <div class="copy-limit-label"><strong>10</strong> free copies left today</div>
+<div id="copyLimitBar" data-ad-region="copy-limit-bar" style="background:var(--surface);border-bottom:1px solid var(--border);padding:8px 24px;display:flex;align-items:center;gap:12px;">
+  <div class="copy-limit-dots">
+    <div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div>
+    <div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div><div class="copy-dot"></div>
   </div>
-  <div id="copyGateToast" data-ad-region="copy-toast" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:18px 24px;z-index:500;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.4);min-width:280px;">
-    <div style="font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px;">You've copied 10 prompts today 🎉</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">Come back tomorrow — always free.</div>
-    <div id="gateTimer" style="font-size:12px;color:var(--text3);margin-bottom:10px;"></div>
-    <button onclick="hideGateToast()" style="background:var(--orange);color:#fff;border:none;padding:9px 20px;border-radius:9px;cursor:pointer;font-weight:700;font-family:'Instrument Sans',sans-serif;">Got it!</button>
-  </div>
-  <div id="mobileCatBar" style="display:none;overflow-x:auto;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:var(--hh);z-index:40;scrollbar-width:none;"></div>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="sb-sec"><div class="sb-lbl">Category</div><div id="catList"></div></div>
-      <div class="sb-sec"><div class="sb-lbl">Tags</div><div class="tag-cloud" id="tagCloud"></div></div>
-    </aside>
-    <div class="main">
-      <div class="toolbar">
-        <div style="flex:1;"><input id="searchInput" type="text" class="srch" placeholder="Search 299 prompts..." oninput="renderCards()"/></div>
-        <span style="font-size:13px;color:var(--text2);">Sort:</span>
-        <select id="sortSel" onchange="renderCards()">
-          <option value="alpha" selected>A → Z</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-        </select>
-      </div>
-      <div class="rcnt-bar"><div id="rcnt"></div></div>
-      <div class="grid" id="mainGrid"></div>
+  <div class="copy-limit-label"><strong>10</strong> free copies left today</div>
+</div>
+
+<div id="copyGateToast" data-ad-region="copy-toast" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:18px 24px;z-index:500;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.4);min-width:280px;">
+  <div style="font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px;">You've copied 10 prompts today 🎉</div>
+  <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">Come back tomorrow — always free.</div>
+  <div id="gateTimer" style="font-size:12px;color:var(--text3);margin-bottom:10px;"></div>
+  <button onclick="hideGateToast()" style="background:var(--orange);color:#fff;border:none;padding:9px 20px;border-radius:9px;cursor:pointer;font-weight:700;font-family:'Instrument Sans',sans-serif;">Got it!</button>
+</div>
+
+<div id="mobileCatBar" style="display:none;overflow-x:auto;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:var(--hh);z-index:40;scrollbar-width:none;"></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-sec"><div class="sb-lbl">Category</div><div id="catList"></div></div>
+    <div class="sb-sec"><div class="sb-lbl">Tags</div><div class="tag-cloud" id="tagCloud"></div></div>
+  </aside>
+  <div class="main">
+    <div class="toolbar">
+      <div style="flex:1;"><input id="searchInput" type="text" class="srch" placeholder="Search 299 prompts..." oninput="renderCards()"/></div>
+      <span style="font-size:13px;color:var(--text2);">Sort:</span>
+      <select id="sortSel" onchange="renderCards()">
+        <option value="alpha" selected>A → Z</option>
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+      </select>
     </div>
+    <div class="rcnt-bar"><div id="rcnt"></div></div>
+    <div class="grid" id="mainGrid"></div>
   </div>
 </div>
 
@@ -1273,221 +1267,104 @@ function getUserVote(id){ return null; }
 <!-- Prompts loaded from prompts.js -->
 
 
-<!-- ✦ PROMPTS — must load before main JS ✦ -->
+<!-- PROMPTS must load before JS -->
 <script src="prompts.js?v=299"></script>
 
-<!-- ✦ MAIN JS ✦ -->
 <script>
-/* ════════════════════════════════════════
-   STATE
-════════════════════════════════════════ */
+// ═══════════════════════════════════════
+//  LIBRARY PAGE — Self-contained JS
+// ═══════════════════════════════════════
+
+// ── STATE ──
 let favs      = JSON.parse(localStorage.getItem('pa_favs') || '[]');
-let theme     = localStorage.getItem('pa_theme') || 'dark';
 let activeCat = 'All';
 let activeTag = '';
-let curPage   = 'library';
 let modalP    = null;
 
 const CATS = [
-  {n:'All',i:'✦'},{n:'Writing & Content',i:'✍️'},
-  {n:'Business & Marketing',i:'📊'},{n:'Image Generation',i:'🎨'},
-  {n:'Code & Tech',i:'💻'},{n:'Education & Learning',i:'📚'},
-  {n:'Creative & Art',i:'🖼️'},{n:'Photography',i:'📷'},
-  {n:'Legal',i:'⚖️'},{n:'Real Estate',i:'🏠'},
-  {n:'Wellness',i:'🧘'},{n:'Health',i:'💊'},
-  {n:'AI Agents',i:'🤖'},{n:'Other',i:'⚙️'}
+  {n:'All',i:'✦'},{n:'Writing & Content',i:'✍️'},{n:'Business & Marketing',i:'💼'},
+  {n:'Image Generation',i:'🎨'},{n:'Code & Tech',i:'💻'},{n:'Creative & Art',i:'🎭'},
+  {n:'Education & Learning',i:'📚'},{n:'AI Agents',i:'🤖'},{n:'Other',i:'⚙️'},
+  {n:'Wellness',i:'🧘'},{n:'Health',i:'💊'},{n:'Photography',i:'📸'},
+  {n:'Real Estate',i:'🏠'},{n:'Legal',i:'⚖️'},
 ];
 
-/* ════════════════════════════════════════
-   THEME
-════════════════════════════════════════ */
-function applyTheme(t){
-  theme = t;
-  document.documentElement.setAttribute('data-theme', t);
-  document.getElementById('themeBtn').textContent = t === 'dark' ? '🌙' : '☀️';
-  localStorage.setItem('pa_theme', t);
-}
-function toggleTheme(){ applyTheme(theme === 'dark' ? 'light' : 'dark'); }
-
-/* ════════════════════════════════════════
-   FIX 3: SAFE CLIPBOARD COPY
-   navigator.clipboard can fail in some browsers
-   or when opened from a local file.
-   This fallback works everywhere.
-════════════════════════════════════════ */
-function safeCopy(text, btnId){
-  const doFallback = () => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); } catch(e) {}
-    document.body.removeChild(ta);
-  };
-
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(text).catch(doFallback);
-  } else {
-    doFallback();
-  }
-
-  // Show toast
-  const toast = document.getElementById('copyToast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
-
-  // Update button if provided
-  if(btnId){
-    const btn = document.getElementById(btnId);
-    if(btn){ btn.textContent='✅ Copied!'; btn.classList.add('ok'); }
-    setTimeout(() => {
-      if(btn){ btn.textContent='📋 Copy'; btn.classList.remove('ok'); }
-    }, 2200);
-  }
+// ── THEME ──
+const theme = localStorage.getItem('pa_theme') || 'dark';
+if(theme === 'light') document.documentElement.classList.add('light-mode');
+function toggleTheme(){
+  localStorage.setItem('pa_theme', theme === 'dark' ? 'light' : 'dark');
+  location.reload();
 }
 
-/* ════════════════════════════════════════
-   FIX 4: NETLIFY FORM SUBMIT
-   Using fetch with proper encoding.
-   Falls back gracefully if not on Netlify.
-════════════════════════════════════════ */
-function handleSubmit(e){
-  e.preventDefault();
-  const btn  = document.getElementById('submitBtn');
-  const msg  = document.getElementById('smsg');
-  const form = e.target;
+// ── GA ──
+function gaTrack(event, params){ try{ if(typeof gtag!=='undefined') gtag('event',event,params||{}); }catch(e){} }
 
-  btn.disabled = true;
-  document.getElementById('submitBtnText').textContent = '⏳ Submitting…';
-  msg.className = 'smsg';
+// ── COPY LIMIT ──
+const COPY_LIMIT = 10;
+function getTodayKey(){ const d=new Date(); return 'pa_daily_'+d.getFullYear()+'_'+(d.getMonth()+1)+'_'+d.getDate(); }
+function getDailyCopies(){ try{ return parseInt(localStorage.getItem(getTodayKey())||'0'); }catch(e){ return 0; } }
+function canCopy(){ return getDailyCopies() < COPY_LIMIT; }
+function incrementDailyCopy(){ try{ localStorage.setItem(getTodayKey(), getDailyCopies()+1); }catch(e){} }
 
-  const formData = new FormData(form);
-  const encoded  = new URLSearchParams(formData).toString();
-
-  fetch('/', {
-    method : 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body   : encoded,
-  })
-  .then(res => {
-    if(res.ok || res.status === 200){
-      msg.className = 'smsg ok show';
-      msg.textContent = '✅ Submitted! Your prompt will appear in the library once approved. Thank you!';
-      gaTrack('submit_prompt', {
-        tool    : document.getElementById('ftool').value,
-        category: document.getElementById('fcat').value,
-      });
-      form.reset();
-    } else {
-      // On local file:// Netlify won't work — show helpful message
-      msg.className = 'smsg ok show';
-      msg.textContent = '✅ Form ready! This will work when deployed to Netlify. Upload your index.html to GitHub → Netlify to enable live submissions.';
-    }
-  })
-  .catch(() => {
-    // Local file or offline — still reassure user
-    msg.className = 'smsg ok show';
-    msg.textContent = '✅ Form is set up correctly! Deploy to Netlify to activate live submissions.';
-  })
-  .finally(() => {
-    btn.disabled = false;
-    document.getElementById('submitBtnText').textContent = '⚡ Submit to Promptaholics';
-    setTimeout(() => msg.classList.remove('show'), 9000);
+function updateCopyLimitBar(){
+  const used = getDailyCopies();
+  const remaining = Math.max(0, COPY_LIMIT - used);
+  document.querySelectorAll('.copy-dot').forEach((d,i) => {
+    d.style.background = i < used ? 'var(--orange)' : 'var(--surface3)';
   });
+  const lbl = document.querySelector('.copy-limit-label');
+  if(lbl) lbl.innerHTML = remaining > 0
+    ? '<strong>'+remaining+'</strong> free copies left today'
+    : '<strong>Come back tomorrow</strong> for 10 more free copies';
 }
 
-/* ════════════════════════════════════════
-   RENDER
-════════════════════════════════════════ */
-function renderAll(){
-  document.getElementById('totCnt').textContent = PROMPTS.length;
-  renderFeatured();
-  renderCats();
-  renderTags();
-  renderCards();
+function hideGateToast(){
+  const t = document.getElementById('copyGateToast');
+  if(t) t.style.display = 'none';
+}
+function showGateToast(){
+  const t = document.getElementById('copyGateToast');
+  if(t){ t.style.display = 'block'; setTimeout(() => t.style.display='none', 8000); }
 }
 
-function renderFeatured(){
-  const em = t => t==='chatgpt'?'🤖':t==='midjourney'?'🎨':'⚙️';
-  document.getElementById('featItems').innerHTML = PROMPTS
-    .filter(p => p.feat)
-    .map(p => `<div class="feat-chip" onclick="openModal('${p.id}')">
-      <span>${em(p.tool)}</span>
-      <span class="feat-chip-name">${p.name}</span>
-    </div>`).join('');
-}
-
-function renderCats(){
-  const catHTML = CATS.map(c => {
-    const cnt = c.n === 'All' ? PROMPTS.length : PROMPTS.filter(p => p.cat === c.n).length;
-    return `<button class="cbtn${activeCat===c.n?' active':''}" onclick="setCat('${c.n}')">
-      <span class="cico">${c.i}</span>${c.n}<span class="ccnt">${cnt}</span>
-    </button>`;
-  }).join('');
-  // Render in both desktop sidebar and mobile bar
-  const desktopList = document.getElementById('catList');
-  const mobileBar   = document.getElementById('mobileCatBar');
-  if(desktopList) desktopList.innerHTML = catHTML;
-  if(mobileBar)   mobileBar.innerHTML  = catHTML;
-}
-
-/* ── TAG FILTER ── */
-function filterByTag(tag, e){
-  if(e) e.stopPropagation();
-  if(aiSearchActive) clearAiSearch();
-  activeTag = (activeTag === tag) ? '' : tag;
-  renderCards();
-}
-
-
-function setCat(n){
-  if(aiSearchActive) clearAiSearch();
-  activeCat = n; activeTag = '';
-  renderCats(); renderCards();
-}
-
-
-function renderTags(){
-  const tags = [...new Set(PROMPTS.flatMap(p => p.tags))].sort();
-  document.getElementById('tagCloud').innerHTML = tags.map(t =>
-    `<span class="tpill${activeTag===t?' active':''}" onclick="setTag('${t}')">${t}</span>`
-  ).join('');
-}
-function setTag(t){ activeTag = activeTag===t ? '' : t; renderTags(); renderCards(); }
-
-function getList(){
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  const s = document.getElementById('sortSel').value;
-  let list = [...PROMPTS];
-  if(activeCat !== 'All') list = list.filter(p => p.cat === activeCat);
-  if(activeTag)           list = list.filter(p => p.tags.includes(activeTag));
-  if(q) list = list.filter(p =>
-    p.name.toLowerCase().includes(q) ||
-    p.text.toLowerCase().includes(q) ||
-    p.tags.some(t => t.includes(q))  ||
-    p.cat.toLowerCase().includes(q)  ||
-    (p.desc||'').toLowerCase().includes(q)
-  );
-  /* FIX 4: string id sort was comparing '9' > '10' — convert properly */
-  if(s === 'oldest') list.sort((a,b) => parseInt(a.id) - parseInt(b.id));
-  else if(s === 'newest') list.sort((a,b) => parseInt(b.id) - parseInt(a.id));
-  else list.sort((a,b) => a.name.localeCompare(b.name)); // default = A→Z
-  return list;
-}
-
-function renderCards(){
-  const list = getList();
-  document.getElementById('rcnt').innerHTML =
-    `Showing <strong>${list.length}</strong> of <strong>${PROMPTS.length}</strong> prompts`;
-  const g = document.getElementById('mainGrid');
-  if(!list.length){
-    g.innerHTML = `<div class="empty"><span class="empty-e">🔍</span><h3>No prompts found</h3><p>Try a different search or category.</p></div>`;
-    return;
+// ── SAFE COPY ──
+function safeCopy(text, btnId){
+  const btn = btnId ? document.getElementById(btnId) : null;
+  const orig = btn ? btn.innerHTML : '';
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(() => {
+      if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(()=>btn.innerHTML=orig, 2000); }
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value=text; ta.style.cssText='position:fixed;top:-9999px;opacity:0;';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    if(btn){ btn.innerHTML='✅ Copied!'; setTimeout(()=>btn.innerHTML=orig, 2000); }
   }
-  g.innerHTML = list.map((p,i) => cardHTML(p, i, 'c')).join('');
 }
 
+function doCopy(id, btnId, e){
+  if(e) e.stopPropagation();
+  if(!canCopy()){ showGateToast(); return; }
+  const p = PROMPTS.find(x => x.id === id);
+  if(!p) return;
+  safeCopy(p.text, btnId);
+  incrementDailyCopy();
+  updateCopyLimitBar();
+  gaTrack('copy_prompt', {prompt_id: id, prompt_name: p.name});
+}
+
+// ── FAVORITES ──
+function togFav(id, e){
+  if(e) e.stopPropagation();
+  const i = favs.indexOf(id);
+  if(i === -1) favs.push(id); else favs.splice(i,1);
+  localStorage.setItem('pa_favs', JSON.stringify(favs));
+  renderCards();
+}
+
+// ── CARD HTML ──
 function cardHTML(p, i, pre){
   const fav = favs.includes(p.id);
   const bc  = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
@@ -1498,950 +1375,149 @@ function cardHTML(p, i, pre){
   const tagHTML = p.tags.slice(0,4).map(function(t){
     return '<span class="ctag">' + t + '</span>';
   }).join('');
-  const copyCount = copies > 0 ? '<div class="copy-count"><span>' + copies + 'x</span></div>' : '';
-  return '<div class="card' + (p.feat?' feat-card':'') + '" style="animation-delay:' + Math.min(i*.035,.5) + 's">'
-    + '<div class="ctop">'
-    + '<div class="cname">' + p.name + '</div>'
-    + '<button class="favbtn' + (fav?' on':'') + '" onclick="togFav('' + p.id + '',event)">' + (fav?'♥':'♡') + '</button>'
-    + '</div>'
-    + '<div class="badge ' + bc + '">' + tl + '</div>'
-    + '<div class="cprev">' + prev + '</div>'
-    + '<div class="ctags">' + tagHTML + '</div>'
-    + copyCount
-    + '<div class="cfoot">'
-    + '<button class="bcopy" id="' + pre + p.id + '" onclick="doCopy('' + p.id + '','' + pre + p.id + '',event)">📋 Copy</button>'
-    + '<button class="bprev" onclick="openModal('' + p.id + '')">Preview →</button>'
-    + '</div>'
-    + '</div>';
+  const copyCount = copies > 0 ? '<div class="copy-count"><span>'+copies+'x</span></div>' : '';
+  return '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.035,.5)+'s">'
+    +'<div class="ctop"><div class="cname">'+p.name+'</div>'
+    +'<button class="favbtn'+(fav?' on':'')+'" onclick="togFav(''+p.id+'',event)">'+(fav?'♥':'♡')+'</button></div>'
+    +'<div class="badge '+bc+'">'+tl+'</div>'
+    +'<div class="cprev">'+prev+'</div>'
+    +'<div class="ctags">'+tagHTML+'</div>'
+    +copyCount
+    +'<div class="cfoot">'
+    +'<button class="bcopy" id="'+pre+p.id+'" onclick="doCopy(''+p.id+'',''+pre+p.id+'',event)">📋 Copy</button>'
+    +'<button class="bprev" onclick="openModal(''+p.id+'')">Preview →</button>'
+    +'</div></div>';
 }
 
-
-
-/* ════════════════════════════════════════
-   COPY
-════════════════════════════════════════ */
-/* ── COPY LIMIT SYSTEM ── */
-const COPY_LIMIT = 10;
-
-function getTodayKey(){
-  const d = new Date();
-  return 'pa_daily_' + d.getFullYear() + '_' + (d.getMonth()+1) + '_' + d.getDate();
+// ── COPY COUNT ──
+function getCopyCounts(){ return JSON.parse(localStorage.getItem('pa_copies')||'{}'); }
+function getCopyCount(id){ return getCopyCounts()[id] || 0; }
+function incrementCopy(id){
+  const c = getCopyCounts(); c[id]=(c[id]||0)+1;
+  localStorage.setItem('pa_copies', JSON.stringify(c));
 }
 
-function getDailyCopies(){
-  try { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
-  catch(e){ return 0; }
+// ── GET LIST ──
+function getList(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const s = document.getElementById('sortSel').value;
+  let list = [...PROMPTS];
+  if(activeCat !== 'All') list = list.filter(p => p.cat === activeCat);
+  if(activeTag) list = list.filter(p => p.tags.includes(activeTag));
+  if(q) list = list.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.text.toLowerCase().includes(q) ||
+    p.tags.some(t => t.includes(q)) ||
+    p.cat.toLowerCase().includes(q) ||
+    (p.desc||'').toLowerCase().includes(q)
+  );
+  if(s === 'oldest') list.sort((a,b) => parseInt(a.id)-parseInt(b.id));
+  else if(s === 'newest') list.sort((a,b) => parseInt(b.id)-parseInt(a.id));
+  else list.sort((a,b) => a.name.localeCompare(b.name));
+  return list;
 }
 
-function incrementDailyCopies(){
-  try { localStorage.setItem(getTodayKey(), getDailyCopies() + 1); }
-  catch(e){}
-}
-
-function canCopy(){
-  return getDailyCopies() < COPY_LIMIT;
-}
-
-function getRemainingCopies(){
-  return Math.max(0, COPY_LIMIT - getDailyCopies());
-}
-
-function msUntilMidnight(){
-  const now = new Date();
-  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
-  return midnight - now;
-}
-
-function showGateToast(){
-  const toast = document.getElementById('copyGateToast');
-  if(!toast) return;
-  toast.classList.add('show');
-  updateGateTimer();
-  if(window._gateTimerInterval) clearInterval(window._gateTimerInterval);
-  window._gateTimerInterval = setInterval(updateGateTimer, 1000);
-}
-
-function hideGateToast(){
-  const toast = document.getElementById('copyGateToast');
-  if(toast) toast.classList.remove('show');
-  if(window._gateTimerInterval) clearInterval(window._gateTimerInterval);
-}
-
-function updateGateTimer(){
-  const el = document.getElementById('copyGateTimer');
-  if(!el) return;
-  const ms = msUntilMidnight();
-  const h = Math.floor(ms/3600000);
-  const m = Math.floor((ms%3600000)/60000);
-  const s = Math.floor((ms%60000)/1000);
-  el.textContent = 'Resets in ' + h + 'h ' + m + 'm ' + s + 's';
-}
-
-function updateCopyLimitBar(){
-  const bar = document.getElementById('copyLimitBar');
-  if(!bar) return;
-  const used = getDailyCopies();
-  const remaining = getRemainingCopies();
-  const dots = bar.querySelectorAll('.copy-dot');
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('used', i < used);
-  });
-  const lbl = bar.querySelector('.copy-limit-label');
-  if(lbl){
-    if(remaining > 0){
-      lbl.innerHTML = '<strong>' + remaining + '</strong> free cop' + (remaining===1?'y':'ies') + ' left today';
-    } else {
-      lbl.innerHTML = '<strong>Come back tomorrow</strong> for 10 more free copies';
-    }
-  }
-}
-
-function doCopy(id, btnId, e){
-  if(e) e.stopPropagation();
-  if(!canCopy()){
-    showGateToast();
-    return;
-  }
-  const p = PROMPTS.find(x => x.id === id);
-  if(!p) return;
-  safeCopy(p.text, btnId);
-  incrementCopy(id);
-  incrementDailyCopies();
-  updateCopyLimitBar();
-  gaTrack('copy_prompt', {prompt_name: p.name, tool: p.tool, category: p.cat});
-  setTimeout(renderCards, 100);
-}
-function copyModal(){
-  if(!modalP) return;
-  if(!canCopy()){
-    closeModal();
-    showGateToast();
-    return;
-  }
-  safeCopy(modalP.text, null);
-  incrementCopy(modalP.id);
-  incrementDailyCopies();
-  updateCopyLimitBar();
-  gaTrack('copy_prompt', {prompt_name: modalP.name, source: 'modal'});
-  const b = document.querySelector('.mbcopy');
-  if(b){ b.textContent = '✅ Copied!'; setTimeout(()=>b.textContent='📋 Copy Prompt', 2200); }
-}
-
-/* ════════════════════════════════════════
-   FAVORITES
-════════════════════════════════════════ */
-function togFav(id, e){
-  if(e) e.stopPropagation();
-  favs = favs.includes(id) ? favs.filter(f=>f!==id) : [...favs, id];
-  localStorage.setItem('pa_favs', JSON.stringify(favs));
-  gaTrack('favorite_prompt', {prompt_id: id});
-  updateBadge();
-  renderCards();
-  if(curPage === 'favorites') renderFavGrid();
-}
-function updateBadge(){ document.getElementById('fbadge').textContent = favs.length; }
-function renderFavGrid(){
-  const list = PROMPTS.filter(p => favs.includes(p.id));
-  const g = document.getElementById('favGrid');
-  if(!list.length){
-    g.innerHTML = `<div class="empty"><span class="empty-e">♡</span><h3>No saved prompts</h3><p>Click ♡ on any prompt to save it here.</p></div>`;
-    return;
-  }
-  g.innerHTML = list.map((p,i) => cardHTML(p, i, 'f')).join('');
-}
-function favModal(){
-  if(!modalP) return;
-  togFav(modalP.id, null);
-  const on = favs.includes(modalP.id);
-  const b  = document.getElementById('mFav');
-  b.textContent = on ? '♥' : '♡';
-  b.classList.toggle('on', on);
-}
-function exportPDF(){
-  const list = PROMPTS.filter(p => favs.includes(p.id));
-  if(!list.length){ alert('Save some prompts first by clicking the ♡ button!'); return; }
-  document.getElementById('pdate').textContent =
-    'Exported: ' + new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-  window.print();
-}
-
-/* ════════════════════════════════════════
-   MODAL
-════════════════════════════════════════ */
-
-/* ════════════════════════════════════════
-   MULTI-TOOL COMPATIBILITY
-════════════════════════════════════════ */
-const TOOL_COMPAT = {
-  chatgpt:    [{name:'Claude',    icon:'🧠', url:'https://claude.ai'},
-               {name:'Gemini',   icon:'✨', url:'https://gemini.google.com'}],
-  midjourney: [{name:'DALL·E 3', icon:'🖼️', url:'https://openai.com/dall-e-3'},
-               {name:'Stable Diffusion', icon:'🎨', url:'https://stability.ai'}],
-  other:      [{name:'ChatGPT',  icon:'🤖', url:'https://chat.openai.com'},
-               {name:'Claude',   icon:'🧠', url:'https://claude.ai'},
-               {name:'Gemini',   icon:'✨', url:'https://gemini.google.com'}],
-};
-
-
-
-/* ════════════════════════════════════════
-   HOW DO I PAGE — Task Navigator
-════════════════════════════════════════ */
-const HOW_DO_I = [
-  {task:"Write a viral LinkedIn post", icon:"💼", cat:"Social Media",
-   prompts:["LinkedIn Thought Leadership","Hook Formula Master","Brand Voice & Tone Guide"],
-   tools:["ChatGPT","Claude","Gemini"],
-   tip:"Use the hook formula first, then apply your brand voice."},
-  {task:"Create a fantasy landscape image", icon:"🏔️", cat:"Image Generation",
-   prompts:["Fantasy Epic Landscape","Cinematic Portrait","Dreamy Surreal Architecture"],
-   tools:["Midjourney","DALL·E 3"],
-   tip:"Add --ar 16:9 and --stylize 1000 in Midjourney for epic results."},
-  {task:"Write a cold email that gets replies", icon:"📧", cat:"Business",
-   prompts:["Cold Email Outreach","Hook Formula Master","Negotiation Script Writer"],
-   tools:["ChatGPT","Claude"],
-   tip:"Keep it under 130 words. One ask only."},
-  {task:"Build an AI agent for my business", icon:"🤖", cat:"AI Agents",
-   prompts:["Build Your First AI Agent","AI Agent System Prompt Designer","Customer Service AI Agent"],
-   tools:["ChatGPT","Claude"],
-   tip:"Start with the system prompt designer before building anything."},
-  {task:"Grow my Instagram or TikTok", icon:"📱", cat:"Social Media",
-   prompts:["Viral Content Idea Generator","Hook Formula Master","Instagram Caption Pack"],
-   tools:["ChatGPT","Claude","Gemini"],
-   tip:"Generate 25 ideas, then pick the 3 most counterintuitive ones."},
-  {task:"Negotiate a higher salary", icon:"💰", cat:"Career",
-   prompts:["Negotiation Script Writer","Interview Prep Coach","10-Year Career Roadmap"],
-   tools:["ChatGPT","Claude"],
-   tip:"Run the script 3 times with different scenarios before the meeting."},
-  {task:"Create a product ad photo", icon:"📸", cat:"Image Generation",
-   prompts:["Studio Product Photography","Luxury Brand Product Ad","Hyperrealistic Food Photography"],
-   tools:["Midjourney","DALL·E 3"],
-   tip:"Use --style raw in Midjourney for the most photorealistic product shots."},
-  {task:"Write a blog post that ranks on Google", icon:"📝", cat:"Writing",
-   prompts:["Professional Blog Post Writer","SEO Content Brief Builder","Hook Formula Master"],
-   tools:["ChatGPT","Claude","Gemini"],
-   tip:"Build the SEO brief first, then write the post — not the other way around."},
-  {task:"Recover from burnout", icon:"🧘", cat:"Wellness",
-   prompts:["Burnout Recovery Roadmap","Morning Routine Designer","Stress Relief Action Plan"],
-   tools:["ChatGPT","Claude"],
-   tip:"Start with the burnout assessment before jumping to solutions."},
-  {task:"Build a startup pitch deck", icon:"🚀", cat:"Business",
-   prompts:["Pitch Deck Narrative Builder","Business Plan One-Pager","Competitor Analysis Report"],
-   tools:["ChatGPT","Claude"],
-   tip:"Lead with the problem. Investors fund solutions to big problems."},
-  {task:"Understand a legal contract", icon:"⚖️", cat:"Legal",
-   prompts:["Contract Plain English Explainer","NDA Generator","Terms of Service Generator"],
-   tools:["ChatGPT","Claude"],
-   tip:"Always paste the actual contract text — never describe it from memory."},
-  {task:"Buy my first home", icon:"🏠", cat:"Real Estate",
-   prompts:["First-Time Home Buyer Guide","Home Buyer Negotiation Script","Rental Property ROI Calculator"],
-   tools:["ChatGPT","Claude"],
-   tip:"Run the ROI calculator on any property before making an offer."},
-  {task:"Get fit in 90 days", icon:"💪", cat:"Health",
-   prompts:["90-Day Health Transformation","Personal Fitness Program Builder","Doctor Appointment Prep"],
-   tools:["ChatGPT","Claude"],
-   tip:"The meal plan is 80% of the result. Start there, not the workout."},
-  {task:"Write a children's book", icon:"📚", cat:"Creative",
-   prompts:["Children's Story Creator","Character Design Brief","World Building Guide"],
-   tools:["ChatGPT","Claude"],
-   tip:"Set the age group first — vocabulary and sentence length change dramatically."},
-  {task:"Create a cinematic portrait", icon:"🎬", cat:"Image Generation",
-   prompts:["Cinematic Portrait","Cinematic Car Night Scene","Fashion Editorial Shot"],
-   tools:["Midjourney","DALL·E 3"],
-   tip:"Add 'shallow depth of field, 85mm f/1.4' to any portrait prompt."},
-  {task:"Start a side hustle", icon:"💡", cat:"Business",
-   prompts:["Side Hustle Blueprint","Viral Content Idea Generator","Cold Email Outreach"],
-   tools:["ChatGPT","Claude"],
-   tip:"The blueprint finds your speed-to-first-dollar path — start there."},
-  {task:"Automate tasks with AI", icon:"⚙️", cat:"AI Agents",
-   prompts:["Zapier AI Agent Builder","Make.com AI Scenario Builder","Email Management AI Agent"],
-   tools:["ChatGPT","Claude"],
-   tip:"Map the task on paper before touching any automation tool."},
-  {task:"Generate a logo or brand identity", icon:"🎨", cat:"Design",
-   prompts:["Minimalist Logo Concept","Brand Identity Naming System","Abstract Bauhaus Poster"],
-   tools:["Midjourney","DALL·E 3"],
-   tip:"Request 'multiple layout variations' to get more options in one generation."},
-  {task:"Prepare for a doctor visit", icon:"🏥", cat:"Health",
-   prompts:["Doctor Appointment Prep","Medication & Supplement Guide","Mental Health Self-Assessment"],
-   tools:["ChatGPT","Claude"],
-   tip:"Print the summary the AI creates and hand it to your doctor."},
-  {task:"Sell my home fast", icon:"🏡", cat:"Real Estate",
-   prompts:["Home Seller Action Plan","Property Listing Description","Property Listing Social Pack"],
-   tools:["ChatGPT","Claude"],
-   tip:"The pre-listing checklist alone can add thousands to your sale price."},
-];
-
-let activeHowdoiCat = 'All';
-
-function renderHowdoiPage(){
-  const cats = ['All', ...new Set(HOW_DO_I.map(h => h.cat))];
-  const catsEl = document.getElementById('howdoiCats');
-  if(catsEl){
-    catsEl.innerHTML = cats.map(c =>
-      `<span class="howdoi-cat-pill${c===activeHowdoiCat?' active':''}"
-        onclick="setHowdoiCat('${c}')">${c}</span>`
-    ).join('');
-  }
-  renderHowdoiGrid('');
-}
-
-function setHowdoiCat(cat){
-  activeHowdoiCat = cat;
-  renderHowdoiPage();
-  updateCopyLimitBar();
-}
-
-function filterHowdoi(q){
-  renderHowdoiGrid(q);
-}
-
-function renderHowdoiGrid(q){
-  const g = document.getElementById('howdoiGrid');
+// ── RENDER CARDS ──
+function renderCards(){
+  const list = getList();
+  const rcnt = document.getElementById('rcnt');
+  if(rcnt) rcnt.innerHTML = 'Showing <strong>'+list.length+'</strong> of <strong>'+PROMPTS.length+'</strong> prompts';
+  const g = document.getElementById('mainGrid');
   if(!g) return;
-  let items = HOW_DO_I;
-  if(activeHowdoiCat !== 'All')
-    items = items.filter(h => h.cat === activeHowdoiCat);
-  if(q && q.trim()){
-    const lq = q.toLowerCase();
-    items = items.filter(h =>
-      h.task.toLowerCase().includes(lq) ||
-      h.cat.toLowerCase().includes(lq) ||
-      h.tools.some(t => t.toLowerCase().includes(lq))
-    );
-  }
-  if(!items.length){
-    g.innerHTML = `<div class="empty" style="grid-column:1/-1">
-      <span class="empty-e">🔍</span>
-      <h3>No tasks found</h3>
-      <p>Try a different search or browse all categories.</p>
-    </div>`;
+  if(!list.length){
+    g.innerHTML = '<div class="empty"><span class="empty-e">🔍</span><h3>No prompts found</h3><p>Try a different search or category.</p></div>';
     return;
   }
-  g.innerHTML = items.map(h => {
-    const matched = h.prompts
-      .map(name => PROMPTS.find(p => p.name === name))
-      .filter(Boolean);
-    const toolLabel = t =>
-      t==='chatgpt'?'🤖 ChatGPT':t==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-    return `
-    <div class="howdoi-card">
-      <div class="howdoi-task">
-        <span class="howdoi-task-icon">${h.icon}</span>
-        "I want to ${h.task}"
-      </div>
-      <div class="howdoi-recs">
-        ${matched.map(p => `
-          <div class="howdoi-rec" onclick="openModal('${p.id}')">
-            <div class="howdoi-rec-name">${p.name}</div>
-            <div class="howdoi-rec-meta">
-              <span class="howdoi-rec-tool">${toolLabel(p.tool)}</span>
-              <span class="howdoi-rec-cat">${p.cat}</span>
-            </div>
-          </div>`).join('')}
-      </div>
-      <div class="howdoi-tools">
-        <strong>Best tools:</strong>
-        ${h.tools.map(t=>`<span class="howdoi-tool-chip">${t}</span>`).join('')}
-      </div>
-      ${h.tip?`<div class="howdoi-tip">💡 ${h.tip}</div>`:''}
-    </div>`;
-  }).join('');
+  g.innerHTML = list.map((p,i) => cardHTML(p, i, 'c')).join('');
 }
 
+// ── RENDER CATS ──
+function renderCats(){
+  const html = CATS.map(c => {
+    const cnt = c.n==='All' ? PROMPTS.length : PROMPTS.filter(p => p.cat===c.n).length;
+    return '<button class="cbtn'+(activeCat===c.n?' active':'')+'" onclick="setCat(''+c.n+'')"><span class="cico">'+c.i+'</span>'+c.n+'<span class="ccnt">'+cnt+'</span></button>';
+  }).join('');
+  const desktop = document.getElementById('catList');
+  const mobile  = document.getElementById('mobileCatBar');
+  if(desktop) desktop.innerHTML = html;
+  if(mobile)  mobile.innerHTML  = html;
+}
+
+// ── RENDER TAGS ──
+function renderTags(){
+  const tags = [...new Set(PROMPTS.flatMap(p => p.tags))].sort();
+  const cloud = document.getElementById('tagCloud');
+  if(cloud) cloud.innerHTML = tags.map(t =>
+    '<span class="tpill'+(activeTag===t?' active':'')+'" onclick="setTag(''+t+'')">'+t+'</span>'
+  ).join('');
+}
+
+// ── SET CAT / TAG ──
+function setCat(n){
+  activeCat = n; activeTag = '';
+  renderCats(); renderCards();
+}
+function setTag(t){
+  activeTag = activeTag===t ? '' : t;
+  renderTags(); renderCards();
+}
+
+// ── MODAL ──
 function openModal(id){
   const p = PROMPTS.find(x => x.id === id);
   if(!p) return;
   modalP = p;
-  const bc = p.tool==='chatgpt'?'bc':p.tool==='midjourney'?'bm':'bo';
   const tl = p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-  const on = favs.includes(p.id);
-  document.getElementById('mT').textContent = p.name;
-  document.getElementById('mM').innerHTML = `
-    <span class="badge ${bc}">${tl}</span>
-    <span class="badge" style="background:var(--surface2);border:1px solid var(--border);color:var(--text3)">📁 ${p.cat}</span>
-    ${p.feat ? '<span class="badge" style="background:rgba(245,194,0,.1);border:1px solid rgba(245,194,0,.3);color:var(--yellow)">⭐ Featured</span>' : ''}
-  `;
-  document.getElementById('mP').textContent  = p.text;
-  document.getElementById('mTg').innerHTML   = p.tags.map(t=>`<span class="tpill">${t}</span>`).join('');
-  document.getElementById('mD').textContent  = p.desc || '';
-  const b = document.getElementById('mFav');
-  b.textContent = on ? '♥' : '♡';
-  b.classList.toggle('on', on);
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  gaTrack('view_prompt', {prompt_name: p.name, tool: p.tool});
-
-  // Show multi-tool compat tags
-  const compat = TOOL_COMPAT[p.tool] || [];
-  const compatWrap = document.getElementById('mCompat');
-  const compatTags = document.getElementById('mCompatTags');
-  if(compatWrap && compatTags){
-    if(compat.length > 0){
-      compatTags.innerHTML = compat.map(t =>
-        `<a class="compat-tag" href="${t.url}" target="_blank" rel="noopener" style="text-decoration:none;">
-          ${t.icon} ${t.name}
-        </a>`
-      ).join('');
-      compatWrap.style.display = 'block';
-    } else {
-      compatWrap.style.display = 'none';
-    }
-  }
+  const el = id2 => document.getElementById(id2);
+  if(el('mTitle'))   el('mTitle').textContent   = p.name;
+  if(el('mCat'))     el('mCat').textContent     = p.cat;
+  if(el('mTool'))    el('mTool').textContent    = tl;
+  if(el('mText'))    el('mText').textContent    = p.text;
+  if(el('mDesc'))    el('mDesc').textContent    = p.desc || '';
+  if(el('mTags'))    el('mTags').innerHTML      = (p.tags||[]).map(t=>'<span class="mtag">'+t+'</span>').join('');
+  if(el('mCopyBtn')) el('mCopyBtn').id          = 'mCopyBtn';
+  const compat = el('mCompat');
+  if(compat) compat.innerHTML = [p.tool==='chatgpt'?'ChatGPT':'',p.tool==='midjourney'?'Midjourney':'','DALL·E 3','Claude'].filter(Boolean).map(x=>'<span class="compat-pill">'+x+'</span>').join('');
+  const fav = el('mFav');
+  if(fav) fav.innerHTML = favs.includes(p.id) ? '♥' : '♡';
+  const ov = el('overlay');
+  if(ov){ ov.style.display='flex'; document.body.style.overflow='hidden'; }
 }
 function closeModal(){
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-  modalP = null;
+  const ov = document.getElementById('overlay');
+  if(ov){ ov.style.display='none'; document.body.style.overflow=''; }
 }
-function obgc(e){ if(e.target === document.getElementById('overlay')) closeModal(); }
-
-/* ════════════════════════════════════════
-   PAGES
-════════════════════════════════════════ */
-function showPage(p){
-  curPage = p;
-  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-  document.querySelectorAll('.ntab').forEach(x => x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  const tabIdx = ['library','favorites','submit','learn','howdoi','about','contact'].indexOf(p);
-  if(tabIdx !== -1 && document.querySelectorAll('.ntab')[tabIdx]){
-    document.querySelectorAll('.ntab')[tabIdx].classList.add('active');
-  }
-  if(p === 'howdoi') renderHowdoiPage();
-  if(p === 'favorites') renderFavGrid();
-  setMobileNav(p);
-  updateMobileNavBadge();
-  gaTrack('page_view', {page_name: p});
-}
-function goLib(){ showPage('library'); }
-
-/* ════════════════════════════════════════
-   INIT
-════════════════════════════════════════ */
-
-/* ════════════════════════════════════════
-   RATINGS SYSTEM
-════════════════════════════════════════ */
-function getRatings(){ return JSON.parse(localStorage.getItem('pa_ratings') || '{}'); }
-function saveRatings(r){ localStorage.setItem('pa_ratings', JSON.stringify(r)); }
-function getVotes(){ return JSON.parse(localStorage.getItem('pa_votes') || '{}'); }
-function saveVotes(v){ localStorage.setItem('pa_votes', JSON.stringify(v)); }
-function getUserVote(id){
-  return getVotes()[id] || null;
-}
-/* ════════════════════════════════════════
-   COPY COUNTER
-════════════════════════════════════════ */
-function getCopyCounts(){ return JSON.parse(localStorage.getItem('pa_copies') || '{}'); }
-function getCopyCount(id){ return getCopyCounts()[id] || 0; }
-function incrementCopy(id){
-  const counts = getCopyCounts();
-  counts[id] = (counts[id] || 0) + 1;
-  localStorage.setItem('pa_copies', JSON.stringify(counts));
+function obgc(e){ if(e.target===e.currentTarget) closeModal(); }
+function favModal(){
+  if(!modalP) return;
+  togFav(modalP.id);
+  const fav = document.getElementById('mFav');
+  if(fav) fav.innerHTML = favs.includes(modalP.id)?'♥':'♡';
 }
 
-/* ════════════════════════════════════════
-   SOCIAL SHARING
-════════════════════════════════════════ */
-function sharePrompt(id, platform, e){
-  if(e) e.stopPropagation();
-  const p = PROMPTS.find(x => x.id === id);
-  if(!p) return;
-  const url = encodeURIComponent('https://promptaholics.com');
-  const text = encodeURIComponent(`"${p.name}" — free AI prompt from Promptaholics`);
-  const fullText = encodeURIComponent(`Check out this free AI prompt: "${p.name}"\n\npromptaholics.com`);
-  const urls = {
-    'x':        `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
-    'linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-    'whatsapp': `https://wa.me/?text=${fullText}`,
-  };
-  if(urls[platform]) window.open(urls[platform], '_blank', 'width=600,height=400');
-  gaTrack('share_prompt', {prompt_name: p.name, platform});
-}
+// ── STUB — stubs for functions called from modal HTML ──
+function getRating(id){ return {up:0,down:0}; }
+function getUserVote(id){ return null; }
+function sharePrompt(id, platform, e){ if(e) e.stopPropagation(); }
+function notifyMe(){ }
+function goLib(){ }
 
-/* ════════════════════════════════════════
-   PROMPT OF THE DAY
-════════════════════════════════════════ */
-let potdId = null;
-let potwId = null;
+// ── BOOT ──
+document.addEventListener('DOMContentLoaded', function(){
+  // Theme button
+  const tb = document.getElementById('themeBtn');
+  if(tb) tb.textContent = theme==='light' ? '☀️' : '🌙';
 
-function setupPotd(){
-  // Pick prompt based on day of year (changes daily, consistent for all visitors)
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
-  const idx = dayOfYear % PROMPTS.length;
-  const p = PROMPTS[idx];
-  potdId = p.id;
-  document.getElementById('potdName').textContent = p.name;
-  document.getElementById('potdPreview').textContent = p.text.slice(0,100).replace(/\n/g,' ')+'…';
-  gaTrack('potd_view', {prompt_name: p.name});
-}
-
-function copyPotd(){
-  const p = PROMPTS.find(x => x.id === potdId);
-  if(!p) return;
-  safeCopy(p.text, null);
-  incrementCopy(potdId);
-  const btn = document.querySelector('.potd-btn.outline');
-  if(btn){ btn.textContent = '✅ Copied!'; setTimeout(()=>btn.textContent='📋 Copy', 2000); }
-  gaTrack('copy_prompt', {prompt_name: p.name, source: 'potd'});
-}
-
-/* ════════════════════════════════════════
-   PROMPT OF THE WEEK
-════════════════════════════════════════ */
-function copyPotw(){
-  const p = PROMPTS.find(x => x.id === potwId);
-  if(!p) return;
-  safeCopy(p.text, null);
-  incrementCopy(potwId);
-  const btn = document.querySelector('.potw-actions .potd-btn.outline');
-  if(btn){ btn.textContent = '✅ Copied!'; setTimeout(()=>btn.textContent='📋 Copy', 2000); }
-  gaTrack('copy_prompt', {prompt_name: p.name, source: 'potw'});
-}
-
-/* ════════════════════════════════════════
-   LEARN PAGE — COPY EXAMPLE
-════════════════════════════════════════ */
-function copyLearnExample(el){
-  const text = el.innerText.replace(/click to copy/gi,'').replace(/[❌✅].+\n/,'').trim();
-  safeCopy(text, null);
-  const orig = el.style.borderColor;
-  el.style.borderColor = 'var(--orange)';
-  const hint = el.querySelector('.learn-copy-hint');
-  if(hint){ const oh = hint.textContent; hint.textContent = '✅ Copied!'; setTimeout(()=>{ hint.textContent = oh; el.style.borderColor = orig; }, 2000); }
-}
-
-/* ════════════════════════════════════════
-   MOBILE NAV
-════════════════════════════════════════ */
-function setMobileNav(page){
-  document.querySelectorAll('.mnav-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('mn-'+page);
-  if(btn) btn.classList.add('active');
-}
-function updateMobileNavBadge(){
-  const badge = document.getElementById('mnFavBadge');
-  if(!badge) return;
-  if(favs.length > 0){ badge.style.display='block'; badge.textContent=favs.length; }
-  else badge.style.display='none';
-}
-
-
-
-/* ════════════════════════════════════════
-   AI SEARCH ENGINE
-   Uses Claude claude-sonnet-4-20250514 to understand user intent
-   and rank the best matching prompts from the library
-════════════════════════════════════════ */
-
-let aiSearchActive = false;
-let aiSearchTimeout = null;
-
-function setAiQuery(el){
-  document.getElementById('aiSearchInput').value = el.textContent;
-  runAiSearch();
-}
-
-function clearAiSearch(){
-  aiSearchActive = false;
-  activeTag = '';
-  if(document.getElementById('aiSearchInput')) document.getElementById('aiSearchInput').value = '';
-  if(document.getElementById('aiResults')) document.getElementById('aiResults').classList.remove('show');
-  if(document.getElementById('aiEmpty')) document.getElementById('aiEmpty').classList.remove('show');
-  if(document.getElementById('aiThinking')) document.getElementById('aiThinking').classList.remove('show');
-  if(document.getElementById('aiClearBtn')) document.getElementById('aiClearBtn').classList.remove('show');
-  if(document.getElementById('aiSearchBtn')) document.getElementById('aiSearchBtn').disabled = false;
+  // Render everything
+  renderCats();
+  renderTags();
   renderCards();
-}
+  updateCopyLimitBar();
 
-async 
-/* ── SMART KEYWORD SEARCH ENGINE ── */
-function keywordSearch(query){
-  const q = query.toLowerCase().trim();
-  const words = q.split(/\s+/).filter(w => w.length > 1); // min 2 chars not 3
-
-  const intentMap = {
-    'write': ['writing','content','copywriting','story'],
-    'image': ['image generation','midjourney','dalle','art'],
-    'art': ['image generation','creative','midjourney'],
-    'photo': ['photography','portrait','midjourney'],
-    'picture': ['image generation','photography','midjourney'],
-    'business': ['business','marketing','entrepreneur'],
-    'market': ['marketing','business','social'],
-    'code': ['code','programming','tech','developer'],
-    'tweet': ['twitter','social','viral','writing'],
-    'twitter': ['twitter','social','viral'],
-    'linkedin': ['linkedin','business','professional'],
-    'tiktok': ['tiktok','viral','social'],
-    'youtube': ['youtube','video','script'],
-    'video': ['youtube','video','script','tiktok'],
-    'email': ['email','outreach','copywriting'],
-    'story': ['story','fiction','creative','writing'],
-    'legal': ['legal','contract','lawyer'],
-    'real estate': ['real estate','property','listing'],
-    'house': ['real estate','property'],
-    'health': ['health','wellness','medical'],
-    'sleep': ['sleep','wellness','health'],
-    'workout': ['fitness','workout','health','wellness'],
-    'fitness': ['fitness','workout','health'],
-    'agent': ['agent','automation','ai agent'],
-    'automat': ['automation','agent','workflow'],
-    'startup': ['startup','business','entrepreneur'],
-    'brand': ['branding','brand','identity'],
-    'seo': ['seo','marketing','content'],
-    'sales': ['sales','copywriting','business'],
-    'sell': ['sales','copywriting','business'],
-    'resume': ['resume','career','job'],
-    'job': ['resume','career','job'],
-    'productiv': ['productivity','focus','deep work'],
-    'morning': ['routine','habits','productivity','wellness'],
-    'routine': ['routine','habits','productivity'],
-    'fantasy': ['fantasy','image generation','midjourney'],
-    'midjourney': ['midjourney','image generation'],
-    'chatgpt': ['chatgpt','writing','business'],
-    'prompt': ['prompt engineering','ai tools'],
-    'hook': ['hooks','viral','marketing','writing'],
-    'viral': ['viral','hooks','social','marketing'],
-    'copy': ['copywriting','writing','marketing'],
-    'script': ['script','youtube','tiktok','video'],
-    'creative': ['creative','writing','fiction','art'],
-    'course': ['education','learning','course'],
-    'teach': ['education','learning'],
-    'learn': ['education','learning'],
-    'life': ['personal development','wellness','productivity'],
-    'goal': ['personal development','productivity','wellness'],
-    'mindset': ['wellness','personal development'],
-    'stress': ['wellness','health','productivity'],
-  };
-
-  // Expand words using intent map
-  let expanded = [...words];
-  Object.keys(intentMap).forEach(phrase => {
-    if(q.includes(phrase)){
-      expanded = [...expanded, ...intentMap[phrase]];
-    }
-  });
-
-  const scored = PROMPTS.map(p => {
-    const nameL = p.name.toLowerCase();
-    const catL  = p.cat.toLowerCase();
-    const tagsL = p.tags.join(' ').toLowerCase();
-    const descL = (p.desc || p.text.slice(0,100)).toLowerCase();
-    const hay   = nameL + ' ' + catL + ' ' + tagsL + ' ' + descL;
-
-    let score = 0;
-    expanded.forEach(w => {
-      if(!w || w.length < 2) return;
-      if(nameL.includes(w))   score += 6;  // name = strongest signal
-      else if(catL.includes(w)) score += 3;
-      else if(tagsL.includes(w)) score += 2;
-      else if(descL.includes(w)) score += 1;
-    });
-
-    if(p.feat && score > 0) score += 1;
-    return { id: p.id, score };
-  })
-  .filter(x => x.score > 0)
-  .sort((a, b) => b.score - a.score)
-  .slice(0, 6)
-  .map(x => ({ id: x.id, reason: getReason(x.id, words) }));
-
-  return scored;
-}
-
-
-function getReason(id, words){
-  const p = PROMPTS.find(x => x.id === id);
-  if(!p) return 'Matches your search';
-  if(p.feat) return 'Top rated in ' + p.cat;
-  return 'Great match for ' + p.cat.toLowerCase();
-}
-
-async function runAiSearch(){
-  const query = document.getElementById('aiSearchInput').value.trim();
-  if(!query) return;
-  document.getElementById('aiExamples').style.display = 'none';
-  document.getElementById('aiResults').classList.remove('show');
-  document.getElementById('aiThinking').classList.add('show');
-  document.getElementById('aiSearchBtn').disabled = true;
-  document.getElementById('aiClearBtn').classList.add('show');
-  aiSearchActive = true;
-  gaTrack('ai_search', {query});
-  const results = keywordSearch(query);
-  document.getElementById('aiThinking').classList.remove('show');
-  document.getElementById('aiSearchBtn').disabled = false;
-  showAiResults(results, query);
-}
-
-
-function showWebSearching(webQuery){
-  const panel = document.getElementById('aiResults');
-  panel.classList.add('show');
-  // Add "searching web" message
-  const existing = document.getElementById('webSearchingMsg');
-  if(existing) existing.remove();
-  const msg = document.createElement('div');
-  msg.id = 'webSearchingMsg';
-  msg.className = 'web-searching-msg';
-  msg.innerHTML = '<div class="ai-dots" style="display:flex;gap:4px"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div> Searching the web for more prompts…';
-  panel.appendChild(msg);
-}
-
-async function runWebSearch(webQuery, originalQuery){
-  // Web search requires Netlify Functions (paid plan)
-  // Gracefully skip and just show footer with submit link
-  const msg = document.getElementById('webSearchingMsg');
-  if(msg) msg.remove();
-  showSearchFooter(originalQuery);
-}
-
-
-function showWebResults(results, query){
-  const panel = document.getElementById('aiResults');
-  panel.classList.add('show');
-
-  // Remove any existing web section
-  const existing = document.getElementById('webResultsSection');
-  if(existing) existing.remove();
-
-  const section = document.createElement('div');
-  section.id = 'webResultsSection';
-  section.className = 'web-results-section';
-  section.innerHTML = `
-    <div class="web-results-header">
-      <span>🌐 From Around the Web</span>
-      <span class="web-badge">${results.length} found</span>
-    </div>
-    ${results.map((r, i) => `
-    <div class="web-result-item">
-      <div class="web-result-rank">${i+1}</div>
-      <div class="web-result-body">
-        <div class="web-result-title">${r.title || 'Prompt Found'}</div>
-        <div class="web-result-desc">${r.description || ''}</div>
-        <div class="web-result-source">${r.source || 'web'}</div>
-      </div>
-      <div class="web-result-actions">
-        <span class="web-result-use" onclick="copyWebResult('${encodeURIComponent(r.description||r.title)}', this)">📋 Copy</span>
-      </div>
-    </div>`).join('')}
-  `;
-
-  panel.appendChild(section);
-  showSearchFooter(query);
-  gaTrack('web_search_results', {query, count: results.length});
-}
-
-function copyWebResult(encodedText, btn){
-  const text = decodeURIComponent(encodedText);
-  safeCopy(text, null);
-  btn.textContent = '✅ Copied!';
-  setTimeout(() => btn.textContent = '📋 Copy', 2000);
-  gaTrack('copy_web_prompt', {});
-}
-
-function showSearchFooter(query){
-  const panel = document.getElementById('aiResults');
-  panel.classList.add('show');
-  const existing = document.getElementById('aiSearchFooter');
-  if(existing) existing.remove();
-  const footer = document.createElement('div');
-  footer.id = 'aiSearchFooter';
-  footer.className = 'ai-search-footer';
-  footer.innerHTML = `
-    <span>💡 Not finding what you need? <a href="#" onclick="showPage('submit');return false;">Submit a prompt</a> to the library</span>
-    <span>Powered by Claude AI</span>
-  `;
-  panel.appendChild(footer);
-}
-
-function showAiResults(results, query){
-  const list  = document.getElementById('aiResultsList');
-  const panel = document.getElementById('aiResults');
-  const empty = document.getElementById('aiEmpty');
-  const count = document.getElementById('aiResultCount');
-
-  // Clear old web results
-  const oldWeb = document.getElementById('webResultsSection');
-  if(oldWeb) oldWeb.remove();
-  const oldFooter = document.getElementById('aiSearchFooter');
-  if(oldFooter) oldFooter.remove();
-
-  if(!results || results.length === 0){
-    list.innerHTML = '';
-    count.textContent = '0';
-    // Don't show empty yet — web search might fill it
-    return;
-  }
-
-  empty.classList.remove('show');
-  count.textContent = results.length;
-
-  list.innerHTML = results.map((r, i) => {
-    const p = PROMPTS.find(x => x.id === r.id);
-    if(!p) return '';
-    const toolLabel = p.tool === 'chatgpt' ? '🤖 ChatGPT'
-                    : p.tool === 'midjourney' ? '🎨 Midjourney' : '⚙️ Other';
-    return `
-    <div class="ai-result-item" onclick="openModal('${p.id}')">
-      <div class="ai-result-rank${i===0?' top':''}">${i+1}</div>
-      <div class="ai-result-body">
-        <div class="ai-result-name">${p.name}</div>
-        <div class="ai-result-reason">✨ ${r.reason || 'Strong match for your request'}</div>
-        <div class="ai-result-meta">
-          <span class="ai-result-cat">${p.cat}</span>
-          <span class="ai-result-tool">${toolLabel}</span>
-        </div>
-      </div>
-      <div class="ai-result-actions">
-        <button class="ai-result-copy" onclick="aiResultCopy('${p.id}',event)">📋 Copy</button>
-        <button class="ai-result-view" onclick="openModal('${p.id}');event.stopPropagation()">View →</button>
-      </div>
-    </div>`;
-  }).join('');
-
-  panel.classList.add('show');
-
-  // Filter main grid to matched prompts
-  const matchedIds = results.map(r => r.id);
-  renderAiFiltered(matchedIds);
-}
-
-function renderAiFiltered(ids){
-  const g = document.getElementById('mainGrid');
-  const matched = ids.map(id => PROMPTS.find(p => p.id === id)).filter(Boolean);
-  if(!matched.length) return;
-  g.innerHTML = matched.map((p, i) => cardHTML(p, i, 'c')).join('');
-  document.getElementById('rcnt').innerHTML =
-    `AI found <strong>${matched.length}</strong> best matches`;
-}
-
-function aiResultCopy(id, e){
-  e.stopPropagation();
-  const p = PROMPTS.find(x => x.id === id);
-  if(!p) return;
-  safeCopy(p.text, null);
-  incrementCopy(id);
-  gaTrack('copy_prompt', {prompt_name: p.name, source: 'ai_search'});
-  const btn = e.target;
-  btn.textContent = '✅ Copied!';
-  setTimeout(() => btn.textContent = '📋 Copy', 2000);
-}
-
-function fallbackSearch(query){
-  const q = query.toLowerCase();
-  const scored = PROMPTS.map(p => {
-    let score = 0;
-    if(p.name.toLowerCase().includes(q)) score += 10;
-    if(p.cat.toLowerCase().includes(q)) score += 6;
-    if(p.tags.some(t => t.includes(q))) score += 5;
-    if((p.desc||'').toLowerCase().includes(q)) score += 4;
-    if(p.text.toLowerCase().includes(q)) score += 2;
-    q.split(' ').forEach(word => {
-      if(word.length < 3) return;
-      if(p.name.toLowerCase().includes(word)) score += 3;
-      if(p.tags.some(t => t.includes(word))) score += 2;
-    });
-    return { id: p.id, score, reason: 'Keyword match for your search' };
-  }).filter(x => x.score > 0)
-    .sort((a,b) => b.score - a.score)
-    .slice(0, 5);
-
-  showAiResults(scored, query);
-  showSearchFooter(query);
-}
-// Allow Enter key to trigger search
-document.addEventListener('DOMContentLoaded', () => {
-  const inp = document.getElementById('aiSearchInput');
-  if(inp){
-    inp.addEventListener('keydown', e => {
-      if(e.key === 'Enter') runAiSearch();
-    });
-    inp.addEventListener('input', () => {
-      const val = inp.value.trim();
-      document.getElementById('aiClearBtn').classList.toggle('show', val.length > 0);
-      // If user clears the input manually, reset
-      if(!val && aiSearchActive) clearAiSearch();
-    });
-  }
+  // Mobile cats
+  const mob = document.getElementById('mobileCatBar');
+  if(mob && window.innerWidth < 900) mob.style.display = 'flex';
 });
-
-
-
-
-function init(){
-  applyTheme(theme);
-  renderAll();
-  updateBadge();
-  setupPotd();
-  updateMobileNavBadge();
-  // Update AI Tools count dynamically from PROMPTS array
-  // Update stats dynamically from PROMPTS array
-  const uniqueTools = new Set(PROMPTS.map(p => p.tool)).size;
-  const toolEl = document.getElementById('toolCnt');
-  if(toolEl) toolEl.textContent = uniqueTools;
-  const totEl = document.getElementById('totCnt');
-  if(totEl) totEl.textContent = PROMPTS.length;
-  const catEl = document.getElementById('catCnt');
-  if(catEl){
-    const uniqueCats = new Set(PROMPTS.filter(p=>p.cat!=='Other').map(p=>p.cat)).size;
-    catEl.textContent = uniqueCats;
-  }
-  // Update categories count dynamically
-  const uniqueCats = new Set(PROMPTS.filter(p=>p.cat!=='Other').map(p=>p.cat)).size;
-  document.getElementById('searchInput').addEventListener('input', () => {
-    gaTrack('search', {search_term: document.getElementById('searchInput').value});
-    renderCards();
-  });
-  document.addEventListener('keydown', e => {
-    if((e.metaKey||e.ctrlKey) && e.key==='k'){ e.preventDefault(); document.getElementById('aiSearchInput').focus(); }
-    if(e.key === 'Escape') closeModal();
-  });
-}
-
-// Wait for DOM to be ready before running
-if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-</script>
-
-<!-- ✦ LIBRARY BOOT ✦ -->
-<script>
-(function(){
-  var t = localStorage.getItem('pa_theme') || 'dark';
-  if(t==='light') document.documentElement.classList.add('light-mode');
-
-  window.toggleTheme = function(){
-    var cur = localStorage.getItem('pa_theme')||'dark';
-    localStorage.setItem('pa_theme', cur==='dark'?'light':'dark');
-    location.reload();
-  };
-
-  function boot(){
-    var tb = document.getElementById('themeBtn');
-    var cur = localStorage.getItem('pa_theme')||'dark';
-    if(tb) tb.textContent = cur==='light'?'☀️':'🌙';
-
-    if(typeof applyTheme==='function') applyTheme(cur);
-    if(typeof renderCats==='function') renderCats();
-    if(typeof renderTags==='function') renderTags();
-    if(typeof renderCards==='function') renderCards();
-    if(typeof updateCopyLimitBar==='function') updateCopyLimitBar();
-
-    // Mobile cats
-    var mob = document.getElementById('mobileCatBar');
-    if(mob && window.innerWidth < 900){
-      mob.style.display = 'flex';
-      if(typeof renderCats==='function') renderCats();
-    }
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-})();
 </script>
 
 </body>
