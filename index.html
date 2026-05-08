@@ -296,7 +296,14 @@ footer{border-top:1px solid var(--border);padding:24px 30px;display:flex;align-i
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
 
 /* ══ RESPONSIVE ══ */
-@media(max-width:900px){.sidebar{display:none;}}
+@media(max-width:900px){
+  .sidebar{display:none;}
+  /* Show horizontal category scroll bar instead */
+  .mobile-cats{display:flex!important;}
+}
+@media(min-width:901px){
+  .mobile-cats{display:none!important;}
+}
 @media(max-width:640px){
   header{padding:0 14px;}
   .logo-sub{display:none;}
@@ -1187,6 +1194,29 @@ function getUserVote(id){ return null; }
   background:rgba(255,98,36,.15);
   transform:translateY(-1px);
 }
+
+/* ══ MOBILE CATEGORY BAR ══ */
+.mobile-cats{
+  display:none;
+  overflow-x:auto;scrollbar-width:none;
+  gap:8px;padding:10px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+  position:sticky;top:var(--hh);z-index:40;
+}
+.mobile-cats::-webkit-scrollbar{display:none;}
+.mobile-cats .cbtn{
+  flex-shrink:0;white-space:nowrap;
+  padding:6px 14px;font-size:12px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:20px;cursor:pointer;color:var(--text2);
+  font-family:'Instrument Sans',sans-serif;font-weight:600;
+  transition:all .15s;
+}
+.mobile-cats .cbtn.active,
+.mobile-cats .cbtn:hover{
+  background:var(--orange);border-color:var(--orange);color:#fff;
+}
 </style>
 
 <!-- ✦ PROMPT DATA — edit prompts.js to add/modify prompts ✦ -->
@@ -1400,6 +1430,9 @@ function getUserVote(id){ return null; }
   </div>
   <div class="copy-limit-label"><strong>10</strong> free copies left today</div>
 </div>
+<!-- MOBILE CATEGORY BAR — shows on screens < 900px -->
+<div class="mobile-cats" id="mobileCatBar"></div>
+
 <div class="app">
     <aside class="sidebar">
       <div class="sb-sec"><div class="sb-lbl">Category</div><div id="catList"></div></div>
@@ -2115,12 +2148,17 @@ function renderFeatured(){
 }
 
 function renderCats(){
-  document.getElementById('catList').innerHTML = CATS.map(c => {
+  const catHTML = CATS.map(c => {
     const cnt = c.n === 'All' ? PROMPTS.length : PROMPTS.filter(p => p.cat === c.n).length;
     return `<button class="cbtn${activeCat===c.n?' active':''}" onclick="setCat('${c.n}')">
       <span class="cico">${c.i}</span>${c.n}<span class="ccnt">${cnt}</span>
     </button>`;
   }).join('');
+  // Render in both desktop sidebar and mobile bar
+  const desktopList = document.getElementById('catList');
+  const mobileBar   = document.getElementById('mobileCatBar');
+  if(desktopList) desktopList.innerHTML = catHTML;
+  if(mobileBar)   mobileBar.innerHTML  = catHTML;
 }
 
 /* ── TAG FILTER ── */
