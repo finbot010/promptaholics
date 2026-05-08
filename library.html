@@ -171,6 +171,15 @@ select{background:var(--surface);border:1px solid var(--border);color:var(--text
 </div>
 
 <script src="prompts.js?v=299"></script>
+
+<!-- Safety check — shows error if prompts.js failed to load -->
+<script>
+if (typeof PROMPTS === 'undefined' || !Array.isArray(PROMPTS)) {
+  document.getElementById('mainGrid').innerHTML = '<div class="empty"><span class="empty-e">⚠️</span><h3>Library failed to load</h3><p>Please hard refresh the page (Ctrl+Shift+R) or <a href="/">return home</a>.</p></div>';
+  throw new Error("PROMPTS not defined — prompts.js failed to load");
+}
+</script>
+
 <script>
 var favs = JSON.parse(localStorage.getItem('pa_favs')||'[]');
 var activeCat = 'All';
@@ -197,7 +206,7 @@ function renderCats(){
   var h='';
   for(var i=0;i<CATS.length;i++){
     var n=CATS[i];
-    var cnt = n==='All' ? PROMPTS.length : PROMPTS.filter(function(p){return p.cat===n;}).length;
+    var cnt = n==='All' ? (Array.isArray(PROMPTS)?PROMPTS.length:0) : (Array.isArray(PROMPTS)?PROMPTS.filter(function(p){return p.cat===n;}).length:0);
     var cls = 'cbtn'+(activeCat===n?' active':'');
     h+='<button class="'+cls+'" onclick="setCat(\''+n+'\')"><span class="cico">'+(CAT_ICONS[n]||'•')+'</span>'+n+'<span class="ccnt">'+cnt+'</span></button>';
   }
@@ -207,7 +216,7 @@ function renderCats(){
 
 function renderTags(){
   var ts={};
-  PROMPTS.forEach(function(p){p.tags.forEach(function(t){ts[t]=1;});});
+  PROMPTS.forEach(function(p){(p.tags||[]).forEach(function(t){ts[t]=1;});});
   var arr=Object.keys(ts).sort();
   var h='';
   for(var i=0;i<arr.length;i++){
@@ -219,7 +228,7 @@ function renderTags(){
 function getList(){
   var q=document.getElementById('searchInput').value.toLowerCase().trim();
   var s=document.getElementById('sortSel').value;
-  var list=PROMPTS.slice();
+  var list=Array.isArray(PROMPTS)?PROMPTS.slice():[];
   if(activeCat!=='All') list=list.filter(function(p){return p.cat===activeCat;});
   if(activeTag) list=list.filter(function(p){return p.tags.indexOf(activeTag)!==-1;});
   if(q) list=list.filter(function(p){
@@ -227,7 +236,7 @@ function getList(){
       ||p.text.toLowerCase().indexOf(q)!==-1
       ||p.cat.toLowerCase().indexOf(q)!==-1
       ||(p.desc||'').toLowerCase().indexOf(q)!==-1
-      ||p.tags.some(function(t){return t.indexOf(q)!==-1;});
+      ||(p.tags||[]).some(function(t){return t.indexOf(q)!==-1;});
   });
   if(s==='oldest') list.sort(function(a,b){return parseInt(a.id)-parseInt(b.id);});
   else if(s==='newest') list.sort(function(a,b){return parseInt(b.id)-parseInt(a.id);});
@@ -253,7 +262,7 @@ function makeCard(p,i){
   var tl=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
   var prev=(p.text.length>130?p.text.slice(0,130)+'…':p.text).replace(/\n/g,' ');
   var tags='';
-  for(var t=0;t<Math.min(p.tags.length,4);t++) tags+='<span class="ctag">'+p.tags[t]+'</span>';
+  var ptags=p.tags||[]; for(var t=0;t<Math.min(ptags.length,4);t++) tags+='<span class="ctag">'+ptags[t]+'</span>';
   return '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.03,.4)+'s">'
     +'<div class="ctop"><div class="cname">'+p.name+'</div>'
     +'<button class="favbtn'+(fav?' on':'')+'" onclick="toggleFav(event,\''+p.id+'\')"> '+(fav?'♥':'♡')+'</button>'
@@ -336,7 +345,7 @@ function modalFav(){
 }
 
 // BOOT
-window.addEventListener('load', function(){
+document.addEventListener('DOMContentLoaded', function(){
   var tb=document.getElementById('themeBtn');
   if(tb) tb.textContent=theme==='light'?'☀️':'🌙';
   renderCats();
