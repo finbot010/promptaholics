@@ -2126,18 +2126,28 @@ function renderCats(){
 /* ── TAG FILTER ── */
 function filterByTag(tag, e){
   if(e) e.stopPropagation();
+
+  // If AI search is active — clear it first, then filter by tag
+  if(aiSearchActive){
+    clearAiSearch();
+  }
+
   activeTag = (activeTag === tag) ? '' : tag;
   renderCards();
-  // Scroll to results
-  document.getElementById('mainGrid').scrollIntoView({behavior:'smooth', block:'start'});
-  // Visual feedback — highlight active tag
+
+  // Scroll to grid
+  const grid = document.getElementById('mainGrid');
+  if(grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Visual feedback on tags
   document.querySelectorAll('.ctag').forEach(el => {
-    el.style.background = el.textContent === activeTag ? 'var(--orange)' : '';
-    el.style.color = el.textContent === activeTag ? '#fff' : '';
+    el.style.background = el.textContent.trim() === activeTag ? 'var(--orange)' : '';
+    el.style.color = el.textContent.trim() === activeTag ? '#fff' : '';
   });
 }
 
 function setCat(n){
+  if(aiSearchActive) clearAiSearch();
   activeCat = n; activeTag = '';
   document.querySelectorAll('.tpill').forEach(t => t.classList.remove('active'));
   renderCats(); renderCards();
@@ -2730,94 +2740,120 @@ function setAiQuery(el){
 }
 
 function clearAiSearch(){
+  aiSearchActive = false;
+  activeTag = '';
   document.getElementById('aiSearchInput').value = '';
   document.getElementById('aiResults').classList.remove('show');
   document.getElementById('aiEmpty').classList.remove('show');
   document.getElementById('aiThinking').classList.remove('show');
-  document.getElementById('aiExamples').style.display = 'flex';
   document.getElementById('aiClearBtn').classList.remove('show');
   document.getElementById('aiSearchBtn').disabled = false;
-  aiSearchActive = false;
-  renderCards(); // restore full library
+  // Reset tag visual state
+  document.querySelectorAll('.ctag').forEach(el => {
+    el.style.background = '';
+    el.style.color = '';
+  });
+  // Re-render full library
+  renderCards();
+  // Update count
+  const rcnt = document.getElementById('rcnt');
+  if(rcnt) rcnt.innerHTML = `Showing <strong>${PROMPTS.length}</strong> of <strong>${PROMPTS.length}</strong> prompts`;
 }
-
 async 
 /* ── SMART KEYWORD SEARCH ENGINE ── */
 function keywordSearch(query){
-  const q = query.toLowerCase();
-  const words = q.split(/\s+/).filter(w => w.length > 2);
+  const q = query.toLowerCase().trim();
+  const words = q.split(/\s+/).filter(w => w.length > 1); // min 2 chars not 3
 
-  // Intent mapping — common phrases → relevant categories/tags
   const intentMap = {
-    'write': ['writing','content','copywriting'],
+    'write': ['writing','content','copywriting','story'],
     'image': ['image generation','midjourney','dalle','art'],
     'art': ['image generation','creative','midjourney'],
     'photo': ['photography','portrait','midjourney'],
+    'picture': ['image generation','photography','midjourney'],
     'business': ['business','marketing','entrepreneur'],
     'market': ['marketing','business','social'],
     'code': ['code','programming','tech','developer'],
-    'tweet': ['twitter','social','viral'],
+    'tweet': ['twitter','social','viral','writing'],
+    'twitter': ['twitter','social','viral'],
     'linkedin': ['linkedin','business','professional'],
     'tiktok': ['tiktok','viral','social'],
     'youtube': ['youtube','video','script'],
+    'video': ['youtube','video','script','tiktok'],
     'email': ['email','outreach','copywriting'],
-    'story': ['story','fiction','creative'],
+    'story': ['story','fiction','creative','writing'],
     'legal': ['legal','contract','lawyer'],
     'real estate': ['real estate','property','listing'],
+    'house': ['real estate','property'],
     'health': ['health','wellness','medical'],
     'sleep': ['sleep','wellness','health'],
-    'workout': ['fitness','workout','health'],
+    'workout': ['fitness','workout','health','wellness'],
+    'fitness': ['fitness','workout','health'],
     'agent': ['agent','automation','ai agent'],
+    'automat': ['automation','agent','workflow'],
     'startup': ['startup','business','entrepreneur'],
     'brand': ['branding','brand','identity'],
     'seo': ['seo','marketing','content'],
     'sales': ['sales','copywriting','business'],
+    'sell': ['sales','copywriting','business'],
     'resume': ['resume','career','job'],
-    'productivity': ['productivity','focus','deep work'],
-    'morning': ['routine','habits','productivity'],
+    'job': ['resume','career','job'],
+    'productiv': ['productivity','focus','deep work'],
+    'morning': ['routine','habits','productivity','wellness'],
+    'routine': ['routine','habits','productivity'],
     'fantasy': ['fantasy','image generation','midjourney'],
     'midjourney': ['midjourney','image generation'],
     'chatgpt': ['chatgpt','writing','business'],
     'prompt': ['prompt engineering','ai tools'],
+    'hook': ['hooks','viral','marketing','writing'],
+    'viral': ['viral','hooks','social','marketing'],
+    'copy': ['copywriting','writing','marketing'],
+    'script': ['script','youtube','tiktok','video'],
+    'creative': ['creative','writing','fiction','art'],
+    'course': ['education','learning','course'],
+    'teach': ['education','learning'],
+    'learn': ['education','learning'],
+    'life': ['personal development','wellness','productivity'],
+    'goal': ['personal development','productivity','wellness'],
+    'mindset': ['wellness','personal development'],
+    'stress': ['wellness','health','productivity'],
   };
 
-  // Expand query with intent words
-  let expandedWords = [...words];
+  // Expand words using intent map
+  let expanded = [...words];
   Object.keys(intentMap).forEach(phrase => {
-    if(q.includes(phrase)) expandedWords = [...expandedWords, ...intentMap[phrase]];
+    if(q.includes(phrase)){
+      expanded = [...expanded, ...intentMap[phrase]];
+    }
   });
 
   const scored = PROMPTS.map(p => {
-    const hay = [
-      p.name.toLowerCase(),
-      p.cat.toLowerCase(),
-      p.tags.join(' ').toLowerCase(),
-      (p.desc || '').toLowerCase(),
-    ].join(' ');
+    const nameL = p.name.toLowerCase();
+    const catL  = p.cat.toLowerCase();
+    const tagsL = p.tags.join(' ').toLowerCase();
+    const descL = (p.desc || p.text.slice(0,100)).toLowerCase();
+    const hay   = nameL + ' ' + catL + ' ' + tagsL + ' ' + descL;
 
     let score = 0;
-    expandedWords.forEach(w => {
-      if(p.name.toLowerCase().includes(w)) score += 5;       // name match = highest
-      else if(p.cat.toLowerCase().includes(w)) score += 3;   // category match
-      else if(p.tags.join(' ').toLowerCase().includes(w)) score += 2; // tag match
-      else if(hay.includes(w)) score += 1;                   // desc match
+    expanded.forEach(w => {
+      if(!w || w.length < 2) return;
+      if(nameL.includes(w))   score += 6;  // name = strongest signal
+      else if(catL.includes(w)) score += 3;
+      else if(tagsL.includes(w)) score += 2;
+      else if(descL.includes(w)) score += 1;
     });
 
-    // Boost featured prompts slightly
     if(p.feat && score > 0) score += 1;
-
     return { id: p.id, score };
   })
   .filter(x => x.score > 0)
   .sort((a, b) => b.score - a.score)
-  .slice(0, 5)
-  .map(x => ({
-    id: x.id,
-    reason: getReason(x.id, words)
-  }));
+  .slice(0, 6)
+  .map(x => ({ id: x.id, reason: getReason(x.id, words) }));
 
   return scored;
 }
+
 
 function getReason(id, words){
   const p = PROMPTS.find(x => x.id === id);
