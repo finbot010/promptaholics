@@ -2164,32 +2164,18 @@ function renderCats(){
 /* ── TAG FILTER ── */
 function filterByTag(tag, e){
   if(e) e.stopPropagation();
-
-  // If AI search is active — clear it first, then filter by tag
-  if(aiSearchActive){
-    clearAiSearch();
-  }
-
+  if(aiSearchActive) clearAiSearch();
   activeTag = (activeTag === tag) ? '' : tag;
   renderCards();
-
-  // Scroll to grid
-  const grid = document.getElementById('mainGrid');
-  if(grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
-
-  // Visual feedback on tags
-  document.querySelectorAll('.ctag').forEach(el => {
-    el.style.background = el.textContent.trim() === activeTag ? 'var(--orange)' : '';
-    el.style.color = el.textContent.trim() === activeTag ? '#fff' : '';
-  });
 }
+
 
 function setCat(n){
   if(aiSearchActive) clearAiSearch();
   activeCat = n; activeTag = '';
-  document.querySelectorAll('.tpill').forEach(t => t.classList.remove('active'));
   renderCats(); renderCards();
 }
+
 
 function renderTags(){
   const tags = [...new Set(PROMPTS.flatMap(p => p.tags))].sort();
@@ -2235,21 +2221,17 @@ function cardHTML(p, i, pre){
   const fav = favs.includes(p.id);
   const bc  = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
   const tl  = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
-  const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/\n/g,' ');
+  const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/
+/g,' ');
   const copies = getCopyCount(p.id);
-
-  // Build tags without nested template literals
   const tagHTML = p.tags.slice(0,4).map(function(t){
-    return '<span class="ctag" onclick="filterByTag('' + t.replace(/'/g,"\'") + '',event)">' + t + '</span>';
+    return '<span class="ctag">' + t + '</span>';
   }).join('');
-
-  // Build copy count
   const copyCount = copies > 0 ? '<div class="copy-count"><span>' + copies + 'x</span></div>' : '';
-
-  return '<div class="card' + (p.feat ? ' feat-card' : '') + '" style="animation-delay:' + Math.min(i*.035,.5) + 's">'
+  return '<div class="card' + (p.feat?' feat-card':'') + '" style="animation-delay:' + Math.min(i*.035,.5) + 's">'
     + '<div class="ctop">'
     + '<div class="cname">' + p.name + '</div>'
-    + '<button class="favbtn' + (fav ? ' on' : '') + '" onclick="togFav('' + p.id + '',event)">' + (fav ? '♥' : '♡') + '</button>'
+    + '<button class="favbtn' + (fav?' on':'') + '" onclick="togFav('' + p.id + '',event)">' + (fav?'♥':'♡') + '</button>'
     + '</div>'
     + '<div class="badge ' + bc + '">' + tl + '</div>'
     + '<div class="cprev">' + prev + '</div>'
@@ -2261,6 +2243,7 @@ function cardHTML(p, i, pre){
     + '</div>'
     + '</div>';
 }
+
 
 
 /* ════════════════════════════════════════
@@ -2790,23 +2773,15 @@ function setAiQuery(el){
 function clearAiSearch(){
   aiSearchActive = false;
   activeTag = '';
-  document.getElementById('aiSearchInput').value = '';
-  document.getElementById('aiResults').classList.remove('show');
-  document.getElementById('aiEmpty').classList.remove('show');
-  document.getElementById('aiThinking').classList.remove('show');
-  document.getElementById('aiClearBtn').classList.remove('show');
-  document.getElementById('aiSearchBtn').disabled = false;
-  // Reset tag visual state
-  document.querySelectorAll('.ctag').forEach(el => {
-    el.style.background = '';
-    el.style.color = '';
-  });
-  // Re-render full library
+  if(document.getElementById('aiSearchInput')) document.getElementById('aiSearchInput').value = '';
+  if(document.getElementById('aiResults')) document.getElementById('aiResults').classList.remove('show');
+  if(document.getElementById('aiEmpty')) document.getElementById('aiEmpty').classList.remove('show');
+  if(document.getElementById('aiThinking')) document.getElementById('aiThinking').classList.remove('show');
+  if(document.getElementById('aiClearBtn')) document.getElementById('aiClearBtn').classList.remove('show');
+  if(document.getElementById('aiSearchBtn')) document.getElementById('aiSearchBtn').disabled = false;
   renderCards();
-  // Update count
-  const rcnt = document.getElementById('rcnt');
-  if(rcnt) rcnt.innerHTML = `Showing <strong>${PROMPTS.length}</strong> of <strong>${PROMPTS.length}</strong> prompts`;
 }
+
 async 
 /* ── SMART KEYWORD SEARCH ENGINE ── */
 function keywordSearch(query){
@@ -2913,25 +2888,19 @@ function getReason(id, words){
 async function runAiSearch(){
   const query = document.getElementById('aiSearchInput').value.trim();
   if(!query) return;
-
-  // UI: show thinking state
   document.getElementById('aiExamples').style.display = 'none';
   document.getElementById('aiResults').classList.remove('show');
-  document.getElementById('aiEmpty').classList.remove('show');
   document.getElementById('aiThinking').classList.add('show');
   document.getElementById('aiSearchBtn').disabled = true;
   document.getElementById('aiClearBtn').classList.add('show');
   aiSearchActive = true;
-
   gaTrack('ai_search', {query});
-
-  // ── ALWAYS run keyword search first — instant results ──
-  const keywordResults = keywordSearch(query);
+  const results = keywordSearch(query);
   document.getElementById('aiThinking').classList.remove('show');
   document.getElementById('aiSearchBtn').disabled = false;
-  showAiResults(keywordResults, query);
-  showSearchFooter(query);
+  showAiResults(results, query);
 }
+
 
 function showWebSearching(webQuery){
   const panel = document.getElementById('aiResults');
