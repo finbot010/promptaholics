@@ -2237,21 +2237,31 @@ function cardHTML(p, i, pre){
   const tl  = p.tool==='chatgpt' ? '🤖 ChatGPT' : p.tool==='midjourney' ? '🎨 Midjourney' : '⚙️ Other';
   const prev = (p.text.length > 130 ? p.text.slice(0,130)+'…' : p.text).replace(/\n/g,' ');
   const copies = getCopyCount(p.id);
-  return `<div class="card${p.feat?' feat-card':''}" style="animation-delay:${Math.min(i*.035,.5)}s">
-    <div class="ctop">
-      <div class="cname">${p.name}</div>
-      <button class="favbtn${fav?' on':''}" onclick="togFav('${p.id}',event)">${fav?'♥':'♡'}</button>
-    </div>
-    <div class="badge ${bc}">${tl}</div>
-    <div class="cprev">${prev}</div>
-    <div class="ctags">${p.tags.slice(0,4).map(t=>`<span class="ctag" onclick="filterByTag('${t}',event)">${t}</span>`).join('')}</div>
-    ${copies > 0 ? `<div class="copy-count"><span>${copies}x</span></div>` : ''}
-    <div class="cfoot">
-      <button class="bcopy" id="${pre}${p.id}" onclick="doCopy('${p.id}','${pre}${p.id}',event)">📋 Copy</button>
-      <button class="bprev" onclick="openModal('${p.id}')">Preview →</button>
-    </div>
-  </div>`;
+
+  // Build tags without nested template literals
+  const tagHTML = p.tags.slice(0,4).map(function(t){
+    return '<span class="ctag" onclick="filterByTag('' + t.replace(/'/g,"\'") + '',event)">' + t + '</span>';
+  }).join('');
+
+  // Build copy count
+  const copyCount = copies > 0 ? '<div class="copy-count"><span>' + copies + 'x</span></div>' : '';
+
+  return '<div class="card' + (p.feat ? ' feat-card' : '') + '" style="animation-delay:' + Math.min(i*.035,.5) + 's">'
+    + '<div class="ctop">'
+    + '<div class="cname">' + p.name + '</div>'
+    + '<button class="favbtn' + (fav ? ' on' : '') + '" onclick="togFav('' + p.id + '',event)">' + (fav ? '♥' : '♡') + '</button>'
+    + '</div>'
+    + '<div class="badge ' + bc + '">' + tl + '</div>'
+    + '<div class="cprev">' + prev + '</div>'
+    + '<div class="ctags">' + tagHTML + '</div>'
+    + copyCount
+    + '<div class="cfoot">'
+    + '<button class="bcopy" id="' + pre + p.id + '" onclick="doCopy('' + p.id + '','' + pre + p.id + '',event)">📋 Copy</button>'
+    + '<button class="bprev" onclick="openModal('' + p.id + '')">Preview →</button>'
+    + '</div>'
+    + '</div>';
 }
+
 
 /* ════════════════════════════════════════
    COPY
