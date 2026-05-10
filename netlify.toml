@@ -1,74 +1,63 @@
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════
 #  PROMPTAHOLICS — Netlify Configuration
-#  Fixes: timeout errors, slow loads, mobile issues
-# ═══════════════════════════════════════════════
+# ═══════════════════════════════════════════════════
 
 [build]
-  publish = "."
+  publish   = "."
+  functions = "netlify/functions"
 
-# ── PERFORMANCE HEADERS ──────────────────────────
-# Caches the site so returning visitors load instantly
-# Adds security headers that also improve performance
-
+# ── PERFORMANCE HEADERS ──────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
-    # Security
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-    # Performance: tell browsers to cache everything for 1 hour
-    # Netlify CDN caches it globally — loads from nearest server worldwide
-    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+    X-Frame-Options            = "DENY"
+    X-Content-Type-Options     = "nosniff"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Cache-Control              = "public, max-age=3600, stale-while-revalidate=86400"
 
 [[headers]]
   for = "*.html"
   [headers.values]
-    # HTML files: cache for 5 minutes, always revalidate
-    # This means updates push instantly but repeat visits are fast
     Cache-Control = "public, max-age=300, must-revalidate"
 
+# ── IMAGES — short cache so weekly AI images update properly ──
 [[headers]]
-  for = "*.css"
+  for = "/images/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=3600, must-revalidate"
 
 [[headers]]
-  for = "*.js"
+  for = "*.jpg"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=3600, must-revalidate"
 
-# ── REDIRECTS ────────────────────────────────────
-# Ensures custom domain always loads correctly
-# Prevents timeout from wrong URL routing
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
 
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin  = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
+
+# ── REDIRECTS ─────────────────────────────────────────
 [[redirects]]
-  from = "http://promptaholics.com/*"
-  to   = "https://www.promptaholics.com/:splat"
+  from   = "http://promptaholics.com/*"
+  to     = "https://www.promptaholics.com/:splat"
   status = 301
   force  = true
 
 [[redirects]]
-  from = "http://www.promptaholics.com/*"
-  to   = "https://www.promptaholics.com/:splat"
+  from   = "http://www.promptaholics.com/*"
+  to     = "https://www.promptaholics.com/:splat"
   status = 301
   force  = true
 
-# ── PRELOADING ───────────────────────────────────
-# Tells Netlify CDN to pre-warm pages before users visit
-
-[build.processing]
-  skip_processing = false
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.css]
-  bundle = false
-  minify = false
-
-[build.processing.js]
-  bundle = false
-  minify = false
+# Prompts file — short cache so new prompts show quickly
+[[headers]]
+  for = "/prompts.js"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
