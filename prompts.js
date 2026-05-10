@@ -602,8 +602,8 @@ const PROMPTS = [
 
   {id:'363',name:"Social Media Manager Agent",tool:"chatgpt",cat:"AI Agents",tags:["social media","agent","content","scheduling","strategy","management"],text:"Act as my social media manager for [BRAND / PERSONAL BRAND]. Platforms: [LIST PLATFORMS]. Here is what I want to communicate this week: [BRIEF — product launch / insight / story / announcement / promotion]. Create a complete week of platform-native content: for each platform produce the exact post copy adapted for that platform's culture, the optimal posting time, the content format recommendation, the engagement hook, and the reply strategy for the first hour. Also provide 5 comment reply templates for common responses. Make each post feel native to its platform — not copy-pasted.",desc:"Social media manager creates a complete week of platform-native content with exact copy, posting times, engagement hooks, and comment reply templates.",feat:false},
 
-];
-  /* ════ BATCH 10: 19 NEW PROMPTS ════ */
+
+/* ════ BATCH 10: 19 NEW PROMPTS ════ */
 
   {id:'364',name:"Viral TikTok Hook Generator",tool:"chatgpt",cat:"Business & Marketing",tags:["marketing","tiktok","social media","viral","hooks"],text:"You are a viral social media strategist.\n\nGenerate 25 highly engaging TikTok hooks for this topic:\n[INSERT TOPIC]\n\nRequirements:\n- Maximum 12 words\n- Create curiosity gaps\n- Use emotional triggers\n- Sound modern and natural\n- Avoid clickbait spam\n\nInclude:\n- Bold hooks\n- Contrarian hooks\n- Fear-of-missing-out hooks\n- Story-driven hooks\n- Authority-style hooks",desc:"Generates 25 scroll-stopping TikTok hooks across 5 styles — bold, contrarian, FOMO, story-driven, and authority.",feat:true},
 
@@ -642,3 +642,5 @@ const PROMPTS = [
   {id:'381',name:"Dark Fantasy Character Creator",tool:"midjourney",cat:"Image Generation",tags:["fantasy","character","dark fantasy","art","warrior","cinematic"],text:"Dark fantasy warrior character, battle scars, glowing eyes, ancient armor, cinematic lighting, hyper detailed textures, dramatic atmosphere, realistic fantasy art, masterpiece --ar 2:3 --stylize 850",desc:"Dark fantasy warrior with battle scars, glowing eyes, ancient armor, cinematic lighting, and hyper-detailed textures.",feat:false},
 
   {id:'382',name:"Ultimate Prompt Engineer",tool:"chatgpt",cat:"AI Agents",tags:["prompt engineering","ai","automation","optimization","agents"],text:"You are an elite prompt engineer.\n\nTransform any rough idea into a world-class AI prompt.\n\nFor every request:\n- Clarify objectives\n- Add expert context\n- Improve structure\n- Increase output quality\n- Add formatting instructions\n- Add optimization techniques\n\nReturn:\n1. Optimized Prompt\n2. Why It Works\n3. Advanced Version",desc:"Elite prompt engineer transforms any rough idea into an optimized AI prompt with reasoning and an advanced version.",feat:true},
+
+];
