@@ -119,30 +119,6 @@ header{
 .btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:13px 26px;border-radius:11px;font-size:14px;font-weight:600;text-decoration:none;transition:all .15s;}
 .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
 
-/* ── FILTER BAR ── */
-.filter-bar{
-  position:sticky;top:58px;z-index:90;
-  background:rgba(8,8,11,.97);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 32px;
-  display:flex;align-items:center;gap:0;
-  overflow-x:auto;scrollbar-width:none;
-}
-.filter-bar::-webkit-scrollbar{display:none;}
-.filter-tab{
-  display:flex;align-items:center;gap:7px;
-  padding:16px 18px;font-size:13px;font-weight:600;
-  color:var(--text3);cursor:pointer;border:none;background:none;
-  border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;
-  font-family:var(--font-sans);
-}
-.filter-tab:hover{color:var(--text2);}
-.filter-tab.active{color:var(--orange);border-bottom-color:var(--orange);}
-.filter-tab .tab-count{
-  font-size:10px;background:var(--surface2);border:1px solid var(--border);
-  padding:1px 6px;border-radius:10px;color:var(--text3);
-}
-.filter-tab.active .tab-count{background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);color:var(--orange);}
 
 /* ── MAIN LAYOUT ── */
 .main{max-width:1280px;margin:0 auto;padding:40px 32px 80px;}
@@ -2465,7 +2441,7 @@ footer{
   </div>
 
 <!-- ✦ PROMPT FLIP CARDS ✦ -->
-<section style="border-top:1px solid var(--border);background:var(--bg);">
+<section style="border-top:1px solid var(--border);background:var(--bg);position:relative;z-index:95;">
   <div style="padding:32px 40px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="height:1px;width:20px;background:var(--orange);"></div><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);">✦ Try These Prompts</div></div>
