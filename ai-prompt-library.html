@@ -474,6 +474,34 @@ footer{
   .tool-table,.comp-table{font-size:13px;}
   .tool-table th,.tool-table td,.comp-table th,.comp-table td{padding:10px 12px;}
 }
+@media(max-width:480px){
+  /* Nav CTA — shrink so logo is never blocked */
+  header{padding:0 12px;height:auto;min-height:54px;}
+  .logo-name{font-size:15px;}
+  .header-cta{
+    font-size:11px;padding:7px 10px;
+    white-space:nowrap;flex-shrink:0;
+  }
+  /* Hero */
+  .hero{padding:28px 12px 24px;}
+  .hero h1{font-size:clamp(22px,7vw,30px);letter-spacing:-1px;}
+  .hero p,.hero-sub{font-size:14px;}
+  .hero-ctas{gap:8px;}
+  .btn-primary,.btn-secondary{font-size:13px;padding:11px 16px;}
+  /* Stats */
+  .stats-strip{gap:0;}
+  /* Category grid */
+  .cat-grid{grid-template-columns:1fr 1fr;}
+  .cat-card{padding:14px 12px;}
+  /* Content */
+  .container{padding:0 12px;}
+  .article-body{padding:24px 0 48px;}
+  /* Tables — scroll horizontally */
+  .tool-table,.comp-table{font-size:12px;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  /* Footer */
+  footer{flex-direction:column;gap:10px;padding:16px 12px;}
+  .flinks{flex-wrap:wrap;gap:10px;}
+}
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
