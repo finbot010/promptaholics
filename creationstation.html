@@ -887,101 +887,69 @@ footer{
 </nav>
 <!-- ✦ MAGAZINE IMAGE GALLERY ✦ -->
 <section class="mag-section" id="mag-section">
-  <div class="mag-eyebrow">
-    <div class="mag-ey-line"></div>
-    <div class="mag-ey-text">Image Prompts</div>
-    <div class="mag-ey-rule"></div>
-    <div class="mag-ey-count">AI-generated weekly · hover to copy prompt</div>
-  </div>
+  <div class="mag">
 
-  <div class="mag-grid">
-
-    <!-- HERO CARD — Golden Hour Portrait (auto-generated weekly) -->
-    <div class="mag-card hero-card" onclick="magCopy(this)">
+    <!-- HERO CARD -->
+    <div class="mag-card hero-card" onclick="magCopy(this, event)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#1a0800,#2d1200);">
-        <img src="/images/slot-1.jpg" alt="Weekly AI Image 1" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
+        <img src="/images/slot-1.jpg" alt="Golden Hour Portrait" class="mag-real-img"
+             onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
       </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);"></div>
-      <div class="mag-coming-label">Images generating Monday</div>
-      <div class="mag-info">
-        <div class="mag-cat-label">Photography · Auto-Generated Weekly</div>
-        <div class="mag-card-name">Golden Hour<br>Portrait</div>
-        <div class="mag-tool-pill">📸 DALL·E 3 · Midjourney</div>
-      </div>
-      <div class="mag-hover">
-        <div class="mag-prompt-text">Editorial portrait of [SUBJECT DESCRIPTION] during golden hour, warm amber and coral light from the side, shot on Sony A7R V with 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, natural outdoor setting [LOCATION], Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw</div>
-        <div class="mag-hover-foot">
-          <button class="mag-copy" onclick="magCopy(this,event)">📋 Copy Prompt</button>
-          <a class="mag-lib-link" href="https://promptaholics.com" onclick="event.stopPropagation()">All image prompts →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- TOP RIGHT — AI Action Figure Box -->
-    <div class="mag-card" style="border-radius:0 14px 0 0;" onclick="magCopy(this)">
-      <div class="mag-img-bg" style="background:linear-gradient(160deg,#000d1a,#001a33);">
-        <img src="/images/slot-2.jpg" alt="Weekly AI Image 2" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🤖</span>'"/>
-      </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
-      <div class="mag-info">
-        <div class="mag-cat-label">Image Generation</div>
-        <div class="mag-card-name">AI Action Figure Box</div>
-        <div class="mag-tool-pill">🎨 DALL·E 3</div>
-      </div>
-      <div class="mag-hover">
-        <div class="mag-prompt-text">Photorealistic collectible toy packaging — [PERSON] as an action figure in a clear plastic clamshell blister pack, branded cardboard backing, name [NAME] in bold retro toy font, accessories: [LIST 3 ITEMS], shelf-ready retail photography, studio lighting, stark white background --ar 2:3 --v 7 --stylize 500</div>
-        <div class="mag-hover-foot">
-          <button class="mag-copy" onclick="magCopy(this,event)">📋 Copy Prompt</button>
-          <a class="mag-lib-link" href="https://promptaholics.com" onclick="event.stopPropagation()">All prompts →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- MIDDLE RIGHT — Urban Street Photography -->
-    <div class="mag-card" onclick="magCopy(this)">
-      <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0a0a,#1a1a1a);">
-        <img src="/images/slot-3.jpg" alt="Weekly AI Image 3" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🏙️</span>'"/>
-      </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 55%);"></div>
+      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 60%);"></div>
       <div class="mag-info">
         <div class="mag-cat-label">Photography</div>
-        <div class="mag-card-name">Urban Street Photography</div>
-        <div class="mag-tool-pill">📸 DALL·E 3 · Leica Style</div>
-      </div>
-      <div class="mag-hover">
-        <div class="mag-prompt-text">Decisive moment street photography in [CITY], [SUBJECT/SCENE], shot on Leica M11 with 35mm Summilux, available light only, high contrast black and white, authentic grain, geometric shadows, Henri Cartier-Bresson documentary style --ar 3:2 --v 6.1 --style raw --stylize 400</div>
-        <div class="mag-hover-foot">
-          <button class="mag-copy" onclick="magCopy(this,event)">📋 Copy Prompt</button>
-          <a class="mag-lib-link" href="https://promptaholics.com" onclick="event.stopPropagation()">All prompts →</a>
-        </div>
+        <div class="mag-title">Golden Hour Portrait</div>
+        <div class="mag-prompt-text" style="display:none;">Editorial portrait of [SUBJECT] during golden hour, warm amber and coral light from the side, Sony A7R V 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw</div>
+        <div class="mag-tags"><span class="mag-tag">DALL·E 3</span></div>
       </div>
     </div>
 
-    <!-- BOTTOM RIGHT — The Character Forge -->
-    <div class="mag-card" style="border-radius:0 0 14px 0;" onclick="magCopy(this)">
-      <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0010,#1a0035);">
-        <img src="/images/slot-4.jpg" alt="Weekly AI Image 4" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🎨</span>'"/>
-      </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 55%);"></div>
-      <div class="mag-info">
-        <div class="mag-cat-label">Creative & Art</div>
-        <div class="mag-card-name">The Character Forge</div>
-        <div class="mag-tool-pill">🎨 DALL·E 3 · Midjourney</div>
-      </div>
-      <div class="mag-hover">
-        <div class="mag-prompt-text">Design an original character: [CHARACTER CONCEPT]. Full character sheet with front, 3/4, and profile views. Art style: [anime / western comic / semi-realistic / Pixar 3D / concept art]. Include facial features, hairstyle, outfit with accessories, signature weapon or item, color palette swatch. The character should convey [PERSONALITY TRAITS]. Professional concept art quality, clean lines, dynamic pose.</div>
-        <div class="mag-hover-foot">
-          <button class="mag-copy" onclick="magCopy(this,event)">📋 Copy Prompt</button>
-          <a class="mag-lib-link" href="https://promptaholics.com" onclick="event.stopPropagation()">All prompts →</a>
+    <!-- SMALL CARDS -->
+    <div class="mag-smalls">
+
+      <div class="mag-card small-card" onclick="magCopy(this, event)">
+        <div class="mag-img-bg" style="background:linear-gradient(160deg,#000d1a,#001a2d);">
+          <img src="/images/slot-2.jpg" alt="AI Action Figure Box" class="mag-real-img"
+               onerror="this.parentElement.innerHTML='<span style=\"font-size:60px;opacity:.6;\">🤖</span>'"/>
+        </div>
+        <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 60%);"></div>
+        <div class="mag-info">
+          <div class="mag-cat-label">Image Generation</div>
+          <div class="mag-title">AI Action Figure Box</div>
+          <div class="mag-prompt-text" style="display:none;">Photorealistic toy action figure in original retail box packaging. Clear plastic window, colorful cardboard backing, miniature superhero figure, bright studio lighting, clean white background --ar 2:3 --v 7 --stylize 500</div>
+          <div class="mag-tags"><span class="mag-tag">DALL·E 3</span></div>
         </div>
       </div>
+
+      <div class="mag-card small-card" onclick="magCopy(this, event)">
+        <div class="mag-img-bg" style="background:linear-gradient(160deg,#0d0d0d,#1a1a1a);">
+          <img src="/images/slot-3.jpg" alt="Urban Street Photography" class="mag-real-img"
+               onerror="this.parentElement.innerHTML='<span style=\"font-size:60px;opacity:.6;\">🏙️</span>'"/>
+        </div>
+        <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 60%);"></div>
+        <div class="mag-info">
+          <div class="mag-cat-label">Photography</div>
+          <div class="mag-title">Urban Street Photography</div>
+          <div class="mag-prompt-text" style="display:none;">Decisive moment street photography in [CITY], shot on Leica M11 35mm Summilux, available light, high contrast black and white, authentic film grain, Henri Cartier-Bresson style --ar 3:2 --v 6.1 --style raw --stylize 400</div>
+          <div class="mag-tags"><span class="mag-tag">DALL·E 3</span></div>
+        </div>
+      </div>
+
+      <div class="mag-card small-card" onclick="magCopy(this, event)">
+        <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0a1a,#0d0d2d);">
+          <img src="/images/slot-4.jpg" alt="Character Concept Art" class="mag-real-img"
+               onerror="this.parentElement.innerHTML='<span style=\"font-size:60px;opacity:.6;\">🎨</span>'"/>
+        </div>
+        <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 60%);"></div>
+        <div class="mag-info">
+          <div class="mag-cat-label">Creative & Art</div>
+          <div class="mag-title">Character Concept Art</div>
+          <div class="mag-prompt-text" style="display:none;">Design an original character: [YOUR CONCEPT]. Full character sheet, front and 3/4 views. Art style: [anime / western comic / semi-realistic / Pixar 3D]. Facial features, outfit, accessories, color palette. Professional concept art quality.</div>
+          <div class="mag-tags"><span class="mag-tag">DALL·E 3</span></div>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-
-  <div class="mag-footer-row">
-    <div class="mag-footer-text">Hover any card to preview the full prompt. <strong>29 image prompts</strong> in the free library.</div>
-    <a class="mag-footer-link" href="https://promptaholics.com">Browse all image prompts →</a>
   </div>
 </section>
 
