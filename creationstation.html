@@ -2807,29 +2807,7 @@ document.querySelectorAll('.tool-link').forEach(link => {
 
 
 
-<script>
-// Sync image cards from metadata.json — slot-based keys, cache busted
-fetch('/images/metadata.json?v=' + Date.now())
-  .then(function(r){ return r.json(); })
-  .then(function(meta){
-    if(!meta) return;
-    for(var i=1; i<=4; i++){
-      var img = meta['slot-'+i];
-      if(!img) continue;
-      var fc  = document.getElementById('card'+i+'-cat');
-      var fn  = document.getElementById('card'+i+'-name');
-      var bc  = document.getElementById('card'+i+'-back-cat');
-      var bn  = document.getElementById('card'+i+'-back-name');
-      var bp  = document.getElementById('card'+i+'-prompt');
-      if(fc) fc.textContent = img.category     || fc.textContent;
-      if(fn) fn.textContent = img.name         || fn.textContent;
-      if(bc) bc.textContent = img.category     || bc.textContent;
-      if(bn) bn.textContent = img.name         || bn.textContent;
-      if(bp) bp.textContent = img.library_prompt || bp.textContent;
-    }
-  })
-  .catch(function(){});
-</script>
+
 
 </body>
 </html>
