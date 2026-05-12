@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: node scripts/generate-images.js
+      - run: node generate-images.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - run: |
