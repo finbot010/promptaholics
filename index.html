@@ -978,28 +978,30 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
+
+
 <script>
-// Sync image cards with metadata.json — runs on every page load
-fetch('/images/metadata.json')
-  .then(r => r.json())
-  .then(meta => {
-    if (!meta || !meta.images) return;
-    meta.images.forEach((img, i) => {
-      const n = i + 1;
-      // Update front labels
-      const fc = document.getElementById('card'+n+'-cat');
-      const fn = document.getElementById('card'+n+'-name');
-      const bc = document.getElementById('card'+n+'-back-cat');
-      const bn = document.getElementById('card'+n+'-back-name');
-      const bp = document.getElementById('card'+n+'-prompt');
-      if(fc) fc.textContent  = img.category    || fc.textContent;
-      if(fn) fn.textContent  = img.name        || fn.textContent;
-      if(bc) bc.textContent  = img.category    || bc.textContent;
-      if(bn) bn.textContent  = img.name        || bn.textContent;
-      if(bp && img.library_prompt) bp.textContent = img.library_prompt;
-    });
+// Sync image cards from metadata.json — slot-based keys, cache busted
+fetch('/images/metadata.json?v=' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(meta){
+    if(!meta) return;
+    for(var i=1; i<=4; i++){
+      var img = meta['slot-'+i];
+      if(!img) continue;
+      var fc  = document.getElementById('card'+i+'-cat');
+      var fn  = document.getElementById('card'+i+'-name');
+      var bc  = document.getElementById('card'+i+'-back-cat');
+      var bn  = document.getElementById('card'+i+'-back-name');
+      var bp  = document.getElementById('card'+i+'-prompt');
+      if(fc) fc.textContent = img.category     || fc.textContent;
+      if(fn) fn.textContent = img.name         || fn.textContent;
+      if(bc) bc.textContent = img.category     || bc.textContent;
+      if(bn) bn.textContent = img.name         || bn.textContent;
+      if(bp) bp.textContent = img.library_prompt || bp.textContent;
+    }
   })
-  .catch(() => {}); // silently fail if no metadata yet
+  .catch(function(){});
 </script>
 
 </body>

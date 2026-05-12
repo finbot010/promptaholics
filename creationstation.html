@@ -33,7 +33,7 @@
   --text:#f0f0f8;--text2:#9999b0;--text3:#4a4a62;
   --orange:#ff6224;--orange2:#e84e0e;
   --violet:#8b5cf6;--teal:#00ccaa;--green:#22c55e;
-  --shadow:rgba(0,0,0,.6);
+  --shadow:rgba(0,0,0,0.6);
   --font-sans:'Instrument Sans','Segoe UI',Arial,sans-serif;
   --font-display:'Syne','Georgia',serif;
 }
@@ -43,14 +43,14 @@
   --bg:#f8f8f5;--surface:#ffffff;--surface2:#f0f0ed;--surface3:#e8e8e4;
   --border:#e0ddd6;--border2:#c8c4bc;
   --text:#18170f;--text2:#58554e;--text3:#9a9590;
-  --shadow:rgba(0,0,0,.08);
+  --shadow:rgba(0,0,0,0.08);
 }
-.light-mode header{background:rgba(248,248,245,.96);}
-.light-mode .filter-bar{background:rgba(248,248,245,.97);}
+.light-mode header{background:rgba(248,248,245,0.96);}
+.light-mode .filter-bar{background:rgba(248,248,245,0.97);}
 .light-mode .mag-card{box-shadow:0 2px 12px var(--shadow);}
 .light-mode .tool-card{box-shadow:0 1px 4px var(--shadow);}
 .light-mode .flip-front{border-color:var(--border2);}
-.light-mode .hero-ghost{-webkit-text-stroke-color:rgba(0,0,0,.05);}
+.light-mode .hero-ghost{-webkit-text-stroke-color:rgba(0,0,0,0.05);}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-sans);line-height:1.65;font-size:15px;}
@@ -60,11 +60,11 @@ header{
   position:sticky;top:0;z-index:100;
   height:58px;display:flex;align-items:center;justify-content:space-between;
   padding:0 32px;
-  background:rgba(8,8,11,.96);backdrop-filter:blur(20px);
+  background:rgba(8,8,11,0.96);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-mark{width:34px;height:34px;background:var(--orange);border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(255,98,36,.3);}
+.logo-mark{width:34px;height:34px;background:var(--orange);border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(255,98,36,0.3);}
 .logo-mark svg{width:16px;height:18px;}
 .logo-name{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);}
 .logo-name span{color:var(--orange);}
@@ -122,7 +122,7 @@ header{
 /* ── FILTER BAR ── */
 .filter-bar{
   position:sticky;top:58px;z-index:90;
-  background:rgba(8,8,11,.97);backdrop-filter:blur(20px);
+  background:rgba(8,8,11,0.97);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:0 32px;
   display:flex;align-items:center;gap:0;
@@ -142,7 +142,7 @@ header{
   font-size:10px;background:var(--surface2);border:1px solid var(--border);
   padding:1px 6px;border-radius:10px;color:var(--text3);
 }
-.filter-tab.active .tab-count{background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);color:var(--orange);}
+.filter-tab.active .tab-count{background:rgba(255,98,36,0.15);border-color:rgba(255,98,36,0.3);color:var(--orange);}
 
 /* ── MAIN LAYOUT ── */
 .main{max-width:1280px;margin:0 auto;padding:40px 32px 80px;}
@@ -186,10 +186,10 @@ header{
 .tool-tagline{font-size:11px;color:var(--text3);margin-top:2px;}
 .tool-badges{display:flex;gap:5px;flex-wrap:wrap;}
 .badge{font-size:9px;font-weight:700;padding:3px 7px;border-radius:8px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
-.badge-free{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
-.badge-freemium{background:rgba(0,204,170,.1);color:var(--teal);border:1px solid rgba(0,204,170,.2);}
-.badge-paid{background:rgba(255,98,36,.08);color:var(--orange);border:1px solid rgba(255,98,36,.2);}
-.badge-aff{background:rgba(139,92,246,.12);color:var(--violet);border:1px solid rgba(139,92,246,.25);}
+.badge-free{background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2);}
+.badge-freemium{background:rgba(0,204,170,0.1);color:var(--teal);border:1px solid rgba(0,204,170,0.2);}
+.badge-paid{background:rgba(255,98,36,0.08);color:var(--orange);border:1px solid rgba(255,98,36,0.2);}
+.badge-aff{background:rgba(139,92,246,0.12);color:var(--violet);border:1px solid rgba(139,92,246,0.25);}
 
 .tool-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px;flex:1;}
 
@@ -227,8 +227,8 @@ header{
 .featured-tag{
   display:inline-flex;align-items:center;gap:5px;
   font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--orange);background:rgba(255,98,36,.1);
-  border:1px solid rgba(255,98,36,.25);
+  color:var(--orange);background:rgba(255,98,36,0.1);
+  border:1px solid rgba(255,98,36,0.25);
   padding:3px 10px;border-radius:20px;margin-bottom:12px;
 }
 
@@ -344,9 +344,9 @@ footer{
 }
 
 /* ══ PROMPT FLIP CARDS SECTION ══ */
-.flip-section{padding:64px 32px;border-bottom:1px solid var(--border);background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(139,92,246,.06),transparent);}
+.flip-section{padding:64px 32px;border-bottom:1px solid var(--border);background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(139,92,246,0.06),transparent);}
 .flip-section-head{text-align:center;margin-bottom:40px;}
-.flip-section-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.22);padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+.flip-section-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.08);border:1px solid rgba(255,98,36,0.22);padding:5px 14px;border-radius:20px;margin-bottom:18px;}
 .flip-section-title{font-family:var(--font-display);font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-1.5px;color:var(--text);margin-bottom:10px;}
 .flip-section-sub{font-size:15px;color:var(--text2);max-width:500px;margin:0 auto;}
 .flip-hint{font-size:12px;color:var(--text3);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px;}
@@ -357,12 +357,12 @@ footer{
 .flip-front{position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;}
 .flip-front-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:var(--surface2);transition:transform .4s;}
 .flip-card:hover .flip-front-bg{transform:scale(1.05);}
-.flip-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,transparent 100%);}
+.flip-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.3) 50%,transparent 100%);}
 .flip-front-content{position:relative;z-index:1;padding:20px;}
-.flip-front-cat{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:1px solid rgba(255,98,36,.25);padding:3px 9px;border-radius:10px;display:inline-block;margin-bottom:8px;}
+.flip-front-cat{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:1px solid rgba(255,98,36,0.25);padding:3px 9px;border-radius:10px;display:inline-block;margin-bottom:8px;}
 .flip-front-name{font-family:var(--font-display);font-size:17px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:6px;}
-.flip-front-tool{font-size:11px;color:rgba(255,255,255,.6);}
-.flip-front-hint{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 10px;font-size:10px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:4px;}
+.flip-front-tool{font-size:11px;color:rgba(255,255,255,0.6);}
+.flip-front-hint{position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:4px 10px;font-size:10px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:4px;}
 .flip-back{position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:20px;}
 .flip-back-cat{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
 .flip-back-name{font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.3;}
@@ -402,7 +402,7 @@ footer{
   font-size:clamp(120px,18vw,200px);
   font-weight:800;
   color:transparent;
-  -webkit-text-stroke:1px rgba(255,98,36,.08);
+  -webkit-text-stroke:1px rgba(255,98,36,0.08);
   line-height:1;pointer-events:none;
   user-select:none;letter-spacing:-8px;
 }
@@ -449,7 +449,7 @@ footer{
 /* ── FILTER BAR UPGRADE ── */
 .filter-bar{
   position:sticky;top:58px;z-index:90;
-  background:rgba(8,8,11,.97);backdrop-filter:blur(20px);
+  background:rgba(8,8,11,0.97);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:0;display:flex;align-items:stretch;
   overflow-x:auto;scrollbar-width:none;
@@ -471,8 +471,8 @@ footer{
   padding:1px 6px;border-radius:8px;color:var(--text3);
 }
 .filter-tab.active .tab-count{
-  background:rgba(255,98,36,.12);
-  border-color:rgba(255,98,36,.25);color:var(--orange);
+  background:rgba(255,98,36,0.12);
+  border-color:rgba(255,98,36,0.25);color:var(--orange);
 }
 
 /* ── MAGAZINE IMAGE GALLERY ── */
@@ -537,13 +537,13 @@ footer{
 .mag-info{
   position:absolute;bottom:0;left:0;right:0;
   padding:36px 16px 16px;
-  background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.4) 60%,transparent 100%);
+  background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.4) 60%,transparent 100%);
   z-index:2;transition:padding .2s;
 }
 .mag-card:hover .mag-info{padding-bottom:52px;}
 .mag-cat-label{
   font-size:9px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:5px;
+  text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:5px;
 }
 .mag-card-name{
   font-family:var(--font-display);
@@ -554,9 +554,9 @@ footer{
 .mag-tool-pill{
   display:inline-flex;align-items:center;gap:5px;
   margin-top:7px;font-size:9px;
-  color:rgba(255,255,255,.7);
-  background:rgba(255,255,255,.1);
-  border:0.5px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,0.7);
+  background:rgba(255,255,255,0.1);
+  border:0.5px solid rgba(255,255,255,0.15);
   padding:3px 9px;border-radius:20px;
   backdrop-filter:blur(8px);
 }
@@ -564,14 +564,14 @@ footer{
 /* hover overlay */
 .mag-hover{
   position:absolute;inset:0;z-index:3;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+  background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);
   opacity:0;transition:opacity .22s;
   display:flex;flex-direction:column;padding:16px;
 }
 .mag-card:hover .mag-hover{opacity:1;}
 .mag-prompt-text{
   flex:1;
-  font-size:10.5px;color:rgba(255,255,255,.75);
+  font-size:10.5px;color:rgba(255,255,255,0.75);
   line-height:1.7;font-family:'Fira Code','Courier New',monospace;
   display:-webkit-box;-webkit-line-clamp:5;
   -webkit-box-orient:vertical;overflow:hidden;
@@ -588,10 +588,10 @@ footer{
 }
 .mag-copy:hover{background:var(--orange2);}
 .mag-lib-link{
-  font-size:11px;color:rgba(255,255,255,.5);text-decoration:none;
+  font-size:11px;color:rgba(255,255,255,0.5);text-decoration:none;
   transition:color .15s;
 }
-.mag-lib-link:hover{color:rgba(255,255,255,.9);}
+.mag-lib-link:hover{color:rgba(255,255,255,0.9);}
 
 .mag-footer-row{
   padding:14px 40px 28px;
@@ -694,8 +694,8 @@ footer{
 #cta-banner::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 80% at 0% 50%,rgba(255,98,36,.06),transparent),
-    radial-gradient(ellipse 60% 80% at 100% 50%,rgba(139,92,246,.06),transparent);
+    radial-gradient(ellipse 60% 80% at 0% 50%,rgba(255,98,36,0.06),transparent),
+    radial-gradient(ellipse 60% 80% at 100% 50%,rgba(139,92,246,0.06),transparent);
   pointer-events:none;
 }
 #cta-banner h3{
@@ -808,8 +808,8 @@ footer{
   position:absolute;top:12px;left:12px;
   font-size:9px;font-weight:700;letter-spacing:1px;
   text-transform:uppercase;
-  background:rgba(255,98,36,.15);
-  border:0.5px solid rgba(255,98,36,.3);
+  background:rgba(255,98,36,0.15);
+  border:0.5px solid rgba(255,98,36,0.3);
   color:var(--orange);padding:3px 8px;border-radius:8px;
   z-index:3;
 }
@@ -901,7 +901,7 @@ footer{
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#1a0800,#2d1200);">
         <img src="/images/slot-1.jpg" alt="Weekly AI Image 1" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
       </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);"></div>
+      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%);"></div>
       <div class="mag-coming-label">Images generating Monday</div>
       <div class="mag-info">
         <div class="mag-cat-label">Photography · Auto-Generated Weekly</div>
@@ -922,7 +922,7 @@ footer{
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#000d1a,#001a33);">
         <img src="/images/slot-2.jpg" alt="Weekly AI Image 2" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🤖</span>'"/>
       </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 55%);"></div>
+      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
       <div class="mag-info">
         <div class="mag-cat-label">Image Generation</div>
         <div class="mag-card-name">AI Action Figure Box</div>
@@ -942,7 +942,7 @@ footer{
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0a0a,#1a1a1a);">
         <img src="/images/slot-3.jpg" alt="Weekly AI Image 3" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🏙️</span>'"/>
       </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
+      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
         <div class="mag-cat-label">Photography</div>
         <div class="mag-card-name">Urban Street Photography</div>
@@ -962,7 +962,7 @@ footer{
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0010,#1a0035);">
         <img src="/images/slot-4.jpg" alt="Weekly AI Image 4" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🎨</span>'"/>
       </div>
-      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
+      <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
         <div class="mag-cat-label">Creative & Art</div>
         <div class="mag-card-name">The Character Forge</div>
@@ -2480,12 +2480,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0d1117,#1a2332);">🤖</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Business & Marketing</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Business & Marketing</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">The Competitor Assassin</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">ChatGPT · Claude · Gemini</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">ChatGPT · Claude · Gemini</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2503,12 +2503,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0a0010,#2d1060);">🌌</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Image Generation</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Image Generation</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">Cinematic Scene Builder</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">Midjourney v7 · DALL·E 3</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">Midjourney v7 · DALL·E 3</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2526,12 +2526,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#1a0a00,#2a1500);">⚙️</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">AI Agents</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">AI Agents</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">Custom AI Agent Builder</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">Zapier · Make · n8n</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">Zapier · Make · n8n</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2549,12 +2549,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#001020,#001a35);">💻</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Code & Tech</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Code & Tech</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">The Full-Stack Debugger</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">Cursor · Claude Code · ChatGPT</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">Cursor · Claude Code · ChatGPT</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2572,12 +2572,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#001a10,#002a15);">🎬</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Writing & Content</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Writing & Content</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">TikTok Script Formula</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">HeyGen · Runway · Sora</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">HeyGen · Runway · Sora</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2595,12 +2595,12 @@ footer{
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0a001a,#150030);">🎤</div>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);"></div>
-          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.1);border:0.5px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,.65);">flip →</div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.25) 55%,transparent 100%);"></div>
+          <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:3px 9px;font-size:9px;color:rgba(255,255,255,0.65);">flip →</div>
           <div style="position:relative;z-index:1;padding:18px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.15);border:0.5px solid rgba(255,98,36,.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Writing & Content</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,0.15);border:0.5px solid rgba(255,98,36,0.3);padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:7px;">Writing & Content</div>
             <div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:5px;">Podcast Show Notes Writer</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.55);">ElevenLabs · ChatGPT</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.55);">ElevenLabs · ChatGPT</div>
           </div>
         </div>
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--surface);border:1px solid var(--orange);display:flex;flex-direction:column;padding:18px;">
@@ -2805,28 +2805,30 @@ document.querySelectorAll('.tool-link').forEach(link => {
 </script>
 
 
+
+
 <script>
-// Sync image cards with metadata.json — runs on every page load
-fetch('/images/metadata.json')
-  .then(r => r.json())
-  .then(meta => {
-    if (!meta || !meta.images) return;
-    meta.images.forEach((img, i) => {
-      const n = i + 1;
-      // Update front labels
-      const fc = document.getElementById('card'+n+'-cat');
-      const fn = document.getElementById('card'+n+'-name');
-      const bc = document.getElementById('card'+n+'-back-cat');
-      const bn = document.getElementById('card'+n+'-back-name');
-      const bp = document.getElementById('card'+n+'-prompt');
-      if(fc) fc.textContent  = img.category    || fc.textContent;
-      if(fn) fn.textContent  = img.name        || fn.textContent;
-      if(bc) bc.textContent  = img.category    || bc.textContent;
-      if(bn) bn.textContent  = img.name        || bn.textContent;
-      if(bp) bp.textContent  = img.library_prompt || bp.textContent;
-    });
+// Sync image cards from metadata.json — slot-based keys, cache busted
+fetch('/images/metadata.json?v=' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(meta){
+    if(!meta) return;
+    for(var i=1; i<=4; i++){
+      var img = meta['slot-'+i];
+      if(!img) continue;
+      var fc  = document.getElementById('card'+i+'-cat');
+      var fn  = document.getElementById('card'+i+'-name');
+      var bc  = document.getElementById('card'+i+'-back-cat');
+      var bn  = document.getElementById('card'+i+'-back-name');
+      var bp  = document.getElementById('card'+i+'-prompt');
+      if(fc) fc.textContent = img.category     || fc.textContent;
+      if(fn) fn.textContent = img.name         || fn.textContent;
+      if(bc) bc.textContent = img.category     || bc.textContent;
+      if(bn) bn.textContent = img.name         || bn.textContent;
+      if(bp) bp.textContent = img.library_prompt || bp.textContent;
+    }
   })
-  .catch(() => {}); // silently fail if no metadata yet
+  .catch(function(){});
 </script>
 
 </body>

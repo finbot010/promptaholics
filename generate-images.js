@@ -182,6 +182,17 @@ function downloadImage(url, filepath) {
   });
 }
 
+
+function saveMetadata(prompts) {
+  const meta = { generated_at: new Date().toISOString(), week: getWeekOfYear() };
+  prompts.forEach(p => {
+    const key = p.file.replace('.jpg',''); // e.g. "slot-1"
+    meta[key] = { name: p.name, category: p.category, library_prompt: p.library_prompt || p.prompt };
+  });
+  fs.writeFileSync(path.join(IMAGES_DIR, 'metadata.json'), JSON.stringify(meta, null, 2));
+  console.log('✅ metadata.json saved');
+}
+
 // ── MAIN ─────────────────────────────────────────────────────
 async function main() {
   const prompts = getThisWeeksPrompts();
