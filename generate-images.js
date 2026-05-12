@@ -228,6 +228,19 @@ async function main() {
 
   console.log('\n' + '─'.repeat(50));
   console.log(`✅ Done: ${successes}/${prompts.length} images generated`);
+
+  // Fallback: if any slot is missing, copy slot-1 so site never shows broken image
+  for (let i = 1; i <= 4; i++) {
+    const slotPath = path.join(IMAGES_DIR, `slot-${i}.jpg`);
+    if (!fs.existsSync(slotPath)) {
+      const fallback = path.join(IMAGES_DIR, 'slot-1.jpg');
+      if (fs.existsSync(fallback)) {
+        fs.copyFileSync(fallback, slotPath);
+        console.log(`⚠️ slot-${i}.jpg missing — copied slot-1 as fallback`);
+      }
+    }
+  }
+
   process.exit(successes === 0 ? 1 : 0);
 }
 
