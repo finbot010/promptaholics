@@ -434,8 +434,9 @@ footer{
 
 /* ══ RESPONSIVE ══ */
 @media(max-width:768px){
-  header{padding:0 16px;}
+  header{padding:0 12px;}
   .hnav a:not(.cta){display:none;}
+  .hnav .cta{font-size:12px;padding:7px 12px;border-radius:8px;white-space:nowrap;}
   .hero{padding:48px 16px 40px;}
   .hero h1{letter-spacing:-2px;}
   .hero-stats{flex-wrap:wrap;}
@@ -469,6 +470,12 @@ footer{
   .flip-card{height:220px;}
   .hero h1{font-size:34px;}
 }
+
+/* Mobile CTA text */
+.cta-short{display:none;}
+.cta-full{display:inline;}
+@media(max-width:600px){.cta-short{display:inline;}.cta-full{display:none;}}
+@media(max-width:420px){.hnav .cta{display:none!important;}}
 </style>
 </head>
 <body>
@@ -487,7 +494,7 @@ footer{
   <div class="hnav">
     <a href="library.html">📚 Library</a>
     <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
-    <a href="library.html" class="cta">Browse 382 Prompts →</a>
+    <a href="library.html" class="cta"><span class="cta-full">Browse 382 Prompts →</span><span class="cta-short">Library →</span></a>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
   </div>
 </header>
