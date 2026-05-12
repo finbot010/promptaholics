@@ -565,23 +565,23 @@ footer{
 
   <div class="flip-grid">
 
-    <!-- Card 1 — Hero (large left) -->
-    <div class="flip-card hero" onclick="this.classList.toggle('flipped')">
+    <!-- Card 1 — Golden Hour Portrait -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
       <div class="flip-inner">
         <div class="flip-front">
           <img src="/images/slot-1.jpg" alt="Golden Hour Portrait" class="flip-img"
                onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🌅</div>'"/>
           <div class="flip-front-overlay"></div>
           <div class="flip-front-info">
-            <div class="flip-front-cat" id="card1-cat">🎨 Weekly AI Image</div>
-            <div class="flip-front-name" id="card1-name">Image #1</div>
+            <div class="flip-front-cat" id="card1-cat">Photography · Auto-Generated Weekly</div>
+            <div class="flip-front-name" id="card1-name">Golden Hour Portrait</div>
             <div class="flip-front-hint">Hover to see prompt →</div>
           </div>
         </div>
         <div class="flip-back">
-          <div class="flip-back-cat" id="card1-back-cat">Photography</div>
+          <div class="flip-back-cat" id="card1-back-cat">Photography · Auto-Generated Weekly</div>
           <div class="flip-back-name" id="card1-back-name">Golden Hour Portrait</div>
-          <div class="flip-back-prompt">Editorial portrait of [SUBJECT] during golden hour, warm amber and coral light from the side, shot on Sony A7R V with 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, natural outdoor setting [LOCATION], Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw</div>
+          <div class="flip-back-prompt" id="card1-prompt">Editorial portrait of [SUBJECT DESCRIPTION] during golden hour, warm amber and coral light from the side, shot on Sony A7R V with 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, natural outdoor setting [LOCATION], Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw</div>
           <div class="flip-back-actions">
             <button class="flip-copy-btn" onclick="flipCopy(this, event)">📋 Copy Prompt</button>
             <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
@@ -590,23 +590,23 @@ footer{
       </div>
     </div>
 
-    <!-- Card 2 — Top right -->
-    <div class="flip-card r1" onclick="this.classList.toggle('flipped')">
+    <!-- Card 2 — AI Action Figure Box -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
       <div class="flip-inner">
         <div class="flip-front">
           <img src="/images/slot-2.jpg" alt="AI Action Figure Box" class="flip-img"
                onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🤖</div>'"/>
           <div class="flip-front-overlay"></div>
           <div class="flip-front-info">
-            <div class="flip-front-cat" id="card2-cat">🎨 Weekly AI Image</div>
-            <div class="flip-front-name" id="card2-name">Image #2</div>
+            <div class="flip-front-cat" id="card2-cat">Image Generation</div>
+            <div class="flip-front-name" id="card2-name">AI Action Figure Box</div>
             <div class="flip-front-hint">Hover to see prompt →</div>
           </div>
         </div>
         <div class="flip-back">
           <div class="flip-back-cat" id="card2-back-cat">Image Generation</div>
           <div class="flip-back-name" id="card2-back-name">AI Action Figure Box</div>
-          <div class="flip-back-prompt">Photorealistic collectible toy packaging — [PERSON] as an action figure in a clear plastic clamshell blister pack, branded cardboard backing, name [NAME] in bold retro toy font, accessories: [LIST 3 ITEMS], shelf-ready retail photography, studio lighting, stark white background --ar 2:3 --v 7 --stylize 500</div>
+          <div class="flip-back-prompt" id="card2-prompt">Photorealistic collectible toy packaging — [PERSON] as an action figure in a clear plastic clamshell blister pack, branded cardboard backing, name [NAME] in bold retro toy font, accessories: [LIST 3 ITEMS], shelf-ready retail photography, studio lighting, stark white background --ar 2:3 --v 7 --stylize 500</div>
           <div class="flip-back-actions">
             <button class="flip-copy-btn" onclick="flipCopy(this, event)">📋 Copy Prompt</button>
             <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
@@ -615,23 +615,23 @@ footer{
       </div>
     </div>
 
-    <!-- Card 3 — Mid right -->
-    <div class="flip-card r2" onclick="this.classList.toggle('flipped')">
+    <!-- Card 3 — Urban Street Photography -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
       <div class="flip-inner">
         <div class="flip-front">
           <img src="/images/slot-3.jpg" alt="Urban Street Photography" class="flip-img"
                onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🏙️</div>'"/>
           <div class="flip-front-overlay"></div>
           <div class="flip-front-info">
-            <div class="flip-front-cat" id="card3-cat">🎨 Weekly AI Image</div>
-            <div class="flip-front-name" id="card3-name">Image #3</div>
+            <div class="flip-front-cat" id="card3-cat">Photography</div>
+            <div class="flip-front-name" id="card3-name">Urban Street Photography</div>
             <div class="flip-front-hint">Hover to see prompt →</div>
           </div>
         </div>
         <div class="flip-back">
           <div class="flip-back-cat" id="card3-back-cat">Photography</div>
           <div class="flip-back-name" id="card3-back-name">Urban Street Photography</div>
-          <div class="flip-back-prompt">Decisive moment street photography in [CITY], [SUBJECT/SCENE], shot on Leica M11 with 35mm Summilux, available light only, high contrast black and white, authentic grain, geometric shadows, Henri Cartier-Bresson documentary style --ar 3:2 --v 6.1 --style raw --stylize 400</div>
+          <div class="flip-back-prompt" id="card3-prompt">Decisive moment street photography in [CITY], [SUBJECT/SCENE], shot on Leica M11 with 35mm Summilux, available light only, high contrast black and white, authentic grain, geometric shadows, Henri Cartier-Bresson documentary style --ar 3:2 --v 6.1 --style raw --stylize 400</div>
           <div class="flip-back-actions">
             <button class="flip-copy-btn" onclick="flipCopy(this, event)">📋 Copy Prompt</button>
             <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
@@ -640,23 +640,23 @@ footer{
       </div>
     </div>
 
-    <!-- Card 4 — Bottom right -->
-    <div class="flip-card r3" onclick="this.classList.toggle('flipped')">
+    <!-- Card 4 — The Character Forge -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
       <div class="flip-inner">
         <div class="flip-front">
           <img src="/images/slot-4.jpg" alt="The Character Forge" class="flip-img"
                onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🎨</div>'"/>
           <div class="flip-front-overlay"></div>
           <div class="flip-front-info">
-            <div class="flip-front-cat" id="card4-cat">🎨 Weekly AI Image</div>
-            <div class="flip-front-name" id="card4-name">Image #4</div>
+            <div class="flip-front-cat" id="card4-cat">Creative & Art</div>
+            <div class="flip-front-name" id="card4-name">The Character Forge</div>
             <div class="flip-front-hint">Hover to see prompt →</div>
           </div>
         </div>
         <div class="flip-back">
           <div class="flip-back-cat" id="card4-back-cat">Creative & Art</div>
           <div class="flip-back-name" id="card4-back-name">The Character Forge</div>
-          <div class="flip-back-prompt">Design an original character: [CHARACTER CONCEPT]. Full character sheet with front, 3/4, and profile views. Art style: [anime / western comic / semi-realistic / Pixar 3D]. Include facial features, outfit with accessories, signature weapon or item, color palette swatch. Professional concept art quality, clean lines, dynamic pose.</div>
+          <div class="flip-back-prompt" id="card4-prompt">Design an original character: [CHARACTER CONCEPT]. Full character sheet with front, 3/4, and profile views. Art style: [anime / western comic / semi-realistic / Pixar 3D / concept art]. Include facial features, hairstyle, outfit with accessories, signature weapon or item, color palette swatch. The character should convey [PERSONALITY TRAITS]. Professional concept art quality, clean lines, dynamic pose.</div>
           <div class="flip-back-actions">
             <button class="flip-copy-btn" onclick="flipCopy(this, event)">📋 Copy Prompt</button>
             <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
@@ -980,38 +980,30 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
+
+
 <script>
-// Load image metadata and update flip card labels
+// Sync image cards with metadata.json — runs on every page load
 fetch('/images/metadata.json')
   .then(r => r.json())
   .then(meta => {
     if (!meta || !meta.images) return;
     meta.images.forEach((img, i) => {
       const n = i + 1;
-      const frontCat  = document.getElementById('card'+n+'-cat');
-      const frontName = document.getElementById('card'+n+'-name');
-      const backCat   = document.getElementById('card'+n+'-back-cat');
-      const backName  = document.getElementById('card'+n+'-back-name');
-      if(frontCat)  frontCat.textContent  = img.category || '🎨 AI Generated';
-      if(frontName) frontName.textContent = img.name     || 'Weekly Image';
-      if(backCat)   backCat.textContent   = img.category || '🎨 AI Generated';
-      if(backName)  backName.textContent  = img.name     || 'Weekly Image';
+      // Update front labels
+      const fc = document.getElementById('card'+n+'-cat');
+      const fn = document.getElementById('card'+n+'-name');
+      const bc = document.getElementById('card'+n+'-back-cat');
+      const bn = document.getElementById('card'+n+'-back-name');
+      const bp = document.getElementById('card'+n+'-prompt');
+      if(fc) fc.textContent  = img.category    || fc.textContent;
+      if(fn) fn.textContent  = img.name        || fn.textContent;
+      if(bc) bc.textContent  = img.category    || bc.textContent;
+      if(bn) bn.textContent  = img.name        || bn.textContent;
+      if(bp) bp.textContent  = img.library_prompt || bp.textContent;
     });
   })
-  .catch(() => {
-    // metadata not found — use default labels
-    const defaults = [
-      {cat:'🎨 AI Generated', name:'Weekly Image #1'},
-      {cat:'🎨 AI Generated', name:'Weekly Image #2'},
-      {cat:'🎨 AI Generated', name:'Weekly Image #3'},
-      {cat:'🎨 AI Generated', name:'Weekly Image #4'},
-    ];
-    defaults.forEach((d,i) => {
-      const n = i+1;
-      const el = document.getElementById('card'+n+'-name');
-      if(el) el.textContent = d.name;
-    });
-  });
+  .catch(() => {}); // silently fail if no metadata yet
 </script>
 
 </body>

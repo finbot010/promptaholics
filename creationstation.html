@@ -119,6 +119,30 @@ header{
 .btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:13px 26px;border-radius:11px;font-size:14px;font-weight:600;text-decoration:none;transition:all .15s;}
 .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
 
+/* ── FILTER BAR ── */
+.filter-bar{
+  position:sticky;top:58px;z-index:90;
+  background:rgba(8,8,11,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:none;
+}
+.filter-bar::-webkit-scrollbar{display:none;}
+.filter-tab{
+  display:flex;align-items:center;gap:7px;
+  padding:16px 18px;font-size:13px;font-weight:600;
+  color:var(--text3);cursor:pointer;border:none;background:none;
+  border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;
+  font-family:var(--font-sans);
+}
+.filter-tab:hover{color:var(--text2);}
+.filter-tab.active{color:var(--orange);border-bottom-color:var(--orange);}
+.filter-tab .tab-count{
+  font-size:10px;background:var(--surface2);border:1px solid var(--border);
+  padding:1px 6px;border-radius:10px;color:var(--text3);
+}
+.filter-tab.active .tab-count{background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);color:var(--orange);}
 
 /* ── MAIN LAYOUT ── */
 .main{max-width:1280px;margin:0 auto;padding:40px 32px 80px;}
@@ -875,7 +899,7 @@ footer{
     <!-- HERO CARD — Golden Hour Portrait (auto-generated weekly) -->
     <div class="mag-card hero-card" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#1a0800,#2d1200);">
-        <img src="/images/golden-hour-portrait.jpg" alt="Golden Hour Portrait" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
+        <img src="/images/slot-1.jpg" alt="Golden Hour Portrait" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:120px;opacity:.6;\">🌅</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%);"></div>
       <div class="mag-coming-label">Images generating Monday</div>
@@ -896,7 +920,7 @@ footer{
     <!-- TOP RIGHT — AI Action Figure Box -->
     <div class="mag-card" style="border-radius:0 14px 0 0;" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#000d1a,#001a33);">
-        <img src="/images/action-figure-box.jpg" alt="AI Action Figure Box" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🤖</span>'"/>
+        <img src="/images/slot-2.jpg" alt="AI Action Figure Box" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🤖</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 55%);"></div>
       <div class="mag-info">
@@ -916,7 +940,7 @@ footer{
     <!-- MIDDLE RIGHT — Urban Street Photography -->
     <div class="mag-card" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0a0a,#1a1a1a);">
-        <img src="/images/urban-street-photography.jpg" alt="Urban Street Photography" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🏙️</span>'"/>
+        <img src="/images/slot-3.jpg" alt="Urban Street Photography" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🏙️</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
@@ -936,7 +960,7 @@ footer{
     <!-- BOTTOM RIGHT — The Character Forge -->
     <div class="mag-card" style="border-radius:0 0 14px 0;" onclick="magCopy(this)">
       <div class="mag-img-bg" style="background:linear-gradient(160deg,#0a0010,#1a0035);">
-        <img src="/images/character-forge.jpg" alt="The Character Forge" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🎨</span>'"/>
+        <img src="/images/slot-4.jpg" alt="The Character Forge" class="mag-real-img" onerror="this.parentElement.innerHTML='<span style=\"font-size:96px;opacity:.6;\">🎨</span>'"/>
       </div>
       <div class="mag-base-grad" style="background:linear-gradient(to top,rgba(0,0,0,.8) 0%,transparent 55%);"></div>
       <div class="mag-info">
@@ -2441,7 +2465,7 @@ footer{
   </div>
 
 <!-- ✦ PROMPT FLIP CARDS ✦ -->
-<section style="border-top:1px solid var(--border);background:var(--bg);position:relative;z-index:95;">
+<section style="border-top:1px solid var(--border);background:var(--bg);">
   <div style="padding:32px 40px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="height:1px;width:20px;background:var(--orange);"></div><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);">✦ Try These Prompts</div></div>
@@ -2452,7 +2476,7 @@ footer{
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:0 40px 40px;">
 
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0d1117,#1a2332);">🤖</div>
@@ -2475,7 +2499,7 @@ footer{
         </div>
       </div>
     </div>
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0a0010,#2d1060);">🌌</div>
@@ -2498,7 +2522,7 @@ footer{
         </div>
       </div>
     </div>
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#1a0a00,#2a1500);">⚙️</div>
@@ -2521,7 +2545,7 @@ footer{
         </div>
       </div>
     </div>
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#001020,#001a35);">💻</div>
@@ -2544,7 +2568,7 @@ footer{
         </div>
       </div>
     </div>
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#001a10,#002a15);">🎬</div>
@@ -2567,7 +2591,7 @@ footer{
         </div>
       </div>
     </div>
-    <div class="flip-card" style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
+    <div style="height:320px;cursor:pointer;perspective:1200px;" onclick="flipCard(this)">
       <div class="flip-card-inner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:16px;">
         <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(160deg,#0a001a,#150030);">🎤</div>
@@ -2676,8 +2700,29 @@ function flipCard(card) {
 
 function flipCopy(btn, e) {
   e.stopPropagation();
-  const back = btn.closest('.flip-back');
-  const promptText = back.querySelector('.flip-back-prompt').textContent.trim();
+  // Walk up from button to find the flip card container, then find prompt text
+  let el = btn;
+  let promptText = '';
+  // Walk up max 8 levels to find a div containing the prompt
+  for (let i = 0; i < 8; i++) {
+    el = el.parentElement;
+    if (!el) break;
+    // Try class-based prompt first
+    const byClass = el.querySelector('.flip-back-prompt');
+    if (byClass && byClass.textContent.trim().length > 20) {
+      promptText = byClass.textContent.trim(); break;
+    }
+    // Try inline-styled prompt (Fira Code font = prompt text area)
+    const allDivs = el.querySelectorAll('div');
+    for (const d of allDivs) {
+      const fs = d.getAttribute('style') || '';
+      if ((fs.includes('Fira') || fs.includes('monospace')) && d.textContent.trim().length > 30) {
+        promptText = d.textContent.trim(); break;
+      }
+    }
+    if (promptText) break;
+  }
+  if (!promptText) { console.warn('flipCopy: no prompt found'); return; }
   if (navigator.clipboard) {
     navigator.clipboard.writeText(promptText).then(() => {
       btn.textContent = '✅ Copied!';
@@ -2757,6 +2802,31 @@ document.querySelectorAll('.tool-link').forEach(link => {
     }
   });
 });
+</script>
+
+
+<script>
+// Sync image cards with metadata.json — runs on every page load
+fetch('/images/metadata.json')
+  .then(r => r.json())
+  .then(meta => {
+    if (!meta || !meta.images) return;
+    meta.images.forEach((img, i) => {
+      const n = i + 1;
+      // Update front labels
+      const fc = document.getElementById('card'+n+'-cat');
+      const fn = document.getElementById('card'+n+'-name');
+      const bc = document.getElementById('card'+n+'-back-cat');
+      const bn = document.getElementById('card'+n+'-back-name');
+      const bp = document.getElementById('card'+n+'-prompt');
+      if(fc) fc.textContent  = img.category    || fc.textContent;
+      if(fn) fn.textContent  = img.name        || fn.textContent;
+      if(bc) bc.textContent  = img.category    || bc.textContent;
+      if(bn) bn.textContent  = img.name        || bn.textContent;
+      if(bp) bp.textContent  = img.library_prompt || bp.textContent;
+    });
+  })
+  .catch(() => {}); // silently fail if no metadata yet
 </script>
 
 </body>
