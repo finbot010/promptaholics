@@ -823,6 +823,115 @@ footer{
   z-index:3;
 }
 
+
+/* ══ MOBILE FIXES ══════════════════════════════════════ */
+
+/* iPhone Safari 3D transform fixes */
+.flip-card-inner{
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+}
+.flip-front,.flip-back,.flip-card-front,.flip-card-back{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* Prevent horizontal overflow globally */
+body{overflow-x:hidden;}
+html{overflow-x:hidden;}
+
+/* ── Mobile (max 768px) ── */
+@media(max-width:768px){
+
+  /* Flip cards */
+  .flip-card{
+    width:100% !important;
+    height:auto !important;
+    min-height:320px;
+  }
+  .flip-card-inner{
+    min-height:320px;
+  }
+  .flip-card-front,
+  .flip-card-back,
+  .flip-front,
+  .flip-back{
+    padding:16px !important;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* Grids go single column */
+  .tools-grid,
+  .prompts-grid,
+  .cards-grid,
+  .flip-grid{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+
+  /* Typography */
+  h1{font-size:2rem !important;line-height:1.2 !important;}
+  h2{font-size:1.4rem !important;}
+
+  /* Sections — consistent side padding */
+  section,.mag-section{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+
+  /* Buttons full width on mobile */
+  .flip-copy-btn,.flip-lib-btn,.mag-copy-btn{
+    width:100% !important;
+    text-align:center;
+  }
+
+  /* Magazine cards responsive */
+  .mag{
+    grid-template-columns:1fr !important;
+    padding:0 16px 24px !important;
+  }
+  .mag-card.hero-card,.mag-card.small-card{
+    height:240px !important;
+  }
+  .mag-smalls{
+    grid-template-columns:1fr 1fr !important;
+    gap:10px !important;
+  }
+
+  /* Tool cards */
+  .tool-card{
+    padding:14px !important;
+  }
+
+  /* Nav overflow fix */
+  header{
+    padding:0 12px !important;
+  }
+}
+
+/* ── Small phones (max 480px) ── */
+@media(max-width:480px){
+
+  .flip-card{min-height:280px;}
+  .flip-card-inner{min-height:280px;}
+
+  .mag-smalls{
+    grid-template-columns:1fr !important;
+  }
+  .mag-card.hero-card,.mag-card.small-card{
+    height:200px !important;
+  }
+
+  h1{font-size:1.7rem !important;}
+
+  /* Stack flip card actions vertically */
+  .flip-back-actions,.flip-card-actions{
+    flex-direction:column !important;
+    gap:8px !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════ */
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
