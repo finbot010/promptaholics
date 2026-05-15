@@ -452,8 +452,8 @@ footer{
   .hstat{padding:10px 16px;}
   .search-section{padding:0 16px 48px;}
   .flip-section{padding:0 16px 48px;}
-  .flip-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .flip-card{height:240px;}
+  .flip-grid{grid-template-columns:1fr;gap:12px;}
+  .flip-card{min-height:240px;height:auto;}
   .potd-section{padding:0 16px 48px;}
   .cta-section{padding:0 16px 60px;}
   .cta-card{padding:32px 24px;}
@@ -475,8 +475,8 @@ footer{
   .flip-card.r2 .flip-front,.flip-card.r2 .flip-back{ border-radius:0 0 14px 0; }
 }
 @media(max-width:480px){
-  .flip-grid{grid-template-columns:1fr 1fr;gap:8px;}
-  .flip-card{height:220px;}
+  .flip-grid{grid-template-columns:1fr;gap:10px;}
+  .flip-card{min-height:220px;height:auto;}
   .hero h1{font-size:34px;}
 }
 
@@ -485,6 +485,92 @@ footer{
 .cta-full{display:inline;}
 @media(max-width:600px){.cta-short{display:inline;}.cta-full{display:none;}}
 @media(max-width:420px){.hnav .cta{display:none!important;}}
+
+/* ══ INDEX.HTML MOBILE FIXES ═══════════════════════════ */
+
+/* iPhone Safari fixes */
+.flip-inner{
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+}
+.flip-front,.flip-back{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+@media(max-width:640px){
+
+  /* Overflow protection */
+  body{overflow-x:hidden;}
+
+  /* Header */
+  header{padding:0 12px !important;}
+  .hnav{gap:6px;}
+  .hnav .cta{font-size:11px;padding:7px 10px;}
+
+  /* Hero stats — 2x2 grid instead of row */
+  .hero-stats{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+  }
+  .hstat{padding:12px 10px;}
+  .hstat-n{font-size:18px;}
+
+  /* Flip grid — single column */
+  .flip-grid{
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto !important;
+    gap:14px !important;
+  }
+
+  /* Flip cards — auto height */
+  .flip-card{
+    height:auto !important;
+    min-height:340px;
+    grid-column:auto !important;
+    grid-row:auto !important;
+  }
+  .flip-inner{min-height:340px;}
+
+  /* Flip back — readable on small screens */
+  .flip-back{padding:16px !important;}
+  .flip-back-prompt{
+    font-size:10px !important;
+    line-height:1.6;
+    -webkit-line-clamp:8;
+  }
+  .flip-back-actions{flex-direction:column;gap:8px;}
+  .flip-copy-btn,.flip-lib-btn{width:100%;}
+
+  /* Hero */
+  .hero{padding:36px 14px 32px !important;}
+  .hero h1{letter-spacing:-1.5px;}
+
+  /* Sections */
+  .flip-section{padding:0 14px 40px !important;}
+  .search-section{padding:0 14px 40px !important;}
+  .potd-section{padding:0 14px 40px !important;}
+  .cta-section{padding:0 14px 50px !important;}
+  .cta-card{padding:28px 18px !important;}
+
+  /* POTD actions stack */
+  .potd-actions{flex-direction:column;gap:8px;}
+  .potd-copy,.potd-view{width:100%;}
+
+  /* AI search */
+  .ai-search-top{padding:4px 8px 4px 12px !important;gap:6px;}
+  .ai-search-btn{font-size:12px;padding:8px 12px;}
+  .ai-input{font-size:14px;}
+  .ai-ex-pill{font-size:11px;}
+}
+
+@media(max-width:400px){
+  .hero h1{font-size:28px !important;}
+  .flip-card{min-height:300px;}
+  .flip-inner{min-height:300px;}
+}
+/* ═══════════════════════════════════════════════════════ */
 </style>
 </head>
 <body>
