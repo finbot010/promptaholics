@@ -1,195 +1,977 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="description" content="Build perfect AI prompts visually. Live preview, frameworks, one-click improve, save templates." />
-  <link rel="canonical" href="https://promptaholics.com/prompt-builder.html" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="google-adsense-account" content="ca-pub-1731098620016005" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Prompt Builder — Promptaholics</title>
+<meta name="description" content="Build perfect AI prompts visually. Live preview, 8 frameworks, one-click improve, save templates. Free."/>
+<link rel="canonical" href="https://promptaholics.com/prompt-builder.html"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#08080b;--surface:#0f0f14;--surface2:#161620;--surface3:#1d1d2a;
+  --border:#1e1e2c;--border2:#28283a;
+  --text:#f0f0f8;--text2:#8888a8;--text3:#44445a;
+  --orange:#ff6224;--orange2:#e84e0e;
+  --teal:#00d4aa;--violet:#9b6dff;
+  --hh:60px;
+}
+.light{
+  --bg:#f5f5f0;--surface:#fff;--surface2:#f0f0ea;--surface3:#e8e8e2;
+  --border:#e0ddd6;--border2:#cccac2;
+  --text:#18170f;--text2:#58554e;--text3:#9a9590;
+}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+/* ── HEADER ── */
+header{
+  height:var(--hh);display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;background:rgba(8,8,11,.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;
+}
+.light header{background:rgba(245,245,240,.96);}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:12px;height:14px;}
+.logo-name{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
+.logo-name span{color:var(--orange);}
+.hnav{display:flex;align-items:center;gap:6px;}
+.hnav a{font-size:12px;color:var(--text2);padding:6px 10px;border-radius:7px;transition:all .15s;text-decoration:none;}
+.hnav a:hover{color:var(--text);background:var(--surface2);}
+.hnav a.active{color:var(--orange);}
+.hnav .btn{background:var(--orange);color:#fff!important;font-weight:700;border-radius:8px;}
+.hnav .btn:hover{background:var(--orange2);}
+.theme-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+@media(max-width:600px){.hnav a:not(.btn){display:none;}}
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DRW8ZNX921');
-  </script>
+/* ── WORKSPACE ── */
+.workspace{
+  display:grid;
+  grid-template-columns:300px 1fr 340px;
+  height:calc(100vh - var(--hh));
+}
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+/* ── LEFT PANEL ── */
+.panel-left{
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.panel-title{
+  padding:16px 18px 12px;
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text3);
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
 
-  <title>Prompt Builder — Promptaholics</title>
+/* Framework tabs */
+.framework-list{
+  overflow-y:auto;flex:1;padding:10px;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.fw-item{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 12px;border-radius:10px;cursor:pointer;
+  margin-bottom:3px;transition:all .15s;
+  border:1px solid transparent;
+}
+.fw-item:hover{background:var(--surface2);}
+.fw-item.active{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.25);}
+.fw-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+.fw-info{flex:1;min-width:0;}
+.fw-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.fw-desc{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fw-item.active .fw-name{color:var(--orange);}
 
-  <style>
-    :root {
-      --surface2: #1e1e2c;
-      --surface3: #28283a;
-      --border: #1e1e2c;
-      --border2: #28283a;
-      --text: #f0f0f8;
-      --orange: #ff6224;
-      --orange2: #e84e0e;
-      --teal: #00d4aa;
-      --violet: #9b6dff;
-      --hh: 90px;
-      --bg: #0b0b12;
-    }
+/* Tool selector */
+.tool-bar{
+  padding:10px;border-top:1px solid var(--border);
+  flex-shrink:0;
+}
+.tool-bar-label{
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);margin-bottom:8px;
+}
+.tool-pills{display:flex;flex-wrap:wrap;gap:5px;}
+.tp{
+  padding:5px 10px;border-radius:14px;cursor:pointer;
+  border:1px solid var(--border2);background:var(--surface2);
+  font-size:11px;font-weight:600;color:var(--text2);transition:all .12s;
+}
+.tp:hover{border-color:var(--border);color:var(--text);}
+.tp.active{background:var(--orange);border-color:var(--orange);color:#fff;}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Instrument Sans', sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+/* ── CENTER PANEL ── */
+.panel-center{
+  display:flex;flex-direction:column;
+  overflow:hidden;background:var(--bg);
+}
+.center-header{
+  padding:14px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.center-title{
+  font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);
+}
+.center-subtitle{font-size:12px;color:var(--text3);margin-top:2px;}
+.improve-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:9px;cursor:pointer;
+  background:rgba(155,109,255,.1);border:1px solid rgba(155,109,255,.3);
+  color:var(--violet);font-size:12px;font-weight:700;
+  font-family:'Instrument Sans',sans-serif;transition:all .15s;
+}
+.improve-btn:hover{background:rgba(155,109,255,.18);}
 
-    header {
-      height: var(--hh);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      background: linear-gradient(90deg, var(--orange), var(--violet));
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 200;
-    }
+/* Blocks */
+.blocks-area{
+  flex:1;overflow-y:auto;padding:16px 20px;
+  display:flex;flex-direction:column;gap:10px;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.block{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:12px;overflow:hidden;transition:border .2s;
+}
+.block:focus-within{border-color:var(--orange);}
+.block-header{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;border-bottom:1px solid var(--border);
+  background:var(--surface2);cursor:pointer;
+}
+.block-tag{
+  font-size:9px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;padding:2px 8px;border-radius:6px;
+}
+.block-label{font-size:12px;font-weight:600;color:var(--text2);flex:1;}
+.block-del{
+  background:none;border:none;color:var(--text3);cursor:pointer;
+  font-size:14px;padding:2px 6px;border-radius:5px;transition:all .12s;
+  opacity:0;
+}
+.block:hover .block-del{opacity:1;}
+.block-del:hover{background:rgba(255,77,143,.1);color:var(--pink);}
+.block-body{padding:0;}
+.block-input{
+  width:100%;background:transparent;border:none;outline:none;
+  color:var(--text);font-family:'Instrument Sans',sans-serif;
+  font-size:14px;line-height:1.6;padding:12px 14px;resize:none;
+  min-height:52px;
+}
+.block-input::placeholder{color:var(--text3);}
+select.block-input{cursor:pointer;}
+.block-input option{background:var(--surface);}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
+/* Add block button */
+.add-block-bar{
+  padding:12px 20px;border-top:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  flex-shrink:0;
+}
+.add-block-btn{
+  padding:6px 12px;border-radius:8px;cursor:pointer;
+  border:1px dashed var(--border2);background:transparent;
+  font-size:12px;color:var(--text3);font-family:'Instrument Sans',sans-serif;
+  transition:all .15s;
+}
+.add-block-btn:hover{border-color:var(--orange);color:var(--orange);}
 
-    .logo-mark {
-      width: 32px;
-      height: 32px;
-      background: var(--orange);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 700;
-      font-family: 'Syne', serif;
-    }
+/* ── RIGHT PANEL ── */
+.panel-right{
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.preview-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.preview-title{
+  font-size:12px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--text3);
+}
+.preview-live{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--teal);font-weight:600;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-    .logo-name {
-      font-family: 'Syne', serif;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text);
-    }
+.preview-body{
+  flex:1;overflow-y:auto;padding:18px;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.preview-text{
+  font-family:'Fira Code','Courier New',monospace;
+  font-size:12px;line-height:1.85;color:var(--text2);
+  white-space:pre-wrap;word-break:break-word;
+  min-height:100%;
+}
+.preview-text.has-content{color:var(--text);}
+.preview-empty{
+  color:var(--text3);text-align:center;
+  padding:40px 20px;font-size:13px;line-height:1.7;
+}
+.preview-empty .big{font-size:32px;display:block;margin-bottom:12px;}
 
-    .logo-name span {
-      color: var(--orange);
-    }
+/* Preview actions */
+.preview-actions{
+  padding:12px 16px;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;flex-shrink:0;
+}
+.preview-stats{
+  display:flex;gap:12px;font-size:11px;color:var(--text3);
+  padding-bottom:4px;
+}
+.pstat span{color:var(--text2);font-weight:600;}
+.act-row{display:flex;gap:8px;}
+.act-btn{
+  flex:1;padding:10px;border-radius:10px;cursor:pointer;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:13px;font-weight:700;border:none;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:all .15s;
+}
+.act-btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn-copy{background:var(--orange);color:#fff;}
+.btn-copy:hover:not(:disabled){background:var(--orange2);}
+.btn-open{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);}
+.btn-open:hover:not(:disabled){border-color:var(--teal);color:var(--teal);}
 
-    main {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+/* Saved prompts */
+.saved-section{
+  border-top:1px solid var(--border);flex-shrink:0;
+}
+.saved-toggle{
+  padding:10px 16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--text3);
+  transition:color .15s;
+}
+.saved-toggle:hover{color:var(--text2);}
+.saved-list{
+  max-height:180px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.saved-item{
+  padding:9px 16px;border-top:1px solid var(--border);
+  cursor:pointer;transition:background .12s;
+  display:flex;align-items:center;gap:8px;
+}
+.saved-item:hover{background:var(--surface2);}
+.saved-text{font-size:12px;color:var(--text2);flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.saved-del{
+  background:none;border:none;color:var(--text3);cursor:pointer;
+  font-size:13px;opacity:0;transition:opacity .12s;
+}
+.saved-item:hover .saved-del{opacity:1;}
+.saved-del:hover{color:var(--pink);}
+.saved-empty{padding:14px 16px;font-size:12px;color:var(--text3);text-align:center;}
+.save-btn{
+  width:100%;padding:9px 16px;
+  background:none;border:none;border-top:1px solid var(--border);
+  color:var(--text3);font-family:'Instrument Sans',sans-serif;
+  font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.save-btn:hover{color:var(--orange);background:rgba(255,98,36,.04);}
 
-    .builder-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+/* ── IMPROVE MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.7);z-index:300;
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.show{display:flex;}
+.modal{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:18px;width:100%;max-width:560px;overflow:hidden;
+}
+.modal-head{
+  padding:18px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{font-family:'Syne',serif;font-size:17px;font-weight:800;color:var(--text);}
+.modal-close{background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;}
+.modal-body{padding:20px;}
+.modal-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.modal-textarea{
+  width:100%;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:10px;color:var(--text);padding:12px 14px;
+  font-family:'Instrument Sans',sans-serif;font-size:14px;
+  line-height:1.6;resize:none;outline:none;margin-bottom:14px;
+}
+.modal-textarea:focus{border-color:var(--orange);}
+.modal-btn{
+  width:100%;padding:12px;background:var(--orange);color:#fff;
+  border:none;border-radius:10px;cursor:pointer;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:14px;font-weight:700;transition:background .15s;
+}
+.modal-btn:hover{background:var(--orange2);}
 
-    textarea {
-      width: 100%;
-      min-height: 180px;
-      background: var(--surface3);
-      color: var(--text);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 16px;
-      resize: vertical;
-    }
-
-    button {
-      background: var(--orange);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: var(--orange2);
-    }
-
-    iframe {
-      width: 100%;
-      min-height: 300px;
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      background: var(--surface2);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        height: auto;
-        padding: 12px;
-      }
-      .logo-name {
-        font-size: 16px;
-      }
-      main {
-        padding: 20px 10px;
-      }
-    }
-  </style>
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .workspace{grid-template-columns:1fr;height:auto;}
+  .panel-left{height:auto;border-right:none;border-bottom:1px solid var(--border);}
+  .framework-list{max-height:200px;}
+  .panel-center{height:auto;min-height:400px;}
+  .panel-right{border-left:none;border-top:1px solid var(--border);}
+  .blocks-area{max-height:400px;}
+  .preview-body{max-height:300px;}
+}
+</style>
 </head>
-
 <body>
-  <header>
-    <a href="/" class="logo">
-      <div class="logo-mark">P</div>
-      <div class="logo-name">Prompt<span>aholics</span></div>
-    </a>
-  </header>
 
-  <main>
-    <div class="builder-container">
-      <textarea id="promptInput" placeholder="Write your prompt here..."></textarea>
-      <button id="previewBtn">Preview Prompt</button>
-      <iframe id="previewFrame"></iframe>
+<header>
+  <a class="logo" href="/">
+    <div class="logo-mark">
+      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
     </div>
-  </main>
+    <div class="logo-name">Prompt<span>aholics</span></div>
+  </a>
+  <div class="hnav">
+    <a href="/">Home</a>
+    <a href="library.html">Library</a>
+    <a href="creationstation.html">AI Tools</a>
+    <a href="prompt-builder.html" class="active">Builder</a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <a href="library.html" class="btn">382 Prompts</a>
+  </div>
+</header>
 
-  <script>
-    function initPage() {
-      const input = document.getElementById('promptInput');
-      const previewBtn = document.getElementById('previewBtn');
-      const frame = document.getElementById('previewFrame');
+<div class="workspace">
 
-      previewBtn.addEventListener('click', () => {
-        const content = input.value.trim();
-        frame.srcdoc = `<div style='padding:20px;font-family:Instrument Sans;color:#fff;background:#1e1e2c;'>${content}</div>`;
-      });
+  <!-- ── LEFT: FRAMEWORKS ── -->
+  <div class="panel-left">
+    <div class="panel-title">Prompt Framework</div>
+    <div class="framework-list" id="frameworkList"></div>
+    <div class="tool-bar">
+      <div class="tool-bar-label">AI Tool</div>
+      <div class="tool-pills" id="toolPills">
+        <div class="tp active" data-tool="chatgpt" onclick="setTool(this)">ChatGPT</div>
+        <div class="tp" data-tool="claude" onclick="setTool(this)">Claude</div>
+        <div class="tp" data-tool="gemini" onclick="setTool(this)">Gemini</div>
+        <div class="tp" data-tool="midjourney" onclick="setTool(this)">Midjourney</div>
+        <div class="tp" data-tool="sora" onclick="setTool(this)">Sora</div>
+        <div class="tp" data-tool="runway" onclick="setTool(this)">Runway</div>
+        <div class="tp" data-tool="veo" onclick="setTool(this)">Veo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CENTER: BLOCKS ── -->
+  <div class="panel-center">
+    <div class="center-header">
+      <div>
+        <div class="center-title" id="centerTitle">CoSTAR Framework</div>
+        <div class="center-subtitle" id="centerSubtitle">Fill each block — your prompt builds live on the right</div>
+      </div>
+      <button class="improve-btn" onclick="openImprove()">
+        ✨ Improve a prompt
+      </button>
+    </div>
+    <div class="blocks-area" id="blocksArea"></div>
+    <div class="add-block-bar" id="addBlockBar"></div>
+  </div>
+
+  <!-- ── RIGHT: PREVIEW ── -->
+  <div class="panel-right">
+    <div class="preview-header">
+      <div class="preview-title">Live Preview</div>
+      <div class="preview-live"><div class="live-dot"></div> Live</div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-text" id="previewText">
+        <div class="preview-empty">
+          <span class="big">⚡</span>
+          Start filling in the blocks<br/>and your prompt appears here<br/>in real time.
+        </div>
+      </div>
+    </div>
+    <div class="preview-actions">
+      <div class="preview-stats" id="previewStats"></div>
+      <div class="act-row">
+        <button class="act-btn btn-copy" id="copyBtn" onclick="copyPrompt()" disabled>📋 Copy</button>
+        <button class="act-btn btn-open" id="openBtn" onclick="openInTool()" disabled>🚀 Open in Tool</button>
+      </div>
+    </div>
+    <div class="saved-section">
+      <div class="saved-toggle" onclick="toggleSaved()">
+        Saved Prompts <span id="savedCount">(0)</span>
+        <span id="savedArrow">▲</span>
+      </div>
+      <div class="saved-list" id="savedList"></div>
+      <button class="save-btn" onclick="savePrompt()">+ Save current prompt</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- IMPROVE MODAL -->
+<div class="modal-overlay" id="improveModal" onclick="if(event.target===this)closeImprove()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">✨ Improve a Prompt</div>
+      <button class="modal-close" onclick="closeImprove()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-label">Paste your weak prompt</div>
+      <textarea class="modal-textarea" id="improveInput" rows="4"
+        placeholder="e.g. write me a blog about marketing"></textarea>
+      <div class="modal-label">What to improve</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="improveOptions">
+        <div class="tp active" data-imp="structure" onclick="toggleImpOpt(this)">Add structure</div>
+        <div class="tp active" data-imp="role" onclick="toggleImpOpt(this)">Add expert role</div>
+        <div class="tp active" data-imp="format" onclick="toggleImpOpt(this)">Define output format</div>
+        <div class="tp" data-imp="specific" onclick="toggleImpOpt(this)">Make specific</div>
+        <div class="tp" data-imp="constraints" onclick="toggleImpOpt(this)">Add constraints</div>
+        <div class="tp" data-imp="tone" onclick="toggleImpOpt(this)">Define tone</div>
+      </div>
+      <button class="modal-btn" onclick="runImprove()">✨ Improve My Prompt</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+var theme = localStorage.getItem('pa_theme')||'dark';
+if(theme==='light') document.documentElement.classList.add('light');
+function toggleTheme(){ localStorage.setItem('pa_theme',theme==='dark'?'light':'dark'); location.reload(); }
+document.getElementById('themeBtn').textContent = theme==='light'?'☀️':'🌙';
+
+// ── STATE ──
+var currentTool = 'chatgpt';
+var currentFW   = 'costar';
+var blockValues = {};
+var saved = JSON.parse(localStorage.getItem('pb_saved')||'[]');
+var savedOpen = true;
+
+// ── TOOL URLS ──
+var TOOL_URLS = {
+  chatgpt:'https://chat.openai.com/?q=',
+  claude:'https://claude.ai/new?q=',
+  gemini:'https://gemini.google.com/app?q=',
+  midjourney:'https://www.midjourney.com/imagine?prompt=',
+  sora:'https://sora.com/?prompt=',
+  runway:'https://app.runwayml.com/',
+  veo:'https://labs.google/veo?prompt=',
+};
+
+// ── FRAMEWORKS ──
+var FRAMEWORKS = [
+  {
+    id:'costar',
+    name:'CoSTAR',
+    icon:'⭐',
+    color:'#ff6224',
+    desc:'Context, Objective, Style, Tone, Audience, Response',
+    blocks:[
+      {id:'context',   label:'Context',   tag:'C', color:'#ff6224', placeholder:'Background information the AI needs to know...', type:'textarea', rows:2},
+      {id:'objective', label:'Objective', tag:'O', color:'#ff9f24', placeholder:'What exactly do you want the AI to accomplish?', type:'textarea', rows:2},
+      {id:'style',     label:'Style',     tag:'S', color:'#ffcc24', placeholder:'Writing style, voice, aesthetic approach...', type:'select',
+        options:['Professional','Conversational','Academic','Creative/Narrative','Persuasive','Technical','Journalistic','Casual']},
+      {id:'tone',      label:'Tone',      tag:'T', color:'#00d4aa', placeholder:'Emotional tone of the response...', type:'select',
+        options:['Confident','Friendly','Authoritative','Empathetic','Inspiring','Urgent','Neutral','Humorous']},
+      {id:'audience',  label:'Audience',  tag:'A', color:'#9b6dff', placeholder:'Who is the target reader or user?', type:'text'},
+      {id:'response',  label:'Response Format', tag:'R', color:'#ff4d8f', placeholder:'How should the output be structured?', type:'select',
+        options:['Flowing paragraphs','Bullet points','Numbered list','Headers + sections','Table','Step-by-step','Q&A format','Executive summary']},
+    ],
+    build: function(v){
+      var p = '';
+      if(v.context)   p += 'Context:\n'+v.context+'\n\n';
+      if(v.objective) p += 'Objective:\n'+v.objective+'\n\n';
+      if(v.style)     p += 'Style: '+v.style+'\n';
+      if(v.tone)      p += 'Tone: '+v.tone+'\n';
+      if(v.audience)  p += 'Audience: '+v.audience+'\n';
+      if(v.response)  p += '\nOutput format: '+v.response;
+      return p.trim();
     }
+  },
+  {
+    id:'rtf',
+    name:'RTF',
+    icon:'📋',
+    color:'#9b6dff',
+    desc:'Role, Task, Format — fast and focused',
+    blocks:[
+      {id:'role', label:'Role', tag:'R', color:'#9b6dff', placeholder:'Act as a [role] with [expertise]...', type:'textarea', rows:2},
+      {id:'task', label:'Task', tag:'T', color:'#7b4dff', placeholder:'Your specific request or task...', type:'textarea', rows:3},
+      {id:'format', label:'Format', tag:'F', color:'#5b2dff', placeholder:'How should the response be structured?', type:'text'},
+    ],
+    build: function(v){
+      var p = '';
+      if(v.role)   p += 'Act as '+v.role+'.\n\n';
+      if(v.task)   p += v.task+'\n\n';
+      if(v.format) p += 'Format your response as: '+v.format;
+      return p.trim();
+    }
+  },
+  {
+    id:'cot',
+    name:'Chain-of-Thought',
+    icon:'🧠',
+    color:'#00d4aa',
+    desc:'Step-by-step reasoning for complex tasks',
+    blocks:[
+      {id:'problem',  label:'Problem',        tag:'P', color:'#00d4aa', placeholder:'Describe the problem or question in detail...', type:'textarea', rows:3},
+      {id:'context',  label:'Context',        tag:'C', color:'#00b892', placeholder:'Any relevant background or constraints...', type:'textarea', rows:2},
+      {id:'approach', label:'Thinking Style', tag:'T', color:'#009c7a', placeholder:'How should the AI reason through this?', type:'select',
+        options:['Step by step','First principles','Pros and cons','Compare approaches','Devil\'s advocate','Socratic method','Systems thinking']},
+      {id:'output',   label:'Final Output',   tag:'O', color:'#008062', placeholder:'What should the final answer look like?', type:'text'},
+    ],
+    build: function(v){
+      var p = 'Please think through this step by step.\n\n';
+      if(v.problem)  p += 'Problem:\n'+v.problem+'\n\n';
+      if(v.context)  p += 'Context:\n'+v.context+'\n\n';
+      if(v.approach) p += 'Reasoning approach: '+v.approach+'\n\n';
+      p += 'Work through this carefully, showing your reasoning at each step.';
+      if(v.output)   p += '\n\nFinal output should be: '+v.output;
+      return p.trim();
+    }
+  },
+  {
+    id:'marketing',
+    name:'Marketing Copy',
+    icon:'📣',
+    color:'#ff4d8f',
+    desc:'High-converting ads, emails, landing pages',
+    blocks:[
+      {id:'product',   label:'Product / Service', tag:'P', color:'#ff4d8f', placeholder:'What are you promoting?', type:'text'},
+      {id:'audience',  label:'Target Audience',   tag:'A', color:'#e0357a', placeholder:'Who is the ideal customer?', type:'text'},
+      {id:'channel',   label:'Channel',           tag:'C', color:'#c01d65', placeholder:'Where will this appear?', type:'select',
+        options:['Facebook/Instagram ad','Google ad','Email subject + body','Landing page headline','TikTok/Reels hook','LinkedIn post','YouTube ad','SMS']},
+      {id:'goal',      label:'Campaign Goal',     tag:'G', color:'#a00550', placeholder:'What action do you want?', type:'select',
+        options:['Brand awareness','Lead generation','Direct purchase','App download','Email signup','Event registration','Free trial']},
+      {id:'hook',      label:'Hook / Angle',      tag:'H', color:'#800030', placeholder:'Key message or emotional trigger...', type:'text'},
+      {id:'cta',       label:'Call to Action',    tag:'CTA', color:'#600018', placeholder:'e.g. Start free trial, Book a demo', type:'text'},
+    ],
+    build: function(v){
+      var p = 'You are an expert direct response copywriter.\n\n';
+      if(v.product)  p += 'Product/Service: '+v.product+'\n';
+      if(v.audience) p += 'Target audience: '+v.audience+'\n';
+      if(v.channel)  p += 'Channel: '+v.channel+'\n';
+      if(v.goal)     p += 'Goal: '+v.goal+'\n';
+      if(v.hook)     p += 'Key angle: '+v.hook+'\n';
+      if(v.cta)      p += 'CTA: '+v.cta+'\n';
+      p += '\nWrite high-converting copy for this '+( v.channel||'campaign')+'. Lead with the hook, build desire, handle objections, end with a clear CTA. Write 3 variations.';
+      return p.trim();
+    }
+  },
+  {
+    id:'coding',
+    name:'Code Builder',
+    icon:'💻',
+    color:'#4dffb4',
+    desc:'Build, debug, review and refactor code',
+    blocks:[
+      {id:'task',     label:'Task',        tag:'T', color:'#4dffb4', placeholder:'What do you need to build or fix?', type:'textarea', rows:2},
+      {id:'lang',     label:'Language',    tag:'L', color:'#2de094', placeholder:'Programming language/framework', type:'select',
+        options:['JavaScript','TypeScript','Python','React','Node.js','Next.js','Vue.js','Go','Rust','Swift','Kotlin','C++','SQL','Bash']},
+      {id:'context',  label:'Codebase Context', tag:'C', color:'#0dc074', placeholder:'Existing code or architecture info...', type:'textarea', rows:2},
+      {id:'style',    label:'Code Style',  tag:'S', color:'#00a054', placeholder:'Requirements or constraints', type:'select',
+        options:['Production-ready','Clean & commented','Beginner-friendly','Performance-optimized','Security-focused','Test-driven']},
+      {id:'output',   label:'Output Type', tag:'O', color:'#008034', placeholder:'What should be delivered?', type:'select',
+        options:['Full implementation','Code review','Debugging help','Refactor','Architecture plan','Documentation','Tests only']},
+    ],
+    build: function(v){
+      var p = 'You are a senior '+( v.lang||'software')+' engineer with 15 years of experience.\n\n';
+      if(v.task)    p += 'Task: '+v.task+'\n';
+      if(v.lang)    p += 'Language/Framework: '+v.lang+'\n';
+      if(v.style)   p += 'Code style: '+v.style+'\n';
+      if(v.context) p += '\nContext:\n'+v.context+'\n';
+      if(v.output)  p += '\nDeliver: '+v.output;
+      p += '\n\nInclude comments for key decisions. Handle edge cases. Show your reasoning.';
+      return p.trim();
+    }
+  },
+  {
+    id:'image',
+    name:'Image Prompt',
+    icon:'🎨',
+    color:'#ffcc24',
+    desc:'Midjourney, DALL·E, Stable Diffusion',
+    blocks:[
+      {id:'subject',  label:'Subject',        tag:'S', color:'#ffcc24', placeholder:'Main subject of the image...', type:'text'},
+      {id:'setting',  label:'Setting / Scene',tag:'E', color:'#e0ad00', placeholder:'Environment, location, background...', type:'text'},
+      {id:'style',    label:'Art Style',      tag:'A', color:'#c08e00', placeholder:'Visual style or reference', type:'select',
+        options:['Photorealistic','Oil painting','Digital art','Watercolor','Cinematic','Anime/manga','3D render','Illustration','Concept art','Editorial photo','Minimalist']},
+      {id:'lighting', label:'Lighting',       tag:'L', color:'#a06e00', placeholder:'Lighting conditions', type:'select',
+        options:['Golden hour','Studio lighting','Dramatic/chiaroscuro','Soft natural','Neon-lit','Candlelight','Overcast','Backlit','Blue hour']},
+      {id:'mood',     label:'Mood',           tag:'M', color:'#805000', placeholder:'Atmosphere and feeling...', type:'text'},
+      {id:'params',   label:'Parameters',     tag:'P', color:'#603000', placeholder:'--ar ratio, --v 7, --stylize 750', type:'text'},
+    ],
+    build: function(v){
+      var parts = [];
+      if(v.subject)  parts.push(v.subject);
+      if(v.setting)  parts.push(v.setting);
+      if(v.style)    parts.push(v.style);
+      if(v.lighting) parts.push(v.lighting+' lighting');
+      if(v.mood)     parts.push(v.mood+' mood');
+      parts.push('ultra-detailed, masterpiece quality');
+      var p = parts.join(', ');
+      if(v.params)   p += ' '+v.params;
+      else if(currentTool==='midjourney') p += ' --ar 16:9 --v 7 --stylize 750';
+      return p;
+    }
+  },
+  {
+    id:'agent',
+    name:'AI Agent',
+    icon:'🤖',
+    color:'#ff9f24',
+    desc:'Autonomous agents with goals and tools',
+    blocks:[
+      {id:'persona',   label:'Agent Persona',  tag:'P', color:'#ff9f24', placeholder:'Name and role of the AI agent...', type:'text'},
+      {id:'goal',      label:'Primary Goal',   tag:'G', color:'#e08000', placeholder:'What is this agent trying to achieve?', type:'textarea', rows:2},
+      {id:'tools',     label:'Available Tools',tag:'T', color:'#c06000', placeholder:'What can the agent access or use?', type:'text'},
+      {id:'rules',     label:'Rules & Limits', tag:'R', color:'#a04000', placeholder:'What should the agent never do?', type:'textarea', rows:2},
+      {id:'output',    label:'Output Style',   tag:'O', color:'#802000', placeholder:'How should results be reported?', type:'select',
+        options:['Step-by-step log','Final answer only','Structured JSON','Markdown report','Conversational','Executive summary']},
+    ],
+    build: function(v){
+      var p = 'You are '+( v.persona||'an AI agent')+', an autonomous AI assistant.\n\n';
+      if(v.goal)   p += 'Primary Goal:\n'+v.goal+'\n\n';
+      if(v.tools)  p += 'Available tools/resources: '+v.tools+'\n\n';
+      if(v.rules)  p += 'Rules and constraints:\n'+v.rules+'\n\n';
+      if(v.output) p += 'Report results as: '+v.output+'\n\n';
+      p += 'Work autonomously toward the goal. Break it into steps, execute methodically, and report your progress.';
+      return p.trim();
+    }
+  },
+  {
+    id:'youtube',
+    name:'YouTube Script',
+    icon:'🎬',
+    color:'#ff3333',
+    desc:'Hook, story, value, CTA — full scripts',
+    blocks:[
+      {id:'topic',    label:'Video Topic',    tag:'T', color:'#ff3333', placeholder:'What is the video about?', type:'text'},
+      {id:'audience', label:'Audience',       tag:'A', color:'#d02020', placeholder:'Who watches this channel?', type:'text'},
+      {id:'hook',     label:'Hook Style',     tag:'H', color:'#a00d0d', placeholder:'How to open', type:'select',
+        options:['Bold contrarian claim','Shocking statistic','Personal story','Curiosity gap question','Immediate value reveal','Dramatic scenario']},
+      {id:'length',   label:'Video Length',   tag:'L', color:'#800000', placeholder:'Target duration', type:'select',
+        options:['Short (60 seconds)','Medium (5-8 minutes)','Long (12-15 minutes)','Deep dive (20+ minutes)']},
+      {id:'cta',      label:'Call to Action', tag:'C', color:'#600000', placeholder:'Subscribe, buy, comment, link in bio...', type:'text'},
+    ],
+    build: function(v){
+      var p = 'You are an expert YouTube scriptwriter who specializes in high-retention videos.\n\n';
+      p += 'Write a complete YouTube script for:\n\n';
+      if(v.topic)    p += 'Topic: '+v.topic+'\n';
+      if(v.audience) p += 'Audience: '+v.audience+'\n';
+      if(v.hook)     p += 'Opening hook style: '+v.hook+'\n';
+      if(v.length)   p += 'Target length: '+v.length+'\n';
+      if(v.cta)      p += 'CTA: '+v.cta+'\n';
+      p += '\nStructure:\n1. HOOK (first 15 seconds — must stop the scroll)\n2. INTRO (establish credibility + what they\'ll get)\n3. MAIN CONTENT (pattern interrupts every 60-90 seconds)\n4. OUTRO + CTA\n\nInclude [B-ROLL suggestions] and [PAUSE for emphasis] notes throughout.';
+      return p.trim();
+    }
+  },
+];
 
-    document.addEventListener('DOMContentLoaded', () => initPage());
-  </script>
+// ── RENDER FRAMEWORKS ──
+function renderFrameworks(){
+  var list = document.getElementById('frameworkList');
+  list.innerHTML = FRAMEWORKS.map(function(fw){
+    return '<div class="fw-item'+(currentFW===fw.id?' active':'')+'" onclick="setFramework(\''+fw.id+'\')">'+
+      '<div class="fw-icon" style="background:'+fw.color+'22;color:'+fw.color+'">'+fw.icon+'</div>'+
+      '<div class="fw-info">'+
+        '<div class="fw-name">'+fw.name+'</div>'+
+        '<div class="fw-desc">'+fw.desc+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+// ── RENDER BLOCKS ──
+function renderBlocks(){
+  var fw = FRAMEWORKS.find(function(f){ return f.id===currentFW; });
+  if(!fw) return;
+
+  document.getElementById('centerTitle').textContent = fw.name+' Framework';
+  document.getElementById('centerSubtitle').textContent = fw.desc+' — fill each block below';
+
+  var area = document.getElementById('blocksArea');
+  area.innerHTML = fw.blocks.map(function(b){
+    var val = blockValues[b.id] || '';
+    var inputHTML = '';
+    if(b.type==='select'){
+      inputHTML = '<select class="block-input" id="block_'+b.id+'" onchange="onBlockChange(\''+b.id+'\',this.value)">';
+      inputHTML += '<option value="">— select —</option>';
+      (b.options||[]).forEach(function(o){
+        inputHTML += '<option'+(o===val?' selected':'')+'>'+o+'</option>';
+      });
+      inputHTML += '</select>';
+    } else if(b.type==='textarea'){
+      inputHTML = '<textarea class="block-input" id="block_'+b.id+'" rows="'+(b.rows||2)+'" placeholder="'+b.placeholder+'" oninput="onBlockChange(\''+b.id+'\',this.value)">'+val+'</textarea>';
+    } else {
+      inputHTML = '<input type="text" class="block-input" id="block_'+b.id+'" placeholder="'+b.placeholder+'" value="'+val+'" oninput="onBlockChange(\''+b.id+'\',this.value)"/>';
+    }
+    return '<div class="block" id="blk_'+b.id+'">'+
+      '<div class="block-header">'+
+        '<span class="block-tag" style="background:'+b.color+'22;color:'+b.color+'">'+b.tag+'</span>'+
+        '<span class="block-label">'+b.label+'</span>'+
+        '<button class="block-del" onclick="clearBlock(\''+b.id+'\')" title="Clear">✕</button>'+
+      '</div>'+
+      '<div class="block-body">'+inputHTML+'</div>'+
+    '</div>';
+  }).join('');
+
+  // Extra blocks (user-added)
+  renderAddBar();
+  updatePreview();
+}
+
+function renderAddBar(){
+  var bar = document.getElementById('addBlockBar');
+  var extras = ['Examples','Constraints','Persona','Temperature','Language','Deadline'];
+  bar.innerHTML = '<span style="font-size:11px;color:var(--text3);margin-right:4px;">Add block:</span>'+
+    extras.map(function(e){
+      return '<button class="add-block-btn" onclick="addExtraBlock(\''+e+'\')">+ '+e+'</button>';
+    }).join('');
+}
+
+function addExtraBlock(name){
+  var id = 'extra_'+name.toLowerCase();
+  if(document.getElementById('blk_'+id)) return;
+  var area = document.getElementById('blocksArea');
+  var div = document.createElement('div');
+  div.className = 'block';
+  div.id = 'blk_'+id;
+  div.innerHTML = '<div class="block-header">'+
+    '<span class="block-tag" style="background:var(--surface3);color:var(--text2)">+</span>'+
+    '<span class="block-label">'+name+'</span>'+
+    '<button class="block-del" onclick="removeExtraBlock(\''+id+'\')" title="Remove">✕</button>'+
+    '</div>'+
+    '<div class="block-body">'+
+    '<textarea class="block-input" id="block_'+id+'" rows="2" placeholder="'+name+'..." oninput="onBlockChange(\''+id+'\',this.value)"></textarea>'+
+    '</div>';
+  area.appendChild(div);
+}
+
+function removeExtraBlock(id){
+  var el = document.getElementById('blk_'+id);
+  if(el) el.remove();
+  delete blockValues[id];
+  updatePreview();
+}
+
+function clearBlock(id){
+  blockValues[id] = '';
+  var el = document.getElementById('block_'+id);
+  if(el){ el.value = ''; }
+  updatePreview();
+}
+
+// ── UPDATE PREVIEW ──
+function onBlockChange(id, val){
+  blockValues[id] = val;
+  updatePreview();
+}
+
+function updatePreview(){
+  var fw = FRAMEWORKS.find(function(f){ return f.id===currentFW; });
+  if(!fw) return;
+
+  // Collect all current values including extras
+  var allVals = {};
+  Object.keys(blockValues).forEach(function(k){ allVals[k] = blockValues[k]; });
+
+  var prompt = fw.build(allVals);
+
+  // Also append any extra blocks
+  Object.keys(allVals).forEach(function(k){
+    if(k.startsWith('extra_') && allVals[k]){
+      var label = k.replace('extra_','');
+      label = label.charAt(0).toUpperCase()+label.slice(1);
+      if(prompt && !prompt.includes(label)) prompt += '\n\n'+label+':\n'+allVals[k];
+    }
+  });
+
+  var el = document.getElementById('previewText');
+  if(!prompt.trim()){
+    el.innerHTML = '<div class="preview-empty"><span class="big">⚡</span>Start filling in the blocks<br/>and your prompt appears here<br/>in real time.</div>';
+    document.getElementById('copyBtn').disabled = true;
+    document.getElementById('openBtn').disabled = true;
+    document.getElementById('previewStats').innerHTML = '';
+    return;
+  }
+
+  el.className = 'preview-text has-content';
+  el.textContent = prompt;
+
+  var words = prompt.trim().split(/\s+/).length;
+  var chars = prompt.length;
+  document.getElementById('previewStats').innerHTML =
+    '<div class="pstat"><span>'+words+'</span> words</div>'+
+    '<div class="pstat"><span>'+chars+'</span> chars</div>'+
+    '<div class="pstat" id="toolTag" style="margin-left:auto;color:var(--orange);font-weight:700;">'+currentTool.toUpperCase()+'</div>';
+
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('openBtn').disabled = false;
+}
+
+function getCurrentPrompt(){
+  var el = document.getElementById('previewText');
+  return el.classList.contains('has-content') ? el.textContent : '';
+}
+
+// ── FRAMEWORK ──
+function setFramework(id){
+  currentFW = id;
+  blockValues = {};
+  renderFrameworks();
+  renderBlocks();
+}
+
+// ── TOOL ──
+function setTool(el){
+  currentTool = el.dataset.tool;
+  document.querySelectorAll('.tp').forEach(function(p){ if(p.closest('#toolPills')) p.classList.remove('active'); });
+  el.classList.add('active');
+  updatePreview();
+}
+
+// ── ACTIONS ──
+function copyPrompt(){
+  var p = getCurrentPrompt();
+  if(!p) return;
+  var btn = document.getElementById('copyBtn');
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(p).then(function(){
+    btn.innerHTML = '✅ Copied!';
+    setTimeout(function(){ btn.innerHTML=orig; }, 2000);
+  });
+}
+
+function openInTool(){
+  var p = getCurrentPrompt();
+  if(!p) return;
+  var url = (TOOL_URLS[currentTool]||'https://chat.openai.com/?q=') + encodeURIComponent(p);
+  window.open(url, '_blank');
+}
+
+// ── SAVE / LOAD ──
+function savePrompt(){
+  var p = getCurrentPrompt();
+  if(!p){ alert('Build a prompt first!'); return; }
+  var label = p.slice(0,60)+(p.length>60?'...':'');
+  saved.unshift({label:label, prompt:p, tool:currentTool, fw:currentFW, ts:Date.now()});
+  if(saved.length>20) saved=saved.slice(0,20);
+  localStorage.setItem('pb_saved', JSON.stringify(saved));
+  renderSaved();
+}
+
+function loadSaved(i){
+  var s = saved[i];
+  if(!s) return;
+  var fw = FRAMEWORKS.find(function(f){ return f.id===s.fw; });
+  if(fw){
+    currentFW = s.fw;
+    blockValues = {};
+    renderFrameworks();
+    renderBlocks();
+  }
+  // Show prompt in preview directly
+  var el = document.getElementById('previewText');
+  el.className = 'preview-text has-content';
+  el.textContent = s.prompt;
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('openBtn').disabled = false;
+}
+
+function deleteSaved(i, e){
+  e.stopPropagation();
+  saved.splice(i,1);
+  localStorage.setItem('pb_saved', JSON.stringify(saved));
+  renderSaved();
+}
+
+function renderSaved(){
+  var list = document.getElementById('savedList');
+  document.getElementById('savedCount').textContent = '('+saved.length+')';
+  if(!saved.length){
+    list.innerHTML = '<div class="saved-empty">No saved prompts yet.</div>';
+    return;
+  }
+  list.innerHTML = saved.map(function(s, i){
+    return '<div class="saved-item" onclick="loadSaved('+i+')">'+
+      '<span class="saved-text">'+s.label+'</span>'+
+      '<button class="saved-del" onclick="deleteSaved('+i+',event)">✕</button>'+
+    '</div>';
+  }).join('');
+}
+
+function toggleSaved(){
+  savedOpen = !savedOpen;
+  document.getElementById('savedList').style.display = savedOpen ? 'block' : 'none';
+  document.getElementById('savedArrow').textContent = savedOpen ? '▲' : '▼';
+}
+
+// ── IMPROVE MODAL ──
+function openImprove(){ document.getElementById('improveModal').classList.add('show'); }
+function closeImprove(){ document.getElementById('improveModal').classList.remove('show'); }
+
+function toggleImpOpt(el){ el.classList.toggle('active'); }
+
+function runImprove(){
+  var raw = document.getElementById('improveInput').value.trim();
+  if(!raw){ alert('Please paste a prompt to improve.'); return; }
+
+  var opts = [];
+  document.querySelectorAll('#improveOptions .tp.active').forEach(function(el){
+    opts.push(el.dataset.imp);
+  });
+
+  var improved = raw;
+
+  if(opts.includes('role'))       improved = 'You are a world-class expert with deep knowledge and real-world experience.\n\n'+improved;
+  if(opts.includes('structure'))  improved = improved+'\n\nApproach this systematically. Break it into clear sections.';
+  if(opts.includes('format'))     improved = improved+'\n\nFormat your response with clear headers, bullet points where appropriate, and a concise summary at the end.';
+  if(opts.includes('specific'))   improved = improved+'\n\nBe highly specific. Use real examples, concrete numbers, and avoid vague generalities.';
+  if(opts.includes('constraints')) improved = improved+'\n\nConstraints: Focus only on what is most important. Be concise. Prioritize actionability.';
+  if(opts.includes('tone'))       improved = improved+'\n\nTone: Professional yet accessible. Confident but not arrogant.';
+
+  // Show in preview
+  var el = document.getElementById('previewText');
+  el.className = 'preview-text has-content';
+  el.textContent = improved;
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('openBtn').disabled = false;
+
+  var words = improved.trim().split(/\s+/).length;
+  document.getElementById('previewStats').innerHTML =
+    '<div class="pstat"><span>'+words+'</span> words</div>'+
+    '<div class="pstat"><span>'+improved.length+'</span> chars</div>'+
+    '<div class="pstat" style="margin-left:auto;color:var(--violet);font-weight:700;">IMPROVED</div>';
+
+  closeImprove();
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', function(){
+  renderFrameworks();
+  renderBlocks();
+  renderSaved();
+});
+</script>
 </body>
 </html>
