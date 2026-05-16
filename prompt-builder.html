@@ -6,17 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #000000; /* PURE BLACK LEFT SIDE */
-      --panel-bg: #0b0b12;
+      --bg: #000000;
       --card: #11111a;
+      --card-soft: #181824;
       --accent: #ff7a3c;
       --accent-soft: rgba(255, 122, 60, 0.12);
       --accent-strong: rgba(255, 122, 60, 0.22);
       --border: #26263a;
       --text: #f7f7ff;
       --muted: #a0a0c0;
+      --danger: #ff4b6a;
       --radius-lg: 18px;
       --radius-md: 12px;
+      --radius-sm: 8px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
       --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.35);
       --transition-fast: 0.18s ease-out;
@@ -35,7 +37,7 @@
       margin: 0;
       min-height: 100vh;
       font-family: var(--font-sans);
-      background: var(--bg); /* PURE BLACK */
+      background: var(--bg);
       color: var(--text);
       display: flex;
       justify-content: center;
@@ -48,7 +50,6 @@
       }
     }
 
-    /* PAGE GRID */
     .page {
       width: 100%;
       max-width: 1200px;
@@ -63,15 +64,23 @@
       }
     }
 
-    /* PANEL */
     .panel {
-      background: var(--panel-bg);
+      background: linear-gradient(145deg, #0b0b12, #11111a);
       border-radius: 24px;
       padding: 0 0 20px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(255, 122, 60, 0.12), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
     .panel-inner {
@@ -86,7 +95,7 @@
       }
     }
 
-    /* HEADER — FIRE GRADIENT ONLY */
+    /* Gradient header bar with logo (sticky on mobile only) */
     .app-header {
       width: 100%;
       background: linear-gradient(135deg, #ff7a3c, #ff4b6a, #5b2a86);
@@ -111,11 +120,11 @@
       border-radius: 18px;
       overflow: hidden;
       flex-shrink: 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
       background: #ff7a3c;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
     }
 
     .app-logo-wrap img {
@@ -157,7 +166,6 @@
       }
     }
 
-    /* BUILDER + OUTPUT PANELS */
     .panel-header {
       display: flex;
       align-items: center;
@@ -262,7 +270,7 @@
 
     .block-palette,
     .canvas {
-      background: #0b0b12;
+      background: radial-gradient(circle at top, #181824 0, #0b0b12 55%);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       padding: 12px;
@@ -280,6 +288,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+    }
+
+    .section-label span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .section-pill {
@@ -478,6 +492,10 @@
       border-color: rgba(255, 255, 255, 0.18);
     }
 
+    .btn-icon {
+      font-size: 14px;
+    }
+
     .btn-small {
       font-size: 11px;
       padding: 6px 11px;
@@ -494,7 +512,7 @@
     }
 
     .output-wrapper {
-      background: #0b0b12;
+      background: radial-gradient(circle at top, #181824 0, #050509 55%);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       padding: 12px;
@@ -550,11 +568,599 @@
       font-size: 12px;
     }
 
-    /* MOBILE STICKY BOTTOM BAR */
+    /* Sticky bottom action bar on mobile */
     .bottom-bar {
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
       padding: 8px 10px;
-      background: #000000
+      background: linear-gradient(135deg, #050509, #11111a);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: center;
+      z-index: 30;
+    }
+
+    .bottom-bar-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bottom-bar-actions {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .bottom-bar .btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+
+    @media (min-width: 768px) {
+      .bottom-bar {
+        display: none;
+      }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      right: 18px;
+      background: #050509;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 14px;
+      font-size: 12px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity var(--transition-med), transform var(--transition-med);
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .toast-pill {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255, 122, 60, 0.9);
+    }
+
+    .toast-text {
+      font-size: 12px;
+    }
+
+    .toast-close {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Gradient app header with logo -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <a href="https://promptaholics.com" class="app-logo-wrap">
+        <img src="/path/to/logo.png" alt="Promptaholics logo" />
+      </a>
+      <div class="app-title-group">
+        <div class="app-eyebrow">PROMPTAHOLICS • CREATION STATION</div>
+        <div class="app-title">Prompt Builder</div>
+        <div class="app-subtitle">Drag, drop, and customize a world‑class AI prompt in seconds.</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <!-- LEFT: Builder -->
+    <section class="panel">
+      <div class="panel-inner">
+        <div class="panel-header">
+          <div class="title-group">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              BUILD • YOUR PROMPT FLOW
+            </div>
+            <h1>Drag‑and‑Drop Prompt Builder</h1>
+            <p class="subtitle">
+              Assemble a structured prompt using building blocks. Drag or tap to add, then edit each section.
+            </p>
+          </div>
+        </div>
+
+        <div class="badge-row">
+          <div class="badge badge-pill">
+            <span class="badge-dot"></span>
+            Structured prompt architecture
+          </div>
+          <div class="badge">
+            🎯 ChatGPT • Claude • Gemini
+          </div>
+          <div class="badge">
+            🧩 Drag, tap, reorder, customize
+          </div>
+        </div>
+
+        <div class="builder-layout">
+          <div class="builder-columns">
+            <!-- Palette -->
+            <div class="block-palette">
+              <div class="section-label">
+                <span>Building blocks</span>
+                <span class="section-pill">Drag or tap to add</span>
+              </div>
+              <div class="block-list" id="palette"></div>
+            </div>
+
+            <!-- Canvas -->
+            <div class="canvas" id="canvas">
+              <div class="section-label">
+                <span>Your prompt flow</span>
+                <span class="section-pill">Reorder for perfect structure</span>
+              </div>
+              <div class="canvas-empty" id="canvas-empty">
+                Drag or tap blocks to build your prompt.<br />
+                <span>Tip:</span> Start with <strong>Role</strong> → <strong>Task</strong> → <strong>Context</strong> → <strong>Constraints</strong>.
+              </div>
+              <div class="block-list" id="canvas-list"></div>
+            </div>
+          </div>
+
+          <!-- Desktop/tablet controls -->
+          <div class="controls-row">
+            <button class="btn btn-primary" id="generate-btn">
+              <span class="btn-icon">⚡</span>
+              Generate prompt
+            </button>
+            <button class="btn btn-ghost btn-small" id="clear-canvas-btn">
+              <span class="btn-icon">🧹</span>
+              Clear flow
+            </button>
+            <div class="status-text">
+              <strong>Pro tip:</strong> Edit each block’s text before generating for ultra‑specific prompts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Output -->
+    <section class="panel">
+      <div class="panel-inner">
+        <div class="panel-header">
+          <div class="title-group">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              OUTPUT • READY TO COPY
+            </div>
+            <h2>Final Prompt</h2>
+            <p class="subtitle">
+              Optimized for clarity, control, and high‑quality results across modern AI models.
+            </p>
+          </div>
+        </div>
+
+        <div class="output-wrapper">
+          <div class="output-header">
+            <div class="output-label">
+              <span>Prompt preview</span>
+              <span class="output-label-pill">Auto‑structured</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button class="btn btn-ghost btn-small" id="copy-btn">
+                <span class="btn-icon">📋</span>
+                Copy prompt
+              </button>
+            </div>
+          </div>
+          <div class="output-box" id="output">
+            <div class="output-placeholder">
+              Your generated prompt will appear here once you click
+              <strong>“Generate prompt”</strong>.<br /><br />
+              You can paste it directly into ChatGPT, Claude, Gemini, or your favorite AI tool.
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-row" style="margin-top:14px;">
+          <div class="status-text">
+            <strong>Bonus:</strong> The builder automatically adds a final optimization step so the model refines its own answer.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sticky bottom bar (mobile) -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner">
+      <div class="bottom-bar-actions">
+        <button class="btn btn-primary" id="bottom-generate-btn">
+          <span class="btn-icon">⚡</span>
+          Generate
+        </button>
+        <button class="btn btn-ghost" id="bottom-copy-btn">
+          <span class="btn-icon">📋</span>
+          Copy
+        </button>
+        <button class="btn btn-ghost" id="bottom-clear-btn">
+          <span class="btn-icon">🧹</span>
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-pill"></div>
+    <div class="toast-text" id="toast-text">Copied to clipboard</div>
+    <button class="toast-close" id="toast-close" aria-label="Close">×</button>
+  </div>
+
+  <script>
+    const BLOCKS = [
+      {
+        id: "role",
+        title: "Role",
+        tag: "Who the model is",
+        defaultText:
+          "You are a world‑class expert in this domain. Act as a highly skilled [ROLE], with deep experience helping [AUDIENCE] achieve [GOAL].",
+        hint: "Define the expertise and perspective the model should adopt."
+      },
+      {
+        id: "task",
+        title: "Task",
+        tag: "What to do",
+        defaultText:
+          "Your task is to [PRIMARY_TASK]. Focus on delivering a result that is practical, specific, and directly useful.",
+        hint: "Describe the main job you want the model to perform."
+      },
+      {
+        id: "context",
+        title: "Context",
+        tag: "Background",
+        defaultText:
+          "Here is the key context you should consider:\n- Product / topic: [TOPIC]\n- Audience: [AUDIENCE]\n- Platform or channel: [PLATFORM]\n- Additional details: [CONTEXT_DETAILS]",
+        hint: "Give the model enough background to avoid generic answers."
+      },
+      {
+        id: "constraints",
+        title: "Constraints",
+        tag: "Rules & limits",
+        defaultText:
+          "Follow these constraints:\n- Avoid vague or generic language.\n- Do not invent facts; clearly mark assumptions.\n- Keep the response within [LENGTH] words or less.\n- Prioritize clarity, structure, and actionability.",
+        hint: "Set boundaries so the output stays sharp and on‑brand."
+      },
+      {
+        id: "tone",
+        title: "Tone & Style",
+        tag: "How it should sound",
+        defaultText:
+          "Use a [TONE] tone and a [STYLE] style. Write as if you are speaking directly to [AUDIENCE], using language they naturally use and understand.",
+        hint: "Control the voice so it matches your brand or audience."
+      },
+      {
+        id: "format",
+        title: "Output Format",
+        tag: "Structure",
+        defaultText:
+          "Format the output using this structure:\n1. [SECTION_1]\n2. [SECTION_2]\n3. [SECTION_3]\n\nUse clear headings, bullet points where helpful, and concise paragraphs.",
+        hint: "Tell the model exactly how to lay out the answer."
+      },
+      {
+        id: "examples",
+        title: "Examples",
+        tag: "Show, don’t tell",
+        defaultText:
+          "Here are examples of the style and quality I’m looking for:\n- Example 1: [EXAMPLE_1]\n- Example 2: [EXAMPLE_2]\n\nUse these as inspiration, not as templates to copy.",
+        hint: "Optional but powerful: show the model what “good” looks like."
+      },
+      {
+        id: "audience",
+        title: "Audience",
+        tag: "Who it’s for",
+        defaultText:
+          "Assume the audience is:\n- Experience level: [BEGINNER / INTERMEDIATE / ADVANCED]\n- Primary goal: [AUDIENCE_GOAL]\n- Biggest challenges: [PAIN_POINTS]",
+        hint: "Helps the model tailor depth, language, and examples."
+      },
+      {
+        id: "platform",
+        title: "Platform",
+        tag: "Where it will be used",
+        defaultText:
+          "This content is specifically for [PLATFORM] and should follow best practices for that platform, including length, formatting, and engagement style.",
+        hint: "Great for TikTok, YouTube, email, blogs, etc."
+      },
+      {
+        id: "optimization",
+        title: "Optimization Step",
+        tag: "Self‑refinement",
+        defaultText:
+          "Before you present the final answer, silently think step‑by‑step about the best possible response. Check for clarity, accuracy, and usefulness. Then refine your answer once and only then present the final version.",
+        hint: "This is your secret weapon for higher‑quality outputs."
+      }
+    ];
+
+    const paletteEl = document.getElementById("palette");
+    const canvasEl = document.getElementById("canvas");
+    const canvasListEl = document.getElementById("canvas-list");
+    const canvasEmptyEl = document.getElementById("canvas-empty");
+    const generateBtn = document.getElementById("generate-btn");
+    const clearCanvasBtn = document.getElementById("clear-canvas-btn");
+    const outputEl = document.getElementById("output");
+    const copyBtn = document.getElementById("copy-btn");
+    const toastEl = document.getElementById("toast");
+    const toastTextEl = document.getElementById("toast-text");
+    const toastCloseEl = document.getElementById("toast-close");
+
+    const bottomGenerateBtn = document.getElementById("bottom-generate-btn");
+    const bottomCopyBtn = document.getElementById("bottom-copy-btn");
+    const bottomClearBtn = document.getElementById("bottom-clear-btn");
+
+    let draggedBlock = null;
+    let dragSource = null;
+
+    function createBlockElement(blockConfig, { fromPalette = false } = {}) {
+      const block = document.createElement("div");
+      block.className = "block";
+      block.draggable = true;
+      block.dataset.blockId = blockConfig.id;
+
+      const header = document.createElement("div");
+      header.className = "block-header";
+
+      const title = document.createElement("div");
+      title.className = "block-title";
+      title.innerHTML = `🧩 ${blockConfig.title}`;
+
+      const tag = document.createElement("div");
+      tag.className = "block-tag";
+      tag.textContent = blockConfig.tag;
+
+      header.appendChild(title);
+      header.appendChild(tag);
+
+      const body = document.createElement("div");
+      body.className = "block-body";
+
+      const textarea = document.createElement("textarea");
+      textarea.value = blockConfig.defaultText;
+      textarea.addEventListener("click", (e) => e.stopPropagation());
+
+      body.appendChild(textarea);
+
+      const footer = document.createElement("div");
+      footer.className = "block-footer";
+
+      const hint = document.createElement("div");
+      hint.className = "hint";
+      hint.textContent = blockConfig.hint;
+
+      const rightFooter = document.createElement("div");
+      rightFooter.style.display = "flex";
+      rightFooter.style.alignItems = "center";
+      rightFooter.style.gap = "6px";
+
+      const tapBtn = document.createElement("button");
+      tapBtn.type = "button";
+      tapBtn.className = "tap-add-btn";
+      tapBtn.innerHTML = `<span>➕</span><span>Add</span>`;
+      tapBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        addBlockToCanvas(blockConfig);
+      });
+
+      const handle = document.createElement("div");
+      handle.className = "handle";
+      handle.innerHTML = `<span class="handle-icon">⋮⋮</span> drag`;
+
+      rightFooter.appendChild(tapBtn);
+      rightFooter.appendChild(handle);
+
+      footer.appendChild(hint);
+      footer.appendChild(rightFooter);
+
+      block.appendChild(header);
+      block.appendChild(body);
+      block.appendChild(footer);
+
+      block.addEventListener("dragstart", (e) => {
+        draggedBlock = block;
+        dragSource = fromPalette ? "palette" : "canvas";
+        block.classList.add("dragging");
+        e.dataTransfer.effectAllowed = "move";
+      });
+
+      block.addEventListener("dragend", () => {
+        if (block.classList.contains("dragging")) {
+          block.classList.remove("dragging");
+        }
+        draggedBlock = null;
+        dragSource = null;
+      });
+
+      return block;
+    }
+
+    function renderPalette() {
+      paletteEl.innerHTML = "";
+      BLOCKS.forEach((blockConfig) => {
+        const block = createBlockElement(blockConfig, { fromPalette: true });
+        paletteEl.appendChild(block);
+      });
+    }
+
+    function updateCanvasEmptyState() {
+      const hasBlocks = canvasListEl.children.length > 0;
+      canvasEmptyEl.style.display = hasBlocks ? "block" : "block";
+      canvasEmptyEl.style.visibility = hasBlocks ? "hidden" : "visible";
+      canvasEmptyEl.style.height = hasBlocks ? "0" : "auto";
+      canvasEmptyEl.style.marginBottom = hasBlocks ? "0" : "8px";
+    }
+
+    function handleCanvasDragOver(e) {
+      e.preventDefault();
+      if (!draggedBlock) return;
+
+      const afterElement = getDragAfterElement(canvasListEl, e.clientY);
+      if (afterElement == null) {
+        canvasListEl.appendChild(draggedBlock);
+      } else {
+        canvasListEl.insertBefore(draggedBlock, afterElement);
+      }
+      updateCanvasEmptyState();
+    }
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [
+        ...container.querySelectorAll(".block:not(.dragging)")
+      ];
+
+      return draggableElements.reduce(
+        (closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset, element: child };
+          } else {
+            return closest;
+          }
+        },
+        { offset: Number.NEGATIVE_INFINITY, element: null }
+      ).element;
+    }
+
+    function handleCanvasDrop(e) {
+      e.preventDefault();
+      if (!draggedBlock) return;
+
+      if (dragSource === "palette") {
+        const blockId = draggedBlock.dataset.blockId;
+        const config = BLOCKS.find((b) => b.id === blockId);
+        if (!config) return;
+        addBlockToCanvas(config, e.clientY);
+      }
+
+      updateCanvasEmptyState();
+    }
+
+    function addBlockToCanvas(config, clientY = null) {
+      const newBlock = createBlockElement(config, { fromPalette: false });
+      if (clientY !== null) {
+        const afterElement = getDragAfterElement(canvasListEl, clientY);
+        if (afterElement == null) {
+          canvasListEl.appendChild(newBlock);
+        } else {
+          canvasListEl.insertBefore(newBlock, afterElement);
+        }
+      } else {
+        canvasListEl.appendChild(newBlock);
+      }
+      updateCanvasEmptyState();
+    }
+
+    function generatePrompt() {
+      const blocks = [...canvasListEl.querySelectorAll(".block")];
+      if (blocks.length === 0) {
+        outputEl.innerHTML =
+          '<div class="output-placeholder">Add at least one block to your prompt flow, then click <strong>“Generate prompt”</strong>.</div>';
+        return;
+      }
+
+      const sections = blocks.map((block) => {
+        const id = block.dataset.blockId;
+        const config = BLOCKS.find((b) => b.id === id);
+        const textarea = block.querySelector("textarea");
+        const text = textarea ? textarea.value.trim() : "";
+        const title = config ? config.title : "Section";
+
+        return `### ${title}\n${text}`;
+      });
+
+      const finalPrompt =
+        sections.join("\n\n") +
+        "\n\n---\n\n" +
+        "When you respond, follow the structure above carefully. Think step‑by‑step, reason clearly, and prioritize clarity, accuracy, and usefulness in your final answer.";
+
+      outputEl.textContent = finalPrompt;
+    }
+
+    function clearCanvas() {
+      canvasListEl.innerHTML = "";
+      updateCanvasEmptyState();
+      outputEl.innerHTML =
+        '<div class="output-placeholder">Your generated prompt will appear here once you click <strong>“Generate prompt”</strong>.</div>';
+    }
+
+    async function copyPrompt() {
+      const text = outputEl.textContent.trim();
+      if (!text || text.startsWith("Your generated prompt will appear")) {
+        showToast("Nothing to copy yet — generate a prompt first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Prompt copied to clipboard.");
+      } catch (err) {
+        showToast("Could not copy automatically. Please select and copy manually.");
+      }
+    }
+
+    function showToast(message) {
+      toastTextEl.textContent = message;
+      toastEl.classList.add("show");
+      clearTimeout(showToast._timeout);
+      showToast._timeout = setTimeout(() => {
+        toastEl.classList.remove("show");
+      }, 2600);
+    }
+
+    function init() {
+      renderPalette();
+      updateCanvasEmptyState();
+
+      canvasEl.addEventListener("dragover", handleCanvasDragOver);
+      canvasEl.addEventListener("drop", handleCanvasDrop);
+
+      generateBtn.addEventListener("click", generatePrompt);
+      clearCanvasBtn.addEventListener("click", clearCanvas);
+      copyBtn.addEventListener("click", copyPrompt);
+
+      bottomGenerateBtn.addEventListener("click", generatePrompt);
+      bottomCopyBtn.addEventListener("click", copyPrompt);
+      bottomClearBtn.addEventListener("click", clearCanvas);
+
+      toastCloseEl.addEventListener("click", () => {
+        toastEl.classList.remove("show");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
