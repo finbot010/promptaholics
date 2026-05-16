@@ -7,18 +7,16 @@
   <style>
     :root {
       --bg: #000000;
+      --panel-bg: #0b0b12;
       --card: #11111a;
-      --card-soft: #181824;
       --accent: #ff7a3c;
       --accent-soft: rgba(255, 122, 60, 0.12);
       --accent-strong: rgba(255, 122, 60, 0.22);
       --border: #26263a;
       --text: #f7f7ff;
       --muted: #a0a0c0;
-      --danger: #ff4b6a;
       --radius-lg: 18px;
       --radius-md: 12px;
-      --radius-sm: 8px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
       --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.35);
       --transition-fast: 0.18s ease-out;
@@ -64,38 +62,7 @@
       }
     }
 
-    .panel {
-      background: linear-gradient(145deg, #0b0b12, #11111a);
-      border-radius: 24px;
-      padding: 0 0 20px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top left, rgba(255, 122, 60, 0.12), transparent 55%);
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .panel-inner {
-      position: relative;
-      z-index: 1;
-      padding: 16px 16px 20px;
-    }
-
-    @media (min-width: 768px) {
-      .panel-inner {
-        padding: 22px 22px 20px;
-      }
-    }
-
-    /* Gradient header bar with logo (sticky on mobile only) */
+    /* Gradient header bar (only header, not full left side) */
     .app-header {
       width: 100%;
       background: linear-gradient(135deg, #ff7a3c, #ff4b6a, #5b2a86);
@@ -120,11 +87,11 @@
       border-radius: 18px;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
       background: #ff7a3c;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
     }
 
     .app-logo-wrap img {
@@ -163,6 +130,29 @@
         position: sticky;
         top: 0;
         z-index: 20;
+      }
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--panel-bg);
+      border-radius: 24px;
+      padding: 0 0 20px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+      padding: 16px 16px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .panel-inner {
+        padding: 22px 22px 20px;
       }
     }
 
@@ -568,7 +558,7 @@
       font-size: 12px;
     }
 
-    /* Sticky bottom action bar on mobile */
+    /* Sticky bottom bar (mobile only) */
     .bottom-bar {
       position: fixed;
       left: 0;
@@ -610,6 +600,7 @@
       }
     }
 
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 70px;
@@ -660,7 +651,7 @@
   </style>
 </head>
 <body>
-  <!-- Gradient app header with logo -->
+  <!-- Gradient header -->
   <header class="app-header">
     <div class="app-header-inner">
       <a href="https://promptaholics.com" class="app-logo-wrap">
@@ -729,7 +720,7 @@
             </div>
           </div>
 
-          <!-- Desktop/tablet controls -->
+          <!-- Desktop controls -->
           <div class="controls-row">
             <button class="btn btn-primary" id="generate-btn">
               <span class="btn-icon">⚡</span>
