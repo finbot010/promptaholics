@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<meta name="theme-color" content="#ff6224"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Prompt Library — 382 Free AI Prompts | Promptaholics</title>
 <meta name="description" content="Browse 299 free AI prompts for ChatGPT, Midjourney, DALL-E and more."/>
@@ -39,37 +50,7 @@ a{color:var(--orange);text-decoration:none;}
 .nav .home-btn{background:var(--orange);color:#fff;font-weight:700;border-radius:9px;}
 .nav .home-btn:hover{background:var(--orange2);color:#fff;}
 .theme-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;}
-@media(max-width:860px){
-  /* Already hides sidebar */
-}
-@media(max-width:600px){
-  .nav a:not(.home-btn){display:none;}
-}
-@media(max-width:480px){
-  /* Header */
-  .hdr{padding:0 12px;height:52px;}
-  .logo-name{font-size:15px;}
-  /* Nav — keep home btn but shrink */
-  .home-btn{font-size:12px;padding:6px 10px;}
-  .theme-btn{width:30px;height:30px;font-size:13px;}
-  /* Mobile category pills */
-  .mob-cats{padding:8px 12px;}
-  .mob-cats .cbtn{padding:5px 12px;font-size:12px;}
-  /* Main area */
-  .main{padding:12px;}
-  /* Search toolbar */
-  .toolbar{gap:8px;margin-bottom:10px;}
-  .srch{font-size:13px;padding:9px 12px;}
-  /* Prompt cards */
-  .card{padding:14px;}
-  .card-title{font-size:14px;}
-  .card-body{font-size:13px;}
-  .card-tag{font-size:10px;padding:2px 7px;}
-  .copy-btn,.card-copy{width:100%;margin-top:8px;text-align:center;}
-  /* Modal */
-  .overlay{padding:12px;}
-  .modal{padding:20px 16px;max-height:90vh;}
-}
+@media(max-width:600px){.nav a:not(.home-btn){display:none;}}
 
 /* LAYOUT */
 .wrap{display:flex;min-height:calc(100vh - var(--hh));}
@@ -141,6 +122,13 @@ select{background:var(--surface);border:1px solid var(--border);color:var(--text
 #mCopyBtn{background:var(--orange);color:#fff;border:none;}
 #mCopyBtn:hover{background:var(--orange2);}
 #mFavBtn{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);}
+
+/* ── MOBILE FIXES ── */
+body{overflow-x:hidden;}
+@media(max-width:768px){
+  button,input,select,textarea{font-size:16px!important;}
+  button.act-btn,button.build-btn,.bcopy,.bprev{min-height:48px;}
+}
 </style>
 </head>
 <body>

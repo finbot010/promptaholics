@@ -12,6 +12,9 @@
 <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <meta name="google-site-verification" content="bgi20GH0vmCJsvKWsTBaHkdYhd_dJrz4Qp6izLdpwD4"/>
+<meta name="theme-color" content="#ff6224"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Promptaholics — 382+ Free AI Prompts for ChatGPT, Midjourney & More</title>
 <meta name="description" content="382+ free AI prompts for ChatGPT, Midjourney, DALL-E, Claude and more. Copy-ready, searchable, organized by category. No sign-up required."/>
@@ -192,7 +195,7 @@ header{
 .hcard-input{
   flex:1;background:none;border:none;outline:none;
   color:var(--text);font-family:'Instrument Sans',sans-serif;
-  font-size:14px;padding:10px 0;
+  font-size:16px;padding:10px 0;
 }
 .hcard-input::placeholder{color:var(--text3);}
 .hcard-go{
@@ -739,6 +742,24 @@ footer{
   .flip-inner{min-height:300px;}
 }
 /* ═══════════════════════════════════════════════════════ */
+
+/* ── MOBILE TAP TARGETS ── */
+@media(max-width:768px){
+  .btn-primary,.btn-ghost{min-height:48px;padding:14px 22px;}
+  .hcard-go{min-height:44px;}
+  .hcard-copy{min-height:44px;}
+  .potd-copy,.potd-view{min-height:48px;}
+  .flip-copy-btn,.flip-lib-btn{min-height:44px;}
+}
+
+/* ── HERO OUTPUT MOBILE ── */
+@media(max-width:600px){
+  .hcard-output{min-height:120px;font-size:11px;}
+  .hero-card{border-radius:14px;}
+  .hcard-copy-row{flex-direction:column;}
+  .hcard-copy,.hcard-build{width:100%;justify-content:center;}
+  .hero-trust{font-size:11px;gap:8px;}
+}
 </style>
 </head>
 <body>
@@ -1277,131 +1298,156 @@ function closeModal(){
 }
 
 
-// ── HERO LIVE TRANSFORM ─────────────────────────────────
+
+
+// ── HERO LIVE TRANSFORM ──────────────────────────────────
 var heroTypingTimer = null;
 var heroCurrentPrompt = '';
 
 var HERO_TRANSFORMS = {
-  youtube:    { role:'You are an expert YouTube scriptwriter.', goal:'Create a high-retention script', extras:'Include a scroll-stopping hook (first 15 seconds), pattern interrupts every 60 seconds, and a strong CTA at the end.' },
-  instagram:  { role:'You are a viral social media strategist.', goal:'Write an engaging Instagram post', extras:'Lead with a scroll-stopping first line, add value in the body, and end with a strong CTA and relevant hashtags.' },
-  blog:       { role:'You are an expert SEO content strategist.', goal:'Write a compelling blog post', extras:'Include a strong headline, subheadings, actionable insights, and a conclusion with key takeaways.' },
-  email:      { role:'You are a world-class email copywriter.', goal:'Write a high-converting email', extras:'Start with a subject line, open with a hook, deliver value, and close with a clear single CTA.' },
-  marketing:  { role:'You are an expert performance marketer.', goal:'Create high-converting marketing copy', extras:'Lead with the customer pain point, build desire, handle objections, and close with urgency.' },
-  tiktok:     { role:'You are a viral short-form content creator.', goal:'Write a TikTok/Reels script', extras:'Hook within the first 3 seconds, fast-paced delivery, pattern interrupt mid-video, strong ending CTA.' },
-  linkedin:   { role:'You are a LinkedIn thought leadership expert.', goal:'Write a high-engagement LinkedIn post', extras:'Open with a bold statement or story, share a key insight, and end with a discussion question.' },
-  ad:         { role:'You are a direct response advertising expert.', goal:'Write compelling ad copy', extras:'Lead with the hook, create desire, handle objections, and end with a specific call to action.' },
-  script:     { role:'You are an expert scriptwriter.', goal:'Write a professional script', extras:'Include scene descriptions, natural dialogue, pacing notes, and a compelling narrative arc.' },
-  business:   { role:'You are a world-class business strategist.', goal:'Analyze and provide strategic advice', extras:'Include market analysis, key opportunities, risks, and prioritized action steps.' },
-  code:       { role:'You are a senior software engineer with 15 years of experience.', goal:'Build a clean, well-structured solution', extras:'Include comments, error handling, example usage, and explain key technical decisions.' },
-  midjourney: { role:'', goal:'', extras:'--ar 16:9 --v 7 --stylize 750 --style raw' },
-  dalle:      { role:'', goal:'', extras:'Ultra-detailed, professional quality, perfect lighting, 8K resolution.' },
-  art:        { role:'', goal:'', extras:'Cinematic composition, dramatic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 800' },
+  youtube:   { role:'You are an expert YouTube scriptwriter who creates high-retention videos.', goal:'Create a compelling YouTube script for', extras:'Include:\n- A scroll-stopping hook (first 15 seconds)\n- Pattern interrupts every 60-90 seconds\n- Clear structure with chapters\n- Strong CTA at the end\n\nMake it conversational, energetic, and keep viewers watching.' },
+  instagram: { role:'You are a viral social media strategist.', goal:'Write an engaging Instagram post for', extras:'Requirements:\n- Scroll-stopping first line\n- Valuable/entertaining body (3-5 lines)\n- Strong CTA\n- 5-10 relevant hashtags' },
+  tiktok:    { role:'You are a viral short-form content creator.', goal:'Write a TikTok script for', extras:'Requirements:\n- Hook within first 3 seconds\n- Fast-paced delivery\n- Pattern interrupt mid-video\n- Strong ending CTA\n\nKeep total under 60 seconds.' },
+  linkedin:  { role:'You are a LinkedIn thought leadership expert.', goal:'Write a high-engagement LinkedIn post about', extras:'Structure:\n- Bold opening line (no "I am excited to...")
+- Key insight or story
+- Practical takeaway
+- Discussion question to drive comments' },
+  email:     { role:'You are a world-class email copywriter.', goal:'Write a high-converting email for', extras:'Include:\n- Subject line (under 50 chars)\n- Preview text\n- Hook opening\n- Value-driven body\n- Single clear CTA\n\nAvoid jargon and filler phrases.' },
+  blog:      { role:'You are an expert SEO content strategist.', goal:'Write a compelling blog post about', extras:'Include:\n- SEO-optimized headline\n- Meta description\n- Introduction with hook\n- 5-7 subheadings\n- Actionable insights\n- Conclusion with key takeaways' },
+  marketing: { role:'You are an expert direct response copywriter.', goal:'Create high-converting marketing copy for', extras:'Lead with the customer pain point, build desire with benefits, handle objections, close with urgency and a clear CTA. Write 3 variations.' },
+  ad:        { role:'You are a performance marketing expert.', goal:'Write a high-converting ad for', extras:'Deliver:\n- 3 headline variations\n- Primary text (2-3 sentences)\n- Description\n- Call to action\n\nFocus on the benefit, not the feature.' },
+  business:  { role:'You are a world-class business strategist and consultant.', goal:'Analyze and provide strategic advice for', extras:'Include:\n- Executive summary\n- Key opportunities\n- Risks and mitigation\n- Prioritized action steps with timelines' },
+  code:      { role:'You are a senior software engineer with 15 years of experience.', goal:'Build a clean, production-ready solution for', extras:'Provide:\n- Well-structured code with comments\n- Error handling\n- Example usage\n- Key technical decisions explained' },
+  midjourney:{ role:'', goal:'', extras:'cinematic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 750 --style raw' },
+  image:     { role:'', goal:'', extras:'photorealistic, professional quality, dramatic lighting, ultra-detailed, 8K resolution.' },
+  art:       { role:'', goal:'', extras:'cinematic composition, dramatic volumetric lighting, ultra-detailed, award-winning digital art --ar 16:9 --v 7 --stylize 800' },
 };
 
 function detectIntent(text){
   var t = text.toLowerCase();
-  if(t.match(/youtube|video script|yt/)) return 'youtube';
-  if(t.match(/instagram|ig post|reel/)) return 'instagram';
-  if(t.match(/tiktok|short.?form|reels/)) return 'tiktok';
-  if(t.match(/linkedin|professional post/)) return 'linkedin';
-  if(t.match(/email|newsletter|subject line/)) return 'email';
-  if(t.match(/blog|article|seo|post about/)) return 'blog';
-  if(t.match(/ad|advert|facebook ad|google ad/)) return 'ad';
-  if(t.match(/script|screenplay|podcast/)) return 'script';
-  if(t.match(/market|campaign|brand|product/)) return 'marketing';
-  if(t.match(/business|startup|strategy|plan/)) return 'business';
-  if(t.match(/code|function|build|debug|app|website/)) return 'code';
-  if(t.match(/midjourney|--ar|--v 7/)) return 'midjourney';
-  if(t.match(/dall.?e|image of|photo of|picture of/)) return 'dalle';
-  if(t.match(/draw|paint|art|illustration|design/)) return 'art';
-  return 'blog'; // default
+  if(t.match(/youtube|yt script|video script/)) return 'youtube';
+  if(t.match(/instagram|ig post|instagram post/)) return 'instagram';
+  if(t.match(/tiktok|tik tok|short form|reels/)) return 'tiktok';
+  if(t.match(/linkedin/)) return 'linkedin';
+  if(t.match(/email|newsletter|subject line|cold email/)) return 'email';
+  if(t.match(/blog|article|seo post|write a post/)) return 'blog';
+  if(t.match(/facebook ad|google ad|ad copy|advertisement/)) return 'ad';
+  if(t.match(/market|campaign|brand|product launch/)) return 'marketing';
+  if(t.match(/business|startup|strategy|pitch/)) return 'business';
+  if(t.match(/code|function|build a|debug|app|website|script/)) return 'code';
+  if(t.match(/midjourney|--ar|--v 7|mj prompt/)) return 'midjourney';
+  if(t.match(/dall.?e|image of|photo of|picture of/)) return 'image';
+  if(t.match(/draw|paint|art|illustration|artwork/)) return 'art';
+  return 'blog';
 }
 
 function buildHeroPrompt(rawText){
   var t = rawText.trim();
   if(!t) return '';
   var intent = detectIntent(t);
-  var tmpl = HERO_TRANSFORMS[intent];
-  if(!tmpl) return t;
+  var tmpl = HERO_TRANSFORMS[intent] || HERO_TRANSFORMS['blog'];
 
-  // Image prompt — different structure
-  if(intent === 'midjourney' || intent === 'dalle' || intent === 'art'){
-    return t + (tmpl.extras ? ', ' + tmpl.extras : '');
+  // Image/art prompts — no role/structure
+  if(intent === 'midjourney' || intent === 'image' || intent === 'art'){
+    return t + ', ' + tmpl.extras;
   }
 
-  var prompt = '';
-  if(tmpl.role) prompt += tmpl.role + '\n\n';
-  prompt += tmpl.goal + ':\n' + t + '\n\n';
-  if(tmpl.extras) prompt += 'Requirements:\n' + tmpl.extras;
-  prompt += '\n\nBe specific, actionable, and professional. Avoid generic advice.';
-  return prompt;
+  var lines = [];
+  if(tmpl.role) lines.push(tmpl.role);
+  lines.push('');
+  lines.push(tmpl.goal + ':');
+  lines.push(t);
+  lines.push('');
+  lines.push(tmpl.extras);
+  return lines.join('\n');
 }
 
 function heroTransform(val){
   clearTimeout(heroTypingTimer);
-  if(!val.trim()){
-    document.getElementById('heroOutput').innerHTML =
-      '<span style="color:var(--text3);font-family:'Instrument Sans',sans-serif;font-size:13px;">Type your idea above and watch it transform into a professional prompt in real time...</span>';
+  var el = document.getElementById('heroOutput');
+  if(!val || !val.trim()){
+    el.className = 'hcard-output';
+    el.innerHTML = '<span style="color:var(--text3);">Type your idea above and watch it transform into a professional prompt in real time...</span>';
     heroCurrentPrompt = '';
     return;
   }
   heroTypingTimer = setTimeout(function(){
     var prompt = buildHeroPrompt(val);
     heroCurrentPrompt = prompt;
-    typePrompt(prompt);
-  }, 280);
+    typeHeroPrompt(prompt);
+  }, 300);
 }
 
-function typePrompt(text){
+function typeHeroPrompt(text){
   var el = document.getElementById('heroOutput');
   el.className = 'hcard-output typing';
   el.innerHTML = '';
   var i = 0;
-  var speed = Math.max(8, Math.min(20, Math.floor(1200 / text.length)));
-  var cursor = document.createElement('span');
-  cursor.className = 'hcard-cursor';
+  var speed = Math.max(6, Math.min(18, Math.floor(900 / text.length)));
 
   function tick(){
     if(i < text.length){
-      var chunk = text.slice(0, i+1).replace(/\n/g, '<br/>');
-      el.innerHTML = chunk;
-      el.appendChild(cursor);
-      i += 2;
+      i += 3;
+      var chunk = text.slice(0, i);
+      el.textContent = chunk;
       setTimeout(tick, speed);
     } else {
-      el.innerHTML = text.replace(/\n/g, '<br/>');
+      el.textContent = text;
     }
   }
   tick();
 }
 
 function heroCopy(){
-  if(!heroCurrentPrompt){ alert('Type something first!'); return; }
-  var btn = event.target;
-  var orig = btn.innerHTML;
+  if(!heroCurrentPrompt){
+    alert('Type something first to generate a prompt!');
+    return;
+  }
+  var btn = document.querySelector('.hcard-copy');
+  var orig = btn ? btn.innerHTML : '';
   navigator.clipboard.writeText(heroCurrentPrompt).then(function(){
-    btn.innerHTML = '✅ Copied!';
-    btn.style.background = '#22c55e';
-    setTimeout(function(){ btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    if(btn){ btn.innerHTML = '✅ Copied!'; btn.style.background = '#22c55e'; }
+    setTimeout(function(){
+      if(btn){ btn.innerHTML = orig; btn.style.background = ''; }
+    }, 2000);
+  }).catch(function(){
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = heroCurrentPrompt;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if(btn){ btn.innerHTML = '✅ Copied!'; setTimeout(function(){ btn.innerHTML = orig; }, 2000); }
   });
 }
 
-// Auto-demo if input is empty after 3s
+// Auto-demo on load
 setTimeout(function(){
   var inp = document.getElementById('heroInput');
-  if(inp && !inp.value){
+  if(inp && !inp.value.trim()){
     var demos = [
       'Write me a YouTube script about how AI is changing business',
-      'Create an Instagram post about my new product launch',
+      'Create an Instagram post for a product launch',
       'Write a cold email to potential investors',
-      'Build a viral TikTok hook about productivity',
+      'Build a viral TikTok hook about productivity hacks',
     ];
     var demo = demos[Math.floor(Math.random() * demos.length)];
     inp.placeholder = demo;
     heroTransform(demo);
     heroCurrentPrompt = buildHeroPrompt(demo);
   }
-}, 2000);
+}, 1800);
+
+// ── GATE TOAST ──
+function hideGateToast(){
+  var t = document.getElementById('copyGateToast');
+  if(t) t.style.display = 'none';
+}
+function showGateToast(){
+  var t = document.getElementById('copyGateToast');
+  if(t){ t.style.display = 'block'; setTimeout(function(){ t.style.display='none'; }, 8000); }
+}
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function(){
