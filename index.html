@@ -322,6 +322,206 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:24px
   .hero h1{font-size:24px!important;}
   .hstat-n{font-size:13px;}
 }
+
+/* ══ MOBILE REFINEMENTS ══════════════════════════════════ */
+
+/* Fix 5 — Section rhythm */
+.search-section,
+.flip-section,
+.potd-section,
+.cta-section {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.flip-section,
+.potd-section {
+  background: rgba(255,255,255,0.012);
+}
+
+/* Fix 10 — Reduce expensive effects on mobile */
+@media (max-width: 768px) {
+  .hero-grid,
+  .hero::before,
+  .hero::after {
+    display: none;
+  }
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  header {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+  .soc-btn,
+  .theme-btn,
+  .hcard-dot {
+    box-shadow: none !important;
+  }
+}
+
+/* Fix 1 — Hero spacing on mobile */
+@media (max-width: 768px) {
+  .hero {
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+  .hero-inner {
+    padding: 32px 0 40px !important;
+    gap: 20px !important;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 8.5vw, 40px) !important;
+    line-height: 1.0 !important;
+    letter-spacing: -1.5px !important;
+    margin-bottom: 14px !important;
+  }
+  .hero-sub {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 24px !important;
+    max-width: 32ch;
+  }
+  .hero-eyebrow {
+    margin-bottom: 18px !important;
+  }
+}
+
+/* Fix 2 — Buttons */
+@media (max-width: 768px) {
+  .btn-primary, .btn-ghost {
+    min-height: 52px !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    border-radius: 14px !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .hero-btns {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+}
+
+/* Fix 3 — Preview card */
+@media (max-width: 768px) {
+  .hero-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 4px !important;
+  }
+  .hero-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+  }
+  .hcard-body {
+    padding: 14px !important;
+  }
+  .hcard-output {
+    min-height: 90px !important;
+    font-size: 11px !important;
+    max-height: 140px !important;
+    overflow-y: auto !important;
+  }
+  .hcard-copy-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .hcard-copy, .hcard-build {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Fix 4 — Nav cleanup */
+@media (max-width: 768px) {
+  header {
+    padding: 0 14px !important;
+  }
+  .logo-mark {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .logo-text {
+    font-size: 15px !important;
+  }
+  .logo-sub {
+    display: none !important;
+  }
+  .theme-btn {
+    width: 44px !important;
+    height: 44px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* Fix 7 — Typography max-width */
+@media (max-width: 768px) {
+  .hero-sub,
+  .potd-body p,
+  .cta-card p {
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Fix 8 — Sticky CTA less aggressive */
+@media (max-width: 900px) {
+  .sticky-cta {
+    padding: 10px 16px !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+  .sticky-cta a {
+    padding: 12px !important;
+    font-size: 14px !important;
+    border-radius: 12px !important;
+    min-height: 48px !important;
+  }
+}
+
+/* Fix 9 — Unified card system */
+.flip-card .flip-back,
+.potd-card,
+.hero-card,
+.ai-results {
+  border-radius: 20px !important;
+}
+
+/* Fix — flip cards single col at 480px */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: clamp(22px, 8vw, 30px) !important;
+    letter-spacing: -1px !important;
+  }
+  .flip-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 10px !important;
+  }
+  .flip-card {
+    height: auto !important;
+    min-height: 220px !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+  .flip-inner { min-height: 220px !important; }
+  .hero-btns { gap: 10px !important; }
+  .cta-card { padding: 24px 16px !important; }
+  .cta-card h2 { font-size: 20px !important; }
+}
+
+/* Fix — 375px */
+@media (max-width: 375px) {
+  .hero h1 { font-size: 22px !important; }
+  .hero-trust { flex-direction: column; align-items: center; gap: 4px; }
+  .hero-trust .dot { display: none; }
+  .hstat-n { font-size: 13px !important; }
+}
+/* ═══════════════════════════════════════════════════════ */
 </style>
 </head>
 <body>
