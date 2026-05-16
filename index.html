@@ -1083,6 +1083,10 @@ footer{
 
 <script src="prompts.js"></script>
 <script>
+if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)){console.warn('prompts.js not loaded');window.PROMPTS=[];}
+</script>
+
+<script>
 // ── THEME ──
 const theme = localStorage.getItem('pa_theme') || 'dark';
 if(theme === 'light') document.documentElement.classList.add('light-mode');
@@ -1146,6 +1150,7 @@ async function runAiSearch(){
 }
 
 function keywordSearch(query){
+  if(!Array.isArray(PROMPTS)||!PROMPTS.length) return [];
   const q = query.toLowerCase().trim();
   const words = q.split(/\s+/).filter(w => w.length > 1);
   const intentMap = {
@@ -1219,6 +1224,7 @@ function showAiResults(results, query){
 }
 
 function aiCopy(id, e){
+  if(!Array.isArray(PROMPTS)) return;
   e.stopPropagation();
   if(!canCopy()){ alert('Daily limit reached — come back tomorrow!'); return; }
   const p = PROMPTS.find(x => x.id === id);
@@ -1281,6 +1287,7 @@ function potdCopy(){
 
 // ── MODAL (simple) ──
 function showModal(id){
+  if(!Array.isArray(PROMPTS)) return;
   const p = PROMPTS.find(x => x.id === id);
   if(!p) return;
   const tl = p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
@@ -1305,22 +1312,71 @@ var heroTypingTimer = null;
 var heroCurrentPrompt = '';
 
 var HERO_TRANSFORMS = {
-  youtube:   { role:'You are an expert YouTube scriptwriter who creates high-retention videos.', goal:'Create a compelling YouTube script for', extras:'Include:\n- A scroll-stopping hook (first 15 seconds)\n- Pattern interrupts every 60-90 seconds\n- Clear structure with chapters\n- Strong CTA at the end\n\nMake it conversational, energetic, and keep viewers watching.' },
-  instagram: { role:'You are a viral social media strategist.', goal:'Write an engaging Instagram post for', extras:'Requirements:\n- Scroll-stopping first line\n- Valuable/entertaining body (3-5 lines)\n- Strong CTA\n- 5-10 relevant hashtags' },
-  tiktok:    { role:'You are a viral short-form content creator.', goal:'Write a TikTok script for', extras:'Requirements:\n- Hook within first 3 seconds\n- Fast-paced delivery\n- Pattern interrupt mid-video\n- Strong ending CTA\n\nKeep total under 60 seconds.' },
-  linkedin:  { role:'You are a LinkedIn thought leadership expert.', goal:'Write a high-engagement LinkedIn post about', extras:'Structure:\n- Bold opening line (no "I am excited to...")
-- Key insight or story
-- Practical takeaway
-- Discussion question to drive comments' },
-  email:     { role:'You are a world-class email copywriter.', goal:'Write a high-converting email for', extras:'Include:\n- Subject line (under 50 chars)\n- Preview text\n- Hook opening\n- Value-driven body\n- Single clear CTA\n\nAvoid jargon and filler phrases.' },
-  blog:      { role:'You are an expert SEO content strategist.', goal:'Write a compelling blog post about', extras:'Include:\n- SEO-optimized headline\n- Meta description\n- Introduction with hook\n- 5-7 subheadings\n- Actionable insights\n- Conclusion with key takeaways' },
-  marketing: { role:'You are an expert direct response copywriter.', goal:'Create high-converting marketing copy for', extras:'Lead with the customer pain point, build desire with benefits, handle objections, close with urgency and a clear CTA. Write 3 variations.' },
-  ad:        { role:'You are a performance marketing expert.', goal:'Write a high-converting ad for', extras:'Deliver:\n- 3 headline variations\n- Primary text (2-3 sentences)\n- Description\n- Call to action\n\nFocus on the benefit, not the feature.' },
-  business:  { role:'You are a world-class business strategist and consultant.', goal:'Analyze and provide strategic advice for', extras:'Include:\n- Executive summary\n- Key opportunities\n- Risks and mitigation\n- Prioritized action steps with timelines' },
-  code:      { role:'You are a senior software engineer with 15 years of experience.', goal:'Build a clean, production-ready solution for', extras:'Provide:\n- Well-structured code with comments\n- Error handling\n- Example usage\n- Key technical decisions explained' },
-  midjourney:{ role:'', goal:'', extras:'cinematic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 750 --style raw' },
-  image:     { role:'', goal:'', extras:'photorealistic, professional quality, dramatic lighting, ultra-detailed, 8K resolution.' },
-  art:       { role:'', goal:'', extras:'cinematic composition, dramatic volumetric lighting, ultra-detailed, award-winning digital art --ar 16:9 --v 7 --stylize 800' },
+  youtube:   {
+    role:   'You are an expert YouTube scriptwriter who creates high-retention videos.',
+    goal:   'Create a compelling YouTube script for',
+    extras: 'Include:\n- A scroll-stopping hook in the first 15 seconds\n- Pattern interrupts every 60-90 seconds\n- Clear structure with chapters\n- Strong CTA at the end\n\nMake it conversational, energetic, and keep viewers watching.'
+  },
+  instagram: {
+    role:   'You are a viral social media strategist.',
+    goal:   'Write an engaging Instagram post for',
+    extras: 'Requirements:\n- Scroll-stopping first line\n- Valuable body (3-5 lines)\n- Strong CTA\n- 5-10 relevant hashtags'
+  },
+  tiktok: {
+    role:   'You are a viral short-form content creator.',
+    goal:   'Write a TikTok script for',
+    extras: 'Requirements:\n- Hook within first 3 seconds\n- Fast-paced delivery\n- Pattern interrupt mid-video\n- Strong ending CTA\n\nKeep total under 60 seconds.'
+  },
+  linkedin: {
+    role:   'You are a LinkedIn thought leadership expert.',
+    goal:   'Write a high-engagement LinkedIn post about',
+    extras: 'Structure:\n- Bold opening line (avoid cliche openings)\n- Key insight or personal story\n- Practical takeaway\n- Discussion question to drive comments'
+  },
+  email: {
+    role:   'You are a world-class email copywriter.',
+    goal:   'Write a high-converting email for',
+    extras: 'Include:\n- Subject line under 50 characters\n- Preview text\n- Hook opening\n- Value-driven body\n- Single clear CTA\n\nAvoid jargon and filler phrases.'
+  },
+  blog: {
+    role:   'You are an expert SEO content strategist.',
+    goal:   'Write a compelling blog post about',
+    extras: 'Include:\n- SEO-optimized headline\n- Meta description\n- Introduction with hook\n- 5-7 subheadings\n- Actionable insights\n- Conclusion with key takeaways'
+  },
+  marketing: {
+    role:   'You are an expert direct response copywriter.',
+    goal:   'Create high-converting marketing copy for',
+    extras: 'Lead with the customer pain point, build desire with benefits, handle objections, close with urgency and a clear CTA. Write 3 variations.'
+  },
+  ad: {
+    role:   'You are a performance marketing expert.',
+    goal:   'Write a high-converting ad for',
+    extras: 'Deliver:\n- 3 headline variations\n- Primary text 2-3 sentences\n- Description\n- Call to action\n\nFocus on the benefit, not the feature.'
+  },
+  business: {
+    role:   'You are a world-class business strategist and consultant.',
+    goal:   'Analyze and provide strategic advice for',
+    extras: 'Include:\n- Executive summary\n- Key opportunities\n- Risks and mitigation\n- Prioritized action steps with timelines'
+  },
+  code: {
+    role:   'You are a senior software engineer with 15 years of experience.',
+    goal:   'Build a clean, production-ready solution for',
+    extras: 'Provide:\n- Well-structured code with comments\n- Error handling\n- Example usage\n- Key technical decisions explained'
+  },
+  midjourney: {
+    role:   '',
+    goal:   '',
+    extras: 'cinematic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 750 --style raw'
+  },
+  image: {
+    role:   '',
+    goal:   '',
+    extras: 'photorealistic, professional quality, dramatic lighting, ultra-detailed, 8K resolution.'
+  },
+  art: {
+    role:   '',
+    goal:   '',
+    extras: 'cinematic composition, dramatic volumetric lighting, ultra-detailed, award-winning digital art --ar 16:9 --v 7 --stylize 800'
+  }
 };
 
 function detectIntent(text){
@@ -1451,6 +1507,20 @@ function showGateToast(){
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function(){
+  // Wait for PROMPTS if not yet loaded
+  if(typeof PROMPTS === 'undefined' || !Array.isArray(PROMPTS)){
+    var checkInterval = setInterval(function(){
+      if(typeof PROMPTS !== 'undefined' && Array.isArray(PROMPTS)){
+        clearInterval(checkInterval);
+        initPage();
+      }
+    }, 50);
+    setTimeout(function(){ clearInterval(checkInterval); initPage(); }, 3000);
+    return;
+  }
+  initPage();
+}
+function initPage(){
   const tb = document.getElementById('themeBtn');
   if(tb) tb.textContent = theme === 'light' ? '☀️' : '🌙';
   updateCopyLimitBar();
@@ -1465,7 +1535,7 @@ document.addEventListener('DOMContentLoaded', function(){
       document.getElementById('aiSearchInput').focus();
     }
   });
-});
+}
 </script>
 
 
