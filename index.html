@@ -85,58 +85,226 @@ header{
 
 /* ══ HERO ══ */
 .hero{
-  padding:72px 28px 56px;
-  text-align:center;
+  padding:0 28px;
+  min-height:calc(100vh - var(--hh));
+  display:flex;align-items:center;
   background:
-    radial-gradient(ellipse 70% 60% at 15% 0%,rgba(255,98,36,.1),transparent),
-    radial-gradient(ellipse 60% 70% at 85% 100%,rgba(139,92,246,.08),transparent);
+    radial-gradient(ellipse 60% 80% at 0% 50%,rgba(255,98,36,.07),transparent),
+    radial-gradient(ellipse 50% 60% at 100% 50%,rgba(139,92,246,.06),transparent);
   position:relative;overflow:hidden;
 }
 .hero-grid{
-  position:absolute;inset:0;opacity:.04;
-  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  position:absolute;inset:0;opacity:.03;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
   background-size:48px 48px;pointer-events:none;
 }
+.hero-inner{
+  width:100%;max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;
+  padding:80px 0;
+}
+/* LEFT */
+.hero-left{display:flex;flex-direction:column;align-items:flex-start;}
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:7px;
   background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);
   color:var(--orange);padding:5px 16px;border-radius:20px;
   font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  margin-bottom:24px;
+  margin-bottom:28px;
 }
 .hero h1{
   font-family:'Syne',serif;
-  font-size:clamp(38px,7vw,76px);
-  font-weight:900;line-height:1.0;
-  letter-spacing:-3px;margin-bottom:20px;
+  font-size:clamp(36px,5vw,64px);
+  font-weight:900;line-height:1.05;
+  letter-spacing:-2.5px;margin-bottom:20px;
+  text-align:left;
 }
 .hero h1 .acc{color:var(--orange);}
-.hero h1 .ita{font-style:italic;color:var(--text2);}
-.hero-sub{font-size:18px;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.7;}
-.hero-stats{
-  display:inline-flex;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;overflow:hidden;margin-bottom:36px;
+.hero-sub{
+  font-size:17px;color:var(--text2);
+  max-width:440px;margin-bottom:32px;
+  line-height:1.75;text-align:left;
 }
-.hstat{padding:14px 22px;text-align:center;border-right:1px solid var(--border);}
-.hstat:last-child{border-right:none;}
-.hstat-n{font-family:'Syne',serif;font-size:22px;font-weight:800;color:var(--text);display:block;}
-.hstat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-.hero-btns{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.hero-btns{
+  display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;margin-bottom:28px;
+}
 .btn-primary{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--orange);color:#fff;
   padding:14px 28px;border-radius:11px;
-  font-size:15px;font-weight:700;transition:background .15s;
+  font-size:15px;font-weight:700;transition:all .15s;
+  text-decoration:none;
 }
-.btn-primary:hover{background:var(--orange2);color:#fff;}
+.btn-primary:hover{background:var(--orange2);color:#fff;transform:translateY(-1px);}
 .btn-ghost{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--surface);border:1px solid var(--border2);
-  color:var(--text2);padding:14px 24px;border-radius:11px;
+  color:var(--text2);padding:14px 22px;border-radius:11px;
   font-size:15px;font-weight:600;transition:all .15s;
+  text-decoration:none;
 }
 .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
+.hero-trust{
+  font-size:12px;color:var(--text3);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.hero-trust span{display:flex;align-items:center;gap:5px;}
+.hero-trust .dot{width:3px;height:3px;border-radius:50%;background:var(--border2);}
+
+/* RIGHT — live preview card */
+.hero-right{position:relative;}
+.hero-card{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.4),0 0 0 1px rgba(255,98,36,.06);
+}
+.hcard-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface2);
+}
+.hcard-dots{display:flex;gap:5px;}
+.hcard-dot{width:10px;height:10px;border-radius:50%;}
+.hcard-title{
+  flex:1;text-align:center;
+  font-size:11px;font-weight:600;color:var(--text3);
+  letter-spacing:.5px;
+}
+.hcard-badge{
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  color:var(--orange);background:rgba(255,98,36,.1);
+  border:1px solid rgba(255,98,36,.2);
+  padding:2px 8px;border-radius:6px;text-transform:uppercase;
+}
+.hcard-body{padding:20px;}
+/* Input area */
+.hcard-input-wrap{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:12px;padding:4px 4px 4px 16px;
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:16px;transition:border .2s;
+}
+.hcard-input-wrap:focus-within{border-color:var(--orange);}
+.hcard-input{
+  flex:1;background:none;border:none;outline:none;
+  color:var(--text);font-family:'Instrument Sans',sans-serif;
+  font-size:14px;padding:10px 0;
+}
+.hcard-input::placeholder{color:var(--text3);}
+.hcard-go{
+  background:var(--orange);color:#fff;border:none;
+  padding:9px 16px;border-radius:9px;cursor:pointer;
+  font-size:13px;font-weight:700;
+  font-family:'Instrument Sans',sans-serif;
+  transition:background .15s;white-space:nowrap;
+}
+.hcard-go:hover{background:var(--orange2);}
+/* Output area */
+.hcard-output-label{
+  font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--text3);
+  margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.hcard-output-label::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+.hcard-output{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:16px;
+  font-family:'Fira Code','Courier New',monospace;
+  font-size:12px;line-height:1.8;color:var(--text2);
+  min-height:140px;position:relative;overflow:hidden;
+}
+.hcard-output.typing{color:var(--text);}
+.hcard-cursor{
+  display:inline-block;width:2px;height:14px;
+  background:var(--orange);margin-left:2px;
+  animation:blink .8s infinite;vertical-align:middle;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hcard-copy-row{
+  display:flex;gap:8px;margin-top:12px;
+}
+.hcard-copy{
+  flex:1;background:var(--orange);color:#fff;border:none;
+  padding:10px;border-radius:9px;cursor:pointer;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:13px;font-weight:700;transition:background .15s;
+}
+.hcard-copy:hover{background:var(--orange2);}
+.hcard-build{
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--text2);padding:10px 14px;border-radius:9px;
+  font-size:13px;font-weight:600;cursor:pointer;
+  font-family:'Instrument Sans',sans-serif;
+  text-decoration:none;display:flex;align-items:center;
+  transition:all .15s;
+}
+.hcard-build:hover{border-color:var(--orange);color:var(--orange);}
+/* Floating glow */
+.hero-glow{
+  position:absolute;top:-40px;right:-40px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,98,36,.12),transparent 70%);
+  pointer-events:none;z-index:-1;
+}
+/* Stats below card */
+.hero-stats{
+  display:flex;gap:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;margin-top:16px;
+}
+.hstat{
+  flex:1;padding:12px 10px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.hstat:last-child{border-right:none;}
+.hstat-n{
+  font-family:'Syne',serif;font-size:18px;
+  font-weight:800;color:var(--text);display:block;
+}
+.hstat-l{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* MOBILE HERO */
+@media(max-width:900px){
+  .hero{padding:0 20px;min-height:auto;}
+  .hero-inner{
+    grid-template-columns:1fr;gap:32px;
+    padding:48px 0;text-align:center;
+  }
+  .hero-left{align-items:center;}
+  .hero h1{text-align:center;font-size:clamp(32px,8vw,52px);}
+  .hero-sub{text-align:center;max-width:100%;}
+  .hero-trust{justify-content:center;}
+}
+@media(max-width:600px){
+  .hero-inner{padding:36px 0 40px;}
+  .hero h1{letter-spacing:-1.5px;}
+  .hcard-body{padding:14px;}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;}
+  .hstat:nth-child(2){border-right:none;}
+  .hstat:nth-child(3){border-right:1px solid var(--border);border-top:1px solid var(--border);}
+  .hstat:nth-child(4){border-top:1px solid var(--border);}
+}
+/* STICKY MOBILE CTA */
+.sticky-cta{
+  display:none;position:fixed;bottom:0;left:0;right:0;
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:12px 16px;z-index:150;
+}
+.sticky-cta a{
+  display:block;width:100%;text-align:center;
+  background:var(--orange);color:#fff;
+  padding:14px;border-radius:11px;
+  font-size:15px;font-weight:700;text-decoration:none;
+  transition:background .15s;
+}
+.sticky-cta a:hover{background:var(--orange2);}
+@media(max-width:768px){.sticky-cta{display:block;}}
 
 /* ══ AI SEARCH ══ */
 .search-section{
@@ -588,6 +756,7 @@ footer{
   </a>
   <div class="hnav">
     <a href="library.html">📚 Library</a>
+    <a href="prompt-builder.html">🔧 Builder</a>
     <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
     <a href="library.html" class="cta"><span class="cta-full">Browse 382 Prompts →</span><span class="cta-short">Library →</span></a>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
@@ -597,20 +766,77 @@ footer{
 <!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <div class="hero-eyebrow">✦ Free Forever — No Signup Required</div>
-  <h1>AI Prompts for<br/><span class="acc">Every</span> <span class="ita">Creator</span></h1>
-  <p class="hero-sub">382+ copy-ready prompts for ChatGPT, Midjourney, DALL·E, Claude and more. Search by goal, not by keyword.</p>
-  <div class="hero-stats">
-    <div class="hstat"><span class="hstat-n" id="hStatPrompts">382</span><div class="hstat-l">Prompts</div></div>
-    <div class="hstat"><span class="hstat-n">13</span><div class="hstat-l">Categories</div></div>
-    <div class="hstat"><span class="hstat-n">10</span><div class="hstat-l">Free/day</div></div>
-    <div class="hstat"><span class="hstat-n">∞</span><div class="hstat-l">Free Forever</div></div>
-  </div>
-  <div class="hero-btns">
-    <a class="btn-primary" href="library.html">Browse Full Library →</a>
-    <a class="btn-ghost" href="creationstation.html" target="_blank">⚡ AI Tools Directory</a>
+  <div class="hero-inner">
+
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">✦ Free Forever — No Signup Required</div>
+      <h1>Build Better AI<br/>Prompts in<br/><span class="acc">Seconds</span></h1>
+      <p class="hero-sub">Turn simple ideas into high-quality prompts for ChatGPT, Midjourney, Claude, Gemini and more.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="prompt-builder.html">Start Building Prompts →</a>
+        <a class="btn-ghost" href="library.html">📚 Explore Library</a>
+      </div>
+      <div class="hero-trust">
+        <span>✓ Free</span>
+        <span class="dot"></span>
+        <span>✓ No signup</span>
+        <span class="dot"></span>
+        <span>✓ 382+ prompts</span>
+        <span class="dot"></span>
+        <span>✓ Mobile friendly</span>
+      </div>
+    </div>
+
+    <!-- RIGHT — Live Preview Card -->
+    <div class="hero-right">
+      <div class="hero-glow"></div>
+      <div class="hero-card">
+        <div class="hcard-header">
+          <div class="hcard-dots">
+            <div class="hcard-dot" style="background:#ff5f56;"></div>
+            <div class="hcard-dot" style="background:#febc2e;"></div>
+            <div class="hcard-dot" style="background:#28c840;"></div>
+          </div>
+          <div class="hcard-title">Prompt Builder — Live Preview</div>
+          <div class="hcard-badge">Live</div>
+        </div>
+        <div class="hcard-body">
+          <div class="hcard-input-wrap">
+            <input class="hcard-input" id="heroInput" type="text"
+              placeholder="e.g. write me a YouTube script about AI..."
+              oninput="heroTransform(this.value)"
+              onkeydown="if(event.key==='Enter') heroTransform(this.value)"/>
+            <button class="hcard-go" onclick="heroTransform(document.getElementById('heroInput').value)">Transform →</button>
+          </div>
+          <div class="hcard-output-label">✨ Transformed Prompt</div>
+          <div class="hcard-output" id="heroOutput">
+            <span style="color:var(--text3);font-family:'Instrument Sans',sans-serif;font-size:13px;">
+              Type your idea above and watch it transform into a professional prompt in real time...
+            </span>
+          </div>
+          <div class="hcard-copy-row">
+            <button class="hcard-copy" onclick="heroCopy()">📋 Copy Prompt</button>
+            <a class="hcard-build" href="prompt-builder.html">Full Builder →</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-n" id="hStatPrompts">382</span><div class="hstat-l">Prompts</div></div>
+        <div class="hstat"><span class="hstat-n">13</span><div class="hstat-l">Categories</div></div>
+        <div class="hstat"><span class="hstat-n">5</span><div class="hstat-l">AI Tools</div></div>
+        <div class="hstat"><span class="hstat-n">∞</span><div class="hstat-l">Free Forever</div></div>
+      </div>
+    </div>
+
   </div>
 </section>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <a href="prompt-builder.html">⚡ Open Prompt Builder — Free</a>
+</div>
+
 
 <!-- AI SEARCH -->
 <div class="search-section">
@@ -1049,6 +1275,133 @@ function showModal(id){
 function closeModal(){
   document.getElementById('overlay').style.display = 'none';
 }
+
+
+// ── HERO LIVE TRANSFORM ─────────────────────────────────
+var heroTypingTimer = null;
+var heroCurrentPrompt = '';
+
+var HERO_TRANSFORMS = {
+  youtube:    { role:'You are an expert YouTube scriptwriter.', goal:'Create a high-retention script', extras:'Include a scroll-stopping hook (first 15 seconds), pattern interrupts every 60 seconds, and a strong CTA at the end.' },
+  instagram:  { role:'You are a viral social media strategist.', goal:'Write an engaging Instagram post', extras:'Lead with a scroll-stopping first line, add value in the body, and end with a strong CTA and relevant hashtags.' },
+  blog:       { role:'You are an expert SEO content strategist.', goal:'Write a compelling blog post', extras:'Include a strong headline, subheadings, actionable insights, and a conclusion with key takeaways.' },
+  email:      { role:'You are a world-class email copywriter.', goal:'Write a high-converting email', extras:'Start with a subject line, open with a hook, deliver value, and close with a clear single CTA.' },
+  marketing:  { role:'You are an expert performance marketer.', goal:'Create high-converting marketing copy', extras:'Lead with the customer pain point, build desire, handle objections, and close with urgency.' },
+  tiktok:     { role:'You are a viral short-form content creator.', goal:'Write a TikTok/Reels script', extras:'Hook within the first 3 seconds, fast-paced delivery, pattern interrupt mid-video, strong ending CTA.' },
+  linkedin:   { role:'You are a LinkedIn thought leadership expert.', goal:'Write a high-engagement LinkedIn post', extras:'Open with a bold statement or story, share a key insight, and end with a discussion question.' },
+  ad:         { role:'You are a direct response advertising expert.', goal:'Write compelling ad copy', extras:'Lead with the hook, create desire, handle objections, and end with a specific call to action.' },
+  script:     { role:'You are an expert scriptwriter.', goal:'Write a professional script', extras:'Include scene descriptions, natural dialogue, pacing notes, and a compelling narrative arc.' },
+  business:   { role:'You are a world-class business strategist.', goal:'Analyze and provide strategic advice', extras:'Include market analysis, key opportunities, risks, and prioritized action steps.' },
+  code:       { role:'You are a senior software engineer with 15 years of experience.', goal:'Build a clean, well-structured solution', extras:'Include comments, error handling, example usage, and explain key technical decisions.' },
+  midjourney: { role:'', goal:'', extras:'--ar 16:9 --v 7 --stylize 750 --style raw' },
+  dalle:      { role:'', goal:'', extras:'Ultra-detailed, professional quality, perfect lighting, 8K resolution.' },
+  art:        { role:'', goal:'', extras:'Cinematic composition, dramatic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 800' },
+};
+
+function detectIntent(text){
+  var t = text.toLowerCase();
+  if(t.match(/youtube|video script|yt/)) return 'youtube';
+  if(t.match(/instagram|ig post|reel/)) return 'instagram';
+  if(t.match(/tiktok|short.?form|reels/)) return 'tiktok';
+  if(t.match(/linkedin|professional post/)) return 'linkedin';
+  if(t.match(/email|newsletter|subject line/)) return 'email';
+  if(t.match(/blog|article|seo|post about/)) return 'blog';
+  if(t.match(/ad|advert|facebook ad|google ad/)) return 'ad';
+  if(t.match(/script|screenplay|podcast/)) return 'script';
+  if(t.match(/market|campaign|brand|product/)) return 'marketing';
+  if(t.match(/business|startup|strategy|plan/)) return 'business';
+  if(t.match(/code|function|build|debug|app|website/)) return 'code';
+  if(t.match(/midjourney|--ar|--v 7/)) return 'midjourney';
+  if(t.match(/dall.?e|image of|photo of|picture of/)) return 'dalle';
+  if(t.match(/draw|paint|art|illustration|design/)) return 'art';
+  return 'blog'; // default
+}
+
+function buildHeroPrompt(rawText){
+  var t = rawText.trim();
+  if(!t) return '';
+  var intent = detectIntent(t);
+  var tmpl = HERO_TRANSFORMS[intent];
+  if(!tmpl) return t;
+
+  // Image prompt — different structure
+  if(intent === 'midjourney' || intent === 'dalle' || intent === 'art'){
+    return t + (tmpl.extras ? ', ' + tmpl.extras : '');
+  }
+
+  var prompt = '';
+  if(tmpl.role) prompt += tmpl.role + '\n\n';
+  prompt += tmpl.goal + ':\n' + t + '\n\n';
+  if(tmpl.extras) prompt += 'Requirements:\n' + tmpl.extras;
+  prompt += '\n\nBe specific, actionable, and professional. Avoid generic advice.';
+  return prompt;
+}
+
+function heroTransform(val){
+  clearTimeout(heroTypingTimer);
+  if(!val.trim()){
+    document.getElementById('heroOutput').innerHTML =
+      '<span style="color:var(--text3);font-family:'Instrument Sans',sans-serif;font-size:13px;">Type your idea above and watch it transform into a professional prompt in real time...</span>';
+    heroCurrentPrompt = '';
+    return;
+  }
+  heroTypingTimer = setTimeout(function(){
+    var prompt = buildHeroPrompt(val);
+    heroCurrentPrompt = prompt;
+    typePrompt(prompt);
+  }, 280);
+}
+
+function typePrompt(text){
+  var el = document.getElementById('heroOutput');
+  el.className = 'hcard-output typing';
+  el.innerHTML = '';
+  var i = 0;
+  var speed = Math.max(8, Math.min(20, Math.floor(1200 / text.length)));
+  var cursor = document.createElement('span');
+  cursor.className = 'hcard-cursor';
+
+  function tick(){
+    if(i < text.length){
+      var chunk = text.slice(0, i+1).replace(/\n/g, '<br/>');
+      el.innerHTML = chunk;
+      el.appendChild(cursor);
+      i += 2;
+      setTimeout(tick, speed);
+    } else {
+      el.innerHTML = text.replace(/\n/g, '<br/>');
+    }
+  }
+  tick();
+}
+
+function heroCopy(){
+  if(!heroCurrentPrompt){ alert('Type something first!'); return; }
+  var btn = event.target;
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(heroCurrentPrompt).then(function(){
+    btn.innerHTML = '✅ Copied!';
+    btn.style.background = '#22c55e';
+    setTimeout(function(){ btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+  });
+}
+
+// Auto-demo if input is empty after 3s
+setTimeout(function(){
+  var inp = document.getElementById('heroInput');
+  if(inp && !inp.value){
+    var demos = [
+      'Write me a YouTube script about how AI is changing business',
+      'Create an Instagram post about my new product launch',
+      'Write a cold email to potential investors',
+      'Build a viral TikTok hook about productivity',
+    ];
+    var demo = demos[Math.floor(Math.random() * demos.length)];
+    inp.placeholder = demo;
+    heroTransform(demo);
+    heroCurrentPrompt = buildHeroPrompt(demo);
+  }
+}, 2000);
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function(){
