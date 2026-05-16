@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Prompt Builder — Promptaholics</title>
+<meta name="description" content="Build perfect AI prompts for ChatGPT, Midjourney, DALL-E, Claude and Sora. Fill in the blanks, enhance with AI, copy or open directly."/>
+<link rel="canonical" href="https://promptaholics.com/prompt-builder.html"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --bg:#07070a;--surface:#0f0f14;--surface2:#161620;--surface3:#1c1c28;
+  --border:#1e1e2a;--border2:#282836;--border3:#323248;
+  --text:#eeeef8;--text2:#8888a8;--text3:#444460;
+  --orange:#ff6224;--orange2:#e84e0e;--orange-glow:rgba(255,98,36,.15);
+  --teal:#00d4aa;--violet:#9b6dff;--pink:#ff4d8f;
+  --hh:62px;
+  font-family:'Instrument Sans','Segoe UI',sans-serif;
+}
+.light{
+  --bg:#f4f4ef;--surface:#ffffff;--surface2:#efefea;--surface3:#e5e5e0;
+  --border:#e0ddd6;--border2:#d0cdc6;--border3:#c0bdb6;
+  --text:#18170f;--text2:#58554e;--text3:#9a9590;
+}
+
+body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+a{color:var(--orange);text-decoration:none;}
+
+/* ══ HEADER ══ */
+header{
+  height:var(--hh);display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;background:rgba(7,7,10,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;
+}
+.light header{background:rgba(244,244,239,.95);}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark{width:34px;height:34px;background:var(--orange);border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:14px;height:16px;}
+.logo-text{font-family:'Syne',serif;font-size:17px;font-weight:800;color:var(--text);}
+.logo-text span{color:var(--orange);}
+.hnav{display:flex;align-items:center;gap:8px;}
+.hnav a{font-size:13px;color:var(--text2);padding:7px 12px;border-radius:8px;transition:all .15s;font-weight:500;}
+.hnav a:hover{color:var(--text);background:var(--surface2);}
+.hnav .cta{background:var(--orange);color:#fff;font-weight:700;border-radius:9px;}
+.hnav .cta:hover{background:var(--orange2);color:#fff;}
+.theme-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+
+/* ══ PAGE HERO ══ */
+.page-hero{
+  padding:52px 28px 40px;text-align:center;
+  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(255,98,36,.12),transparent);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;opacity:.035;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);
+  color:var(--orange);padding:5px 16px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.page-hero h1{
+  font-family:'Syne',serif;font-size:clamp(32px,6vw,58px);
+  font-weight:900;letter-spacing:-2px;line-height:1.05;
+  margin-bottom:14px;
+}
+.page-hero h1 em{color:var(--orange);font-style:normal;}
+.page-hero p{font-size:17px;color:var(--text2);max-width:480px;margin:0 auto;}
+
+/* ══ BUILDER LAYOUT ══ */
+.builder-wrap{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:0;min-height:calc(100vh - var(--hh) - 200px);
+}
+.builder-left{
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+  position:sticky;top:var(--hh);
+  height:calc(100vh - var(--hh));
+}
+.builder-right{
+  padding:28px;display:flex;flex-direction:column;gap:20px;
+}
+
+/* ══ TOOL SELECTOR ══ */
+.tool-selector{
+  padding:20px;border-bottom:1px solid var(--border);
+}
+.tool-label{
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text3);margin-bottom:12px;
+}
+.tool-pills{display:flex;flex-wrap:wrap;gap:7px;}
+.tool-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:20px;cursor:pointer;
+  border:1px solid var(--border2);background:var(--surface2);
+  font-size:12px;font-weight:600;color:var(--text2);
+  transition:all .15s;
+}
+.tool-pill:hover{border-color:var(--border3);color:var(--text);}
+.tool-pill.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+.tool-pill .tool-icon{font-size:14px;}
+
+/* ══ CATEGORY SELECTOR ══ */
+.cat-selector{padding:20px;border-bottom:1px solid var(--border);}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.cat-btn{
+  padding:9px 10px;border-radius:10px;cursor:pointer;
+  border:1px solid var(--border2);background:var(--surface2);
+  font-size:12px;font-weight:600;color:var(--text2);
+  transition:all .15s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.cat-btn:hover{border-color:var(--border3);color:var(--text);}
+.cat-btn.active{border-color:var(--orange);background:rgba(255,98,36,.08);color:var(--orange);}
+.cat-btn .cat-icon{font-size:18px;}
+.cat-btn .cat-name{font-size:10px;letter-spacing:.5px;}
+
+/* ══ FIELDS ══ */
+.fields-section{padding:20px;}
+.field-group{margin-bottom:16px;}
+.field-label{
+  font-size:11px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--text3);
+  margin-bottom:7px;display:flex;align-items:center;gap:6px;
+}
+.field-label .req{color:var(--orange);font-size:14px;}
+.field-input{
+  width:100%;background:var(--surface2);
+  border:1px solid var(--border2);border-radius:10px;
+  color:var(--text);padding:10px 14px;
+  font-family:'Instrument Sans',sans-serif;font-size:14px;
+  outline:none;transition:border .15s;resize:none;
+}
+.field-input:focus{border-color:var(--orange);}
+.field-input::placeholder{color:var(--text3);}
+select.field-input{cursor:pointer;}
+.field-input option{background:var(--surface);}
+
+/* ══ BUILD BUTTON ══ */
+.build-btn{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:#fff;border:none;border-radius:12px;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:4px;
+}
+.build-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,98,36,.3);}
+.build-btn:active{transform:translateY(0);}
+
+/* ══ OUTPUT ══ */
+.output-section{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:16px;overflow:hidden;
+}
+.output-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+}
+.output-title{
+  font-family:'Syne',serif;font-size:15px;font-weight:800;
+  color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.output-status{
+  font-size:11px;padding:3px 10px;border-radius:10px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text3);
+}
+.output-status.ready{
+  background:rgba(0,212,170,.1);border-color:rgba(0,212,170,.3);
+  color:var(--teal);
+}
+.prompt-box{
+  padding:20px;min-height:180px;
+  font-family:'Fira Code','Courier New',monospace;
+  font-size:13px;line-height:1.8;color:var(--text2);
+  white-space:pre-wrap;word-break:break-word;
+  background:var(--surface);
+}
+.prompt-box.has-content{color:var(--text);}
+.prompt-placeholder{
+  color:var(--text3);font-style:italic;font-family:'Instrument Sans',sans-serif;
+  font-size:14px;text-align:center;padding:40px 20px;
+}
+.prompt-placeholder .placeholder-icon{font-size:40px;display:block;margin-bottom:12px;}
+
+/* character count */
+.char-count{
+  padding:8px 18px;border-top:1px solid var(--border);
+  font-size:11px;color:var(--text3);text-align:right;
+}
+
+/* ══ ACTION BUTTONS ══ */
+.action-bar{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
+}
+.action-btn{
+  padding:12px 16px;border-radius:11px;cursor:pointer;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:all .15s;border:none;
+}
+.action-btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn-copy{background:var(--orange);color:#fff;}
+.btn-copy:hover:not(:disabled){background:var(--orange2);}
+.btn-open-gpt{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.3);color:var(--teal);}
+.btn-open-gpt:hover:not(:disabled){background:rgba(0,212,170,.15);}
+.btn-enhance{background:rgba(155,109,255,.1);border:1px solid rgba(155,109,255,.3);color:var(--violet);}
+.btn-enhance:hover:not(:disabled){background:rgba(155,109,255,.15);}
+
+/* ══ ENHANCE SECTION ══ */
+.enhance-section{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:16px;overflow:hidden;display:none;
+}
+.enhance-section.show{display:block;}
+.enhance-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  font-family:'Syne',serif;font-size:14px;font-weight:800;
+  color:var(--violet);display:flex;align-items:center;gap:8px;
+}
+.enhance-options{
+  padding:16px;display:flex;flex-wrap:wrap;gap:8px;
+}
+.enhance-pill{
+  padding:7px 14px;border-radius:20px;cursor:pointer;
+  border:1px solid var(--border2);background:var(--surface2);
+  font-size:12px;font-weight:600;color:var(--text2);
+  transition:all .15s;
+}
+.enhance-pill:hover{border-color:var(--violet);color:var(--violet);}
+.enhance-pill.active{background:rgba(155,109,255,.1);border-color:var(--violet);color:var(--violet);}
+
+/* ══ HISTORY ══ */
+.history-section{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:16px;overflow:hidden;
+}
+.history-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.history-title{font-family:'Syne',serif;font-size:14px;font-weight:800;color:var(--text);}
+.history-clear{font-size:12px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:'Instrument Sans',sans-serif;}
+.history-clear:hover{color:var(--orange);}
+.history-list{max-height:200px;overflow-y:auto;}
+.history-item{
+  padding:12px 18px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .15s;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.history-item:last-child{border-bottom:none;}
+.history-item:hover{background:var(--surface2);}
+.history-tool-badge{
+  font-size:10px;font-weight:700;padding:2px 8px;
+  border-radius:6px;background:var(--surface2);
+  border:1px solid var(--border);color:var(--text3);
+  flex-shrink:0;margin-top:2px;
+}
+.history-text{font-size:12px;color:var(--text2);line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.history-empty{padding:24px;text-align:center;font-size:13px;color:var(--text3);}
+
+/* ══ TIPS ══ */
+.tips-section{
+  background:linear-gradient(135deg,rgba(255,98,36,.05),rgba(155,109,255,.04));
+  border:1px solid rgba(255,98,36,.15);
+  border-radius:16px;padding:20px;
+}
+.tips-title{font-family:'Syne',serif;font-size:14px;font-weight:800;color:var(--text);margin-bottom:12px;}
+.tip{display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:var(--text2);line-height:1.6;}
+.tip:last-child{margin-bottom:0;}
+.tip-icon{flex-shrink:0;font-size:14px;margin-top:1px;}
+
+/* ══ LOADING ══ */
+.loading-dots{display:none;align-items:center;gap:5px;padding:20px;}
+.loading-dots.show{display:flex;}
+.ldot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:ldot 1.2s infinite;}
+.ldot:nth-child(2){animation-delay:.2s;}
+.ldot:nth-child(3){animation-delay:.4s;}
+@keyframes ldot{0%,80%,100%{opacity:.2;transform:scale(.7);}40%{opacity:1;transform:scale(1);}}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .builder-wrap{grid-template-columns:1fr;height:auto;}
+  .builder-left{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}
+  .action-bar{grid-template-columns:1fr 1fr;}
+  .btn-enhance{grid-column:span 2;}
+}
+@media(max-width:640px){
+  header{padding:0 14px;}
+  .hnav a:not(.cta){display:none;}
+  .page-hero{padding:36px 16px 28px;}
+  .page-hero h1{letter-spacing:-1px;}
+  .builder-right{padding:16px;}
+  .action-bar{grid-template-columns:1fr;}
+  .btn-enhance{grid-column:auto;}
+  .cat-grid{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">
+    <div class="logo-mark">
+      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
+    </div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="hnav">
+    <a href="/">Home</a>
+    <a href="library.html">📚 Library</a>
+    <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <a href="library.html" class="cta">Browse 382 →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-badge">✦ Free Prompt Builder</div>
+  <h1>Build the <em>Perfect</em><br/>AI Prompt</h1>
+  <p>Choose your tool, fill in the details, and get a copy-ready prompt in seconds.</p>
+</div>
+
+<!-- BUILDER -->
+<div class="builder-wrap">
+
+  <!-- LEFT PANEL -->
+  <div class="builder-left">
+
+    <!-- TOOL SELECTOR -->
+    <div class="tool-selector">
+      <div class="tool-label">Step 1 — Choose Your AI Tool</div>
+      <div class="tool-pills">
+        <div class="tool-pill active" data-tool="chatgpt" onclick="setTool(this)">
+          <span class="tool-icon">🤖</span> ChatGPT
+        </div>
+        <div class="tool-pill" data-tool="midjourney" onclick="setTool(this)">
+          <span class="tool-icon">🎨</span> Midjourney
+        </div>
+        <div class="tool-pill" data-tool="dalle" onclick="setTool(this)">
+          <span class="tool-icon">🖼️</span> DALL·E 3
+        </div>
+        <div class="tool-pill" data-tool="claude" onclick="setTool(this)">
+          <span class="tool-icon">⚡</span> Claude
+        </div>
+        <div class="tool-pill" data-tool="sora" onclick="setTool(this)">
+          <span class="tool-icon">🎬</span> Sora
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="cat-selector">
+      <div class="tool-label">Step 2 — Pick a Category</div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+
+    <!-- FIELDS -->
+    <div class="fields-section" id="fieldsSection"></div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="builder-right">
+
+    <!-- OUTPUT -->
+    <div class="output-section">
+      <div class="output-header">
+        <div class="output-title">
+          ✨ Your Prompt
+        </div>
+        <div class="output-status" id="outputStatus">Waiting...</div>
+      </div>
+      <div id="promptOutput">
+        <div class="prompt-placeholder">
+          <span class="placeholder-icon">🔧</span>
+          Fill in the fields on the left and click<br/>
+          <strong>Build My Prompt</strong> to get started.
+        </div>
+      </div>
+      <div class="loading-dots" id="loadingDots">
+        <div class="ldot"></div><div class="ldot"></div><div class="ldot"></div>
+        <span style="font-size:13px;color:var(--text2);margin-left:8px;">Building your prompt...</span>
+      </div>
+      <div class="char-count" id="charCount"></div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="action-bar">
+      <button class="action-btn btn-copy" id="copyBtn" onclick="copyPrompt()" disabled>
+        📋 Copy Prompt
+      </button>
+      <button class="action-btn btn-open-gpt" id="openBtn" onclick="openInTool()" disabled>
+        🚀 Open in Tool
+      </button>
+      <button class="action-btn btn-enhance" id="enhanceBtn" onclick="toggleEnhance()" disabled>
+        ✨ Enhance
+      </button>
+    </div>
+
+    <!-- ENHANCE -->
+    <div class="enhance-section" id="enhanceSection">
+      <div class="enhance-header">✨ Enhance Your Prompt</div>
+      <div class="enhance-options">
+        <div class="enhance-pill" onclick="applyEnhancement(this,'longer')">📏 Make it longer</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'shorter')">✂️ Make it shorter</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'professional')">💼 More professional</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'creative')">🎨 More creative</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'specific')">🎯 More specific</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'simple')">🪄 Simplify</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'role')">🧠 Add expert role</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'format')">📋 Add output format</div>
+        <div class="enhance-pill" onclick="applyEnhancement(this,'params')">⚙️ Add MJ parameters</div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="history-section">
+      <div class="history-header">
+        <div class="history-title">🕐 Recent Prompts</div>
+        <button class="history-clear" onclick="clearHistory()">Clear all</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="tips-section">
+      <div class="tips-title">💡 Prompt Tips</div>
+      <div class="tip"><span class="tip-icon">🎯</span><span>Be specific — the more detail you give, the better the output.</span></div>
+      <div class="tip"><span class="tip-icon">🧠</span><span>Start with a role: "You are an expert [X]" gets better results.</span></div>
+      <div class="tip"><span class="tip-icon">📋</span><span>Define the format — tell the AI exactly how you want the output structured.</span></div>
+      <div class="tip"><span class="tip-icon">🎨</span><span>For Midjourney, always include --ar ratio and --v 7 for best results.</span></div>
+      <div class="tip"><span class="tip-icon">🔁</span><span>Use Enhance to iterate — great prompts are built, not written.</span></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── THEME ──────────────────────────────────────────────────
+var theme = localStorage.getItem('pa_theme') || 'dark';
+if(theme === 'light') document.documentElement.classList.add('light');
+function toggleTheme(){
+  localStorage.setItem('pa_theme', theme==='dark'?'light':'dark');
+  location.reload();
+}
+document.getElementById('themeBtn').textContent = theme==='light'?'☀️':'🌙';
+
+// ── STATE ──────────────────────────────────────────────────
+var currentTool = 'chatgpt';
+var currentCat  = '';
+var currentPrompt = '';
+var history = JSON.parse(localStorage.getItem('pb_history')||'[]');
+
+// ── TEMPLATES ─────────────────────────────────────────────
+var TOOLS = {
+  chatgpt:    { name:'ChatGPT',    icon:'🤖', openUrl:'https://chat.openai.com/?q=' },
+  midjourney: { name:'Midjourney', icon:'🎨', openUrl:'https://www.midjourney.com/imagine?prompt=' },
+  dalle:      { name:'DALL·E 3',   icon:'🖼️', openUrl:'https://chat.openai.com/?q=' },
+  claude:     { name:'Claude',     icon:'⚡', openUrl:'https://claude.ai/new?q=' },
+  sora:       { name:'Sora',       icon:'🎬', openUrl:'https://sora.com/?prompt=' },
+};
+
+var CATS = {
+  chatgpt: [
+    {id:'writing',   icon:'✍️',  name:'Writing'},
+    {id:'business',  icon:'💼',  name:'Business'},
+    {id:'coding',    icon:'💻',  name:'Coding'},
+    {id:'marketing', icon:'📣',  name:'Marketing'},
+    {id:'education', icon:'📚',  name:'Education'},
+    {id:'creative',  icon:'🎭',  name:'Creative'},
+    {id:'research',  icon:'🔬',  name:'Research'},
+    {id:'personal',  icon:'🧘',  name:'Personal'},
+    {id:'email',     icon:'📧',  name:'Email'},
+    {id:'social',    icon:'📱',  name:'Social'},
+  ],
+  midjourney: [
+    {id:'portrait',  icon:'👤',  name:'Portrait'},
+    {id:'landscape', icon:'🏔️', name:'Landscape'},
+    {id:'fantasy',   icon:'🐉',  name:'Fantasy'},
+    {id:'scifi',     icon:'🚀',  name:'Sci-Fi'},
+    {id:'product',   icon:'📦',  name:'Product'},
+    {id:'abstract',  icon:'🌀',  name:'Abstract'},
+  ],
+  dalle: [
+    {id:'portrait',  icon:'👤',  name:'Portrait'},
+    {id:'scene',     icon:'🌆',  name:'Scene'},
+    {id:'product',   icon:'📦',  name:'Product'},
+    {id:'logo',      icon:'🔷',  name:'Logo'},
+    {id:'abstract',  icon:'🌀',  name:'Abstract'},
+    {id:'cartoon',   icon:'🎠',  name:'Cartoon'},
+  ],
+  claude: [
+    {id:'analysis',  icon:'🔍',  name:'Analysis'},
+    {id:'writing',   icon:'✍️',  name:'Writing'},
+    {id:'coding',    icon:'💻',  name:'Coding'},
+    {id:'research',  icon:'🔬',  name:'Research'},
+    {id:'business',  icon:'💼',  name:'Business'},
+    {id:'creative',  icon:'🎭',  name:'Creative'},
+  ],
+  sora: [
+    {id:'cinematic', icon:'🎬',  name:'Cinematic'},
+    {id:'nature',    icon:'🌿',  name:'Nature'},
+    {id:'urban',     icon:'🏙️', name:'Urban'},
+    {id:'abstract',  icon:'🌀',  name:'Abstract'},
+    {id:'product',   icon:'📦',  name:'Product'},
+    {id:'character', icon:'🧍',  name:'Character'},
+  ],
+};
+
+var FIELDS = {
+  chatgpt: {
+    writing: [
+      {id:'topic',    label:'Topic',         type:'text',   placeholder:'e.g. remote work productivity', required:true},
+      {id:'audience', label:'Target Audience',type:'text',   placeholder:'e.g. startup founders'},
+      {id:'tone',     label:'Tone',           type:'select', options:['Professional','Conversational','Persuasive','Humorous','Inspirational','Academic']},
+      {id:'format',   label:'Output Format',  type:'select', options:['Blog post','Essay','Newsletter','Report','Story','List','Email']},
+      {id:'length',   label:'Length',         type:'select', options:['Short (300 words)','Medium (800 words)','Long (1500 words)','Very long (2500+ words)']},
+    ],
+    business: [
+      {id:'business', label:'Business/Product', type:'text',   placeholder:'e.g. SaaS project management tool', required:true},
+      {id:'goal',     label:'Goal',             type:'select', options:['Market analysis','Growth strategy','Competitor analysis','Pitch deck','Business plan','SWOT analysis']},
+      {id:'industry', label:'Industry',         type:'text',   placeholder:'e.g. B2B SaaS, e-commerce, healthcare'},
+      {id:'stage',    label:'Business Stage',   type:'select', options:['Idea stage','Pre-launch','Early stage','Growth','Established']},
+    ],
+    coding: [
+      {id:'task',     label:'What to Build',   type:'text',   placeholder:'e.g. user authentication system', required:true},
+      {id:'language', label:'Language/Framework',type:'select',options:['JavaScript','Python','TypeScript','React','Node.js','Next.js','Vue.js','Go','Rust','Swift','Kotlin','SQL']},
+      {id:'level',    label:'Code Style',       type:'select', options:['Clean & commented','Production-ready','Beginner-friendly','Advanced/optimized']},
+      {id:'extras',   label:'Requirements',     type:'text',   placeholder:'e.g. must handle errors, add tests'},
+    ],
+    marketing: [
+      {id:'product',  label:'Product/Service',  type:'text',   placeholder:'e.g. AI writing app', required:true},
+      {id:'audience', label:'Target Audience',  type:'text',   placeholder:'e.g. content creators, 25-40'},
+      {id:'channel',  label:'Channel',          type:'select', options:['Facebook ad','Google ad','Email','TikTok','Instagram','LinkedIn','Twitter/X','YouTube']},
+      {id:'goal',     label:'Campaign Goal',    type:'select', options:['Brand awareness','Lead generation','Sales conversion','App downloads','Newsletter signups']},
+    ],
+    education: [
+      {id:'subject',  label:'Subject/Topic',    type:'text',   placeholder:'e.g. machine learning basics', required:true},
+      {id:'audience', label:'Student Level',    type:'select', options:['Complete beginner','Intermediate','Advanced','Expert']},
+      {id:'format',   label:'Format',           type:'select', options:['Lesson plan','Explanation','Quiz','Summary','Study guide','Tutorial']},
+    ],
+    creative: [
+      {id:'genre',    label:'Genre',            type:'select', options:['Fiction','Sci-Fi','Fantasy','Romance','Thriller','Horror','Literary Fiction','Humor']},
+      {id:'concept',  label:'Story Concept',    type:'text',   placeholder:'e.g. time traveler stuck in 1920s Paris', required:true},
+      {id:'style',    label:'Writing Style',    type:'text',   placeholder:'e.g. Hemingway, minimalist, vivid'},
+      {id:'length',   label:'Length',           type:'select', options:['Flash fiction (500w)','Short story (1500w)','Chapter (3000w)','Opening hook only']},
+    ],
+    research: [
+      {id:'topic',    label:'Research Topic',   type:'text',   placeholder:'e.g. impact of AI on healthcare', required:true},
+      {id:'depth',    label:'Depth',            type:'select', options:['Overview','Deep dive','Comparative analysis','Literature review','Statistical analysis']},
+      {id:'output',   label:'Output Format',    type:'select', options:['Report','Summary','Bullet points','Academic paper style','Executive briefing']},
+    ],
+    personal: [
+      {id:'goal',     label:'Personal Goal',    type:'text',   placeholder:'e.g. build a morning routine', required:true},
+      {id:'context',  label:'Your Situation',   type:'text',   placeholder:'e.g. busy parent, remote worker'},
+      {id:'type',     label:'Type of Help',     type:'select', options:['Action plan','Advice','Habit system','Reflection questions','Motivation','Accountability system']},
+    ],
+    email: [
+      {id:'purpose',  label:'Email Purpose',    type:'text',   placeholder:'e.g. follow up after sales call', required:true},
+      {id:'recipient',label:'Recipient',        type:'text',   placeholder:'e.g. potential client, hiring manager'},
+      {id:'tone',     label:'Tone',             type:'select', options:['Professional','Friendly','Urgent','Formal','Casual']},
+      {id:'goal',     label:'Desired Outcome',  type:'text',   placeholder:'e.g. schedule a meeting'},
+    ],
+    social: [
+      {id:'topic',    label:'Post Topic',       type:'text',   placeholder:'e.g. product launch announcement', required:true},
+      {id:'platform', label:'Platform',         type:'select', options:['Instagram','LinkedIn','Twitter/X','TikTok','Facebook','YouTube Community']},
+      {id:'tone',     label:'Tone',             type:'select', options:['Engaging','Educational','Entertaining','Inspiring','Promotional','Behind-the-scenes']},
+      {id:'goal',     label:'Goal',             type:'select', options:['Drive engagement','Build followers','Drive clicks','Build brand','Share value','Announce something']},
+    ],
+  },
+  midjourney: {
+    portrait: [
+      {id:'subject',  label:'Subject',          type:'text',   placeholder:'e.g. young woman, elderly man, child', required:true},
+      {id:'setting',  label:'Setting/Background',type:'text',   placeholder:'e.g. misty forest, urban rooftop'},
+      {id:'style',    label:'Art Style',        type:'select', options:['Photorealistic','Oil painting','Watercolor','Digital art','Cinematic','Editorial fashion','Anime']},
+      {id:'lighting', label:'Lighting',         type:'select', options:['Golden hour','Studio lighting','Dramatic','Soft natural','Neon','Candlelight','Overcast']},
+      {id:'mood',     label:'Mood/Feel',        type:'text',   placeholder:'e.g. mysterious, joyful, melancholic'},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 1:1','--ar 2:3','--ar 3:4','--ar 4:5','--ar 9:16']},
+    ],
+    landscape: [
+      {id:'scene',    label:'Landscape Scene',  type:'text',   placeholder:'e.g. misty mountain valley at dawn', required:true},
+      {id:'style',    label:'Art Style',        type:'select', options:['Photorealistic','Painterly','Fantasy','Cinematic','Impressionist','National Geographic']},
+      {id:'time',     label:'Time of Day',      type:'select', options:['Golden hour','Blue hour','Midday','Night','Sunset','Stormy','Dawn']},
+      {id:'mood',     label:'Atmosphere',       type:'text',   placeholder:'e.g. ethereal, dramatic, peaceful'},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 16:9','--ar 3:2','--ar 2:1','--ar 4:3','--ar 1:1']},
+    ],
+    fantasy: [
+      {id:'scene',    label:'Fantasy Scene',    type:'text',   placeholder:'e.g. dragon perched on ancient castle', required:true},
+      {id:'world',    label:'World Type',       type:'select', options:['High fantasy','Dark fantasy','Fairy tale','Mythological','Steampunk','Lovecraftian','Studio Ghibli']},
+      {id:'mood',     label:'Mood',             type:'select', options:['Epic','Mysterious','Dark','Whimsical','Terrifying','Majestic']},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 16:9','--ar 2:3','--ar 4:3','--ar 1:1']},
+    ],
+    scifi: [
+      {id:'scene',    label:'Sci-Fi Scene',     type:'text',   placeholder:'e.g. space station orbiting a dying star', required:true},
+      {id:'era',      label:'Era/Style',        type:'select', options:['Cyberpunk','Space opera','Retro sci-fi','Hard sci-fi','Dystopian','Utopian','Solarpunk']},
+      {id:'mood',     label:'Mood',             type:'select', options:['Epic','Tense','Wonder','Desolate','Hopeful','Ominous']},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 16:9','--ar 21:9','--ar 2:3','--ar 1:1']},
+    ],
+    product: [
+      {id:'product',  label:'Product',          type:'text',   placeholder:'e.g. luxury perfume bottle', required:true},
+      {id:'style',    label:'Photography Style',type:'select', options:['Studio white bg','Dark moody','Lifestyle','Editorial','Minimalist','Luxury/premium']},
+      {id:'surface',  label:'Surface/Setting',  type:'text',   placeholder:'e.g. black marble, wooden table'},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 1:1','--ar 4:5','--ar 3:4','--ar 16:9']},
+    ],
+    abstract: [
+      {id:'concept',  label:'Concept/Feeling',  type:'text',   placeholder:'e.g. chaos and order, time dissolving', required:true},
+      {id:'colors',   label:'Color Palette',    type:'text',   placeholder:'e.g. deep purple and gold, monochrome'},
+      {id:'style',    label:'Abstract Style',   type:'select', options:['Fluid/liquid','Geometric','Fractal','Minimalist','Explosive/dynamic','Organic']},
+      {id:'ratio',    label:'Aspect Ratio',     type:'select', options:['--ar 1:1','--ar 16:9','--ar 4:5','--ar 3:4']},
+    ],
+  },
+  dalle: {
+    portrait: [
+      {id:'subject',  label:'Subject',          type:'text',   placeholder:'e.g. confident businesswoman', required:true},
+      {id:'setting',  label:'Setting',          type:'text',   placeholder:'e.g. modern office, park'},
+      {id:'style',    label:'Style',            type:'select', options:['Photorealistic','Oil painting','Watercolor','Digital illustration','Cinematic']},
+      {id:'lighting', label:'Lighting',         type:'select', options:['Natural light','Studio','Dramatic','Soft','Golden hour']},
+    ],
+    scene: [
+      {id:'scene',    label:'Scene Description',type:'text',   placeholder:'e.g. cozy coffee shop on a rainy day', required:true},
+      {id:'style',    label:'Art Style',        type:'select', options:['Photorealistic','Illustration','Watercolor','Oil painting','3D render','Cartoon']},
+      {id:'mood',     label:'Mood',             type:'text',   placeholder:'e.g. warm, nostalgic, vibrant'},
+    ],
+    product: [
+      {id:'product',  label:'Product',          type:'text',   placeholder:'e.g. smartphone case', required:true},
+      {id:'style',    label:'Style',            type:'select', options:['Clean white bg','Lifestyle','Editorial','Minimalist']},
+      {id:'colors',   label:'Colors/Brand',     type:'text',   placeholder:'e.g. matte black, gold accents'},
+    ],
+    logo: [
+      {id:'brand',    label:'Brand Name',       type:'text',   placeholder:'e.g. Apex Studio', required:true},
+      {id:'industry', label:'Industry',         type:'text',   placeholder:'e.g. tech startup, law firm'},
+      {id:'style',    label:'Logo Style',       type:'select', options:['Minimalist','Bold geometric','Vintage','Modern','Playful','Luxury']},
+      {id:'colors',   label:'Color Preference', type:'text',   placeholder:'e.g. navy and gold, black and white'},
+    ],
+    abstract: [
+      {id:'concept',  label:'Concept',          type:'text',   placeholder:'e.g. digital transformation', required:true},
+      {id:'colors',   label:'Colors',           type:'text',   placeholder:'e.g. vibrant gradients, earth tones'},
+      {id:'style',    label:'Style',            type:'select', options:['Fluid','Geometric','Organic','Explosive','Minimal']},
+    ],
+    cartoon: [
+      {id:'subject',  label:'Subject',          type:'text',   placeholder:'e.g. friendly robot chef', required:true},
+      {id:'style',    label:'Cartoon Style',    type:'select', options:['Pixar 3D','2D flat design','Comic book','Anime','Chibi','Storybook']},
+      {id:'mood',     label:'Mood',             type:'text',   placeholder:'e.g. happy, adventurous, mysterious'},
+    ],
+  },
+  claude: {
+    analysis: [
+      {id:'topic',    label:'What to Analyze',  type:'text',   placeholder:'e.g. our Q3 marketing strategy', required:true},
+      {id:'depth',    label:'Analysis Depth',   type:'select', options:['Quick overview','Detailed analysis','Deep dive','Comparative','Critical review']},
+      {id:'output',   label:'Output Format',    type:'select', options:['Executive summary','Bullet points','Full report','Pros and cons','Recommendations']},
+    ],
+    writing: [
+      {id:'task',     label:'Writing Task',     type:'text',   placeholder:'e.g. executive summary for board', required:true},
+      {id:'tone',     label:'Tone',             type:'select', options:['Professional','Academic','Conversational','Persuasive','Neutral']},
+      {id:'length',   label:'Length',           type:'select', options:['Concise','Medium','Detailed','Comprehensive']},
+    ],
+    coding: [
+      {id:'task',     label:'Coding Task',      type:'text',   placeholder:'e.g. refactor this function', required:true},
+      {id:'language', label:'Language',         type:'select', options:['JavaScript','Python','TypeScript','Go','Rust','Java','C++','SQL','Other']},
+      {id:'focus',    label:'Focus',            type:'select', options:['Clean code','Performance','Security','Readability','Test coverage']},
+    ],
+    research: [
+      {id:'topic',    label:'Research Topic',   type:'text',   placeholder:'e.g. renewable energy storage', required:true},
+      {id:'goal',     label:'Research Goal',    type:'select', options:['Understand basics','Current state','Compare approaches','Find gaps','Predict trends']},
+    ],
+    business: [
+      {id:'task',     label:'Business Task',    type:'text',   placeholder:'e.g. go-to-market strategy', required:true},
+      {id:'context',  label:'Business Context', type:'text',   placeholder:'e.g. B2B SaaS, Series A startup'},
+      {id:'output',   label:'Output',           type:'select', options:['Strategy','Action plan','Framework','Analysis','Recommendations']},
+    ],
+    creative: [
+      {id:'concept',  label:'Creative Concept', type:'text',   placeholder:'e.g. brand story for eco startup', required:true},
+      {id:'style',    label:'Voice/Style',      type:'text',   placeholder:'e.g. bold, poetic, minimalist'},
+      {id:'output',   label:'Output Type',      type:'select', options:['Copy','Story','Script','Poem','Tagline','Brand voice guide']},
+    ],
+  },
+  sora: {
+    cinematic: [
+      {id:'scene',    label:'Scene Description',type:'text',   placeholder:'e.g. astronaut floating over Earth at sunset', required:true},
+      {id:'camera',   label:'Camera Movement',  type:'select', options:['Slow pan','Aerial drone','Tracking shot','Static wide','Dolly zoom','Time-lapse','Orbit']},
+      {id:'style',    label:'Visual Style',     type:'select', options:['Cinematic film','Documentary','IMAX','Music video','Short film']},
+      {id:'mood',     label:'Mood',             type:'text',   placeholder:'e.g. epic, contemplative, thrilling'},
+      {id:'duration', label:'Video Feel',       type:'select', options:['Short clip (5s)','Scene (15s)','Moment (10s)']},
+    ],
+    nature: [
+      {id:'scene',    label:'Nature Scene',     type:'text',   placeholder:'e.g. cherry blossoms falling in Tokyo', required:true},
+      {id:'camera',   label:'Shot Type',        type:'select', options:['Wide establishing','Macro close-up','Aerial','Time-lapse','Slow motion']},
+      {id:'time',     label:'Time of Day',      type:'select', options:['Golden hour','Dawn','Dusk','Night','Midday','Stormy']},
+    ],
+    urban: [
+      {id:'scene',    label:'Urban Scene',      type:'text',   placeholder:'e.g. neon-lit Tokyo street at night', required:true},
+      {id:'camera',   label:'Camera Style',     type:'select', options:['Street level','Aerial','Through window','Tracking pedestrian','Rooftop pan']},
+      {id:'mood',     label:'Atmosphere',       type:'select', options:['Cinematic','Noir','Vibrant','Melancholic','Chaotic','Peaceful']},
+    ],
+    abstract: [
+      {id:'concept',  label:'Abstract Concept', type:'text',   placeholder:'e.g. data flowing through neural networks', required:true},
+      {id:'style',    label:'Visual Style',     type:'select', options:['Fluid simulation','Geometric','Particle systems','Organic growth','Light painting']},
+      {id:'colors',   label:'Color Story',      type:'text',   placeholder:'e.g. deep blues and electric gold'},
+    ],
+    product: [
+      {id:'product',  label:'Product',          type:'text',   placeholder:'e.g. luxury watch', required:true},
+      {id:'style',    label:'Ad Style',         type:'select', options:['Luxury showcase','360 spin','Lifestyle context','Minimal clean','Dynamic reveal']},
+      {id:'mood',     label:'Brand Feel',       type:'text',   placeholder:'e.g. premium, trustworthy, exciting'},
+    ],
+    character: [
+      {id:'character',label:'Character Description',type:'text',placeholder:'e.g. elderly wizard walking through forest', required:true},
+      {id:'action',   label:'Action/Motion',    type:'text',   placeholder:'e.g. turning to look at camera, laughing'},
+      {id:'setting',  label:'Environment',      type:'text',   placeholder:'e.g. ancient library, mountain peak'},
+      {id:'style',    label:'Visual Style',     type:'select', options:['Realistic','Animated','Cinematic','Fantasy','Sci-Fi']},
+    ],
+  },
+};
+
+// ── PROMPT TEMPLATES ─────────────────────────────────────
+function buildPrompt(tool, cat, values){
+  var v = values;
+  if(tool === 'chatgpt'){
+    if(cat==='writing') return 'You are an expert writer and content strategist.\n\nWrite a '+(v.format||'blog post')+' about: '+v.topic+'\n'+(v.audience?'Target audience: '+v.audience+'\n':'')+'Tone: '+(v.tone||'Professional')+'\nLength: '+(v.length||'Medium (800 words)')+'\n\nRequirements:\n- Compelling headline and hook\n- Clear structure with subheadings\n- Actionable, specific content\n- Strong conclusion with key takeaways\n- Engaging, reader-focused writing';
+    if(cat==='business') return 'You are a world-class business strategist and consultant.\n\nConduct a thorough '+( v.goal||'market analysis')+' for:\n\nBusiness: '+v.business+'\n'+(v.industry?'Industry: '+v.industry+'\n':'')+(v.stage?'Stage: '+v.stage+'\n':'')+'\nProvide:\n- Executive summary (3 key findings)\n- Detailed analysis with supporting data\n- Key opportunities and risks\n- Specific, actionable recommendations\n- Clear next steps with priority ranking\n\nBe direct, data-driven, and brutally honest.';
+    if(cat==='coding') return 'You are a senior software engineer with 15 years of experience.\n\nTask: Build '+v.task+'\nLanguage/Framework: '+(v.language||'JavaScript')+'\nCode style: '+(v.level||'Clean & commented')+(v.extras?'\nAdditional requirements: '+v.extras:'')+'\n\nProvide:\n1. Clean, well-structured code\n2. Comments explaining key decisions\n3. Error handling\n4. Example usage\n5. Any important considerations\n\nThink through the architecture before writing code.';
+    if(cat==='marketing') return 'You are an expert performance marketer and conversion copywriter.\n\nCreate a high-converting '+( v.channel||'Facebook ad')+' for:\n\nProduct/Service: '+v.product+'\n'+(v.audience?'Target audience: '+v.audience+'\n':'')+'Campaign goal: '+(v.goal||'Brand awareness')+'\n\nDeliver:\n- Attention-grabbing headline (multiple options)\n- Compelling body copy\n- Strong call-to-action\n- Key psychological triggers used\n- A/B test variations';
+    if(cat==='education') return 'You are an expert educator and curriculum designer.\n\nCreate a comprehensive '+(v.format||'lesson plan')+' for:\n\nSubject: '+v.subject+'\nStudent level: '+(v.audience||'Intermediate')+'\n\nInclude:\n- Clear learning objectives\n- Engaging explanation with examples\n- Key concepts broken down simply\n- Practice exercises or discussion questions\n- Summary and next steps for learning';
+    if(cat==='creative') return 'You are a masterful creative writer.\n\nWrite a '+( v.format||'Short story (1500w)')+' in the '+v.genre+' genre.\n\nConcept: '+v.concept+'\n'+(v.style?'Writing style: '+v.style+'\n':'')+'\nRequirements:\n- Compelling opening hook (first line must grab attention)\n- Fully realized characters with clear motivation\n- Vivid, sensory world-building\n- Rising tension or emotional development\n- Satisfying, memorable ending\n\nShow, don\'t tell. Every sentence earns its place.';
+    if(cat==='research') return 'You are an elite research analyst.\n\nConduct a '+( v.depth||'Deep dive')+' on: '+v.topic+'\n\nProvide a '+( v.output||'Report')+' covering:\n- Executive summary (top 3 findings)\n- Background and context\n- Current state of knowledge\n- Key data, statistics, and evidence\n- Emerging trends and signals\n- Practical implications\n- Recommended next steps\n\nDistinguish clearly between established facts and emerging/contested claims. Flag areas of uncertainty.';
+    if(cat==='personal') return 'You are a world-class life coach and behavioral change expert.\n\nHelp me: '+v.goal+'\n'+(v.context?'My situation: '+v.context+'\n':'')+'I need: '+(v.type||'Action plan')+'\n\nProvide:\n- Honest assessment of my situation\n- Practical, specific recommendations\n- Step-by-step action plan\n- Common obstacles and how to overcome them\n- How to track progress\n- Mindset shifts that will help\n\nBe direct and actionable, not generic.';
+    if(cat==='email') return 'You are an expert business communicator.\n\nWrite a '+(v.tone||'Professional')+' email for: '+v.purpose+'\n'+(v.recipient?'To: '+v.recipient+'\n':'')+(v.goal?'Desired outcome: '+v.goal+'\n':'')+'\nWrite 3 versions:\n1. Short and direct (under 75 words)\n2. Standard (150-200 words)\n3. Detailed (if the situation warrants)\n\nFor each: compelling subject line, strong opening, clear ask, professional close.\nAvoid: filler phrases, passive voice, vague language.';
+    if(cat==='social') return 'You are a viral social media strategist.\n\nCreate 5 engaging '+(v.platform||'Instagram')+' posts about: '+v.topic+'\nTone: '+(v.tone||'Engaging')+'\nGoal: '+(v.goal||'Drive engagement')+'\n\nFor each post:\n- Scroll-stopping first line\n- Valuable/entertaining body\n- Strong CTA\n- Relevant hashtags\n\nVary the angle across the 5 posts. Make each one feel native to '+( v.platform||'Instagram')+'.';
+  }
+  if(tool === 'midjourney'){
+    var v7 = '--v 7 --stylize 750';
+    if(cat==='portrait') return v.subject+', '+(v.setting||'cinematic background')+', '+(v.style||'photorealistic')+', '+(v.lighting||'golden hour')+' lighting'+(v.mood?', '+v.mood:'')+', detailed facial features, sharp focus, professional photography '+(v.ratio||'--ar 2:3')+' '+v7;
+    if(cat==='landscape') return v.scene+', '+(v.style||'photorealistic')+', '+(v.time||'golden hour')+', atmospheric perspective, intricate environmental details, god rays, volumetric lighting'+(v.mood?', '+v.mood:'')+' '+(v.ratio||'--ar 16:9')+' '+v7;
+    if(cat==='fantasy') return 'Epic '+v.scene+', '+(v.world||'high fantasy')+' aesthetic'+(v.mood?', '+v.mood:'')+ ', ultra-detailed, cinematic lighting, magical atmosphere, masterpiece quality '+(v.ratio||'--ar 16:9')+' '+v7;
+    if(cat==='scifi') return 'Cinematic '+v.scene+', '+(v.era||'cyberpunk')+' aesthetic'+(v.mood?', '+v.mood:'')+', volumetric lighting, ultra-detailed, sci-fi concept art quality '+(v.ratio||'--ar 16:9')+' '+v7+' --style raw';
+    if(cat==='product') return 'Professional product photography of '+v.product+', '+(v.style||'studio white bg')+', '+(v.surface?v.surface+', ':'')+'sharp focus, commercial advertisement quality, 8K detail '+(v.ratio||'--ar 1:1')+' '+v7+' --style raw';
+    if(cat==='abstract') return 'Abstract art representing '+v.concept+(v.colors?', color palette: '+v.colors:'')+', '+(v.style||'fluid')+' abstract style, ultra-detailed, award-winning digital art '+(v.ratio||'--ar 1:1')+' '+v7;
+  }
+  if(tool === 'dalle'){
+    if(cat==='portrait') return 'Photorealistic portrait of '+v.subject+(v.setting?', '+v.setting:'')+', '+(v.style||'photorealistic')+' style, '+(v.lighting||'natural light')+' lighting, high detail, professional quality photography.';
+    if(cat==='scene') return 'High quality '+( v.style||'illustration')+' of '+v.scene+(v.mood?'. Mood: '+v.mood:'')+ '. Detailed, atmospheric, visually stunning.';
+    if(cat==='product') return 'Professional commercial product photography of '+v.product+', '+(v.style||'clean white background')+(v.colors?', '+v.colors:'')+'. Ultra-sharp, studio quality, advertisement ready.';
+    if(cat==='logo') return 'Clean professional logo design for "'+v.brand+'"'+(v.industry?', '+v.industry+' company':'')+', '+(v.style||'minimalist')+' style'+(v.colors?', colors: '+v.colors:'')+'. Vector-clean lines, white background, modern branding.';
+    if(cat==='abstract') return 'Striking abstract digital artwork representing '+v.concept+(v.colors?', '+v.colors:'')+', '+(v.style||'fluid')+' style. Dynamic, visually captivating, gallery quality.';
+    if(cat==='cartoon') return (v.style||'Pixar 3D')+' style cartoon of '+v.subject+(v.mood?', '+v.mood+' expression':'')+'. Charming, detailed, professional animation quality.';
+  }
+  if(tool === 'claude'){
+    if(cat==='analysis') return 'Please conduct a '+(v.depth||'detailed analysis')+' of: '+v.topic+'\n\nFormat your response as: '+(v.output||'Full report')+'\n\nBe thorough, cite your reasoning, and provide specific, actionable insights. Distinguish between established facts and your analysis/interpretation.';
+    if(cat==='writing') return 'Please '+(v.task)+'\n\nTone: '+(v.tone||'Professional')+'\nLength: '+(v.length||'Detailed')+'\n\nFocus on clarity, accuracy, and genuine value. Avoid generic filler content.';
+    if(cat==='coding') return 'Please help me with this coding task: '+v.task+'\n\nLanguage: '+(v.language||'JavaScript')+'\nFocus: '+(v.focus||'Clean code')+'\n\nProvide well-structured code with clear comments. Explain key decisions and any important edge cases to consider.';
+    if(cat==='research') return 'Please research: '+v.topic+'\n\nGoal: '+(v.goal||'Understand basics')+'\n\nProvide a comprehensive overview including key facts, current state, different perspectives, and practical implications. Flag areas of uncertainty.';
+    if(cat==='business') return 'Please develop a '+( v.output||'strategy')+' for: '+v.task+'\n'+(v.context?'Context: '+v.context+'\n':'')+'\nBe specific, practical, and actionable. Include clear next steps with priority ranking.';
+    if(cat==='creative') return 'Please create '+v.output+' for: '+v.concept+'\n'+(v.style?'Voice/Style: '+v.style+'\n':'')+'\nBe original, specific, and genuinely creative. Avoid clichés.';
+  }
+  if(tool === 'sora'){
+    if(cat==='cinematic') return 'Cinematic video: '+v.scene+'. Camera: '+(v.camera||'Slow pan')+'. Style: '+(v.style||'Cinematic film')+(v.mood?'. Mood: '+v.mood:'')+'. High production value, photorealistic, dramatic lighting, professional color grade.';
+    if(cat==='nature') return 'Nature footage: '+v.scene+'. Shot type: '+(v.camera||'Wide establishing')+'. Time of day: '+(v.time||'Golden hour')+'. Ultra high definition, National Geographic quality, stunning natural lighting.';
+    if(cat==='urban') return 'Urban video scene: '+v.scene+'. Camera style: '+(v.camera||'Street level')+'. Atmosphere: '+(v.mood||'Cinematic')+'. Cinematic color grade, detailed environment, realistic motion.';
+    if(cat==='abstract') return 'Abstract video: '+v.concept+(v.colors?'. Colors: '+v.colors:'')+'. Visual style: '+(v.style||'Fluid simulation')+'. Mesmerizing, smooth motion, high quality render.';
+    if(cat==='product') return 'Product video for '+v.product+'. Style: '+(v.style||'Luxury showcase')+(v.mood?'. Brand feel: '+v.mood:'')+'. Premium production quality, perfect lighting, commercial advertisement standard.';
+    if(cat==='character') return 'Character video: '+v.character+'. Action: '+(v.action||'natural movement')+(v.setting?'. Setting: '+v.setting:'')+'. Style: '+(v.style||'Realistic')+'. Fluid, natural motion, cinematic quality.';
+  }
+  return 'No template found for '+tool+'/'+cat+'. Please fill in more fields.';
+}
+
+// ── RENDER CATS ────────────────────────────────────────────
+function renderCats(){
+  var grid = document.getElementById('catGrid');
+  var cats = CATS[currentTool] || [];
+  grid.innerHTML = cats.map(function(c){
+    return '<div class="cat-btn'+(currentCat===c.id?' active':'')+'" onclick="setCat(\''+c.id+'\')"><span class="cat-icon">'+c.icon+'</span><span class="cat-name">'+c.name+'</span></div>';
+  }).join('');
+  if(!currentCat && cats.length) setCat(cats[0].id);
+  else renderFields();
+}
+
+// ── RENDER FIELDS ──────────────────────────────────────────
+function renderFields(){
+  var section = document.getElementById('fieldsSection');
+  var fields = (FIELDS[currentTool]||{})[currentCat] || [];
+  if(!fields.length){ section.innerHTML='<p style="color:var(--text3);font-size:13px;padding:10px 0;">Select a category above.</p>'; return; }
+
+  var html = '<div class="tool-label" style="margin-bottom:14px;">Step 3 — Fill in the Details</div>';
+  fields.forEach(function(f){
+    html += '<div class="field-group">';
+    html += '<div class="field-label">'+f.label+(f.required?'<span class="req">*</span>':'')+'</div>';
+    if(f.type==='select'){
+      html += '<select class="field-input" id="field_'+f.id+'">';
+      (f.options||[]).forEach(function(o){ html += '<option>'+o+'</option>'; });
+      html += '</select>';
+    } else if(f.type==='textarea'){
+      html += '<textarea class="field-input" id="field_'+f.id+'" rows="3" placeholder="'+(f.placeholder||'')+'"></textarea>';
+    } else {
+      html += '<input type="text" class="field-input" id="field_'+f.id+'" placeholder="'+(f.placeholder||'')+'"/>';
+    }
+    html += '</div>';
+  });
+
+  html += '<button class="build-btn" onclick="buildIt()">⚡ Build My Prompt</button>';
+  section.innerHTML = html;
+}
+
+// ── SET TOOL ───────────────────────────────────────────────
+function setTool(el){
+  currentTool = el.dataset.tool;
+  currentCat = '';
+  document.querySelectorAll('.tool-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  renderCats();
+  resetOutput();
+}
+
+// ── SET CAT ────────────────────────────────────────────────
+function setCat(id){
+  currentCat = id;
+  document.querySelectorAll('.cat-btn').forEach(function(b){
+    b.classList.toggle('active', b.onclick.toString().includes("'"+id+"'"));
+  });
+  renderFields();
+  resetOutput();
+}
+
+// ── BUILD ──────────────────────────────────────────────────
+function buildIt(){
+  var fields = (FIELDS[currentTool]||{})[currentCat] || [];
+  var values = {};
+  var missing = [];
+  fields.forEach(function(f){
+    var el = document.getElementById('field_'+f.id);
+    if(el) values[f.id] = el.value.trim();
+    if(f.required && (!values[f.id] || values[f.id]===''))
+      missing.push(f.label);
+  });
+
+  if(missing.length){
+    alert('Please fill in: '+missing.join(', '));
+    return;
+  }
+
+  // Show loading
+  document.getElementById('promptOutput').innerHTML = '';
+  document.getElementById('loadingDots').classList.add('show');
+
+  setTimeout(function(){
+    document.getElementById('loadingDots').classList.remove('show');
+    var prompt = buildPrompt(currentTool, currentCat, values);
+    currentPrompt = prompt;
+
+    // Show prompt
+    var box = document.createElement('div');
+    box.className = 'prompt-box has-content';
+    box.textContent = prompt;
+    document.getElementById('promptOutput').innerHTML = '';
+    document.getElementById('promptOutput').appendChild(box);
+
+    // Update status
+    var st = document.getElementById('outputStatus');
+    st.textContent = '✅ Ready';
+    st.className = 'output-status ready';
+
+    // Char count
+    document.getElementById('charCount').textContent = prompt.length + ' characters · ' + prompt.split(/\s+/).length + ' words';
+
+    // Enable actions
+    document.getElementById('copyBtn').disabled = false;
+    document.getElementById('openBtn').disabled = false;
+    document.getElementById('enhanceBtn').disabled = false;
+
+    // Save to history
+    saveHistory(prompt);
+
+  }, 600);
+}
+
+// ── ACTIONS ────────────────────────────────────────────────
+function copyPrompt(){
+  if(!currentPrompt) return;
+  var btn = document.getElementById('copyBtn');
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(currentPrompt).then(function(){
+    btn.innerHTML = '✅ Copied!';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  });
+}
+
+function openInTool(){
+  if(!currentPrompt) return;
+  var tool = TOOLS[currentTool];
+  var url = tool.openUrl + encodeURIComponent(currentPrompt);
+  window.open(url, '_blank');
+}
+
+function toggleEnhance(){
+  var sec = document.getElementById('enhanceSection');
+  sec.classList.toggle('show');
+}
+
+function applyEnhancement(el, type){
+  if(!currentPrompt) return;
+  document.querySelectorAll('.enhance-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+
+  var enhanced = currentPrompt;
+  if(type==='longer') enhanced += '\n\nPlease make this significantly more detailed and comprehensive. Add specific examples, expand each point, and increase the depth of content.';
+  if(type==='shorter') enhanced += '\n\nPlease condense this into the most essential elements only. Remove any redundancy and keep it tight and punchy.';
+  if(type==='professional') enhanced = 'You are a world-class expert with 20 years of experience.\n\n'+enhanced+'\n\nUse formal, authoritative language appropriate for senior professionals.';
+  if(type==='creative') enhanced += '\n\nBe bold, unexpected, and genuinely creative. Avoid clichés. Surprise me with your approach.';
+  if(type==='specific') enhanced += '\n\nBe highly specific throughout. Use concrete numbers, named examples, real case studies, and precise language. No generic statements.';
+  if(type==='simple') enhanced += '\n\nExplain everything as if speaking to someone with no background in this topic. Use simple language, clear analogies, and short sentences.';
+  if(type==='role') enhanced = 'You are a world-class expert in this field with 20 years of hands-on experience, published research, and a track record of exceptional results.\n\n'+enhanced;
+  if(type==='format') enhanced += '\n\nFormat your response with:\n- Clear headers and subheaders\n- Bullet points for lists\n- Bold text for key points\n- A summary at the end';
+  if(type==='params') {
+    if(!enhanced.includes('--v')) enhanced += ' --v 7 --stylize 750';
+    if(!enhanced.includes('--ar')) enhanced += ' --ar 16:9';
+    if(!enhanced.includes('--quality')) enhanced += ' --quality 2';
+  }
+
+  currentPrompt = enhanced;
+  var box = document.createElement('div');
+  box.className = 'prompt-box has-content';
+  box.textContent = enhanced;
+  document.getElementById('promptOutput').innerHTML = '';
+  document.getElementById('promptOutput').appendChild(box);
+  document.getElementById('charCount').textContent = enhanced.length+' characters · '+enhanced.split(/\s+/).length+' words';
+}
+
+// ── HISTORY ────────────────────────────────────────────────
+function saveHistory(prompt){
+  history.unshift({tool:currentTool, cat:currentCat, prompt:prompt, ts:Date.now()});
+  if(history.length > 10) history = history.slice(0,10);
+  localStorage.setItem('pb_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory(){
+  var list = document.getElementById('historyList');
+  if(!history.length){
+    list.innerHTML = '<div class="history-empty">No prompts built yet.</div>';
+    return;
+  }
+  list.innerHTML = history.map(function(h, i){
+    var tool = TOOLS[h.tool]||{icon:'🤖',name:h.tool};
+    return '<div class="history-item" onclick="loadHistory('+i+')">'
+      +'<span class="history-tool-badge">'+tool.icon+' '+tool.name+'</span>'
+      +'<div class="history-text">'+h.prompt+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function loadHistory(i){
+  currentPrompt = history[i].prompt;
+  var box = document.createElement('div');
+  box.className = 'prompt-box has-content';
+  box.textContent = currentPrompt;
+  document.getElementById('promptOutput').innerHTML = '';
+  document.getElementById('promptOutput').appendChild(box);
+  document.getElementById('outputStatus').textContent = '✅ Ready';
+  document.getElementById('outputStatus').className = 'output-status ready';
+  document.getElementById('charCount').textContent = currentPrompt.length+' characters · '+currentPrompt.split(/\s+/).length+' words';
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('openBtn').disabled = false;
+  document.getElementById('enhanceBtn').disabled = false;
+}
+
+function clearHistory(){
+  history = [];
+  localStorage.removeItem('pb_history');
+  renderHistory();
+}
+
+// ── RESET ──────────────────────────────────────────────────
+function resetOutput(){
+  currentPrompt = '';
+  document.getElementById('promptOutput').innerHTML = '<div class="prompt-placeholder"><span class="placeholder-icon">🔧</span>Fill in the fields and click<br/><strong>Build My Prompt</strong> to get started.</div>';
+  document.getElementById('outputStatus').textContent = 'Waiting...';
+  document.getElementById('outputStatus').className = 'output-status';
+  document.getElementById('charCount').textContent = '';
+  document.getElementById('copyBtn').disabled = true;
+  document.getElementById('openBtn').disabled = true;
+  document.getElementById('enhanceBtn').disabled = true;
+  document.getElementById('enhanceSection').classList.remove('show');
+}
+
+// ── INIT ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  renderCats();
+  renderHistory();
+});
+</script>
+</body>
+</html>
