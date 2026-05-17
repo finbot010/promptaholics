@@ -617,6 +617,36 @@ select.block-input {
   .act-btn { font-size: 13px; padding: 11px; }
 }
 
+
+/* ── Reset button ── */
+.reset-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  cursor: pointer;
+  background: rgba(255,98,36,.08);
+  border: 1px solid rgba(255,98,36,.2);
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.reset-btn:hover {
+  background: rgba(255,98,36,.15);
+  border-color: var(--orange);
+}
+
+/* iOS tap fix for framework items */
+.fw-item {
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255,98,36,.15);
+  touch-action: manipulation;
+}
+.fw-item * { pointer-events: none; } /* clicks bubble to .fw-item */
 </style>
 </head>
 <body>
@@ -632,9 +662,7 @@ select.block-input {
     <a href="/">Home</a>
     <a href="library.html">Library</a>
     <a href="creationstation.html">AI Tools</a>
-    <a href="prompt-builder.html" class="active">Builder</a>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <a href="library.html" class="btn">382 Prompts</a>
   </div>
 </header>
 
@@ -666,9 +694,14 @@ select.block-input {
         <div class="center-title" id="centerTitle">CoSTAR Framework</div>
         <div class="center-subtitle" id="centerSubtitle">Fill each block — your prompt builds live on the right</div>
       </div>
-      <button class="improve-btn" onclick="openImprove()">
-        ✨ Improve a prompt
-      </button>
+      <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
+        <button class="improve-btn" onclick="openImprove()">
+          ✨ Improve
+        </button>
+        <button class="reset-btn" onclick="resetAll()" title="Reset everything">
+          ↺ Reset
+        </button>
+      </div>
     </div>
     <div class="blocks-area" id="blocksArea"></div>
     <div class="add-block-bar" id="addBlockBar"></div>
@@ -733,6 +766,20 @@ select.block-input {
 </div>
 
 <script>
+// ── RESET ──
+function resetAll(){
+  blockValues = {};
+  currentFW = 'costar';
+  renderFrameworks();
+  renderBlocks();
+  var el = document.getElementById('previewText');
+  if(el){ el.className='preview-text'; el.innerHTML='<div class="preview-empty"><span class="big">⚡</span>Start filling in the blocks<br/>and your prompt appears here<br/>in real time.</div>'; }
+  document.getElementById('copyBtn').disabled = true;
+  document.getElementById('openBtn').disabled = true;
+  if(document.getElementById('enhanceBtn')) document.getElementById('enhanceBtn').disabled = true;
+  document.getElementById('previewStats').innerHTML = '';
+}
+
 // ── THEME ──
 var theme = localStorage.getItem('pa_theme')||'dark';
 if(theme==='light') document.documentElement.classList.add('light');
