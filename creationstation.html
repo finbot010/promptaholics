@@ -38,6 +38,8 @@
 <style>
 
 
+
+
 :root{
   --bg:#08080b;--surface:#111116;--surface2:#18181f;--surface3:#1e1e27;
   --border:#1f1f2a;--border2:#2a2a38;
@@ -124,7 +126,6 @@ header{
 .hstat:last-child{border-right:none;}
 .hstat-n{font-family:var(--font-display);font-size:26px;font-weight:800;color:var(--text);display:block;}
 .hstat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1;}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:13px 26px;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;transition:background .15s;}
 .btn-primary:hover{background:var(--orange2);}
 .btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:13px 26px;border-radius:11px;font-size:14px;font-weight:600;text-decoration:none;transition:all .15s;}
@@ -347,7 +348,6 @@ footer{
   color:var(--text);display:block;
 }
 .hstat-l{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
-.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;}
 
 /* ── FILTER BAR UPGRADE ── */
 .filter-bar{
@@ -736,11 +736,6 @@ header { padding: 0 14px; }
 }
 .hero-stat { padding: 10px 8px; }
 .hero-stat-n { font-size: 18px; }
-.hero-btns {
-  flex-direction: column;
-  gap: 10px;
-  align-items: stretch;
-}
 .hero-btns a, .hero-btns button {
   width: 100%;
   justify-content: center;
@@ -898,14 +893,6 @@ header { padding: 0 14px; }
 }
 .hero-stat   { padding: 10px 6px; }
 .hero-stat-n { font-size: 17px; }
-.hero-btns {
-  flex-direction: column;
-  gap: 10px;
-  align-items: stretch;
-  max-width: 340px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .hero-btns a, .hero-btns button {
   width: 100%;
   justify-content: center;
@@ -1035,11 +1022,6 @@ header { padding: 0 14px; }
   header { padding: 0 20px; }
   .header-link { display: flex; font-size: 13px; }
   .hero { padding: 36px 20px 28px; }
-  .hero-btns {
-    flex-direction: row;
-    max-width: none;
-    align-items: center;
-  }
   .hero-btns a, .hero-btns button { width: auto; }
   .hero-stats {
     grid-template-columns: repeat(4, 1fr);
@@ -1082,7 +1064,6 @@ header { padding: 0 14px; }
   .hero-stats { display: flex; margin-bottom: 32px; }
   .hero-stat { padding: 14px 20px; }
   .hero-stat-n { font-size: 22px; }
-  .hero-btns { flex-direction: row; max-width: none; }
   .filter-bar {
     overflow-x: visible;
     overflow-y: visible;
@@ -1130,6 +1111,80 @@ header { padding: 0 14px; }
   #cta-banner { padding: 48px 32px; }
 }
 
+
+/* ── Nav: Home link style ── */
+.home-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  transition: all .15s;
+  white-space: nowrap;
+}
+.home-link:hover { color: var(--orange); border-color: var(--orange); }
+
+/* ── Hero buttons: smaller to fit 3 on one row ── */
+
+/* ── Mobile: nav = Logo + Home + toggle ── */
+@media (max-width: 599px) {
+  .header-right { gap: 8px; }
+  .home-link { font-size: 12px; padding: 6px 10px; }
+}
+
+/* ── Tablet+: hero buttons row ── */
+@media (min-width: 600px) {
+}
+
+/* ── Desktop: hero buttons left-aligned ── */
+@media (min-width: 900px) {
+}
+/* ── Hero CTAs — always inline row ── */
+.hero-ctas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+.hero-ctas a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 0;
+  border-radius: 10px;
+  white-space: nowrap;
+  min-height: 40px;
+  height: 40px;
+  flex: 1;
+  transition: all .15s;
+}
+.hero-ctas .btn-primary {
+  background: var(--orange);
+  color: #fff;
+  border: 1px solid var(--orange);
+  flex: 1;
+}
+.hero-ctas .btn-primary:hover { background: var(--orange2); border-color: var(--orange2); color: #fff; }
+.hero-ctas .btn-ghost {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  flex: 1;
+}
+.hero-ctas .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+@media (min-width: 900px) {
+  .hero-ctas { justify-content: flex-start; }
+  .hero-ctas a { font-size: 13px; padding: 10px 16px; }
+}
+
+
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
@@ -1145,17 +1200,15 @@ header { padding: 0 14px; }
     <div class="logo-name">Prompt<span>aholics</span></div>
   </a>
   <div class="header-right">
-    <a class="header-link" href="https://promptaholics.com">Prompt Library</a>
-    <a class="header-link" href="https://promptaholics.com/prompt-builder.html">🔧 Builder</a>
-    <a class="header-link" href="https://promptaholics.com/ai-prompt-library.html">Guide</a>
+    <a class="header-link home-link" href="https://promptaholics.com">← Home</a>
     <button id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode" style="
       background:var(--surface2);border:1px solid var(--border);
       color:var(--text2);width:36px;height:36px;border-radius:9px;
       cursor:pointer;font-size:16px;display:flex;align-items:center;
       justify-content:center;transition:all .15s;flex-shrink:0;
     ">🌙</button>
-    <a class="header-cta" href="https://promptaholics.com">Browse Prompts →</a>
   </div>
+</header>
 </header>
 
 <!-- BREADCRUMB -->
@@ -1184,7 +1237,8 @@ header { padding: 0 14px; }
   </div>
   <div class="hero-ctas">
     <a class="btn-primary" href="#mag-section">Browse Tools ↓</a>
-    <a class="btn-ghost" href="https://promptaholics.com">Get Prompts →</a>
+    <a class="btn-ghost" href="https://promptaholics.com/library.html">📚 Library</a>
+    <a class="btn-ghost" href="https://promptaholics.com/prompt-builder.html">🔧 Builder</a>
   </div>
 </section>
 
