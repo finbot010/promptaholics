@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 
+
 /* ═══════════════════════════════════════════════════════════
    PROMPT BUILDER — Mobile-First CSS
    Breakpoints: 768px | 1024px
@@ -227,11 +228,19 @@ header {
 .block-input {
   width:100%; background:transparent; border:none; outline:none;
   color:var(--text); font-family:'Instrument Sans',sans-serif;
-  font-size:14px; line-height:1.6; padding:10px 12px; resize:none;
+  font-size:16px; line-height:1.6; padding:10px 12px; resize:none;
   min-height:48px;
 }
 .block-input::placeholder { color:var(--text3); }
-select.block-input { cursor:pointer; }
+select.block-input {
+  cursor:pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239999b0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
 .block-input option { background:var(--surface); }
 
 /* Add block bar */
@@ -391,29 +400,164 @@ select.block-input { cursor:pointer; }
 /* ═══════════════════════════════════════════════════════════
    SCALE UP — 768px+ tablets
    ═══════════════════════════════════════════════════════════ */
-@media (min-width: 768px) {
-  header { padding: 0 20px; }
-  .hnav a:not(.btn) { display: flex; }
-  .fw-desc { display: block; font-size:10px; color:var(--text3); }
-  .framework-list {
-    flex-direction: column;
-    overflow-x: visible;
-    overflow-y: auto;
-    max-height: 280px;
-  }
-  .fw-item { white-space: normal; }
-  .blocks-area { max-height: 420px; }
-  .preview-body { max-height: 360px; }
-}
+
 
 /* ═══════════════════════════════════════════════════════════
    SCALE UP — 1024px+ desktop (3-column layout)
    ═══════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════
+   MOBILE-FIRST — Chrome + Firefox + Safari + iOS safe
+   Base: phones | 600px: tablets | 1024px: desktop
+   ══════════════════════════════════════════════════════ */
+
+/* Global overflow + box model */
+html, body { overflow-x: hidden; width: 100%; max-width: 100%; }
+*, *::before, *::after { box-sizing: border-box; min-width: 0; }
+
+/* iOS input zoom prevention */
+input, select, textarea { font-size: 16px !important; }
+
+/* ── BASE MOBILE ── */
+header { padding: 0 14px; }
+.hnav a:not(.btn) { display: none; }
+
+/* Workspace — vertical stack on mobile */
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  height: auto;
+}
+.panel-left, .panel-center, .panel-right {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Framework list — horizontal scroll on mobile */
+.panel-left { border-bottom: 1px solid var(--border); }
+.framework-list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px;
+  gap: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  max-height: none;
+}
+.framework-list::-webkit-scrollbar { display: none; }
+.fw-item {
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.fw-desc { display: none; }
+.fw-name { font-size: 12px; }
+
+/* Tool pills — wrap on mobile */
+.tool-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.tp {
+  padding: 6px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text2);
+  transition: all .12s;
+  white-space: nowrap;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.tp:hover { color: var(--text); }
+.tp.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+/* Blocks area */
+.blocks-area {
+  max-height: 45vh;
+  min-height: 200px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Block inputs — tap friendly */
+.block-input {
+  font-size: 16px !important; /* iOS zoom prevention */
+  min-height: 48px;
+  -webkit-tap-highlight-color: transparent;
+}
+select.block-input {
+  min-height: 48px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Preview */
+.preview-body {
+  max-height: 35vh;
+  min-height: 120px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Action buttons */
+.act-row { gap: 8px; }
+.act-btn { min-height: 48px; font-size: 12px; padding: 10px 8px; }
+
+/* Improve button */
+.improve-btn { font-size: 12px; padding: 7px 10px; white-space: nowrap; }
+
+/* Saved list */
+.saved-list { max-height: 140px; }
+
+/* Center header */
+.center-header { padding: 10px 12px; gap: 8px; }
+.center-title { font-size: 14px; }
+.center-subtitle { font-size: 11px; display: none; }
+
+/* Modal */
+.modal-overlay { padding: 12px; }
+.modal { border-radius: 14px; max-height: 90vh; overflow-y: auto; }
+.modal-body { padding: 14px; }
+.modal-head { padding: 14px 16px; }
+
+/* ── 600px — tablets ── */
+@media (min-width: 600px) {
+  header { padding: 0 20px; }
+  .hnav a:not(.btn) { display: flex; }
+  .fw-desc { display: block; font-size: 10px; color: var(--text3); }
+  .framework-list {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 260px;
+  }
+  .fw-item { white-space: normal; }
+  .blocks-area { max-height: 55vh; }
+  .preview-body { max-height: 45vh; }
+  .center-subtitle { display: block; }
+  .act-btn { font-size: 13px; }
+}
+
+/* ── 1024px — desktop (3-column layout) ── */
 @media (min-width: 1024px) {
+  header { padding: 0 24px; }
   .workspace {
     flex-direction: row;
     height: calc(100svh - var(--hh));
     overflow: hidden;
+    min-height: 0;
   }
   .panel-left {
     width: 280px;
@@ -423,8 +567,6 @@ select.block-input { cursor:pointer; }
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    position: sticky;
-    top: var(--hh);
     height: calc(100svh - var(--hh));
   }
   .framework-list {
@@ -436,15 +578,20 @@ select.block-input { cursor:pointer; }
     scrollbar-width: thin;
     scrollbar-color: var(--border2) transparent;
   }
+  .fw-item { white-space: normal; min-height: auto; }
+  .fw-desc { display: block; }
   .panel-center {
     flex: 1;
     border-bottom: none;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     height: calc(100svh - var(--hh));
   }
   .blocks-area {
     flex: 1;
     max-height: none;
+    min-height: 0;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border2) transparent;
@@ -453,16 +600,21 @@ select.block-input { cursor:pointer; }
     width: 320px;
     flex-shrink: 0;
     border-left: 1px solid var(--border);
-    height: calc(100svh - var(--hh));
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    height: calc(100svh - var(--hh));
   }
   .preview-body {
     flex: 1;
     max-height: none;
+    min-height: 0;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border2) transparent;
   }
+  .center-subtitle { display: block; }
+  .act-btn { font-size: 13px; padding: 11px; }
 }
 
 </style>
@@ -502,6 +654,7 @@ select.block-input { cursor:pointer; }
         <div class="tp" data-tool="sora" onclick="setTool(this)">Sora</div>
         <div class="tp" data-tool="runway" onclick="setTool(this)">Runway</div>
         <div class="tp" data-tool="veo" onclick="setTool(this)">Veo</div>
+        <div class="tp" data-tool="seedance" onclick="setTool(this)">Seedance2</div>
       </div>
     </div>
   </div>
@@ -602,6 +755,7 @@ var TOOL_URLS = {
   sora:'https://sora.com/?prompt=',
   runway:'https://app.runwayml.com/',
   veo:'https://labs.google/veo?prompt=',
+  seedance:'https://seedance.ai/',
 };
 
 // ── FRAMEWORKS ──
