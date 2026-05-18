@@ -146,7 +146,7 @@ function ensureDir() {
 
 function generateImage(prompt) {
   return new Promise((resolve, reject) => {
-    const body = JSON.stringify({ model: 'dall-e-3', prompt, n: 1, size: SIZE, quality: QUALITY });
+    const body = JSON.stringify({ model: 'gpt-image-1', prompt, n: 1, size: SIZE, quality: 'medium' });
     const req  = https.request({
       hostname: 'api.openai.com', path: '/v1/images/generations', method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${OPENAI_API_KEY}`, 'Content-Length': Buffer.byteLength(body) }
@@ -157,7 +157,7 @@ function generateImage(prompt) {
         try {
           const p = JSON.parse(data);
           if (p.error) reject(new Error(p.error.message));
-          else resolve(p.data[0].url);
+          else resolve(p.data[0].b64_json);
         } catch(e) { reject(e); }
       });
     });
@@ -167,18 +167,15 @@ function generateImage(prompt) {
   });
 }
 
-function downloadImage(url, filepath) {
+function downloadImage(b64data, filepath) {
   return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(filepath);
-    https.get(url, res => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        file.close();
-        downloadImage(res.headers.location, filepath).then(resolve).catch(reject);
-        return;
-      }
-      res.pipe(file);
-      file.on('finish', () => { file.close(); resolve(); });
-    }).on('error', err => { fs.unlink(filepath, () => {}); reject(err); });
+    try {
+      const buffer = Buffer.from(b64data, 'base64');
+      fs.writeFileSync(filepath, buffer);
+      resolve();
+    } catch(e) {
+      reject(e);
+    }
   });
 }
 
