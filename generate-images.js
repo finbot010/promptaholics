@@ -146,7 +146,7 @@ function ensureDir() {
 
 function generateImage(prompt) {
   return new Promise((resolve, reject) => {
-    const body = JSON.stringify({ model: 'dall-e-3', prompt, n: 1, size: SIZE, quality: QUALITY, response_format: 'url' });
+    const body = JSON.stringify({ model: 'dall-e-3', prompt, n: 1, size: SIZE, quality: QUALITY });
     const req  = https.request({
       hostname: 'api.openai.com', path: '/v1/images/generations', method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${OPENAI_API_KEY}`, 'Content-Length': Buffer.byteLength(body) }
