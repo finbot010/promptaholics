@@ -195,6 +195,19 @@ function saveMetadata(prompts) {
 
 // ── MAIN ─────────────────────────────────────────────────────
 async function main() {
+  // Ensure images directory exists
+  if (!fs.existsSync(IMAGES_DIR)) {
+    fs.mkdirSync(IMAGES_DIR, { recursive: true });
+    console.log('📁 Created images/ directory');
+  }
+
+  // Verify API key is set
+  if (!OPENAI_API_KEY) {
+    console.error('❌ OPENAI_API_KEY environment variable is not set!');
+    console.error('   Add it as a GitHub Secret: Settings → Secrets → OPENAI_API_KEY');
+    process.exit(1);
+  }
+
   const prompts = getThisWeeksPrompts();
   console.log('🎨 Promptaholics Weekly Image Generator v2');
   console.log(`🖼  Generating ${prompts.length} images:`);
