@@ -795,6 +795,68 @@ body {
   background: #15803d !important;
   color: #fff !important;
 }
+
+/* ── Saved Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 300;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+.modal-overlay.open { display: flex; }
+.saved-modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 560px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.saved-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.saved-modal-body {
+  flex: 1; overflow-y: auto;
+  padding: 12px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.saved-empty-msg {
+  text-align: center; color: var(--text3);
+  font-size: 14px; line-height: 1.7;
+  padding: 32px 16px;
+}
+.saved-prompt-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  margin-bottom: 8px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.saved-prompt-text {
+  flex: 1; font-size: 12px; color: var(--text2);
+  line-height: 1.6; font-family: "Fira Code", monospace;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.saved-prompt-copy {
+  background: var(--orange); color: #fff; border: none;
+  padding: 6px 10px; border-radius: 7px; cursor: pointer;
+  font-size: 11px; font-weight: 700;
+  font-family: "Instrument Sans", sans-serif;
+  white-space: nowrap; flex-shrink: 0;
+}
+@media (min-width: 600px) {
+  .saved-modal { border-radius: 16px; margin: auto; }
+  .modal-overlay { align-items: center; }
+}
 </style>
 </head>
 <body>
@@ -824,7 +886,7 @@ body {
     </a>
     <a class="sidebar-item" href="library.html"><span class="si-icon">⭐</span> Featured</a>
     <a class="sidebar-item" href="library.html"><span class="si-icon">🕐</span> Recent</a>
-    <a class="sidebar-item" href="library.html"><span class="si-icon">💾</span> Saved</a>
+    <a class="sidebar-item" href="#" onclick="openSaved(event)"><span class="si-icon">💾</span> Saved</a>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Tools</div>
@@ -868,7 +930,7 @@ body {
     <div class="sidebar-section-label">Library</div>
     <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">📚</span> All Prompts <span class="sidebar-badge">417</span></a>
     <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">⭐</span> Featured</a>
-    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">💾</span> Saved</a>
+    <a class="sidebar-item" href="#" onclick="toggleMenu();openSaved(event)"><span class="si-icon">💾</span> Saved</a>
     <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><span class="si-icon">⚡</span> AI Tools</a>
   </div>
   <div class="sidebar-section" style="margin-top:auto;border-top:1px solid var(--border);padding-top:12px;">
@@ -1188,7 +1250,7 @@ body {
   <a class="bn-item" href="creationstation.html">
     <span class="bn-icon">⚡</span>Tools
   </a>
-  <a class="bn-item" href="library.html">
+  <a class="bn-item" href="#" onclick="openSaved(event)">
     <span class="bn-icon">⭐</span>Saved
   </a>
 </nav>
@@ -1292,6 +1354,116 @@ setTimeout(function(){
   }
 }, 1500);
 
+// ── SAVED PROMPTS (uses same pa_favs key as library) ──
+function getFavIds(){
+  try { return JSON.parse(localStorage.getItem('pa_favs')||'[]'); }
+  catch(e){ return []; }
+}
+function getFavPrompts(){
+  var ids = getFavIds();
+  if(!ids.length || !Array.isArray(PROMPTS)) return [];
+  return ids.map(function(id){
+    return PROMPTS.find(function(p){ return String(p.id)===String(id); });
+  }).filter(Boolean);
+}
+function openSaved(e){
+  if(e) e.preventDefault();
+  var modal = document.getElementById('savedModal');
+  modal.style.display = 'flex';
+  renderSaved();
+}
+function closeSaved(e){
+  if(e && e.target !== document.getElementById('savedModal')) return;
+  document.getElementById('savedModal').style.display = 'none';
+}
+function clearSaved(){
+  localStorage.removeItem('pa_favs');
+  renderSaved();
+  updateSavedCount();
+}
+function updateSavedCount(){
+  var count = getFavIds().length;
+  var badge = document.getElementById('savedCount');
+  if(badge) badge.textContent = count > 0 ? count : '';
+  if(badge) badge.style.display = count > 0 ? 'flex' : 'none';
+}
+function renderSaved(){
+  var body = document.getElementById('savedModalBody');
+  var prompts = getFavPrompts();
+  if(!prompts.length){
+    body.innerHTML = '<div class="saved-empty-msg">No saved prompts yet.<br/>Tap ♡ on any prompt in the <a href="library.html" style="color:var(--orange)">Library</a> to save it here.</div>';
+    return;
+  }
+  body.innerHTML = prompts.map(function(p, i){
+    var prev = p.text.length > 120 ? p.text.slice(0,120)+'…' : p.text;
+    return '<div class="saved-prompt-item">' +
+      '<div class="saved-prompt-info">' +
+        '<div class="saved-prompt-name">'+p.name+'</div>' +
+        '<div class="saved-prompt-text">'+prev.replace(/</g,'&lt;')+'</div>' +
+      '</div>' +
+      '<button class="saved-prompt-copy" onclick="copySavedItem(this,''+p.id+'')">📋</button>' +
+    '</div>';
+  }).join('');
+}
+function copySavedItem(btn, id){
+  var p = Array.isArray(PROMPTS) && PROMPTS.find(function(x){ return String(x.id)===String(id); });
+  if(!p) return;
+  navigator.clipboard.writeText(p.text).then(function(){
+    var orig = btn.innerHTML;
+    btn.innerHTML='✅'; setTimeout(function(){btn.innerHTML=orig;},2000);
+  });
+}
+function downloadSavedPDF(){
+  var prompts = getFavPrompts();
+  if(!prompts.length){ alert('No saved prompts to download.'); return; }
+  var lines = ['PROMPTAHOLICS — My Saved Prompts', 'Downloaded: '+new Date().toLocaleDateString(), ''];
+  prompts.forEach(function(p, i){
+    lines.push((i+1)+'. '+p.name);
+    lines.push('Category: '+p.cat+' | Tool: '+p.tool);
+    lines.push('');
+    lines.push(p.text);
+    lines.push('');
+    lines.push('─'.repeat(60));
+    lines.push('');
+  });
+  var text = lines.join('\n');
+  // Use print-to-PDF via new window
+  var win = window.open('','_blank');
+  win.document.write(
+    '<!DOCTYPE html><html><head><title>My Saved Prompts — Promptaholics</title>'+
+    '<style>body{font-family:Georgia,serif;max-width:800px;margin:40px auto;padding:0 20px;color:#111;line-height:1.7;}'+
+    'h1{font-size:28px;color:#ff6224;margin-bottom:4px;}'+
+    '.sub{color:#666;font-size:14px;margin-bottom:32px;}'+
+    '.prompt{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #eee;}'+
+    '.pnum{font-size:12px;color:#999;margin-bottom:4px;}'+
+    '.pname{font-size:18px;font-weight:700;color:#111;margin-bottom:4px;}'+
+    '.pmeta{font-size:12px;color:#888;margin-bottom:10px;}'+
+    '.ptext{font-family:monospace;font-size:13px;background:#f5f5f5;padding:16px;border-radius:6px;white-space:pre-wrap;}'+
+    '@media print{body{margin:20px;}}
+.saved-prompt-name {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-bottom: 4px; font-family: 'Syne', serif;
+}
+.saved-prompt-info { flex: 1; min-width: 0; }
+</style></head><body>'+
+    '<h1>⚡ Promptaholics</h1>'+
+    '<div class="sub">My Saved Prompts · '+prompts.length+' total · '+new Date().toLocaleDateString()+'</div>'
+  );
+  prompts.forEach(function(p,i){
+    win.document.write(
+      '<div class="prompt">'+
+      '<div class="pnum">Prompt '+(i+1)+' of '+prompts.length+'</div>'+
+      '<div class="pname">'+p.name+'</div>'+
+      '<div class="pmeta">'+p.cat+' · '+p.tool+'</div>'+
+      '<div class="ptext">'+p.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+      '</div>'
+    );
+  });
+  win.document.write('</body></html>');
+  win.document.close();
+  setTimeout(function(){ win.print(); }, 500);
+}
+
 function pcCopy(btn){
   var card = btn.closest('.prompt-card');
   var text = card.querySelector('.pc-preview').textContent.trim();
@@ -1333,6 +1505,9 @@ function toggleMenu(){
   overlay.classList.toggle('open');
   menu.classList.toggle('open');
 }
+// Update saved count on load
+setTimeout(updateSavedCount, 500);
+
 // Theme
 var theme = localStorage.getItem('pa_theme') || 'dark';
 if(theme === 'light') document.documentElement.classList.add('light-mode');
@@ -1354,12 +1529,12 @@ document.querySelectorAll('.model-pill').forEach(function(p){
     p.classList.add('active');
   });
 });
-// Bottom nav toggle
+// Bottom nav — highlight active, allow navigation
 document.querySelectorAll('.bn-item').forEach(function(b){
-  b.addEventListener('click', function(e){
-    e.preventDefault();
+  b.addEventListener('click', function(){
     document.querySelectorAll('.bn-item').forEach(function(x){ x.classList.remove('active'); });
     b.classList.add('active');
+    // Navigation happens naturally via href
   });
 });
 </script>
@@ -1379,6 +1554,37 @@ document.querySelectorAll('.bn-item').forEach(function(b){
     </div>
   </div>
 </footer>
+
+
+<!-- SAVED PROMPTS MODAL -->
+<div class="modal-overlay" id="savedModal" onclick="closeSaved(event)">
+  <div class="saved-modal">
+    <div class="saved-modal-head">
+      <div style="font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);">
+        ⭐ Saved Prompts <span id="savedCount" style="font-size:12px;background:var(--orange);color:#fff;padding:2px 8px;border-radius:10px;margin-left:6px;display:none;"></span>
+      </div>
+      <button onclick="document.getElementById('savedModal').style.display='none'"
+        style="background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:4px;">✕</button>
+    </div>
+    <div class="saved-modal-body" id="savedModalBody">
+      <div class="saved-empty-msg">No saved prompts yet.<br/>Copy any prompt then click ⭐ to save it.</div>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;">
+      <button onclick="downloadSavedPDF()"
+        style="flex:1;background:var(--orange);border:none;color:#fff;
+        padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;
+        font-family:'Instrument Sans',sans-serif;">
+        ⬇️ Download PDF
+      </button>
+      <button onclick="clearSaved()"
+        style="background:none;border:1px solid var(--border2);color:var(--text3);
+        padding:10px 14px;border-radius:8px;cursor:pointer;font-size:12px;
+        font-family:'Instrument Sans',sans-serif;">
+        🗑️ Clear
+      </button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
