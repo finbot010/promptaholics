@@ -32,6 +32,7 @@
 
 
 
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; min-width: 0; }
 html, body { overflow-x: hidden; width: 100%; height: 100%; }
 
@@ -174,8 +175,6 @@ body {
 .main {
   flex: 1;
   padding: 20px 16px 100px;
-  max-width: 900px;
-  margin: 0 auto;
   width: 100%;
 }
 
@@ -665,10 +664,10 @@ body {
 
   /* Main — full width edge to edge */
   .main {
-    margin-left: 220px;
-    width: calc(100% - 220px);
-    max-width: none;
-    padding: 40px 56px 80px;
+    margin-left: 220px !important;
+    width: calc(100% - 220px) !important;
+    max-width: none !important;
+    padding: 40px 56px 80px !important;
   }
 
   /* Big headline */
@@ -752,6 +751,7 @@ body {
   .main { padding: 56px 96px 80px; }
   .studio-title { font-size: 104px; }
 }
+
 
 </style>
 </head>
