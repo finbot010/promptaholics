@@ -771,6 +771,30 @@ body {
 
 
 /* ── Ultra wide 1400px ── */
+
+/* ── Bottom nav clickable fix ── */
+.bn-item {
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255,98,36,.15);
+  touch-action: manipulation;
+  pointer-events: auto;
+  text-decoration: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.bn-item * { pointer-events: none; }
+
+/* ── Full Builder button — green ── */
+.builder-full {
+  background: #16a34a !important;
+  border: 1px solid #15803d !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+.builder-full:hover {
+  background: #15803d !important;
+  color: #fff !important;
+}
 </style>
 </head>
 <body>
@@ -1104,7 +1128,7 @@ body {
       <div class="pc-preview">You are a world-class viral content strategist. Generate 25 high-retention TikTok hooks...</div>
       <div class="pc-footer">
         <span class="pc-tool">🤖 ChatGPT</span>
-        <button class="pc-copy" title="Copy">📋</button>
+        <button class="pc-copy" onclick="pcCopy(this)" title="Copy">📋</button>
       </div>
     </div>
     <div class="prompt-card">
@@ -1113,7 +1137,7 @@ body {
       <div class="pc-preview">Create an ultra-detailed cinematic AI art prompt for [SCENE]. Include camera lens details...</div>
       <div class="pc-footer">
         <span class="pc-tool">🎨 Midjourney</span>
-        <button class="pc-copy" title="Copy">📋</button>
+        <button class="pc-copy" onclick="pcCopy(this)" title="Copy">📋</button>
       </div>
     </div>
     <div class="prompt-card">
@@ -1122,7 +1146,7 @@ body {
       <div class="pc-preview">Analyze and improve the following AI prompt for maximum clarity, output quality...</div>
       <div class="pc-footer">
         <span class="pc-tool">🤖 ChatGPT</span>
-        <button class="pc-copy" title="Copy">📋</button>
+        <button class="pc-copy" onclick="pcCopy(this)" title="Copy">📋</button>
       </div>
     </div>
     <div class="prompt-card">
@@ -1131,7 +1155,7 @@ body {
       <div class="pc-preview">Act as a senior software architect. Design a scalable architecture for [APP IDEA]...</div>
       <div class="pc-footer">
         <span class="pc-tool">🤖 ChatGPT</span>
-        <button class="pc-copy" title="Copy">📋</button>
+        <button class="pc-copy" onclick="pcCopy(this)" title="Copy">📋</button>
       </div>
     </div>
     <div class="prompt-card">
@@ -1140,7 +1164,7 @@ body {
       <div class="pc-preview">You are an award-winning documentary writer. Create a YouTube script with cinematic narration...</div>
       <div class="pc-footer">
         <span class="pc-tool">🤖 ChatGPT</span>
-        <button class="pc-copy" title="Copy">📋</button>
+        <button class="pc-copy" onclick="pcCopy(this)" title="Copy">📋</button>
       </div>
     </div>
   </div>
@@ -1267,6 +1291,23 @@ setTimeout(function(){
     builderPrompt = buildPrompt(inp.placeholder);
   }
 }, 1500);
+
+function pcCopy(btn){
+  var card = btn.closest('.prompt-card');
+  var text = card.querySelector('.pc-preview').textContent.trim();
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(text).then(function(){
+    btn.innerHTML = '✅';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  }).catch(function(){
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '✅';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  });
+}
 
 function wCopy(btn, e){
   e.stopPropagation();
