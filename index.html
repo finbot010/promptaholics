@@ -29,10 +29,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-
-
-
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; min-width: 0; }
 html, body { overflow-x: hidden; width: 100%; height: 100%; }
 
@@ -159,6 +155,7 @@ body {
   border-top: 1px solid var(--border);
   z-index: 100;
   padding: 0 4px;
+  height: 60px;
 }
 .bn-item {
   flex: 1; display: flex; flex-direction: column; align-items: center;
@@ -174,8 +171,9 @@ body {
 /* ── MAIN CONTENT ── */
 .main {
   flex: 1;
-  padding: 20px 16px 100px;
+  padding: 20px 16px 80px;
   width: 100%;
+  padding-bottom: 90px; /* clear fixed bottom nav */
 }
 
 /* ── HERO SEARCH BAR ── */
@@ -655,14 +653,14 @@ body {
 /* ═══════════════════════════════════════════════════════
    DESKTOP — Single source of truth (min-width: 900px)
    ═══════════════════════════════════════════════════════ */
-@media (min-width: 900px) {
-  /* Layout */
-  .sidebar { display: flex; }
-  .topnav  { display: none; }
-  .bottom-nav { display: none; }
-  body { flex-direction: row; }
+@media @media (min-width: 900px) {
+  /* ── Layout ── */
+  .sidebar     { display: flex; }
+  .topnav      { display: none; }
+  .bottom-nav  { display: none; }
+  body         { flex-direction: row; }
 
-  /* Main — full width edge to edge */
+  /* ── Main — full width next to sidebar ── */
   .main {
     margin-left: 220px !important;
     width: calc(100% - 220px) !important;
@@ -670,61 +668,83 @@ body {
     padding: 40px 56px 80px !important;
   }
 
-  /* Big headline */
-  .studio-title {
-    font-size: clamp(56px, 6vw, 88px);
-    letter-spacing: -3px;
-    line-height: 1.0;
-    margin-bottom: 28px;
+  /* ── Footer — matches main ── */
+  #site-footer {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    padding-bottom: 20px;
   }
-  .studio-greeting { font-size: 12px; }
-  .studio-hero { margin-bottom: 44px; }
 
-  /* Builder card — full width */
-  .builder-card { max-width: none; }
+  /* ── Eyebrow — single line ── */
+  .studio-greeting {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 12px;
+  }
+
+  /* ── Headline — readable size, not overwhelming ── */
+  .studio-title {
+    font-size: clamp(40px, 4.5vw, 72px);
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    white-space: nowrap;
+  }
+  .studio-hero { margin-bottom: 40px; }
+
+  /* ── Force all sections full width ── */
+  .studio-hero,
+  .builder-card,
+  .model-row,
+  .weekly-scroll,
+  .quick-grid,
+  .tool-grid,
+  .stats-bar,
+  .prompt-scroll,
+  .section-title { width: 100%; box-sizing: border-box; }
+
+  /* ── Builder card ── */
+  .builder-card    { max-width: none; }
   .builder-card-body { padding: 20px; }
-  .builder-output { min-height: 130px; font-size: 13px; max-height: none; }
-  .builder-actions { gap: 12px; }
-  .builder-copy { font-size: 14px; padding: 12px; }
-  .builder-full { font-size: 14px; padding: 12px 20px; }
+  .builder-output  { min-height: 130px; font-size: 13px; max-height: none; }
 
-  /* Model row — wrap */
-  .model-row { flex-wrap: wrap; gap: 8px; }
+  /* ── Model row ── */
+  .model-row  { flex-wrap: wrap; gap: 8px; }
   .model-pill { font-size: 13px; padding: 9px 18px; }
 
-  /* Weekly images — 4 col grid, no scroll */
+  /* ── Weekly images — 4 col ── */
   .weekly-scroll {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     overflow: visible;
     gap: 14px;
   }
-  .wflip { width: 100%; height: 200px; flex-shrink: 1; }
+  .wflip { width: 100%; height: 200px; }
 
-  /* Quick access — 6 col */
+  /* ── Quick access — 6 col ── */
   .quick-grid {
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
   }
-  .qc-icon { font-size: 28px; }
-  .qc-label { font-size: 12px; }
 
-  /* Tool cards — auto-fit fluid grid */
+  /* ── Tool grid — fluid ── */
   .tool-grid {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
   }
   .tool-card { padding: 24px; }
-  .tc-icon { width: 52px; height: 52px; font-size: 26px; }
-  .tc-name { font-size: 17px; }
-  .tc-desc { font-size: 13px; }
+  .tc-icon   { width: 52px; height: 52px; font-size: 26px; }
+  .tc-name   { font-size: 17px; }
+  .tc-desc   { font-size: 13px; }
 
-  /* Stats — full width */
+  /* ── Stats — full width ── */
   .stats-bar { max-width: none; }
-  .stat-n { font-size: 28px; }
-  .stat-l { font-size: 11px; }
+  .stat-n    { font-size: 28px; }
+  .stat-l    { font-size: 11px; }
 
-  /* Featured prompts — 4 col grid, no horizontal scroll */
+  /* ── Featured prompts — 4 col grid ── */
   .prompt-scroll {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -734,25 +754,23 @@ body {
   }
   .prompt-card { width: 100%; flex-shrink: 1; }
 
-  /* Section titles */
+  /* ── Section titles ── */
   .section-title { font-size: 15px; margin-bottom: 16px; }
 }
 
-/* ── Wide desktop 1200px ── */
 @media (min-width: 1200px) {
-  .main { padding: 48px 72px 80px; }
-  .studio-title { font-size: clamp(72px, 6vw, 100px); }
+  .main { padding: 48px 72px 80px !important; }
+  .studio-title { font-size: clamp(48px, 4vw, 80px); white-space: nowrap; }
   .wflip { height: 220px; }
-  .tool-grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+@media (min-width: 1400px) {
+  .main { padding: 56px 96px 80px !important; }
+  .studio-title { font-size: clamp(56px, 4vw, 88px); }
+} Wide desktop 1200px ── */
+
 
 /* ── Ultra wide 1400px ── */
-@media (min-width: 1400px) {
-  .main { padding: 56px 96px 80px; }
-  .studio-title { font-size: 104px; }
-}
-
-
 </style>
 </head>
 <body>
@@ -828,6 +846,10 @@ body {
     <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">⭐</span> Featured</a>
     <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">💾</span> Saved</a>
     <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><span class="si-icon">⚡</span> AI Tools</a>
+  </div>
+  <div class="sidebar-section" style="margin-top:auto;border-top:1px solid var(--border);padding-top:12px;">
+    <a class="sidebar-item" href="privacy.html" onclick="toggleMenu()"><span class="si-icon">🔒</span> Privacy Policy</a>
+    <a class="sidebar-item" href="terms.html" onclick="toggleMenu()"><span class="si-icon">📋</span> Terms of Service</a>
   </div>
 </nav>
 
@@ -1302,7 +1324,7 @@ document.querySelectorAll('.bn-item').forEach(function(b){
 </script>
 
 <!-- FOOTER -->
-<footer style="background:var(--surface);border-top:1px solid var(--border);padding:20px 16px;margin-left:0;">
+<footer id="site-footer" style="background:var(--surface);border-top:1px solid var(--border);padding:20px 16px;">
   <div style="width:100%;">
     <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
       <div style="display:flex;gap:4px;flex-wrap:wrap;">
