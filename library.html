@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#ff6224"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Prompt Library — 382 Free AI Prompts | Promptaholics</title>
+<title>Prompt Library — 402 Free AI Prompts | Promptaholics</title>
 <meta name="description" content="Browse 299 free AI prompts for ChatGPT, Midjourney, DALL-E and more."/>
 <link rel="canonical" href="https://promptaholics.com/library.html"/>
 <meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
@@ -157,7 +157,7 @@ body{overflow-x:hidden;}
   </aside>
   <div class="main">
     <div class="toolbar">
-      <input class="srch" id="searchInput" type="text" placeholder="Search 382 prompts..." oninput="renderCards()"/>
+      <input class="srch" id="searchInput" type="text" placeholder="Search 402 prompts..." oninput="renderCards()"/>
       <select id="sortSel" onchange="renderCards()">
         <option value="alpha" selected>A → Z</option>
         <option value="newest">Newest</option>
@@ -301,20 +301,28 @@ function copyPrompt(e,id){
   e.stopPropagation();
   var p=PROMPTS.find(function(x){return x.id===id;});
   if(!p) return;
+  // Auto-save to pa_favs when copied
+  if(favs.indexOf(id)===-1){
+    favs.push(id);
+    localStorage.setItem('pa_favs',JSON.stringify(favs));
+    renderCards();
+  }
   var btn=e.target;
   var orig=btn.innerHTML;
   if(navigator.clipboard){
     navigator.clipboard.writeText(p.text).then(function(){
-      btn.innerHTML='✅ Copied!';
+      btn.innerHTML='✅ Saved!';
       setTimeout(function(){btn.innerHTML=orig;},2000);
     });
   } else {
     var ta=document.createElement('textarea');
-    ta.value=p.text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML=orig;},2000);
+    ta.value=p.text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML='✅ Saved!';
+    setTimeout(function(){btn.innerHTML=orig;},2000);
   }
 }
-
 function toggleFav(e,id){
   e.stopPropagation();
   var i=favs.indexOf(id);
@@ -341,6 +349,11 @@ function closeModal(){
   document.body.style.overflow='';
 }
 function modalCopy(){
+  // Auto-save to pa_favs
+  if(curModal && curModal.id && favs.indexOf(curModal.id)===-1){
+    favs.push(curModal.id);
+    localStorage.setItem('pa_favs',JSON.stringify(favs));
+  }
   if(!curModal) return;
   var btn=document.getElementById('mCopyBtn');
   if(navigator.clipboard){
