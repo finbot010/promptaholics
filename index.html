@@ -1165,6 +1165,7 @@ function openSaved(e){
   var modal = document.getElementById('savedModal');
   if(!modal) return;
   modal.style.display='flex';
+  updateSavedCount(); // refresh count from localStorage
   renderSaved();
 }
 function closeSaved(e){
@@ -1283,6 +1284,11 @@ setTimeout(function(){
   if(sc && Array.isArray(PROMPTS) && PROMPTS.length) sc.textContent = PROMPTS.length;
   updateSavedCount();
 }, 300);
+
+// Re-check saved count when user returns to tab (from builder)
+document.addEventListener('visibilitychange', function(){
+  if(document.visibilityState === 'visible') updateSavedCount();
+});
 
 </script>
 

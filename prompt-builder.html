@@ -18,6 +18,7 @@
 <style>
 
 
+
 /* ═══════════════════════════════════════════════════════════
    PROMPT BUILDER — Mobile-First CSS
    Breakpoints: 768px | 1024px
@@ -302,16 +303,20 @@ select.block-input {
   padding: 10px 14px;
   border-top: 1px solid var(--border);
   display: flex; flex-direction:column; gap:8px;
+  gap:12px;
 }
 .preview-stats { display:flex; gap:12px; font-size:11px; color:var(--text3); }
 .pstat span { color:var(--text2); font-weight:600; }
-.act-row { display:flex; gap:8px; }
+.act-row { display:flex; gap:12px; flex-wrap:wrap; }
 .act-btn {
   flex:1; padding:11px; border-radius:10px; cursor:pointer;
   font-family:'Instrument Sans',sans-serif;
   font-size:13px; font-weight:700; border:none;
   display:flex; align-items:center; justify-content:center; gap:6px;
   transition:all .15s; min-height:48px;
+  min-height:52px;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(255,98,36,.1);
 }
 .act-btn:disabled { opacity:.35; cursor:not-allowed; }
 .btn-copy { background:var(--orange); color:#fff; }
@@ -647,6 +652,7 @@ select.block-input {
   touch-action: manipulation;
 }
 .fw-item * { pointer-events: none; } /* clicks bubble to .fw-item */
+
 </style>
 </head>
 <body>
