@@ -379,9 +379,21 @@ function modalFav(){
 document.addEventListener('DOMContentLoaded', function(){
   var tb=document.getElementById('themeBtn');
   if(tb) tb.textContent=theme==='light'?'☀️':'🌙';
+  // Read ?cat= URL param and auto-filter
+  var params = new URLSearchParams(window.location.search);
+  var catParam = params.get('cat');
+  if(catParam){
+    // Decode and match to existing category
+    activeCat = decodeURIComponent(catParam.replace(/\+/g,' '));
+  }
   renderCats();
   renderTags();
   renderCards();
+  // Scroll to top of cards
+  if(catParam){
+    var grid = document.getElementById('mainGrid');
+    if(grid) setTimeout(function(){ grid.scrollIntoView({behavior:'smooth'}); }, 300);
+  }
 });
 </script>
 </body>
