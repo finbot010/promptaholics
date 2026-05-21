@@ -614,6 +614,11 @@ img { display: block; max-width: 100%; }
     <a class="sidebar-item" href="creationstation.html"><span class="si-icon">⚡</span> AI Tools Directory</a>
     <a class="sidebar-item" href="creationstation.html"><span class="si-icon">🗓️</span> Weekly Images</a>
   </div>
+  <div style="padding:12px 10px;border-top:1px solid var(--border);margin-top:auto;">
+    <button onclick="toggleTheme()" style="width:100%;background:var(--s2);border:1px solid var(--border2);color:var(--text2);padding:9px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;justify-content:center;">
+      <span id="sidebarThemeIcon">🌙</span> Toggle Theme
+    </button>
+  </div>
 </nav>
 
 <!-- ── MOBILE TOP NAV ── -->
@@ -624,14 +629,15 @@ img { display: block; max-width: 100%; }
     </div>
     <div class="topnav-logo-text">Prompt<span>aholics</span></div>
   </a>
-  <div class="topnav-right">
+    <div class="topnav-right">
+    <button id="themeBtn" onclick="toggleTheme()" class="topnav-menu-btn" title="Toggle theme">🌙</button>
     <button class="topnav-menu-btn" onclick="toggleMenu()">☰</button>
   </div>
 </header>
 
 <!-- ── SLIDE-OUT MENU ── -->
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-<nav class="slide-menu" id="slideMenu">
+<nav class="slide-menu" id="slideMenu" style="display:flex;flex-direction:column;">
   <a class="sidebar-logo" href="/" style="border-bottom:1px solid var(--border);">
     <div class="sidebar-logo-mark">
       <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
@@ -1119,7 +1125,16 @@ function wCopy(btn, e){
 function pcCopy(btn){
   var card = btn.closest('.prompt-card');
   if(!card) return;
+  var name = card.querySelector('.pc-name') ? card.querySelector('.pc-name').textContent.trim() : '';
   var text = card.querySelector('.pc-preview').textContent.trim();
+  // Save to pa_saved_text (text-based saves for featured prompts)
+  try {
+    var saved = JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
+    var exists = saved.some(function(s){ return s.text === text; });
+    if(!exists){ saved.unshift({name:name, text:text}); if(saved.length>50) saved=saved.slice(0,50); }
+    localStorage.setItem('pa_saved_text', JSON.stringify(saved));
+    updateSavedCount();
+  } catch(e){}
   var orig = btn.innerHTML;
   navigator.clipboard.writeText(text).then(function(){
     btn.innerHTML='✅';
@@ -1158,34 +1173,62 @@ function closeSaved(e){
 }
 function clearSaved(){
   localStorage.removeItem('pa_favs');
+  localStorage.removeItem('pa_saved_text');
   renderSaved();
   updateSavedCount();
 }
 function updateSavedCount(){
-  var count = getFavIds().length;
+  var count = getFavIds().length + getSavedText().length;
   var badge = document.getElementById('savedCount');
   if(!badge) return;
   badge.textContent = count > 0 ? count : '';
   badge.style.display = count > 0 ? 'flex' : 'none';
 }
+function getSavedText(){
+  try { return JSON.parse(localStorage.getItem('pa_saved_text')||'[]'); } catch(e){ return []; }
+}
 function renderSaved(){
   var body = document.getElementById('savedModalBody');
   if(!body) return;
-  var prompts = getFavPrompts();
-  if(!prompts.length){
-    body.innerHTML='<div class="saved-empty-msg">No saved prompts yet.<br/>Tap ♡ on any prompt in the <a href="library.html" style="color:var(--orange)">Library</a> to save it.</div>';
+  var favPrompts = getFavPrompts();
+  var textSaved  = getSavedText();
+  if(!favPrompts.length && !textSaved.length){
+    body.innerHTML='<div class="saved-empty-msg">No saved prompts yet.<br/>Copy any prompt to save it, or tap ♡ in the <a href="library.html" style="color:var(--orange)">Library</a>.</div>';
     return;
   }
-  body.innerHTML = prompts.map(function(p){
+  var html = '';
+  // Show library favourites (by ID)
+  favPrompts.forEach(function(p){
     var prev = p.text.length>120 ? p.text.slice(0,120)+'…' : p.text;
-    return '<div class="saved-prompt-item">'+
+    html += '<div class="saved-prompt-item">'+
       '<div class="saved-prompt-info">'+
         '<div class="saved-prompt-name">'+p.name+'</div>'+
         '<div class="saved-prompt-text">'+prev.replace(/</g,'&lt;')+'</div>'+
       '</div>'+
       '<button class="saved-prompt-copy" data-id="'+p.id+'" onclick="copySavedItem(this)">📋</button>'+
     '</div>';
-  }).join('');
+  });
+  // Show text-based saves (from featured prompts)
+  textSaved.forEach(function(s, i){
+    var prev = s.text.length>120 ? s.text.slice(0,120)+'…' : s.text;
+    html += '<div class="saved-prompt-item">'+
+      '<div class="saved-prompt-info">'+
+        '<div class="saved-prompt-name">'+(s.name||'Copied Prompt')+'</div>'+
+        '<div class="saved-prompt-text">'+prev.replace(/</g,'&lt;')+'</div>'+
+      '</div>'+
+      '<button class="saved-prompt-copy" data-idx="'+i+'" onclick="copyTextSaved(this)">📋</button>'+
+    '</div>';
+  });
+  body.innerHTML = html;
+}
+function copyTextSaved(btn){
+  var saved = getSavedText();
+  var idx = parseInt(btn.dataset.idx);
+  if(!saved[idx]) return;
+  navigator.clipboard.writeText(saved[idx].text).then(function(){
+    var orig=btn.innerHTML; btn.innerHTML='✅';
+    setTimeout(function(){ btn.innerHTML=orig; },2000);
+  });
 }
 function copySavedItem(btn){
   var pid = btn.dataset.id;
@@ -1220,11 +1263,19 @@ function toggleTheme(){
   theme = theme==='dark' ? 'light' : 'dark';
   localStorage.setItem('pa_theme', theme);
   document.documentElement.classList.toggle('light-mode');
+  var icon = theme==='light' ? '☀️' : '🌙';
   var tb = document.getElementById('themeBtn');
-  if(tb) tb.textContent = theme==='light' ? '☀️' : '🌙';
+  if(tb) tb.textContent = icon;
+  var sb = document.getElementById('sidebarThemeIcon');
+  if(sb) sb.textContent = icon;
 }
-var tb = document.getElementById('themeBtn');
-if(tb) tb.textContent = theme==='light' ? '☀️' : '🌙';
+(function(){
+  var icon = theme==='light' ? '☀️' : '🌙';
+  var tb = document.getElementById('themeBtn');
+  if(tb) tb.textContent = icon;
+  var sb = document.getElementById('sidebarThemeIcon');
+  if(sb) sb.textContent = icon;
+})();
 
 // ── PROMPT COUNT FROM PROMPTS ARRAY ──
 setTimeout(function(){
@@ -1238,19 +1289,6 @@ setTimeout(function(){
 
 
 
-<footer id="site-footer" style="background:var(--surface);border-top:1px solid var(--border);padding:20px 16px;">
-  <div style="width:100%;">
-    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
-      <div style="display:flex;gap:4px;flex-wrap:wrap;">
-        <a href="library.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Library</a>
-        <a href="prompt-builder.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Builder</a>
-        <a href="creationstation.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">AI Tools</a>
-        <a href="privacy.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Privacy</a>
-        <a href="terms.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Terms</a>
-      </div>
-      <div style="font-size:11px;color:var(--text3);">© 2026 Promptaholics. Free forever.</div>
-    </div>
-  </div>
-</footer>
+
 </body>
 </html>
