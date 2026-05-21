@@ -61,3 +61,29 @@
   for = "/prompts.js"
   [headers.values]
     Cache-Control = "public, max-age=300, must-revalidate"
+
+# ── CLEAN URLs (no .html extension) ──────────────────
+[[redirects]]
+  from   = "/privacy"
+  to     = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from   = "/terms"
+  to     = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from   = "/library"
+  to     = "/library.html"
+  status = 200
+
+[[redirects]]
+  from   = "/builder"
+  to     = "/prompt-builder.html"
+  status = 200
+
+[[redirects]]
+  from   = "/studio"
+  to     = "/creationstation.html"
+  status = 200

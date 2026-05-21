@@ -1,1788 +1,1321 @@
 <!DOCTYPE html>
-<html lang="en" id="htmlRoot">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="theme-color" content="#ff6224"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="google-site-verification" content="bgi20GH0vmCJsvKWsTBaHkdYhd_dJrz4Qp6izLdpwD4"/>
-<title>Promptaholics — 382+ Free AI Prompts for ChatGPT, Midjourney & More</title>
-<meta name="description" content="382+ free AI prompts for ChatGPT, Midjourney, DALL-E, Claude and more. Build better prompts in seconds. No sign-up required."/>
+<title>Promptaholics — Zero idea. Hero prompt. 417+ Free AI Prompts</title>
+<meta name="description" content="417+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more. Build better prompts in seconds. No sign-up required."/>
 <link rel="canonical" href="https://promptaholics.com/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://promptaholics.com/"/>
-<meta property="og:title" content="Promptaholics — 382+ Free AI Prompts"/>
-<meta property="og:description" content="Build better AI prompts in seconds. 382+ free prompts for ChatGPT, Midjourney, DALL-E, Claude and more."/>
+<meta property="og:title" content="Promptaholics — Zero idea. Hero prompt."/>
+<meta property="og:description" content="417+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more."/>
 <meta property="og:image" content="https://promptaholics.com/og-image.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Promptaholics — 382+ Free AI Prompts"/>
+<meta name="twitter:title" content="Promptaholics — Zero idea. Hero prompt."/>
 <meta name="twitter:image" content="https://promptaholics.com/og-image.png"/>
 <meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
 <meta name='impact-site-verification' value='b4606a47-696e-498a-ad77-a9f1b4dd13f3'/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Promptaholics","url":"https://promptaholics.com","description":"Free AI prompt library with 382+ copy-ready prompts.","potentialAction":{"@type":"SearchAction","target":"https://promptaholics.com/library.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Promptaholics","url":"https://promptaholics.com","description":"Free AI prompt library with 417+ copy-ready prompts.","potentialAction":{"@type":"SearchAction","target":"https://promptaholics.com/library.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════════════════════════
-   PROMPTAHOLICS — Mobile-First CSS
-   Base = mobile. Scale UP for larger screens.
-   Breakpoints: 600px | 900px
-   ═══════════════════════════════════════════════════════════ */
 
-/* ── Reset ── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-}
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-}
-html { scroll-behavior: smooth; }
 
-/* ── Design tokens ── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; min-width: 0; }
+html, body { overflow-x: hidden; width: 100%; height: 100%; }
+
 :root {
-  --bg:       #08080b;
-  --surface:  #111116;
-  --surface2: #18181f;
-  --surface3: #1e1e27;
-  --border:   #1f1f2a;
-  --border2:  #2a2a38;
+  --bg:       #07070a;
+  --bg2:      #0d0d12;
+  --surface:  #111118;
+  --surface2: #16161f;
+  --surface3: #1c1c28;
+  --border:   #1e1e2c;
+  --border2:  #272738;
   --text:     #f0f0f8;
-  --text2:    #9999b0;
-  --text3:    #4a4a62;
+  --text2:    #8888a8;
+  --text3:    #44445a;
   --orange:   #ff6224;
   --orange2:  #e84e0e;
-  --teal:     #00ccaa;
   --violet:   #8b5cf6;
-  --hh:       62px;
-  --r:        12px;
-  --sp1:      8px;
-  --sp2:      16px;
-  --sp3:      24px;
-  --sp4:      32px;
-  --sp5:      48px;
-  --sp6:      64px;
-  --container-max: 1200px;
-  --container-pad: 16px;
-}
-.light-mode {
-  --bg:      #f5f5f0;
-  --surface: #ffffff;
-  --surface2:#efefea;
-  --surface3:#e5e5e0;
-  --border:  #e0ddd6;
-  --border2: #c8c4bc;
-  --text:    #18170f;
-  --text2:   #58554e;
-  --text3:   #9a9590;
+  --teal:     #06d6a0;
+  --pink:     #f72585;
+  --gold:     #f4c542;
 }
 
-/* ── Base ── */
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Instrument Sans', 'Segoe UI', Arial, sans-serif;
-  line-height: 1.6;
-  min-height: 100svh;
+  font-family: 'Instrument Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-a { color: var(--orange); text-decoration: none; }
-img { display: block; max-width: 100%; height: auto; }
 
-/* ═══════════════════════════════════════════════════════════
-   HEADER
-   ═══════════════════════════════════════════════════════════ */
-header {
-  height: var(--hh);
+/* ── SIDEBAR ── */
+.sidebar {
+  display: none;
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 50;
+  overflow-y: auto;
+}
+.sidebar-logo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--sp2);
-  background: rgba(8,8,11,.97);
+  gap: 10px;
+  padding: 18px 16px;
   border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.light-mode header { background: rgba(245,245,240,.97); }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--sp1);
   text-decoration: none;
-  flex-shrink: 0;
 }
-.logo-mark {
-  width: 30px;
-  height: 30px;
+.sidebar-logo-mark {
+  width: 32px; height: 32px;
   background: var(--orange);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.logo-mark svg { width: 12px; height: 14px; }
-.logo-text {
-  font-family: 'Syne', serif;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text);
-  white-space: nowrap;
-}
-.logo-text span { color: var(--orange); }
-.logo-sub { font-size: 9px; color: var(--text3); letter-spacing: .5px; }
-
-.hnav {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.hnav a {
-  font-size: 12px;
-  color: var(--text2);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.hnav a:hover { color: var(--text); background: var(--surface2); }
-.hnav a:not(.cta) { display: none; }
-.hnav .cta {
-  background: var(--orange);
-  color: #fff;
-  padding: 8px 14px;
   border-radius: 9px;
-  font-weight: 700;
-  display: flex;
-}
-.hnav .cta:hover { background: var(--orange2); color: #fff; }
-.cta-short { display: inline; }
-.cta-full  { display: none; }
-.theme-btn {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+.sidebar-logo-mark svg { width: 13px; height: 15px; }
+.sidebar-logo-text { font-family: 'Syne', serif; font-size: 15px; font-weight: 800; color: var(--text); }
+.sidebar-logo-text span { color: var(--orange); }
 
-/* ═══════════════════════════════════════════════════════════
-   HERO — mobile base
-   ═══════════════════════════════════════════════════════════ */
-.hero {
-  padding: 0;
-  position: relative;
-  overflow: hidden;
+.sidebar-section { padding: 16px 10px 8px; }
+.sidebar-section-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3); padding: 0 6px; margin-bottom: 6px;
 }
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  opacity: .025;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 10px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--text2);
+  transition: all .15s; text-decoration: none; margin-bottom: 2px;
 }
-.hero-inner {
-  width: 100%;
-  max-width: var(--container-max);
-  padding-inline: var(--container-pad);
-  margin-inline: auto;
+.sidebar-item:hover { background: var(--surface2); color: var(--text); }
+.sidebar-item.active { background: rgba(255,98,36,.1); color: var(--orange); }
+.sidebar-item .si-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+.sidebar-badge {
+  margin-left: auto; font-size: 9px; font-weight: 700;
+  padding: 2px 6px; border-radius: 6px;
+  background: rgba(255,98,36,.15); color: var(--orange);
+}
+
+/* ── TOP NAV ── */
+.topnav {
+  height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(7,7,10,.97);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.topnav-logo {
+  display: flex; align-items: center; gap: 9px; text-decoration: none;
+}
+.topnav-logo-mark {
+  width: 30px; height: 30px; background: var(--orange);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.topnav-logo-mark svg { width: 12px; height: 14px; }
+.topnav-logo-text { font-family: 'Syne', serif; font-size: 15px; font-weight: 800; color: var(--text); }
+.topnav-logo-text span { color: var(--orange); }
+.topnav-right { display: flex; align-items: center; gap: 8px; }
+.topnav-menu-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text2); width: 36px; height: 36px; border-radius: 9px;
+  cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.topnav-menu-btn:hover { border-color: var(--orange); color: var(--orange); }
+.topnav-cta {
+  background: var(--orange); color: #fff;
+  padding: 8px 14px; border-radius: 9px;
+  font-size: 12px; font-weight: 700; text-decoration: none;
+  transition: background .15s; display: flex; align-items: center; gap: 5px;
+}
+.topnav-cta:hover { background: var(--orange2); color: #fff; }
+
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav {
   display: flex;
-  flex-direction: column;
-  gap: var(--sp4);
-  padding: var(--sp4) 0 var(--sp5);
-  text-align: center;
-  align-items: center;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  z-index: 100;
+  padding: 0 4px;
 }
-.hero-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.bn-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 3px; padding: 10px 4px; cursor: pointer;
+  font-size: 10px; font-weight: 600; color: var(--text3);
+  transition: color .15s; text-decoration: none;
+  border-top: 2px solid transparent;
+}
+.bn-item.active { color: var(--orange); border-top-color: var(--orange); }
+.bn-item:hover { color: var(--text2); }
+.bn-icon { font-size: 20px; line-height: 1; }
+
+/* ── MAIN CONTENT ── */
+.main {
+  flex: 1;
+  padding: 20px 16px 100px;
+  max-width: 900px;
+  margin: 0 auto;
   width: 100%;
 }
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255,98,36,.08);
-  border: 1px solid rgba(255,98,36,.2);
-  color: var(--orange);
-  padding: 4px 14px;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: var(--sp3);
+
+/* ── HERO SEARCH BAR ── */
+.studio-hero {
+  margin-bottom: 28px;
+  max-width: none;
 }
-.hero h1 {
+.studio-greeting {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 6px;
+}
+.studio-title {
   font-family: 'Syne', serif;
-  font-size: clamp(28px, 9vw, 40px);
-  font-weight: 900;
-  line-height: 1.0;
-  letter-spacing: -1.5px;
-  margin-bottom: var(--sp2);
+  font-size: clamp(22px, 6vw, 36px);
+  font-weight: 900; letter-spacing: -1px;
+  margin-bottom: 16px; line-height: 1.1;
 }
-.hero h1 .acc { color: var(--orange); }
-.hero-sub {
-  font-size: 15px;
-  color: var(--text2);
-  max-width: 34ch;
-  margin-bottom: var(--sp3);
-  line-height: 1.6;
+.studio-title span { color: var(--orange); }
+.studio-search {
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  border-radius: 14px; overflow: hidden;
+  transition: border-color .2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
 }
-.hero-btns {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp2);
-  width: 100%;
-  margin-bottom: var(--sp3);
+.studio-search:focus-within { border-color: var(--orange); }
+.studio-search-top {
+  display: flex; align-items: center; padding: 6px 8px 6px 16px; gap: 8px;
 }
-.btn-primary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--orange);
-  color: #fff;
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
-  min-height: 52px;
-  transition: background .15s;
-  width: 100%;
+.studio-search-input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px; padding: 10px 0;
 }
-.btn-primary:hover { background: var(--orange2); color: #fff; }
-.btn-ghost {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.studio-search-input::placeholder { color: var(--text3); }
+.studio-search-btn {
+  background: var(--orange); color: #fff; border: none;
+  padding: 10px 18px; border-radius: 9px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: background .15s; white-space: nowrap;
+}
+.studio-search-btn:hover { background: var(--orange2); }
+.studio-search-pills {
+  border-top: 1px solid var(--border);
+  padding: 8px 16px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.studio-pill {
+  font-size: 11px; background: var(--surface2);
+  border: 1px solid var(--border); color: var(--text2);
+  padding: 4px 10px; border-radius: 10px; cursor: pointer;
+  transition: all .15s; white-space: nowrap;
+}
+.studio-pill:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── TOOL GRID ── */
+.section-title {
+  font-family: 'Syne', serif;
+  font-size: 14px; font-weight: 800; color: var(--text);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.tool-card {
   background: var(--surface);
   border: 1px solid var(--border2);
-  color: var(--text2);
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  min-height: 52px;
-  transition: all .15s;
-  width: 100%;
+  border-radius: 14px; padding: 16px;
+  cursor: pointer; transition: all .2s;
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+  text-decoration: none;
 }
-.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
-.hero-trust {
-  font-size: 11px;
-  color: var(--text3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.tool-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--tc, rgba(255,98,36,.05)), transparent);
+  opacity: 0; transition: opacity .2s;
 }
-.hero-trust span { display: flex; align-items: center; gap: 4px; }
-.hero-trust .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border2); }
+.tool-card:hover { border-color: var(--tc, var(--orange)); transform: translateY(-2px); }
+.tool-card:hover::before { opacity: 1; }
+.tool-card:active { transform: scale(.98); }
+.tc-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.tc-icon {
+  width: 40px; height: 40px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  background: var(--ic, rgba(255,98,36,.12));
+  flex-shrink: 0;
+}
+.tc-badge {
+  font-size: 9px; font-weight: 700; padding: 3px 7px;
+  border-radius: 6px; letter-spacing: .5px;
+}
+.badge-new  { background: rgba(255,98,36,.12); color: var(--orange); }
+.badge-hot  { background: rgba(247,37,133,.12); color: var(--pink); }
+.badge-free { background: rgba(6,214,160,.12); color: var(--teal); }
+.tc-name {
+  font-family: 'Syne', serif;
+  font-size: 14px; font-weight: 800; color: var(--text);
+}
+.tc-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.tc-arrow {
+  font-size: 16px; color: var(--text3);
+  transition: all .2s; align-self: flex-end;
+}
+.tool-card:hover .tc-arrow { color: var(--tc, var(--orange)); transform: translateX(3px); }
 
-/* Hero card — mobile */
-.hero-right { width: 100%; }
-.hero-card {
+/* ── FEATURED PROMPTS ── */
+.prompt-scroll {
+  display: flex; gap: 10px;
+  overflow-x: auto; padding-bottom: 4px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  margin-bottom: 28px;
+}
+.prompt-scroll::-webkit-scrollbar { display: none; }
+.prompt-card {
+  flex-shrink: 0; width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 14px; padding: 14px;
+  cursor: pointer; transition: all .2s;
+}
+.prompt-card:hover { border-color: var(--border); transform: translateY(-2px); }
+.pc-cat {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 6px;
+}
+.pc-name {
+  font-family: 'Syne', serif; font-size: 13px;
+  font-weight: 800; color: var(--text); margin-bottom: 6px; line-height: 1.3;
+}
+.pc-preview {
+  font-size: 10px; color: var(--text3); line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+  font-family: 'Fira Code', monospace;
+}
+.pc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 10px;
+}
+.pc-tool {
+  font-size: 10px; color: var(--text3);
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 6px;
+}
+.pc-copy {
+  background: none; border: none; cursor: pointer;
+  color: var(--text3); font-size: 14px; transition: color .15s;
+  padding: 2px 4px;
+}
+.pc-copy:hover { color: var(--orange); }
+
+/* ── RECENT / QUICK ACCESS ── */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.quick-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 10px;
+  cursor: pointer; text-align: center;
+  transition: all .15s; text-decoration: none;
+}
+.quick-card:hover { border-color: var(--border2); background: var(--surface3); }
+.qc-icon { font-size: 22px; display: block; margin-bottom: 5px; }
+.qc-label {
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  margin-bottom: 28px;
+}
+.stat-item {
+  padding: 14px 12px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-n {
+  font-family: 'Syne', serif; font-size: 22px;
+  font-weight: 900; color: var(--orange); display: block;
+}
+.stat-l {
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 1px; margin-top: 2px;
+}
+
+/* ── MODEL SWITCHER ── */
+.model-row {
+  display: flex; gap: 8px; overflow-x: auto;
+  scrollbar-width: none; margin-bottom: 28px;
+  padding-bottom: 2px;
+}
+.model-row::-webkit-scrollbar { display: none; }
+.model-pill {
+  flex-shrink: 0; display: flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--border2); background: var(--surface);
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  transition: all .15s; white-space: nowrap;
+}
+.model-pill.active {
+  background: rgba(255,98,36,.1);
+  border-color: rgba(255,98,36,.3);
+  color: var(--orange);
+}
+.model-pill:hover { border-color: var(--border); color: var(--text); }
+.model-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── SLIDE-OUT MENU (mobile) ── */
+.menu-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.6); z-index: 200;
+}
+.menu-overlay.open { display: block; }
+.slide-menu {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 260px; background: var(--surface);
+  border-right: 1px solid var(--border);
+  z-index: 201; transform: translateX(-100%);
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+}
+.slide-menu.open { transform: translateX(0); }
+
+/* ── DESKTOP ── */
+
+
+/* Wide desktop — 1400px+ */
+
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.main > * {
+  animation: fadeUp .4s ease both;
+}
+.main > *:nth-child(1) { animation-delay: .05s; }
+.main > *:nth-child(2) { animation-delay: .1s; }
+.main > *:nth-child(3) { animation-delay: .15s; }
+.main > *:nth-child(4) { animation-delay: .2s; }
+.main > *:nth-child(5) { animation-delay: .25s; }
+.main > *:nth-child(6) { animation-delay: .3s; }
+.main > *:nth-child(7) { animation-delay: .35s; }
+
+/* ── PROMPT BUILDER CARD ── */
+.builder-card {
   background: var(--surface);
   border: 1px solid var(--border2);
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
 }
-.hcard-header {
+.builder-card-header {
+  display: flex; align-items: center; gap: 8px;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
   background: var(--surface2);
 }
-.hcard-dots { display: flex; gap: 5px; }
-.hcard-dot { width: 9px; height: 9px; border-radius: 50%; }
-.hcard-title {
-  flex: 1;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text3);
-  letter-spacing: .5px;
+.builder-dots { display: flex; gap: 5px; }
+.bdot { width: 10px; height: 10px; border-radius: 50%; }
+.builder-card-title {
+  flex: 1; text-align: center;
+  font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: .5px;
 }
-.hcard-badge {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--orange);
-  background: rgba(255,98,36,.1);
+.builder-card-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  color: var(--orange); background: rgba(255,98,36,.1);
   border: 1px solid rgba(255,98,36,.2);
-  padding: 2px 7px;
-  border-radius: 5px;
-  text-transform: uppercase;
+  padding: 2px 7px; border-radius: 5px; text-transform: uppercase;
 }
-.hcard-body { padding: 14px; }
-.hcard-input-wrap {
+.builder-card-body { padding: 14px; }
+.builder-input-wrap {
   background: var(--surface2);
   border: 1px solid var(--border2);
   border-radius: 10px;
   padding: 4px 4px 4px 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 12px; transition: border .2s;
 }
-.hcard-input-wrap:focus-within { border-color: var(--orange); }
-.hcard-input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text);
+.builder-input-wrap:focus-within { border-color: var(--orange); }
+.builder-input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px; padding: 9px 0;
+}
+.builder-input::placeholder { color: var(--text3); }
+.builder-go {
+  background: var(--orange); color: #fff; border: none;
+  padding: 8px 12px; border-radius: 8px; cursor: pointer;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 16px;
-  padding: 9px 0;
+  font-size: 12px; font-weight: 700;
+  transition: background .15s; white-space: nowrap; flex-shrink: 0;
 }
-.hcard-input::placeholder { color: var(--text3); }
-.hcard-go {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  transition: background .15s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.hcard-go:hover { background: var(--orange2); }
-.hcard-output-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--text3);
+.builder-go:hover { background: var(--orange2); }
+.builder-output-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text3);
   margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex; align-items: center; gap: 8px;
 }
-.hcard-output-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.hcard-output {
+.builder-output-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.builder-output {
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 11px;
-  line-height: 1.75;
-  color: var(--text2);
-  min-height: 90px;
-  max-height: 160px;
+  border-radius: 10px; padding: 12px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; line-height: 1.8; color: var(--text2);
+  min-height: 90px; max-height: 160px;
   overflow-y: auto;
 }
-.hcard-output.typing { color: var(--text); }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.hcard-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 13px;
-  background: var(--orange);
-  margin-left: 2px;
-  animation: blink .8s infinite;
-  vertical-align: middle;
+.builder-output.typing { color: var(--text); }
+.builder-placeholder { color: var(--text3); font-family: 'Instrument Sans', sans-serif; font-size: 13px; }
+.builder-actions {
+  display: flex; gap: 8px; margin-top: 10px;
 }
-.hcard-copy-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
-.hcard-copy {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 9px;
-  cursor: pointer;
+.builder-copy {
+  flex: 1; background: var(--orange); color: #fff; border: none;
+  padding: 10px; border-radius: 9px; cursor: pointer;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  transition: background .15s;
+  font-size: 13px; font-weight: 700; transition: background .15s;
   min-height: 44px;
-  width: 100%;
 }
-.hcard-copy:hover { background: var(--orange2); }
-.hcard-build {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  padding: 10px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 600;
+.builder-copy:hover { background: var(--orange2); }
+.builder-full {
+  background: var(--surface); border: 1px solid var(--border2);
+  color: var(--text2); padding: 10px 14px; border-radius: 9px;
+  font-size: 13px; font-weight: 600;
   font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  width: 100%;
+  transition: all .15s; display: flex; align-items: center;
+  white-space: nowrap;
 }
-.hcard-build:hover { border-color: var(--orange); color: var(--orange); }
+.builder-full:hover { border-color: var(--orange); color: var(--orange); }
 
-/* Hero stats */
-.hero-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 12px;
-  width: 100%;
-}
-.hstat {
-  padding: 10px 8px;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.hstat:nth-child(2) { border-right: none; }
-.hstat:nth-child(3) { border-bottom: none; }
-.hstat:nth-child(4) { border-right: none; border-bottom: none; }
-.hstat-n {
-  font-family: 'Syne', serif;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text);
-  display: block;
-}
-.hstat-l { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
 
-/* ═══════════════════════════════════════════════════════════
-   SECTIONS — shared
-   ═══════════════════════════════════════════════════════════ */
-.section-eyebrow {
+
+/* ── WEEKLY IMAGE FLIP CARDS ── */
+.weekly-scroll {
   display: flex;
-  align-items: center;
   gap: 10px;
-  margin-bottom: var(--sp3);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 28px;
 }
-.ey-line { flex: 1; height: 1px; background: var(--border); }
-.ey-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text3);
-  white-space: nowrap;
-}
+.weekly-scroll::-webkit-scrollbar { display: none; }
 
-/* ═══════════════════════════════════════════════════════════
-   AI SEARCH
-   ═══════════════════════════════════════════════════════════ */
-.search-section {
-  width: 100%;
-  max-width: var(--container-max);
-  padding-inline: var(--container-pad);
-  margin-inline: auto;
-  padding: var(--sp5) 0;
-  border-top: 1px solid rgba(255,255,255,.04);
-}
-.search-label {
-  text-align: center;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 14px;
-}
-.search-label span { color: var(--orange); }
-.ai-search-box {
-  background: var(--surface);
-  border: 1.5px solid var(--border2);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: border-color .2s;
-}
-.ai-search-box:focus-within { border-color: var(--orange); }
-.ai-search-top {
-  display: flex;
-  align-items: center;
-  padding: 4px 8px 4px 14px;
-  gap: 6px;
-}
-.ai-icon { font-size: 18px; flex-shrink: 0; }
-.ai-input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-size: 16px;
-  padding: 11px 6px;
-  font-family: 'Instrument Sans', sans-serif;
-  min-width: 0;
-}
-.ai-input::placeholder { color: var(--text3); }
-.ai-search-btn {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 9px 14px;
-  border-radius: 9px;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background .15s;
-  white-space: nowrap;
+.wflip {
   flex-shrink: 0;
-}
-.ai-search-btn:hover { background: var(--orange2); }
-.ai-search-btn:disabled { opacity: .5; cursor: not-allowed; }
-.ai-clear-btn {
-  background: none;
-  border: none;
-  color: var(--text3);
+  width: 140px;
+  height: 140px;
+  perspective: 800px;
   cursor: pointer;
-  padding: 6px 10px;
-  font-size: 13px;
-  display: none;
-  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
-.ai-clear-btn.show { display: block; }
-.ai-clear-btn:hover { color: var(--text); }
-.ai-examples {
-  border-top: 1px solid var(--border);
-  padding: 8px 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.ai-ex-label { font-size: 10px; color: var(--text3); flex-shrink: 0; }
-.ai-ex-pill {
-  font-size: 11px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  padding: 3px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all .15s;
-  white-space: nowrap;
-}
-.ai-ex-pill:hover { border-color: var(--orange); color: var(--orange); }
-.ai-thinking {
-  padding: 14px;
-  display: none;
-  font-size: 13px;
-  color: var(--text2);
-  align-items: center;
-  gap: 8px;
-  border-top: 1px solid var(--border);
-}
-.ai-thinking.show { display: flex; }
-.think-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--orange);
-  animation: tdot 1.2s infinite;
-  flex-shrink: 0;
-}
-.think-dot:nth-child(2) { animation-delay: .2s; }
-.think-dot:nth-child(3) { animation-delay: .4s; }
-@keyframes tdot { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
-.ai-results {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 14px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-.ai-results-head {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.ai-results-title { font-size: 13px; font-weight: 600; color: var(--text); }
-.ai-result-count  { font-size: 12px; color: var(--text3); }
-.ai-result-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background .15s;
-}
-.ai-result-item:last-of-type { border-bottom: none; }
-.ai-result-item:hover { background: var(--surface2); }
-.ai-result-rank {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.ai-result-rank.top {
-  background: rgba(255,98,36,.12);
-  border-color: rgba(255,98,36,.3);
-  color: var(--orange);
-}
-.ai-result-body { flex: 1; min-width: 0; }
-.ai-result-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-.ai-result-reason { font-size: 11px; color: var(--text2); }
-.ai-result-meta { display: flex; gap: 5px; margin-top: 4px; flex-wrap: wrap; }
-.ai-result-cat, .ai-result-tool {
-  font-size: 9px;
-  color: var(--text3);
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  padding: 2px 7px;
-  border-radius: 5px;
-}
-.ai-result-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.ai-result-copy {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text2);
-  padding: 5px 10px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 11px;
-  font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-  white-space: nowrap;
-}
-.ai-result-copy:hover { border-color: var(--orange); color: var(--orange); }
-.ai-result-view {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 11px;
-  font-family: 'Instrument Sans', sans-serif;
-  white-space: nowrap;
-}
-.ai-empty { padding: 20px; text-align: center; font-size: 13px; color: var(--text2); }
-.ai-view-all {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--orange);
-  border-top: 1px solid var(--border);
-  transition: background .15s;
-}
-.ai-view-all:hover { background: var(--surface2); }
-
-/* ═══════════════════════════════════════════════════════════
-   FLIP CARDS
-   ═══════════════════════════════════════════════════════════ */
-.flip-section {
-  width: 100%;
-  max-width: var(--container-max);
-  padding-inline: var(--container-pad);
-  margin-inline: auto;
-  padding: var(--sp5) 0;
-  border-top: 1px solid rgba(255,255,255,.04);
-}
-.flip-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-.flip-card {
-  height: 240px;
-  cursor: pointer;
-  perspective: 1000px;
-}
-.flip-inner {
+.wflip-inner {
   position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform .6s cubic-bezier(.4,0,.2,1);
+  width: 100%; height: 100%;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
+  border-radius: 12px;
 }
-.flip-card:hover .flip-inner,
-.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
-.flip-front, .flip-back {
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  overflow: hidden;
+.wflip:hover .wflip-inner,
+.wflip.flipped .wflip-inner { transform: rotateY(180deg); }
+
+.wflip-front, .wflip-back {
+  position: absolute; inset: 0;
+  border-radius: 12px; overflow: hidden;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-.flip-front { background: var(--surface); border: 1px solid var(--border); }
-.flip-img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
-.flip-card:hover .flip-img { transform: scale(1.04); }
-.flip-front-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+.wflip-front {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
 }
-.flip-front-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px; }
-.flip-front-cat {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 3px;
+.wflip-front img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  transition: transform .4s;
 }
-.flip-front-name {
-  font-family: 'Syne', serif;
-  font-size: 14px;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.2;
+.wflip:hover .wflip-front img { transform: scale(1.06); }
+.wflip-front-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 50%);
 }
-.flip-front-hint { font-size: 9px; color: rgba(255,255,255,.45); margin-top: 3px; }
-.flip-emoji {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 72px;
+.wflip-front-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 8px 10px;
+}
+.wflip-front-cat {
+  font-size: 8px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 2px;
+}
+.wflip-front-name {
+  font-family: 'Syne', serif; font-size: 11px;
+  font-weight: 800; color: #fff; line-height: 1.2;
+}
+.wflip-emoji {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
   background: linear-gradient(135deg, var(--surface2), var(--surface3));
 }
-.flip-back {
+
+.wflip-back {
   background: var(--surface2);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--orange);
   transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  padding: 14px;
+  display: flex; flex-direction: column;
+  padding: 10px;
 }
-.flip-back-cat {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 6px;
+.wflip-back-cat {
+  font-size: 8px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 4px;
 }
-.flip-back-name {
-  font-family: 'Syne', serif;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-.flip-back-prompt {
-  flex: 1;
-  font-size: 10px;
-  color: var(--text2);
-  line-height: 1.6;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
+.wflip-back-prompt {
+  flex: 1; font-size: 9px; color: var(--text2); line-height: 1.55;
   font-family: 'Fira Code', monospace;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  padding: 8px;
-  margin-bottom: 8px;
-}
-.flip-back-actions { display: flex; flex-direction: column; gap: 6px; }
-.flip-copy-btn {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  transition: background .15s;
-  width: 100%;
-}
-.flip-copy-btn:hover { background: var(--orange2); }
-.flip-lib-btn {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-  text-align: center;
-  display: block;
-  width: 100%;
-}
-.flip-lib-btn:hover { border-color: var(--orange); color: var(--orange); }
-
-/* ═══════════════════════════════════════════════════════════
-   POTD
-   ═══════════════════════════════════════════════════════════ */
-.potd-section {
-  width: 100%;
-  max-width: var(--container-max);
-  padding-inline: var(--container-pad);
-  margin-inline: auto;
-  padding: var(--sp5) 0;
-  border-top: 1px solid rgba(255,255,255,.04);
-}
-.potd-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 16px;
   overflow: hidden;
-}
-.potd-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.potd-badge {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--orange);
-}
-.potd-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--orange);
-  animation: pulse 2s infinite;
-  flex-shrink: 0;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-.potd-date { font-size: 11px; color: var(--text3); }
-.potd-body { padding: 18px; }
-.potd-cat {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 6px;
-}
-.potd-name {
-  font-family: 'Syne', serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-.potd-text {
-  font-size: 12px;
-  color: var(--text2);
-  line-height: 1.7;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 14px;
-  font-family: 'Fira Code', monospace;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
+  display: -webkit-box; -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
-  overflow: hidden;
 }
-.potd-actions { display: flex; flex-direction: column; gap: 10px; }
-.potd-copy {
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  cursor: pointer;
+.wflip-copy {
+  margin-top: 6px;
+  background: var(--orange); color: #fff; border: none;
+  padding: 5px; border-radius: 6px; cursor: pointer;
   font-family: 'Instrument Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  transition: background .15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 48px;
-  width: 100%;
+  font-size: 10px; font-weight: 700;
+  transition: background .15s; width: 100%;
 }
-.potd-copy:hover { background: var(--orange2); }
-.potd-view {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-  min-height: 48px;
-  width: 100%;
-}
-.potd-view:hover { border-color: var(--orange); color: var(--orange); }
+.wflip-copy:hover { background: var(--orange2); }
 
-/* ═══════════════════════════════════════════════════════════
-   CTA
-   ═══════════════════════════════════════════════════════════ */
-.cta-section {
-  width: 100%;
-  max-width: var(--container-max);
-  padding-inline: var(--container-pad);
-  margin-inline: auto;
-  padding: var(--sp5) 0 var(--sp6);
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,.04);
-}
-.cta-card {
-  background: linear-gradient(135deg, rgba(255,98,36,.08), rgba(139,92,246,.05));
-  border: 1px solid rgba(255,98,36,.2);
-  border-radius: 20px;
-  padding: var(--sp4) var(--sp3);
-}
-.cta-card h2 {
-  font-family: 'Syne', serif;
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 10px;
-  letter-spacing: -1px;
-}
-.cta-card p {
-  font-size: 15px;
-  color: var(--text2);
-  margin-bottom: var(--sp3);
-  line-height: 1.65;
-  max-width: 34ch;
-  margin-inline: auto;
-}
-.cta-btns {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: var(--sp3);
-}
-.cta-note {
-  font-size: 12px;
-  color: var(--text3);
-  margin-top: 16px;
-}
-.cta-note a { color: var(--text2); }
+/* Desktop — 4 in a row, no scroll */
 
-/* ═══════════════════════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════════════════════ */
-footer {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: var(--sp3) var(--sp2);
-}
-.footer-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.flinks { display: flex; gap: 4px; flex-wrap: wrap; }
-.flinks a {
-  font-size: 12px;
-  color: var(--text3);
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: color .15s;
-}
-.flinks a:hover { color: var(--orange); }
-.social-icons { display: flex; gap: 6px; }
-.soc-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all .15s;
-}
-.soc-btn:hover { border-color: var(--orange); }
-.soc-btn svg { width: 13px; height: 13px; fill: var(--text3); transition: fill .15s; }
-.soc-btn:hover svg { fill: var(--orange); }
-.fcopy { font-size: 11px; color: var(--text3); }
 
-/* ═══════════════════════════════════════════════════════════
-   MODAL
-   ═══════════════════════════════════════════════════════════ */
-.modal-inner {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 18px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 24px;
+.light-mode {
+  --bg:#f5f5f0; --bg2:#efefea; --surface:#ffffff; --surface2:#f0f0ea;
+  --surface3:#e8e8e2; --border:#e0ddd6; --border2:#cccac2;
+  --text:#18170f; --text2:#58554e; --text3:#9a9590;
 }
+.light-mode header, .light-mode .topnav { background: rgba(245,245,240,.97) !important; }
 
-/* ═══════════════════════════════════════════════════════════
-   STICKY CTA
-   ═══════════════════════════════════════════════════════════ */
-.sticky-cta {
-  display: block;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: 10px 14px;
-  z-index: 150;
-  border-radius: 16px 16px 0 0;
-}
-.sticky-cta a {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background: var(--orange);
-  color: #fff;
-  padding: 13px;
-  border-radius: 11px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: background .15s;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.sticky-cta a:hover { background: var(--orange2); }
 
-/* ═══════════════════════════════════════════════════════════
-   SCALE UP — 600px+
-   ═══════════════════════════════════════════════════════════ */
-@media (min-width: 600px) {
-  .hnav a:not(.cta) { display: flex; }
-  .cta-short { display: none; }
-  .cta-full  { display: inline; }
-  .hero-btns { flex-direction: row; width: auto; }
-  .btn-primary, .btn-ghost { width: auto; }
-  .hcard-copy-row { flex-direction: row; }
-  .hcard-copy { width: auto; flex: 1; }
-  .hcard-build { width: auto; }
-  .flip-grid { grid-template-columns: 1fr 1fr; }
-  .flip-card.hero { grid-column: 1 / -1; height: 280px; }
-  .potd-actions { flex-direction: row; }
-  .potd-copy, .potd-view { width: auto; }
-  .cta-btns { flex-direction: row; justify-content: center; }
-  .cta-card .btn-primary, .cta-card .btn-ghost { width: auto; }
-  .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
-  .sticky-cta { display: none; }
-  .flip-back-actions { flex-direction: row; }
-  .flip-copy-btn, .flip-lib-btn { width: auto; flex: 1; }
-}
+/* hidden on mobile */
 
-/* ═══════════════════════════════════════════════════════════
-   SCALE UP — 900px+ (desktop)
-   ═══════════════════════════════════════════════════════════ */
+
+
+
+
+
+/* ═══════════════════════════════════════════════════════
+   DESKTOP — Full width, OpenArt-style
+   ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   DESKTOP — Single source of truth (min-width: 900px)
+   ═══════════════════════════════════════════════════════ */
 @media (min-width: 900px) {
-  header { padding: 0 var(--sp4); }
-  .logo-mark { width: 34px; height: 34px; }
-  .logo-mark svg { width: 14px; height: 16px; }
-  .logo-text { font-size: 17px; }
-  .hnav { gap: 6px; }
-  .hnav a { font-size: 13px; }
+  /* Layout */
+  .sidebar { display: flex; }
+  .topnav  { display: none; }
+  .bottom-nav { display: none; }
+  body { flex-direction: row; }
 
-  .hero {
-    min-height: calc(100svh - var(--hh));
-    display: flex;
-    align-items: center;
-    background:
-      radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,98,36,.07), transparent),
-      radial-gradient(ellipse 50% 60% at 100% 50%, rgba(139,92,246,.06), transparent);
+  /* Main — full width edge to edge */
+  .main {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    max-width: none;
+    padding: 40px 56px 80px;
   }
-  .hero-inner {
-    flex-direction: row;
-    gap: 60px;
-    padding: var(--sp6) 0;
-    text-align: left;
-    align-items: center;
+
+  /* Big headline */
+  .studio-title {
+    font-size: clamp(56px, 6vw, 88px);
+    letter-spacing: -3px;
+    line-height: 1.0;
+    margin-bottom: 28px;
   }
-  .hero-left { align-items: flex-start; flex: 1; }
-  .hero-right { flex: 1; }
-  .hero h1 { font-size: clamp(40px, 5vw, 64px); letter-spacing: -2.5px; }
-  .hero-sub { font-size: 17px; max-width: 440px; }
-  .hero-btns { flex-direction: row; width: auto; margin-bottom: var(--sp4); }
-  .btn-primary, .btn-ghost { width: auto; }
-  .hero-trust { justify-content: flex-start; }
-  .hcard-body { padding: 20px; }
-  .hcard-output { min-height: 140px; font-size: 12px; max-height: none; }
-  .hcard-copy-row { flex-direction: row; }
-  .hcard-copy { flex: 1; width: auto; }
-  .hcard-build { width: auto; }
-  .hero-stats {
+  .studio-greeting { font-size: 12px; }
+  .studio-hero { margin-bottom: 44px; }
+
+  /* Builder card — full width */
+  .builder-card { max-width: none; }
+  .builder-card-body { padding: 20px; }
+  .builder-output { min-height: 130px; font-size: 13px; max-height: none; }
+  .builder-actions { gap: 12px; }
+  .builder-copy { font-size: 14px; padding: 12px; }
+  .builder-full { font-size: 14px; padding: 12px 20px; }
+
+  /* Model row — wrap */
+  .model-row { flex-wrap: wrap; gap: 8px; }
+  .model-pill { font-size: 13px; padding: 9px 18px; }
+
+  /* Weekly images — 4 col grid, no scroll */
+  .weekly-scroll {
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+    gap: 14px;
   }
-  .hstat { border-bottom: none; border-right: 1px solid var(--border); }
-  .hstat:last-child { border-right: none; }
-  .hstat-n { font-size: 20px; }
+  .wflip { width: 100%; height: 200px; flex-shrink: 1; }
 
-  .flip-grid {
-    grid-template-columns: 1.55fr 1fr;
-    grid-template-rows: 220px 190px 160px;
-    gap: 4px;
+  /* Quick access — 6 col */
+  .quick-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
   }
-  .flip-card { height: auto; }
-  .flip-card.hero { grid-column: 1; grid-row: 1 / 4; height: auto; }
-  .flip-card.r1 { grid-column: 2; grid-row: 1; }
-  .flip-card.r2 { grid-column: 2; grid-row: 2; }
-  .flip-card.r3 { grid-column: 2; grid-row: 3; }
+  .qc-icon { font-size: 28px; }
+  .qc-label { font-size: 12px; }
 
-  .potd-name { font-size: 24px; }
-  .potd-actions { flex-direction: row; }
-  .potd-copy, .potd-view { width: auto; }
+  /* Tool cards — auto-fit fluid grid */
+  .tool-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .tool-card { padding: 24px; }
+  .tc-icon { width: 52px; height: 52px; font-size: 26px; }
+  .tc-name { font-size: 17px; }
+  .tc-desc { font-size: 13px; }
 
-  .cta-card { padding: var(--sp5) var(--sp5); }
-  .cta-card h2 { font-size: 32px; }
-  .cta-btns { flex-direction: row; justify-content: center; }
-  .cta-card .btn-primary, .cta-card .btn-ghost { width: auto; }
+  /* Stats — full width */
+  .stats-bar { max-width: none; }
+  .stat-n { font-size: 28px; }
+  .stat-l { font-size: 11px; }
+
+  /* Featured prompts — 4 col grid, no horizontal scroll */
+  .prompt-scroll {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+    gap: 14px;
+    padding-bottom: 0;
+  }
+  .prompt-card { width: 100%; flex-shrink: 1; }
+
+  /* Section titles */
+  .section-title { font-size: 15px; margin-bottom: 16px; }
+}
+
+/* ── Wide desktop 1200px ── */
+@media (min-width: 1200px) {
+  .main { padding: 48px 72px 80px; }
+  .studio-title { font-size: clamp(72px, 6vw, 100px); }
+  .wflip { height: 220px; }
+  .tool-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Ultra wide 1400px ── */
+@media (min-width: 1400px) {
+  .main { padding: 56px 96px 80px; }
+  .studio-title { font-size: 104px; }
 }
 
 </style>
 </head>
 <body>
 
-<header>
-  <a class="logo" href="/">
-    <div class="logo-mark">
+<!-- ── DESKTOP SIDEBAR ── -->
+<nav class="sidebar" id="sidebar">
+  <a class="sidebar-logo" href="/">
+    <div class="sidebar-logo-mark">
       <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
     </div>
-    <div>
-      <div class="logo-text">Prompt<span>aholics</span></div>
-      <div class="logo-sub">FREE AI PROMPT LIBRARY</div>
-    </div>
+    <div class="sidebar-logo-text">Prompt<span>aholics</span></div>
   </a>
-  <div class="hnav">
-    <a href="library.html">📚 Library</a>
-    <a href="prompt-builder.html">🔧 Builder</a>
-    <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
-    <a href="library.html" class="cta"><span class="cta-full">Browse 382 Prompts →</span><span class="cta-short">Library →</span></a>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Create</div>
+    <a class="sidebar-item active" href="/"><span class="si-icon">🏠</span> Home</a>
+    <a class="sidebar-item" href="prompt-builder.html"><span class="si-icon">🔧</span> Prompt Builder</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">🎨</span> Image Prompts</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">🎬</span> Video Prompts</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">✍️</span> Writing</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">💻</span> Code</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Library</div>
+    <a class="sidebar-item" href="library.html">
+      <span class="si-icon">📚</span> All Prompts
+      <span class="sidebar-badge">417</span>
+    </a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">⭐</span> Featured</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">🕐</span> Recent</a>
+    <a class="sidebar-item" href="library.html"><span class="si-icon">💾</span> Saved</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Tools</div>
+    <a class="sidebar-item" href="creationstation.html"><span class="si-icon">⚡</span> AI Tools Directory</a>
+    <a class="sidebar-item" href="creationstation.html"><span class="si-icon">🗓️</span> Weekly Images</a>
+  </div>
+</nav>
+
+<!-- ── MOBILE TOP NAV ── -->
+<header class="topnav">
+  <a class="topnav-logo" href="/">
+    <div class="topnav-logo-mark">
+      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
+    </div>
+    <div class="topnav-logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="topnav-right">
+    <button class="topnav-menu-btn" onclick="toggleMenu()">☰</button>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">✦ Free Forever — No Signup Required</div>
-      <h1>Build Better AI<br/>Prompts in<br/><span class="acc">Seconds</span></h1>
-      <p class="hero-sub">Turn simple ideas into high-quality prompts for ChatGPT, Midjourney, Claude, Gemini and more.</p>
-      <div class="hero-btns">
-        <a class="btn-primary" href="prompt-builder.html">Start Building Prompts →</a>
-        <a class="btn-ghost" href="library.html">📚 Explore Library</a>
-      </div>
-      <div class="hero-trust">
-        <span>✓ Free</span><span class="dot"></span>
-        <span>✓ No signup</span><span class="dot"></span>
-        <span>✓ 382+ prompts</span><span class="dot"></span>
-        <span>✓ Mobile friendly</span>
-      </div>
+<!-- ── SLIDE-OUT MENU ── -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+<nav class="slide-menu" id="slideMenu">
+  <a class="sidebar-logo" href="/" style="border-bottom:1px solid var(--border);">
+    <div class="sidebar-logo-mark">
+      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
     </div>
-    <div class="hero-right">
-      <div class="hero-card">
-        <div class="hcard-header">
-          <div class="hcard-dots">
-            <div class="hcard-dot" style="background:#ff5f56"></div>
-            <div class="hcard-dot" style="background:#febc2e"></div>
-            <div class="hcard-dot" style="background:#28c840"></div>
-          </div>
-          <div class="hcard-title">Prompt Builder — Live Preview</div>
-          <div class="hcard-badge">Live</div>
-        </div>
-        <div class="hcard-body">
-          <div class="hcard-input-wrap">
-            <input class="hcard-input" id="heroInput" type="text"
-              placeholder="e.g. write me a YouTube script about AI..."
-              oninput="heroTransform(this.value)"
-              onkeydown="if(event.key==='Enter') heroTransform(this.value)"/>
-            <button class="hcard-go" onclick="heroTransform(document.getElementById('heroInput').value)">Transform →</button>
-          </div>
-          <div class="hcard-output-label">✨ Transformed Prompt</div>
-          <div class="hcard-output" id="heroOutput">
-            <span style="color:var(--text3);font-family:'Instrument Sans',sans-serif;font-size:13px;">Type your idea above and watch it transform into a professional prompt...</span>
-          </div>
-          <div class="hcard-copy-row">
-            <button class="hcard-copy" onclick="heroCopy()">📋 Copy Prompt</button>
-            <a class="hcard-build" href="prompt-builder.html">Full Builder →</a>
-          </div>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n" id="hStatPrompts">382</span><div class="hstat-l">Prompts</div></div>
-        <div class="hstat"><span class="hstat-n">13</span><div class="hstat-l">Categories</div></div>
-        <div class="hstat"><span class="hstat-n">5</span><div class="hstat-l">AI Tools</div></div>
-        <div class="hstat"><span class="hstat-n">∞</span><div class="hstat-l">Free Forever</div></div>
-      </div>
-    </div>
+    <div class="sidebar-logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Create</div>
+    <a class="sidebar-item active" href="/" onclick="toggleMenu()"><span class="si-icon">🏠</span> Home</a>
+    <a class="sidebar-item" href="prompt-builder.html" onclick="toggleMenu()"><span class="si-icon">🔧</span> Prompt Builder</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">🎨</span> Image Prompts</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">🎬</span> Video Prompts</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">✍️</span> Writing</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">💻</span> Code</a>
   </div>
-</section>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Library</div>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">📚</span> All Prompts <span class="sidebar-badge">417</span></a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">⭐</span> Featured</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">💾</span> Saved</a>
+    <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><span class="si-icon">⚡</span> AI Tools</a>
+  </div>
+</nav>
 
-<!-- STICKY MOBILE CTA -->
-<div class="sticky-cta">
-  <a href="prompt-builder.html">⚡ Open Prompt Builder — Free</a>
-</div>
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
 
-<!-- AI SEARCH -->
-<div class="search-section">
-  <div class="search-label">✦ <span>AI-Powered</span> Prompt Search</div>
-  <div class="ai-search-box" id="aiSearchBox">
-    <div class="ai-search-top">
-      <span class="ai-icon">🔍</span>
-      <input class="ai-input" id="aiSearchInput" type="text"
-        placeholder="Describe what you want to do..."
-        onkeydown="if(event.key==='Enter') runAiSearch()"/>
-      <button class="ai-clear-btn" id="aiClearBtn" onclick="clearAiSearch()">✕ Clear</button>
-      <button class="ai-search-btn" id="aiSearchBtn" onclick="runAiSearch()">Find Prompts</button>
-    </div>
-    <div class="ai-thinking" id="aiThinking">
-      <div class="think-dot"></div><div class="think-dot"></div><div class="think-dot"></div>
-      <span>Finding the best prompts...</span>
-    </div>
-    <div class="ai-examples" id="aiExamples">
-      <span class="ai-ex-label">Try:</span>
-      <span class="ai-ex-pill" onclick="setAiQuery(this)">write a viral tweet</span>
-      <span class="ai-ex-pill" onclick="setAiQuery(this)">create fantasy art</span>
-      <span class="ai-ex-pill" onclick="setAiQuery(this)">build a startup</span>
-      <span class="ai-ex-pill" onclick="setAiQuery(this)">plan my morning</span>
-    </div>
-  </div>
-  <div class="ai-results" id="aiResults" style="display:none;">
-    <div class="ai-results-head">
-      <div class="ai-results-title">✨ Best matches — <span id="aiResultCount">0</span> found</div>
-    </div>
-    <div id="aiResultsList"></div>
-    <div class="ai-empty" id="aiEmpty" style="display:none;">No matches found. Try different keywords.</div>
-    <a class="ai-view-all" href="library.html">Browse all 382 prompts in the library →</a>
-  </div>
-</div>
+  <!-- Greeting + Prompt Builder Card -->
+  <div class="studio-hero">
+    <div class="studio-greeting">✦ Promptaholics — Free AI Prompt Library</div>
+    <h1 class="studio-title">Zero idea.<br/><span>Hero prompt.</span></h1>
 
-<!-- FLIP CARDS -->
-<div class="flip-section">
-  <div class="section-eyebrow">
-    <div class="ey-line"></div>
-    <div class="ey-label">🎨 Image Prompt Showcase — hover to reveal prompt</div>
-    <div class="ey-line"></div>
-  </div>
-  <div class="flip-grid">
-    <div class="flip-card hero" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="/images/slot-1.jpg" alt="Fashion Editorial" class="flip-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>👗</div>'"/>
-          <div class="flip-front-overlay"></div>
-          <div class="flip-front-info">
-            <div class="flip-front-cat">Photography</div>
-            <div class="flip-front-name">Fashion Editorial</div>
-            <div class="flip-front-hint">Hover to see prompt →</div>
-          </div>
+    <!-- Live Prompt Builder Card -->
+    <div class="builder-card">
+      <div class="builder-card-header">
+        <div class="builder-dots">
+          <div class="bdot" style="background:#ff5f56"></div>
+          <div class="bdot" style="background:#febc2e"></div>
+          <div class="bdot" style="background:#28c840"></div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-cat">Photography</div>
-          <div class="flip-back-name">Fashion Editorial</div>
-          <div class="flip-back-prompt">High fashion editorial photograph, avant-garde styling, dramatic pose, moody industrial building, professional studio lighting, Vogue and Harpers Bazaar aesthetic, shot on Hasselblad medium format, cinematic color grade --ar 4:5 --v 7 --stylize 750 --style raw</div>
-          <div class="flip-back-actions">
-            <button class="flip-copy-btn" onclick="flipCopy(this,event)">📋 Copy Prompt</button>
-            <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
-          </div>
-        </div>
+        <div class="builder-card-title">Prompt Builder — Live Preview</div>
+        <div class="builder-card-badge">Live</div>
       </div>
-    </div>
-    <div class="flip-card r1" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="/images/slot-2.jpg" alt="Sci-Fi Mech Warrior" class="flip-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🤖</div>'"/>
-          <div class="flip-front-overlay"></div>
-          <div class="flip-front-info">
-            <div class="flip-front-cat">Image Generation</div>
-            <div class="flip-front-name">Sci-Fi Mech Warrior</div>
-            <div class="flip-front-hint">Hover →</div>
-          </div>
+      <div class="builder-card-body">
+        <div class="builder-input-wrap">
+          <input class="builder-input" id="builderInput" type="text"
+            placeholder="e.g. write me a YouTube script about AI..."
+            oninput="builderTransform(this.value)"/>
+          <button class="builder-go" onclick="builderTransform(document.getElementById('builderInput').value)">
+            Transform →
+          </button>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-cat">Image Generation</div>
-          <div class="flip-back-name">Sci-Fi Mech Warrior</div>
-          <div class="flip-back-prompt">Epic mechanical robot mech concept art, hyper-detailed panel lines, glowing power cores, sensor arrays, heroic pose, dramatic studio lighting on polished metal surfaces, Transformers meets Evangelion aesthetic --ar 2:3 --v 7 --stylize 700</div>
-          <div class="flip-back-actions">
-            <button class="flip-copy-btn" onclick="flipCopy(this,event)">📋 Copy</button>
-            <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
-          </div>
+        <div class="builder-output-label">✨ Transformed Prompt</div>
+        <div class="builder-output" id="builderOutput">
+          <span class="builder-placeholder">Type your idea above and watch it transform into a professional prompt...</span>
         </div>
-      </div>
-    </div>
-    <div class="flip-card r2" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="/images/slot-3.jpg" alt="Fantasy Forest Scene" class="flip-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🌿</div>'"/>
-          <div class="flip-front-overlay"></div>
-          <div class="flip-front-info">
-            <div class="flip-front-cat">Image Generation</div>
-            <div class="flip-front-name">Fantasy Forest Scene</div>
-            <div class="flip-front-hint">Hover →</div>
-          </div>
-        </div>
-        <div class="flip-back">
-          <div class="flip-back-cat">Image Generation</div>
-          <div class="flip-back-name">Fantasy Forest Scene</div>
-          <div class="flip-back-prompt">Magical fantasy forest scene with bioluminescent fireflies and glowing particles, warm amber and orange light, mystical atmosphere, cinematic depth of field, Studio Ghibli meets photorealism --ar 16:9 --v 7 --stylize 800</div>
-          <div class="flip-back-actions">
-            <button class="flip-copy-btn" onclick="flipCopy(this,event)">📋 Copy</button>
-            <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flip-card r3" onclick="this.classList.toggle('flipped')">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="/images/slot-4.jpg" alt="Jungle Temple Ruins" class="flip-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'flip-emoji\'>🏛️</div>'"/>
-          <div class="flip-front-overlay"></div>
-          <div class="flip-front-info">
-            <div class="flip-front-cat">Image Generation</div>
-            <div class="flip-front-name">Jungle Temple Ruins</div>
-            <div class="flip-front-hint">Hover →</div>
-          </div>
-        </div>
-        <div class="flip-back">
-          <div class="flip-back-cat">Image Generation</div>
-          <div class="flip-back-name">Jungle Temple Ruins</div>
-          <div class="flip-back-prompt">Ancient jungle temple ruins overgrown with vines and moss, golden hour atmospheric lighting, cinematic establishing shot, Indiana Jones adventure aesthetic, ultra-detailed stone carvings, National Geographic quality --ar 16:9 --v 7 --stylize 750</div>
-          <div class="flip-back-actions">
-            <button class="flip-copy-btn" onclick="flipCopy(this,event)">📋 Copy</button>
-            <a class="flip-lib-btn" href="library.html" onclick="event.stopPropagation()">Library →</a>
-          </div>
+        <div class="builder-actions">
+          <button class="builder-copy" onclick="builderCopy()">📋 Copy Prompt</button>
+          <a class="builder-full" href="prompt-builder.html">Full Builder →</a>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- POTD -->
-<div class="potd-section">
-  <div class="section-eyebrow">
-    <div class="ey-line"></div>
-    <div class="ey-label">⚡ Prompt of the Day</div>
-    <div class="ey-line"></div>
-  </div>
-  <div class="potd-card">
-    <div class="potd-head">
-      <div class="potd-badge"><div class="potd-dot"></div>Daily Pick</div>
-      <div class="potd-date" id="potdDate"></div>
+  <!-- AI Model Switcher -->
+  <div class="section-title">AI Models</div>
+  <div class="model-row">
+    <div class="model-pill active">
+      <div class="model-dot" style="background:#10b981"></div> ChatGPT
     </div>
-    <div class="potd-body">
-      <div class="potd-cat" id="potdCat">Loading...</div>
-      <div class="potd-name" id="potdName">Finding today's prompt...</div>
-      <div class="potd-text" id="potdText"></div>
-      <div class="potd-actions">
-        <button class="potd-copy" id="potdCopyBtn" onclick="potdCopy()">📋 Copy Prompt</button>
-        <button class="potd-view" onclick="window.location.href='library.html'">Browse Library →</button>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#8b5cf6"></div> Claude
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#3b82f6"></div> Gemini
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#f59e0b"></div> Midjourney
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#ef4444"></div> DALL·E
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#06b6d4"></div> Sora
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#ec4899"></div> Seedance2
+    </div>
+    <div class="model-pill">
+      <div class="model-dot" style="background:#84cc16"></div> Runway
+    </div>
+  </div>
+
+  <!-- Weekly AI Images -->
+  <div class="section-title">🎨 Weekly AI Images — hover to reveal prompt</div>
+  <div class="weekly-scroll">
+
+    <div class="wflip" onclick="this.classList.toggle('flipped')">
+      <div class="wflip-inner">
+        <div class="wflip-front">
+          <img src="/images/slot-1.jpg" alt="Fashion Editorial" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'wflip-emoji\'>👗</div>'"/>
+          <div class="wflip-front-overlay"></div>
+          <div class="wflip-front-info">
+            <div class="wflip-front-cat">Photography</div>
+            <div class="wflip-front-name">Fashion Editorial</div>
+          </div>
+        </div>
+        <div class="wflip-back">
+          <div class="wflip-back-cat">Photography</div>
+          <div class="wflip-back-prompt">High fashion editorial photograph, avant-garde styling, dramatic pose, moody industrial building, professional studio lighting, Vogue aesthetic --ar 4:5 --v 7 --stylize 750 --style raw</div>
+          <button class="wflip-copy" onclick="wCopy(this,event)">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wflip" onclick="this.classList.toggle('flipped')">
+      <div class="wflip-inner">
+        <div class="wflip-front">
+          <img src="/images/slot-2.jpg" alt="Sci-Fi Mech" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'wflip-emoji\'>🤖</div>'"/>
+          <div class="wflip-front-overlay"></div>
+          <div class="wflip-front-info">
+            <div class="wflip-front-cat">Image Generation</div>
+            <div class="wflip-front-name">Sci-Fi Mech Warrior</div>
+          </div>
+        </div>
+        <div class="wflip-back">
+          <div class="wflip-back-cat">Image Generation</div>
+          <div class="wflip-back-prompt">Epic mechanical robot mech concept art, hyper-detailed panel lines, glowing power cores, heroic pose, dramatic lighting, Transformers meets Evangelion --ar 2:3 --v 7 --stylize 700</div>
+          <button class="wflip-copy" onclick="wCopy(this,event)">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wflip" onclick="this.classList.toggle('flipped')">
+      <div class="wflip-inner">
+        <div class="wflip-front">
+          <img src="/images/slot-3.jpg" alt="Fantasy Forest" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'wflip-emoji\'>🌿</div>'"/>
+          <div class="wflip-front-overlay"></div>
+          <div class="wflip-front-info">
+            <div class="wflip-front-cat">Image Generation</div>
+            <div class="wflip-front-name">Fantasy Forest Scene</div>
+          </div>
+        </div>
+        <div class="wflip-back">
+          <div class="wflip-back-cat">Image Generation</div>
+          <div class="wflip-back-prompt">Magical fantasy forest with bioluminescent fireflies, warm amber light, mystical atmosphere, cinematic depth of field, Studio Ghibli meets photorealism --ar 16:9 --v 7 --stylize 800</div>
+          <button class="wflip-copy" onclick="wCopy(this,event)">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wflip" onclick="this.classList.toggle('flipped')">
+      <div class="wflip-inner">
+        <div class="wflip-front">
+          <img src="/images/slot-4.jpg" alt="Jungle Temple" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'wflip-emoji\'>🏛️</div>'"/>
+          <div class="wflip-front-overlay"></div>
+          <div class="wflip-front-info">
+            <div class="wflip-front-cat">Image Generation</div>
+            <div class="wflip-front-name">Jungle Temple Ruins</div>
+          </div>
+        </div>
+        <div class="wflip-back">
+          <div class="wflip-back-cat">Image Generation</div>
+          <div class="wflip-back-prompt">Ancient jungle temple ruins overgrown with vines, golden hour lighting, cinematic shot, Indiana Jones aesthetic, ultra-detailed stone carvings, National Geographic quality --ar 16:9 --v 7 --stylize 750</div>
+          <button class="wflip-copy" onclick="wCopy(this,event)">📋 Copy</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Quick Access -->
+  <div class="section-title">Quick Access</div>
+  <div class="quick-grid">
+    <a class="quick-card" href="prompt-builder.html">
+      <span class="qc-icon">🔧</span>
+      <span class="qc-label">Builder</span>
+    </a>
+    <a class="quick-card" href="library.html">
+      <span class="qc-icon">📚</span>
+      <span class="qc-label">Library</span>
+    </a>
+    <a class="quick-card" href="library.html#image">
+      <span class="qc-icon">🎨</span>
+      <span class="qc-label">Images</span>
+    </a>
+    <a class="quick-card" href="library.html#video">
+      <span class="qc-icon">🎬</span>
+      <span class="qc-label">Video</span>
+    </a>
+    <a class="quick-card" href="library.html">
+      <span class="qc-icon">⭐</span>
+      <span class="qc-label">Featured</span>
+    </a>
+    <a class="quick-card" href="creationstation.html">
+      <span class="qc-icon">⚡</span>
+      <span class="qc-label">AI Tools</span>
+    </a>
+  </div>
+
+  <!-- Creator Tools -->
+  <div class="section-title">Creator Tools</div>
+  <div class="tool-grid">
+    <a class="tool-card" href="prompt-builder.html" style="--tc:rgba(255,98,36,.4);--ic:rgba(255,98,36,.12);">
+      <div class="tc-top">
+        <div class="tc-icon">🔧</div>
+        <span class="tc-badge badge-hot">HOT</span>
+      </div>
+      <div class="tc-name">Prompt Builder</div>
+      <div class="tc-desc">8 frameworks. Live preview. Build perfect prompts.</div>
+      <div class="tc-arrow">→</div>
+    </a>
+    <a class="tool-card" href="library.html" style="--tc:rgba(139,92,246,.4);--ic:rgba(139,92,246,.12);">
+      <div class="tc-top">
+        <div class="tc-icon">🎨</div>
+        <span class="tc-badge badge-new">NEW</span>
+      </div>
+      <div class="tc-name">Image Prompts</div>
+      <div class="tc-desc">Midjourney, DALL·E, Seedance2 & more.</div>
+      <div class="tc-arrow">→</div>
+    </a>
+    <a class="tool-card" href="library.html" style="--tc:rgba(6,214,160,.4);--ic:rgba(6,214,160,.12);">
+      <div class="tc-top">
+        <div class="tc-icon">🎬</div>
+        <span class="tc-badge badge-free">FREE</span>
+      </div>
+      <div class="tc-name">Video Prompts</div>
+      <div class="tc-desc">Sora, Runway, Veo scripts ready to use.</div>
+      <div class="tc-arrow">→</div>
+    </a>
+    <a class="tool-card" href="library.html" style="--tc:rgba(247,37,133,.4);--ic:rgba(247,37,133,.12);">
+      <div class="tc-top">
+        <div class="tc-icon">✍️</div>
+        <span class="tc-badge badge-free">FREE</span>
+      </div>
+      <div class="tc-name">Writing Studio</div>
+      <div class="tc-desc">Blogs, emails, scripts, sales copy.</div>
+      <div class="tc-arrow">→</div>
+    </a>
+  </div>
+
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-n" id="statPrompts">417</span>
+      <div class="stat-l">Prompts</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-n">8</span>
+      <div class="stat-l">Frameworks</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-n">Free</span>
+      <div class="stat-l">Always</div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Featured Prompts -->
+  <div class="section-title">Featured Prompts</div>
+  <div class="prompt-scroll">
+    <div class="prompt-card">
+      <div class="pc-cat">Business & Marketing</div>
+      <div class="pc-name">Viral TikTok Hook Generator</div>
+      <div class="pc-preview">You are a world-class viral content strategist. Generate 25 high-retention TikTok hooks...</div>
+      <div class="pc-footer">
+        <span class="pc-tool">🤖 ChatGPT</span>
+        <button class="pc-copy" title="Copy">📋</button>
+      </div>
+    </div>
+    <div class="prompt-card">
+      <div class="pc-cat">Image Generation</div>
+      <div class="pc-name">Midjourney Cinematic Scene Architect</div>
+      <div class="pc-preview">Create an ultra-detailed cinematic AI art prompt for [SCENE]. Include camera lens details...</div>
+      <div class="pc-footer">
+        <span class="pc-tool">🎨 Midjourney</span>
+        <button class="pc-copy" title="Copy">📋</button>
+      </div>
+    </div>
+    <div class="prompt-card">
+      <div class="pc-cat">AI Agents</div>
+      <div class="pc-name">Ultimate Prompt Optimizer</div>
+      <div class="pc-preview">Analyze and improve the following AI prompt for maximum clarity, output quality...</div>
+      <div class="pc-footer">
+        <span class="pc-tool">🤖 ChatGPT</span>
+        <button class="pc-copy" title="Copy">📋</button>
+      </div>
+    </div>
+    <div class="prompt-card">
+      <div class="pc-cat">Code & Tech</div>
+      <div class="pc-name">AI Software Architecture Designer</div>
+      <div class="pc-preview">Act as a senior software architect. Design a scalable architecture for [APP IDEA]...</div>
+      <div class="pc-footer">
+        <span class="pc-tool">🤖 ChatGPT</span>
+        <button class="pc-copy" title="Copy">📋</button>
+      </div>
+    </div>
+    <div class="prompt-card">
+      <div class="pc-cat">Writing & Content</div>
+      <div class="pc-name">YouTube Documentary Script Machine</div>
+      <div class="pc-preview">You are an award-winning documentary writer. Create a YouTube script with cinematic narration...</div>
+      <div class="pc-footer">
+        <span class="pc-tool">🤖 ChatGPT</span>
+        <button class="pc-copy" title="Copy">📋</button>
       </div>
     </div>
   </div>
-</div>
 
-<!-- CTA -->
-<div class="cta-section">
-  <div class="cta-card">
-    <h2>382 Prompts. All Free.</h2>
-    <p>Browse the full library — search, filter by category, copy with one click. No account, no paywall, no limits on browsing.</p>
-    <div class="cta-btns">
-      <a class="btn-primary" href="library.html">Browse Full Library →</a>
-      <a class="btn-ghost" href="creationstation.html" target="_blank">⚡ AI Tools Directory</a>
-    </div>
-    <p class="cta-note">By using this site you agree to our <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>.</p>
-  </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="flinks">
-      <a href="library.html">Library</a>
-      <a href="prompt-builder.html">Builder</a>
-      <a href="creationstation.html" target="_blank">AI Tools</a>
-      <a href="ai-prompt-library.html" target="_blank">Prompt Guide</a>
-      <a href="privacy.html" target="_blank">Privacy Policy</a>
-      <a href="terms.html" target="_blank">Terms of Service</a>
-    </div>
-    <div class="social-icons">
-      <a class="soc-btn" href="https://www.instagram.com/promptaholics/" target="_blank" rel="noopener" title="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </a>
-      <a class="soc-btn" href="https://www.youtube.com/@promptaholicsdotcom" target="_blank" rel="noopener" title="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      </a>
-      <a class="soc-btn" href="https://x.com/promptaholics1" target="_blank" rel="noopener" title="Twitter/X">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a class="soc-btn" href="https://www.linkedin.com/in/promptaholics-undefined-a75376408" target="_blank" rel="noopener" title="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-    </div>
-  </div>
-  <div class="fcopy" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">© 2026 Promptaholics. Free forever.</div>
-</footer>
 
-<!-- MODAL -->
-<div id="overlay" onclick="if(event.target===this)closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;">
-  <div class="modal-inner">
-    <div id="modalContent"></div>
-    <button onclick="closeModal()" style="margin-top:16px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:10px 20px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;width:100%;">Close</button>
-  </div>
-</div>
+
+</main>
+
+<!-- ── MOBILE BOTTOM NAV ── -->
+<nav class="bottom-nav">
+  <a class="bn-item active" href="/">
+    <span class="bn-icon">🏠</span>Home
+  </a>
+  <a class="bn-item" href="prompt-builder.html">
+    <span class="bn-icon">🔧</span>Builder
+  </a>
+  <a class="bn-item" href="library.html">
+    <span class="bn-icon">📚</span>Library
+  </a>
+  <a class="bn-item" href="creationstation.html">
+    <span class="bn-icon">⚡</span>Tools
+  </a>
+  <a class="bn-item" href="library.html">
+    <span class="bn-icon">⭐</span>Saved
+  </a>
+</nav>
 
 <script src="prompts.js"></script>
 <script>
 if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)){window.PROMPTS=[];}
 </script>
 <script>
-// THEME
-var theme=localStorage.getItem('pa_theme')||'dark';
-if(theme==='light')document.documentElement.classList.add('light-mode');
-function toggleTheme(){localStorage.setItem('pa_theme',theme==='dark'?'light':'dark');location.reload();}
+// ── PROMPT BUILDER TRANSFORM ──
+var builderTimer = null;
+var builderPrompt = '';
 
-// GA
-function gaTrack(ev,p){try{if(typeof gtag!=='undefined')gtag('event',ev,p||{});}catch(e){}}
-
-// COPY
-function safeCopy(text,btn){
-  var orig=btn?btn.innerHTML:'';
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(text).then(function(){if(btn){btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML=orig;},2000);}});
-  } else {
-    var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;top:-9999px;opacity:0;';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    if(btn){btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML=orig;},2000);}
-  }
-}
-
-// COPY LIMIT
-var COPY_LIMIT=10;
-function getTodayKey(){var d=new Date();return 'pa_daily_'+d.getFullYear()+'_'+(d.getMonth()+1)+'_'+d.getDate();}
-function getDailyCopies(){try{return parseInt(localStorage.getItem(getTodayKey())||'0');}catch(e){return 0;}}
-function canCopy(){return getDailyCopies()<COPY_LIMIT;}
-function incrementDailyCopy(){try{localStorage.setItem(getTodayKey(),getDailyCopies()+1);}catch(e){}}
-function updateCopyLimitBar(){}
-function hideGateToast(){var t=document.getElementById('copyGateToast');if(t)t.style.display='none';}
-function showGateToast(){var t=document.getElementById('copyGateToast');if(t){t.style.display='block';setTimeout(function(){t.style.display='none';},8000);}}
-
-// FLIP COPY
-function flipCopy(btn,e){
-  e.stopPropagation();
-  var el=btn.parentElement;
-  for(var i=0;i<8;i++){
-    el=el.parentElement;if(!el)break;
-    var p=el.querySelector('.flip-back-prompt');
-    if(p&&p.textContent.trim().length>10){safeCopy(p.textContent.trim(),btn);return;}
-  }
-}
-
-// AI SEARCH
-var aiSearchActive=false;
-function setAiQuery(el){document.getElementById('aiSearchInput').value=el.textContent;runAiSearch();}
-async function runAiSearch(){
-  var query=document.getElementById('aiSearchInput').value.trim();
-  if(!query)return;
-  document.getElementById('aiExamples').style.display='none';
-  document.getElementById('aiResults').style.display='none';
-  document.getElementById('aiThinking').classList.add('show');
-  document.getElementById('aiSearchBtn').disabled=true;
-  document.getElementById('aiClearBtn').classList.add('show');
-  aiSearchActive=true;
-  var results=keywordSearch(query);
-  document.getElementById('aiThinking').classList.remove('show');
-  document.getElementById('aiSearchBtn').disabled=false;
-  showAiResults(results,query);
-}
-function keywordSearch(query){
-  if(!Array.isArray(PROMPTS)||!PROMPTS.length)return[];
-  var q=query.toLowerCase().trim();
-  var words=q.split(/\s+/).filter(function(w){return w.length>1;});
-  var intentMap={'write':['writing','content'],'image':['image generation','midjourney'],'art':['image generation','creative'],'business':['business','marketing'],'code':['code','tech'],'tweet':['twitter','social'],'email':['email','copywriting'],'story':['story','creative'],'youtube':['youtube','video','script'],'marketing':['marketing','business'],'photo':['photography'],'agent':['agent','automation']};
-  var expanded=words.slice();
-  Object.keys(intentMap).forEach(function(p){if(q.includes(p))expanded=expanded.concat(intentMap[p]);});
-  var scored=PROMPTS.map(function(p){
-    var hay=p.name.toLowerCase()+' '+p.cat.toLowerCase()+' '+p.tags.join(' ').toLowerCase()+' '+(p.desc||'').toLowerCase();
-    var score=0;
-    expanded.forEach(function(w){
-      if(!w||w.length<2)return;
-      if(p.name.toLowerCase().includes(w))score+=6;
-      else if(p.cat.toLowerCase().includes(w))score+=3;
-      else if(p.tags.join(' ').toLowerCase().includes(w))score+=2;
-      else if(hay.includes(w))score+=1;
-    });
-    if(p.feat&&score>0)score+=1;
-    return{id:p.id,score:score};
-  }).filter(function(x){return x.score>0;}).sort(function(a,b){return b.score-a.score;}).slice(0,6).map(function(x){return{id:x.id,reason:'Great match'};});
-  return scored;
-}
-function showAiResults(results,query){
-  var list=document.getElementById('aiResultsList');
-  var panel=document.getElementById('aiResults');
-  var empty=document.getElementById('aiEmpty');
-  var count=document.getElementById('aiResultCount');
-  panel.style.display='block';
-  if(!results||!results.length){list.innerHTML='';count.textContent='0';empty.style.display='block';return;}
-  empty.style.display='none';
-  count.textContent=results.length;
-  list.innerHTML=results.map(function(r,i){
-    var p=PROMPTS.find(function(x){return x.id===r.id;});
-    if(!p)return'';
-    var tl=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-    return'<div class="ai-result-item" onclick="showModal(\''+p.id+'\')">'
-      +'<div class="ai-result-rank'+(i===0?' top':'')+'"> '+(i+1)+'</div>'
-      +'<div class="ai-result-body"><div class="ai-result-name">'+p.name+'</div>'
-      +'<div class="ai-result-reason">✨ '+r.reason+'</div>'
-      +'<div class="ai-result-meta"><span class="ai-result-cat">'+p.cat+'</span><span class="ai-result-tool">'+tl+'</span></div></div>'
-      +'<div class="ai-result-actions">'
-      +'<button class="ai-result-copy" onclick="aiCopy(\''+p.id+'\',event)">📋 Copy</button>'
-      +'<button class="ai-result-view" onclick="showModal(\''+p.id+'\');event.stopPropagation()">View →</button>'
-      +'</div></div>';
-  }).join('');
-}
-function aiCopy(id,e){
-  e.stopPropagation();
-  if(!Array.isArray(PROMPTS))return;
-  var p=PROMPTS.find(function(x){return x.id===id;});
-  if(!p)return;
-  safeCopy(p.text,e.target);
-}
-function clearAiSearch(){
-  aiSearchActive=false;
-  var inp=document.getElementById('aiSearchInput');
-  var panel=document.getElementById('aiResults');
-  var empty=document.getElementById('aiEmpty');
-  var think=document.getElementById('aiThinking');
-  var clr=document.getElementById('aiClearBtn');
-  var btn=document.getElementById('aiSearchBtn');
-  var ex=document.getElementById('aiExamples');
-  if(inp)inp.value='';
-  if(panel)panel.style.display='none';
-  if(empty)empty.style.display='none';
-  if(think)think.classList.remove('show');
-  if(clr)clr.classList.remove('show');
-  if(btn)btn.disabled=false;
-  if(ex)ex.style.display='';
-}
-
-// MODAL
-function showModal(id){
-  if(!Array.isArray(PROMPTS))return;
-  var p=PROMPTS.find(function(x){return x.id===id;});
-  if(!p)return;
-  var tl=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-  document.getElementById('modalContent').innerHTML=
-    '<div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">'+p.cat+'</div>'
-    +'<div style="font-family:\'Syne\',serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:12px;">'+p.name+'</div>'
-    +'<div style="font-size:12px;color:var(--text3);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;display:inline-block;margin-bottom:14px;">'+tl+'</div>'
-    +'<div style="font-size:13px;color:var(--text2);line-height:1.75;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-family:\'Fira Code\',monospace;white-space:pre-wrap;margin-bottom:16px;">'+p.text+'</div>'
-    +'<button onclick="aiCopy(\''+p.id+'\',event)" style="width:100%;background:var(--orange);color:#fff;border:none;padding:12px;border-radius:10px;cursor:pointer;font-family:\'Instrument Sans\',sans-serif;font-size:14px;font-weight:700;">📋 Copy Prompt</button>';
-  var ov=document.getElementById('overlay');
-  ov.style.display='flex';
-}
-function closeModal(){document.getElementById('overlay').style.display='none';}
-
-// POTD
-function setupPotd(){
-  if(!Array.isArray(PROMPTS)||!PROMPTS.length)return;
-  var d=new Date();
-  var dayIndex=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24));
-  var p=PROMPTS[dayIndex%PROMPTS.length];
-  if(!p)return;
-  var el=function(i){return document.getElementById(i);};
-  if(el('potdCat'))el('potdCat').textContent=p.cat;
-  if(el('potdName'))el('potdName').textContent=p.name;
-  if(el('potdText'))el('potdText').textContent=p.text;
-  if(el('potdDate'))el('potdDate').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  if(el('potdCopyBtn'))el('potdCopyBtn')._pid=p.id;
-}
-function potdCopy(){
-  var btn=document.getElementById('potdCopyBtn');
-  var id=btn._pid;
-  var p=Array.isArray(PROMPTS)?PROMPTS.find(function(x){return x.id===id;}):null;
-  if(!p)return;
-  safeCopy(p.text,btn);
-}
-
-// HERO TRANSFORM
-var heroTypingTimer=null;
-var heroCurrentPrompt='';
-var HERO_TRANSFORMS={
-  youtube:{role:'You are an expert YouTube scriptwriter who creates high-retention videos.',goal:'Create a compelling YouTube script for',extras:'Include:\n- A scroll-stopping hook in the first 15 seconds\n- Pattern interrupts every 60-90 seconds\n- Clear structure with chapters\n- Strong CTA at the end\n\nMake it conversational, energetic, and keep viewers watching.'},
-  instagram:{role:'You are a viral social media strategist.',goal:'Write an engaging Instagram post for',extras:'Requirements:\n- Scroll-stopping first line\n- Valuable body (3-5 lines)\n- Strong CTA\n- 5-10 relevant hashtags'},
-  tiktok:{role:'You are a viral short-form content creator.',goal:'Write a TikTok script for',extras:'Requirements:\n- Hook within first 3 seconds\n- Fast-paced delivery\n- Pattern interrupt mid-video\n- Strong ending CTA\n\nKeep total under 60 seconds.'},
-  linkedin:{role:'You are a LinkedIn thought leadership expert.',goal:'Write a high-engagement LinkedIn post about',extras:'Structure:\n- Bold opening line\n- Key insight or personal story\n- Practical takeaway\n- Discussion question to drive comments'},
-  email:{role:'You are a world-class email copywriter.',goal:'Write a high-converting email for',extras:'Include:\n- Subject line under 50 characters\n- Preview text\n- Hook opening\n- Value-driven body\n- Single clear CTA'},
-  blog:{role:'You are an expert SEO content strategist.',goal:'Write a compelling blog post about',extras:'Include:\n- SEO-optimized headline\n- Introduction with hook\n- 5-7 subheadings\n- Actionable insights\n- Conclusion with key takeaways'},
-  marketing:{role:'You are an expert direct response copywriter.',goal:'Create high-converting marketing copy for',extras:'Lead with the customer pain point, build desire, handle objections, close with urgency and a clear CTA. Write 3 variations.'},
-  ad:{role:'You are a performance marketing expert.',goal:'Write a high-converting ad for',extras:'Deliver:\n- 3 headline variations\n- Primary text 2-3 sentences\n- Call to action\n\nFocus on the benefit, not the feature.'},
-  business:{role:'You are a world-class business strategist.',goal:'Analyze and provide strategic advice for',extras:'Include:\n- Executive summary\n- Key opportunities\n- Risks and mitigation\n- Prioritized action steps'},
-  code:{role:'You are a senior software engineer with 15 years of experience.',goal:'Build a clean production-ready solution for',extras:'Provide:\n- Well-structured code with comments\n- Error handling\n- Example usage\n- Key technical decisions explained'},
-  midjourney:{role:'',goal:'',extras:'cinematic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 750 --style raw'},
-  image:{role:'',goal:'',extras:'photorealistic, professional quality, dramatic lighting, ultra-detailed, 8K resolution.'},
-  art:{role:'',goal:'',extras:'cinematic composition, dramatic volumetric lighting, ultra-detailed, award-winning digital art --ar 16:9 --v 7 --stylize 800'}
+var TRANSFORMS = {
+  youtube:   { role:'You are an expert YouTube scriptwriter.', goal:'Create a compelling YouTube script for', extras:'Include:\n- Hook in first 15 seconds\n- Pattern interrupts every 60-90 seconds\n- Strong CTA at the end' },
+  instagram: { role:'You are a viral social media strategist.', goal:'Write an engaging Instagram post for', extras:'Requirements:\n- Scroll-stopping first line\n- Strong CTA\n- Relevant hashtags' },
+  tiktok:    { role:'You are a viral short-form content creator.', goal:'Write a TikTok script for', extras:'Requirements:\n- Hook within first 3 seconds\n- Fast-paced delivery\n- Strong ending CTA' },
+  email:     { role:'You are a world-class email copywriter.', goal:'Write a high-converting email for', extras:'Include:\n- Subject line under 50 characters\n- Hook opening\n- Single clear CTA' },
+  blog:      { role:'You are an expert SEO content strategist.', goal:'Write a compelling blog post about', extras:'Include:\n- SEO headline\n- 5-7 subheadings\n- Actionable insights' },
+  marketing: { role:'You are an expert direct response copywriter.', goal:'Create high-converting marketing copy for', extras:'Lead with pain point, build desire, handle objections, strong CTA. Write 3 variations.' },
+  code:      { role:'You are a senior software engineer with 15 years of experience.', goal:'Build a clean solution for', extras:'Provide:\n- Well-structured code with comments\n- Error handling\n- Example usage' },
+  midjourney:{ role:'', goal:'', extras:'cinematic lighting, ultra-detailed, masterpiece quality --ar 16:9 --v 7 --stylize 750 --style raw' },
+  image:     { role:'', goal:'', extras:'photorealistic, professional quality, dramatic lighting, 8K resolution.' },
 };
-function detectIntent(text){
-  var t=text.toLowerCase();
-  if(t.match(/youtube|yt script|video script/))return'youtube';
-  if(t.match(/instagram|ig post/))return'instagram';
-  if(t.match(/tiktok|tik tok|short form|reels/))return'tiktok';
-  if(t.match(/linkedin/))return'linkedin';
-  if(t.match(/email|newsletter|cold email/))return'email';
-  if(t.match(/blog|article|seo post/))return'blog';
-  if(t.match(/facebook ad|google ad|ad copy/))return'ad';
-  if(t.match(/market|campaign|brand/))return'marketing';
-  if(t.match(/business|startup|strategy/))return'business';
-  if(t.match(/code|function|build a|debug/))return'code';
-  if(t.match(/midjourney|--ar|--v 7/))return'midjourney';
-  if(t.match(/dall.?e|image of|photo of/))return'image';
-  if(t.match(/draw|paint|art|illustration/))return'art';
-  return'blog';
+
+function detectIntent(t){
+  t = t.toLowerCase();
+  if(t.match(/youtube|yt script|video script/)) return 'youtube';
+  if(t.match(/instagram|ig post/)) return 'instagram';
+  if(t.match(/tiktok|tik tok|reels/)) return 'tiktok';
+  if(t.match(/email|newsletter|cold email/)) return 'email';
+  if(t.match(/blog|article|seo post/)) return 'blog';
+  if(t.match(/market|campaign|brand|ad/)) return 'marketing';
+  if(t.match(/code|build a|function|debug|app/)) return 'code';
+  if(t.match(/midjourney|--ar|--v 7/)) return 'midjourney';
+  if(t.match(/dall.?e|image of|photo of/)) return 'image';
+  return 'blog';
 }
-function buildHeroPrompt(rawText){
-  var t=rawText.trim();
-  if(!t)return'';
-  var intent=detectIntent(t);
-  var tmpl=HERO_TRANSFORMS[intent]||HERO_TRANSFORMS['blog'];
-  if(intent==='midjourney'||intent==='image'||intent==='art')return t+', '+tmpl.extras;
-  var lines=[];
-  if(tmpl.role)lines.push(tmpl.role);
-  lines.push('');
-  lines.push(tmpl.goal+':');
-  lines.push(t);
-  lines.push('');
-  lines.push(tmpl.extras);
-  return lines.join('\n');
+
+function buildPrompt(raw){
+  var t = raw.trim();
+  if(!t) return '';
+  var intent = detectIntent(t);
+  var tmpl = TRANSFORMS[intent] || TRANSFORMS['blog'];
+  if(intent==='midjourney'||intent==='image') return t+', '+tmpl.extras;
+  return (tmpl.role?tmpl.role+'\n\n':'')+tmpl.goal+':\n'+t+'\n\n'+tmpl.extras;
 }
-function heroTransform(val){
-  clearTimeout(heroTypingTimer);
-  var el=document.getElementById('heroOutput');
+
+function builderTransform(val){
+  clearTimeout(builderTimer);
+  var el = document.getElementById('builderOutput');
   if(!val||!val.trim()){
-    el.className='hcard-output';
-    el.innerHTML='<span style="color:var(--text3);">Type your idea above and watch it transform into a professional prompt...</span>';
-    heroCurrentPrompt='';
-    return;
+    el.className='builder-output';
+    el.innerHTML='<span class="builder-placeholder">Type your idea above and watch it transform into a professional prompt...</span>';
+    builderPrompt=''; return;
   }
-  heroTypingTimer=setTimeout(function(){
-    var prompt=buildHeroPrompt(val);
-    heroCurrentPrompt=prompt;
-    typeHeroPrompt(prompt);
-  },300);
+  builderTimer = setTimeout(function(){
+    var p = buildPrompt(val);
+    builderPrompt = p;
+    typeOutput(p);
+  }, 300);
 }
-function typeHeroPrompt(text){
-  var el=document.getElementById('heroOutput');
-  el.className='hcard-output typing';
-  el.textContent='';
-  var i=0;
-  var speed=Math.max(6,Math.min(18,Math.floor(900/text.length)));
+
+function typeOutput(text){
+  var el = document.getElementById('builderOutput');
+  el.className = 'builder-output typing';
+  el.textContent = '';
+  var i = 0;
+  var speed = Math.max(6, Math.min(18, Math.floor(900/text.length)));
   function tick(){
-    if(i<text.length){i+=3;el.textContent=text.slice(0,i);setTimeout(tick,speed);}
-    else{el.textContent=text;}
+    if(i<text.length){ i+=3; el.textContent=text.slice(0,i); setTimeout(tick,speed); }
+    else { el.textContent=text; }
   }
   tick();
 }
-function heroCopy(){
-  if(!heroCurrentPrompt){alert('Type something first!');return;}
-  var btn=document.querySelector('.hcard-copy');
-  var orig=btn?btn.innerHTML:'';
-  navigator.clipboard.writeText(heroCurrentPrompt).then(function(){
-    if(btn){btn.innerHTML='✅ Copied!';btn.style.background='#22c55e';}
-    setTimeout(function(){if(btn){btn.innerHTML=orig;btn.style.background='';}},2000);
+
+function builderCopy(){
+  if(!builderPrompt){ alert('Type something first!'); return; }
+  var btn = document.querySelector('.builder-copy');
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(builderPrompt).then(function(){
+    btn.innerHTML='✅ Copied!'; btn.style.background='#22c55e';
+    setTimeout(function(){ btn.innerHTML=orig; btn.style.background=''; }, 2000);
   }).catch(function(){
-    var ta=document.createElement('textarea');ta.value=heroCurrentPrompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    if(btn){btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML=orig;},2000);}
+    var ta=document.createElement('textarea'); ta.value=builderPrompt;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML='✅ Copied!';
+    setTimeout(function(){ btn.innerHTML=orig; }, 2000);
   });
 }
-setTimeout(function(){
-  var inp=document.getElementById('heroInput');
-  if(inp&&!inp.value.trim()){
-    var demos=['Write me a YouTube script about how AI is changing business','Create an Instagram post for a product launch','Write a cold email to potential investors','Build a viral TikTok hook about productivity hacks'];
-    var demo=demos[Math.floor(Math.random()*demos.length)];
-    inp.placeholder=demo;
-    heroTransform(demo);
-    heroCurrentPrompt=buildHeroPrompt(demo);
-  }
-},1800);
 
-// INIT
-document.addEventListener('DOMContentLoaded',function(){
-  var tb=document.getElementById('themeBtn');
-  if(tb)tb.textContent=theme==='light'?'☀️':'🌙';
-  setupPotd();
-  var sc=document.getElementById('hStatPrompts');
-  if(sc&&Array.isArray(PROMPTS))sc.textContent=PROMPTS.length;
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();document.getElementById('aiSearchInput').focus();}
+// Auto demo
+setTimeout(function(){
+  var inp = document.getElementById('builderInput');
+  if(inp && !inp.value.trim()){
+    var demos = ['Write me a YouTube script about how AI is changing business','Create an Instagram post for a product launch','Build a viral TikTok hook about productivity'];
+    inp.placeholder = demos[Math.floor(Math.random()*demos.length)];
+    builderTransform(inp.placeholder);
+    builderPrompt = buildPrompt(inp.placeholder);
+  }
+}, 1500);
+
+function wCopy(btn, e){
+  e.stopPropagation();
+  var card = btn.closest('.wflip-back');
+  var text = card.querySelector('.wflip-back-prompt').textContent.trim();
+  var orig = btn.innerHTML;
+  navigator.clipboard.writeText(text).then(function(){
+    btn.innerHTML = '✅ Copied!';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  }).catch(function(){
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '✅ Copied!';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  });
+}
+
+function toggleMenu(){
+  var overlay = document.getElementById('menuOverlay');
+  var menu    = document.getElementById('slideMenu');
+  overlay.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+// Theme
+var theme = localStorage.getItem('pa_theme') || 'dark';
+if(theme === 'light') document.documentElement.classList.add('light-mode');
+function toggleTheme(){
+  localStorage.setItem('pa_theme', theme === 'dark' ? 'light' : 'dark');
+  location.reload();
+}
+var tb = document.getElementById('themeBtn');
+if(tb) tb.textContent = theme === 'light' ? '☀️' : '🌙';
+
+// Update prompt count from PROMPTS array
+var sc = document.getElementById('statPrompts');
+if(sc && Array.isArray(PROMPTS) && PROMPTS.length) sc.textContent = PROMPTS.length;
+
+// Model pill toggle
+document.querySelectorAll('.model-pill').forEach(function(p){
+  p.addEventListener('click', function(){
+    document.querySelectorAll('.model-pill').forEach(function(x){ x.classList.remove('active'); });
+    p.classList.add('active');
+  });
+});
+// Bottom nav toggle
+document.querySelectorAll('.bn-item').forEach(function(b){
+  b.addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelectorAll('.bn-item').forEach(function(x){ x.classList.remove('active'); });
+    b.classList.add('active');
   });
 });
 </script>
+
+<!-- FOOTER -->
+<footer style="background:var(--surface);border-top:1px solid var(--border);padding:20px 16px;margin-left:0;">
+  <div style="width:100%;">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+      <div style="display:flex;gap:4px;flex-wrap:wrap;">
+        <a href="library.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;transition:color .15s;">Library</a>
+        <a href="prompt-builder.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Builder</a>
+        <a href="creationstation.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">AI Tools</a>
+        <a href="privacy.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Privacy</a>
+        <a href="terms.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;">Terms</a>
+      </div>
+      <div style="font-size:11px;color:var(--text3);">© 2026 Promptaholics. Free forever.</div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
