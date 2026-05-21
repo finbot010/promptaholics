@@ -1182,10 +1182,28 @@ function setTool(el){
 function copyPrompt(){
   var p = getCurrentPrompt();
   if(!p) return;
+  // Save to pa_saved_text (same key as homepage saved modal)
+  try {
+    var saved = JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
+    var fw = document.getElementById('centerTitle');
+    var name = (fw ? fw.textContent : 'Builder Prompt') + ' — ' + new Date().toLocaleDateString();
+    if(!saved.some(function(s){ return s.text===p; })){
+      saved.unshift({name: name, text: p});
+      if(saved.length > 50) saved = saved.slice(0,50);
+      localStorage.setItem('pa_saved_text', JSON.stringify(saved));
+    }
+  } catch(e){}
   var btn = document.getElementById('copyBtn');
   var orig = btn.innerHTML;
   navigator.clipboard.writeText(p).then(function(){
-    btn.innerHTML = '✅ Copied!';
+    btn.innerHTML = '✅ Saved!';
+    setTimeout(function(){ btn.innerHTML=orig; }, 2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');
+    ta.value=p; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.innerHTML = '✅ Saved!';
     setTimeout(function(){ btn.innerHTML=orig; }, 2000);
   });
 }
