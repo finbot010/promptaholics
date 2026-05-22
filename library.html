@@ -211,7 +211,7 @@ function toggleTheme(){
   location.reload();
 }
 
-var CATS = ['All','Writing & Content','Business & Marketing','Image Generation',
+var CATS = ['All','Writing & Content','Video & Film','Business & Marketing','Image Generation',
   'Code & Tech','Creative & Art','Education & Learning','AI Agents','Other',
   'Wellness','Health','Photography','Real Estate','Legal'];
 
@@ -379,21 +379,31 @@ function modalFav(){
 document.addEventListener('DOMContentLoaded', function(){
   var tb=document.getElementById('themeBtn');
   if(tb) tb.textContent=theme==='light'?'☀️':'🌙';
-  // Read ?cat= URL param and auto-filter
+
+  // Read ?cat= URL param
   var params = new URLSearchParams(window.location.search);
   var catParam = params.get('cat');
   if(catParam){
-    // Decode and match to existing category
     activeCat = decodeURIComponent(catParam.replace(/\+/g,' '));
   }
-  renderCats();
-  renderTags();
-  renderCards();
-  // Scroll to top of cards
-  if(catParam){
-    var grid = document.getElementById('mainGrid');
-    if(grid) setTimeout(function(){ grid.scrollIntoView({behavior:'smooth'}); }, 300);
+
+  // Wait for PROMPTS to load then render
+  function init(){
+    if(typeof PROMPTS !== 'undefined' && Array.isArray(PROMPTS) && PROMPTS.length){
+      renderCats();
+      renderTags();
+      renderCards();
+      if(catParam){
+        setTimeout(function(){
+          var grid = document.getElementById('mainGrid');
+          if(grid) grid.scrollIntoView({behavior:'smooth',block:'start'});
+        }, 200);
+      }
+    } else {
+      setTimeout(init, 50);
+    }
   }
+  init();
 });
 </script>
 </body>
