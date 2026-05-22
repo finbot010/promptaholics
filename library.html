@@ -23,6 +23,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --bg:#08080b;--surface:#111116;--surface2:#18181f;--surface3:#1e1e27;
@@ -129,9 +130,39 @@ body{overflow-x:hidden;}
   button,input,select,textarea{font-size:16px!important;}
   button.act-btn,button.build-btn,.bcopy,.bprev{min-height:48px;}
 }
+/* ── Bottom Nav ── */
+.bottom-nav {
+  display: flex;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  z-index: 200; height: 60px;
+  padding: 0;
+}
+.bn-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px; text-decoration: none;
+  color: var(--text3); font-size: 10px; font-weight: 600;
+  border-top: 2px solid transparent;
+  transition: color .15s; cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255,98,36,.1);
+  touch-action: manipulation;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.bn-item.active { color: var(--orange); border-top-color: var(--orange); }
+.bn-item:hover  { color: var(--text2); }
+.bn-icon { font-size: 22px; line-height: 1; }
+/* Pad main content above bottom nav on mobile */
+.main-wrap { padding-bottom: 70px; }
+@media (min-width: 900px) {
+  .bottom-nav { display: none; }
+  .main-wrap  { padding-bottom: 0; }
+}
+
 </style>
 </head>
-<body>
+<body style="padding-bottom:70px;">
 
 <header class="hdr">
   <a class="logo" href="/">
@@ -139,10 +170,10 @@ body{overflow-x:hidden;}
     <div class="logo-name">Prompt<span>aholics</span></div>
   </a>
   <div class="nav">
-    <a href="/">Home</a>
-    <a href="creationstation.html" target="_blank">⚡ AI Tools</a>
+    <a href="/">← Home</a>
+    <a href="prompt-builder.html">🔧 Builder</a>
+    <a href="creationstation.html">⚡ AI Tools</a>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <a href="/" class="home-btn">← Home</a>
   </div>
 </header>
 
@@ -157,7 +188,7 @@ body{overflow-x:hidden;}
   </aside>
   <div class="main">
     <div class="toolbar">
-      <input class="srch" id="searchInput" type="text" placeholder="Search 402 prompts..." oninput="renderCards()"/>
+      <input class="srch" id="searchInput" type="text" placeholder="Search 432 prompts..." oninput="renderCards()"/>
       <select id="sortSel" onchange="renderCards()">
         <option value="alpha" selected>A → Z</option>
         <option value="newest">Newest</option>
@@ -206,6 +237,18 @@ var curModal = null;
 var theme = localStorage.getItem('pa_theme')||'dark';
 if(theme==='light') document.body.classList.add('light');
 
+function openSaved(e){
+  if(e) e.preventDefault();
+  var ids = [];
+  try { ids = JSON.parse(localStorage.getItem('pa_favs')||'[]'); } catch(err){}
+  var texts = [];
+  try { texts = JSON.parse(localStorage.getItem('pa_saved_text')||'[]'); } catch(err){}
+  var total = ids.length + texts.length;
+  if(!total){ alert('No saved prompts yet. Tap ♡ on any prompt to save it.'); return; }
+  var msg = '⭐ You have '+total+' saved prompt'+(total>1?'s':'')+'.\n\nGo to the homepage to view, copy and download them as PDF.';
+  if(confirm(msg + '\n\nOpen homepage now?')){ window.location.href = '/?saved=1'; }
+}
+
 function toggleTheme(){
   localStorage.setItem('pa_theme', theme==='dark'?'light':'dark');
   location.reload();
@@ -250,11 +293,11 @@ function getList(){
   if(activeCat!=='All') list=list.filter(function(p){return p.cat===activeCat;});
   if(activeTag) list=list.filter(function(p){return p.tags.indexOf(activeTag)!==-1;});
   if(q) list=list.filter(function(p){
-    return p.name.toLowerCase().indexOf(q)!==-1
-      ||p.text.toLowerCase().indexOf(q)!==-1
-      ||p.cat.toLowerCase().indexOf(q)!==-1
-      ||(p.desc||'').toLowerCase().indexOf(q)!==-1
-      ||(p.tags||[]).some(function(t){return t.indexOf(q)!==-1;});
+    var ql=q.toLowerCase();
+    return p.name.toLowerCase().indexOf(ql)!==-1
+      ||p.cat.toLowerCase().indexOf(ql)!==-1
+      ||(p.tags||[]).some(function(t){return t.toLowerCase().indexOf(ql)!==-1;})
+      ||p.text.toLowerCase().indexOf(ql)!==-1;
   });
   if(s==='oldest') list.sort(function(a,b){return parseInt(a.id)-parseInt(b.id);});
   else if(s==='newest') list.sort(function(a,b){return parseInt(b.id)-parseInt(a.id);});
@@ -406,5 +449,25 @@ document.addEventListener('DOMContentLoaded', function(){
   init();
 });
 </script>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item" href="/">
+    <span class="bn-icon">🏠</span>Home
+  </a>
+  <a class="bn-item" href="prompt-builder.html">
+    <span class="bn-icon">🔧</span>Builder
+  </a>
+  <a class="bn-item active" href="library.html">
+    <span class="bn-icon">📚</span>Library
+  </a>
+  <a class="bn-item" href="creationstation.html">
+    <span class="bn-icon">⚡</span>Tools
+  </a>
+  <a class="bn-item" href="#" onclick="openSaved(event)">
+    <span class="bn-icon">⭐</span>Saved
+  </a>
+</nav>
+
 </body>
 </html>
