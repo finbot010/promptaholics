@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="theme-color" content="#ff6224"/>
 <title>AI Tools Directory — Promptaholics</title>
-<meta name="description" content="The best AI tools for creators — image, video, writing, code, audio and more. All in one place."/>
+<meta name="description" content="The best AI tools for creators — image, video, writing, code, audio and more."/>
 <link rel="canonical" href="https://promptaholics.com/creationstation"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
 <meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
@@ -19,1185 +19,412 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0;}
 html,body{overflow-x:hidden;width:100%;}
 :root{
-  --bg:#07070a; --surface:#111118; --s2:#18181f; --s3:#1e1e28;
-  --border:#1f1f2c; --border2:#2a2a3a;
-  --text:#f0f0f8; --text2:#9090b0; --text3:#44445a;
-  --orange:#ff6224; --orange2:#e84e0e;
+  --bg:#07070a;--surface:#111118;--s2:#18181f;--s3:#1e1e28;
+  --border:#1f1f2c;--border2:#2a2a3a;
+  --text:#f0f0f8;--text2:#9090b0;--text3:#44445a;
+  --orange:#ff6224;--orange2:#e84e0e;
 }
 body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh;}
 a{text-decoration:none;color:inherit;}
 
-/* ── TOP NAV ── */
-.topnav{
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;background:rgba(7,7,10,.97);
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100;
-}
-.topnav-logo{display:flex;align-items:center;gap:9px;}
-.topnav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.topnav-logo-mark svg{width:12px;height:14px;}
-.topnav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
-.topnav-logo-text span{color:var(--orange);}
-.topnav-right{display:flex;align-items:center;gap:8px;}
-.topnav-btn{
-  background:var(--s2);border:1px solid var(--border2);color:var(--text2);
-  height:36px;padding:0 14px;border-radius:9px;cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;
-  display:flex;align-items:center;gap:5px;transition:all .15s;
-}
-.topnav-btn:hover{border-color:var(--orange);color:var(--orange);}
-.topnav-icon-btn{
-  background:var(--s2);border:1px solid var(--border2);color:var(--text2);
-  width:36px;height:36px;border-radius:9px;cursor:pointer;font-size:16px;
-  display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.topnav-icon-btn:hover{border-color:var(--orange);color:var(--orange);}
+/* TOP NAV */
+.topnav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(7,7,10,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:9px;}
+.nav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:12px;height:14px;}
+.nav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
+.nav-logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-btn{background:var(--s2);border:1px solid var(--border2);color:var(--text2);height:36px;padding:0 12px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;transition:all .15s;text-decoration:none;}
+.nav-btn:hover{border-color:var(--orange);color:var(--orange);}
+.nav-icon{width:36px;height:36px;background:var(--s2);border:1px solid var(--border2);color:var(--text2);border-radius:9px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{border-color:var(--orange);color:var(--orange);}
 
-/* ── MAIN ── */
-.main{padding:20px 16px 90px;max-width:1200px;margin:0 auto;}
-
-/* ── PAGE HEADER ── */
-.page-header{margin-bottom:24px;}
-.page-title{font-family:'Syne',serif;font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
+/* MAIN */
+.main{padding:20px 16px 90px;}
+.page-title{font-family:'Syne',serif;font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:4px;}
 .page-title span{color:var(--orange);}
-.page-sub{font-size:13px;color:var(--text2);}
+.page-sub{font-size:13px;color:var(--text2);margin-bottom:20px;}
 
-/* ── SEARCH ── */
-.search-wrap{
-  display:flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:12px;padding:4px 4px 4px 14px;
-  margin-bottom:20px;transition:border .2s;
-}
-.search-wrap:focus-within{border-color:var(--orange);}
-.search-input{
-  flex:1;background:none;border:none;outline:none;
-  color:var(--text);font-family:'Instrument Sans',sans-serif;
-  font-size:15px;padding:10px 0;
-}
+/* SEARCH */
+.search-box{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border2);border-radius:12px;padding:4px 4px 4px 14px;margin-bottom:16px;transition:border .2s;}
+.search-box:focus-within{border-color:var(--orange);}
+.search-box i{color:var(--text3);font-size:18px;flex-shrink:0;}
+.search-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:15px;padding:10px 0;}
 .search-input::placeholder{color:var(--text3);}
-.search-clear{
-  background:none;border:none;color:var(--text3);cursor:pointer;
-  padding:8px;font-size:16px;display:none;
-}
-.search-clear.show{display:flex;}
+.search-x{background:none;border:none;color:var(--text3);cursor:pointer;padding:8px;font-size:14px;display:none;align-items:center;}
+.search-x.show{display:flex;}
 
-/* ── FILTER TABS ── */
-.filter-row{
-  display:flex;gap:6px;overflow-x:auto;
-  scrollbar-width:none;margin-bottom:20px;padding-bottom:2px;
-}
-.filter-row::-webkit-scrollbar{display:none;}
-.filter-tab{
-  flex-shrink:0;padding:7px 14px;border-radius:20px;
-  border:1px solid var(--border2);background:var(--surface);
-  font-size:12px;font-weight:600;color:var(--text2);
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-.filter-tab.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
-.filter-tab:hover{border-color:var(--border);color:var(--text);}
+/* FILTERS */
+.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:20px;padding-bottom:2px;}
+.filters::-webkit-scrollbar{display:none;}
+.ftab{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.ftab.on{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
 
-/* ── FEATURED STRIP ── */
-.featured-label{
-  font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--text3);
-  margin-bottom:10px;display:flex;align-items:center;gap:8px;
-}
-.featured-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.featured-strip{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:10px;margin-bottom:24px;
-}
+/* SECTION LABEL */
+.slabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;display:flex;align-items:center;gap:8px;}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ── TOOL CARD (compact) ── */
-.tool-card{
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:12px;padding:12px;
-  display:flex;align-items:center;gap:10px;
-  transition:all .18s;cursor:pointer;position:relative;
-  overflow:hidden;
-}
-.tool-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--tc,rgba(255,98,36,.05)),transparent);
-  opacity:0;transition:opacity .2s;
-}
-.tool-card:hover{border-color:var(--tc,var(--orange));transform:translateY(-1px);}
-.tool-card:hover::before{opacity:1;}
-.tool-card:active{transform:scale(.98);}
+/* FEATURED GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px;}
 
-.tool-icon-wrap{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-  background:#fff;
-  box-shadow:0 1px 4px rgba(0,0,0,.15);
-  overflow:hidden;
-}
-.tool-info{flex:1;min-width:0;}
-.tool-name{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--text);line-height:1.2;}
-.tool-tag{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* TOOL CARD */
+.tc{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;transition:border .18s,transform .18s;position:relative;overflow:hidden;}
+.tc:hover{border-color:var(--accent,var(--orange));transform:translateY(-1px);}
+.tc:active{transform:scale(.98);}
 
-.tool-actions{display:flex;gap:6px;flex-shrink:0;}
-.tool-btn{
-  height:32px;padding:0 10px;border-radius:8px;
-  font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;
-  cursor:pointer;transition:all .15s;border:none;
-  display:flex;align-items:center;gap:4px;white-space:nowrap;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-}
-.btn-visit{background:var(--orange);color:#fff;}
-.btn-visit:hover{background:var(--orange2);}
-.btn-save{background:var(--s2);color:var(--text2);border:1px solid var(--border2);}
-.btn-save:hover{border-color:var(--orange);color:var(--orange);}
-.btn-save.saved{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
+/* LOGO BOX */
+.tc-logo{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.tc-logo img{width:36px;height:36px;object-fit:contain;display:block;}
+.tc-logo .fallback{font-size:22px;line-height:1;}
 
-/* Badge */
-.tool-badge{
-  position:absolute;top:8px;right:8px;
-  font-size:8px;font-weight:700;letter-spacing:.5px;
-  padding:2px 6px;border-radius:5px;
-}
-.badge-hot{background:rgba(247,37,133,.12);color:#f72585;}
-.badge-new{background:rgba(255,98,36,.12);color:var(--orange);}
-.badge-partner{background:rgba(6,214,160,.12);color:#06d6a0;}
+/* CARD INFO */
+.tc-info{flex:1;min-width:0;}
+.tc-name{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tc-tag{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-/* ── TOOLS GRID ── */
-.section-label{
-  font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--text3);
-  margin:20px 0 10px;display:flex;align-items:center;gap:8px;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.tools-grid{
-  display:grid;grid-template-columns:1fr;
-  gap:8px;margin-bottom:8px;
-}
+/* ACTIONS */
+.tc-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;}
+.tc-save{width:32px;height:32px;background:var(--s2);border:1px solid var(--border2);color:var(--text3);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;touch-action:manipulation;}
+.tc-save:hover,.tc-save.on{border-color:var(--orange);color:var(--orange);}
+.tc-visit{height:32px;padding:0 10px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;touch-action:manipulation;text-decoration:none;transition:background .15s;}
+.tc-visit:hover{background:var(--orange2);color:#fff;}
 
-/* Empty state */
+/* BADGE */
+.tc-badge{position:absolute;top:6px;right:6px;font-size:8px;font-weight:700;letter-spacing:.5px;padding:2px 5px;border-radius:4px;pointer-events:none;}
+.badge-hot{background:rgba(247,37,133,.15);color:#f72585;}
+.badge-new{background:rgba(255,98,36,.15);color:var(--orange);}
+
+/* ALL TOOLS GRID */
+.tools-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+
+/* EMPTY */
 .empty{text-align:center;padding:48px 16px;color:var(--text3);}
 .empty-icon{font-size:40px;margin-bottom:12px;}
-.empty h3{font-family:'Syne',serif;font-size:18px;color:var(--text2);margin-bottom:6px;}
 
-/* ── BOTTOM NAV ── */
-.bottom-nav{
-  display:flex;position:fixed;bottom:0;left:0;right:0;
-  background:var(--surface);border-top:1px solid var(--border);
-  z-index:200;height:60px;
-}
-.bn-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:3px;text-decoration:none;
-  color:var(--text3);font-size:10px;font-weight:600;
-  border-top:2px solid transparent;transition:color .15s;
-  -webkit-tap-highlight-color:rgba(255,98,36,.1);touch-action:manipulation;
-}
-.bn-item.active{color:var(--orange);border-top-color:var(--orange);}
-.bn-icon{font-size:22px;line-height:1;}
+/* BOTTOM NAV */
+.bnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:200;height:60px;}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:var(--text3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;-webkit-tap-highlight-color:rgba(255,98,36,.1);touch-action:manipulation;}
+.bni.on{color:var(--orange);border-top-color:var(--orange);}
+.bni i{font-size:22px;line-height:1;}
 
-/* ── SLIDE MENU ── */
-.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;}
-.menu-overlay.open{display:block;}
-.slide-menu{
-  position:fixed;top:0;left:0;bottom:0;width:260px;
-  background:var(--surface);border-right:1px solid var(--border);
-  z-index:201;transform:translateX(-100%);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);
-  overflow-y:auto;display:flex;flex-direction:column;
-}
-.slide-menu.open{transform:translateX(0);}
+/* SLIDE MENU */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;}
+.overlay.open{display:block;}
+.smenu{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--surface);border-right:1px solid var(--border);z-index:201;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+.smenu.open{transform:translateX(0);}
 .sm-logo{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border);}
-.sm-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.sm-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;}
+.sm-logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.sm-logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
 .sm-logo-text span{color:var(--orange);}
-.sm-item{display:flex;align-items:center;gap:10px;padding:11px 16px;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;}
-.sm-item:hover{background:var(--s2);color:var(--text);}
-.sm-item.active{color:var(--orange);}
-.sm-section{padding:12px 16px 4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
+.sm-sec{padding:12px 16px 4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
+.sm-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;}
+.sm-link:hover{background:var(--s2);color:var(--text);}
+.sm-link.on{color:var(--orange);}
 
-/* ── LIGHT MODE ── */
-.light-mode{--bg:#f5f5f0;--surface:#fff;--s2:#f0f0ea;--s3:#e8e8e2;--border:#e0ddd6;--border2:#cccac2;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
+/* LIGHT MODE */
+.light{--bg:#f5f5f0;--surface:#fff;--s2:#f0f0ea;--s3:#e8e8e2;--border:#e0ddd6;--border2:#cccac2;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
+.light .tc-logo{background:#f5f5f5;}
 
-/* ── TABLET ── */
-@media(min-width:600px){
-  .main{padding:24px 20px 90px;}
-  .tools-grid{grid-template-columns:repeat(2,1fr);}
-  .featured-strip{grid-template-columns:repeat(3,1fr);}
-}
-
-/* ── DESKTOP ── */
-@media(min-width:900px){
-  .bottom-nav{display:none;}
-  .topnav{padding:0 32px;}
-  .main{padding:32px 40px 60px;}
-  .tools-grid{grid-template-columns:repeat(3,1fr);}
-  .featured-strip{grid-template-columns:repeat(4,1fr);}
-  .tool-card{padding:14px;}
-  .tool-icon-wrap{width:44px;height:44px;font-size:22px;}
-}
-@media(min-width:1200px){
-  .tools-grid{grid-template-columns:repeat(4,1fr);}
-}
-
-/* ── Tool card layout fixes ── */
-.tool-card {
-  position: relative;
-}
-.tool-badge {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  padding: 2px 6px;
-  border-radius: 5px;
-  pointer-events: none;
-  z-index: 2;
-}
-/* Push tool-info down a bit when badge present */
-.tool-name {
-  padding-right: 44px; /* space for badge */
-}
-.tool-actions {
-  flex-shrink: 0;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.tool-icon-wrap {
-  flex-shrink: 0;
-}
-/* Logo image sizing */
-.tool-icon-wrap img {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  object-fit: contain;
-}
-/* Fix featured strip card names being cut off */
-.featured-strip .tool-name {
-  font-size: 12px;
-  padding-right: 0;
-}
-.featured-strip .tool-tag {
-  font-size: 9px;
-}
-.featured-strip .tool-badge {
-  display: none; /* hide badge in featured strip — no overlap */
-}
-
-/* ── Logo icon wrap — clean ── */
-.tool-icon-wrap {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 10px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-  background: #fff !important;
-  overflow: hidden !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,.2) !important;
-}
-.tool-icon-wrap img {
-  width: 32px !important;
-  height: 32px !important;
-  object-fit: contain !important;
-  border-radius: 6px !important;
-}
+/* RESPONSIVE */
+@media(min-width:600px){.main{padding:24px 20px 90px;}.tools-grid{grid-template-columns:repeat(2,1fr);}.feat-grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:900px){.bnav{display:none;}.main{padding:32px 40px 60px;max-width:1200px;margin:0 auto;}.tools-grid{grid-template-columns:repeat(3,1fr);}.tc-logo{width:44px;height:44px;}}
+@media(min-width:1200px){.tools-grid{grid-template-columns:repeat(4,1fr);}}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <header class="topnav">
-  <a class="topnav-logo" href="/">
-    <div class="topnav-logo-mark">
-      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
-    </div>
-    <div class="topnav-logo-text">Prompt<span>aholics</span></div>
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="nav-logo-text">Prompt<span>aholics</span></div>
   </a>
-  <div class="topnav-right">
-    <a href="library.html" class="topnav-btn"><i class="ph ph-books"></i> Library</a>
-    <button class="topnav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme"><i class="ph ph-moon"></i></button>
-    <button class="topnav-icon-btn" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+  <div class="nav-right">
+    <a href="library.html" class="nav-btn"><i class="ph ph-books"></i> Library</a>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ph ph-moon"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
   </div>
 </header>
 
-<!-- SLIDE MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-<nav class="slide-menu" id="slideMenu">
-  <a class="sm-logo" href="/">
-    <div class="sm-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
-    <div class="sm-logo-text">Prompt<span>aholics</span></div>
-  </a>
-  <div class="sm-section">Navigate</div>
-  <a class="sm-item" href="/" onclick="toggleMenu()"><i class="ph ph-house"></i> Home</a>
-  <a class="sm-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-books"></i> Prompt Library</a>
-  <a class="sm-item" href="prompt-builder.html" onclick="toggleMenu()"><i class="ph ph-wrench"></i> Prompt Builder</a>
-  <a class="sm-item active" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning"></i> AI Tools</a>
-  <div class="sm-section">Account</div>
-  <a class="sm-item" href="login.html" onclick="toggleMenu()"><i class="ph ph-user"></i> Sign In / Register</a>
-  <div class="sm-section" style="margin-top:auto;">Legal</div>
-  <a class="sm-item" href="privacy.html" onclick="toggleMenu()"><i class="ph ph-lock"></i> Privacy Policy</a>
-  <a class="sm-item" href="terms.html" onclick="toggleMenu()"><i class="ph ph-clipboard"></i> Terms of Service</a>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<nav class="smenu" id="smenu">
+  <a class="sm-logo" href="/"><div class="sm-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div><div class="sm-logo-text">Prompt<span>aholics</span></div></a>
+  <div class="sm-sec">Navigate</div>
+  <a class="sm-link" href="/" onclick="toggleMenu()"><i class="ph ph-house"></i> Home</a>
+  <a class="sm-link" href="library.html" onclick="toggleMenu()"><i class="ph ph-books"></i> Prompt Library</a>
+  <a class="sm-link" href="prompt-builder.html" onclick="toggleMenu()"><i class="ph ph-wrench"></i> Prompt Builder</a>
+  <a class="sm-link on" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning"></i> AI Tools</a>
+  <div class="sm-sec">Account</div>
+  <a class="sm-link" href="login.html" onclick="toggleMenu()"><i class="ph ph-user"></i> Sign In / Register</a>
+  <div class="sm-sec">Legal</div>
+  <a class="sm-link" href="privacy.html" onclick="toggleMenu()"><i class="ph ph-lock"></i> Privacy Policy</a>
+  <a class="sm-link" href="terms.html" onclick="toggleMenu()"><i class="ph ph-clipboard"></i> Terms of Service</a>
 </nav>
 
-<!-- MAIN -->
 <main class="main">
+  <h1 class="page-title">AI <span>Tools</span> Directory</h1>
+  <p class="page-sub">The best AI tools for creators — all in one place</p>
 
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1 class="page-title">AI <span>Tools</span> Directory</h1>
-    <p class="page-sub">The best AI tools for creators — all in one place</p>
+  <div class="search-box">
+    <i class="ph ph-magnifying-glass"></i>
+    <input class="search-input" id="srch" type="text" placeholder="Search tools..." oninput="doSearch(this.value)"/>
+    <button class="search-x" id="srchX" onclick="clearSearch()">✕</button>
   </div>
 
-  <!-- Search -->
-  <div class="search-wrap">
-    <i class="ph ph-magnifying-glass" style="color:var(--text3);font-size:18px;flex-shrink:0;"></i>
-    <input class="search-input" id="searchInput" type="text"
-      placeholder="Search tools..."
-      oninput="handleSearch(this.value)"/>
-    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-  </div>
-
-  <!-- Filter Tabs -->
-  <div class="filter-row" id="filterRow"></div>
-
-  <!-- Featured -->
-  <div id="featuredSection">
-    <div class="featured-label">⭐ Featured & Partners</div>
-    <div class="featured-strip" id="featuredGrid"></div>
-  </div>
-
-  <!-- All Tools -->
-  <div id="allSection">
-    <div class="section-label" id="allLabel">All Tools</div>
-    <div class="tools-grid" id="toolsGrid"></div>
-  </div>
-
-  <!-- Empty state -->
-  <div class="empty" id="emptyState" style="display:none;">
-    <div class="empty-icon">🔍</div>
-    <h3>No tools found</h3>
-    <p>Try a different search or category</p>
-  </div>
-
+  <div class="filters" id="filters"></div>
+  <div id="featSec"><div class="slabel">⭐ Featured &amp; Partners</div><div class="feat-grid" id="featGrid"></div></div>
+  <div id="allSec"><div class="slabel" id="allLabel">All Tools</div><div class="tools-grid" id="grid"></div></div>
+  <div class="empty" id="empty" style="display:none"><div class="empty-icon">🔍</div><p>No tools found</p></div>
 </main>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a class="bn-item" href="/"><span class="bn-icon"><i class="ph ph-house"></i></span>Home</a>
-  <a class="bn-item" href="prompt-builder.html"><span class="bn-icon"><i class="ph ph-wrench"></i></span>Builder</a>
-  <a class="bn-item" href="library.html"><span class="bn-icon"><i class="ph ph-books"></i></span>Library</a>
-  <a class="bn-item active" href="creationstation.html"><span class="bn-icon"><i class="ph ph-lightning"></i></span>Tools</a>
-  <a class="bn-item" href="#" onclick="openSaved(event)"><span class="bn-icon"><i class="ph ph-star"></i></span>Saved</a>
+<nav class="bnav">
+  <a class="bni" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bni" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <a class="bni" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bni on" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
+  <a class="bni" href="#" onclick="openSaved(event)"><i class="ph ph-star"></i>Saved</a>
 </nav>
 
 <script>
-// ── TOOLS DATA ────────────────────────────────────────────────
 var TOOLS = [
-  // ── FEATURED / PARTNERS ──
-  {name:'OpenArt',      icon:'🎨',color:'#e11d48',cat:'image',   tag:'AI Image & Video Suite',  url:'https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg', badge:'PARTNER',feat:true,  desc:'All-in-one AI creative suite — image, video, audio generation.'},
-  {name:'ElevenLabs',  icon:'🎙️',color:'#7c3aed',cat:'audio',   tag:'AI Voice · Text to Speech',url:'https://try.elevenlabs.io/pchhf50bim6w',badge:'HOT',   feat:true,  desc:'Most realistic AI voice generation. Voiceovers, voice cloning.'},
-  {name:'Promptmetheus',icon:'⚡',color:'#0284c7',cat:'productivity',tag:'Prompt IDE & Optimizer',url:'https://promptmetheus.com/?via=fin',  badge:'NEW',   feat:true,  desc:'Professional prompt engineering IDE. Build and test prompts.'},
-  {name:'Writesonic',  icon:'✍️',color:'#059669',cat:'writing',  tag:'AI Writer & SEO Tool',    url:'https://writesonic.com',               badge:'',      feat:true,  desc:'AI writing platform for blogs, ads, emails and SEO content.'},
-  // ── CHAT & LLMs ──
-  {name:'ChatGPT',     icon:'🤖',color:'#10b981',cat:'chat',     tag:'OpenAI · GPT-4o & GPT-5', url:'https://chat.openai.com',              badge:'',      feat:true,  desc:'The world\'s most popular AI assistant for any task.'},
-  {name:'Claude',      icon:'🧠',color:'#b45309',cat:'chat',     tag:'Anthropic · Sonnet 4.6',  url:'https://claude.ai',                    badge:'',      feat:true,  desc:'Advanced AI assistant known for nuanced, thoughtful responses.'},
-  {name:'Gemini',      icon:'✨',color:'#4285f4',cat:'chat',     tag:'Google · Gemini 2.5',     url:'https://gemini.google.com',            badge:'',      feat:false, desc:'Google\'s most capable AI model with search integration.'},
-  {name:'Perplexity',  icon:'🔍',color:'#6366f1',cat:'research', tag:'AI Search Engine',         url:'https://perplexity.ai',                badge:'',      feat:false, desc:'AI-powered search that gives sourced, accurate answers.'},
-  {name:'Grok',        icon:'🚀',color:'#1da1f2',cat:'chat',     tag:'xAI · Real-time Info',    url:'https://grok.x.ai',                    badge:'NEW',   feat:false, desc:'Elon Musk\'s AI with real-time X/Twitter data access.'},
-  {name:'Meta AI',     icon:'🌐',color:'#0866ff',cat:'chat',     tag:'Meta · Llama 3',          url:'https://meta.ai',                      badge:'',      feat:false, desc:'Meta\'s free AI assistant integrated across their platforms.'},
-  {name:'Microsoft Copilot',icon:'💼',color:'#00a4ef',cat:'chat',tag:'Microsoft · GPT-4',       url:'https://copilot.microsoft.com',        badge:'',      feat:false, desc:'AI assistant built into Microsoft 365 and Windows.'},
-  {name:'DeepSeek',    icon:'🔬',color:'#2563eb',cat:'chat',     tag:'DeepSeek · R1 Reasoning', url:'https://chat.deepseek.com',            badge:'HOT',   feat:false, desc:'Powerful open-source reasoning model rivaling GPT-4.'},
-  // ── IMAGE GENERATION ──
-  {name:'Midjourney',  icon:'🎨',color:'#7c3aed',cat:'image',   tag:'v7 · Discord + Web',      url:'https://midjourney.com',               badge:'',      feat:true,  desc:'The most artistic AI image generator. Stunning quality.'},
-  {name:'DALL·E 3',    icon:'🖼️',color:'#f59e0b',cat:'image',   tag:'OpenAI · In ChatGPT',     url:'https://openai.com/dall-e-3',          badge:'',      feat:false, desc:'OpenAI\'s powerful image generator built into ChatGPT.'},
-  {name:'Stable Diffusion',icon:'🌈',color:'#8b5cf6',cat:'image',tag:'Open Source · SDXL',     url:'https://stability.ai',                badge:'',      feat:false, desc:'The leading open-source image generation model.'},
-  {name:'Adobe Firefly',icon:'🔥',color:'#ff0000',cat:'image',  tag:'Adobe · Commercial Safe', url:'https://firefly.adobe.com',            badge:'',      feat:false, desc:'Adobe\'s AI image generator, safe for commercial use.'},
-  {name:'Ideogram',    icon:'💡',color:'#ec4899',cat:'image',   tag:'v3 · Text in Images',     url:'https://ideogram.ai',                  badge:'NEW',   feat:false, desc:'Best AI tool for generating images with accurate text.'},
-  {name:'Flux',        icon:'⚡',color:'#f97316',cat:'image',   tag:'Black Forest Labs',        url:'https://blackforestlabs.ai',           badge:'HOT',   feat:false, desc:'Next-gen image model with photorealistic quality.'},
-  {name:'Leonardo AI', icon:'🎭',color:'#c084fc',cat:'image',   tag:'AI Image & Assets',       url:'https://leonardo.ai',                  badge:'',      feat:false, desc:'AI image generation built for game assets and creative work.'},
-  {name:'Canva AI',    icon:'🎪',color:'#00c4cc',cat:'image',   tag:'Design + AI Magic',       url:'https://canva.com',                    badge:'',      feat:false, desc:'Canva\'s suite of AI tools inside the world\'s top design app.'},
-  // ── VIDEO GENERATION ──
-  {name:'Sora',        icon:'🎬',color:'#000000',cat:'video',   tag:'OpenAI · Text to Video',  url:'https://sora.com',                     badge:'HOT',   feat:true,  desc:'OpenAI\'s revolutionary text-to-video generation model.'},
-  {name:'Runway',      icon:'🎥',color:'#7c3aed',cat:'video',   tag:'Gen-3 Alpha',             url:'https://runwayml.com',                 badge:'',      feat:false, desc:'Professional AI video generation and editing platform.'},
-  {name:'Kling AI',    icon:'📽️',color:'#e11d48',cat:'video',   tag:'Kuaishou · Video AI',     url:'https://klingai.com',                  badge:'HOT',   feat:false, desc:'High-quality video generation with long duration support.'},
-  {name:'Pika Labs',   icon:'⚡',color:'#f59e0b',cat:'video',   tag:'Video Generation',        url:'https://pika.art',                     badge:'',      feat:false, desc:'Fast and creative AI video generation from text or images.'},
-  {name:'Luma Dream Machine',icon:'🌙',color:'#6366f1',cat:'video',tag:'Realistic Video',     url:'https://lumalabs.ai/dream-machine',    badge:'',      feat:false, desc:'Luma\'s AI that creates realistic, cinematic video clips.'},
-  {name:'Seedance 2',  icon:'🌱',color:'#10b981',cat:'video',   tag:'ByteDance · Video AI',    url:'https://seedance.ai',                  badge:'NEW',   feat:false, desc:'ByteDance\'s powerful video generation model.'},
-  {name:'HeyGen',      icon:'👤',color:'#0284c7',cat:'video',   tag:'AI Avatar Videos',        url:'https://heygen.com',                   badge:'',      feat:false, desc:'Create AI avatar videos and dub content in 40+ languages.'},
-  {name:'Synthesia',   icon:'🎭',color:'#7c3aed',cat:'video',   tag:'AI Video Presenter',      url:'https://synthesia.io',                 badge:'',      feat:false, desc:'Create professional videos with AI avatars and voiceovers.'},
-  // ── WRITING ──
-  {name:'Copy.ai',     icon:'✏️',color:'#8b5cf6',cat:'writing', tag:'AI Marketing Copy',       url:'https://copy.ai',                      badge:'',      feat:false, desc:'AI-powered copywriting for ads, emails and social content.'},
-  {name:'Jasper',      icon:'📝',color:'#4f46e5',cat:'writing', tag:'AI Content Platform',     url:'https://jasper.ai',                    badge:'',      feat:false, desc:'Enterprise AI writing assistant for teams and brands.'},
-  {name:'Grammarly',   icon:'✅',color:'#15b393',cat:'writing', tag:'AI Writing Assistant',    url:'https://grammarly.com',                badge:'',      feat:false, desc:'The world\'s most popular AI grammar and writing checker.'},
-  {name:'Sudowrite',   icon:'📖',color:'#ec4899',cat:'writing', tag:'Fiction & Storytelling',  url:'https://sudowrite.com',                badge:'',      feat:false, desc:'AI writing tool designed specifically for fiction writers.'},
-  {name:'Rytr',        icon:'🖊️',color:'#6366f1',cat:'writing', tag:'AI Writing Tool',         url:'https://rytr.me',                      badge:'',      feat:false, desc:'Affordable AI writing assistant for all content types.'},
-  // ── CODE ──
-  {name:'GitHub Copilot',icon:'💻',color:'#333',cat:'code',    tag:'AI Code Assistant',        url:'https://github.com/features/copilot', badge:'',      feat:false, desc:'AI pair programmer that suggests code as you type.'},
-  {name:'Cursor',      icon:'🖱️',color:'#1a1a2e',cat:'code',   tag:'AI Code Editor',          url:'https://cursor.sh',                    badge:'HOT',   feat:false, desc:'The AI-first code editor built for pair programming with AI.'},
-  {name:'Claude Code', icon:'⌨️',color:'#b45309',cat:'code',   tag:'Anthropic · CLI Agent',   url:'https://claude.ai/code',               badge:'NEW',   feat:false, desc:'Anthropic\'s agentic coding tool for complex codebases.'},
-  {name:'Replit AI',   icon:'🔧',color:'#f26207',cat:'code',   tag:'AI Coding Platform',      url:'https://replit.com',                   badge:'',      feat:false, desc:'Build and deploy apps with AI assistance in the browser.'},
-  {name:'v0',          icon:'▲',color:'#000',   cat:'code',    tag:'Vercel · UI Generation',  url:'https://v0.dev',                       badge:'',      feat:false, desc:'Generate React UI components from text descriptions.'},
-  {name:'Bolt.new',    icon:'⚡',color:'#1a1a2e',cat:'code',   tag:'Full-Stack AI Builder',   url:'https://bolt.new',                     badge:'HOT',   feat:false, desc:'Build full-stack web apps from a single prompt.'},
-  // ── AUDIO ──
-  {name:'Suno',        icon:'🎵',color:'#7c3aed',cat:'audio',  tag:'AI Music Generation',     url:'https://suno.ai',                      badge:'',      feat:false, desc:'Create full songs with vocals and instruments from text.'},
-  {name:'Udio',        icon:'🎸',color:'#ec4899',cat:'audio',  tag:'AI Music Creator',        url:'https://udio.com',                     badge:'',      feat:false, desc:'Generate professional-quality music from prompts.'},
-  {name:'Murf AI',     icon:'🔊',color:'#0284c7',cat:'audio',  tag:'AI Voiceover Studio',     url:'https://murf.ai',                      badge:'',      feat:false, desc:'Professional AI voiceovers in 120+ languages.'},
-  {name:'Descript',    icon:'🎙️',color:'#6366f1',cat:'audio',  tag:'Audio & Video Editing',   url:'https://descript.com',                 badge:'',      feat:false, desc:'Edit audio and video by editing text. Remove filler words.'},
-  // ── PRODUCTIVITY ──
-  {name:'Notion AI',   icon:'📋',color:'#191919',cat:'productivity',tag:'AI Workspace',        url:'https://notion.so/product/ai',         badge:'',      feat:false, desc:'AI built into Notion for notes, docs and project management.'},
-  {name:'Make',        icon:'🔄',color:'#6d28d9',cat:'productivity',tag:'AI Automation',       url:'https://make.com',                     badge:'',      feat:false, desc:'No-code automation platform connecting apps with AI.'},
-  {name:'Zapier',      icon:'⚡',color:'#f4511e',cat:'productivity',tag:'Workflow Automation',  url:'https://zapier.com',                   badge:'',      feat:false, desc:'Automate tasks between 6000+ apps without code.'},
-  {name:'Otter.ai',    icon:'🦦',color:'#3b82f6',cat:'productivity',tag:'AI Meeting Notes',    url:'https://otter.ai',                     badge:'',      feat:false, desc:'Real-time meeting transcription and AI-generated summaries.'},
-  // ── SOCIAL & MARKETING ──
-  {name:'Buffer',      icon:'📱',color:'#2c4bff',cat:'social',  tag:'Social Media Scheduler',  url:'https://buffer.com',                   badge:'',      feat:false, desc:'Schedule and manage social media posts across all platforms.'},
-  {name:'Hootsuite',   icon:'🦉',color:'#1d1d2e',cat:'social',  tag:'Social Management',       url:'https://hootsuite.com',                badge:'',      feat:false, desc:'Enterprise social media management and analytics platform.'},
-  {name:'AdCreative',  icon:'🎯',color:'#7c3aed',cat:'social',  tag:'AI Ad Creative',          url:'https://adcreative.ai',                badge:'',      feat:false, desc:'Generate conversion-optimized ad creatives with AI.'},
-  // ── RESEARCH ──
-  {name:'Elicit',      icon:'🔬',color:'#4f46e5',cat:'research',tag:'AI Research Tool',        url:'https://elicit.com',                   badge:'',      feat:false, desc:'AI tool that automates research workflows using papers.'},
-  {name:'Consensus',   icon:'📊',color:'#0284c7',cat:'research',tag:'AI Paper Search',         url:'https://consensus.app',                badge:'',      feat:false, desc:'Search scientific papers and get AI-synthesized answers.'},
-  {name:'Scite',       icon:'📚',color:'#059669',cat:'research',tag:'Citation Analysis',        url:'https://scite.ai',                     badge:'',      feat:false, desc:'Discover how research has been cited and supported.'},
+  // FEATURED
+  {name:'OpenArt',     cat:'image',  tag:'AI Image & Video Suite',   url:'https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg', badge:'',    feat:true},
+  {name:'ElevenLabs', cat:'audio',  tag:'AI Voice · Text to Speech', url:'https://try.elevenlabs.io/pchhf50bim6w', badge:'HOT', feat:true},
+  {name:'Promptmetheus',cat:'productivity',tag:'Prompt IDE & Optimizer',url:'https://promptmetheus.com/?via=fin', badge:'NEW', feat:true},
+  {name:'Writesonic', cat:'writing',tag:'AI Writer & SEO Tool',       url:'https://writesonic.com',               badge:'',    feat:true},
+  // CHAT
+  {name:'ChatGPT',    cat:'chat',   tag:'OpenAI · GPT-4o & GPT-5',  url:'https://chat.openai.com',              badge:'',    feat:true},
+  {name:'Claude',     cat:'chat',   tag:'Anthropic · Sonnet 4.6',    url:'https://claude.ai',                    badge:'',    feat:true},
+  {name:'Gemini',     cat:'chat',   tag:'Google · Gemini 2.5',       url:'https://gemini.google.com',            badge:'',    feat:false},
+  {name:'Perplexity', cat:'research',tag:'AI Search Engine',          url:'https://perplexity.ai',               badge:'',    feat:false},
+  {name:'Grok',       cat:'chat',   tag:'xAI · Real-time Info',      url:'https://grok.x.ai',                   badge:'NEW', feat:false},
+  {name:'Meta AI',    cat:'chat',   tag:'Meta · Llama 3',            url:'https://meta.ai',                      badge:'',    feat:false},
+  {name:'Microsoft Copilot',cat:'chat',tag:'Microsoft · GPT-4',      url:'https://copilot.microsoft.com',        badge:'',    feat:false},
+  {name:'DeepSeek',   cat:'chat',   tag:'DeepSeek · R1 Reasoning',   url:'https://chat.deepseek.com',            badge:'HOT', feat:false},
+  // IMAGE
+  {name:'Midjourney', cat:'image',  tag:'v7 · Discord + Web',        url:'https://midjourney.com',               badge:'',    feat:true},
+  {name:'DALL·E 3',   cat:'image',  tag:'OpenAI · In ChatGPT',       url:'https://openai.com/dall-e-3',          badge:'',    feat:false},
+  {name:'Stable Diffusion',cat:'image',tag:'Open Source · SDXL',    url:'https://stability.ai',                 badge:'',    feat:false},
+  {name:'Adobe Firefly',cat:'image',tag:'Adobe · Commercial Safe',   url:'https://firefly.adobe.com',            badge:'',    feat:false},
+  {name:'Ideogram',   cat:'image',  tag:'v3 · Text in Images',       url:'https://ideogram.ai',                  badge:'NEW', feat:false},
+  {name:'Leonardo AI',cat:'image',  tag:'AI Image & Assets',         url:'https://leonardo.ai',                  badge:'',    feat:false},
+  {name:'Canva AI',   cat:'image',  tag:'Design + AI Magic',         url:'https://canva.com',                    badge:'',    feat:false},
+  // VIDEO
+  {name:'Sora',       cat:'video',  tag:'OpenAI · Text to Video',    url:'https://sora.com',                     badge:'HOT', feat:true},
+  {name:'Runway',     cat:'video',  tag:'Gen-3 Alpha',               url:'https://runwayml.com',                 badge:'',    feat:false},
+  {name:'Kling AI',   cat:'video',  tag:'Kuaishou · Video AI',       url:'https://klingai.com',                  badge:'HOT', feat:false},
+  {name:'Pika Labs',  cat:'video',  tag:'Video Generation',          url:'https://pika.art',                     badge:'',    feat:false},
+  {name:'Luma AI',    cat:'video',  tag:'Dream Machine',             url:'https://lumalabs.ai/dream-machine',    badge:'',    feat:false},
+  {name:'HeyGen',     cat:'video',  tag:'AI Avatar Videos',          url:'https://heygen.com',                   badge:'',    feat:false},
+  {name:'Synthesia',  cat:'video',  tag:'AI Video Presenter',        url:'https://synthesia.io',                 badge:'',    feat:false},
+  // WRITING
+  {name:'Copy.ai',    cat:'writing',tag:'AI Marketing Copy',         url:'https://copy.ai',                      badge:'',    feat:false},
+  {name:'Jasper',     cat:'writing',tag:'AI Content Platform',       url:'https://jasper.ai',                    badge:'',    feat:false},
+  {name:'Grammarly',  cat:'writing',tag:'AI Writing Assistant',      url:'https://grammarly.com',                badge:'',    feat:false},
+  {name:'Rytr',       cat:'writing',tag:'AI Writing Tool',           url:'https://rytr.me',                      badge:'',    feat:false},
+  // CODE
+  {name:'GitHub Copilot',cat:'code',tag:'AI Code Assistant',         url:'https://github.com/features/copilot',  badge:'',    feat:false},
+  {name:'Cursor',     cat:'code',   tag:'AI Code Editor',            url:'https://cursor.sh',                    badge:'HOT', feat:false},
+  {name:'Replit AI',  cat:'code',   tag:'AI Coding Platform',        url:'https://replit.com',                   badge:'',    feat:false},
+  {name:'v0',         cat:'code',   tag:'Vercel · UI Generation',    url:'https://v0.dev',                       badge:'',    feat:false},
+  {name:'Bolt.new',   cat:'code',   tag:'Full-Stack AI Builder',     url:'https://bolt.new',                     badge:'HOT', feat:false},
+  // AUDIO
+  {name:'Suno',       cat:'audio',  tag:'AI Music Generation',       url:'https://suno.ai',                      badge:'',    feat:false},
+  {name:'Udio',       cat:'audio',  tag:'AI Music Creator',          url:'https://udio.com',                     badge:'',    feat:false},
+  {name:'Murf AI',    cat:'audio',  tag:'AI Voiceover Studio',       url:'https://murf.ai',                      badge:'',    feat:false},
+  {name:'Descript',   cat:'audio',  tag:'Audio & Video Editing',     url:'https://descript.com',                 badge:'',    feat:false},
+  // PRODUCTIVITY
+  {name:'Notion AI',  cat:'productivity',tag:'AI Workspace',         url:'https://notion.so/product/ai',         badge:'',    feat:false},
+  {name:'Make',       cat:'productivity',tag:'AI Automation',        url:'https://make.com',                     badge:'',    feat:false},
+  {name:'Zapier',     cat:'productivity',tag:'Workflow Automation',  url:'https://zapier.com',                   badge:'',    feat:false},
+  // SOCIAL
+  {name:'Buffer',     cat:'social', tag:'Social Media Scheduler',    url:'https://buffer.com',                   badge:'',    feat:false},
+  {name:'AdCreative', cat:'social', tag:'AI Ad Creative',            url:'https://adcreative.ai',                badge:'',    feat:false},
+  // RESEARCH
+  {name:'Elicit',     cat:'research',tag:'AI Research Tool',         url:'https://elicit.com',                   badge:'',    feat:false},
+  {name:'Consensus',  cat:'research',tag:'AI Paper Search',          url:'https://consensus.app',                badge:'',    feat:false},
 ];
 
-// ── CATEGORIES ────────────────────────────────────────────────
 var CATS = [
-  {id:'all',    label:'All Tools'},
-  {id:'chat',   label:'Chat & LLMs'},
-  {id:'image',  label:'Image'},
-  {id:'video',  label:'Video'},
+  {id:'all',label:'All Tools'},
+  {id:'chat',label:'Chat & LLMs'},
+  {id:'image',label:'Image'},
+  {id:'video',label:'Video'},
   {id:'writing',label:'Writing'},
-  {id:'code',   label:'Code'},
-  {id:'audio',  label:'Audio'},
+  {id:'code',label:'Code'},
+  {id:'audio',label:'Audio'},
   {id:'productivity',label:'Productivity'},
-  {id:'social', label:'Social'},
+  {id:'social',label:'Social'},
   {id:'research',label:'Research'},
 ];
 
-// ── STATE ─────────────────────────────────────────────────────
 var activeCat = 'all';
 var searchQ   = '';
-var savedTools = [];
-try { savedTools = JSON.parse(localStorage.getItem('pa_tools')||'[]'); } catch(e){}
+var saved = [];
+try { saved = JSON.parse(localStorage.getItem('pa_tools')||'[]'); } catch(e){}
 
-// ── RENDER FILTER TABS ────────────────────────────────────────
-function renderFilters(){
-  var row = document.getElementById('filterRow');
-  row.innerHTML = CATS.map(function(c){
-    return '<button class="filter-tab'+(activeCat===c.id?' active':'')+
-      '" onclick="setFilter(\''+c.id+'\')">'+c.label+'</button>';
-  }).join('');
-}
+// ── LOGO: use img tag with src + onerror fallback ─────────────
+// Key insight: set onerror as a function AFTER creating element
+// so no inline JS quote issues
 
-function setFilter(cat){
-  activeCat = cat;
-  renderFilters();
-  renderTools();
-}
-
-// ── SEARCH ────────────────────────────────────────────────────
-function handleSearch(val){
-  searchQ = val.trim().toLowerCase();
-  document.getElementById('searchClear').classList.toggle('show', searchQ.length>0);
-  renderTools();
-}
-function clearSearch(){
-  document.getElementById('searchInput').value='';
-  searchQ='';
-  document.getElementById('searchClear').classList.remove('show');
-  renderTools();
-}
-
-// ── FILTER TOOLS ──────────────────────────────────────────────
-function getFiltered(){
-  return TOOLS.filter(function(t){
-    var catOk  = activeCat==='all' || t.cat===activeCat;
-    var searchOk = !searchQ || 
-      t.name.toLowerCase().includes(searchQ) ||
-      t.tag.toLowerCase().includes(searchQ)  ||
-      t.cat.toLowerCase().includes(searchQ)  ||
-      (t.desc&&t.desc.toLowerCase().includes(searchQ));
-    return catOk && searchOk;
-  });
-}
-
-// ── RENDER CARD ───────────────────────────────────────────────
-
-function getDomain(url){
-  try { return new URL(url).hostname.replace('www.',''); }
-  catch(e){ return ''; }
-}
-
-function getLogoHTML(t){
-  var domain = getDomain(t.url);
-  if(!domain) return '<span style="font-size:20px">'+t.icon+'</span>';
+function makeLogo(name, url) {
+  var domain = '';
+  try { domain = new URL(url).hostname.replace(/^www\./,''); } catch(e){}
+  
+  // Build logo box HTML
+  // We use a span wrapper with data attrs, then fix onerror via JS after render
+  if (!domain) return '<div class="tc-logo"><span class="fallback">🔧</span></div>';
+  
   var src = 'https://logo.clearbit.com/' + domain;
-  return '<img src="'+src+'" alt="'+t.name+'" loading="lazy" '+
-    'data-fallback="'+t.icon+'" '+
-    'style="width:32px;height:32px;object-fit:contain;" '+
-    'onerror="logoFail(this)" />';
+  // Use img with data-err attribute — fixed by initLogos() after render
+  return '<div class="tc-logo"><img src="' + src + '" alt="' + name + '" loading="lazy" data-name="' + name + '"/></div>';
 }
 
-
-function cardHTML(t){
-  var isSaved = savedTools.includes(t.name);
-  var badge = (t.badge && t.badge !== 'PARTNER')
-    ? '<span class="tool-badge badge-'+(t.badge==='HOT'?'hot':'new')+'">'+t.badge+'</span>'
-    : '';
-  var logo = getLogoHTML(t);
-  var saveClass = 'tool-btn btn-save'+(isSaved?' saved':'');
-  var saveIcon  = isSaved
-    ? '<i class="ph ph-star-fill"></i>'
-    : '<i class="ph ph-star"></i>';
-  return (
-    '<div class="tool-card" style="--tc:'+hexAlpha(t.color,.3)+'">'+
-      '<div class="tool-icon-wrap">'+logo+'</div>'+
-      '<div class="tool-info">'+
-        '<div class="tool-name">'+t.name+'</div>'+
-        '<div class="tool-tag">'+t.tag+'</div>'+
-      '</div>'+
-      '<div class="tool-actions">'+
-        '<button class="'+saveClass+'" onclick="toggleSave(event,this.dataset.name)" data-name="'+t.name+'">'+saveIcon+'</button>'+
-        '<a class="tool-btn btn-visit" href="'+t.url+'" target="_blank" rel="noopener" onclick="trackVisit(''+t.name.replace("'","\'")+'')">'+
-          'Visit <i class="ph ph-arrow-up-right"></i>'+
-        '</a>'+
-      '</div>'+
-      badge+
-    '</div>'
-  );
-}
-
-OCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="theme-color" content="#ff6224"/>
-<title>AI Tools Directory — Promptaholics</title>
-<meta name="description" content="The best AI tools for creators — image, video, writing, code, audio and more. All in one place."/>
-<link rel="canonical" href="https://promptaholics.com/creationstation"/>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0;}
-html,body{overflow-x:hidden;width:100%;}
-:root{
-  --bg:#07070a; --surface:#111118; --s2:#18181f; --s3:#1e1e28;
-  --border:#1f1f2c; --border2:#2a2a3a;
-  --text:#f0f0f8; --text2:#9090b0; --text3:#44445a;
-  --orange:#ff6224; --orange2:#e84e0e;
-}
-body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh;}
-a{text-decoration:none;color:inherit;}
-
-/* ── TOP NAV ── */
-.topnav{
-  height:58px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;background:rgba(7,7,10,.97);
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100;
-}
-.topnav-logo{display:flex;align-items:center;gap:9px;}
-.topnav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.topnav-logo-mark svg{width:12px;height:14px;}
-.topnav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
-.topnav-logo-text span{color:var(--orange);}
-.topnav-right{display:flex;align-items:center;gap:8px;}
-.topnav-btn{
-  background:var(--s2);border:1px solid var(--border2);color:var(--text2);
-  height:36px;padding:0 14px;border-radius:9px;cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;
-  display:flex;align-items:center;gap:5px;transition:all .15s;
-}
-.topnav-btn:hover{border-color:var(--orange);color:var(--orange);}
-.topnav-icon-btn{
-  background:var(--s2);border:1px solid var(--border2);color:var(--text2);
-  width:36px;height:36px;border-radius:9px;cursor:pointer;font-size:16px;
-  display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.topnav-icon-btn:hover{border-color:var(--orange);color:var(--orange);}
-
-/* ── MAIN ── */
-.main{padding:20px 16px 90px;max-width:1200px;margin:0 auto;}
-
-/* ── PAGE HEADER ── */
-.page-header{margin-bottom:24px;}
-.page-title{font-family:'Syne',serif;font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
-.page-title span{color:var(--orange);}
-.page-sub{font-size:13px;color:var(--text2);}
-
-/* ── SEARCH ── */
-.search-wrap{
-  display:flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:12px;padding:4px 4px 4px 14px;
-  margin-bottom:20px;transition:border .2s;
-}
-.search-wrap:focus-within{border-color:var(--orange);}
-.search-input{
-  flex:1;background:none;border:none;outline:none;
-  color:var(--text);font-family:'Instrument Sans',sans-serif;
-  font-size:15px;padding:10px 0;
-}
-.search-input::placeholder{color:var(--text3);}
-.search-clear{
-  background:none;border:none;color:var(--text3);cursor:pointer;
-  padding:8px;font-size:16px;display:none;
-}
-.search-clear.show{display:flex;}
-
-/* ── FILTER TABS ── */
-.filter-row{
-  display:flex;gap:6px;overflow-x:auto;
-  scrollbar-width:none;margin-bottom:20px;padding-bottom:2px;
-}
-.filter-row::-webkit-scrollbar{display:none;}
-.filter-tab{
-  flex-shrink:0;padding:7px 14px;border-radius:20px;
-  border:1px solid var(--border2);background:var(--surface);
-  font-size:12px;font-weight:600;color:var(--text2);
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-.filter-tab.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
-.filter-tab:hover{border-color:var(--border);color:var(--text);}
-
-/* ── FEATURED STRIP ── */
-.featured-label{
-  font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--text3);
-  margin-bottom:10px;display:flex;align-items:center;gap:8px;
-}
-.featured-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.featured-strip{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:10px;margin-bottom:24px;
-}
-
-/* ── TOOL CARD (compact) ── */
-.tool-card{
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:12px;padding:12px;
-  display:flex;align-items:center;gap:10px;
-  transition:all .18s;cursor:pointer;position:relative;
-  overflow:hidden;
-}
-.tool-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--tc,rgba(255,98,36,.05)),transparent);
-  opacity:0;transition:opacity .2s;
-}
-.tool-card:hover{border-color:var(--tc,var(--orange));transform:translateY(-1px);}
-.tool-card:hover::before{opacity:1;}
-.tool-card:active{transform:scale(.98);}
-
-.tool-icon-wrap{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-  background:#fff;
-  box-shadow:0 1px 4px rgba(0,0,0,.15);
-  overflow:hidden;
-}
-.tool-info{flex:1;min-width:0;}
-.tool-name{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--text);line-height:1.2;}
-.tool-tag{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-.tool-actions{display:flex;gap:6px;flex-shrink:0;}
-.tool-btn{
-  height:32px;padding:0 10px;border-radius:8px;
-  font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;
-  cursor:pointer;transition:all .15s;border:none;
-  display:flex;align-items:center;gap:4px;white-space:nowrap;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-}
-.btn-visit{background:var(--orange);color:#fff;}
-.btn-visit:hover{background:var(--orange2);}
-.btn-save{background:var(--s2);color:var(--text2);border:1px solid var(--border2);}
-.btn-save:hover{border-color:var(--orange);color:var(--orange);}
-.btn-save.saved{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
-
-/* Badge */
-.tool-badge{
-  position:absolute;top:8px;right:8px;
-  font-size:8px;font-weight:700;letter-spacing:.5px;
-  padding:2px 6px;border-radius:5px;
-}
-.badge-hot{background:rgba(247,37,133,.12);color:#f72585;}
-.badge-new{background:rgba(255,98,36,.12);color:var(--orange);}
-.badge-partner{background:rgba(6,214,160,.12);color:#06d6a0;}
-
-/* ── TOOLS GRID ── */
-.section-label{
-  font-size:10px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--text3);
-  margin:20px 0 10px;display:flex;align-items:center;gap:8px;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.tools-grid{
-  display:grid;grid-template-columns:1fr;
-  gap:8px;margin-bottom:8px;
-}
-
-/* Empty state */
-.empty{text-align:center;padding:48px 16px;color:var(--text3);}
-.empty-icon{font-size:40px;margin-bottom:12px;}
-.empty h3{font-family:'Syne',serif;font-size:18px;color:var(--text2);margin-bottom:6px;}
-
-/* ── BOTTOM NAV ── */
-.bottom-nav{
-  display:flex;position:fixed;bottom:0;left:0;right:0;
-  background:var(--surface);border-top:1px solid var(--border);
-  z-index:200;height:60px;
-}
-.bn-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:3px;text-decoration:none;
-  color:var(--text3);font-size:10px;font-weight:600;
-  border-top:2px solid transparent;transition:color .15s;
-  -webkit-tap-highlight-color:rgba(255,98,36,.1);touch-action:manipulation;
-}
-.bn-item.active{color:var(--orange);border-top-color:var(--orange);}
-.bn-icon{font-size:22px;line-height:1;}
-
-/* ── SLIDE MENU ── */
-.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;}
-.menu-overlay.open{display:block;}
-.slide-menu{
-  position:fixed;top:0;left:0;bottom:0;width:260px;
-  background:var(--surface);border-right:1px solid var(--border);
-  z-index:201;transform:translateX(-100%);
-  transition:transform .25s cubic-bezier(.4,0,.2,1);
-  overflow-y:auto;display:flex;flex-direction:column;
-}
-.slide-menu.open{transform:translateX(0);}
-.sm-logo{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border);}
-.sm-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.sm-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;}
-.sm-logo-text span{color:var(--orange);}
-.sm-item{display:flex;align-items:center;gap:10px;padding:11px 16px;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;}
-.sm-item:hover{background:var(--s2);color:var(--text);}
-.sm-item.active{color:var(--orange);}
-.sm-section{padding:12px 16px 4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
-
-/* ── LIGHT MODE ── */
-.light-mode{--bg:#f5f5f0;--surface:#fff;--s2:#f0f0ea;--s3:#e8e8e2;--border:#e0ddd6;--border2:#cccac2;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
-
-/* ── TABLET ── */
-@media(min-width:600px){
-  .main{padding:24px 20px 90px;}
-  .tools-grid{grid-template-columns:repeat(2,1fr);}
-  .featured-strip{grid-template-columns:repeat(3,1fr);}
-}
-
-/* ── DESKTOP ── */
-@media(min-width:900px){
-  .bottom-nav{display:none;}
-  .topnav{padding:0 32px;}
-  .main{padding:32px 40px 60px;}
-  .tools-grid{grid-template-columns:repeat(3,1fr);}
-  .featured-strip{grid-template-columns:repeat(4,1fr);}
-  .tool-card{padding:14px;}
-  .tool-icon-wrap{width:44px;height:44px;font-size:22px;}
-}
-@media(min-width:1200px){
-  .tools-grid{grid-template-columns:repeat(4,1fr);}
-}
-
-/* ── Tool card layout fixes ── */
-.tool-card {
-  position: relative;
-}
-.tool-badge {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  padding: 2px 6px;
-  border-radius: 5px;
-  pointer-events: none;
-  z-index: 2;
-}
-/* Push tool-info down a bit when badge present */
-.tool-name {
-  padding-right: 44px; /* space for badge */
-}
-.tool-actions {
-  flex-shrink: 0;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.tool-icon-wrap {
-  flex-shrink: 0;
-}
-/* Logo image sizing */
-.tool-icon-wrap img {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  object-fit: contain;
-}
-/* Fix featured strip card names being cut off */
-.featured-strip .tool-name {
-  font-size: 12px;
-  padding-right: 0;
-}
-.featured-strip .tool-tag {
-  font-size: 9px;
-}
-.featured-strip .tool-badge {
-  display: none; /* hide badge in featured strip — no overlap */
-}
-
-/* ── Logo icon wrap — clean ── */
-.tool-icon-wrap {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 10px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-  background: #fff !important;
-  overflow: hidden !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,.2) !important;
-}
-.tool-icon-wrap img {
-  width: 32px !important;
-  height: 32px !important;
-  object-fit: contain !important;
-  border-radius: 6px !important;
-}
-</style>
-</head>
-<body>
-
-<!-- TOP NAV -->
-<header class="topnav">
-  <a class="topnav-logo" href="/">
-    <div class="topnav-logo-mark">
-      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
-    </div>
-    <div class="topnav-logo-text">Prompt<span>aholics</span></div>
-  </a>
-  <div class="topnav-right">
-    <a href="library.html" class="topnav-btn"><i class="ph ph-books"></i> Library</a>
-    <button class="topnav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme"><i class="ph ph-moon"></i></button>
-    <button class="topnav-icon-btn" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
-  </div>
-</header>
-
-<!-- SLIDE MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-<nav class="slide-menu" id="slideMenu">
-  <a class="sm-logo" href="/">
-    <div class="sm-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
-    <div class="sm-logo-text">Prompt<span>aholics</span></div>
-  </a>
-  <div class="sm-section">Navigate</div>
-  <a class="sm-item" href="/" onclick="toggleMenu()"><i class="ph ph-house"></i> Home</a>
-  <a class="sm-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-books"></i> Prompt Library</a>
-  <a class="sm-item" href="prompt-builder.html" onclick="toggleMenu()"><i class="ph ph-wrench"></i> Prompt Builder</a>
-  <a class="sm-item active" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning"></i> AI Tools</a>
-  <div class="sm-section">Account</div>
-  <a class="sm-item" href="login.html" onclick="toggleMenu()"><i class="ph ph-user"></i> Sign In / Register</a>
-  <div class="sm-section" style="margin-top:auto;">Legal</div>
-  <a class="sm-item" href="privacy.html" onclick="toggleMenu()"><i class="ph ph-lock"></i> Privacy Policy</a>
-  <a class="sm-item" href="terms.html" onclick="toggleMenu()"><i class="ph ph-clipboard"></i> Terms of Service</a>
-</nav>
-
-<!-- MAIN -->
-<main class="main">
-
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1 class="page-title">AI <span>Tools</span> Directory</h1>
-    <p class="page-sub">The best AI tools for creators — all in one place</p>
-  </div>
-
-  <!-- Search -->
-  <div class="search-wrap">
-    <i class="ph ph-magnifying-glass" style="color:var(--text3);font-size:18px;flex-shrink:0;"></i>
-    <input class="search-input" id="searchInput" type="text"
-      placeholder="Search tools..."
-      oninput="handleSearch(this.value)"/>
-    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-  </div>
-
-  <!-- Filter Tabs -->
-  <div class="filter-row" id="filterRow"></div>
-
-  <!-- Featured -->
-  <div id="featuredSection">
-    <div class="featured-label">⭐ Featured & Partners</div>
-    <div class="featured-strip" id="featuredGrid"></div>
-  </div>
-
-  <!-- All Tools -->
-  <div id="allSection">
-    <div class="section-label" id="allLabel">All Tools</div>
-    <div class="tools-grid" id="toolsGrid"></div>
-  </div>
-
-  <!-- Empty state -->
-  <div class="empty" id="emptyState" style="display:none;">
-    <div class="empty-icon">🔍</div>
-    <h3>No tools found</h3>
-    <p>Try a different search or category</p>
-  </div>
-
-</main>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a class="bn-item" href="/"><span class="bn-icon"><i class="ph ph-house"></i></span>Home</a>
-  <a class="bn-item" href="prompt-builder.html"><span class="bn-icon"><i class="ph ph-wrench"></i></span>Builder</a>
-  <a class="bn-item" href="library.html"><span class="bn-icon"><i class="ph ph-books"></i></span>Library</a>
-  <a class="bn-item active" href="creationstation.html"><span class="bn-icon"><i class="ph ph-lightning"></i></span>Tools</a>
-  <a class="bn-item" href="#" onclick="openSaved(event)"><span class="bn-icon"><i class="ph ph-star"></i></span>Saved</a>
-</nav>
-
-<script>
-// ── TOOLS DATA ────────────────────────────────────────────────
-var TOOLS = [
-  // ── FEATURED / PARTNERS ──
-  {name:'OpenArt',      icon:'🎨',color:'#e11d48',cat:'image',   tag:'AI Image & Video Suite',  url:'https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg', badge:'PARTNER',feat:true,  desc:'All-in-one AI creative suite — image, video, audio generation.'},
-  {name:'ElevenLabs',  icon:'🎙️',color:'#7c3aed',cat:'audio',   tag:'AI Voice · Text to Speech',url:'https://try.elevenlabs.io/pchhf50bim6w',badge:'HOT',   feat:true,  desc:'Most realistic AI voice generation. Voiceovers, voice cloning.'},
-  {name:'Promptmetheus',icon:'⚡',color:'#0284c7',cat:'productivity',tag:'Prompt IDE & Optimizer',url:'https://promptmetheus.com/?via=fin',  badge:'NEW',   feat:true,  desc:'Professional prompt engineering IDE. Build and test prompts.'},
-  {name:'Writesonic',  icon:'✍️',color:'#059669',cat:'writing',  tag:'AI Writer & SEO Tool',    url:'https://writesonic.com',               badge:'',      feat:true,  desc:'AI writing platform for blogs, ads, emails and SEO content.'},
-  // ── CHAT & LLMs ──
-  {name:'ChatGPT',     icon:'🤖',color:'#10b981',cat:'chat',     tag:'OpenAI · GPT-4o & GPT-5', url:'https://chat.openai.com',              badge:'',      feat:true,  desc:'The world\'s most popular AI assistant for any task.'},
-  {name:'Claude',      icon:'🧠',color:'#b45309',cat:'chat',     tag:'Anthropic · Sonnet 4.6',  url:'https://claude.ai',                    badge:'',      feat:true,  desc:'Advanced AI assistant known for nuanced, thoughtful responses.'},
-  {name:'Gemini',      icon:'✨',color:'#4285f4',cat:'chat',     tag:'Google · Gemini 2.5',     url:'https://gemini.google.com',            badge:'',      feat:false, desc:'Google\'s most capable AI model with search integration.'},
-  {name:'Perplexity',  icon:'🔍',color:'#6366f1',cat:'research', tag:'AI Search Engine',         url:'https://perplexity.ai',                badge:'',      feat:false, desc:'AI-powered search that gives sourced, accurate answers.'},
-  {name:'Grok',        icon:'🚀',color:'#1da1f2',cat:'chat',     tag:'xAI · Real-time Info',    url:'https://grok.x.ai',                    badge:'NEW',   feat:false, desc:'Elon Musk\'s AI with real-time X/Twitter data access.'},
-  {name:'Meta AI',     icon:'🌐',color:'#0866ff',cat:'chat',     tag:'Meta · Llama 3',          url:'https://meta.ai',                      badge:'',      feat:false, desc:'Meta\'s free AI assistant integrated across their platforms.'},
-  {name:'Microsoft Copilot',icon:'💼',color:'#00a4ef',cat:'chat',tag:'Microsoft · GPT-4',       url:'https://copilot.microsoft.com',        badge:'',      feat:false, desc:'AI assistant built into Microsoft 365 and Windows.'},
-  {name:'DeepSeek',    icon:'🔬',color:'#2563eb',cat:'chat',     tag:'DeepSeek · R1 Reasoning', url:'https://chat.deepseek.com',            badge:'HOT',   feat:false, desc:'Powerful open-source reasoning model rivaling GPT-4.'},
-  // ── IMAGE GENERATION ──
-  {name:'Midjourney',  icon:'🎨',color:'#7c3aed',cat:'image',   tag:'v7 · Discord + Web',      url:'https://midjourney.com',               badge:'',      feat:true,  desc:'The most artistic AI image generator. Stunning quality.'},
-  {name:'DALL·E 3',    icon:'🖼️',color:'#f59e0b',cat:'image',   tag:'OpenAI · In ChatGPT',     url:'https://openai.com/dall-e-3',          badge:'',      feat:false, desc:'OpenAI\'s powerful image generator built into ChatGPT.'},
-  {name:'Stable Diffusion',icon:'🌈',color:'#8b5cf6',cat:'image',tag:'Open Source · SDXL',     url:'https://stability.ai',                badge:'',      feat:false, desc:'The leading open-source image generation model.'},
-  {name:'Adobe Firefly',icon:'🔥',color:'#ff0000',cat:'image',  tag:'Adobe · Commercial Safe', url:'https://firefly.adobe.com',            badge:'',      feat:false, desc:'Adobe\'s AI image generator, safe for commercial use.'},
-  {name:'Ideogram',    icon:'💡',color:'#ec4899',cat:'image',   tag:'v3 · Text in Images',     url:'https://ideogram.ai',                  badge:'NEW',   feat:false, desc:'Best AI tool for generating images with accurate text.'},
-  {name:'Flux',        icon:'⚡',color:'#f97316',cat:'image',   tag:'Black Forest Labs',        url:'https://blackforestlabs.ai',           badge:'HOT',   feat:false, desc:'Next-gen image model with photorealistic quality.'},
-  {name:'Leonardo AI', icon:'🎭',color:'#c084fc',cat:'image',   tag:'AI Image & Assets',       url:'https://leonardo.ai',                  badge:'',      feat:false, desc:'AI image generation built for game assets and creative work.'},
-  {name:'Canva AI',    icon:'🎪',color:'#00c4cc',cat:'image',   tag:'Design + AI Magic',       url:'https://canva.com',                    badge:'',      feat:false, desc:'Canva\'s suite of AI tools inside the world\'s top design app.'},
-  // ── VIDEO GENERATION ──
-  {name:'Sora',        icon:'🎬',color:'#000000',cat:'video',   tag:'OpenAI · Text to Video',  url:'https://sora.com',                     badge:'HOT',   feat:true,  desc:'OpenAI\'s revolutionary text-to-video generation model.'},
-  {name:'Runway',      icon:'🎥',color:'#7c3aed',cat:'video',   tag:'Gen-3 Alpha',             url:'https://runwayml.com',                 badge:'',      feat:false, desc:'Professional AI video generation and editing platform.'},
-  {name:'Kling AI',    icon:'📽️',color:'#e11d48',cat:'video',   tag:'Kuaishou · Video AI',     url:'https://klingai.com',                  badge:'HOT',   feat:false, desc:'High-quality video generation with long duration support.'},
-  {name:'Pika Labs',   icon:'⚡',color:'#f59e0b',cat:'video',   tag:'Video Generation',        url:'https://pika.art',                     badge:'',      feat:false, desc:'Fast and creative AI video generation from text or images.'},
-  {name:'Luma Dream Machine',icon:'🌙',color:'#6366f1',cat:'video',tag:'Realistic Video',     url:'https://lumalabs.ai/dream-machine',    badge:'',      feat:false, desc:'Luma\'s AI that creates realistic, cinematic video clips.'},
-  {name:'Seedance 2',  icon:'🌱',color:'#10b981',cat:'video',   tag:'ByteDance · Video AI',    url:'https://seedance.ai',                  badge:'NEW',   feat:false, desc:'ByteDance\'s powerful video generation model.'},
-  {name:'HeyGen',      icon:'👤',color:'#0284c7',cat:'video',   tag:'AI Avatar Videos',        url:'https://heygen.com',                   badge:'',      feat:false, desc:'Create AI avatar videos and dub content in 40+ languages.'},
-  {name:'Synthesia',   icon:'🎭',color:'#7c3aed',cat:'video',   tag:'AI Video Presenter',      url:'https://synthesia.io',                 badge:'',      feat:false, desc:'Create professional videos with AI avatars and voiceovers.'},
-  // ── WRITING ──
-  {name:'Copy.ai',     icon:'✏️',color:'#8b5cf6',cat:'writing', tag:'AI Marketing Copy',       url:'https://copy.ai',                      badge:'',      feat:false, desc:'AI-powered copywriting for ads, emails and social content.'},
-  {name:'Jasper',      icon:'📝',color:'#4f46e5',cat:'writing', tag:'AI Content Platform',     url:'https://jasper.ai',                    badge:'',      feat:false, desc:'Enterprise AI writing assistant for teams and brands.'},
-  {name:'Grammarly',   icon:'✅',color:'#15b393',cat:'writing', tag:'AI Writing Assistant',    url:'https://grammarly.com',                badge:'',      feat:false, desc:'The world\'s most popular AI grammar and writing checker.'},
-  {name:'Sudowrite',   icon:'📖',color:'#ec4899',cat:'writing', tag:'Fiction & Storytelling',  url:'https://sudowrite.com',                badge:'',      feat:false, desc:'AI writing tool designed specifically for fiction writers.'},
-  {name:'Rytr',        icon:'🖊️',color:'#6366f1',cat:'writing', tag:'AI Writing Tool',         url:'https://rytr.me',                      badge:'',      feat:false, desc:'Affordable AI writing assistant for all content types.'},
-  // ── CODE ──
-  {name:'GitHub Copilot',icon:'💻',color:'#333',cat:'code',    tag:'AI Code Assistant',        url:'https://github.com/features/copilot', badge:'',      feat:false, desc:'AI pair programmer that suggests code as you type.'},
-  {name:'Cursor',      icon:'🖱️',color:'#1a1a2e',cat:'code',   tag:'AI Code Editor',          url:'https://cursor.sh',                    badge:'HOT',   feat:false, desc:'The AI-first code editor built for pair programming with AI.'},
-  {name:'Claude Code', icon:'⌨️',color:'#b45309',cat:'code',   tag:'Anthropic · CLI Agent',   url:'https://claude.ai/code',               badge:'NEW',   feat:false, desc:'Anthropic\'s agentic coding tool for complex codebases.'},
-  {name:'Replit AI',   icon:'🔧',color:'#f26207',cat:'code',   tag:'AI Coding Platform',      url:'https://replit.com',                   badge:'',      feat:false, desc:'Build and deploy apps with AI assistance in the browser.'},
-  {name:'v0',          icon:'▲',color:'#000',   cat:'code',    tag:'Vercel · UI Generation',  url:'https://v0.dev',                       badge:'',      feat:false, desc:'Generate React UI components from text descriptions.'},
-  {name:'Bolt.new',    icon:'⚡',color:'#1a1a2e',cat:'code',   tag:'Full-Stack AI Builder',   url:'https://bolt.new',                     badge:'HOT',   feat:false, desc:'Build full-stack web apps from a single prompt.'},
-  // ── AUDIO ──
-  {name:'Suno',        icon:'🎵',color:'#7c3aed',cat:'audio',  tag:'AI Music Generation',     url:'https://suno.ai',                      badge:'',      feat:false, desc:'Create full songs with vocals and instruments from text.'},
-  {name:'Udio',        icon:'🎸',color:'#ec4899',cat:'audio',  tag:'AI Music Creator',        url:'https://udio.com',                     badge:'',      feat:false, desc:'Generate professional-quality music from prompts.'},
-  {name:'Murf AI',     icon:'🔊',color:'#0284c7',cat:'audio',  tag:'AI Voiceover Studio',     url:'https://murf.ai',                      badge:'',      feat:false, desc:'Professional AI voiceovers in 120+ languages.'},
-  {name:'Descript',    icon:'🎙️',color:'#6366f1',cat:'audio',  tag:'Audio & Video Editing',   url:'https://descript.com',                 badge:'',      feat:false, desc:'Edit audio and video by editing text. Remove filler words.'},
-  // ── PRODUCTIVITY ──
-  {name:'Notion AI',   icon:'📋',color:'#191919',cat:'productivity',tag:'AI Workspace',        url:'https://notion.so/product/ai',         badge:'',      feat:false, desc:'AI built into Notion for notes, docs and project management.'},
-  {name:'Make',        icon:'🔄',color:'#6d28d9',cat:'productivity',tag:'AI Automation',       url:'https://make.com',                     badge:'',      feat:false, desc:'No-code automation platform connecting apps with AI.'},
-  {name:'Zapier',      icon:'⚡',color:'#f4511e',cat:'productivity',tag:'Workflow Automation',  url:'https://zapier.com',                   badge:'',      feat:false, desc:'Automate tasks between 6000+ apps without code.'},
-  {name:'Otter.ai',    icon:'🦦',color:'#3b82f6',cat:'productivity',tag:'AI Meeting Notes',    url:'https://otter.ai',                     badge:'',      feat:false, desc:'Real-time meeting transcription and AI-generated summaries.'},
-  // ── SOCIAL & MARKETING ──
-  {name:'Buffer',      icon:'📱',color:'#2c4bff',cat:'social',  tag:'Social Media Scheduler',  url:'https://buffer.com',                   badge:'',      feat:false, desc:'Schedule and manage social media posts across all platforms.'},
-  {name:'Hootsuite',   icon:'🦉',color:'#1d1d2e',cat:'social',  tag:'Social Management',       url:'https://hootsuite.com',                badge:'',      feat:false, desc:'Enterprise social media management and analytics platform.'},
-  {name:'AdCreative',  icon:'🎯',color:'#7c3aed',cat:'social',  tag:'AI Ad Creative',          url:'https://adcreative.ai',                badge:'',      feat:false, desc:'Generate conversion-optimized ad creatives with AI.'},
-  // ── RESEARCH ──
-  {name:'Elicit',      icon:'🔬',color:'#4f46e5',cat:'research',tag:'AI Research Tool',        url:'https://elicit.com',                   badge:'',      feat:false, desc:'AI tool that automates research workflows using papers.'},
-  {name:'Consensus',   icon:'📊',color:'#0284c7',cat:'research',tag:'AI Paper Search',         url:'https://consensus.app',                badge:'',      feat:false, desc:'Search scientific papers and get AI-synthesized answers.'},
-  {name:'Scite',       icon:'📚',color:'#059669',cat:'research',tag:'Citation Analysis',        url:'https://scite.ai',                     badge:'',      feat:false, desc:'Discover how research has been cited and supported.'},
-];
-
-// ── CATEGORIES ────────────────────────────────────────────────
-var CATS = [
-  {id:'all',    label:'All Tools'},
-  {id:'chat',   label:'Chat & LLMs'},
-  {id:'image',  label:'Image'},
-  {id:'video',  label:'Video'},
-  {id:'writing',label:'Writing'},
-  {id:'code',   label:'Code'},
-  {id:'audio',  label:'Audio'},
-  {id:'productivity',label:'Productivity'},
-  {id:'social', label:'Social'},
-  {id:'research',label:'Research'},
-];
-
-// ── STATE ─────────────────────────────────────────────────────
-var activeCat = 'all';
-var searchQ   = '';
-var savedTools = [];
-try { savedTools = JSON.parse(localStorage.getItem('pa_tools')||'[]'); } catch(e){}
-
-// ── RENDER FILTER TABS ────────────────────────────────────────
-function renderFilters(){
-  var row = document.getElementById('filterRow');
-  row.innerHTML = CATS.map(function(c){
-    return '<button class="filter-tab'+(activeCat===c.id?' active':'')+
-      '" onclick="setFilter(\''+c.id+'\')">'+c.label+'</button>';
-  }).join('');
-}
-
-function setFilter(cat){
-  activeCat = cat;
-  renderFilters();
-  renderTools();
-}
-
-// ── SEARCH ────────────────────────────────────────────────────
-function handleSearch(val){
-  searchQ = val.trim().toLowerCase();
-  document.getElementById('searchClear').classList.toggle('show', searchQ.length>0);
-  renderTools();
-}
-function clearSearch(){
-  document.getElementById('searchInput').value='';
-  searchQ='';
-  document.getElementById('searchClear').classList.remove('show');
-  renderTools();
-}
-
-// ── FILTER TOOLS ──────────────────────────────────────────────
-function getFiltered(){
-  return TOOLS.filter(function(t){
-    var catOk  = activeCat==='all' || t.cat===activeCat;
-    var searchOk = !searchQ || 
-      t.name.toLowerCase().includes(searchQ) ||
-      t.tag.toLowerCase().includes(searchQ)  ||
-      t.cat.toLowerCase().includes(searchQ)  ||
-      (t.desc&&t.desc.toLowerCase().includes(searchQ));
-    return catOk && searchOk;
+// Run after each render to wire up onerror safely
+function initLogos() {
+  var imgs = document.querySelectorAll('.tc-logo img');
+  imgs.forEach(function(img) {
+    img.onerror = function() {
+      this.parentNode.innerHTML = '<span class="fallback">🔧</span>';
+    };
   });
 }
 
-// ── RENDER CARD ───────────────────────────────────────────────
-
-
-
-function hexAlpha(hex, alpha){
-  var r=parseInt(hex.slice(1,3)||'ff',16);
-  var g=parseInt(hex.slice(3,5)||'62',16);
-  var b=parseInt(hex.slice(5,7)||'24',16);
-  return 'rgba('+r+','+g+','+b+','+alpha+')';
+// ── CARD HTML ─────────────────────────────────────────────────
+function card(t) {
+  var isSaved  = saved.indexOf(t.name) !== -1;
+  var badge    = t.badge ? '<span class="tc-badge badge-' + (t.badge==='HOT'?'hot':'new') + '">' + t.badge + '</span>' : '';
+  var saveIcon = isSaved ? '<i class="ph ph-star-fill" style="color:var(--orange)"></i>' : '<i class="ph ph-star"></i>';
+  var logo     = makeLogo(t.name, t.url);
+  
+  return '<div class="tc">' +
+    logo +
+    '<div class="tc-info">' +
+      '<div class="tc-name">' + t.name + '</div>' +
+      '<div class="tc-tag">'  + t.tag  + '</div>' +
+    '</div>' +
+    '<div class="tc-actions">' +
+      '<button class="tc-save' + (isSaved?' on':'') + '" data-n="' + t.name + '" onclick="doSave(this)">' + saveIcon + '</button>' +
+      '<a class="tc-visit" href="' + t.url + '" target="_blank" rel="noopener">Visit <i class="ph ph-arrow-up-right"></i></a>' +
+    '</div>' +
+    badge +
+  '</div>';
 }
 
-// ── RENDER TOOLS ──────────────────────────────────────────────
-function renderTools(){
-  var list = getFiltered();
-  var featured  = list.filter(function(t){ return t.feat && activeCat==='all' && !searchQ; });
-  var rest      = list.filter(function(t){ return !(t.feat && activeCat==='all' && !searchQ); });
+// ── FILTER ────────────────────────────────────────────────────
+function getList() {
+  return TOOLS.filter(function(t) {
+    var catOk  = activeCat === 'all' || t.cat === activeCat;
+    var srchOk = !searchQ  ||
+      t.name.toLowerCase().includes(searchQ) ||
+      t.tag.toLowerCase().includes(searchQ)  ||
+      t.cat.toLowerCase().includes(searchQ);
+    return catOk && srchOk;
+  });
+}
 
-  // Featured section
-  var featSection = document.getElementById('featuredSection');
-  var featGrid    = document.getElementById('featuredGrid');
-  if(featured.length && activeCat==='all' && !searchQ){
-    featSection.style.display='block';
-    featGrid.innerHTML = featured.map(cardHTML).join('');
+// ── RENDER ────────────────────────────────────────────────────
+function render() {
+  var list     = getList();
+  var showFeat = activeCat === 'all' && !searchQ;
+  var featured = showFeat ? list.filter(function(t){ return t.feat; }) : [];
+  var rest     = showFeat ? list.filter(function(t){ return !t.feat; }) : list;
+
+  // Featured
+  var featSec  = document.getElementById('featSec');
+  var featGrid = document.getElementById('featGrid');
+  if (featured.length) {
+    featSec.style.display = 'block';
+    featGrid.innerHTML = featured.map(card).join('');
   } else {
-    featSection.style.display='none';
+    featSec.style.display = 'none';
   }
 
   // All tools
-  var allSection = document.getElementById('allSection');
-  var toolsGrid  = document.getElementById('toolsGrid');
-  var allLabel   = document.getElementById('allLabel');
-  var empty      = document.getElementById('emptyState');
+  var allSec   = document.getElementById('allSec');
+  var grid     = document.getElementById('grid');
+  var allLabel = document.getElementById('allLabel');
+  var empty    = document.getElementById('empty');
 
-  if(list.length===0){
-    allSection.style.display='none';
-    empty.style.display='block';
+  if (list.length === 0) {
+    allSec.style.display = 'none';
+    empty.style.display  = 'block';
   } else {
-    allSection.style.display='block';
-    empty.style.display='none';
-    allLabel.textContent = searchQ ? 'Results for "'+searchQ+'"' : 
-      (activeCat==='all' ? 'All Tools' : CATS.find(function(c){return c.id===activeCat;})?.label||'Tools');
-    toolsGrid.innerHTML = rest.map(cardHTML).join('');
+    allSec.style.display = 'block';
+    empty.style.display  = 'none';
+    var catName = CATS.find(function(c){ return c.id === activeCat; });
+    allLabel.textContent = searchQ ? 'Results for "' + searchQ + '"' :
+      (activeCat === 'all' ? 'All Tools' : (catName ? catName.label : 'Tools'));
+    grid.innerHTML = rest.map(card).join('');
   }
+
+  // Wire up onerror AFTER render
+  initLogos();
 }
 
-// ── SAVE TOOL ─────────────────────────────────────────────────
-function toggleSave(e, name){
+// ── FILTERS RENDER ────────────────────────────────────────────
+function renderFilters() {
+  document.getElementById('filters').innerHTML = CATS.map(function(c) {
+    return '<button class="ftab' + (activeCat===c.id?' on':'') + '" onclick="setFilter(\'' + c.id + '\')">' + c.label + '</button>';
+  }).join('');
+}
+
+function setFilter(cat) { activeCat = cat; renderFilters(); render(); }
+
+// ── SEARCH ────────────────────────────────────────────────────
+function doSearch(v) {
+  searchQ = v.trim().toLowerCase();
+  document.getElementById('srchX').classList.toggle('show', searchQ.length > 0);
+  render();
+}
+function clearSearch() {
+  document.getElementById('srch').value = '';
+  searchQ = '';
+  document.getElementById('srchX').classList.remove('show');
+  render();
+}
+
+// ── SAVE ──────────────────────────────────────────────────────
+function doSave(btn) {
+  var name = btn.getAttribute('data-n');
+  var idx  = saved.indexOf(name);
+  if (idx === -1) { saved.push(name); } else { saved.splice(idx, 1); }
+  localStorage.setItem('pa_tools', JSON.stringify(saved));
+  render();
+}
+
+// ── SAVED MODAL ───────────────────────────────────────────────
+function openSaved(e) {
   e.preventDefault();
-  e.stopPropagation();
-  var idx = savedTools.indexOf(name);
-  if(idx===-1){ savedTools.push(name); } else { savedTools.splice(idx,1); }
-  localStorage.setItem('pa_tools', JSON.stringify(savedTools));
-  renderTools();
+  var n = saved.length;
+  if (!n) { alert('No saved tools yet. Tap ☆ on any tool to save it.'); return; }
+  alert('You have ' + n + ' saved tool' + (n>1?'s':'') + ':\n\n' + saved.join('\n'));
 }
 
-// ── TRACK VISIT ───────────────────────────────────────────────
-function trackVisit(name){
-  if(typeof gtag !== 'undefined'){
-    gtag('event','tool_click',{tool_name:name});
-  }
-}
-
-// ── SAVED MODAL (redirect to homepage) ───────────────────────
-function openSaved(e){
-  if(e) e.preventDefault();
-  var count = savedTools.length;
-  if(!count){ alert('No saved tools yet. Tap ☆ on any tool to save it.'); return; }
-  if(confirm('You have '+count+' saved tool'+(count>1?'s':'')+'. Go to homepage to view saved prompts?')){
-    window.location.href='/';
-  }
-}
-
-// ── MENU ─────────────────────────────────────────────────────
-function toggleMenu(){
-  document.getElementById('menuOverlay').classList.toggle('open');
-  document.getElementById('slideMenu').classList.toggle('open');
+// ── MENU ──────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('overlay').classList.toggle('open');
+  document.getElementById('smenu').classList.toggle('open');
 }
 
 // ── THEME ─────────────────────────────────────────────────────
-var theme = localStorage.getItem('pa_theme')||'dark';
-if(theme==='light') document.body.classList.add('light-mode');
-function toggleTheme(){
-  theme = theme==='dark'?'light':'dark';
-  localStorage.setItem('pa_theme',theme);
-  document.body.classList.toggle('light-mode');
+var theme = localStorage.getItem('pa_theme') || 'dark';
+if (theme === 'light') document.body.classList.add('light');
+function toggleTheme() {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('pa_theme', theme);
+  document.body.classList.toggle('light');
+  updateThemeBtn();
+}
+function updateThemeBtn() {
   var btn = document.getElementById('themeBtn');
-  if(btn) btn.innerHTML = theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
+  if (btn) btn.innerHTML = theme === 'light' ? '<i class="ph ph-sun"></i>' : '<i class="ph ph-moon"></i>';
 }
-var tb = document.getElementById('themeBtn');
-if(tb) tb.innerHTML = theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
-
-// ── LOGO FALLBACK ─────────────────────────────────────────────
-function logoFail(img){
-  var fallback = img.getAttribute('data-fallback') || '🔧';
-  img.outerHTML = '<span style="font-size:20px">'+fallback+'</span>';
-}
+updateThemeBtn();
 
 // ── INIT ──────────────────────────────────────────────────────
 renderFilters();
-renderTools();
+render();
 </script>
 </body>
 </html>
