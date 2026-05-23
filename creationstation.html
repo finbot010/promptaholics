@@ -535,10 +535,13 @@ function getDomain(url){
 function getLogoHTML(t){
   var domain = getDomain(t.url);
   if(!domain) return '<span style="font-size:20px">'+t.icon+'</span>';
-  var src = 'https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
+  var src = 'https://logo.clearbit.com/' + domain;
   return '<img src="'+src+'" alt="'+t.name+'" loading="lazy" '+
-    'onerror="this.outerHTML='<span style=&quot;font-size:20px&quot;>'+t.icon+'</span>'" />';
+    'data-fallback="'+t.icon+'" '+
+    'style="width:32px;height:32px;object-fit:contain;" '+
+    'onerror="logoFail(this)" />';
 }
+
 
 function cardHTML(t){
   var isSaved = savedTools.includes(t.name);
@@ -1185,6 +1188,12 @@ function toggleTheme(){
 }
 var tb = document.getElementById('themeBtn');
 if(tb) tb.innerHTML = theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
+
+// ── LOGO FALLBACK ─────────────────────────────────────────────
+function logoFail(img){
+  var fallback = img.getAttribute('data-fallback') || '🔧';
+  img.outerHTML = '<span style="font-size:20px">'+fallback+'</span>';
+}
 
 // ── INIT ──────────────────────────────────────────────────────
 renderFilters();
