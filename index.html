@@ -26,6 +26,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Promptaholics","url":"https://promptaholics.com","description":"Free AI prompt library with 417+ copy-ready prompts.","potentialAction":{"@type":"SearchAction","target":"https://promptaholics.com/library.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -578,6 +579,16 @@ img { display: block; max-width: 100%; }
 }
 
 
+
+/* ── Phosphor Icons styling ── */
+.ph { font-size: inherit; line-height: 1; display: inline-block; }
+.si-icon.ph { font-size: 16px; width: 20px; text-align: center; }
+.bn-icon.ph { font-size: 22px; line-height: 1; display: block; }
+.qc-icon.ph { font-size: 24px; display: block; margin-bottom: 5px; }
+@media (min-width: 900px) {
+  .qc-icon.ph { font-size: 28px; }
+  .si-icon.ph { font-size: 17px; }
+}
 </style>
 </head>
 <body>
@@ -592,31 +603,34 @@ img { display: block; max-width: 100%; }
   </a>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Create</div>
-    <a class="sidebar-item active" href="/"><span class="si-icon">🏠</span> Home</a>
-    <a class="sidebar-item" href="prompt-builder.html"><span class="si-icon">🔧</span> Prompt Builder</a>
-    <a class="sidebar-item" href="library.html?cat=Image+Generation"><span class="si-icon">🎨</span> Image Prompts</a>
-    <a class="sidebar-item" href="library.html?cat=Video+%26+Film"><span class="si-icon">🎬</span> Video Prompts</a>
-    <a class="sidebar-item" href="library.html?cat=Writing+%26+Content"><span class="si-icon">✍️</span> Writing</a>
-    <a class="sidebar-item" href="library.html?cat=Code+%26+Tech"><span class="si-icon">💻</span> Code</a>
+    <a class="sidebar-item active" href="/"><i class="ph ph-house si-icon"></i> Home</a>
+    <a class="sidebar-item" href="prompt-builder.html"><i class="ph ph-wrench si-icon"></i> Prompt Builder</a>
+    <a class="sidebar-item" href="library.html?cat=Image+Generation"><i class="ph ph-image si-icon"></i> Image Prompts</a>
+    <a class="sidebar-item" href="library.html?cat=Video+%26+Film"><i class="ph ph-video si-icon"></i> Video Prompts</a>
+    <a class="sidebar-item" href="library.html?cat=Writing+%26+Content"><i class="ph ph-pencil-simple si-icon"></i> Writing</a>
+    <a class="sidebar-item" href="library.html?cat=Code+%26+Tech"><i class="ph ph-code si-icon"></i> Code</a>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Library</div>
     <a class="sidebar-item" href="library.html">
-      <span class="si-icon">📚</span> All Prompts
+      <i class="ph ph-books si-icon"></i> All Prompts
       <span class="sidebar-badge">417</span>
     </a>
-    <a class="sidebar-item" href="library.html"><span class="si-icon">⭐</span> Featured</a>
-    <a class="sidebar-item" href="library.html"><span class="si-icon">🕐</span> Recent</a>
-    <a class="sidebar-item" href="#" onclick="openSaved(event)"><span class="si-icon">💾</span> Saved</a>
+    <a class="sidebar-item" href="library.html"><i class="ph ph-star si-icon"></i> Featured</a>
+    <a class="sidebar-item" href="library.html"><i class="ph ph-clock si-icon"></i> Recent</a>
+    <a class="sidebar-item" href="#" onclick="openSaved(event)"><i class="ph ph-bookmark-simple si-icon"></i> Saved</a>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Tools</div>
-    <a class="sidebar-item" href="creationstation.html"><span class="si-icon">⚡</span> AI Tools Directory</a>
-    <a class="sidebar-item" href="creationstation.html"><span class="si-icon">🗓️</span> Weekly Images</a>
+    <a class="sidebar-item" href="creationstation.html"><i class="ph ph-lightning si-icon"></i> AI Tools Directory</a>
+    <a class="sidebar-item" href="creationstation.html"><i class="ph ph-calendar si-icon"></i> Weekly Images</a>
   </div>
   <div style="padding:12px 10px;border-top:1px solid var(--border);margin-top:auto;">
+    <a href="login.html" id="sidebarLogin" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--orange);color:#fff;padding:10px;border-radius:9px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:8px;">
+      Sign In / Register
+    </a>
     <button onclick="toggleTheme()" style="width:100%;background:var(--s2);border:1px solid var(--border2);color:var(--text2);padding:9px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;justify-content:center;">
-      <span id="sidebarThemeIcon">🌙</span> Toggle Theme
+      <span id="sidebarThemeIcon"><i class="ph ph-moon"></i></span> Toggle Theme
     </button>
   </div>
 </nav>
@@ -630,7 +644,8 @@ img { display: block; max-width: 100%; }
     <div class="topnav-logo-text">Prompt<span>aholics</span></div>
   </a>
     <div class="topnav-right">
-    <button id="themeBtn" onclick="toggleTheme()" class="topnav-menu-btn" title="Toggle theme">🌙</button>
+    <a href="login.html" id="topNavLogin" style="background:var(--orange);color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;">Sign In</a>
+    <button id="themeBtn" onclick="toggleTheme()" class="topnav-menu-btn" title="Toggle theme"><i class="ph ph-moon"></i></button>
     <button class="topnav-menu-btn" onclick="toggleMenu()">☰</button>
   </div>
 </header>
@@ -646,23 +661,23 @@ img { display: block; max-width: 100%; }
   </a>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Create</div>
-    <a class="sidebar-item active" href="/" onclick="toggleMenu()"><span class="si-icon">🏠</span> Home</a>
-    <a class="sidebar-item" href="prompt-builder.html" onclick="toggleMenu()"><span class="si-icon">🔧</span> Prompt Builder</a>
-    <a class="sidebar-item" href="library.html?cat=Image+Generation" onclick="toggleMenu()"><span class="si-icon">🎨</span> Image Prompts</a>
-    <a class="sidebar-item" href="library.html?cat=Video+%26+Film" onclick="toggleMenu()"><span class="si-icon">🎬</span> Video Prompts</a>
-    <a class="sidebar-item" href="library.html?cat=Writing+%26+Content" onclick="toggleMenu()"><span class="si-icon">✍️</span> Writing</a>
-    <a class="sidebar-item" href="library.html?cat=Code+%26+Tech" onclick="toggleMenu()"><span class="si-icon">💻</span> Code</a>
+    <a class="sidebar-item active" href="/" onclick="toggleMenu()"><i class="ph ph-house si-icon"></i> Home</a>
+    <a class="sidebar-item" href="prompt-builder.html" onclick="toggleMenu()"><i class="ph ph-wrench si-icon"></i> Prompt Builder</a>
+    <a class="sidebar-item" href="library.html?cat=Image+Generation" onclick="toggleMenu()"><i class="ph ph-image si-icon"></i> Image Prompts</a>
+    <a class="sidebar-item" href="library.html?cat=Video+%26+Film" onclick="toggleMenu()"><i class="ph ph-video si-icon"></i> Video Prompts</a>
+    <a class="sidebar-item" href="library.html?cat=Writing+%26+Content" onclick="toggleMenu()"><i class="ph ph-pencil-simple si-icon"></i> Writing</a>
+    <a class="sidebar-item" href="library.html?cat=Code+%26+Tech" onclick="toggleMenu()"><i class="ph ph-code si-icon"></i> Code</a>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Library</div>
-    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">📚</span> All Prompts <span class="sidebar-badge">417</span></a>
-    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><span class="si-icon">⭐</span> Featured</a>
-    <a class="sidebar-item" href="#" onclick="toggleMenu();openSaved(event)"><span class="si-icon">💾</span> Saved</a>
-    <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><span class="si-icon">⚡</span> AI Tools</a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-books si-icon"></i> All Prompts <span class="sidebar-badge">417</span></a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-star si-icon"></i> Featured</a>
+    <a class="sidebar-item" href="#" onclick="toggleMenu();openSaved(event)"><i class="ph ph-bookmark-simple si-icon"></i> Saved</a>
+    <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning si-icon"></i> AI Tools</a>
   </div>
   <div class="sidebar-section" style="margin-top:auto;border-top:1px solid var(--border);padding-top:12px;">
-    <a class="sidebar-item" href="privacy.html" onclick="toggleMenu()"><span class="si-icon">🔒</span> Privacy Policy</a>
-    <a class="sidebar-item" href="terms.html" onclick="toggleMenu()"><span class="si-icon">📋</span> Terms of Service</a>
+    <a class="sidebar-item" href="privacy.html" onclick="toggleMenu()"><i class="ph ph-lock si-icon"></i> Privacy Policy</a>
+    <a class="sidebar-item" href="terms.html" onclick="toggleMenu()"><i class="ph ph-clipboard si-icon"></i> Terms of Service</a>
   </div>
 </nav>
 
@@ -822,27 +837,27 @@ img { display: block; max-width: 100%; }
   <div class="section-title">Quick Access</div>
   <div class="quick-grid">
     <a class="quick-card" href="prompt-builder.html">
-      <span class="qc-icon">🔧</span>
+      <i class="ph ph-wrench qc-icon"></i>
       <span class="qc-label">Builder</span>
     </a>
     <a class="quick-card" href="library.html">
-      <span class="qc-icon">📚</span>
+      <i class="ph ph-books qc-icon"></i>
       <span class="qc-label">Library</span>
     </a>
     <a class="quick-card" href="library.html#image">
-      <span class="qc-icon">🎨</span>
+      <i class="ph ph-image qc-icon"></i>
       <span class="qc-label">Images</span>
     </a>
     <a class="quick-card" href="library.html#video">
-      <span class="qc-icon">🎬</span>
+      <i class="ph ph-video qc-icon"></i>
       <span class="qc-label">Video</span>
     </a>
     <a class="quick-card" href="library.html">
-      <span class="qc-icon">⭐</span>
+      <i class="ph ph-star qc-icon"></i>
       <span class="qc-label">Featured</span>
     </a>
     <a class="quick-card" href="creationstation.html">
-      <span class="qc-icon">⚡</span>
+      <i class="ph ph-lightning qc-icon"></i>
       <span class="qc-label">AI Tools</span>
     </a>
   </div>
@@ -966,19 +981,19 @@ img { display: block; max-width: 100%; }
 <!-- ── MOBILE BOTTOM NAV ── -->
 <nav class="bottom-nav">
   <a class="bn-item active" href="/">
-    <span class="bn-icon">🏠</span>Home
+    <i class="ph ph-house bn-icon"></i>Home
   </a>
   <a class="bn-item" href="prompt-builder.html">
-    <span class="bn-icon">🔧</span>Builder
+    <i class="ph ph-wrench bn-icon"></i>Builder
   </a>
   <a class="bn-item" href="library.html">
-    <span class="bn-icon">📚</span>Library
+    <i class="ph ph-books bn-icon"></i>Library
   </a>
   <a class="bn-item" href="creationstation.html">
-    <span class="bn-icon">⚡</span>Tools
+    <i class="ph ph-lightning bn-icon"></i>Tools
   </a>
   <a class="bn-item" href="#" onclick="openSaved(event)">
-    <span class="bn-icon">⭐</span>Saved
+    <i class="ph ph-star bn-icon"></i>Saved
   </a>
 </nav>
 
@@ -1281,18 +1296,18 @@ function toggleTheme(){
   theme = theme==='dark' ? 'light' : 'dark';
   localStorage.setItem('pa_theme', theme);
   document.documentElement.classList.toggle('light-mode');
-  var icon = theme==='light' ? '☀️' : '🌙';
+  var icon = theme==='light' ? '<i class="ph ph-sun"></i>' : '<i class="ph ph-moon"></i>';
   var tb = document.getElementById('themeBtn');
-  if(tb) tb.textContent = icon;
+  if(tb) tb.innerHTML = icon;
   var sb = document.getElementById('sidebarThemeIcon');
-  if(sb) sb.textContent = icon;
+  if(sb) sb.innerHTML = icon;
 }
 (function(){
-  var icon = theme==='light' ? '☀️' : '🌙';
+  var icon = theme==='light' ? '<i class="ph ph-sun"></i>' : '<i class="ph ph-moon"></i>';
   var tb = document.getElementById('themeBtn');
-  if(tb) tb.textContent = icon;
+  if(tb) tb.innerHTML = icon;
   var sb = document.getElementById('sidebarThemeIcon');
-  if(sb) sb.textContent = icon;
+  if(sb) sb.innerHTML = icon;
 })();
 
 // ── PROMPT COUNT FROM PROMPTS ARRAY ──
@@ -1306,6 +1321,19 @@ setTimeout(function(){
 document.addEventListener('visibilitychange', function(){
   if(document.visibilityState === 'visible') updateSavedCount();
 });
+
+// Update login button if user is signed in
+(function(){
+  try {
+    var u = JSON.parse(localStorage.getItem('pa_user')||'null');
+    if(u && u.name){
+      var el = document.getElementById('topNavLogin');
+      if(el) el.textContent = u.name.split(' ')[0];
+      var sl = document.getElementById('sidebarLogin');
+      if(sl) sl.textContent = '👤 ' + u.name.split(' ')[0];
+    }
+  } catch(e){}
+})();
 
 </script>
 

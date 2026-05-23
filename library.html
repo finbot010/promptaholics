@@ -160,7 +160,12 @@ body{overflow-x:hidden;}
   .main-wrap  { padding-bottom: 0; }
 }
 
+
+/* ── Phosphor Icons ── */
+.ph { font-size: inherit; line-height: 1; display: inline-block; }
+.bn-icon.ph { font-size: 22px; line-height: 1; display: block; }
 </style>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
 <body style="padding-bottom:70px;">
 
@@ -421,7 +426,7 @@ function modalFav(){
 // BOOT
 document.addEventListener('DOMContentLoaded', function(){
   var tb=document.getElementById('themeBtn');
-  if(tb) tb.textContent=theme==='light'?'☀️':'🌙';
+  if(tb) tb.innerHTML=theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
 
   // Read ?cat= URL param
   var params = new URLSearchParams(window.location.search);
@@ -453,19 +458,19 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a class="bn-item" href="/">
-    <span class="bn-icon">🏠</span>Home
+    <i class="ph ph-house bn-icon"></i>Home
   </a>
   <a class="bn-item" href="prompt-builder.html">
-    <span class="bn-icon">🔧</span>Builder
+    <i class="ph ph-wrench bn-icon"></i>Builder
   </a>
   <a class="bn-item active" href="library.html">
-    <span class="bn-icon">📚</span>Library
+    <i class="ph ph-books bn-icon"></i>Library
   </a>
   <a class="bn-item" href="creationstation.html">
-    <span class="bn-icon">⚡</span>Tools
+    <i class="ph ph-lightning bn-icon"></i>Tools
   </a>
   <a class="bn-item" href="#" onclick="openSaved(event)">
-    <span class="bn-icon">⭐</span>Saved
+    <i class="ph ph-star bn-icon"></i>Saved
   </a>
 </nav>
 
