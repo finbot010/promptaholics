@@ -589,6 +589,11 @@ img { display: block; max-width: 100%; }
   .qc-icon.ph { font-size: 28px; }
   .si-icon.ph { font-size: 17px; }
 }
+
+/* ── Footer desktop ── */
+@media (min-width: 900px) {
+  #main-footer { margin-left: var(--sw); }
+}
 </style>
 </head>
 <body>
@@ -719,6 +724,15 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Login Entry Point (visible to all users) -->
+  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px;">Sign in to Promptaholics</div>
+      <div style="font-size:12px;color:var(--text2);">Save prompts, post to TikTok & more — free account</div>
+    </div>
+    <a href="login.html" style="background:var(--orange);color:#fff;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'Instrument Sans',sans-serif;">Sign In / Register →</a>
   </div>
 
   <!-- AI Model Switcher -->
@@ -1361,6 +1375,29 @@ document.addEventListener('visibilitychange', function(){
     </div>
   </div>
 </div>
+
+
+<!-- FOOTER -->
+<footer id="main-footer" style="background:var(--surface);border-top:1px solid var(--border);padding:24px 16px 80px;margin-top:20px;">
+  <div style="max-width:none;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg viewBox="0 0 22 24" fill="none" style="width:10px;height:11px;"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
+      </div>
+      <span style="font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--text);">Promptaholics</span>
+    </div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;">
+      <a href="library.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;text-decoration:none;transition:color .15s;">Library</a>
+      <a href="prompt-builder.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;text-decoration:none;">Builder</a>
+      <a href="creationstation.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;text-decoration:none;">AI Tools</a>
+      <a href="login.html" style="font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;text-decoration:none;">Sign In</a>
+      <span style="color:var(--border2);">|</span>
+      <a href="privacy.html" style="font-size:12px;color:var(--orange);padding:4px 8px;border-radius:6px;text-decoration:none;font-weight:600;">Privacy Policy</a>
+      <a href="terms.html" style="font-size:12px;color:var(--orange);padding:4px 8px;border-radius:6px;text-decoration:none;font-weight:600;">Terms of Service</a>
+    </div>
+    <div style="font-size:11px;color:var(--text3);">© 2026 Promptaholics. Free forever.</div>
+  </div>
+</footer>
 
 </body>
 </html>
