@@ -130,6 +130,31 @@ a{text-decoration:none;color:inherit;}
 @media(min-width:600px){.main{padding:24px 20px 90px;}.tools-grid{grid-template-columns:repeat(2,1fr);}.feat-grid{grid-template-columns:repeat(4,1fr);}}
 @media(min-width:900px){.bnav{display:none;}.main{padding:32px 40px 60px;max-width:1200px;margin:0 auto;}.tools-grid{grid-template-columns:repeat(3,1fr);}.tc-logo{width:44px;height:44px;}}
 @media(min-width:1200px){.tools-grid{grid-template-columns:repeat(4,1fr);}}
+
+/* ── Logo display ── */
+.tc-logo {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  background: #fff !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15) !important;
+}
+.tc-logo img {
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.tc-logo .fallback {
+  font-size: 24px !important;
+  line-height: 1 !important;
+  display: block !important;
+}
 </style>
 </head>
 <body>
@@ -267,25 +292,41 @@ try { saved = JSON.parse(localStorage.getItem('pa_tools')||'[]'); } catch(e){}
 // Key insight: set onerror as a function AFTER creating element
 // so no inline JS quote issues
 
+var EMOJI = {"OpenArt": "🎨", "ElevenLabs": "🎙️", "Promptmetheus": "⚡", "Writesonic": "✍️", "ChatGPT": "🤖", "Claude": "🧠", "Gemini": "✨", "Perplexity": "🔍", "Grok": "🚀", "Meta AI": "🌐", "Microsoft Copilot": "💼", "DeepSeek": "🔬", "Midjourney": "🎨", "DALL·E 3": "🖼️", "Stable Diffusion": "🌈", "Adobe Firefly": "🔥", "Ideogram": "💡", "Leonardo AI": "🎭", "Canva AI": "🎪", "Sora": "🎬", "Runway": "🎥", "Kling AI": "📽️", "Pika Labs": "⚡", "Luma AI": "🌙", "HeyGen": "👤", "Synthesia": "🎭", "Copy.ai": "✏️", "Jasper": "📝", "Grammarly": "✅", "Rytr": "🖊️", "GitHub Copilot": "💻", "Cursor": "🖱️", "Replit AI": "🔧", "v0": "▲", "Bolt.new": "⚡", "Suno": "🎵", "Udio": "🎸", "Murf AI": "🔊", "Descript": "🎙️", "Notion AI": "📋", "Make": "🔄", "Zapier": "⚡", "Buffer": "📱", "AdCreative": "🎯", "Elicit": "🔬", "Consensus": "📊"};
+
 function makeLogo(name, url) {
   var domain = '';
-  try { domain = new URL(url).hostname.replace(/^www\./,''); } catch(e){}
+  try {
+    var h = new URL(url).hostname;
+    domain = h.replace(/^www\./,'');
+  } catch(e){}
   
-  // Build logo box HTML
-  // We use a span wrapper with data attrs, then fix onerror via JS after render
-  if (!domain) return '<div class="tc-logo"><span class="fallback">🔧</span></div>';
+  var emoji = EMOJI[name] || '🔧';
   
-  var src = 'https://logo.clearbit.com/' + domain;
-  // Use img with data-err attribute — fixed by initLogos() after render
-  return '<div class="tc-logo"><img src="' + src + '" alt="' + name + '" loading="lazy" data-name="' + name + '"/></div>';
+  if (!domain) {
+    return '<div class="tc-logo"><span class="fallback">' + emoji + '</span></div>';
+  }
+  
+  // Google favicon service — most reliable, works for 99% of domains
+  var src = 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=128';
+  
+  return '<div class="tc-logo" data-emoji="' + emoji + '" data-loaded="false">' +
+    '<img src="' + src + '" alt="' + name + '" width="36" height="36" />' +
+    '<span class="fallback" style="display:none">' + emoji + '</span>' +
+  '</div>';
 }
 
-// Run after each render to wire up onerror safely
 function initLogos() {
-  var imgs = document.querySelectorAll('.tc-logo img');
-  imgs.forEach(function(img) {
+  document.querySelectorAll('.tc-logo img').forEach(function(img) {
     img.onerror = function() {
-      this.parentNode.innerHTML = '<span class="fallback">🔧</span>';
+      this.style.display = 'none';
+      var fb = this.nextElementSibling;
+      if (fb) fb.style.display = 'block';
+    };
+    img.onload = function() {
+      // Hide fallback if image loaded fine
+      var fb = this.nextElementSibling;
+      if (fb) fb.style.display = 'none';
     };
   });
 }
