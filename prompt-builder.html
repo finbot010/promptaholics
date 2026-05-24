@@ -779,6 +779,57 @@ select.block-input {
   transition: all .15s;
 }
 .learn-try-btn:hover { background: rgba(255,98,36,.2); }
+
+/* ── Voice Dictation ── */
+.mic-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--s2);
+  border: 1.5px solid var(--border2);
+  color: var(--text2);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  transition: all .2s;
+  flex-shrink: 0;
+  position: relative;
+}
+.mic-btn:hover { border-color: var(--orange); color: var(--orange); }
+.mic-btn.listening {
+  background: rgba(255,98,36,.12);
+  border-color: var(--orange);
+  color: var(--orange);
+  animation: mic-pulse 1s ease-in-out infinite;
+}
+.mic-btn.listening i { animation: mic-bounce .5s ease-in-out infinite alternate; }
+@keyframes mic-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,98,36,.3); }
+  50%      { box-shadow: 0 0 0 8px rgba(255,98,36,0); }
+}
+@keyframes mic-bounce {
+  from { transform: scale(1); }
+  to   { transform: scale(1.2); }
+}
+.mic-toast {
+  position: fixed; bottom: 80px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--orange);
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 13px; font-weight: 600;
+  font-family: 'Instrument Sans', sans-serif;
+  z-index: 999;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  animation: fadeUp .2s ease;
+}
+.mic-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--orange);
+  animation: mic-pulse 1s ease-in-out infinite;
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
@@ -842,6 +893,9 @@ select.block-input {
         <div class="center-subtitle" id="centerSubtitle">Fill each block — your prompt builds live on the right</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
+        <button class="mic-btn" id="mainMicBtn" onclick="startDictation(null,'mainMicBtn')" title="Speak to fill first block">
+          <i class="ph ph-microphone"></i>
+        </button>
         <button class="improve-btn" onclick="openImprove()">
           ✨ Improve
         </button>
@@ -895,9 +949,14 @@ select.block-input {
       <button class="modal-close" onclick="closeImprove()">✕</button>
     </div>
     <div class="modal-body">
-      <div class="modal-label">Paste your weak prompt</div>
+      <div class="modal-label" style="display:flex;align-items:center;justify-content:space-between;">
+        <span>Paste your weak prompt</span>
+        <button class="mic-btn" id="improveMicBtn" onclick="startDictation('improveInput','improveMicBtn')" title="Speak your prompt">
+          <i class="ph ph-microphone"></i>
+        </button>
+      </div>
       <textarea class="modal-textarea" id="improveInput" rows="4"
-        placeholder="e.g. write me a blog about marketing"></textarea>
+        placeholder="e.g. write me a blog about marketing — or tap 🎤 to speak"></textarea>
       <div class="modal-label">What to improve</div>
       <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="improveOptions">
         <div class="tp active" data-imp="structure" onclick="toggleImpOpt(this)">Add structure</div>
@@ -1675,6 +1734,135 @@ function switchTab(tab) {
     tabLearn.style.color = 'var(--text2)';
   }
 }
+
+
+// ── VOICE DICTATION ───────────────────────────────────────────
+var recognition = null;
+var isListening  = false;
+var activeMicBtn = null;
+var activeTarget = null;
+var micToast     = null;
+
+function initSpeech() {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return null;
+  var r = new SpeechRecognition();
+  r.continuous      = false;
+  r.interimResults  = true;
+  r.lang            = 'en-US';
+  r.maxAlternatives = 1;
+  return r;
+}
+
+function startDictation(targetId, btnId) {
+  // Stop if already listening
+  if (isListening) {
+    stopDictation();
+    return;
+  }
+
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showMicToast('Voice not supported in this browser. Try Chrome or Edge.', false);
+    return;
+  }
+
+  // Get target — either specified input or first visible block-input
+  var target;
+  if (targetId) {
+    target = document.getElementById(targetId);
+  } else {
+    target = document.querySelector('.block-input');
+  }
+  if (!target) return;
+
+  activeTarget = target;
+  activeMicBtn = document.getElementById(btnId);
+
+  recognition = initSpeech();
+
+  recognition.onstart = function() {
+    isListening = true;
+    if (activeMicBtn) {
+      activeMicBtn.classList.add('listening');
+      activeMicBtn.querySelector('i').className = 'ph ph-microphone-stage';
+    }
+    showMicToast('Listening... speak now', true);
+    activeTarget.focus();
+  };
+
+  recognition.onresult = function(e) {
+    var interim = '';
+    var final   = '';
+    for (var i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        final += e.results[i][0].transcript;
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+    // Show interim in real time
+    if (interim) activeTarget.value = final + interim;
+    if (final)   activeTarget.value = final;
+    // Trigger oninput for live preview
+    activeTarget.dispatchEvent(new Event('input', {bubbles:true}));
+  };
+
+  recognition.onerror = function(e) {
+    if (e.error === 'no-speech') {
+      showMicToast('No speech detected — try again', false);
+    } else if (e.error === 'not-allowed') {
+      showMicToast('Microphone access denied. Allow it in browser settings.', false);
+    } else {
+      showMicToast('Error: ' + e.error, false);
+    }
+    stopDictation();
+  };
+
+  recognition.onend = function() {
+    stopDictation();
+    if (activeTarget && activeTarget.value) {
+      showMicToast('Got it! ✓', false);
+      setTimeout(removeMicToast, 1500);
+    }
+  };
+
+  recognition.start();
+}
+
+function stopDictation() {
+  isListening = false;
+  if (recognition) { try { recognition.stop(); } catch(e){} }
+  if (activeMicBtn) {
+    activeMicBtn.classList.remove('listening');
+    var icon = activeMicBtn.querySelector('i');
+    if (icon) icon.className = 'ph ph-microphone';
+  }
+}
+
+function showMicToast(msg, listening) {
+  removeMicToast();
+  var t = document.createElement('div');
+  t.className = 'mic-toast';
+  t.id = 'micToast';
+  t.innerHTML = (listening ? '<div class="mic-dot"></div>' : '<i class="ph ph-microphone" style="color:var(--orange)"></i>') + '<span>' + msg + '</span>';
+  document.body.appendChild(t);
+  micToast = t;
+}
+
+function removeMicToast() {
+  var t = document.getElementById('micToast');
+  if (t) t.remove();
+}
+
+// Keyboard shortcut: Ctrl+Shift+M or Cmd+Shift+M to start/stop dictation
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'M') {
+    e.preventDefault();
+    var btn = document.getElementById('mainMicBtn');
+    if (btn) startDictation(null, 'mainMicBtn');
+  }
+});
 
 </script>
 </body>
