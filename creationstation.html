@@ -155,6 +155,32 @@ a{text-decoration:none;color:inherit;}
   line-height: 1 !important;
   display: block !important;
 }
+
+/* ── Creation Station fixes ── */
+
+/* Featured strip — wider on desktop, no truncation */
+@media (min-width: 900px) {
+  .feat-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tc-name { font-size: 12px; white-space: normal; overflow: visible; text-overflow: unset; line-height: 1.3; }
+  .tc-tag  { font-size: 10px; white-space: normal; overflow: visible; text-overflow: unset; }
+}
+
+/* ── Featured label — make star + text much more visible ── */
+.slabel {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  color: var(--text2) !important;
+}
+.slabel .star-icon {
+  color: #f59e0b;
+  font-size: 14px;
+}
+
+/* Remove truncation on all cards */
+.tc-info { overflow: visible; }
+.tc-name { overflow: visible !important; text-overflow: unset !important; white-space: normal !important; }
+.tc-tag  { overflow: visible !important; text-overflow: unset !important; }
 </style>
 </head>
 <body>
@@ -197,7 +223,7 @@ a{text-decoration:none;color:inherit;}
   </div>
 
   <div class="filters" id="filters"></div>
-  <div id="featSec"><div class="slabel">⭐ Featured &amp; Partners</div><div class="feat-grid" id="featGrid"></div></div>
+  <div id="featSec"><div class="slabel" style="font-size:12px;font-weight:800;color:var(--text2);letter-spacing:1px;"><span style="color:#f59e0b;font-size:16px;">★</span> FEATURED &amp; PARTNERS</div><div class="feat-grid" id="featGrid"></div></div>
   <div id="allSec"><div class="slabel" id="allLabel">All Tools</div><div class="tools-grid" id="grid"></div></div>
   <div class="empty" id="empty" style="display:none"><div class="empty-icon">🔍</div><p>No tools found</p></div>
 </main>
@@ -300,33 +326,26 @@ function makeLogo(name, url) {
     var h = new URL(url).hostname;
     domain = h.replace(/^www\./,'');
   } catch(e){}
-  
+
   var emoji = EMOJI[name] || '🔧';
-  
+
   if (!domain) {
     return '<div class="tc-logo"><span class="fallback">' + emoji + '</span></div>';
   }
-  
-  // Google favicon service — most reliable, works for 99% of domains
+
   var src = 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=128';
-  
-  return '<div class="tc-logo" data-emoji="' + emoji + '" data-loaded="false">' +
-    '<img src="' + src + '" alt="' + name + '" width="36" height="36" />' +
-    '<span class="fallback" style="display:none">' + emoji + '</span>' +
+
+  // Only img — no span backup visible alongside it
+  return '<div class="tc-logo">' +
+    '<img src="' + src + '" alt="' + name + '" width="36" height="36" data-fb="' + emoji + '" />' +
   '</div>';
 }
 
 function initLogos() {
   document.querySelectorAll('.tc-logo img').forEach(function(img) {
     img.onerror = function() {
-      this.style.display = 'none';
-      var fb = this.nextElementSibling;
-      if (fb) fb.style.display = 'block';
-    };
-    img.onload = function() {
-      // Hide fallback if image loaded fine
-      var fb = this.nextElementSibling;
-      if (fb) fb.style.display = 'none';
+      // Replace entire logo div contents with just emoji
+      this.parentNode.innerHTML = '<span class="fallback">' + (this.getAttribute('data-fb') || '🔧') + '</span>';
     };
   });
 }
