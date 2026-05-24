@@ -34,7 +34,7 @@
   --hh:60px;
 }
 .light{--bg:#f5f5f0;--surface:#fff;--surface2:#efefea;--surface3:#e5e5e0;--border:#e0ddd6;--border2:#c8c4bc;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
-body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:sans-serif;min-height:100vh;}
 a{color:var(--orange);text-decoration:none;}
 
 /* HEADER */
@@ -43,7 +43,7 @@ a{color:var(--orange);text-decoration:none;}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
 .logo-box{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
 .logo-box svg{width:13px;height:15px;}
-.logo-name{font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--text);}
+.logo-name{font-family:Syne,serif;font-size:16px;font-weight:800;color:var(--text);}
 .logo-name span{color:var(--orange);}
 .nav{display:flex;align-items:center;gap:8px;}
 .nav a{font-size:13px;color:var(--text2);padding:7px 12px;border-radius:8px;transition:all .15s;font-weight:500;}
@@ -59,7 +59,7 @@ a{color:var(--orange);text-decoration:none;}
 @media(max-width:860px){.sidebar{display:none;}}
 .sb-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:16px;}
 .sb-label:first-child{margin-top:0;}
-.cbtn{display:flex;align-items:center;gap:6px;width:100%;padding:7px 10px;background:none;border:none;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;color:var(--text2);transition:all .15s;text-align:left;}
+.cbtn{display:flex;align-items:center;gap:6px;width:100%;padding:7px 10px;background:none;border:none;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;color:var(--text2);transition:all .15s;text-align:left;}
 .cbtn:hover{background:var(--surface2);color:var(--text);}
 .cbtn.active{background:rgba(255,98,36,.1);color:var(--orange);}
 .cico{font-size:14px;flex-shrink:0;}
@@ -78,10 +78,10 @@ a{color:var(--orange);text-decoration:none;}
 /* MAIN */
 .main{flex:1;min-width:0;padding:16px 20px;}
 .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
-.srch{flex:1;min-width:180px;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:10px;font-family:'Instrument Sans',sans-serif;font-size:14px;outline:none;}
+.srch{flex:1;min-width:180px;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:10px;font-family:sans-serif;font-size:14px;outline:none;}
 .srch:focus{border-color:var(--orange);}
 .srch::placeholder{color:var(--text3);}
-select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-family:'Instrument Sans',sans-serif;font-size:13px;cursor:pointer;}
+select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-family:sans-serif;font-size:13px;cursor:pointer;}
 .rcnt{font-size:13px;color:var(--text2);margin-bottom:14px;}
 
 /* GRID */
@@ -91,7 +91,7 @@ select{background:var(--surface);border:1px solid var(--border);color:var(--text
 .card:hover{border-color:var(--border2);}
 .feat-card{border-color:rgba(255,98,36,.25);}
 .ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;}
-.cname{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);line-height:1.25;}
+.cname{font-family:Syne,serif;font-size:15px;font-weight:800;color:var(--text);line-height:1.25;}
 .favbtn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--text3);flex-shrink:0;padding:0;}
 .favbtn.on{color:#e84e0e;}
 .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 9px;border-radius:8px;margin-bottom:8px;}
@@ -102,9 +102,9 @@ select{background:var(--surface);border:1px solid var(--border);color:var(--text
 .ctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
 .ctag{font-size:10px;background:var(--surface2);color:var(--text3);padding:3px 8px;border-radius:6px;}
 .cfoot{display:flex;gap:8px;}
-.bcopy{flex:1;background:var(--orange);color:#fff;border:none;padding:9px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;transition:background .15s;}
+.bcopy{flex:1;background:var(--orange);color:#fff;border:none;padding:9px;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;font-weight:700;transition:background .15s;}
 .bcopy:hover{background:var(--orange2);}
-.bprev{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:9px 14px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;white-space:nowrap;transition:all .15s;}
+.bprev{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:9px 14px;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;font-weight:600;white-space:nowrap;transition:all .15s;}
 .bprev:hover{border-color:var(--orange);color:var(--orange);}
 .empty{text-align:center;padding:60px 20px;color:var(--text2);}
 .empty-e{font-size:40px;display:block;margin-bottom:12px;}
@@ -113,13 +113,13 @@ select{background:var(--surface);border:1px solid var(--border);color:var(--text
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal{background:var(--surface);border:1px solid var(--border2);border-radius:18px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;padding:28px;}
 .mhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;}
-.mtitle{font-family:'Syne',serif;font-size:20px;font-weight:800;color:var(--text);}
+.mtitle{font-family:Syne,serif;font-size:20px;font-weight:800;color:var(--text);}
 .mclose{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:18px;flex-shrink:0;}
 .mmeta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
 .mpill{font-size:11px;background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:3px 10px;border-radius:8px;}
 .mtext{font-size:13px;color:var(--text2);line-height:1.75;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;white-space:pre-wrap;font-family:'Fira Code','Courier New',monospace;margin-bottom:14px;}
 .mfoot{display:flex;gap:8px;}
-.mfoot button{flex:1;padding:11px;border-radius:10px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;}
+.mfoot button{flex:1;padding:11px;border-radius:10px;cursor:pointer;font-family:sans-serif;font-size:14px;font-weight:700;}
 #mCopyBtn{background:var(--orange);color:#fff;border:none;}
 #mCopyBtn:hover{background:var(--orange2);}
 #mFavBtn{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);}
@@ -164,6 +164,78 @@ body{overflow-x:hidden;}
 /* ── Phosphor Icons ── */
 .ph { font-size: inherit; line-height: 1; display: inline-block; }
 .bn-icon.ph { font-size: 22px; line-height: 1; display: block; }
+
+/* ── Share button ── */
+.bshare {
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: all .15s;
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+.bshare:hover { border-color: var(--orange); color: var(--orange); }
+
+/* Also add share to modal */
+.modal-share {
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s;
+}
+.modal-share:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── Share Popover ── */
+.share-popover {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 18px; z-index: 1000;
+  min-width: 280px; box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  animation: fadeUp .2s ease;
+}
+.sp-title {
+  font-family: 'Syne', serif; font-weight: 800; font-size: 13px;
+  color: var(--text); margin-bottom: 14px;
+}
+.sp-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 8px; margin-bottom: 12px;
+}
+.sp-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 10px 6px; background: var(--s2); border: 1px solid var(--border2);
+  border-radius: 10px; text-decoration: none; cursor: pointer;
+  color: var(--text2); font-size: 9px; font-weight: 700;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: border-color .15s, color .15s;
+}
+.sp-btn:hover { border-color: var(--orange); color: var(--orange); }
+.sp-btn span { font-size: 9px; font-weight: 700; }
+.sp-close {
+  width: 100%; background: none; border: 1px solid var(--border2);
+  color: var(--text3); padding: 9px; border-radius: 9px;
+  font-size: 12px; cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s;
+}
+.sp-close:hover { border-color: var(--orange); color: var(--orange); }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
@@ -193,7 +265,7 @@ body{overflow-x:hidden;}
   </aside>
   <div class="main">
     <div class="toolbar">
-      <input class="srch" id="searchInput" type="text" placeholder="Search 432 prompts..." oninput="renderCards()"/>
+      <input class="srch" id="searchInput" type="text" placeholder="Search 538 prompts..." oninput="renderCards()"/>
       <select id="sortSel" onchange="renderCards()">
         <option value="alpha" selected>A → Z</option>
         <option value="newest">Newest</option>
@@ -219,6 +291,7 @@ body{overflow-x:hidden;}
     <div class="mtext" id="mText"></div>
     <div class="mfoot">
       <button id="mCopyBtn" onclick="modalCopy()"><i class="ph ph-copy"></i> Copy Prompt</button>
+    <button class="modal-share" id="mShareBtn" onclick="modalShare()"><i class="ph ph-share-network"></i> Share</button>
       <button id="mFavBtn" onclick="modalFav()"><i class="ph ph-heart"></i> Save</button>
     </div>
   </div>
@@ -357,6 +430,76 @@ function setTagEl(el){
   if(g) g.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+function sharePrompt(e, btn) {
+  e.stopPropagation();
+  var id = btn.getAttribute('data-id');
+  var p = PROMPTS.find(function(x){ return x.id === id; });
+  if (!p) return;
+
+  var shareText = p.name + ' — Free AI Prompt on Promptaholics';
+  var shareUrl  = 'https://promptaholics.com/library.html?cat=' + encodeURIComponent(p.cat);
+  var fullText  = shareText + '\n\n' + p.text.slice(0, 200) + '...';
+
+  // Mobile — use native share
+  if (navigator.share) {
+    navigator.share({ title: p.name, text: fullText, url: shareUrl }).catch(function(){});
+    return;
+  }
+
+  // Remove existing popover
+  var existing = document.getElementById('sharePopover');
+  if (existing) { existing.remove(); return; }
+
+  var xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
+  var waUrl = 'https://wa.me/?text=' + encodeURIComponent(fullText + '\n' + shareUrl);
+  var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+
+  var div = document.createElement('div');
+  div.id = 'sharePopover';
+  div.setAttribute('data-url', shareUrl);
+  div.className = 'share-popover';
+  div.innerHTML =
+    '<div class="sp-title">Share this prompt</div>' +
+    '<div class="sp-grid">' +
+      '<a class="sp-btn" href="' + xUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.262 5.636 5.902-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+        '<span>X</span>' +
+      '</a>' +
+      '<a class="sp-btn" href="' + waUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>' +
+        '<span>WhatsApp</span>' +
+      '</a>' +
+      '<a class="sp-btn" href="' + liUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>' +
+        '<span>LinkedIn</span>' +
+      '</a>' +
+      '<button class="sp-btn" id="spCopyLink" onclick="copyShareLink()">' +
+        '<i class="ph ph-link" style="font-size:20px;"></i>' +
+        '<span id="copyLinkTxt">Copy Link</span>' +
+      '</button>' +
+    '</div>' +
+    '<button class="sp-close" id="spClose">Close</button>';
+
+  document.body.appendChild(div);
+  document.getElementById('spClose').onclick = function(){ div.remove(); };
+  setTimeout(function(){
+    document.addEventListener('click', function closeIt(ev){
+      var pop = document.getElementById('sharePopover');
+      if (pop && !pop.contains(ev.target)) { pop.remove(); document.removeEventListener('click', closeIt); }
+    });
+  }, 150);
+}
+
+
+function copyShareLink() {
+  var pop = document.getElementById('sharePopover');
+  var url = pop ? pop.getAttribute('data-url') : location.href;
+  navigator.clipboard.writeText(url).then(function(){
+    var el = document.getElementById('copyLinkTxt');
+    if(el){ el.textContent = '✅'; setTimeout(function(){ el.textContent='Copy Link'; }, 2000); }
+  });
+}
+
 function copyPrompt(e,btn){
   e.stopPropagation();
   var id=typeof btn==='string'?btn:btn.getAttribute('data-id');
@@ -428,6 +571,14 @@ function modalCopy(){
     btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt';},2000);
   }
 }
+function modalShare(){
+  var btn = document.getElementById('mShareBtn');
+  if(!btn || !curModal) return;
+  var shareEl = document.createElement('button');
+  shareEl.setAttribute('data-id', curModal.id);
+  sharePrompt({stopPropagation:function(){}}, shareEl);
+}
+
 function modalFav(){
   if(!curModal) return;
   var i=favs.indexOf(curModal.id);
