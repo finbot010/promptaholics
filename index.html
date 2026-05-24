@@ -594,6 +594,145 @@ img { display: block; max-width: 100%; }
 @media (min-width: 900px) {
   #main-footer { margin-left: var(--sw); }
 }
+
+/* ── AI Search ── */
+.ai-search-wrap {
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.ai-search-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange), #f72585, #7c3aed, var(--orange));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { to { background-position: 200% 0; } }
+
+.ai-search-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ai-search-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--orange), #f72585);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff; flex-shrink: 0;
+}
+.ai-search-title {
+  font-family: 'Syne', serif; font-size: 15px; font-weight: 800; color: var(--text);
+}
+.ai-search-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.ai-search-box {
+  display: flex; gap: 8px; align-items: center;
+  background: var(--s2); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 4px 4px 4px 14px;
+  margin-bottom: 12px; transition: border .2s;
+}
+.ai-search-box:focus-within { border-color: var(--orange); }
+.ai-search-input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-family: 'Instrument Sans', sans-serif;
+  font-size: 15px; padding: 10px 0;
+}
+.ai-search-input::placeholder { color: var(--text3); }
+.ai-search-btn {
+  background: var(--orange); color: #fff; border: none;
+  padding: 10px 16px; border-radius: 9px; cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif; font-size: 13px;
+  font-weight: 700; white-space: nowrap; transition: background .15s;
+  display: flex; align-items: center; gap: 5px;
+  touch-action: manipulation; min-height: 44px;
+}
+.ai-search-btn:hover { background: var(--orange2); }
+.ai-search-btn.loading { opacity: .7; pointer-events: none; }
+
+/* Examples */
+.ai-search-examples {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.ai-ex-label { font-size: 11px; color: var(--text3); flex-shrink: 0; }
+.ai-ex {
+  background: none; border: 1px solid var(--border2);
+  color: var(--text2); padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s; white-space: nowrap;
+}
+.ai-ex:hover { border-color: var(--orange); color: var(--orange); }
+
+/* Results */
+.ai-search-results { margin-top: 16px; }
+.ai-search-results-label {
+  font-size: 11px; color: var(--text3); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ai-search-results-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.ai-search-results-grid {
+  display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px;
+}
+.ai-result-card {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  display: flex; align-items: flex-start; gap: 10px;
+  cursor: pointer; transition: border .15s;
+}
+.ai-result-card:hover { border-color: var(--orange); }
+.ai-result-num {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: rgba(255,98,36,.1); color: var(--orange);
+  font-size: 11px; font-weight: 800; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  font-family: 'Syne', serif;
+}
+.ai-result-info { flex: 1; min-width: 0; }
+.ai-result-name {
+  font-family: 'Syne', serif; font-size: 13px; font-weight: 800;
+  color: var(--text); margin-bottom: 3px;
+}
+.ai-result-cat { font-size: 10px; color: var(--orange); margin-bottom: 4px; }
+.ai-result-preview {
+  font-size: 11px; color: var(--text2); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ai-result-copy {
+  background: var(--orange); color: #fff; border: none;
+  padding: 6px 10px; border-radius: 7px; cursor: pointer;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+  font-family: 'Instrument Sans', sans-serif;
+  touch-action: manipulation;
+}
+.ai-result-copy:hover { background: var(--orange2); }
+.ai-search-more {
+  display: block; text-align: center; font-size: 12px;
+  color: var(--text2); padding: 8px; border: 1px solid var(--border);
+  border-radius: 8px; transition: all .15s;
+}
+.ai-search-more:hover { border-color: var(--orange); color: var(--orange); }
+.ai-error { font-size: 13px; color: #ff4444; text-align: center; padding: 12px; }
+
+@media (min-width: 600px) {
+  .ai-search-results-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .ai-search-results-grid { grid-template-columns: repeat(3, 1fr); }
+  .ai-search-wrap { padding: 24px; }
+}
+
+/* ── Light mode headline fix ── */
+.light-mode .studio-title,
+.light-mode .studio-title span { 
+  -webkit-text-fill-color: initial;
+}
+.light-mode .studio-title { color: #18170f !important; }
+.light-mode .studio-title span { color: var(--orange) !important; }
 </style>
 </head>
 <body>
@@ -729,10 +868,37 @@ img { display: block; max-width: 100%; }
   <!-- Login Entry Point (visible to all users) -->
   <div style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
     <div>
-      <div style="font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px;">Sign in to Promptaholics</div>
-      <div style="font-size:12px;color:var(--text2);">Save prompts, post to TikTok & more — free account</div>
+      
+
+  <!-- AI Search -->
+  <div class="ai-search-wrap" id="aiSearchWrap">
+    <div class="ai-search-header">
+      <div class="ai-search-icon"><i class="ph ph-sparkle"></i></div>
+      <div>
+        <div class="ai-search-title">AI Prompt Search</div>
+        <div class="ai-search-sub">Describe what you want to create — AI finds the best prompts</div>
+      </div>
     </div>
-    <a href="login.html" style="background:var(--orange);color:#fff;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;font-family:'Instrument Sans',sans-serif;">Sign In / Register →</a>
+    <div class="ai-search-box">
+      <input class="ai-search-input" id="aiSearchInput" type="text"
+        placeholder="e.g. help me go viral on TikTok..."
+        onkeydown="if(event.key==='Enter') runAISearch()"/>
+      <button class="ai-search-btn" id="aiSearchBtn" onclick="runAISearch()">
+        <span id="aiSearchBtnText">Search <i class="ph ph-arrow-right"></i></span>
+      </button>
+    </div>
+    <div class="ai-search-results" id="aiSearchResults" style="display:none;">
+      <div class="ai-search-results-label" id="aiResultsLabel"></div>
+      <div class="ai-search-results-grid" id="aiResultsGrid"></div>
+      <a href="library.html" class="ai-search-more">Browse all 452 prompts →</a>
+    </div>
+    <div class="ai-search-examples">
+      <span class="ai-ex-label">Try:</span>
+      <button class="ai-ex" onclick="aiExample(this)">viral TikTok hooks</button>
+      <button class="ai-ex" onclick="aiExample(this)">Midjourney cinematic art</button>
+      <button class="ai-ex" onclick="aiExample(this)">YouTube script writer</button>
+      <button class="ai-ex" onclick="aiExample(this)">startup business plan</button>
+    </div>
   </div>
 
   <!-- AI Model Switcher -->
@@ -876,46 +1042,6 @@ img { display: block; max-width: 100%; }
     </a>
   </div>
 
-  <!-- Creator Tools -->
-  <div class="section-title">Creator Tools</div>
-  <div class="tool-grid">
-    <a class="tool-card" href="prompt-builder.html" style="--tc:rgba(255,98,36,.4);--ic:rgba(255,98,36,.12);">
-      <div class="tc-top">
-        <div class="tc-icon">🔧</div>
-        <span class="tc-badge badge-hot">HOT</span>
-      </div>
-      <div class="tc-name">Prompt Builder</div>
-      <div class="tc-desc">8 frameworks. Live preview. Build perfect prompts.</div>
-      <div class="tc-arrow">→</div>
-    </a>
-    <a class="tool-card" href="library.html?cat=Image+Generation" style="--tc:rgba(139,92,246,.4);--ic:rgba(139,92,246,.12);">
-      <div class="tc-top">
-        <div class="tc-icon">🎨</div>
-        <span class="tc-badge badge-new">NEW</span>
-      </div>
-      <div class="tc-name">Image Prompts</div>
-      <div class="tc-desc">Midjourney, DALL·E, Seedance2 & more.</div>
-      <div class="tc-arrow">→</div>
-    </a>
-    <a class="tool-card" href="library.html?cat=Video+%26+Film" style="--tc:rgba(6,214,160,.4);--ic:rgba(6,214,160,.12);">
-      <div class="tc-top">
-        <div class="tc-icon">🎬</div>
-        <span class="tc-badge badge-free">FREE</span>
-      </div>
-      <div class="tc-name">Video Prompts</div>
-      <div class="tc-desc">Sora, Runway, Veo scripts ready to use.</div>
-      <div class="tc-arrow">→</div>
-    </a>
-    <a class="tool-card" href="library.html?cat=Writing+%26+Content" style="--tc:rgba(247,37,133,.4);--ic:rgba(247,37,133,.12);">
-      <div class="tc-top">
-        <div class="tc-icon">✍️</div>
-        <span class="tc-badge badge-free">FREE</span>
-      </div>
-      <div class="tc-name">Writing Studio</div>
-      <div class="tc-desc">Blogs, emails, scripts, sales copy.</div>
-      <div class="tc-arrow">→</div>
-    </a>
-  </div>
 
 
   <!-- Stats -->
@@ -1193,6 +1319,139 @@ function pcCopy(btn){
     setTimeout(function(){ btn.innerHTML=orig; }, 2000);
   });
 }
+
+// ── AI SEARCH ────────────────────────────────────────────────
+var aiSearching = false;
+
+function aiExample(btn) {
+  document.getElementById('aiSearchInput').value = btn.textContent;
+  runAISearch();
+}
+
+async function runAISearch() {
+  if (aiSearching) return;
+  var query = document.getElementById('aiSearchInput').value.trim();
+  if (!query) return;
+
+  aiSearching = true;
+  var btn     = document.getElementById('aiSearchBtn');
+  var btnText = document.getElementById('aiSearchBtnText');
+  btn.classList.add('loading');
+  btnText.innerHTML = '<i class="ph ph-circle-notch" style="animation:spin .6s linear infinite"></i> Searching...';
+
+  var results = document.getElementById('aiSearchResults');
+  var grid    = document.getElementById('aiResultsGrid');
+  var label   = document.getElementById('aiResultsLabel');
+  results.style.display = 'none';
+
+  try {
+    var promptList = '';
+    if (Array.isArray(PROMPTS)) {
+      promptList = PROMPTS.slice(0, 452).map(function(p, i) {
+        return (i+1)+'. ['+p.id+'] '+p.name+' | '+p.cat+' | '+(p.tags||[]).join(', ');
+      }).join('\n');
+    }
+
+    var systemPrompt = 'You are a prompt library search assistant. Return ONLY a JSON array of the top 6 most relevant prompt IDs for the user query. Example output: ["1","42","7","15","23","8"]. No explanation, no markdown, just the JSON array.';
+    var userMsg = 'Query: ' + query + '\n\nPrompts:\n' + promptList + '\n\nReturn JSON array of top 6 IDs.';
+
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 100,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userMsg }]
+      })
+    });
+
+    var data = await resp.json();
+    var text = (data.content && data.content[0]) ? data.content[0].text : '[]';
+    var ids  = JSON.parse(text.replace(/```json|```/g, '').trim());
+
+    var matches = ids.map(function(id) {
+      return Array.isArray(PROMPTS) && PROMPTS.find(function(p) { return String(p.id) === String(id); });
+    }).filter(Boolean);
+
+    if (!matches.length) throw new Error('No results');
+
+    label.textContent = '✨ AI found ' + matches.length + ' prompts for "' + query + '"';
+    grid.innerHTML = matches.map(function(p, i) {
+      var prev = p.text.length > 100 ? p.text.slice(0,100) + '…' : p.text;
+      return '<div class="ai-result-card">' +
+        '<div class="ai-result-num">'+(i+1)+'</div>' +
+        '<div class="ai-result-info">' +
+          '<div class="ai-result-cat">'+p.cat+'</div>' +
+          '<div class="ai-result-name">'+p.name+'</div>' +
+          '<div class="ai-result-preview">'+prev.replace(/</g,'&lt;')+'</div>' +
+        '</div>' +
+        '<button class="ai-result-copy" data-id="'+p.id+'" onclick="copyAIResult(this)">📋</button>' +
+      '</div>';
+    }).join('');
+    results.style.display = 'block';
+
+  } catch(err) {
+    // Fallback to keyword search
+    var q = query.toLowerCase();
+    var fallback = Array.isArray(PROMPTS) ? PROMPTS.filter(function(p) {
+      return p.name.toLowerCase().includes(q) ||
+             p.cat.toLowerCase().includes(q) ||
+             (p.tags||[]).some(function(t){ return t.toLowerCase().includes(q); });
+    }).slice(0, 6) : [];
+
+    results.style.display = 'block';
+    if (fallback.length) {
+      label.textContent = '🔍 Found ' + fallback.length + ' prompts for "' + query + '"';
+      grid.innerHTML = fallback.map(function(p, i) {
+        var prev = p.text.length > 100 ? p.text.slice(0,100) + '…' : p.text;
+        return '<div class="ai-result-card">' +
+          '<div class="ai-result-num">'+(i+1)+'</div>' +
+          '<div class="ai-result-info">' +
+            '<div class="ai-result-cat">'+p.cat+'</div>' +
+            '<div class="ai-result-name">'+p.name+'</div>' +
+            '<div class="ai-result-preview">'+prev.replace(/</g,'&lt;')+'</div>' +
+          '</div>' +
+          '<button class="ai-result-copy" data-id="'+p.id+'" onclick="copyAIResult(this)">📋</button>' +
+        '</div>';
+      }).join('');
+    } else {
+      label.textContent = 'Results';
+      grid.innerHTML = '<div class="ai-error">No prompts found. Try different keywords.</div>';
+    }
+  }
+
+  aiSearching = false;
+  btn.classList.remove('loading');
+  btnText.innerHTML = 'Search <i class="ph ph-arrow-right"></i>';
+}
+
+
+function copyAIResult(btn) {
+  var id = btn.getAttribute('data-id');
+  var p = Array.isArray(PROMPTS) && PROMPTS.find(function(x){ return String(x.id)===String(id); });
+  if (!p) return;
+  // Save to pa_saved_text
+  try {
+    var saved = JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
+    if (!saved.some(function(s){ return s.text===p.text; })) {
+      saved.unshift({name: p.name, text: p.text});
+      if (saved.length > 50) saved = saved.slice(0, 50);
+      localStorage.setItem('pa_saved_text', JSON.stringify(saved));
+      updateSavedCount();
+    }
+  } catch(e){}
+  navigator.clipboard.writeText(p.text).then(function() {
+    var orig = btn.innerHTML;
+    btn.innerHTML = '✅';
+    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+  });
+}
+
+// Add spin animation for loading icon
+var spinStyle = document.createElement('style');
+spinStyle.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(spinStyle);
 
 // ── SAVED PROMPTS (uses pa_favs — same as library) ──
 function getFavIds(){
