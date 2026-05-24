@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>How to Write Better AI Prompts: The Complete Guide (2026) | Promptaholics</title>
+<meta name="description" content="Learn how to write better AI prompts using proven frameworks like CoSTAR, RTF and Chain-of-Thought. Turn vague requests into precise instructions that consistently deliver great results."/>
+<link rel="canonical" href="https://promptaholics.com/how-to-write-better-prompts"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Write Better AI Prompts: The Complete Guide","author":{"@type":"Organization","name":"Promptaholics"},"publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"},"datePublished":"2026-05-01","dateModified":"2026-05-23","description":"Learn how to write better AI prompts using proven frameworks like CoSTAR, RTF and Chain-of-Thought."}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--surface:#111118;--s2:#18181f;--border:#1f1f2c;--border2:#2a2a3a;--text:#f0f0f8;--text2:#9090b0;--text3:#44445a;--orange:#ff6224;}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;line-height:1.7;}
+a{color:var(--orange);}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;background:rgba(7,7,10,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:12px;height:14px;}
+.nav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
+.nav-logo-text span{color:var(--orange);}
+
+article{max-width:760px;margin:0 auto;padding:48px 20px 80px;}
+.art-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+h1{font-family:'Syne',serif;font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
+.art-meta{font-size:13px;color:var(--text3);margin-bottom:32px;display:flex;gap:16px;}
+.art-intro{font-size:17px;color:var(--text2);line-height:1.75;margin-bottom:36px;border-left:3px solid var(--orange);padding-left:20px;}
+h2{font-family:'Syne',serif;font-size:24px;font-weight:800;color:var(--text);margin:40px 0 14px;letter-spacing:-.5px;}
+h3{font-family:'Syne',serif;font-size:18px;font-weight:800;color:var(--text);margin:28px 0 10px;}
+p{color:var(--text2);margin-bottom:16px;font-size:15px;}
+strong{color:var(--text);}
+ul,ol{color:var(--text2);margin:0 0 16px 24px;font-size:15px;}
+li{margin-bottom:8px;line-height:1.6;}
+
+.prompt-box{background:var(--s2);border:1px solid var(--border2);border-left:3px solid var(--orange);border-radius:10px;padding:18px 20px;margin:20px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;}
+.tip-box{background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.2);border-radius:10px;padding:16px 20px;margin:20px 0;}
+.tip-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.framework-card{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:20px;margin:16px 0;}
+.fw-name{font-family:'Syne',serif;font-size:16px;font-weight:800;color:var(--orange);margin-bottom:4px;}
+.fw-full{font-size:12px;color:var(--text3);margin-bottom:10px;}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+th{background:var(--s2);color:var(--text2);padding:10px 12px;text-align:left;font-weight:700;border-bottom:1px solid var(--border);}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2);}
+tr:last-child td{border-bottom:none;}
+
+.cta-box{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;margin-top:48px;text-align:center;}
+.cta-title{font-family:'Syne',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+.cta-sub{font-size:14px;color:var(--text2);margin-bottom:20px;}
+.cta-btn{display:inline-block;background:var(--orange);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;}
+
+footer{background:var(--surface);border-top:1px solid var(--border);padding:24px 20px;text-align:center;}
+footer a{color:var(--text3);font-size:12px;margin:0 8px;}
+.copyright{font-size:11px;color:var(--text3);margin-top:12px;}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="nav-logo-text">Prompt<span>aholics</span></div>
+  </a>
+</nav>
+
+<article>
+  <div class="art-label">Prompt Engineering Guide</div>
+  <h1>How to Write Better AI Prompts: The Complete Guide (2026)</h1>
+  <div class="art-meta"><span>📅 May 2026</span><span>⏱ 10 min read</span><span>✍️ Promptaholics Team</span></div>
+  <p class="art-intro">The difference between a mediocre AI output and a brilliant one is almost entirely in the prompt. This guide teaches you the exact frameworks professional prompt engineers use to get consistent, high-quality results from any AI tool.</p>
+
+  <h2>Why Most Prompts Fail</h2>
+  <p>Most people treat AI like a search engine. They type a short, vague request and hope for the best. "Write me a blog post about marketing." "Make a logo." "Help me with my email."</p>
+  <p>The AI isn't psychic. It can't know your audience, your tone, your constraints, or what "good" looks like for you. When you give it nothing to work with, you get generic output.</p>
+  <p>The fix is simple: <strong>give the AI more context, structure and constraints.</strong> That's what prompt engineering is — not some mysterious technical skill, just the art of communicating clearly with an AI.</p>
+
+  <h2>The 5 Elements of a Great Prompt</h2>
+  <p>Every high-performing prompt contains some combination of these five elements:</p>
+  <ol>
+    <li><strong>Role</strong> — Tell the AI who to be. "You are an expert copywriter with 15 years of direct response experience."</li>
+    <li><strong>Task</strong> — Be specific about exactly what you want. Not "write an email" but "write a cold outreach email for a B2B SaaS product."</li>
+    <li><strong>Context</strong> — Provide background. Who is the audience? What's the situation? What has already been tried?</li>
+    <li><strong>Format</strong> — Specify the output structure. "Return as bullet points." "Write in 3 paragraphs." "Use headers."</li>
+    <li><strong>Constraints</strong> — Set boundaries. Word count, tone, things to avoid, things to include.</li>
+  </ol>
+
+  <div class="tip-box">
+    <div class="tip-label">💡 Quick Win</div>
+    <p style="margin:0;font-size:14px;color:var(--text2);">Add "You are an expert in [field]" to the start of any prompt. This single addition consistently improves output quality by 30-50%.</p>
+  </div>
+
+  <h2>The 8 Prompt Frameworks That Work</h2>
+  <p>Our Prompt Builder uses 8 proven frameworks. Here's how each one works and when to use it:</p>
+
+  <div class="framework-card">
+    <div class="fw-name">CoSTAR</div>
+    <div class="fw-full">Context · Objective · Style · Tone · Audience · Response</div>
+    <p style="font-size:13px;color:var(--text2);margin:0;">Best for: content creation, marketing copy, long-form writing. The most comprehensive framework for getting exactly the output you want.</p>
+  </div>
+
+  <div class="framework-card">
+    <div class="fw-name">RTF</div>
+    <div class="fw-full">Role · Task · Format</div>
+    <p style="font-size:13px;color:var(--text2);margin:0;">Best for: quick, structured tasks. Great for emails, summaries and reports when you need speed over depth.</p>
+  </div>
+
+  <div class="framework-card">
+    <div class="fw-name">Chain-of-Thought</div>
+    <div class="fw-full">Step-by-step reasoning prompts</div>
+    <p style="font-size:13px;color:var(--text2);margin:0;">Best for: complex problems, analysis, math and logic. Asking the AI to "think step by step" dramatically improves accuracy on difficult tasks.</p>
+  </div>
+
+  <h2>Before vs After: Real Examples</h2>
+  <p>Here's the same request written as a bad prompt vs a good prompt:</p>
+
+  <h3>Bad Prompt:</h3>
+  <div class="prompt-box">Write a TikTok caption about my new product launch.</div>
+
+  <h3>Good Prompt:</h3>
+  <div class="prompt-box">You are a viral TikTok content strategist with 5M+ followers.
+
+Write 5 scroll-stopping TikTok captions for a product launch announcement for [PRODUCT NAME], a [product description] targeting [target audience].
+
+Requirements:
+- Hook in the first 3 words
+- Create FOMO or curiosity
+- Include a clear call to action
+- Under 150 characters each
+- Gen Z friendly tone
+
+Also suggest 10 relevant hashtags.</div>
+
+  <p>The second prompt gives the AI everything it needs: a role, specific task, context, format requirements, constraints and creative direction. The output will be dramatically better.</p>
+
+  <h2>Prompt Engineering Tips by AI Tool</h2>
+  <table>
+    <tr><th>AI Tool</th><th>Key Tips</th></tr>
+    <tr><td><strong>ChatGPT</strong></td><td>Assign a role first. Use "think step by step" for complex tasks. Ask for multiple options.</td></tr>
+    <tr><td><strong>Claude</strong></td><td>Excellent at following complex instructions. Use XML tags for structured output. Great for long documents.</td></tr>
+    <tr><td><strong>Midjourney</strong></td><td>Lead with the subject. Add style, lighting, camera details. Use --ar for aspect ratio. --stylize controls artistic interpretation.</td></tr>
+    <tr><td><strong>DALL·E 3</strong></td><td>Write in natural sentences. Describe the mood and atmosphere. Specify "photorealistic" or "illustration" style.</td></tr>
+    <tr><td><strong>Sora</strong></td><td>Describe camera movement explicitly. Include temporal details (slow motion, time-lapse). Describe the scene's mood and lighting.</td></tr>
+  </table>
+
+  <h2>The 3 Most Common Prompt Mistakes</h2>
+  <ol>
+    <li><strong>Being too vague.</strong> "Write something creative" tells the AI nothing. Specificity is everything.</li>
+    <li><strong>Not specifying format.</strong> If you want bullet points, ask for bullet points. If you want 500 words, say 500 words.</li>
+    <li><strong>Giving up after one try.</strong> Great prompts are iterated. If the first output is off, refine the prompt and try again. Add constraints based on what went wrong.</li>
+  </ol>
+
+  <h2>Start Using These Frameworks Today</h2>
+  <p>The fastest way to improve your prompts is to start with a proven framework. Our Prompt Builder has 8 frameworks built in — you just type your idea and it transforms it into a structured, high-performance prompt instantly.</p>
+  <p>We also have 452+ expert prompts in our library, organized by category and AI tool. Every prompt is written using these frameworks — so you can copy, customize and start getting better results immediately.</p>
+
+  <div class="cta-box">
+    <div class="cta-title">Ready to write better prompts?</div>
+    <p class="cta-sub">Try our free Prompt Builder and browse 452+ expert prompts in our library.</p>
+    <a class="cta-btn" href="prompt-builder.html">Open Prompt Builder →</a>
+  </div>
+</article>
+
+<footer>
+  <div><a href="/">Home</a><a href="library.html">Library</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+  <div class="copyright">© 2026 Promptaholics. Free forever.</div>
+</footer>
+</body>
+</html>

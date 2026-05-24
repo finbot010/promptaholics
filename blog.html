@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Blog — AI Prompt Tips & Guides | Promptaholics</title>
+<meta name="description" content="Expert guides on writing better AI prompts for ChatGPT, Midjourney, Claude, Sora and more. Tips, tutorials and deep dives from the Promptaholics team."/>
+<link rel="canonical" href="https://promptaholics.com/blog"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--surface:#111118;--s2:#18181f;--border:#1f1f2c;--border2:#2a2a3a;--text:#f0f0f8;--text2:#9090b0;--text3:#44445a;--orange:#ff6224;}
+body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;line-height:1.7;min-height:100vh;}
+a{color:var(--orange);text-decoration:none;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;background:rgba(7,7,10,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.nav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:12px;height:14px;}
+.nav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
+.nav-logo-text span{color:var(--orange);}
+.nav-links{display:flex;gap:20px;font-size:13px;}
+.nav-links a{color:var(--text2);transition:color .15s;}
+.nav-links a:hover{color:var(--orange);text-decoration:none;}
+
+.page{max-width:900px;margin:0 auto;padding:48px 20px 80px;}
+.page-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.page-title{font-family:'Syne',serif;font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-1px;margin-bottom:8px;}
+.page-sub{font-size:15px;color:var(--text2);margin-bottom:40px;}
+
+/* FEATURED POST */
+.featured-post{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;margin-bottom:32px;position:relative;overflow:hidden;}
+.featured-post::before{content:'FEATURED';position:absolute;top:16px;right:16px;font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(255,98,36,.1);color:var(--orange);padding:3px 8px;border-radius:5px;}
+.fp-cat{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.fp-title{font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.fp-title a{color:var(--text);}
+.fp-title a:hover{color:var(--orange);}
+.fp-excerpt{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:16px;}
+.fp-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--text3);}
+.fp-read{color:var(--orange);font-weight:700;}
+
+/* POST GRID */
+.posts-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+.post-card{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:20px;transition:border .15s;}
+.post-card:hover{border-color:var(--orange);}
+.pc-cat{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.pc-title{font-family:'Syne',serif;font-size:17px;font-weight:800;color:var(--text);line-height:1.25;margin-bottom:8px;}
+.pc-title a{color:var(--text);}
+.pc-title a:hover{color:var(--orange);}
+.pc-excerpt{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;}
+.pc-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3);}
+.pc-read{color:var(--orange);font-weight:700;font-size:12px;}
+
+/* NEWSLETTER */
+.newsletter{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:28px;margin-top:40px;text-align:center;}
+.nl-title{font-family:'Syne',serif;font-size:20px;font-weight:800;margin-bottom:8px;}
+.nl-sub{font-size:14px;color:var(--text2);margin-bottom:20px;}
+.nl-form{display:flex;gap:8px;max-width:400px;margin:0 auto;}
+.nl-input{flex:1;background:var(--s2);border:1px solid var(--border2);color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:14px;padding:11px 14px;border-radius:9px;outline:none;}
+.nl-input:focus{border-color:var(--orange);}
+.nl-btn{background:var(--orange);color:#fff;border:none;padding:11px 18px;border-radius:9px;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;}
+
+footer{background:var(--surface);border-top:1px solid var(--border);padding:24px 20px;text-align:center;}
+footer a{color:var(--text3);font-size:12px;margin:0 8px;}
+footer a:hover{color:var(--orange);text-decoration:none;}
+.copyright{font-size:11px;color:var(--text3);margin-top:12px;}
+
+@media(min-width:600px){.posts-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:900px){.posts-grid{grid-template-columns:repeat(3,1fr);}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <div class="nav-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="nav-logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="library.html">Library</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-label">The Promptaholics Blog</div>
+  <h1 class="page-title">AI Prompt Tips, Guides & Deep Dives</h1>
+  <p class="page-sub">Everything you need to get better results from ChatGPT, Midjourney, Claude, Sora and every AI tool in between.</p>
+
+  <!-- Featured Post -->
+  <div class="featured-post">
+    <div class="fp-cat">Guide · ChatGPT</div>
+    <div class="fp-title"><a href="free-chatgpt-prompts.html">50 Best ChatGPT Prompts That Actually Work in 2026</a></div>
+    <p class="fp-excerpt">We tested hundreds of ChatGPT prompts and ranked the 50 that consistently deliver the best results — covering business, writing, coding, marketing and creative work. These are the prompts real creators use every day.</p>
+    <div class="fp-meta">
+      <span>📅 May 2026</span>
+      <span>⏱ 8 min read</span>
+      <a class="fp-read" href="free-chatgpt-prompts.html">Read Article →</a>
+    </div>
+  </div>
+
+  <!-- Post Grid -->
+  <div class="posts-grid">
+
+    <div class="post-card">
+      <div class="pc-cat">Guide · Midjourney</div>
+      <div class="pc-title"><a href="best-midjourney-prompts.html">The Best Midjourney Prompts for Stunning AI Art (2026)</a></div>
+      <p class="pc-excerpt">Master the art of Midjourney prompting with our curated collection of cinematic, artistic and commercial-quality prompts. Includes v7 parameters and style guides.</p>
+      <div class="pc-meta">
+        <span>📅 May 2026 · 6 min read</span>
+        <a class="pc-read" href="best-midjourney-prompts.html">Read →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="pc-cat">Guide · Prompt Engineering</div>
+      <div class="pc-title"><a href="how-to-write-better-prompts.html">How to Write Better AI Prompts: The Complete Guide</a></div>
+      <p class="pc-excerpt">Learn the frameworks professional prompt engineers use — CoSTAR, RTF, Chain-of-Thought and more. Turn vague requests into precise instructions that get results.</p>
+      <div class="pc-meta">
+        <span>📅 May 2026 · 10 min read</span>
+        <a class="pc-read" href="how-to-write-better-prompts.html">Read →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="pc-cat">Comparison · Video AI</div>
+      <div class="pc-title"><a href="sora-vs-runway-vs-kling.html">Sora vs Runway vs Kling AI — Which Is Best in 2026?</a></div>
+      <p class="pc-excerpt">We tested all three video AI tools with the same prompts. Here's what we found — quality comparison, pricing breakdown, and which one to use for each use case.</p>
+      <div class="pc-meta">
+        <span>📅 May 2026 · 7 min read</span>
+        <a class="pc-read" href="sora-vs-runway-vs-kling.html">Read →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="pc-cat">Guide · Business</div>
+      <div class="pc-title"><a href="chatgpt-prompts-for-business.html">ChatGPT Prompts for Business: 25 That Drive Real Results</a></div>
+      <p class="pc-excerpt">From market research to email campaigns, sales scripts to competitor analysis — the 25 business ChatGPT prompts that actually move the needle for entrepreneurs and marketers.</p>
+      <div class="pc-meta">
+        <span>📅 May 2026 · 9 min read</span>
+        <a class="pc-read" href="chatgpt-prompts-for-business.html">Read →</a>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="pc-cat">Tutorial · TikTok</div>
+      <div class="pc-title"><a href="tiktok-prompt-strategy.html">The TikTok Prompt Strategy: Go From 0 to Viral</a></div>
+      <p class="pc-excerpt">The exact prompt framework we use to generate viral TikTok hooks, scripts and captions. Includes 10 ready-to-use prompts and a posting strategy that works in 2026.</p>
+      <div class="pc-meta">
+        <span>📅 Coming Soon</span>
+        <span class="pc-read">Soon →</span>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="pc-cat">Guide · Image AI</div>
+      <div class="pc-title"><a href="dalle-vs-midjourney-vs-flux.html">DALL·E 3 vs Midjourney v7 vs Flux — 2026 Comparison</a></div>
+      <p class="pc-excerpt">Side-by-side comparison of the three leading AI image generators. Same prompts, different results. We reveal which tool wins for photography, illustration and commercial work.</p>
+      <div class="pc-meta">
+        <span>📅 Coming Soon</span>
+        <span class="pc-read">Soon →</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter">
+    <div class="nl-title">Get 10 New Prompts Every Week</div>
+    <p class="nl-sub">Join thousands of creators getting the best AI prompts delivered to their inbox. Free forever.</p>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="your@email.com"/>
+      <button class="nl-btn" onclick="nlSubmit(this)">Subscribe →</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <a href="/">Home</a>
+    <a href="library.html">Library</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+  <div class="copyright">© 2026 Promptaholics. Free forever.</div>
+</footer>
+
+<script>
+function nlSubmit(btn) {
+  var input = btn.previousElementSibling;
+  if (!input.value || !input.value.includes('@')) {
+    input.style.borderColor = '#ff4444';
+    return;
+  }
+  btn.textContent = '✅ Subscribed!';
+  btn.style.background = '#22c55e';
+  input.value = '';
+  setTimeout(function(){ btn.textContent = 'Subscribe →'; btn.style.background = ''; }, 3000);
+}
+</script>
+</body>
+</html>

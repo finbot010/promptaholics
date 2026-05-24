@@ -87,3 +87,28 @@
   from   = "/studio"
   to     = "/creationstation.html"
   status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/how-to-write-better-prompts"
+  to = "/how-to-write-better-prompts.html"
+  status = 200
+
+[[redirects]]
+  from = "/chatgpt-prompts-for-business"
+  to = "/chatgpt-prompts-for-business.html"
+  status = 200
