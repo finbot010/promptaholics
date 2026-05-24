@@ -236,6 +236,26 @@ body{overflow-x:hidden;}
   transition: all .15s;
 }
 .sp-close:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── OpenArt affiliate button ── */
+.bopenart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  height: 34px;
+  background: linear-gradient(135deg, #e11d48, #7c3aed);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity .15s;
+  white-space: nowrap;
+  font-family: 'Instrument Sans', sans-serif;
+  flex-shrink: 0;
+}
+.bopenart:hover { opacity: .85; color: #fff; }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
@@ -291,6 +311,7 @@ body{overflow-x:hidden;}
     <div class="mtext" id="mText"></div>
     <div class="mfoot">
       <button id="mCopyBtn" onclick="modalCopy()"><i class="ph ph-copy"></i> Copy Prompt</button>
+    <a id="mOpenArtBtn" href="https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg" target="_blank" rel="noopener" style="display:none;" class="bopenart"><i class="ph ph-image"></i> Try on OpenArt</a>
     <button class="modal-share" id="mShareBtn" onclick="modalShare()"><i class="ph ph-share-network"></i> Share</button>
       <button id="mFavBtn" onclick="modalFav()"><i class="ph ph-heart"></i> Save</button>
     </div>
@@ -399,23 +420,33 @@ function renderCards(){
 }
 
 function makeCard(p,i){
-  var fav=favs.indexOf(p.id)!==-1;
-  var bc=p.tool==='chatgpt'?'bc':p.tool==='midjourney'?'bm':'bo';
-  var tl=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-  var prev=(p.text.length>130?p.text.slice(0,130)+'…':p.text).replace(/\n/g,' ');
-  var tags='';
-  var ptags=p.tags||[]; for(var t=0;t<Math.min(ptags.length,4);t++) tags+='<span class="ctag">'+ptags[t]+'</span>';
-  return '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.03,.4)+'s">'
-    +'<div class="ctop"><div class="cname">'+p.name+'</div>'
-    +'<button class="favbtn'+(fav?' on':'')+'" onclick="toggleFav(event,\''+p.id+'\')"> '+(fav?'<i class="ph ph-heart-fill"></i>':'<i class="ph ph-heart"></i>')+'</button>'
-    +'</div>'
-    +'<span class="badge '+bc+'">'+tl+'</span>'
-    +'<div class="cprev">'+prev+'</div>'
-    +'<div class="ctags">'+tags+'</div>'
-    +'<div class="cfoot">'
-    +'<button class="bcopy" onclick="copyPrompt(event,\''+p.id+'\')"><i class=\"ph ph-copy\"></i> Copy</button>'
-    +'<button class="bprev" onclick="openModal(\''+p.id+'\')">Preview →</button>'
-    +'</div></div>';
+  var fav = favs.indexOf(p.id) !== -1;
+  var isImg = p.cat === 'Image Generation' || p.tool === 'midjourney';
+  var bc = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
+  var tl = p.tool==='chatgpt' ? 'ChatGPT' : p.tool==='midjourney' ? 'Midjourney' : 'Other';
+  var prev = (p.text.length>130 ? p.text.slice(0,130)+'\u2026' : p.text).replace(/\n/g,' ');
+  var tags = '';
+  var ptags = p.tags||[];
+  for(var t=0; t<Math.min(ptags.length,3); t++){
+    tags += '<span class="ctag" data-tag="'+ptags[t].replace(/"/g,'&quot;')+'" onclick="setTagEl(this)">'+ptags[t]+'</span>';
+  }
+  var oaUrl='https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg';
+  var oaBtn=isImg?'<a class="bopenart" href="'+oaUrl+'" target="_blank" rel="noopener">✴ Try on OpenArt</a>':'';
+  return [
+    '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.03,.4)+'s">',
+    '<div class="ctop"><div class="cname">'+p.name+'</div>',
+    '<button class="favbtn'+(fav?' on':'')+'" data-id="'+p.id+'" onclick="toggleFav(event,this)">'+(fav?'<i class="ph ph-heart-fill"></i>':'<i class="ph ph-heart"></i>')+'</button>',
+    '</div>',
+    '<span class="badge '+bc+'">'+tl+'</span>',
+    '<div class="cprev">'+prev+'</div>',
+    '<div class="ctags">'+tags+'</div>',
+    '<div class="cfoot">',
+    '<button class="bcopy" data-id="'+p.id+'" onclick="copyPrompt(event,this)"><i class="ph ph-copy"></i> Copy</button>',
+    '<button class="bshare" data-id="'+p.id+'" onclick="sharePrompt(event,this)"><i class="ph ph-share-network"></i></button>',
+    oaBtn,
+    '<button class="bprev" data-id="'+p.id+'" onclick="openModal(this.dataset.id)">Preview →</button>',
+    '</div></div>'
+  ].join('');
 }
 
 function setCat(n){activeCat=n;activeTag='';renderCats();renderCards();}
