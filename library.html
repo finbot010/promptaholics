@@ -176,9 +176,9 @@ body{overflow-x:hidden;}
   </a>
   <div class="nav">
     <a href="/">← Home</a>
-    <a href="prompt-builder.html">🔧 Builder</a>
-    <a href="creationstation.html">⚡ AI Tools</a>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <a href="prompt-builder.html"><i class="ph ph-wrench"></i> Builder</a>
+    <a href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()"><i class="ph ph-moon"></i></button>
   </div>
 </header>
 
@@ -210,7 +210,7 @@ body{overflow-x:hidden;}
   <div class="modal">
     <div class="mhead">
       <div class="mtitle" id="mTitle"></div>
-      <button class="mclose" onclick="closeModal()">✕</button>
+      <button class="mclose" onclick="closeModal()"><i class="ph ph-x"></i></button>
     </div>
     <div class="mmeta">
       <span class="mpill" id="mCat"></span>
@@ -218,8 +218,8 @@ body{overflow-x:hidden;}
     </div>
     <div class="mtext" id="mText"></div>
     <div class="mfoot">
-      <button id="mCopyBtn" onclick="modalCopy()">📋 Copy Prompt</button>
-      <button id="mFavBtn" onclick="modalFav()">♡ Save</button>
+      <button id="mCopyBtn" onclick="modalCopy()"><i class="ph ph-copy"></i> Copy Prompt</button>
+      <button id="mFavBtn" onclick="modalFav()"><i class="ph ph-heart"></i> Save</button>
     </div>
   </div>
 </div>
@@ -249,8 +249,8 @@ function openSaved(e){
   var texts = [];
   try { texts = JSON.parse(localStorage.getItem('pa_saved_text')||'[]'); } catch(err){}
   var total = ids.length + texts.length;
-  if(!total){ alert('No saved prompts yet. Tap ♡ on any prompt to save it.'); return; }
-  var msg = '⭐ You have '+total+' saved prompt'+(total>1?'s':'')+'.\n\nGo to the homepage to view, copy and download them as PDF.';
+  if(!total){ alert('No saved prompts yet. Tap the heart on any prompt to save it.'); return; }
+  var msg = '★ You have '+total+' saved prompt'+(total>1?'s':'')+'.\n\nGo to the homepage to view, copy and download them as PDF.';
   if(confirm(msg + '\n\nOpen homepage now?')){ window.location.href = '/?saved=1'; }
 }
 
@@ -286,9 +286,12 @@ function renderTags(){
   var arr=Object.keys(ts).sort();
   var h='';
   for(var i=0;i<arr.length;i++){
-    h+='<span class="tpill'+(activeTag===arr[i]?' active':'')+'" onclick="setTag(\''+arr[i]+'\')">'+arr[i]+'</span>';
+    var t=arr[i];
+    var active=activeTag===t?' active':'';
+    h+='<span class="tpill'+active+'" data-tag="'+t.replace(/"/g,'&quot;')+'" onclick="setTagEl(this)">'+t+'</span>';
   }
-  var el=document.getElementById('tagCloud'); if(el) el.innerHTML=h;
+  var el=document.getElementById('tagCloud');
+  if(el) el.innerHTML=h;
 }
 
 function getList(){
@@ -316,7 +319,7 @@ function renderCards(){
   if(rc) rc.innerHTML='Showing <strong>'+list.length+'</strong> of <strong>'+PROMPTS.length+'</strong> prompts';
   var g=document.getElementById('mainGrid');
   if(!g) return;
-  if(!list.length){g.innerHTML='<div class="empty"><span class="empty-e">🔍</span><h3>No prompts found</h3><p>Try different keywords.</p></div>';return;}
+  if(!list.length){g.innerHTML='<div class="empty"><i class="ph ph-magnifying-glass" style="font-size:40px;color:var(--text3);"></i><h3>No prompts found</h3><p>Try different keywords.</p></div>';return;}
   var h='';
   for(var i=0;i<list.length;i++) h+=makeCard(list[i],i);
   g.innerHTML=h;
@@ -331,22 +334,32 @@ function makeCard(p,i){
   var ptags=p.tags||[]; for(var t=0;t<Math.min(ptags.length,4);t++) tags+='<span class="ctag">'+ptags[t]+'</span>';
   return '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.03,.4)+'s">'
     +'<div class="ctop"><div class="cname">'+p.name+'</div>'
-    +'<button class="favbtn'+(fav?' on':'')+'" onclick="toggleFav(event,\''+p.id+'\')"> '+(fav?'♥':'♡')+'</button>'
+    +'<button class="favbtn'+(fav?' on':'')+'" onclick="toggleFav(event,\''+p.id+'\')"> '+(fav?'<i class="ph ph-heart-fill"></i>':'<i class="ph ph-heart"></i>')+'</button>'
     +'</div>'
     +'<span class="badge '+bc+'">'+tl+'</span>'
     +'<div class="cprev">'+prev+'</div>'
     +'<div class="ctags">'+tags+'</div>'
     +'<div class="cfoot">'
-    +'<button class="bcopy" onclick="copyPrompt(event,\''+p.id+'\')">📋 Copy</button>'
+    +'<button class="bcopy" onclick="copyPrompt(event,\''+p.id+'\')"><i class=\"ph ph-copy\"></i> Copy</button>'
     +'<button class="bprev" onclick="openModal(\''+p.id+'\')">Preview →</button>'
     +'</div></div>';
 }
 
 function setCat(n){activeCat=n;activeTag='';renderCats();renderCards();}
 function setTag(t){activeTag=activeTag===t?'':t;renderTags();renderCards();}
+function setTagEl(el){
+  var t=el.getAttribute('data-tag');
+  activeTag=activeTag===t?'':t;
+  renderTags();
+  renderCards();
+  // Scroll to grid
+  var g=document.getElementById('mainGrid');
+  if(g) g.scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-function copyPrompt(e,id){
+function copyPrompt(e,btn){
   e.stopPropagation();
+  var id=typeof btn==='string'?btn:btn.getAttribute('data-id');
   var p=PROMPTS.find(function(x){return x.id===id;});
   if(!p) return;
   // Auto-save to pa_favs when copied
@@ -371,8 +384,9 @@ function copyPrompt(e,id){
     setTimeout(function(){btn.innerHTML=orig;},2000);
   }
 }
-function toggleFav(e,id){
+function toggleFav(e,btn){
   e.stopPropagation();
+  var id=typeof btn==='string'?btn:btn.getAttribute('data-id');
   var i=favs.indexOf(id);
   if(i===-1) favs.push(id); else favs.splice(i,1);
   localStorage.setItem('pa_favs',JSON.stringify(favs));
@@ -387,7 +401,7 @@ function openModal(id){
   document.getElementById('mCat').textContent=p.cat;
   document.getElementById('mTool').textContent=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
   document.getElementById('mText').textContent=p.text;
-  document.getElementById('mFavBtn').innerHTML=favs.indexOf(id)!==-1?'♥ Saved':'♡ Save';
+  document.getElementById('mFavBtn').innerHTML=favs.indexOf(id)!==-1?'<i class="ph ph-heart-fill"></i> Saved':'<i class="ph ph-heart"></i> Save';
   var ov=document.getElementById('overlay');
   ov.style.display='flex';
   document.body.style.overflow='hidden';
@@ -406,12 +420,12 @@ function modalCopy(){
   var btn=document.getElementById('mCopyBtn');
   if(navigator.clipboard){
     navigator.clipboard.writeText(curModal.text).then(function(){
-      btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='📋 Copy Prompt';},2000);
+      btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt';},2000);
     });
   } else {
     var ta=document.createElement('textarea');
     ta.value=curModal.text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='📋 Copy Prompt';},2000);
+    btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt';},2000);
   }
 }
 function modalFav(){
@@ -419,7 +433,7 @@ function modalFav(){
   var i=favs.indexOf(curModal.id);
   if(i===-1) favs.push(curModal.id); else favs.splice(i,1);
   localStorage.setItem('pa_favs',JSON.stringify(favs));
-  document.getElementById('mFavBtn').innerHTML=favs.indexOf(curModal.id)!==-1?'♥ Saved':'♡ Save';
+  document.getElementById('mFavBtn').innerHTML=favs.indexOf(curModal.id)!==-1?'<i class="ph ph-heart-fill"></i> Saved':'<i class="ph ph-heart"></i> Save';
   renderCards();
 }
 
