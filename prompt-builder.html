@@ -657,6 +657,128 @@ select.block-input {
 /* ── Phosphor Icons ── */
 .ph { font-size: inherit; line-height: 1; display: inline-block; }
 .bn-icon.ph { font-size: 22px; line-height: 1; display: block; }
+
+/* ── Learn Section ── */
+.learn-card {
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border .15s;
+}
+.learn-card.open { border-color: var(--orange); }
+.learn-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.learn-fw-name {
+  font-family: 'Syne', serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+}
+.learn-fw-full {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.learn-chevron {
+  font-size: 14px;
+  color: var(--text3);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.learn-card.open .learn-chevron { transform: rotate(180deg); color: var(--orange); }
+.learn-body {
+  display: none;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.learn-card.open .learn-body { display: block; }
+.learn-when {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--orange);
+  margin-bottom: 5px;
+}
+.learn-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.learn-steps {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style: none;
+}
+.learn-steps li {
+  font-size: 11px;
+  color: var(--text2);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.learn-steps li:last-child { border: none; }
+.learn-step-num {
+  background: rgba(255,98,36,.1);
+  color: var(--orange);
+  font-size: 9px;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.learn-example {
+  background: var(--surface);
+  border-left: 2px solid var(--orange);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.6;
+  font-family: 'Fira Code', monospace;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+}
+.learn-example-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 5px;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.learn-try-btn {
+  width: 100%;
+  background: rgba(255,98,36,.1);
+  border: 1px solid rgba(255,98,36,.3);
+  color: var(--orange);
+  padding: 8px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s;
+}
+.learn-try-btn:hover { background: rgba(255,98,36,.2); }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
@@ -681,8 +803,22 @@ select.block-input {
 
   <!-- ── LEFT: FRAMEWORKS ── -->
   <div class="panel-left">
-    <div class="panel-title">Prompt Framework</div>
+    <div class="panel-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <span>Prompt Framework</span>
+      <div style="display:flex;gap:4px;background:var(--s2);border:1px solid var(--border2);border-radius:8px;padding:3px;">
+        <button id="tabBuild" onclick="switchTab('build')" style="padding:5px 12px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'Instrument Sans',sans-serif;background:var(--orange);color:#fff;transition:all .15s;">Build</button>
+        <button id="tabLearn" onclick="switchTab('learn')" style="padding:5px 12px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:700;font-family:'Instrument Sans',sans-serif;background:none;color:var(--text2);transition:all .15s;">Learn</button>
+      </div>
+    </div>
+    <div id="buildView">
     <div class="framework-list" id="frameworkList"></div>
+    </div><!-- /buildView -->
+
+    <!-- LEARN VIEW -->
+    <div id="learnView" style="display:none;overflow-y:auto;flex:1;">
+      <div id="learnContent"></div>
+    </div>
+
     <div class="tool-bar">
       <div class="tool-bar-label">AI Tool</div>
       <div class="tool-pills" id="toolPills">
@@ -1340,6 +1476,206 @@ document.addEventListener('DOMContentLoaded', function(){
   renderBlocks();
   renderSaved();
 });
+
+// ── LEARN TAB ─────────────────────────────────────────────────
+var LEARN_DATA = [
+  {
+    name: 'CoSTAR',
+    full: 'Context · Objective · Style · Tone · Audience · Response',
+    when: 'Best for content creation, marketing, long-form writing',
+    desc: 'The most comprehensive framework. Use it when you need precise control over every aspect of the output — from the writing style to the target audience.',
+    steps: [
+      'Context — What is the background situation?',
+      'Objective — What exactly do you want to achieve?',
+      'Style — What writing style? (formal, casual, persuasive)',
+      'Tone — What emotion or energy? (urgent, warm, authoritative)',
+      'Audience — Who is reading this?',
+      'Response — What format should the output take?',
+    ],
+    example: 'Context: I run a fitness app targeting busy professionals.\nObjective: Write an email to re-engage inactive users.\nStyle: Conversational and motivating.\nTone: Warm, not pushy.\nAudience: 30-45 year olds with desk jobs.\nResponse: 150-word email with subject line.',
+    fw: 'CoSTAR'
+  },
+  {
+    name: 'RTF',
+    full: 'Role · Task · Format',
+    when: 'Best for quick structured tasks — emails, summaries, reports',
+    desc: 'Fast and effective. Assign a role, state the task, specify the format. Great when you need speed without sacrificing quality.',
+    steps: [
+      'Role — Who should the AI be? (expert, consultant, writer)',
+      'Task — What specific thing do you need done?',
+      'Format — How should the output be structured?',
+    ],
+    example: 'Role: You are a senior UX designer.\nTask: Review this app description and list the top 5 usability issues.\nFormat: Numbered list, one sentence each.',
+    fw: 'RTF'
+  },
+  {
+    name: 'Chain-of-Thought',
+    full: 'Step-by-step reasoning',
+    when: 'Best for complex problems, analysis, math, strategy',
+    desc: 'Forces the AI to reason through a problem step by step instead of jumping to a conclusion. Dramatically improves accuracy on complex tasks.',
+    steps: [
+      'State the problem clearly',
+      'Ask the AI to "think step by step"',
+      'Request it show its reasoning before giving the answer',
+      'Optional: ask it to check its own work',
+    ],
+    example: 'I need to decide whether to raise prices for my SaaS product. My current MRR is $12k with 200 customers at $60/month. Think through this step by step, considering churn risk, revenue impact, and competitive positioning. Show your reasoning.',
+    fw: 'Chain-of-Thought'
+  },
+  {
+    name: 'Marketing Copy',
+    full: 'Hook · Problem · Solution · Proof · CTA',
+    when: 'Best for ads, landing pages, sales emails, social posts',
+    desc: 'The classic direct response copywriting formula adapted for AI. Works for any promotional content that needs to convert.',
+    steps: [
+      'Hook — Grab attention in the first line',
+      'Problem — Name the pain the reader feels',
+      'Solution — Introduce your offer as the answer',
+      'Proof — Add evidence (stats, testimonials, results)',
+      'CTA — Tell them exactly what to do next',
+    ],
+    example: 'Write Facebook ad copy for a meal prep service.\nHook: Target busy parents who skip lunch.\nProblem: No time to cook healthy food.\nSolution: Ready-in-2-minutes meals delivered weekly.\nProof: 50,000 customers, 4.9 star rating.\nCTA: Get first week 50% off.',
+    fw: 'Marketing Copy'
+  },
+  {
+    name: 'Code Builder',
+    full: 'Language · Task · Requirements · Constraints',
+    when: 'Best for coding tasks, scripts, debugging, code review',
+    desc: 'Structured approach for getting clean, functional code. Specifying the language, requirements and constraints upfront saves multiple revision rounds.',
+    steps: [
+      'Language — Specify the programming language and version',
+      'Task — Describe exactly what the code should do',
+      'Requirements — List specific features or behaviors needed',
+      'Constraints — Any limitations (no external libraries, performance targets)',
+    ],
+    example: 'Language: Python 3.11\nTask: Script that monitors a folder and emails me when new files are added.\nRequirements: Watch recursively, include filename and size in email, run as background process.\nConstraints: Use only standard library except smtplib.',
+    fw: 'Code Builder'
+  },
+  {
+    name: 'Image Prompt',
+    full: 'Subject · Style · Lighting · Camera · Mood',
+    when: 'Best for Midjourney, DALL·E, Stable Diffusion, Flux',
+    desc: 'Image AI responds to very specific visual language. This framework covers the five elements that most affect image quality and style.',
+    steps: [
+      'Subject — What is the main focus of the image?',
+      'Style — Art style, medium, or artist reference',
+      'Lighting — Type and direction of light (golden hour, studio, dramatic)',
+      'Camera — Lens type, angle, shot distance (macro, wide angle, portrait)',
+      'Mood — Emotional atmosphere (ethereal, gritty, warm, cinematic)',
+    ],
+    example: 'Subject: A lone astronaut on a red desert planet.\nStyle: Cinematic photography, realistic.\nLighting: Harsh alien sun, long dramatic shadows.\nCamera: Wide angle, low angle looking up at astronaut.\nMood: Isolation, wonder, epic scale.\n--ar 16:9 --v 7 --stylize 750',
+    fw: 'Image Prompt'
+  },
+  {
+    name: 'AI Agent',
+    full: 'Persona · Goal · Constraints · Tools · Output',
+    when: 'Best for building AI assistants, bots, automated workflows',
+    desc: 'Design a persistent AI persona with defined capabilities and boundaries. Use this when you want consistent, repeatable AI behavior across multiple interactions.',
+    steps: [
+      'Persona — Give the AI a name, role and personality',
+      'Goal — What is this agent trying to achieve?',
+      'Constraints — What should it never do?',
+      'Tools — What information or capabilities does it have?',
+      'Output — How should it respond? (format, length, style)',
+    ],
+    example: 'Persona: You are Maya, a friendly customer success specialist for a SaaS company.\nGoal: Help users solve product issues and feel valued.\nConstraints: Never discuss pricing, never make promises about features.\nTools: You know our product docs and FAQ.\nOutput: Warm, concise replies under 100 words.',
+    fw: 'AI Agent'
+  },
+  {
+    name: 'YouTube Script',
+    full: 'Hook · Setup · Content · CTA',
+    when: 'Best for YouTube videos, TikTok, Instagram Reels, Shorts',
+    desc: 'Script structure optimized for video retention. The hook is everything — you have 3 seconds to stop the scroll or lose the viewer forever.',
+    steps: [
+      'Hook — First 3 seconds: bold statement, question, or visual shock',
+      'Setup — 15-30 seconds: establish who this is for and what they will get',
+      'Content — The main value: teach, entertain, or inform',
+      'CTA — End with one clear action: subscribe, comment, click link',
+    ],
+    example: 'Topic: How to make $1000 with AI tools.\nHook: "Most people use AI wrong — here is what actually makes money."\nSetup: "In the next 5 minutes I will show you 3 methods I tested myself."\nContent: Method 1 — AI copywriting. Method 2 — AI thumbnails. Method 3 — Prompt packs.\nCTA: "Comment which method you will try first."',
+    fw: 'YouTube Script'
+  },
+];
+
+function renderLearn() {
+  var html = LEARN_DATA.map(function(fw, i) {
+    var stepsHtml = fw.steps.map(function(s, j) {
+      return '<li><span class="learn-step-num">' + (j+1) + '</span><span>' + s + '</span></li>';
+    }).join('');
+    var ex = fw.example.replace(/\n/g, '<br>');
+    var card = [
+      '<div class="learn-card" id="lc' + i + '" onclick="toggleLearnCard(' + i + ')">',
+        '<div class="learn-card-header">',
+          '<div>',
+            '<div class="learn-fw-name">' + fw.name + '</div>',
+            '<div class="learn-fw-full">' + fw.full + '</div>',
+          '</div>',
+          '<i class="ph ph-caret-down learn-chevron"></i>',
+        '</div>',
+        '<div class="learn-body">',
+          '<div class="learn-when">When to use</div>',
+          '<div class="learn-desc">' + fw.desc + '</div>',
+          '<div class="learn-when">How it works</div>',
+          '<ul class="learn-steps">' + stepsHtml + '</ul>',
+          '<div class="learn-example-label">Example prompt</div>',
+          '<div class="learn-example">' + ex + '</div>',
+          '<button class="learn-try-btn" data-fw="' + fw.fw + '" onclick="tryFramework(event,this)">Try this framework →</button>',
+        '</div>',
+      '</div>'
+    ].join('');
+    return card;
+  }).join('');
+  document.getElementById('learnContent').innerHTML = html;
+}
+
+
+function toggleLearnCard(i) {
+  var card = document.getElementById('lc'+i);
+  var isOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.learn-card').forEach(function(c) { c.classList.remove('open'); });
+  // Open clicked if it was closed
+  if (!isOpen) card.classList.add('open');
+}
+
+function tryFramework(e, btn) {
+  e.stopPropagation();
+  var fwName = btn.getAttribute('data-fw');
+  switchTab('build');
+  setTimeout(function() {
+    var fwItems = document.querySelectorAll('.fw-item');
+    fwItems.forEach(function(item) {
+      if (item.getAttribute('data-fw') === fwName || item.textContent.trim().indexOf(fwName) !== -1) {
+        item.click();
+      }
+    });
+  }, 100);
+}
+
+function switchTab(tab) {
+  var buildView  = document.getElementById('buildView');
+  var learnView  = document.getElementById('learnView');
+  var tabBuild   = document.getElementById('tabBuild');
+  var tabLearn   = document.getElementById('tabLearn');
+  if (tab === 'learn') {
+    buildView.style.display = 'none';
+    learnView.style.display = 'flex';
+    learnView.style.flexDirection = 'column';
+    tabBuild.style.background = 'none';
+    tabBuild.style.color = 'var(--text2)';
+    tabLearn.style.background = 'var(--orange)';
+    tabLearn.style.color = '#fff';
+    renderLearn();
+  } else {
+    buildView.style.display = 'block';
+    learnView.style.display = 'none';
+    tabBuild.style.background = 'var(--orange)';
+    tabBuild.style.color = '#fff';
+    tabLearn.style.background = 'none';
+    tabLearn.style.color = 'var(--text2)';
+  }
+}
+
 </script>
 </body>
 </html>
