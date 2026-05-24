@@ -5,13 +5,13 @@
 <meta name="theme-color" content="#ff6224"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Promptaholics — Zero idea. Hero prompt. 417+ Free AI Prompts</title>
-<meta name="description" content="417+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more. Build better prompts in seconds. No sign-up required."/>
+<title>Promptaholics — Zero idea. Hero prompt. 538+ Free AI Prompts</title>
+<meta name="description" content="538+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more. Build better prompts in seconds. No sign-up required."/>
 <link rel="canonical" href="https://promptaholics.com/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://promptaholics.com/"/>
 <meta property="og:title" content="Promptaholics — Zero idea. Hero prompt."/>
-<meta property="og:description" content="417+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more."/>
+<meta property="og:description" content="538+ free AI prompts for ChatGPT, Midjourney, Claude, Sora and more."/>
 <meta property="og:image" content="https://promptaholics.com/og-image.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Promptaholics — Zero idea. Hero prompt."/>
@@ -25,7 +25,7 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Promptaholics","url":"https://promptaholics.com","description":"Free AI prompt library with 417+ copy-ready prompts.","potentialAction":{"@type":"SearchAction","target":"https://promptaholics.com/library.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Promptaholics","url":"https://promptaholics.com","description":"Free AI prompt library with 538+ copy-ready prompts.","potentialAction":{"@type":"SearchAction","target":"https://promptaholics.com/library.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
@@ -758,7 +758,7 @@ img { display: block; max-width: 100%; }
     <div class="sidebar-section-label">Library</div>
     <a class="sidebar-item" href="library.html">
       <i class="ph ph-books si-icon"></i> All Prompts
-      <span class="sidebar-badge">417</span>
+      <span class="sidebar-badge" id="smPromptCount">538</span>
     </a>
     <a class="sidebar-item" href="library.html"><i class="ph ph-star si-icon"></i> Featured</a>
     <a class="sidebar-item" href="library.html"><i class="ph ph-clock si-icon"></i> Recent</a>
@@ -822,7 +822,7 @@ img { display: block; max-width: 100%; }
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-label">Library</div>
-    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-books si-icon"></i> All Prompts <span class="sidebar-badge">417</span></a>
+    <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-books si-icon"></i> All Prompts <span class="sidebar-badge" id="smPromptCount">538</span></a>
     <a class="sidebar-item" href="library.html" onclick="toggleMenu()"><i class="ph ph-star si-icon"></i> Featured</a>
     <a class="sidebar-item" href="#" onclick="toggleMenu();openSaved(event)"><i class="ph ph-bookmark-simple si-icon"></i> Saved</a>
     <a class="sidebar-item" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning si-icon"></i> AI Tools</a>
@@ -901,7 +901,7 @@ img { display: block; max-width: 100%; }
     <div class="ai-search-results" id="aiSearchResults" style="display:none;">
       <div class="ai-search-results-label" id="aiResultsLabel"></div>
       <div class="ai-search-results-grid" id="aiResultsGrid"></div>
-      <a href="library.html" class="ai-search-more">Browse all 452 prompts →</a>
+      <a href="library.html" class="ai-search-more">Browse all 538 prompts →</a>
     </div>
     <div class="ai-search-examples">
       <span class="ai-ex-label">Try:</span>
@@ -1058,7 +1058,7 @@ img { display: block; max-width: 100%; }
   <!-- Stats -->
   <div class="stats-bar">
     <div class="stat-item">
-      <span class="stat-n" id="statPrompts">462</span>
+      <span class="stat-n" id="statPrompts">538</span>
       <div class="stat-l">Prompts</div>
     </div>
     <div class="stat-item">
@@ -1358,7 +1358,7 @@ async function runAISearch() {
   try {
     var promptList = '';
     if (Array.isArray(PROMPTS)) {
-      promptList = PROMPTS.slice(0, 452).map(function(p, i) {
+      promptList = PROMPTS.map(function(p, i) {
         return (i+1)+'. ['+p.id+'] '+p.name+' | '+p.cat+' | '+(p.tags||[]).join(', ');
       }).join('\n');
     }
@@ -1597,7 +1597,19 @@ function toggleTheme(){
 // ── PROMPT COUNT FROM PROMPTS ARRAY ──
 setTimeout(function(){
   var sc = document.getElementById('statPrompts');
-  if(sc && Array.isArray(PROMPTS) && PROMPTS.length) sc.textContent = PROMPTS.length;
+  if(sc && Array.isArray(PROMPTS) && PROMPTS.length) {
+    sc.textContent = PROMPTS.length;
+    // Update all prompt count elements across the page
+    document.querySelectorAll('.prompt-count-dynamic').forEach(function(el){
+      el.textContent = PROMPTS.length;
+    });
+    // Update slide menu count
+    var smc = document.getElementById('smPromptCount');
+    if(smc) smc.textContent = PROMPTS.length;
+    // Update page search placeholder
+    var si = document.getElementById('aiSearchInput');
+    if(si) si.placeholder = 'Search ' + PROMPTS.length + ' prompts with AI...';
+  }
   updateSavedCount();
 }, 300);
 
