@@ -256,6 +256,24 @@ body{overflow-x:hidden;}
   flex-shrink: 0;
 }
 .bopenart:hover { opacity: .85; color: #fff; }
+
+/* ── Share Popover — bulletproof ── */
+.share-popover {
+  position: fixed !important;
+  bottom: 90px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: var(--surface) !important;
+  border: 1.5px solid var(--orange) !important;
+  border-radius: 16px !important;
+  padding: 18px !important;
+  z-index: 9999 !important;
+  min-width: 290px !important;
+  max-width: 360px !important;
+  width: calc(100vw - 40px) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,.6) !important;
+  animation: fadeUp .15s ease !important;
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
@@ -512,13 +530,20 @@ function sharePrompt(e, btn) {
     '<button class="sp-close" id="spClose">Close</button>';
 
   document.body.appendChild(div);
-  document.getElementById('spClose').onclick = function(){ div.remove(); };
+  document.getElementById('spClose').onclick = function(e){ e.stopPropagation(); div.remove(); };
+
+  // Use mousedown with longer delay to avoid catching the button click
   setTimeout(function(){
-    document.addEventListener('click', function closeIt(ev){
+    function closeIt(ev){
       var pop = document.getElementById('sharePopover');
-      if (pop && !pop.contains(ev.target)) { pop.remove(); document.removeEventListener('click', closeIt); }
-    });
-  }, 150);
+      if(!pop) { document.removeEventListener('mousedown', closeIt); return; }
+      if(!pop.contains(ev.target)){
+        pop.remove();
+        document.removeEventListener('mousedown', closeIt);
+      }
+    }
+    document.addEventListener('mousedown', closeIt);
+  }, 300);
 }
 
 
