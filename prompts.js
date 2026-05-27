@@ -1183,4 +1183,386 @@ const PROMPTS = [
 {id:'651',name:"Creator Content Matrix Advanced",tool:"chatgpt",cat:"Business & Marketing",tags:["creator","content matrix","strategy","planning"],feat:false,text:"Generate a comprehensive 4x4 content matrix for [CREATOR] in [NICHE]. The matrix: 4 content themes x 4 angles (educational, entertaining, inspirational, controversial) x 4 formats (short video, long-form written, carousel, live/podcast) x 4 outcomes (new followers, engagement, trust, conversions). Fill every cell with a specific, immediately actionable content idea. Then recommend the top 5 pieces to create first based on effort vs impact, and write a full content brief for the single best piece to lead with this month."},
 
 {id:'652',name:"Content Emotional Rewrite Premium",tool:"chatgpt",cat:"Writing & Content",tags:["emotion","content","premium","depth"],feat:false,text:"Rewrite this content to maximize emotional depth, tension, and payoff — this is the definitive emotional version. Content: [PASTE]. Apply every emotional writing technique: open with tension rather than information, use the complete 5-beat emotional arc (curiosity, tension, empathy, insight, payoff), add the internal experience at every stage not just the external narrative, make every abstract point concrete with a specific sensory memory, build to a payoff that feels both surprising and inevitable, and end with a truth that makes the reader feel profoundly understood. Annotate the final version."},
+
+{id:'653',name:"NDA Draft Generator",tool:"chatgpt",cat:"Legal",tags:["NDA","contract","legal","confidentiality"],feat:true,text:"You are an experienced business attorney. Draft a comprehensive Non-Disclosure Agreement (NDA) for: [PARTIES INVOLVED] covering [PURPOSE]. Include: definition of confidential information, obligations of receiving party, exclusions from confidentiality, term and termination, remedies for breach, governing law clause, and signature blocks. Make it mutual or one-way as specified. Plain English where possible without sacrificing legal precision."},
+
+{id:'654',name:"Terms of Service Generator",tool:"chatgpt",cat:"Legal",tags:["terms of service","legal","website","SaaS"],feat:true,text:"Draft comprehensive Terms of Service for [BUSINESS TYPE] at [WEBSITE/APP NAME]. Include: acceptance of terms, description of services, user accounts and responsibilities, prohibited uses, intellectual property rights, disclaimer of warranties, limitation of liability, indemnification, termination clause, dispute resolution, and governing law. Tailor specifically for [JURISDICTION]. Make legally sound but readable."},
+
+{id:'655',name:"Contract Review Analyzer",tool:"chatgpt",cat:"Legal",tags:["contract","review","legal","analysis"],feat:true,text:"You are a senior contract attorney. Review this contract and provide: [PASTE CONTRACT]. 1. Executive summary of key terms 2. Red flags and unfavorable clauses 3. Missing standard protections 4. Ambiguous language that needs clarification 5. Negotiation points ranked by importance 6. Overall risk assessment (Low/Medium/High) 7. Recommended changes with specific language. Be thorough but practical."},
+
+{id:'656',name:"Privacy Policy Writer",tool:"chatgpt",cat:"Legal",tags:["privacy policy","GDPR","legal","compliance"],feat:false,text:"Draft a GDPR and CCPA compliant Privacy Policy for [BUSINESS NAME] that operates [TYPE OF BUSINESS]. Include: what data is collected, how it is used, legal basis for processing, data sharing with third parties, user rights (access, deletion, portability), cookies policy, data retention periods, international transfers, contact information for DPO, and effective date. Plain language required. Cover both EU and California requirements."},
+
+{id:'657',name:"Employment Contract Drafter",tool:"chatgpt",cat:"Legal",tags:["employment","contract","HR","legal"],feat:false,text:"Draft a comprehensive employment contract for [POSITION] at [COMPANY NAME]. Include: job title and description, compensation and benefits, start date and work hours, at-will employment clause (if applicable), confidentiality and IP assignment, non-compete and non-solicitation (if applicable), termination procedures, dispute resolution, and governing law. Jurisdiction: [STATE/COUNTRY]. Balance employer protection with employee fairness."},
+
+{id:'658',name:"Cease and Desist Letter",tool:"chatgpt",cat:"Legal",tags:["cease desist","legal","IP","copyright"],feat:false,text:"Draft a professional cease and desist letter regarding [VIOLATION TYPE — e.g. copyright infringement, trademark use, defamation]. From: [SENDER]. To: [RECIPIENT]. Include: clear identification of the violation, legal basis for the claim, specific demands and timeline, consequences of non-compliance, and preservation of all legal rights. Firm but professional tone. Include a deadline of [X] days."},
+
+{id:'659',name:"Freelance Contract Template",tool:"chatgpt",cat:"Legal",tags:["freelance","contract","independent contractor","legal"],feat:true,text:"Create a comprehensive freelance services agreement for [YOUR SERVICE TYPE]. Include: scope of work definition, project timeline and milestones, payment terms and late fees, revision policy (number of rounds), intellectual property ownership, kill fee clause, confidentiality, independent contractor status, dispute resolution, and termination. Protect both parties fairly. Include a project brief attachment section."},
+
+{id:'660',name:"Legal Brief Summarizer",tool:"chatgpt",cat:"Legal",tags:["legal","summary","research","brief"],feat:false,text:"You are a legal researcher. Summarize this legal document/case/statute: [PASTE DOCUMENT]. Provide: 1. One-paragraph plain English summary 2. Key legal principles established 3. Parties and their positions 4. Holding/decision/key provisions 5. Practical implications for [RELEVANT SITUATION] 6. Related precedents or statutes to be aware of. Make it understandable to a non-lawyer while preserving legal accuracy."},
+
+{id:'661',name:"Partnership Agreement Drafter",tool:"chatgpt",cat:"Legal",tags:["partnership","agreement","business","legal"],feat:false,text:"Draft a business partnership agreement for [BUSINESS NAME] between [PARTNER 1] and [PARTNER 2]. Include: business purpose and name, capital contributions, profit and loss allocation, management responsibilities and voting rights, decision-making procedures, partner compensation and draws, admission of new partners, transfer restrictions, dissolution procedures, and dispute resolution. Jurisdiction: [STATE]. Make fair and comprehensive."},
+
+{id:'662',name:"IP Assignment Agreement",tool:"chatgpt",cat:"Legal",tags:["intellectual property","IP","assignment","legal"],feat:false,text:"Draft an Intellectual Property Assignment Agreement for [CONTEXT — e.g. employee, contractor, co-founder]. Cover: definition and scope of assigned IP, consideration for assignment, representations and warranties, moral rights waiver (where applicable), cooperation in prosecution of patents/applications, assignment of future IP, governing law. Ensure all work product created during [RELATIONSHIP] is properly captured. Include a schedule for existing IP."},
+
+{id:'663',name:"DMCA Takedown Notice",tool:"chatgpt",cat:"Legal",tags:["DMCA","copyright","takedown","IP"],feat:false,text:"Draft a legally compliant DMCA takedown notice for [COPYRIGHT HOLDER] against [INFRINGING CONTENT/PLATFORM]. Include: identification of the copyright owner, description of the copyrighted work, location of infringing material (URLs), statement of good faith belief, statement of accuracy under penalty of perjury, physical or electronic signature, and contact information. Follow DMCA Section 512(c)(3) requirements precisely."},
+
+{id:'664',name:"SaaS Terms and Subscription Agreement",tool:"chatgpt",cat:"Legal",tags:["SaaS","subscription","legal","software"],feat:false,text:"Draft SaaS subscription terms for [SOFTWARE NAME] covering: subscription tiers and pricing, payment and billing terms, free trial and cancellation policy, acceptable use policy, data processing and ownership, uptime SLA and remedies, confidentiality, limitation of liability cap, GDPR/CCPA compliance commitments, and auto-renewal terms. Balance protecting the business with being fair to customers. Include enterprise addendum provisions."},
+
+{id:'665',name:"Shareholder Agreement Outline",tool:"chatgpt",cat:"Legal",tags:["shareholders","equity","startup","legal"],feat:false,text:"Create a shareholder agreement outline for a startup with [NUMBER] founders. Cover: share classes and rights, vesting schedules (standard 4-year with 1-year cliff), anti-dilution provisions, drag-along and tag-along rights, right of first refusal, co-sale rights, board composition and voting thresholds, dividend policy, transfer restrictions, and exit provisions. Include explanations of each clause for non-lawyer founders."},
+
+{id:'666',name:"Legal Email Templates Pack",tool:"chatgpt",cat:"Legal",tags:["legal","email","templates","business"],feat:false,text:"Create 5 professional legal communication email templates for: 1. Demand letter for unpaid invoice 2. Notice of contract breach 3. Request for contract extension 4. Formal complaint to vendor 5. Settlement offer letter. Each template should be firm, professional, preserve legal rights, and include placeholders for key details. Include a note on when to involve an actual attorney for each situation."},
+
+{id:'667',name:"Liability Waiver Generator",tool:"chatgpt",cat:"Legal",tags:["waiver","liability","legal","events"],feat:false,text:"Draft a liability waiver and release of claims for [ACTIVITY/EVENT/SERVICE]. Include: clear description of risks being assumed, release of liability for negligence (where legally permitted), indemnification clause, medical treatment authorization, photo/media release, governing law, and severability clause. State: [JURISDICTION]. Make enforceable while being readable. Include a section for minors with parental consent."},
+
+{id:'668',name:"Property Listing Description Writer",tool:"chatgpt",cat:"Real Estate",tags:["listing","property","real estate","marketing"],feat:true,text:"You are a top real estate copywriter. Write a compelling property listing for: [PROPERTY DETAILS — bedrooms, bathrooms, sqft, location, key features]. Create: 1. Attention-grabbing headline (under 10 words) 2. Hook paragraph (paint the lifestyle) 3. Feature highlights with emotional language 4. Neighborhood and location benefits 5. Call to action. Target buyer: [BUYER TYPE]. Avoid clichés like 'cozy' and 'charming.' Make them feel it."},
+
+{id:'669',name:"Investment Property Analyzer",tool:"chatgpt",cat:"Real Estate",tags:["investment","ROI","real estate","analysis"],feat:true,text:"Analyze this investment property opportunity: [PROPERTY ADDRESS/DETAILS]. Purchase price: [PRICE]. Provide: cap rate calculation, cash-on-cash return (with 20% down), gross rent multiplier, monthly cash flow projection, break-even analysis, 5-year appreciation projection, key risks to consider, and a buy/hold/pass recommendation. Also identify: what improvements would most increase value and rental income."},
+
+{id:'670',name:"Rental Property Management SOPs",tool:"chatgpt",cat:"Real Estate",tags:["rental","property management","landlord","SOPs"],feat:false,text:"Create comprehensive Standard Operating Procedures for managing a [NUMBER]-unit rental property portfolio. Cover: tenant screening process, lease signing checklist, move-in/move-out procedures, maintenance request handling, rent collection system, late payment process, lease renewal strategy, eviction procedure overview, vendor management, and monthly/annual financial reporting. Make this a real operational manual."},
+
+{id:'671',name:"Real Estate Offer Letter Writer",tool:"chatgpt",cat:"Real Estate",tags:["offer","purchase","real estate","negotiation"],feat:true,text:"Draft a compelling real estate purchase offer letter for [PROPERTY ADDRESS]. Buyer profile: [BRIEF BACKGROUND]. Offer price: [AMOUNT]. Include: personal connection to the property, financial qualification statement, flexibility on closing timeline, what makes this offer strong, earnest money commitment, and any contingencies. Tone: genuine and competitive. This letter goes alongside the formal offer contract."},
+
+{id:'672',name:"House Flipping Analysis Framework",tool:"chatgpt",cat:"Real Estate",tags:["house flipping","renovation","ROI","real estate"],feat:false,text:"Analyze this house flipping opportunity: [PROPERTY ADDRESS]. Purchase price: [AMOUNT]. Provide: estimated ARV (After Repair Value), renovation budget breakdown by category, holding costs calculation (6 months), total investment needed, projected profit and ROI, timeline to completion, biggest risks, and go/no-go recommendation. Also provide: the 70% rule calculation and how this deal compares. What would make this a better deal?"},
+
+{id:'673',name:"Tenant Screening Email Templates",tool:"chatgpt",cat:"Real Estate",tags:["tenant","screening","landlord","rental"],feat:false,text:"Create a complete tenant screening communication package: 1. Initial inquiry response with application link 2. Application received confirmation 3. Request for additional documents 4. Reference check questions for previous landlords 5. Approval letter with lease instructions 6. Denial letter (compliant with Fair Housing Act) 7. Waitlist letter. Each should be professional, fair, and legally compliant with Fair Housing laws."},
+
+{id:'674',name:"Real Estate Market Analysis Report",tool:"chatgpt",cat:"Real Estate",tags:["market analysis","real estate","investment","research"],feat:false,text:"Create a real estate market analysis for [CITY/NEIGHBORHOOD]. Include: current median home prices and year-over-year trend, days on market average, inventory levels (months of supply), price per square foot trends, rental vacancy rates and average rents, key economic indicators (employment, population growth), upcoming developments that will affect values, and investment outlook (buy/wait/avoid) with reasoning."},
+
+{id:'675',name:"Landlord-Tenant Dispute Letter",tool:"chatgpt",cat:"Real Estate",tags:["landlord","tenant","dispute","legal"],feat:false,text:"Draft a professional dispute resolution letter from [LANDLORD/TENANT] to [OTHER PARTY] regarding [ISSUE — e.g. security deposit, repairs, noise, lease violation]. Include: clear statement of the issue with dates and facts, applicable lease terms being referenced, specific action requested, timeline for resolution, consequences if unresolved, and preservation of legal rights. Professional and factual — no emotional language."},
+
+{id:'676',name:"Real Estate Cold Outreach Script",tool:"chatgpt",cat:"Real Estate",tags:["cold outreach","real estate","investors","off-market"],feat:true,text:"Write a real estate cold outreach script for contacting [TARGET — e.g. distressed homeowners, absentee owners, probate leads] about potentially selling their property. Create: 1. Door-knocking script (60 seconds) 2. Cold call script with objection handlers 3. Direct mail letter 4. Text message template 5. Follow-up sequence (3 touchpoints). Focus on solving their problem, not just buying their house. Empathy-first approach."},
+
+{id:'677',name:"Short-Term Rental Optimization Guide",tool:"chatgpt",cat:"Real Estate",tags:["Airbnb","short term rental","STR","optimization"],feat:false,text:"Create an optimization plan for a short-term rental property at [LOCATION]. Cover: optimal pricing strategy by season, listing title and description improvements, photography checklist, amenities that increase bookings, house rules that protect the property, automated messaging sequences (inquiry to checkout), review generation strategy, dynamic pricing approach, and how to achieve Superhost status. Target: maximize occupancy and nightly rate."},
+
+{id:'678',name:"1031 Exchange Explainer",tool:"chatgpt",cat:"Real Estate",tags:["1031 exchange","tax","real estate","investment"],feat:false,text:"Explain the 1031 exchange process for a real estate investor selling [PROPERTY TYPE] valued at [AMOUNT]. Cover: what qualifies as like-kind property, the 45-day identification rule, the 180-day closing rule, how to calculate the tax deferral benefit, boot and how to avoid it, the role of a qualified intermediary, reverse and improvement exchange options, and common mistakes to avoid. Include a step-by-step timeline and note when to consult a tax attorney."},
+
+{id:'679',name:"Property Management Company Pitch",tool:"chatgpt",cat:"Real Estate",tags:["property management","pitch","landlord","services"],feat:false,text:"Write a compelling pitch for a property management company targeting [LANDLORD TYPE — e.g. out-of-state investors, accidental landlords, small portfolio owners]. Include: the main pain points we solve, our management process overview, fee structure presentation, what sets us apart, social proof section, and a clear call to action. Also create a one-page property management proposal template for individual property owners."},
+
+{id:'680',name:"Real Estate Agent Bio Writer",tool:"chatgpt",cat:"Real Estate",tags:["real estate agent","bio","personal brand","marketing"],feat:false,text:"Write a compelling real estate agent bio for [AGENT NAME] who specializes in [SPECIALTY — e.g. first-time buyers, luxury homes, investment properties] in [MARKET]. Include: years of experience and transaction volume, personal connection to the market, unique value proposition, specific results achieved for clients, personal story that builds trust, and a strong closing statement. Write versions for: website (300 words), LinkedIn (150 words), and Instagram bio (150 chars)."},
+
+{id:'681',name:"BRRRR Strategy Calculator Prompt",tool:"chatgpt",cat:"Real Estate",tags:["BRRRR","strategy","investment","real estate"],feat:false,text:"Walk me through the BRRRR (Buy, Rehab, Rent, Refinance, Repeat) analysis for this property: [PROPERTY DETAILS]. Purchase price: [AMOUNT]. Calculate: all-in cost after rehab, ARV and refinance amount (at 75% LTV), cash pulled out at refinance, remaining equity, monthly cash flow post-refinance, cash-on-cash return on remaining investment, and when this property is essentially 'free.' Also identify: the key numbers needed to make this deal work."},
+
+{id:'682',name:"Neighborhood Comparison Report",tool:"chatgpt",cat:"Real Estate",tags:["neighborhood","comparison","real estate","analysis"],feat:false,text:"Create a detailed neighborhood comparison report for a buyer deciding between [NEIGHBORHOOD A] and [NEIGHBORHOOD B] in [CITY]. Compare: median home prices and value trajectory, school ratings and options, walkability and transit scores, crime statistics overview, amenities (restaurants, parks, shopping), commute times to [WORK LOCATION], community demographics and vibe, development plans that could affect values, and a recommendation based on buyer priorities: [PRIORITIES]."},
+
+{id:'683',name:"Wedding Photography Shot List",tool:"chatgpt",cat:"Photography",tags:["wedding","photography","shot list","events"],feat:true,text:"Create a comprehensive wedding photography shot list for a [DURATION] hour wedding at [VENUE TYPE]. Organize by: getting ready shots (bride and groom separately), ceremony (processional to recessional), family formals (provide list template), wedding party portraits, couple portraits (golden hour timing), reception coverage (first dance to cake cut), detail shots throughout, and documentary moments not to miss. Include timing recommendations and lighting notes for each section."},
+
+{id:'684',name:"Photography Business Pricing Guide",tool:"chatgpt",cat:"Photography",tags:["photography","pricing","business","packages"],feat:true,text:"Create a professional pricing strategy for a [PHOTOGRAPHY NICHE] photographer in [MARKET SIZE CITY]. Build: entry-level, mid-tier, and premium packages with what's included in each, à la carte add-ons, licensing fee structure, travel fee policy, rush delivery pricing, print product markup strategy, and how to present pricing to clients. Also include: how to handle 'your prices are too high' objections and when/how to raise prices."},
+
+{id:'685',name:"Instagram Photography Caption Generator",tool:"chatgpt",cat:"Photography",tags:["Instagram","photography","captions","social media"],feat:false,text:"Write 10 engaging Instagram captions for a [PHOTOGRAPHY NICHE] photographer sharing [TYPE OF PHOTO]. Each caption should: start with a hook that stops the scroll, include a personal insight or behind-the-scenes detail, use 2-3 relevant questions to drive comments, end with a soft CTA (follow, save, or tag someone), and include a hashtag strategy (mix of niche, medium, and broad hashtags). Vary the tone from educational to personal to inspirational."},
+
+{id:'686',name:"Photography Workshop Curriculum",tool:"chatgpt",cat:"Photography",tags:["workshop","education","photography","teaching"],feat:false,text:"Design a [DURATION] photography workshop curriculum for [SKILL LEVEL] photographers focused on [TOPIC — e.g. portrait lighting, landscape composition, street photography]. Include: learning objectives, equipment list for students, session-by-session breakdown with timing, hands-on exercises for each concept, critique session structure, take-home assignments, and resources for continued learning. Make it practical — more shooting than lecturing."},
+
+{id:'687',name:"Client Photography Questionnaire",tool:"chatgpt",cat:"Photography",tags:["client","questionnaire","photography","onboarding"],feat:false,text:"Create a comprehensive pre-session client questionnaire for [PHOTOGRAPHY NICHE]. Include questions about: vision and style preferences, must-have shots and moments to capture, people involved and any sensitivities to know, location preferences and logistics, outfit and styling plans, timeline and schedule, past photography experiences (positive and negative), how they found you, and how they plan to use the photos. Design it to gather everything needed to deliver perfect results."},
+
+{id:'688',name:"Photography SEO Blog Post",tool:"chatgpt",cat:"Photography",tags:["SEO","blog","photography","marketing"],feat:false,text:"Write an SEO-optimized blog post for a [PHOTOGRAPHY NICHE] photographer in [CITY] targeting the search term '[TARGET KEYWORD].' Structure: compelling headline with keyword, hook paragraph addressing the reader's pain point, 5-7 sections with keyword-rich subheadings, practical tips and expert insights, local SEO elements (mention of city and surrounding areas), image alt text suggestions, and a strong CTA to book a session. Target: 1200 words. Include a meta description."},
+
+{id:'689',name:"Midjourney Photography Style Prompt",tool:"chatgpt",cat:"Photography",tags:["Midjourney","photography style","AI art","prompts"],feat:true,text:"Generate 10 Midjourney prompts that recreate the photographic styles of these iconic photographers: Annie Leibovitz (celebrity portraiture), Ansel Adams (landscape), Henri Cartier-Bresson (street), Steve McCurry (travel portraiture), Peter Lindbergh (fashion), Don McCullin (documentary), Helmut Newton (editorial), David LaChapelle (conceptual), Sebastião Salgado (social documentary), and Irving Penn (still life). Each prompt should capture their signature lighting, composition, and emotional quality."},
+
+{id:'690',name:"Photography Contract Essential Clauses",tool:"chatgpt",cat:"Photography",tags:["contract","photography","legal","business"],feat:false,text:"Create essential contract clauses for a professional photographer covering: copyright and usage rights (client vs photographer), delivery timeline and format, payment schedule and late fees, cancellation and rescheduling policy, force majeure clause, limitation of liability (equipment failure, file corruption), model release, social media posting rights, print release, and dispute resolution. Explain each clause in plain English alongside the legal language."},
+
+{id:'691',name:"Photo Editing Workflow Builder",tool:"chatgpt",cat:"Photography",tags:["editing","workflow","Lightroom","photography"],feat:false,text:"Design an efficient photo editing workflow for a [PHOTOGRAPHY NICHE] photographer using [SOFTWARE]. Create: import and culling process (target: select top [X]% of shots), initial global adjustments order, batch editing strategy for consistency across a session, retouching hierarchy (what to fix vs what to leave), export presets for different delivery formats (web, print, social), file naming and organization system, and backup strategy. Goal: cut editing time by 40% while improving consistency."},
+
+{id:'692',name:"Photography Portfolio Critique Guide",tool:"chatgpt",cat:"Photography",tags:["portfolio","critique","photography","improvement"],feat:false,text:"Critique this photography portfolio: [DESCRIBE YOUR PORTFOLIO OR PASTE LINKS]. Evaluate: technical quality (exposure, focus, color), compositional strength, stylistic consistency, range vs specialization, strongest and weakest images, missing shot types for this niche, how it compares to top photographers in the same niche, emotional impact, and commercial appeal. Provide: a priority list of images to remove, images to add, and the single change that would most improve this portfolio immediately."},
+
+{id:'693',name:"Personalized Meal Plan Generator",tool:"chatgpt",cat:"Health",tags:["meal plan","nutrition","health","diet"],feat:true,text:"Create a detailed 7-day meal plan for someone who is [AGE/GENDER] with the goal of [HEALTH GOAL — e.g. weight loss, muscle gain, managing diabetes]. Dietary restrictions: [LIST]. Include: breakfast, lunch, dinner, and 2 snacks daily, calorie and macronutrient breakdown per day, a shopping list organized by store section, meal prep instructions for Sunday batch cooking, and healthy swaps for common cravings. Base recommendations on evidence-based nutrition. Note: consult a registered dietitian for personalized medical nutrition therapy."},
+
+{id:'694',name:"Symptom Research Assistant",tool:"chatgpt",cat:"Health",tags:["symptoms","health","research","medical"],feat:true,text:"Research these symptoms for me: [LIST SYMPTOMS]. Provide: possible conditions that present with these symptoms (from most to least common), which symptoms are concerning and warrant urgent care, lifestyle factors that commonly contribute to these symptoms, questions to ask a doctor at the next appointment, and what type of specialist might be relevant. Note: This is educational information only — always consult a qualified healthcare provider for diagnosis and treatment. Do not delay seeking emergency care if symptoms are severe."},
+
+{id:'695',name:"Workout Program Designer",tool:"chatgpt",cat:"Health",tags:["workout","fitness","program","exercise"],feat:true,text:"Design a [DURATION]-week workout program for [GOAL — e.g. build muscle, lose fat, improve endurance] for someone who is [FITNESS LEVEL] with access to [EQUIPMENT]. Include: weekly schedule with rest days, exercise selection with sets/reps/rest periods, progression plan (how to increase difficulty weekly), warm-up and cool-down routines, alternative exercises for each movement, and how to track progress. Provide the science behind the program structure. Note: consult a physician before starting a new exercise program."},
+
+{id:'696',name:"Mental Health Journal Prompts",tool:"chatgpt",cat:"Health",tags:["mental health","journal","therapy","wellness"],feat:false,text:"Create 30 therapeutic journaling prompts for someone dealing with [CHALLENGE — e.g. anxiety, grief, burnout, relationship stress]. Organize into 4 weekly themes: Week 1 (understanding and awareness), Week 2 (exploring emotions), Week 3 (identifying patterns and triggers), Week 4 (growth and forward focus). Each prompt should: be open-ended, gently challenging, trauma-informed, and encourage self-compassion. Include a brief explanation of why each prompt is therapeutically valuable."},
+
+{id:'697',name:"Medication Information Researcher",tool:"chatgpt",cat:"Health",tags:["medication","research","health","pharmacy"],feat:false,text:"Research information about [MEDICATION NAME] prescribed for [CONDITION]. Provide: how it works (mechanism of action in plain language), common and serious side effects to watch for, important drug interactions, foods or activities to avoid, how long before it takes effect, what to do if a dose is missed, signs it is working, signs it is not working, and questions to ask the prescribing doctor. Note: This is educational information only — never adjust medication without consulting your healthcare provider."},
+
+{id:'698',name:"Health Goal Action Plan",tool:"chatgpt",cat:"Health",tags:["health goals","action plan","wellness","habits"],feat:true,text:"Create a comprehensive 90-day action plan for achieving [SPECIFIC HEALTH GOAL]. Include: baseline assessment (what to measure and how), weekly milestones with specific targets, daily habits to build (start small, stack on existing routines), weekly habits, monthly check-ins with adjustment criteria, common obstacles and how to overcome them, a support system strategy, and how to celebrate milestones without derailing progress. Make this realistic and sustainable, not extreme."},
+
+{id:'699',name:"Sleep Optimization Protocol",tool:"chatgpt",cat:"Health",tags:["sleep","optimization","health","wellness"],feat:false,text:"Design a comprehensive sleep optimization protocol for someone struggling with [SLEEP ISSUE — e.g. trouble falling asleep, waking at night, feeling unrested]. Include: ideal sleep environment setup (temperature, light, sound), a wind-down routine starting 90 minutes before bed, what to avoid in the 6 hours before sleep, morning routine that reinforces circadian rhythm, supplements with evidence-base (and safety notes), cognitive techniques for racing thoughts, and when these issues warrant seeing a sleep specialist. Science-backed recommendations only."},
+
+{id:'700',name:"Chronic Condition Self-Management Guide",tool:"chatgpt",cat:"Health",tags:["chronic condition","self management","health","wellness"],feat:false,text:"Create a self-management guide for someone recently diagnosed with [CONDITION]. Cover: understanding the condition in plain language, daily monitoring and tracking (what to track, how), lifestyle modifications with the strongest evidence base, how to communicate effectively with your healthcare team, building a support system, managing flare-ups, mental health considerations, reliable resources for ongoing education, and questions to ask at each medical appointment. Emphasize working with the healthcare team, not replacing it."},
+
+{id:'701',name:"Stress Management Toolkit",tool:"chatgpt",cat:"Health",tags:["stress","management","health","mental wellness"],feat:false,text:"Build a personalized stress management toolkit for [TYPE OF PERSON — e.g. working parent, startup founder, healthcare worker]. Include: fast techniques for immediate stress relief (under 5 minutes), medium-term practices for daily stress management, long-term lifestyle changes that build stress resilience, how to identify personal stress triggers, a weekly stress audit process, physical exercise recommendations for stress, nutrition strategies, and when stress levels indicate professional help is needed. Base everything on peer-reviewed research."},
+
+{id:'702',name:"Pre/Post Surgery Recovery Guide",tool:"chatgpt",cat:"Health",tags:["surgery","recovery","health","preparation"],feat:false,text:"Create a comprehensive pre and post-surgery guide for [SURGERY TYPE]. Pre-surgery (2 weeks before): dietary preparation, medications to discuss stopping, physical preparation exercises, home setup checklist, what to arrange (help, time off work). Post-surgery recovery: day 1-3 protocol, week 1-2 guidelines, month 1-2 progression, red flags requiring immediate medical attention, pain management strategies, nutrition for healing, scar care, and return to normal activities timeline. Always follow your surgeon's specific instructions over general guidelines."},
+
+{id:'703',name:"YouTube Channel Launch Strategy",tool:"chatgpt",cat:"Video & Film",tags:["YouTube","channel strategy","content","launch"],feat:true,text:"Create a 90-day YouTube channel launch strategy for [NICHE/TOPIC]. Include: channel positioning and niche selection rationale, the first 10 video ideas (titles, thumbnails concepts, hooks), ideal upload frequency for growth, SEO strategy (keyword research approach, title formulas, description templates), thumbnail design principles for this niche, community tab and shorts strategy, collaboration outreach plan, monetization timeline, and key metrics to track weekly. Be specific — no generic advice."},
+
+{id:'704',name:"Documentary Film Treatment",tool:"chatgpt",cat:"Video & Film",tags:["documentary","film","treatment","storytelling"],feat:true,text:"Write a documentary film treatment for [SUBJECT/STORY]. Include: logline (one sentence), synopsis (2 paragraphs), the central question the film explores, main characters/subjects and their narrative arcs, proposed structure and act breakdown, visual approach and style references, unique access or angle that makes this story worth telling now, target audience and distribution strategy, estimated budget tier, and why this story matters. Write it as a pitch document to potential funders or broadcasters."},
+
+{id:'705',name:"YouTube SEO Title and Thumbnail System",tool:"chatgpt",cat:"Video & Film",tags:["YouTube SEO","titles","thumbnails","growth"],feat:true,text:"Create a YouTube SEO system for [CHANNEL NICHE] videos. Generate: 10 high-performing title formulas with examples for this niche, thumbnail concept templates (describe visual elements, text overlay, color psychology), the keyword research process for finding winning video topics, description template with keyword placement, tags strategy, chapter markers best practice, end screen and cards strategy, and how to analyze which titles and thumbnails drive the most clicks. Include real examples from successful channels in this niche."},
+
+{id:'706',name:"Short Film Script Formatter",tool:"chatgpt",cat:"Video & Film",tags:["short film","screenplay","script","film"],feat:false,text:"Write a properly formatted short film screenplay for [CONCEPT/LOGLINE]. Target length: [X] minutes (1 page = 1 minute). Follow proper screenplay format: scene headings (INT./EXT. LOCATION - DAY/NIGHT), action lines (present tense, visual), character cues (centered, caps), dialogue, and parentheticals (sparingly). Include: a compelling cold open, clear three-act structure within the short format, visual storytelling (show don't tell), and a memorable final image. Genre: [GENRE]."},
+
+{id:'707',name:"Video Ad Script Framework",tool:"chatgpt",cat:"Video & Film",tags:["video ad","script","advertising","marketing"],feat:true,text:"Write a [LENGTH]-second video advertisement for [PRODUCT/SERVICE] targeting [AUDIENCE]. Use this proven structure: 0-3s hook (visual or audio that stops scrolling), 3-8s problem (show the pain), 8-15s solution introduction (present the product), 15-25s benefits demonstration (show results), 25-28s social proof (quick testimonial or stat), 28-30s CTA (clear single action). Include: VO script, on-screen text overlays, visual direction notes, and 3 alternative hooks to A/B test."},
+
+{id:'708',name:"Podcast Episode Script Outline",tool:"chatgpt",cat:"Video & Film",tags:["podcast","script","content","audio"],feat:false,text:"Create a detailed podcast episode outline for [PODCAST NAME] covering [TOPIC]. Episode length: [DURATION]. Include: episode title and hook description, cold open script (30 seconds), sponsor read placement and sample script, intro segment, 3-5 main segments with talking points for each, interview questions if applicable, audience interaction segment, outro and CTA script, and show notes template with timestamps. Also suggest: complementary video clips for YouTube, social media excerpts, and newsletter summary."},
+
+{id:'709',name:"Viral Reel and TikTok Script",tool:"chatgpt",cat:"Video & Film",tags:["Reels","TikTok","viral","script"],feat:true,text:"Write 5 viral Reel/TikTok scripts for [CREATOR NICHE] targeting [AUDIENCE]. Each script: Hook (0-3s): One line that stops the scroll. Build (3-20s): Deliver the value with fast pacing. Payoff (20-30s): The satisfying conclusion or reveal. End card (final 3s): CTA. Include: on-screen text timing, transitions between beats, trending sound suggestions, and caption copy. Vary the formats: talking head, text-only, POV, tutorial, and story. Rate each by estimated viral potential."},
+
+{id:'710',name:"Video Production Budget Template",tool:"chatgpt",cat:"Video & Film",tags:["video production","budget","production","film"],feat:false,text:"Create a detailed video production budget for [PROJECT TYPE — e.g. corporate video, music video, short film, YouTube video] with an estimated total budget of [$AMOUNT]. Break down: pre-production costs (scripting, storyboarding, location scouting, casting), production costs (crew, equipment, location fees, talent, catering), post-production costs (editing, color grading, sound design, music licensing, graphics), and contingency (15%). Include line items with typical rate ranges and notes on where to save vs where not to cut corners."},
+
+{id:'711',name:"YouTube Channel Audit and Growth Plan",tool:"chatgpt",cat:"Video & Film",tags:["YouTube","audit","growth","strategy"],feat:false,text:"Audit this YouTube channel and create a growth plan: Channel: [CHANNEL NAME]. Niche: [NICHE]. Current stats: [SUBSCRIBERS/VIEWS/AVG VIEWS]. Analyze: channel positioning clarity, thumbnail and title consistency, top performing videos and why, underperforming videos and why, upload consistency, audience retention patterns, monetization strategy, community engagement. Then provide: 30-60-90 day growth plan with specific actions, the single video type to focus on, and one thing to stop doing immediately."},
+
+{id:'712',name:"Storyboard Shot List Creator",tool:"chatgpt",cat:"Video & Film",tags:["storyboard","shot list","production","film"],feat:false,text:"Create a detailed shot list and storyboard outline for this scene: [DESCRIBE SCENE]. For each shot include: shot number, shot type (ECU/CU/MS/WS/EWS), camera angle (eye level/low/high/Dutch), camera movement (static/pan/tilt/dolly/handheld), lens recommendation, lighting setup notes, action description, dialogue or audio notes, and estimated duration. Organize by setup to minimize moves on set. Include coverage essentials and creative options. Format as a production-ready document."},
+
+{id:'713',name:"API Integration Guide Writer",tool:"chatgpt",cat:"Code & Tech",tags:["API","integration","developer","documentation"],feat:true,text:"Write a comprehensive guide for integrating the [API NAME] API into a [TECH STACK] application. Include: authentication setup (with code examples), rate limiting and error handling best practices, the 5 most commonly used endpoints with request/response examples, webhook setup if applicable, testing strategy, security considerations (never expose API keys, etc.), a working code example that demonstrates the core use case, and common gotchas to avoid. Language: [PROGRAMMING LANGUAGE]."},
+
+{id:'714',name:"Code Review Checklist Generator",tool:"chatgpt",cat:"Code & Tech",tags:["code review","best practices","developer","quality"],feat:false,text:"Create a comprehensive code review checklist for [LANGUAGE/FRAMEWORK] projects. Organize by category: functionality (does it work as intended), code quality (readability, naming, structure), performance (N+1 queries, unnecessary loops, caching opportunities), security (input validation, SQL injection, XSS, authentication checks), testing (coverage, edge cases, mocks), documentation (comments, README updates, API docs), and architecture (SOLID principles, dependency management). Make it a practical checklist developers actually use."},
+
+{id:'715',name:"Technical Architecture Document",tool:"chatgpt",cat:"Code & Tech",tags:["architecture","system design","technical","documentation"],feat:true,text:"Write a technical architecture document for [SYSTEM NAME]. Include: executive summary (non-technical), system overview and goals, component diagram description, data flow explanation, technology stack choices with rationale, database schema overview, API design principles, authentication and authorization approach, scalability strategy, monitoring and observability plan, disaster recovery approach, security considerations, and known limitations. Write for both technical and non-technical stakeholders."},
+
+{id:'716',name:"Bug Report Template and Debugger",tool:"chatgpt",cat:"Code & Tech",tags:["debugging","bug report","developer","QA"],feat:false,text:"Help me debug this issue: [DESCRIBE BUG OR PASTE CODE + ERROR]. Provide: 1. Diagnosis of the most likely root cause 2. Step-by-step debugging approach 3. The fix with explanation 4. How to test the fix 5. How to prevent this type of bug in the future 6. A proper bug report template for this issue. Also create a systematic debugging checklist for [TYPE OF BUG — e.g. performance issue, null pointer, race condition, memory leak]."},
+
+{id:'717',name:"Database Schema Designer",tool:"chatgpt",cat:"Code & Tech",tags:["database","schema","SQL","architecture"],feat:false,text:"Design a database schema for [APPLICATION TYPE]. Include: entity relationship diagram description, table definitions with columns, data types, and constraints, primary and foreign key relationships, indexes for common query patterns, normalization approach (and where to intentionally denormalize for performance), seed data examples, migration strategy, and common queries with SQL examples. Optimize for: [READ-HEAVY/WRITE-HEAVY/BALANCED]. Use [SQL/NoSQL] and explain the choice."},
+
+{id:'718',name:"README Documentation Writer",tool:"chatgpt",cat:"Code & Tech",tags:["README","documentation","GitHub","developer"],feat:false,text:"Write a comprehensive README.md for [PROJECT NAME], a [BRIEF DESCRIPTION]. Include: project badge section, one-paragraph description, key features list, live demo link placeholder, tech stack, prerequisites, installation steps (with code blocks), configuration guide, usage examples with code, API reference overview, testing instructions, deployment guide, contributing guidelines, license, and acknowledgments. Make it the kind of README that makes developers immediately want to use and contribute to the project."},
+
+{id:'719',name:"Technical Interview Prep Guide",tool:"chatgpt",cat:"Code & Tech",tags:["interview","technical","coding","preparation"],feat:true,text:"Create a technical interview preparation guide for a [ROLE] position at [COMPANY TYPE — e.g. FAANG, startup, mid-size tech]. Include: the most likely question categories and topics, 10 practice problems with approaches (not just answers), system design framework for architectural questions, behavioral question prep using STAR method, questions to ask the interviewer, common mistakes to avoid, how to think out loud effectively, and a 2-week study plan. Focus on what actually gets asked, not textbook computer science theory."},
+
+{id:'720',name:"DevOps Pipeline Setup Guide",tool:"chatgpt",cat:"Code & Tech",tags:["DevOps","CI/CD","pipeline","infrastructure"],feat:false,text:"Create a CI/CD pipeline setup guide for a [TECH STACK] application deployed on [PLATFORM — e.g. AWS, GCP, Azure, Vercel]. Cover: source control branching strategy, automated testing stages (unit, integration, e2e), code quality gates (linting, coverage thresholds), build process, staging environment deployment, production deployment with zero-downtime strategy, rollback procedure, monitoring and alerting setup, and secrets management. Include: example GitHub Actions / GitLab CI configuration snippets."},
+
+{id:'721',name:"Performance Optimization Audit",tool:"chatgpt",cat:"Code & Tech",tags:["performance","optimization","web","developer"],feat:false,text:"Conduct a performance optimization audit for [APPLICATION TYPE — web app, mobile app, API]. Audit areas: frontend (bundle size, render blocking, image optimization, caching strategy, Core Web Vitals), backend (database query optimization, N+1 problems, caching layers, connection pooling), infrastructure (CDN usage, server sizing, auto-scaling), and monitoring (what to measure and alert on). For each area: current best practice benchmark, how to measure the current state, and specific optimizations ranked by impact/effort ratio."},
+
+{id:'722',name:"Microservices vs Monolith Decision Guide",tool:"chatgpt",cat:"Code & Tech",tags:["microservices","architecture","monolith","decision"],feat:false,text:"Help me decide between a microservices and monolith architecture for [PROJECT DESCRIPTION]. Team size: [NUMBER]. Stage: [STARTUP/GROWTH/SCALE]. Provide: honest pros and cons of each for this specific situation, the hidden costs of microservices that are often underestimated, decision criteria checklist, what successful companies at each stage typically choose and why, a hybrid approach option (modular monolith), and a final recommendation with reasoning. Don't give a generic answer — be direct about what makes sense for this situation."},
+
+{id:'723',name:"Ultra-Scroll Hook Generator",tool:"chatgpt",cat:"Writing & Content",tags:["hooks","viral","content"],feat:false,text:"Generate 20 ultra-scroll-stopping hooks for this topic. Each hook must use tension, contrast, or curiosity. Keep them under 12 words. Topic: [PASTE]."},
+
+{id:'724',name:"Short-Form Script Builder Pro",tool:"chatgpt",cat:"Writing & Content",tags:["script","short-form","video"],feat:false,text:"Write a short-form video script using the 4-beat viral structure: Hook → Tension → Insight → Punchline. Topic: [PASTE]. Keep it under 35 seconds."},
+
+{id:'725',name:"Content Angle Explosion",tool:"chatgpt",cat:"Writing & Content",tags:["angles","ideas","content"],feat:false,text:"Generate 25 unique content angles for this topic using emotional, analytical, contrarian, narrative, and tactical perspectives. Topic: [PASTE]."},
+
+{id:'726',name:"Long-Form Breakdown Engine",tool:"chatgpt",cat:"Writing & Content",tags:["long-form","breakdown","analysis"],feat:false,text:"Break down this long-form content into: Summary, Key Insights, Hidden Insights, Action Steps, and 3 Content Opportunities. Content: [PASTE]."},
+
+{id:'727',name:"Content Repurposing Factory",tool:"chatgpt",cat:"Writing & Content",tags:["repurpose","multi-platform","content"],feat:false,text:"Turn one idea into 20 platform-specific variations for TikTok, YouTube Shorts, IG Reels, X, LinkedIn, and Email. Idea: [PASTE]."},
+
+{id:'728',name:"Narrative Hook Transformer",tool:"chatgpt",cat:"Writing & Content",tags:["hooks","story","narrative"],feat:false,text:"Rewrite this hook using narrative tension, emotional stakes, and curiosity. Provide 10 variations. Hook: [PASTE]."},
+
+{id:'729',name:"Content Series Builder",tool:"chatgpt",cat:"Writing & Content",tags:["series","content","framework"],feat:false,text:"Turn this topic into a 5-part content series with titles, summaries, and key insights. Topic: [PASTE]."},
+
+{id:'730',name:"Short-Form Pacing Enhancer",tool:"chatgpt",cat:"Writing & Content",tags:["short-form","pacing","editing"],feat:false,text:"Rewrite this script to improve pacing, punch, clarity, and retention. Script: [PASTE]."},
+
+{id:'731',name:"Cinematic Story Builder",tool:"chatgpt",cat:"Writing & Content",tags:["story","cinematic","writing"],feat:false,text:"Turn this idea into a cinematic story with setup, conflict, escalation, insight, and resolution. Idea: [PASTE]."},
+
+{id:'732',name:"Content Depth Enhancer Pro",tool:"chatgpt",cat:"Writing & Content",tags:["depth","insight","writing"],feat:false,text:"Rewrite this content to add depth, nuance, and expert-level insight without adding fluff. Content: [PASTE]."},
+
+{id:'733',name:"Short-Form Idea Multiplier",tool:"chatgpt",cat:"Writing & Content",tags:["ideas","short-form","content"],feat:false,text:"Generate 20 short-form content ideas using hooks, tension, and payoff. Topic: [PASTE]."},
+
+{id:'734',name:"Content Rhythm Architect",tool:"chatgpt",cat:"Writing & Content",tags:["schedule","content","planning"],feat:false,text:"Create a weekly content rhythm with themes, formats, and posting cadence. Niche: [PASTE]."},
+
+{id:'735',name:"Short-Form Emotional Script",tool:"chatgpt",cat:"Writing & Content",tags:["emotion","script","short-form"],feat:false,text:"Write a short-form script using emotional beats: curiosity → tension → empathy → insight → payoff. Topic: [PASTE]."},
+
+{id:'736',name:"Content Opportunity Finder",tool:"chatgpt",cat:"Writing & Content",tags:["analysis","content","opportunities"],feat:false,text:"Analyze this content and identify 10 missed content opportunities. Content: [PASTE]."},
+
+{id:'737',name:"Idea Expansion Engine",tool:"chatgpt",cat:"Writing & Content",tags:["ideas","expansion","content"],feat:false,text:"Expand this idea into 10 deeper, more insightful content variations. Idea: [PASTE]."},
+
+{id:'738',name:"Content Reframing Matrix",tool:"chatgpt",cat:"Writing & Content",tags:["reframe","angles","content"],feat:false,text:"Reframe this idea in 10 ways: emotional, analytical, contrarian, humorous, luxury, minimalist, tactical, narrative, beginner-friendly, and controversial. Idea: [PASTE]."},
+
+{id:'739',name:"Short-Form Hook Rewrite Pro",tool:"chatgpt",cat:"Writing & Content",tags:["hooks","rewrite","short-form"],feat:false,text:"Rewrite this hook in 10 stronger variations using tension, curiosity, and contrast. Hook: [PASTE]."},
+
+{id:'740',name:"Content Ladder Builder",tool:"chatgpt",cat:"Writing & Content",tags:["ladder","content","strategy"],feat:false,text:"Turn this topic into a 3-level content ladder: beginner → intermediate → advanced. Topic: [PASTE]."},
+
+{id:'741',name:"Short-Form POV Generator",tool:"chatgpt",cat:"Writing & Content",tags:["POV","short-form","content"],feat:false,text:"Generate 15 POV-style short-form ideas using emotional and narrative angles. Topic: [PASTE]."},
+
+{id:'742',name:"Content Myth-Buster Engine",tool:"chatgpt",cat:"Writing & Content",tags:["myths","content","angles"],feat:false,text:"Generate 12 myth-busting content ideas that challenge assumptions in this niche. Niche: [PASTE]."},
+
+{id:'743',name:"Cinematic Hook Builder",tool:"chatgpt",cat:"Writing & Content",tags:["cinematic","hooks","story"],feat:false,text:"Write 10 cinematic hooks that open with tension, sensory detail, or conflict. Topic: [PASTE]."},
+
+{id:'744',name:"Content Pattern Breaker",tool:"chatgpt",cat:"Writing & Content",tags:["pattern break","hooks","content"],feat:false,text:"Generate 15 pattern-breaking hooks that disrupt expectations and force attention. Topic: [PASTE]."},
+
+{id:'745',name:"Short-Form Script Rewrite Premium",tool:"chatgpt",cat:"Writing & Content",tags:["script","rewrite","short-form"],feat:false,text:"Rewrite this script to maximize retention, pacing, emotional beats, and payoff. Script: [PASTE]."},
+
+{id:'746',name:"Content Cluster Builder",tool:"chatgpt",cat:"Writing & Content",tags:["clusters","content","SEO"],feat:false,text:"Turn this topic into a content cluster with 1 pillar and 8 supporting posts. Topic: [PASTE]."},
+
+{id:'747',name:"Short-Form Insight Generator",tool:"chatgpt",cat:"Writing & Content",tags:["insights","short-form","content"],feat:false,text:"Generate 20 short-form insights that feel original, sharp, and perspective-shifting. Topic: [PASTE]."},
+
+{id:'748',name:"Content Opportunity Map",tool:"chatgpt",cat:"Writing & Content",tags:["map","content","strategy"],feat:false,text:"Map out 10 content opportunities based on this niche's gaps, trends, and audience desires. Niche: [PASTE]."},
+
+{id:'749',name:"Short-Form Story Script",tool:"chatgpt",cat:"Writing & Content",tags:["story","script","short-form"],feat:false,text:"Write a short-form story script with conflict, escalation, insight, and payoff. Topic: [PASTE]."},
+
+{id:'750',name:"Content Relevance Booster",tool:"chatgpt",cat:"Writing & Content",tags:["relevance","content","rewrite"],feat:false,text:"Rewrite this content to make it more relevant, timely, and aligned with current trends. Content: [PASTE]."},
+
+{id:'751',name:"Short-Form CTA Generator",tool:"chatgpt",cat:"Writing & Content",tags:["CTA","short-form","conversion"],feat:false,text:"Generate 15 short-form CTAs that drive comments, shares, or follows. Topic: [PASTE]."},
+
+{id:'752',name:"Content Insight Distiller",tool:"chatgpt",cat:"Writing & Content",tags:["insight","clarity","writing"],feat:false,text:"Distill this long content into 5 sharp, high-impact insights. Content: [PASTE]."},
+
+{id:'753',name:"Short-Form Reaction Script",tool:"chatgpt",cat:"Writing & Content",tags:["reaction","script","short-form"],feat:false,text:"Write a reaction-style short-form script with commentary, insight, and punchline. Topic: [PASTE]."},
+
+{id:'754',name:"Content Transformation Engine",tool:"chatgpt",cat:"Writing & Content",tags:["transformation","rewrite","content"],feat:false,text:"Transform this basic idea into a high-value, expert-level content piece. Idea: [PASTE]."},
+
+{id:'755',name:"Short-Form Listicle Builder",tool:"chatgpt",cat:"Writing & Content",tags:["listicle","short-form","content"],feat:false,text:"Create a short-form listicle script with 5 punchy points and a strong CTA. Topic: [PASTE]."},
+
+{id:'756',name:"Content Hook Reversal",tool:"chatgpt",cat:"Writing & Content",tags:["hooks","reverse","content"],feat:false,text:"Rewrite this hook using reversal: start with the opposite of what people expect. Hook: [PASTE]."},
+
+{id:'757',name:"Short-Form Insight Rewrite",tool:"chatgpt",cat:"Writing & Content",tags:["insight","rewrite","short-form"],feat:false,text:"Rewrite this insight to be sharper, more original, and more scroll-stopping. Insight: [PASTE]."},
+
+{id:'758',name:"Content Framework Builder",tool:"chatgpt",cat:"Writing & Content",tags:["framework","content","structure"],feat:false,text:"Turn this idea into a named framework with steps, outcomes, and examples. Idea: [PASTE]."},
+
+{id:'759',name:"Short-Form Cold Open Generator",tool:"chatgpt",cat:"Writing & Content",tags:["cold open","hooks","short-form"],feat:false,text:"Generate 15 cold opens that drop the viewer into the middle of the action. Topic: [PASTE]."},
+
+{id:'760',name:"Content Insight Ladder",tool:"chatgpt",cat:"Writing & Content",tags:["insight","ladder","content"],feat:false,text:"Turn this idea into a 3-level insight ladder: simple → deeper → profound. Idea: [PASTE]."},
+
+{id:'761',name:"Short-Form Script Punch-Up",tool:"chatgpt",cat:"Writing & Content",tags:["script","punch-up","short-form"],feat:false,text:"Punch up this script by adding tension, sharper phrasing, and a stronger payoff. Script: [PASTE]."},
+
+{id:'762',name:"Content Curiosity Builder",tool:"chatgpt",cat:"Writing & Content",tags:["curiosity","hooks","content"],feat:false,text:"Rewrite this content to increase curiosity using open loops, questions, and tension. Content: [PASTE]."},
+
+{id:'763',name:"Short-Form Multi-Hook Generator",tool:"chatgpt",cat:"Writing & Content",tags:["hooks","short-form","ideas"],feat:false,text:"Generate 10 hook variations for this script: emotional, contrarian, narrative, data-driven, and pattern-breaker. Script: [PASTE]."},
+
+{id:'764',name:"Content Insight Rewriter Premium",tool:"chatgpt",cat:"Writing & Content",tags:["insight","premium","rewrite"],feat:false,text:"Rewrite this insight to feel premium, original, and expert-level. Insight: [PASTE]."},
+
+{id:'765',name:"Short-Form Story Hook Pack",tool:"chatgpt",cat:"Writing & Content",tags:["story","hooks","short-form"],feat:false,text:"Generate 12 story-driven hooks using conflict, stakes, and emotional tension. Topic: [PASTE]."},
+
+{id:'766',name:"Content Expansion Engine",tool:"chatgpt",cat:"Writing & Content",tags:["expansion","ideas","content"],feat:false,text:"Expand this idea into 10 long-form content outlines. Idea: [PASTE]."},
+
+{id:'767',name:"Short-Form Script Emotional Rewrite",tool:"chatgpt",cat:"Writing & Content",tags:["emotion","script","rewrite"],feat:false,text:"Rewrite this short-form script to maximize emotional resonance and relatability. Script: [PASTE]."},
+
+{id:'768',name:"Content Opportunity Scanner",tool:"chatgpt",cat:"Writing & Content",tags:["analysis","opportunities","content"],feat:false,text:"Scan this niche and generate 15 content opportunities based on gaps, trends, and audience desires. Niche: [PASTE]."},
+
+{id:'769',name:"Signature Content Style Builder",tool:"chatgpt",cat:"Creative & Art",tags:["style","signature","content"],feat:false,text:"Develop a signature content style for this creator including pacing, phrasing, emotional tone, and recognizable stylistic markers. Creator: [PASTE]."},
+
+{id:'770',name:"Creator Differentiation Map",tool:"chatgpt",cat:"Business & Marketing",tags:["differentiation","branding","creator"],feat:false,text:"Map out 10 ways this creator can differentiate themselves in a crowded niche. Niche: [PASTE]."},
+
+{id:'771',name:"Creator Archetype Translator",tool:"chatgpt",cat:"Business & Marketing",tags:["archetype","branding","creator"],feat:false,text:"Translate this creator into a primary and secondary archetype and rewrite messaging to match those archetypes. Creator: [PASTE]."},
+
+{id:'772',name:"Creator Positioning Statement",tool:"chatgpt",cat:"Business & Marketing",tags:["positioning","branding","creator"],feat:false,text:"Write a clear, compelling positioning statement for this creator that defines who they help, how, and why they're different. Creator: [PASTE]."},
+
+{id:'773',name:"Creator Story Arc Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["story","arc","creator"],feat:false,text:"Create a multi-chapter creator story arc that evolves over time and builds loyalty. Creator: [PASTE]."},
+
+{id:'774',name:"Creator Content Pillars",tool:"chatgpt",cat:"Business & Marketing",tags:["pillars","content","creator"],feat:false,text:"Define 4-6 content pillars for this creator with descriptions and example topics. Creator: [PASTE]."},
+
+{id:'775',name:"Creator Audience Alignment",tool:"chatgpt",cat:"Business & Marketing",tags:["audience","alignment","creator"],feat:false,text:"Rewrite this creator's messaging to better align with their audience's identity, desires, and values. Messaging: [PASTE]."},
+
+{id:'776',name:"Creator Tone Translator",tool:"chatgpt",cat:"Business & Marketing",tags:["tone","voice","creator"],feat:false,text:"Translate this content into the creator's tone using vocabulary, cadence, and emotional style guidelines. Content: [PASTE]."},
+
+{id:'777',name:"Creator Story Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["story","rewrite","creator"],feat:false,text:"Rewrite this creator's story using cinematic pacing, emotional depth, and narrative tension. Story: [PASTE]."},
+
+{id:'778',name:"Creator Narrative Identity",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","identity","creator"],feat:false,text:"Rewrite this creator's identity using narrative elements: origin, conflict, evolution, mission. Creator: [PASTE]."},
+
+{id:'779',name:"Creator Emotional Positioning",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","positioning","creator"],feat:false,text:"Rewrite this creator's messaging to position them emotionally rather than functionally. Messaging: [PASTE]."},
+
+{id:'780',name:"Creator Signature Story",tool:"chatgpt",cat:"Business & Marketing",tags:["signature","story","creator"],feat:false,text:"Write the creator's signature story using conflict, stakes, transformation, and insight. Creator: [PASTE]."},
+
+{id:'781',name:"Creator Brand Essence",tool:"chatgpt",cat:"Business & Marketing",tags:["essence","branding","creator"],feat:false,text:"Define the creator's brand essence in one sentence, one paragraph, and one page. Creator: [PASTE]."},
+
+{id:'782',name:"Creator Identity Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","rewrite","creator"],feat:false,text:"Rewrite this creator's identity to be clearer, stronger, and more emotionally aligned. Identity: [PASTE]."},
+
+{id:'783',name:"Creator Brand Promise",tool:"chatgpt",cat:"Business & Marketing",tags:["promise","branding","creator"],feat:false,text:"Rewrite the creator's brand promise to be clearer, more emotional, and more compelling. Promise: [PASTE]."},
+
+{id:'784',name:"Creator Identity Map",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","map","creator"],feat:false,text:"Map out the creator's identity across tone, values, archetype, themes, and audience perception. Creator: [PASTE]."},
+
+{id:'785',name:"Creator Story Distiller",tool:"chatgpt",cat:"Business & Marketing",tags:["story","distill","creator"],feat:false,text:"Distill this long creator story into a short, powerful, emotionally charged version. Story: [PASTE]."},
+
+{id:'786',name:"Creator Brand Tone Guide",tool:"chatgpt",cat:"Business & Marketing",tags:["tone","guide","creator"],feat:false,text:"Create a tone guide for this creator including do's, don'ts, vocabulary, and emotional style. Creator: [PASTE]."},
+
+{id:'787',name:"Creator Identity Clarifier",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","clarity","creator"],feat:false,text:"Rewrite this creator's identity to remove confusion and sharpen their message. Identity: [PASTE]."},
+
+{id:'788',name:"Creator Story Hook Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["hooks","story","rewrite"],feat:false,text:"Rewrite this story hook to increase tension, emotional stakes, and curiosity. Hook: [PASTE]."},
+
+{id:'789',name:"Creator Brand Alignment",tool:"chatgpt",cat:"Business & Marketing",tags:["alignment","branding","creator"],feat:false,text:"Rewrite this creator's messaging to align with their brand values and identity. Messaging: [PASTE]."},
+
+{id:'790',name:"Creator Emotional Storytelling",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","storytelling","creator"],feat:false,text:"Rewrite this story using emotional beats: curiosity → tension → empathy → insight → payoff. Story: [PASTE]."},
+
+{id:'791',name:"Creator Signature Identity Statement",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","statement","creator"],feat:false,text:"Write a signature identity statement that captures who the creator is and what they stand for. Creator: [PASTE]."},
+
+{id:'792',name:"Creator Narrative Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","rewrite","creator"],feat:false,text:"Rewrite this creator's narrative to increase emotional resonance, clarity, and impact. Narrative: [PASTE]."},
+
+{id:'793',name:"Creator Brand Story Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["brand story","premium","creator"],feat:false,text:"Write a premium brand story for this creator using cinematic pacing, emotional beats, and narrative tension. Creator: [PASTE]."},
+
+{id:'794',name:"Creator Identity Evolution Map",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","evolution","creator"],feat:false,text:"Map how the creator's identity should evolve over the next 12 months. Creator: [PASTE]."},
+
+{id:'795',name:"Creator Signature Messaging",tool:"chatgpt",cat:"Business & Marketing",tags:["messaging","signature","creator"],feat:false,text:"Write 10 signature messaging lines the creator can use across platforms. Creator: [PASTE]."},
+
+{id:'796',name:"Creator Story Identity Fusion",tool:"chatgpt",cat:"Business & Marketing",tags:["story","identity","creator"],feat:false,text:"Rewrite this story to fuse the creator's identity, mission, and emotional journey. Story: [PASTE]."},
+
+{id:'797',name:"Creator Brand Clarity Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["clarity","branding","creator"],feat:false,text:"Rewrite this creator's brand messaging to be clearer, sharper, and more emotionally aligned. Messaging: [PASTE]."},
+
+{id:'798',name:"Creator Identity Story Pack",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","story","creator"],feat:false,text:"Generate 10 identity-driven stories that reinforce the creator's mission and values. Creator: [PASTE]."},
+
+{id:'799',name:"Creator Brand Positioning Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["positioning","rewrite","creator"],feat:false,text:"Rewrite this creator's positioning to be more compelling, differentiated, and emotionally resonant. Positioning: [PASTE]."},
+
+{id:'800',name:"Creator Emotional Identity Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","identity","creator"],feat:false,text:"Rewrite this creator's identity using emotional language that resonates deeply with their audience. Identity: [PASTE]."},
+
+{id:'801',name:"Creator Signature Story Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["signature","story","rewrite"],feat:false,text:"Rewrite the creator's signature story to increase tension, emotional stakes, and payoff. Story: [PASTE]."},
+
+{id:'802',name:"Creator Brand Narrative Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","premium","creator"],feat:false,text:"Write a premium brand narrative for this creator using cinematic storytelling and emotional beats. Creator: [PASTE]."},
+
+{id:'803',name:"Creator Identity Compression",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","compression","creator"],feat:false,text:"Compress this creator's identity into a powerful one-sentence brand identity line. Identity: [PASTE]."},
+
+{id:'804',name:"Brand Voice DNA Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["voice","tone","branding"],feat:false,text:"Analyze these writing samples and extract the brand's voice DNA: tone, cadence, vocabulary, emotional style, and signature patterns. Samples: [PASTE]."},
+
+{id:'805',name:"Brand Archetype Identifier",tool:"chatgpt",cat:"Business & Marketing",tags:["archetype","identity","branding"],feat:false,text:"Identify the brand's primary and secondary archetypes and explain how they influence tone, messaging, and visuals. Brand: [PASTE]."},
+
+{id:'806',name:"Brand Differentiation Engine",tool:"chatgpt",cat:"Business & Marketing",tags:["differentiation","branding","strategy"],feat:false,text:"Identify 10 ways this brand can differentiate itself in a crowded market. Brand: [PASTE]."},
+
+{id:'807',name:"Brand Story Rewrite Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["story","rewrite","branding"],feat:false,text:"Rewrite this brand story using cinematic pacing, emotional beats, and narrative tension. Story: [PASTE]."},
+
+{id:'808',name:"Brand Identity Blueprint",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","branding","blueprint"],feat:false,text:"Build a complete brand identity blueprint including mission, values, tone, archetype, and personality traits. Brand: [PASTE]."},
+
+{id:'809',name:"Brand Narrative Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","branding","story"],feat:false,text:"Build a brand narrative using origin, conflict, evolution, mission, and transformation. Brand: [PASTE]."},
+
+{id:'810',name:"Brand Essence Statement",tool:"chatgpt",cat:"Business & Marketing",tags:["essence","identity","branding"],feat:false,text:"Write the brand's essence in one sentence, one paragraph, and one page. Brand: [PASTE]."},
+
+{id:'811',name:"Brand Identity Clarifier",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","clarity","branding"],feat:false,text:"Rewrite this brand's identity to remove confusion and sharpen its message. Identity: [PASTE]."},
+
+{id:'812',name:"Brand Story Distiller",tool:"chatgpt",cat:"Business & Marketing",tags:["story","distill","branding"],feat:false,text:"Distill this long brand story into a short, powerful, emotionally charged version. Story: [PASTE]."},
+
+{id:'813',name:"Brand Tone Guide",tool:"chatgpt",cat:"Business & Marketing",tags:["tone","guide","branding"],feat:false,text:"Create a tone guide for this brand including do's, don'ts, vocabulary, and emotional style. Brand: [PASTE]."},
+
+{id:'814',name:"Brand Identity Evolution Map",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","evolution","branding"],feat:false,text:"Map how the brand's identity should evolve over the next 12 months. Brand: [PASTE]."},
+
+{id:'815',name:"Brand Signature Messaging",tool:"chatgpt",cat:"Business & Marketing",tags:["messaging","signature","branding"],feat:false,text:"Write 10 signature messaging lines the brand can use across platforms. Brand: [PASTE]."},
+
+{id:'816',name:"Brand Identity Compression",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","compression","branding"],feat:false,text:"Compress this brand's identity into a powerful one-sentence brand identity line. Identity: [PASTE]."},
+
+{id:'817',name:"Brand Story Identity Fusion",tool:"chatgpt",cat:"Business & Marketing",tags:["story","identity","branding"],feat:false,text:"Rewrite this brand story to fuse identity, mission, and emotional journey. Story: [PASTE]."},
+
+{id:'818',name:"Brand Clarity Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["clarity","rewrite","branding"],feat:false,text:"Rewrite this brand messaging to be clearer, sharper, and more emotionally aligned. Messaging: [PASTE]."},
+
+{id:'819',name:"Brand Persona Simulator",tool:"chatgpt",cat:"Business & Marketing",tags:["persona","simulation","branding"],feat:false,text:"Simulate how this brand would speak, think, and respond in different scenarios. Brand: [PASTE]."},
+
+{id:'820',name:"Brand Identity Story Pack",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","story","branding"],feat:false,text:"Generate 10 identity-driven stories that reinforce the brand's mission and values. Brand: [PASTE]."},
+
+{id:'821',name:"Brand Positioning Matrix",tool:"chatgpt",cat:"Business & Marketing",tags:["positioning","matrix","branding"],feat:false,text:"Create a positioning matrix showing where the brand sits in its niche and how it can stand out. Brand: [PASTE]."},
+
+{id:'822',name:"Brand Narrative Rewrite Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","premium","branding"],feat:false,text:"Rewrite this brand narrative using cinematic storytelling and emotional beats. Narrative: [PASTE]."},
+
+{id:'823',name:"Brand Story Expansion",tool:"chatgpt",cat:"Business & Marketing",tags:["story","expansion","branding"],feat:false,text:"Expand this brand story into a multi-part narrative with emotional beats and lessons. Story: [PASTE]."},
+
+{id:'824',name:"Brand Emotional Identity Builder",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","identity","branding"],feat:false,text:"Rewrite this brand's identity using emotional language that resonates deeply with its audience. Identity: [PASTE]."},
+
+{id:'825',name:"Brand Signature Story Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["signature","story","rewrite"],feat:false,text:"Rewrite the brand's signature story to increase tension, emotional stakes, and payoff. Story: [PASTE]."},
+
+{id:'826',name:"Brand Narrative Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","premium","branding"],feat:false,text:"Write a premium brand narrative using cinematic storytelling and emotional beats. Brand: [PASTE]."},
+
+{id:'827',name:"Brand Identity Reframing",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","reframe","branding"],feat:false,text:"Reframe this brand's identity in 5 ways: emotional, aspirational, rebellious, minimalist, and luxury. Identity: [PASTE]."},
+
+{id:'828',name:"Brand Emotional Hook Pack",tool:"chatgpt",cat:"Business & Marketing",tags:["hooks","emotion","branding"],feat:false,text:"Generate 15 emotional hooks that communicate the brand's mission and values. Brand: [PASTE]."},
+
+{id:'829',name:"Brand Story Cold Open Generator",tool:"chatgpt",cat:"Business & Marketing",tags:["cold open","story","branding"],feat:false,text:"Write 10 cold opens for this brand story that drop the reader into the middle of the action. Story: [PASTE]."},
+
+{id:'830',name:"Brand Identity Rewrite Premium",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","premium","branding"],feat:false,text:"Rewrite this brand's identity to feel premium, elevated, and emotionally rich. Identity: [PASTE]."},
+
+{id:'831',name:"Brand Messaging Expansion",tool:"chatgpt",cat:"Business & Marketing",tags:["messaging","expansion","branding"],feat:false,text:"Expand this brand message into 10 deeper, more emotionally resonant variations. Message: [PASTE]."},
+
+{id:'832',name:"Brand Story Hook Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["story","hook","rewrite"],feat:false,text:"Rewrite this brand story hook to increase tension, emotional stakes, and curiosity. Hook: [PASTE]."},
+
+{id:'833',name:"Brand Identity Story Fusion",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","story","fusion"],feat:false,text:"Rewrite this brand story to fuse identity, mission, and emotional journey. Story: [PASTE]."},
+
+{id:'834',name:"Brand Emotional Rewrite 2.0",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","rewrite","branding"],feat:false,text:"Rewrite this brand messaging to maximize emotional resonance and connection. Messaging: [PASTE]."},
+
+{id:'835',name:"Brand Positioning Clarifier",tool:"chatgpt",cat:"Business & Marketing",tags:["positioning","clarity","branding"],feat:false,text:"Rewrite this brand's positioning to remove confusion and sharpen its competitive edge. Positioning: [PASTE]."},
+
+{id:'836',name:"Brand Story Identity Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["story","identity","rewrite"],feat:false,text:"Rewrite this brand story to reinforce identity, mission, and emotional transformation. Story: [PASTE]."},
+
+{id:'837',name:"Brand Emotional Framework",tool:"chatgpt",cat:"Business & Marketing",tags:["framework","emotion","branding"],feat:false,text:"Create an emotional framework for this brand including triggers, tone, and narrative patterns. Brand: [PASTE]."},
+
+{id:'838',name:"Brand Identity Signature Line",tool:"chatgpt",cat:"Business & Marketing",tags:["identity","signature","branding"],feat:false,text:"Write a signature identity line that captures the brand's essence in under 12 words. Brand: [PASTE]."},
+
+{id:'839',name:"Brand Narrative Compression",tool:"chatgpt",cat:"Business & Marketing",tags:["narrative","compression","branding"],feat:false,text:"Compress this long brand narrative into a short, powerful, emotionally charged version. Narrative: [PASTE]."},
+
+{id:'840',name:"Brand Emotional Story Expansion",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","story","expansion"],feat:false,text:"Expand this emotional brand story into a multi-part narrative with tension and payoff. Story: [PASTE]."},
+
+{id:'841',name:"Brand Identity Tone Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["tone","identity","rewrite"],feat:false,text:"Rewrite this brand identity using a more emotionally aligned tone. Identity: [PASTE]."},
+
+{id:'842',name:"Brand Story Premium Rewrite",tool:"chatgpt",cat:"Business & Marketing",tags:["story","premium","rewrite"],feat:false,text:"Rewrite this brand story to feel premium, cinematic, and emotionally rich. Story: [PASTE]."},
+
+{id:'843',name:"Brand Emotional Positioning 2.0",tool:"chatgpt",cat:"Business & Marketing",tags:["emotion","positioning","branding"],feat:false,text:"Rewrite this brand's emotional positioning to be clearer, stronger, and more resonant. Positioning: [PASTE]."},
 ];
