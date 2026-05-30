@@ -43,7 +43,17 @@ body.light{
   --border2:rgba(0,0,0,0.14);
 }
 body.light .hero-orb{
-  background:radial-gradient(ellipse at center,rgba(255,98,36,.12) 0%,rgba(255,98,36,.04) 35%,transparent 70%);
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-62%);
+  width:600px;height:600px;
+  background:radial-gradient(ellipse at center,
+    rgba(255,98,36,.16) 0%,
+    rgba(255,98,36,.06) 35%,
+    rgba(124,58,237,.04) 60%,
+    transparent 75%);
+  pointer-events:none;
+  animation:orbBreath 8s ease-in-out infinite alternate;
 }
 
 body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s;}
@@ -55,7 +65,7 @@ a{text-decoration:none;color:inherit;}
   display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;height:52px;
   background:rgba(7,7,10,.96);
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   transition:background .3s;
 }
@@ -75,7 +85,6 @@ body.light .topnav{background:rgba(245,245,247,.96);}
   padding:6px 14px;border-radius:8px;
   background:var(--orange);color:#fff;
   text-decoration:none;transition:all .15s;
-  box-shadow:0 0 16px rgba(255,98,36,.25);
 }
 .nav-signin:hover{background:#e84e0e;}
 .nav-icon-btn{
@@ -165,7 +174,7 @@ body.light .site-footer{background:rgba(0,0,0,.02);}
   background:rgba(10,10,16,.98);border:1px solid var(--border2);
   border-radius:16px;padding:14px;
   display:flex;gap:7px;z-index:9998;
-  box-shadow:0 8px 40px rgba(0,0,0,.6);backdrop-filter:blur(20px);
+  box-shadow:0 8px 40px rgba(0,0,0,.6);backdrop-filter:blur(12px);
 }
 .sp-btn{
   display:flex;flex-direction:column;align-items:center;gap:3px;
@@ -209,7 +218,7 @@ a{text-decoration:none;color:inherit;}
 /* HERO — full viewport */
 .hero{
   position:relative;
-  min-height:100vh;
+  min-height:100dvh;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
@@ -306,11 +315,11 @@ a{text-decoration:none;color:inherit;}
   font-family:'Instrument Sans',sans-serif;
   border:none;cursor:pointer;
   transition:all .2s;
-  box-shadow:0 0 40px -8px rgba(255,98,36,0.5);
+  
 }
 .btn-hero-primary:hover{
   background:#ff4a00;
-  box-shadow:0 0 60px -6px rgba(255,98,36,0.6);
+  
   transform:translateY(-1px);
 }
 .btn-hero-ghost{
@@ -478,7 +487,7 @@ a{text-decoration:none;color:inherit;}
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
   font-family:'JetBrains Mono',monospace;
 }
-.pc-footer{display:flex;align-items:center;justify-content:space-between;}
+.pc-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;}
 .pc-copy{
   display:flex;align-items:center;gap:4px;
   padding:5px 10px;border-radius:7px;
@@ -553,13 +562,7 @@ a{text-decoration:none;color:inherit;}
   background:linear-gradient(180deg,var(--bg),rgba(255,98,36,0.04),var(--bg));
   position:relative;overflow:hidden;
 }
-.cta-section::before{
-  content:'';
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:800px;height:400px;
-  background:radial-gradient(ellipse,rgba(255,98,36,0.1) 0%,transparent 70%);
-  pointer-events:none;
-}
+.cta-section::before{display:none;}
 .cta-title{
   font-family:'Syne',serif;
   font-size:clamp(40px,6vw,72px);
@@ -582,7 +585,7 @@ a{text-decoration:none;color:inherit;}
 .lib-layout{
   display:grid;
   grid-template-columns:260px 1fr;
-  min-height:calc(100vh - 52px);
+  min-height:calc(100dvh - 52px);
 }
 .lib-sidebar{
   background:rgba(255,255,255,0.02);
@@ -741,7 +744,7 @@ a{text-decoration:none;color:inherit;}
 /* ═══════════════════════════════════════
    CREATION STATION
 ═══════════════════════════════════════ */
-.cs-layout{min-height:calc(100vh - 52px);}
+.cs-layout{min-height:calc(100dvh - 52px);}
 
 /* HERO */
 .cs-hero{
@@ -888,35 +891,58 @@ a{text-decoration:none;color:inherit;}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .hero-stats{gap:20px;}
+  .hero-stats{gap:16px;}
   .why-grid{grid-template-columns:1fr;}
   .split-wrap{grid-template-columns:1fr;gap:32px;padding:0 20px;}
   .split-wrap.reverse{direction:ltr;}
-  .split-visual{aspect-ratio:unset;min-height:200px;}
-  .split-visual-inner{padding:24px;}
+  .split-visual{aspect-ratio:unset;min-height:180px;}
+  .split-visual-inner{padding:20px;}
   .lib-layout{grid-template-columns:1fr;}
   .lib-sidebar{display:none;}
   .cs-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
   .tool-tile.featured{grid-column:span 1;flex-direction:column;}
 }
 @media(max-width:600px){
-  .page-tabs{display:none;}
-  .why-grid{grid-template-columns:1fr;}
-  .hero-h1{font-size:36px;letter-spacing:-1.5px;line-height:.98;}
-  .why-section{padding:48px 0;}
-  .why-card{padding:28px 20px;}
-  .why-num{font-size:52px;}
-  .showcase-section{padding:40px 0;}
-  .section-title{font-size:26px;letter-spacing:-1px;}
-  .cta-section{padding:56px 20px;}
-  .cta-title{font-size:32px;letter-spacing:-1px;}
-  .split-section{padding:40px 0;}
-  .hero-ctas{gap:8px;flex-direction:column;align-items:stretch;}
-  .btn-hero-primary,.btn-hero-ghost{width:100%;justify-content:center;padding:13px 20px;font-size:14px;}
-  .hero-stats{border-top:1px solid var(--border);padding-top:20px;margin-top:28px;gap:16px;}
+  /* Hero */
+  .hero{min-height:auto;padding:72px 20px 44px;}
+  .hero-orb{width:280px;height:280px;}
+  .hero-h1{font-size:34px;letter-spacing:-1px;line-height:1.05;}
+  .hero-sub{font-size:14px;margin-bottom:24px;}
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:16px;margin-top:28px;padding-top:20px;
+  }
+  .stat-divider{display:none;}
   .hero-stat .n{font-size:22px;}
+  /* Buttons — side by side until 420px */
+  .hero-ctas{gap:8px;}
+  /* Nav */
+  .topnav{backdrop-filter:blur(8px);}
+  .slide-menu{backdrop-filter:blur(8px);}
+  /* Why */
+  .why-section{padding:40px 0;}
+  .why-card{padding:24px 18px;}
+  .why-num{font-size:44px;}
+  .why-title{font-size:17px;}
+  .why-body{font-size:13px;}
+  /* Showcase */
+  .showcase-section{padding:40px 0;}
+  .section-title{font-size:24px;letter-spacing:-.8px;}
+  .section-sub{font-size:14px;}
+  .prompt-card-lg{width:260px;}
+  /* Split */
+  .split-section{padding:40px 0;}
   .split-visual{display:none;}
-  .prompt-card-lg{width:200px;}
+  /* CTA */
+  .cta-section{padding:52px 20px;}
+  .cta-title{font-size:30px;letter-spacing:-1px;}
+  /* Footer */
+  .footer-inner{gap:14px;}
+}
+@media(max-width:420px){
+  .hero-ctas{flex-direction:column;align-items:stretch;}
+  .btn-hero-primary,.btn-hero-ghost{width:100%;justify-content:center;padding:13px 20px;}
+  .prompt-card-lg{width:240px;}
 }
 
 
@@ -1000,10 +1026,10 @@ a{text-decoration:none;color:inherit;}
       </p>
 
       <div class="hero-ctas">
-        <button class="btn-hero-primary">
+        <a href="library.html" class="btn-hero-primary">
           Browse Free Prompts
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        </a>
         <button class="btn-hero-ghost">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Build a Prompt
@@ -1073,70 +1099,76 @@ a{text-decoration:none;color:inherit;}
       <div class="section-label">Featured Prompts</div>
       <div style="display:flex;align-items:baseline;justify-content:space-between;">
         <div class="section-title" style="margin-bottom:0;text-align:left;">The prompts people<br/>actually use.</div>
-        <button href="library.html" onclick="" style="background:none;border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;">View all 843 →</a>
+        <a href="library.html" style="background:none;border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;font-family:'Instrument Sans',sans-serif;display:inline-block;">View all 843 →</a>
       </div>
     </div>
 
     <div class="showcase-scroll" id="promptScroll">
       <div style="width:24px;flex-shrink:0;"></div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Viral TikTok Hook Generator" data-prompt="You are a world-class viral content strategist. Write 25 high-retention TikTok hooks for [TOPIC] that stop the scroll in the first 2 seconds. Each hook must use tension, contrast, or curiosity. Keep them under 12 words each. Format as a numbered list with the hook on each line.">
         <div class="pc-tool-badge badge-chatgpt">ChatGPT · Business</div>
         <div class="pc-name">Viral LinkedIn Thought Leader</div>
         <div class="pc-preview">Write a powerful LinkedIn post about [TOPIC] for [AUDIENCE]. Make it insightful, engaging, and position the writer as a thought leader...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">linkedin</span><span class="pc-tag">content</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Cinematic Short Film Director" data-prompt="Create a 10-second cinematic video of [SCENE]. Camera: slow push-in from wide to medium close-up. Lighting: dramatic golden hour. Color grade: warm cinematic tones. Mood: epic and contemplative. Include subtle environmental movement. Render at film quality.">
         <div class="pc-tool-badge badge-mj">Midjourney · Image</div>
         <div class="pc-name">Hollywood Cinematographer</div>
         <div class="pc-preview">You are a world-class Hollywood cinematographer working on a $300M blockbuster. Create an ultra-detailed production-ready image prompt for: [SCENE]...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">cinematic</span><span class="pc-tag">film</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Hollywood Cinematographer" data-prompt="You are a world-class Hollywood cinematographer working on a $300M blockbuster. Create an ultra-detailed production-ready image prompt for Midjourney for this scene: [SCENE]. Include: specific camera lens (e.g. 85mm anamorphic), lighting setup, color palette, composition, atmosphere, and rendering style. End with --ar 16:9 --v 7 --stylize 750.">
         <div class="pc-tool-badge badge-claude">Claude · Writing</div>
         <div class="pc-name">Bestselling Story Architect</div>
         <div class="pc-preview">You are a bestselling author with 3 NYT #1 novels. Write a compelling short story (800-1200 words) in [GENRE] based on this premise: [IDEA]...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">story</span><span class="pc-tag">fiction</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Senior Dev Code Review" data-prompt="You are a senior software engineer. Review this code for: bugs, performance, security vulnerabilities, readability, and architectural concerns. Provide a structured report with severity ratings (Critical/High/Medium/Low) and fix recommendations. Code: [PASTE CODE]">
         <div class="pc-tool-badge badge-sora">Sora · Video</div>
         <div class="pc-name">Cinematic Short Film Director</div>
         <div class="pc-preview">Create a 10-second cinematic video of [SCENE]. Camera: slow push-in from wide to medium. Lighting: golden hour. Mood: epic and contemplative...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">video</span><span class="pc-tag">sora</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Bestselling Story Architect" data-prompt="You are a bestselling author with 3 NYT #1 novels. Write a compelling short story (800-1200 words) in [GENRE] based on this premise: [IDEA]. Include a surprising twist in the final third, show don't tell, sensory details throughout, and end on an emotionally resonant final line.">
         <div class="pc-tool-badge badge-chatgpt">ChatGPT · Code</div>
         <div class="pc-name">Senior Dev Code Review</div>
         <div class="pc-preview">You are a senior software engineer. Review this code for: bugs, performance, security issues, readability, and architectural concerns. Provide a structured report...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">code</span><span class="pc-tag">review</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
-      <div class="prompt-card-lg">
+      <div class="prompt-card-lg" data-name="Viral LinkedIn Thought Leader" data-prompt="Write a powerful LinkedIn post about [TOPIC] for [TARGET AUDIENCE]. Structure: 1) Pattern-interrupting opening line 2) Main insight or contrarian take 3) Supporting evidence or story 4) Practical takeaway 5) Engagement question. Max 1300 characters. Short paragraphs. No hashtag spam.">
         <div class="pc-tool-badge badge-mj">Midjourney · Art</div>
         <div class="pc-name">AETHER Image Generator</div>
         <div class="pc-preview">Actor: World-class concept artist. Environment: Creating hero artwork for AAA game studio. Task: Design a [CHARACTER] with signature visual identity...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">AETHER</span><span class="pc-tag">concept</span></div>
-          <button class="pc-copy">Copy ↗</button>
+          <button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button>
+          <button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;">↗</button>
         </div>
       </div>
 
@@ -1174,8 +1206,8 @@ a{text-decoration:none;color:inherit;}
     <div class="cta-title">Ready to prompt<br/>like a <span style="color:var(--orange);">professional?</span></div>
     <p style="font-size:16px;color:var(--ink2);margin:16px 0 36px;position:relative;z-index:1;">843 prompts. Free forever. No account required.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;">
-      <button class="btn-hero-primary" href="library.html" onclick="">Browse the Library →</button>
-      <button class="btn-hero-ghost">Try the Prompt Builder</button>
+      <a href="library.html" class="btn-hero-primary">Browse the Library →</a>
+      <a href="prompt-builder.html" class="btn-hero-ghost">Try the Prompt Builder</a>
     </div>
   </section>
 
@@ -1183,7 +1215,7 @@ a{text-decoration:none;color:inherit;}
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-mark" style="width:24px;height:24px;flex-shrink:0;"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
@@ -1346,18 +1378,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.pc-copy').forEach(function(btn){
     btn.addEventListener('click', function(){ pcCopyCard(btn); });
   });
-  // Add share buttons next to each copy button
-  document.querySelectorAll('.prompt-card-lg .pc-footer').forEach(function(footer){
-    if(!footer.querySelector('.pc-share')){
-      var sBtn=document.createElement('button');
-      sBtn.className='pc-copy pc-share';
-      sBtn.title='Share';
-      sBtn.style.cssText='padding:6px 10px;';
-      sBtn.textContent='↗';
-      sBtn.addEventListener('click',function(){pcShareCard(sBtn);});
-      footer.appendChild(sBtn);
-    }
-  });
+  // Share buttons already inline on cards
   // Dynamic prompt count
   var tries=0;
   var poll=setInterval(function(){
