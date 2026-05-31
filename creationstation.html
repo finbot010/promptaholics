@@ -349,6 +349,14 @@ body.light .std-output{background:rgba(0,0,0,.04);}
   font-family:'Instrument Sans',sans-serif;
 }
 .std-example-btn:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.06);}
+
+.std-example-btn{
+  padding:7px 12px;border-radius:8px;border:1px solid var(--border2);
+  background:var(--glass);color:var(--ink2);font-size:11px;font-weight:600;
+  cursor:pointer;transition:all .15s;text-align:left;width:100%;
+  font-family:'Instrument Sans',sans-serif;
+}
+.std-example-btn:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.06);}
 </style>
 </head>
 <body>
@@ -576,88 +584,100 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 <div class="section-divider"></div>
 
 <!-- ══════════════════════════════════════════
-     TOOL 5 — 🖼 STYLE TRANSFER DESCRIBER
+     TOOL 5 — 🎨 AI IMAGE GENERATOR (Pollinations)
 ══════════════════════════════════════════ -->
 <div class="tool-sec">
   <div class="tool-sec-hdr">
-    <h2>🖼 Image → AI Prompt Describer</h2>
-    <span class="tool-built-badge">AI Powered · Claude Vision</span>
+    <h2>🎨 Free AI Image Generator</h2>
+    <span class="tool-built-badge">No API Key · Powered by Pollinations</span>
   </div>
   <div class="std-wrap">
     <div class="std-header">
-      <div class="ipb-title">See an image you love? <span style="color:var(--orange);">Get the prompt.</span></div>
-      <div class="ipb-subtitle">Paste any public image URL — Claude analyses it and writes a ready-to-use AI image prompt</div>
+      <div class="ipb-title">Type a prompt. <span style="color:var(--orange);">Get an image.</span> Free.</div>
+      <div class="ipb-subtitle">Powered by Pollinations AI · Flux model · No account needed · No limits</div>
     </div>
     <div class="std-body">
       <div class="std-left">
 
-        <!-- URL input — main input method -->
+        <!-- Prompt input -->
         <div>
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">📎 Paste Image URL</div>
-          <div class="std-url-row">
-            <input class="std-url-input" id="stdUrl" type="text" placeholder="https://images.unsplash.com/..."/>
-          </div>
-          <div style="font-size:10px;color:var(--ink3);margin-top:6px;line-height:1.5;">
-            Try: Unsplash, Pinterest, Reddit, Imgur, any direct .jpg/.png/.webp URL
-          </div>
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">✏️ Your Prompt</div>
+          <textarea id="polPrompt" rows="4" placeholder="a lone astronaut standing on Mars at golden hour, cinematic lighting, dramatic sky, hyperrealistic..." style="width:100%;padding:10px 14px;background:var(--glass2);border:1px solid var(--border2);border-radius:10px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;line-height:1.5;"></textarea>
         </div>
 
-        <!-- Quick example URLs -->
+        <!-- Quick prompts -->
         <div>
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">⚡ Try an example</div>
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">⚡ Quick start</div>
           <div style="display:flex;flex-direction:column;gap:5px;">
-            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800')">🏔 Mountain landscape</button>
-            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800')">🌆 Cyberpunk cityscape</button>
-            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800')">👤 Portrait photography</button>
-            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800')">🌈 Abstract gradient art</button>
+            <button class="std-example-btn" onclick="polLoadExample(this)">🚀 Astronaut on Mars, golden hour, hyperrealistic</button>
+            <button class="std-example-btn" onclick="polLoadExample(this)">🌆 Cyberpunk Tokyo street at night, neon rain, cinematic</button>
+            <button class="std-example-btn" onclick="polLoadExample(this)">🌊 Underwater ancient ruins, bioluminescent creatures, 4K</button>
+            <button class="std-example-btn" onclick="polLoadExample(this)">🦁 Majestic lion portrait, oil painting, dramatic lighting</button>
           </div>
         </div>
 
-        <!-- Image preview -->
-        <div id="stdPreviewWrap" style="display:none;">
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">Preview</div>
-          <img id="stdPreview" style="width:100%;height:160px;object-fit:cover;border-radius:10px;border:1px solid var(--border2);" alt="Preview"/>
-        </div>
-
-        <!-- Style target -->
-        <div>
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">🎯 Optimise for:</div>
-          <div class="std-style-chips">
-            <button class="std-style-chip sel" data-target="midjourney" onclick="stdSetTarget(this)">Midjourney</button>
-            <button class="std-style-chip" data-target="dalle" onclick="stdSetTarget(this)">DALL·E</button>
-            <button class="std-style-chip" data-target="flux" onclick="stdSetTarget(this)">Flux</button>
-            <button class="std-style-chip" data-target="firefly" onclick="stdSetTarget(this)">Firefly</button>
-            <button class="std-style-chip" data-target="general" onclick="stdSetTarget(this)">General</button>
+        <!-- Settings row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">📐 Size</div>
+            <select id="polSize" style="width:100%;padding:7px 10px;background:var(--glass2);border:1px solid var(--border2);border-radius:8px;font-size:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+              <option value="1024x1024">Square (1024×1024)</option>
+              <option value="1280x720">Landscape (1280×720)</option>
+              <option value="720x1280">Portrait (720×1280)</option>
+              <option value="1920x1080">Wide (1920×1080)</option>
+            </select>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">🤖 Model</div>
+            <select id="polModel" style="width:100%;padding:7px 10px;background:var(--glass2);border:1px solid var(--border2);border-radius:8px;font-size:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+              <option value="flux">Flux (Best)</option>
+              <option value="flux-realism">Flux Realism</option>
+              <option value="flux-anime">Flux Anime</option>
+              <option value="turbo">Turbo (Fastest)</option>
+            </select>
           </div>
         </div>
 
         <!-- Action buttons -->
         <div style="display:flex;gap:8px;">
-          <button class="ipb-btn primary" id="stdDescribeBtn" onclick="stdDescribeImage()" style="flex:1;justify-content:center;">✨ Describe This Image</button>
-          <button class="ipb-btn" onclick="stdReset()" title="Reset">🔄 Reset</button>
+          <button class="ipb-btn primary" id="polGenBtn" onclick="polGenerate()" style="flex:1;justify-content:center;font-size:14px;padding:11px 20px;">✨ Generate Image</button>
+          <button class="ipb-btn" onclick="polReset()" title="Reset">🔄</button>
         </div>
 
       </div><!-- /std-left -->
 
-      <div class="std-right">
-        <div class="ipb-output-label">
-          <span>✨ AI PROMPT OUTPUT</span>
-          <button class="ipb-btn" id="stdCopyBtn" onclick="stdCopy()" style="padding:4px 10px;font-size:10px;display:none;">📋 Copy</button>
-        </div>
-        <div class="std-output" id="stdOutput">
-          <div class="std-empty" id="stdEmpty">
-            Paste an image URL on the left<br/>then click <strong style="color:var(--orange);">Describe This Image</strong><br/>
-            <span style="font-size:11px;margin-top:8px;display:block;color:var(--ink3);">Claude will analyse the style, mood, lighting<br/>and write a prompt you can use in any AI image tool</span>
+      <!-- RIGHT: Output -->
+      <div class="std-right" style="align-items:center;">
+        <div class="ipb-output-label" style="width:100%;">
+          <span>🖼 GENERATED IMAGE</span>
+          <div style="display:flex;gap:6px;">
+            <button class="ipb-btn" id="polCopyPromptBtn" onclick="polCopyPrompt()" style="padding:4px 10px;font-size:10px;display:none;">📋 Copy Prompt</button>
+            <a class="ipb-btn" id="polDownloadBtn" href="#" download="promptaholics-ai-image.jpg" style="padding:4px 10px;font-size:10px;display:none;">⬇ Save</a>
           </div>
         </div>
-        <div style="font-size:11px;color:var(--ink3);line-height:1.6;border-top:1px solid var(--border);padding-top:12px;">
-          💡 <strong style="color:var(--ink2);">How it works:</strong> Claude AI analyses the image at the URL — style, composition, lighting, color palette and mood — then writes an optimised prompt. Works with any publicly accessible image URL.
+
+        <!-- Image output -->
+        <div id="polOutput" style="width:100%;flex:1;min-height:300px;background:rgba(0,0,0,.25);border:1px solid var(--border2);border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+          <div id="polEmpty" style="text-align:center;color:var(--ink3);font-size:13px;line-height:1.7;padding:20px;">
+            Type a prompt and click<br/><strong style="color:var(--orange);">Generate Image</strong><br/>
+            <span style="font-size:11px;margin-top:6px;display:block;">No account · No API key · Completely free</span>
+          </div>
+          <div id="polSpinner" style="display:none;flex-direction:column;align-items:center;gap:12px;">
+            <div class="std-spinner" style="width:32px;height:32px;border-width:3px;"></div>
+            <div style="font-size:12px;color:var(--ink2);" id="polStatus">Generating your image...</div>
+          </div>
+          <img id="polImage" style="display:none;width:100%;height:100%;object-fit:contain;border-radius:13px;" alt="Generated image"/>
+        </div>
+
+        <div style="font-size:11px;color:var(--ink3);line-height:1.6;border-top:1px solid var(--border);padding-top:12px;width:100%;">
+          💡 Powered by <strong style="color:var(--ink2);">Pollinations AI</strong> — free, open-source, no limits. Images generate in ~5-15 seconds. Try the <strong style="color:var(--ink2);">Prompt Builder</strong> page for more advanced prompts.
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="section-divider"></div>
+
 
 
 <!-- ══════════════════════════════════════════
@@ -1167,146 +1187,34 @@ function calcUpdate(){
 }
 
 // ══════════════════════════════════════════
-// TOOL 5 — IMAGE STYLE DESCRIBER (URL-based, works live)
+// TOOL 5 — FREE AI IMAGE GENERATOR (Pollinations)
+// No API key, no account — 100% free
+// https://image.pollinations.ai/prompt/{prompt}?...
 // ══════════════════════════════════════════
-var stdTarget = 'midjourney';
 
-function stdSetTarget(btn){
-  stdTarget = btn.getAttribute('data-target');
-  document.querySelectorAll('.std-style-chip').forEach(function(b){ b.classList.remove('sel'); });
-  btn.classList.add('sel');
+function polLoadExample(btn){
+  var text = btn.textContent.replace(/^[^\s]+\s/, ''); // remove emoji
+  document.getElementById('polPrompt').value = text.trim();
+  polGenerate();
 }
 
-function stdLoadExample(btn, url){
-  document.getElementById('stdUrl').value = url;
-  // Show preview
-  var prev = document.getElementById('stdPreview');
-  var wrap = document.getElementById('stdPreviewWrap');
-  prev.src = url;
-  prev.onerror = function(){ wrap.style.display='none'; };
-  prev.onload  = function(){ wrap.style.display='block'; };
-  // Auto-describe after short delay
-  setTimeout(stdDescribeImage, 300);
-}
-
-function stdReset(){
-  document.getElementById('stdUrl').value = '';
-  var prev = document.getElementById('stdPreview');
-  var wrap = document.getElementById('stdPreviewWrap');
-  prev.src = '';
-  wrap.style.display = 'none';
-  var output  = document.getElementById('stdOutput');
-  var empty   = document.getElementById('stdEmpty');
-  var copyBtn = document.getElementById('stdCopyBtn');
-  output.innerHTML = '';
-  output.appendChild(empty);
+function polReset(){
+  document.getElementById('polPrompt').value = '';
+  var img    = document.getElementById('polImage');
+  var empty  = document.getElementById('polEmpty');
+  var spin   = document.getElementById('polSpinner');
+  var dlBtn  = document.getElementById('polDownloadBtn');
+  var cpBtn  = document.getElementById('polCopyPromptBtn');
+  img.style.display   = 'none';
   empty.style.display = 'block';
-  copyBtn.style.display = 'none';
+  spin.style.display  = 'none';
+  dlBtn.style.display = 'none';
+  cpBtn.style.display = 'none';
 }
 
-async function stdDescribeImage(){
-  var url    = (document.getElementById('stdUrl').value || '').trim();
-  if(!url){ 
-    alert('Please paste an image URL first.');
-    return;
-  }
-
-  // Show preview
-  var prev = document.getElementById('stdPreview');
-  var wrap = document.getElementById('stdPreviewWrap');
-  prev.src = url;
-  prev.onerror = function(){ wrap.style.display='none'; };
-  prev.onload  = function(){ wrap.style.display='block'; };
-
-  var output  = document.getElementById('stdOutput');
-  var empty   = document.getElementById('stdEmpty');
-  var copyBtn = document.getElementById('stdCopyBtn');
-  var btn     = document.getElementById('stdDescribeBtn');
-
-  // Loading state
-  empty.style.display = 'none';
-  output.innerHTML = '<div class="std-loading"><div class="std-spinner"></div> Claude is analysing the image...</div>';
-  copyBtn.style.display = 'none';
-  if(btn){ btn.disabled=true; btn.textContent='Analysing...'; }
-
-  var targetSuffix = {
-    midjourney: ' --ar 16:9 --v 7 --stylize 750 --quality 2',
-    dalle:      ', ultra detailed, high quality, 4K resolution',
-    flux:       ', ultra high detail, professional photography quality',
-    firefly:    ', ultra detailed, commercially safe, 4K',
-    general:    ''
-  };
-
-  var sysPrompt = 'You are an expert AI image prompt engineer. The user will provide an image URL. Analyse it thoroughly and write a detailed generation prompt covering: subject and composition, art style and medium, lighting conditions and quality, color palette and mood, camera angle and lens if applicable, and any distinctive visual elements. '
-    + 'Output ONLY the prompt — no explanation, no preamble, no markdown, no quotes. Just the raw prompt string.'
-    + (stdTarget === 'midjourney' ? ' End with: --ar 16:9 --v 7 --stylize 750 --quality 2' : '')
-    + (stdTarget === 'dalle'      ? ' End with: ultra detailed, 4K resolution, photorealistic.' : '')
-    + (stdTarget === 'flux'       ? ' End with: ultra high detail, professional photography.' : '')
-    + (stdTarget === 'firefly'    ? ' End with: commercially safe, ultra detailed, 4K.' : '');
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-opus-4-6',
-        max_tokens: 500,
-        system: sysPrompt,
-        messages: [{
-          role: 'user',
-          content: [{
-            type: 'image',
-            source: {
-              type: 'url',
-              url: url
-            }
-          }, {
-            type: 'text',
-            text: 'Analyse this image and write an AI image generation prompt optimised for ' + stdTarget + '.'
-          }]
-        }]
-      })
-    });
-
-    var data = await resp.json();
-
-    if(data.error){
-      throw new Error(data.error.message || 'API error');
-    }
-
-    var text = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text.trim() : '';
-    if(!text) throw new Error('No response from Claude');
-
-    output.textContent = text;
-    copyBtn.style.display = 'flex';
-
-  } catch(err) {
-    var msg = err.message || 'Unknown error';
-    if(msg.includes('Could not download') || msg.includes('url') || msg.includes('URL')){
-      output.innerHTML = '<div style="color:var(--ink2);font-family:sans-serif;font-size:12px;line-height:1.6;">'
-        + '⚠️ Could not access that image URL.<br><br>'
-        + '<strong>Tips:</strong><br>'
-        + '• Use a direct image link ending in .jpg, .png, or .webp<br>'
-        + '• Try one of the example images on the left<br>'
-        + '• Unsplash, Wikimedia, and Imgur direct links work well'
-        + '</div>';
-    } else {
-      output.innerHTML = '<div style="color:var(--ink2);font-family:sans-serif;font-size:12px;line-height:1.6;">⚠️ ' + msg + '</div>';
-    }
-    copyBtn.style.display = 'none';
-  }
-
-  if(btn){ btn.disabled=false; btn.textContent='✨ Describe This Image'; }
-}
-
-function stdCopy(){
-  var text = document.getElementById('stdOutput').textContent.trim();
+function polCopyPrompt(){
+  var text = document.getElementById('polPrompt').value.trim();
   if(!text) return;
-  var btn = document.getElementById('stdCopyBtn');
   if(navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text);
   } else {
@@ -1314,9 +1222,114 @@ function stdCopy(){
     ta.style.cssText='position:fixed;left:-9999px;'; document.body.appendChild(ta);
     ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
   }
+  var btn = document.getElementById('polCopyPromptBtn');
   btn.innerHTML = '✅ Copied!';
-  btn.style.color = '#22c55e';
-  setTimeout(function(){ btn.innerHTML='📋 Copy'; btn.style.color=''; }, 2000);
+  setTimeout(function(){ btn.innerHTML='📋 Copy Prompt'; }, 2000);
+}
+
+function polGenerate(){
+  var prompt = (document.getElementById('polPrompt').value || '').trim();
+  if(!prompt){ 
+    document.getElementById('polPrompt').focus();
+    return; 
+  }
+
+  var sizeVal = document.getElementById('polSize').value;
+  var model   = document.getElementById('polModel').value;
+  var parts   = sizeVal.split('x');
+  var width   = parts[0] || '1024';
+  var height  = parts[1] || '1024';
+  var seed    = Math.floor(Math.random() * 999999);
+
+  var img    = document.getElementById('polImage');
+  var empty  = document.getElementById('polEmpty');
+  var spin   = document.getElementById('polSpinner');
+  var btn    = document.getElementById('polGenBtn');
+  var dlBtn  = document.getElementById('polDownloadBtn');
+  var cpBtn  = document.getElementById('polCopyPromptBtn');
+  var status = document.getElementById('polStatus');
+
+  // Show spinner
+  img.style.display   = 'none';
+  empty.style.display = 'none';
+  spin.style.display  = 'flex';
+  dlBtn.style.display = 'none';
+  cpBtn.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = '⏳ Generating...';
+
+  var msgs = [
+    'Generating your image...',
+    'Painting the details...',
+    'Almost there...',
+    'Adding the finishing touches...'
+  ];
+  var mi = 0;
+  var msgTimer = setInterval(function(){
+    mi = (mi+1) % msgs.length;
+    if(status) status.textContent = msgs[mi];
+  }, 3000);
+
+  // Build Pollinations URL
+  var url = 'https://image.pollinations.ai/prompt/'
+    + encodeURIComponent(prompt)
+    + '?width=' + width
+    + '&height=' + height
+    + '&model=' + model
+    + '&nologo=true'
+    + '&seed=' + seed;
+
+  // Load image via img tag (no fetch needed — Pollinations returns image directly)
+  var tempImg = new Image();
+  tempImg.crossOrigin = 'anonymous';
+
+  tempImg.onload = function(){
+    clearInterval(msgTimer);
+    img.src       = url;
+    img.style.display = 'block';
+    spin.style.display = 'none';
+    btn.disabled  = false;
+    btn.textContent = '✨ Generate Image';
+
+    // Set download link
+    dlBtn.href    = url;
+    dlBtn.style.display = 'flex';
+    cpBtn.style.display = 'flex';
+  };
+
+  tempImg.onerror = function(){
+    clearInterval(msgTimer);
+    spin.style.display = 'none';
+    empty.style.display = 'block';
+    empty.innerHTML = '<div style="color:var(--ink2);font-size:12px;line-height:1.7;">'
+      + '⚠️ Generation timed out or failed.<br>'
+      + 'Pollinations may be busy — try again in a moment.<br><br>'
+      + '<button onclick="polGenerate()" style="padding:7px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
+      + '</div>';
+    btn.disabled = false;
+    btn.textContent = '✨ Generate Image';
+  };
+
+  // Pollinations can take 5-20s — set a generous timeout
+  var timeout = setTimeout(function(){
+    tempImg.src = '';
+    tempImg.onerror();
+  }, 45000);
+
+  tempImg.onload = function(){
+    clearTimeout(timeout);
+    clearInterval(msgTimer);
+    img.src = url;
+    img.style.display = 'block';
+    spin.style.display = 'none';
+    btn.disabled = false;
+    btn.textContent = '✨ Generate Image';
+    dlBtn.href = url;
+    dlBtn.style.display = 'flex';
+    cpBtn.style.display = 'flex';
+  };
+
+  tempImg.src = url;
 }
 
 // ══════════════════════════════════════════
