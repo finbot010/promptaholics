@@ -357,6 +357,21 @@ body.light .std-output{background:rgba(0,0,0,.04);}
   font-family:'Instrument Sans',sans-serif;
 }
 .std-example-btn:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.06);}
+
+/* ── GENERATOR SELECTS ── */
+.pol-select{
+  width:100%;padding:8px 10px;
+  background:var(--bg);
+  border:1px solid var(--border2);
+  border-radius:8px;font-size:12px;
+  color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  outline:none;cursor:pointer;
+  -webkit-appearance:auto;
+  appearance:auto;
+}
+body.light .pol-select{background:#fff;}
+.pol-select:focus{border-color:rgba(255,98,36,.4);}
 </style>
 </head>
 <body>
@@ -620,7 +635,7 @@ body.light .std-output{background:rgba(0,0,0,.04);}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div>
             <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">📐 Size</div>
-            <select id="polSize" style="width:100%;padding:7px 10px;background:var(--glass2);border:1px solid var(--border2);border-radius:8px;font-size:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+            <select id="polSize" class="pol-select">
               <option value="1024x1024">Square (1024×1024)</option>
               <option value="1280x720">Landscape (1280×720)</option>
               <option value="720x1280">Portrait (720×1280)</option>
@@ -629,7 +644,7 @@ body.light .std-output{background:rgba(0,0,0,.04);}
           </div>
           <div>
             <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">🤖 Model</div>
-            <select id="polModel" style="width:100%;padding:7px 10px;background:var(--glass2);border:1px solid var(--border2);border-radius:8px;font-size:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+            <select id="polModel" class="pol-select">
               <option value="flux">Flux (Best)</option>
               <option value="flux-realism">Flux Realism</option>
               <option value="flux-anime">Flux Anime</option>
