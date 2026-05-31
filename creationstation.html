@@ -2,489 +2,1401 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="theme-color" content="#ff6224"/>
-<title>AI Tools Directory — Promptaholics</title>
-<meta name="description" content="The best AI tools for creators — image, video, writing, code, audio and more."/>
-<link rel="canonical" href="https://promptaholics.com/creationstation"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Creation Station — AI Tools Directory | Promptaholics</title>
+<meta name="description" content="The best AI tools for creators — Chat, Image, Video, Code, Audio and Productivity. Curated and tested."/>
+<link rel="canonical" href="https://promptaholics.com/creationstation.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0;}
-html,body{overflow-x:hidden;width:100%;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#07070a;--surface:#111118;--s2:#18181f;--s3:#1e1e28;
-  --border:#1f1f2c;--border2:#2a2a3a;
-  --text:#f0f0f8;--text2:#9090b0;--text3:#44445a;
-  --orange:#ff6224;--orange2:#e84e0e;
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --surface:rgba(255,255,255,.05);
 }
-body{background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;min-height:100vh;}
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --surface:rgba(0,0,0,.04);
+}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s;}
 a{text-decoration:none;color:inherit;}
+button{font-family:'Instrument Sans',sans-serif;}
 
-/* TOP NAV */
-.topnav{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(7,7,10,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-.nav-logo{display:flex;align-items:center;gap:9px;}
-.nav-logo-mark{width:30px;height:30px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.nav-logo-mark svg{width:12px;height:14px;}
-.nav-logo-text{font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--text);}
-.nav-logo-text span{color:var(--orange);}
-.nav-right{display:flex;align-items:center;gap:8px;}
-.nav-btn{background:var(--s2);border:1px solid var(--border2);color:var(--text2);height:36px;padding:0 12px;border-radius:9px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;transition:all .15s;text-decoration:none;}
-.nav-btn:hover{border-color:var(--orange);color:var(--orange);}
-.nav-icon{width:36px;height:36px;background:var(--s2);border:1px solid var(--border2);color:var(--text2);border-radius:9px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.nav-icon:hover{border-color:var(--orange);color:var(--orange);}
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s;}
+body.light .topnav{background:rgba(245,245,247,.95);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+.nav-signin:hover{background:#e84e0e;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 
-/* MAIN */
-.main{padding:20px 16px 90px;}
-.page-title{font-family:'Syne',serif;font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:4px;}
-.page-title span{color:var(--orange);}
-.page-sub{font-size:13px;color:var(--text2);margin-bottom:20px;}
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+a.sm-item{text-decoration:none;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
 
-/* SEARCH */
-.search-box{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border2);border-radius:12px;padding:4px 4px 4px 14px;margin-bottom:16px;transition:border .2s;}
-.search-box:focus-within{border-color:var(--orange);}
-.search-box i{color:var(--text3);font-size:18px;flex-shrink:0;}
-.search-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:15px;padding:10px 0;}
-.search-input::placeholder{color:var(--text3);}
-.search-x{background:none;border:none;color:var(--text3);cursor:pointer;padding:8px;font-size:14px;display:none;align-items:center;}
-.search-x.show{display:flex;}
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;cursor:pointer;border-left:none;border-right:none;border-bottom:none;background:none;text-decoration:none;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
 
-/* FILTERS */
-.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:20px;padding-bottom:2px;}
-.filters::-webkit-scrollbar{display:none;}
-.ftab{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
-.ftab.on{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
-
-/* SECTION LABEL */
-.slabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;display:flex;align-items:center;gap:8px;}
-.slabel::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* FEATURED GRID */
-.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px;}
-
-/* TOOL CARD */
-.tc{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;transition:border .18s,transform .18s;position:relative;overflow:hidden;}
-.tc:hover{border-color:var(--accent,var(--orange));transform:translateY(-1px);}
-.tc:active{transform:scale(.98);}
-
-/* LOGO BOX */
-.tc-logo{width:42px;height:42px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2);}
-.tc-logo img{width:36px;height:36px;object-fit:contain;display:block;}
-.tc-logo .fallback{font-size:22px;line-height:1;}
-
-/* CARD INFO */
-.tc-info{flex:1;min-width:0;}
-.tc-name{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tc-tag{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-/* ACTIONS */
-.tc-actions{display:flex;gap:6px;flex-shrink:0;align-items:center;}
-.tc-save{width:32px;height:32px;background:var(--s2);border:1px solid var(--border2);color:var(--text3);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;touch-action:manipulation;}
-.tc-save:hover,.tc-save.on{border-color:var(--orange);color:var(--orange);}
-.tc-visit{height:32px;padding:0 10px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;touch-action:manipulation;text-decoration:none;transition:background .15s;}
-.tc-visit:hover{background:var(--orange2);color:#fff;}
-
-/* BADGE */
-.tc-badge{position:absolute;top:6px;right:6px;font-size:8px;font-weight:700;letter-spacing:.5px;padding:2px 5px;border-radius:4px;pointer-events:none;}
-.badge-hot{background:rgba(247,37,133,.15);color:#f72585;}
-.badge-new{background:rgba(255,98,36,.15);color:var(--orange);}
-
-/* ALL TOOLS GRID */
-.tools-grid{display:grid;grid-template-columns:1fr;gap:8px;}
-
-/* EMPTY */
-.empty{text-align:center;padding:48px 16px;color:var(--text3);}
-.empty-icon{font-size:40px;margin-bottom:12px;}
-
-/* BOTTOM NAV */
-.bnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:200;height:60px;}
-.bni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:var(--text3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;-webkit-tap-highlight-color:rgba(255,98,36,.1);touch-action:manipulation;}
-.bni.on{color:var(--orange);border-top-color:var(--orange);}
-.bni i{font-size:22px;line-height:1;}
-
-/* SLIDE MENU */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;}
-.overlay.open{display:block;}
-.smenu{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--surface);border-right:1px solid var(--border);z-index:201;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
-.smenu.open{transform:translateX(0);}
-.sm-logo{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border);}
-.sm-logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
-.sm-logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
-.sm-logo-text span{color:var(--orange);}
-.sm-sec{padding:12px 16px 4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
-.sm-link{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;}
-.sm-link:hover{background:var(--s2);color:var(--text);}
-.sm-link.on{color:var(--orange);}
-
-/* LIGHT MODE */
-.light{--bg:#f5f5f0;--surface:#fff;--s2:#f0f0ea;--s3:#e8e8e2;--border:#e0ddd6;--border2:#cccac2;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
-.light .tc-logo{background:#f5f5f5;}
-
-/* RESPONSIVE */
-@media(min-width:600px){.main{padding:24px 20px 90px;}.tools-grid{grid-template-columns:repeat(2,1fr);}.feat-grid{grid-template-columns:repeat(4,1fr);}}
-@media(min-width:900px){.bnav{display:none;}.main{padding:32px 40px 60px;max-width:1200px;margin:0 auto;}.tools-grid{grid-template-columns:repeat(3,1fr);}.tc-logo{width:44px;height:44px;}}
-@media(min-width:1200px){.tools-grid{grid-template-columns:repeat(4,1fr);}}
-
-/* ── Logo display ── */
-.tc-logo {
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 10px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-  background: #fff !important;
-  overflow: hidden !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,.15) !important;
+/* ── HERO ── */
+.cs-hero{
+  position:relative;padding:80px 24px 60px;
+  text-align:center;overflow:hidden;
 }
-.tc-logo img {
-  width: 36px !important;
-  height: 36px !important;
-  object-fit: contain !important;
-  display: block !important;
+.cs-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,98,36,.12) 0%,transparent 65%);
+  pointer-events:none;
 }
-.tc-logo .fallback {
-  font-size: 24px !important;
-  line-height: 1 !important;
-  display: block !important;
+.cs-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:20px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);}
+.cs-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.cs-h1{font-family:'Syne',serif;font-size:clamp(38px,6vw,72px);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:16px;}
+.cs-h1 span{color:var(--orange);}
+.cs-sub{font-size:16px;color:var(--ink2);max-width:460px;margin:0 auto 32px;line-height:1.65;}
+
+/* ── SEARCH ── */
+.cs-search-wrap{max-width:480px;margin:0 auto 48px;position:relative;}
+.cs-search{width:100%;padding:12px 16px 12px 44px;background:var(--glass2);border:1px solid var(--border2);border-radius:12px;font-size:14px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;transition:border .2s;}
+.cs-search:focus{border-color:rgba(255,98,36,.4);}
+.cs-search::placeholder{color:var(--ink3);}
+.cs-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:16px;pointer-events:none;}
+
+/* ── CATEGORY PILLS ── */
+.cs-cats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;padding:0 24px;}
+.cs-cat{padding:7px 16px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;}
+.cs-cat:hover,.cs-cat.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
+
+/* ── SECTION ── */
+.cs-section{max-width:1200px;margin:0 auto;padding:0 24px 64px;}
+.sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.sec-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
+.sec-count{font-size:11px;color:var(--ink3);background:var(--glass2);border:1px solid var(--border);padding:2px 8px;border-radius:5px;}
+
+/* ── FEATURED FLIP CARDS ── */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px;}
+
+.flip-card{height:200px;perspective:1200px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+.flip-card:hover .flip-inner,.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+
+/* FRONT */
+.flip-front{
+  background:linear-gradient(135deg,var(--glass2),var(--glass));
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:12px;padding:24px;
+  overflow:hidden;
+}
+.flip-front::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,98,36,.08),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.flip-card:hover .flip-front::before{opacity:1;}
+.ff-logo{width:56px;height:56px;border-radius:14px;object-fit:cover;border:1px solid var(--border2);}
+.ff-logo-fallback{width:56px;height:56px;border-radius:14px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:24px;border:1px solid var(--border2);}
+.ff-name{font-family:'Syne',serif;font-size:18px;font-weight:800;letter-spacing:-.5px;}
+.ff-badge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);padding:2px 8px;border-radius:5px;}
+.ff-hint{font-size:10px;color:var(--ink3);margin-top:4px;}
+
+/* BACK */
+.flip-back{
+  background:linear-gradient(135deg,rgba(255,98,36,.12),rgba(255,98,36,.04));
+  border:1px solid rgba(255,98,36,.3);
+  transform:rotateY(180deg);
+  display:flex;flex-direction:column;
+  justify-content:space-between;padding:20px;
+}
+.fb-name{font-family:'Syne',serif;font-size:16px;font-weight:800;margin-bottom:6px;}
+.fb-desc{font-size:12px;color:var(--ink2);line-height:1.6;flex:1;}
+.fb-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;background:var(--orange);color:#fff;
+  font-size:12px;font-weight:700;border-radius:9px;
+  transition:all .15s;margin-top:12px;width:fit-content;
+}
+.fb-cta:hover{background:#e84e0e;}
+.fb-affiliate{font-size:9px;color:rgba(255,98,36,.6);margin-top:6px;}
+
+/* ── TOOL GRID ── */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+
+/* ── TOOL CARD ── */
+.tool-card{
+  display:flex;flex-direction:column;
+  background:var(--glass);border:1px solid var(--border2);
+  border-radius:14px;padding:16px;
+  transition:all .2s;cursor:pointer;position:relative;overflow:hidden;
+  text-decoration:none;color:inherit;
+}
+.tool-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,98,36,.06),transparent);opacity:0;transition:opacity .2s;}
+.tool-card:hover{border-color:rgba(255,98,36,.35);transform:translateY(-2px);box-shadow:0 12px 32px -8px rgba(0,0,0,.5);}
+.tool-card:hover::before{opacity:1;}
+.tc-logo{width:40px;height:40px;border-radius:10px;object-fit:cover;border:1px solid var(--border);margin-bottom:10px;}
+.tc-logo-fallback{width:40px;height:40px;border-radius:10px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;}
+.tc-name{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px;}
+.tc-desc{font-size:11px;color:var(--ink2);line-height:1.5;flex:1;}
+.tc-tag{display:inline-block;margin-top:8px;font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);}
+.tc-arrow{position:absolute;top:14px;right:14px;color:var(--ink3);font-size:14px;transition:all .2s;}
+.tool-card:hover .tc-arrow{color:var(--orange);transform:translate(2px,-2px);}
+
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-logo-mark{width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.footer-logo-mark svg{width:9px;height:10px;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:center;}
+.footer-lnk{font-size:12px;color:var(--ink3);padding:4px 8px;border-radius:6px;transition:color .15s;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-lnk.accent{color:var(--orange);font-weight:600;}
+.footer-sep{color:var(--border2);padding:0 2px;font-size:12px;}
+.footer-copy{font-size:11px;color:var(--ink3);}
+
+/* ── HIDDEN (filter) ── */
+.hidden{display:none!important;}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .cs-hero{padding:60px 20px 40px;}
+  .cs-h1{font-size:34px;letter-spacing:-1px;}
+  .featured-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
+  .tool-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+  .flip-card{height:180px;}
+  .cs-section{padding:0 16px 48px;}
+}
+@media(max-width:420px){
+  .tool-grid{grid-template-columns:1fr 1fr;}
+  .featured-grid{grid-template-columns:1fr;}
 }
 
-/* ── Creation Station fixes ── */
+/* ── DIVIDER ── */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 24px 64px;}
 
-/* Featured strip — wider on desktop, no truncation */
-@media (min-width: 900px) {
-  .feat-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .tc-name { font-size: 12px; white-space: normal; overflow: visible; text-overflow: unset; line-height: 1.3; }
-  .tc-tag  { font-size: 10px; white-space: normal; overflow: visible; text-overflow: unset; }
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.cs-section{animation:fadeUp .5s ease both;}
+
+/* ── SECTION DIVIDER (for the tool section) ── */
+.ipb-section-hdr{
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.ipb-section-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
+.ipb-badge{
+  font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  background:rgba(255,98,36,.1);color:var(--orange);border:1px solid rgba(255,98,36,.2);
+  padding:3px 8px;border-radius:5px;
 }
 
-/* ── Featured label — make star + text much more visible ── */
-.slabel {
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  letter-spacing: 1px !important;
-  color: var(--text2) !important;
-}
-.slabel .star-icon {
-  color: #f59e0b;
-  font-size: 14px;
-}
+/* ══════════════════════════════════════════
+   TOOL 4 — AI COST CALCULATOR
+══════════════════════════════════════════ */
+.calc-wrap{background:var(--glass);border:1px solid var(--border2);border-radius:20px;overflow:hidden;}
+.calc-header{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.calc-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:700px){.calc-body{grid-template-columns:1fr;}}
+.calc-left{padding:24px 28px;border-right:1px solid var(--border);}
+@media(max-width:700px){.calc-left{border-right:none;border-bottom:1px solid var(--border);}}
+.calc-right{padding:24px 28px;display:flex;flex-direction:column;gap:12px;}
+.calc-tool-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.calc-tool-row:last-child{border-bottom:none;}
+.calc-tool-logo{width:32px;height:32px;border-radius:8px;object-fit:cover;border:1px solid var(--border);flex-shrink:0;}
+.calc-tool-name{font-size:13px;font-weight:700;color:var(--ink);flex:1;}
+.calc-tool-plan{font-size:10px;color:var(--ink3);}
+.calc-toggle{position:relative;width:38px;height:22px;flex-shrink:0;}
+.calc-toggle input{opacity:0;width:0;height:0;}
+.calc-toggle-slider{position:absolute;inset:0;background:var(--glass2);border:1px solid var(--border2);border-radius:11px;cursor:pointer;transition:.2s;}
+.calc-toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:var(--ink3);border-radius:50%;transition:.2s;}
+.calc-toggle input:checked + .calc-toggle-slider{background:rgba(255,98,36,.2);border-color:var(--orange);}
+.calc-toggle input:checked + .calc-toggle-slider::before{transform:translateX(16px);background:var(--orange);}
+.calc-hours-wrap{margin-top:8px;}
+.calc-hours-label{display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-bottom:6px;}
+.calc-slider{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--border2);outline:none;cursor:pointer;}
+.calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--orange);cursor:pointer;}
+.calc-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--orange);cursor:pointer;border:none;}
+/* right panel */
+.calc-total-box{background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,98,36,.04));border:1px solid rgba(255,98,36,.25);border-radius:14px;padding:20px;text-align:center;}
+.calc-total-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.calc-total-amount{font-family:'Syne',serif;font-size:48px;font-weight:900;letter-spacing:-2px;color:var(--ink);line-height:1;}
+.calc-total-period{font-size:12px;color:var(--ink3);margin-top:4px;}
+.calc-breakdown{flex:1;display:flex;flex-direction:column;gap:6px;}
+.calc-breakdown-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--glass);border:1px solid var(--border);border-radius:9px;font-size:12px;}
+.calc-breakdown-name{color:var(--ink2);font-weight:600;}
+.calc-breakdown-cost{font-family:'JetBrains Mono',monospace;color:var(--orange);font-weight:700;font-size:11px;}
+.calc-breakdown-cost.free{color:#22c55e;}
+.calc-tip{font-size:11px;color:var(--ink3);line-height:1.6;padding:10px 14px;background:var(--glass);border-radius:9px;border:1px solid var(--border);}
 
-/* Remove truncation on all cards */
-.tc-info { overflow: visible; }
-.tc-name { overflow: visible !important; text-overflow: unset !important; white-space: normal !important; }
-.tc-tag  { overflow: visible !important; text-overflow: unset !important; }
+/* ══════════════════════════════════════════
+   TOOL 5 — STYLE TRANSFER DESCRIBER
+══════════════════════════════════════════ */
+.std-wrap{background:var(--glass);border:1px solid var(--border2);border-radius:20px;overflow:hidden;}
+.std-header{padding:22px 28px;border-bottom:1px solid var(--border);}
+.std-body{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:380px;}
+@media(max-width:700px){.std-body{grid-template-columns:1fr;}}
+.std-left{padding:24px 28px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:16px;}
+@media(max-width:700px){.std-left{border-right:none;border-bottom:1px solid var(--border);}}
+.std-right{padding:24px 28px;display:flex;flex-direction:column;gap:12px;}
+.std-drop{
+  flex:1;min-height:160px;border:2px dashed var(--border2);border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;cursor:pointer;transition:all .2s;padding:20px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.std-drop:hover,.std-drop.dragging{border-color:var(--orange);background:rgba(255,98,36,.04);}
+.std-drop-icon{font-size:32px;opacity:.5;}
+.std-drop-label{font-size:13px;color:var(--ink2);font-weight:600;}
+.std-drop-sub{font-size:11px;color:var(--ink3);}
+.std-preview{width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid var(--border2);}
+.std-url-row{display:flex;gap:8px;}
+.std-url-input{flex:1;padding:9px 12px;background:var(--glass2);border:1px solid var(--border2);border-radius:9px;font-size:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;}
+.std-url-input:focus{border-color:rgba(255,98,36,.4);}
+.std-url-input::placeholder{color:var(--ink3);}
+.std-style-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.std-style-chip{padding:4px 10px;border-radius:7px;font-size:10px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;transition:all .12s;}
+.std-style-chip:hover,.std-style-chip.sel{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
+.std-output{flex:1;min-height:180px;background:rgba(0,0,0,.25);border:1px solid var(--border2);border-radius:12px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word;position:relative;overflow-y:auto;}
+body.light .std-output{background:rgba(0,0,0,.04);}
+.std-empty{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:var(--ink3);font-family:'Instrument Sans',sans-serif;font-size:13px;width:80%;line-height:1.6;}
+.std-loading{display:flex;align-items:center;gap:8px;color:var(--orange);font-size:12px;font-family:'Instrument Sans',sans-serif;}
+.std-spinner{width:16px;height:16px;border:2px solid rgba(255,98,36,.3);border-top-color:var(--orange);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ══════════════════════════════════════════
+   TOOL 6 — WHAT'S NEW IN AI
+══════════════════════════════════════════ */
+.news-wrap{background:var(--glass);border:1px solid var(--border2);border-radius:20px;overflow:hidden;}
+.news-header{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.news-tabs{display:flex;gap:4px;}
+.news-tab{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;transition:all .15s;}
+.news-tab.active{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
+.news-refresh{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3);cursor:pointer;border:none;background:none;padding:0;}
+.news-refresh:hover{color:var(--orange);}
+.news-refresh i{font-size:14px;}
+.news-list{padding:12px;display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto;}
+.news-list::-webkit-scrollbar{width:3px;}
+.news-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.news-item{
+  display:flex;gap:12px;padding:12px 14px;
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:12px;text-decoration:none;color:inherit;
+  transition:all .15s;align-items:flex-start;
+}
+.news-item:hover{border-color:rgba(255,98,36,.3);background:var(--glass2);transform:translateX(2px);}
+.news-rank{font-family:'Syne',serif;font-size:18px;font-weight:900;color:rgba(255,98,36,.2);min-width:24px;line-height:1.2;flex-shrink:0;}
+.news-content{flex:1;min-width:0;}
+.news-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:4px;}
+.news-meta{font-size:10px;color:var(--ink3);display:flex;gap:8px;flex-wrap:wrap;}
+.news-pts{color:var(--orange);font-weight:700;}
+.news-arrow{color:var(--ink3);font-size:14px;flex-shrink:0;transition:color .15s;}
+.news-item:hover .news-arrow{color:var(--orange);}
+.news-loading{padding:32px;text-align:center;color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.news-badge-new{font-size:8px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;vertical-align:middle;margin-left:4px;}
+/* shared section label */
+.tool-sec{max-width:1200px;margin:0 auto;padding:0 24px 64px;}
+.tool-sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.tool-sec-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
+.tool-built-badge{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:rgba(255,98,36,.1);color:var(--orange);border:1px solid rgba(255,98,36,.2);padding:3px 8px;border-radius:5px;}
+
+.std-example-btn{
+  padding:7px 12px;border-radius:8px;border:1px solid var(--border2);
+  background:var(--glass);color:var(--ink2);font-size:11px;font-weight:600;
+  cursor:pointer;transition:all .15s;text-align:left;width:100%;
+  font-family:'Instrument Sans',sans-serif;
+}
+.std-example-btn:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.06);}
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
 <header class="topnav">
   <a class="nav-logo" href="/">
-    <div class="nav-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
-    <div class="nav-logo-text">Prompt<span>aholics</span></div>
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
   <div class="nav-right">
-    <a href="library.html" class="nav-btn"><i class="ph ph-books"></i> Library</a>
-    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ph ph-moon"></i></button>
+    <nav class="nav-desktop">
+      <a href="library.html" class="nav-lnk">Library</a>
+      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+      <a href="creationstation.html" class="nav-lnk active">AI Tools</a>
+    </nav>
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
   </div>
 </header>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-<nav class="smenu" id="smenu">
-  <a class="sm-logo" href="/"><div class="sm-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div><div class="sm-logo-text">Prompt<span>aholics</span></div></a>
-  <div class="sm-sec">Navigate</div>
-  <a class="sm-link" href="/" onclick="toggleMenu()"><i class="ph ph-house"></i> Home</a>
-  <a class="sm-link" href="library.html" onclick="toggleMenu()"><i class="ph ph-books"></i> Prompt Library</a>
-  <a class="sm-link" href="prompt-builder.html" onclick="toggleMenu()"><i class="ph ph-wrench"></i> Prompt Builder</a>
-  <a class="sm-link on" href="creationstation.html" onclick="toggleMenu()"><i class="ph ph-lightning"></i> AI Tools</a>
-  <div class="sm-sec">Account</div>
-  <a class="sm-link" href="login.html" onclick="toggleMenu()"><i class="ph ph-user"></i> Sign In / Register</a>
-  <div class="sm-sec">Legal</div>
-  <a class="sm-link" href="privacy.html" onclick="toggleMenu()"><i class="ph ph-lock"></i> Privacy Policy</a>
-  <a class="sm-link" href="terms.html" onclick="toggleMenu()"><i class="ph ph-clipboard"></i> Terms of Service</a>
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- SLIDE MENU -->
+<nav class="slide-menu" id="slideMenu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class="sm-item active" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
+    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+  </div>
+  <div class="sm-foot">
+    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+  </div>
 </nav>
 
-<main class="main">
-  <h1 class="page-title">AI <span>Tools</span> Directory</h1>
-  <p class="page-sub">The best AI tools for creators — all in one place</p>
-
-  <div class="search-box">
-    <i class="ph ph-magnifying-glass"></i>
-    <input class="search-input" id="srch" type="text" placeholder="Search tools..." oninput="doSearch(this.value)"/>
-    <button class="search-x" id="srchX" onclick="clearSearch()">✕</button>
+<!-- HERO -->
+<section class="cs-hero">
+  <div class="cs-eyebrow"><span class="cs-eyebrow-dot"></span> AI Tools Directory · Curated &amp; Tested</div>
+  <h1 class="cs-h1">Your <span>creation</span><br/>station.</h1>
+  <p class="cs-sub">Every AI tool worth using — in one place. No fluff, no clickbait. Just the best tools for creators.</p>
+  <div class="cs-search-wrap">
+    <i class="ph ph-magnifying-glass cs-search-icon"></i>
+    <input type="text" class="cs-search" id="toolSearch" placeholder="Search tools..." oninput="filterTools()" autocomplete="off"/>
   </div>
+  <div class="cs-cats">
+    <button class="cs-cat active" onclick="filterCat('all',this)">All</button>
+    <button class="cs-cat" onclick="filterCat('featured',this)">⭐ Featured</button>
+    <button class="cs-cat" onclick="filterCat('chat',this)">💬 Chat AI</button>
+    <button class="cs-cat" onclick="filterCat('image',this)">🎨 Image</button>
+    <button class="cs-cat" onclick="filterCat('video',this)">🎬 Video</button>
+    <button class="cs-cat" onclick="filterCat('code',this)">💻 Code</button>
+    <button class="cs-cat" onclick="filterCat('audio',this)">🎵 Audio</button>
+    <button class="cs-cat" onclick="filterCat('productivity',this)">⚡ Productivity</button>
+  </div>
+</section>
 
-  <div class="filters" id="filters"></div>
-  <div id="featSec"><div class="slabel" style="font-size:12px;font-weight:800;color:var(--text2);letter-spacing:1px;"><span style="color:#f59e0b;font-size:16px;">★</span> FEATURED &amp; PARTNERS</div><div class="feat-grid" id="featGrid"></div></div>
-  <div id="allSec"><div class="slabel" id="allLabel">All Tools</div><div class="tools-grid" id="grid"></div></div>
-  <div class="empty" id="empty" style="display:none"><div class="empty-icon">🔍</div><p>No tools found</p></div>
-</main>
 
-<nav class="bnav">
-  <a class="bni" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class="bni" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
-  <a class="bni" href="library.html"><i class="ph ph-books"></i>Library</a>
-  <a class="bni on" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
-  <a class="bni" href="#" onclick="openSaved(event)"><i class="ph ph-star"></i>Saved</a>
+
+
+<!-- ⭐ FEATURED & PARTNERS — FLIP CARDS -->
+<section class="cs-section" data-cat="featured">
+  <div class="sec-hdr">
+    <h2>⭐ Featured &amp; Partners</h2>
+    <span class="sec-count">4 tools</span>
+  </div>
+  <div class="featured-grid">
+
+    <!-- OpenArt — FLIP CARD -->
+    <div class="flip-card" data-cat="featured image" data-name="OpenArt AI" onclick="handleFlipClick(event,this,'https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg')">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=openart.ai&sz=128" alt="OpenArt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="ff-logo-fallback" style="display:none;">🎨</div>
+          <div class="ff-name">OpenArt AI</div>
+          <div class="ff-badge">Partner · Recommended</div>
+          <div class="ff-hint">Hover to learn more ↗</div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="fb-name">OpenArt AI</div>
+            <div class="fb-desc">AI Image &amp; Video Suite — Flux, SDXL, Stable Diffusion and 20+ models in one platform. The most powerful image AI playground available.</div>
+          </div>
+          <div>
+            <a class="fb-cta" href="https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg" target="_blank" rel="noopener" onclick="event.stopPropagation()">Try OpenArt Free →</a>
+            <div class="fb-affiliate">Affiliate link — we may earn a commission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ElevenLabs — FLIP CARD -->
+    <div class="flip-card" data-cat="featured audio" data-name="ElevenLabs" onclick="handleFlipClick(event,this,'https://try.elevenlabs.io/pchhf50bim6w')">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="ff-logo-fallback" style="display:none;">🎙️</div>
+          <div class="ff-name">ElevenLabs</div>
+          <div class="ff-badge">Partner · Top Pick</div>
+          <div class="ff-hint">Hover to learn more ↗</div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="fb-name">ElevenLabs</div>
+            <div class="fb-desc">The world's most realistic AI voice generation. Clone voices, create audiobooks, dub videos in 30+ languages. Industry standard for creators.</div>
+          </div>
+          <div>
+            <a class="fb-cta" href="https://try.elevenlabs.io/pchhf50bim6w" target="_blank" rel="noopener" onclick="event.stopPropagation()">Try ElevenLabs Free →</a>
+            <div class="fb-affiliate">Affiliate link — we may earn a commission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wispr Flow — FLIP CARD -->
+    <div class="flip-card" data-cat="featured productivity" data-name="Wispr Flow" onclick="handleFlipClick(event,this,'https://ref.wisprflow.ai/wilson-ruiz')">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=wisprflow.ai&sz=128" alt="Wispr Flow" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="ff-logo-fallback" style="display:none;">🎤</div>
+          <div class="ff-name">Wispr Flow</div>
+          <div class="ff-badge">Partner · New</div>
+          <div class="ff-hint">Hover to learn more ↗</div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="fb-name">Wispr Flow</div>
+            <div class="fb-desc">AI voice dictation that types for you — anywhere on your Mac. 3x faster than typing, works in every app. Say it, see it, done.</div>
+          </div>
+          <div>
+            <a class="fb-cta" href="https://ref.wisprflow.ai/wilson-ruiz" target="_blank" rel="noopener" onclick="event.stopPropagation()">Try Wispr Flow →</a>
+            <div class="fb-affiliate">Affiliate link — we may earn a commission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promptmetheus — FLIP CARD -->
+    <div class="flip-card" data-cat="featured productivity" data-name="Promptmetheus" onclick="handleFlipClick(event,this,'https://promptmetheus.com/?via=fin')">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=promptmetheus.com&sz=128" alt="Promptmetheus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="ff-logo-fallback" style="display:none;">⚡</div>
+          <div class="ff-name">Promptmetheus</div>
+          <div class="ff-badge">Partner · Tool</div>
+          <div class="ff-hint">Hover to learn more ↗</div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="fb-name">Promptmetheus</div>
+            <div class="fb-desc">Professional prompt engineering IDE. Build, test, and optimize prompts with a full toolkit. The prompt engineer's secret weapon.</div>
+          </div>
+          <div>
+            <a class="fb-cta" href="https://promptmetheus.com/?via=fin" target="_blank" rel="noopener" onclick="event.stopPropagation()">Try Promptmetheus →</a>
+            <div class="fb-affiliate">Affiliate link — we may earn a commission</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     TOOL 4 — 💰 AI COST CALCULATOR
+══════════════════════════════════════════ -->
+<div class="tool-sec">
+  <div class="tool-sec-hdr">
+    <h2>💰 AI Tool Cost Calculator</h2>
+    <span class="tool-built-badge">Built-in Tool</span>
+  </div>
+  <div class="calc-wrap">
+    <div class="calc-header">
+      <div>
+        <div class="ipb-title">How much are you <span style="color:var(--orange);">really</span> spending on AI?</div>
+        <div class="ipb-subtitle">Toggle the tools you use, set your monthly hours — see the real total</div>
+      </div>
+      <div style="font-family:'Syne',serif;font-size:13px;font-weight:700;color:var(--ink3);">Your stack ↓</div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-left">
+        <div id="calcToolList">
+          <!-- injected by JS -->
+        </div>
+        <div class="calc-hours-wrap" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="calc-hours-label">
+            <span>⏱ Hours/month you use AI</span>
+            <span id="hoursVal" style="color:var(--orange);font-weight:700;">40h</span>
+          </div>
+          <input type="range" class="calc-slider" id="hoursSlider" min="1" max="200" value="40" oninput="calcUpdate()"/>
+        </div>
+      </div>
+      <div class="calc-right">
+        <div class="calc-total-box">
+          <div class="calc-total-label">Monthly Total</div>
+          <div class="calc-total-amount" id="calcTotal">$0</div>
+          <div class="calc-total-period">per month</div>
+        </div>
+        <div class="calc-breakdown" id="calcBreakdown">
+          <!-- filled by JS -->
+        </div>
+        <div class="calc-tip" id="calcTip">Toggle the tools you use on the left to see your cost breakdown.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     TOOL 5 — 🖼 STYLE TRANSFER DESCRIBER
+══════════════════════════════════════════ -->
+<div class="tool-sec">
+  <div class="tool-sec-hdr">
+    <h2>🖼 Image → AI Prompt Describer</h2>
+    <span class="tool-built-badge">AI Powered · Claude Vision</span>
+  </div>
+  <div class="std-wrap">
+    <div class="std-header">
+      <div class="ipb-title">See an image you love? <span style="color:var(--orange);">Get the prompt.</span></div>
+      <div class="ipb-subtitle">Paste any public image URL — Claude analyses it and writes a ready-to-use AI image prompt</div>
+    </div>
+    <div class="std-body">
+      <div class="std-left">
+
+        <!-- URL input — main input method -->
+        <div>
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">📎 Paste Image URL</div>
+          <div class="std-url-row">
+            <input class="std-url-input" id="stdUrl" type="text" placeholder="https://images.unsplash.com/..."/>
+          </div>
+          <div style="font-size:10px;color:var(--ink3);margin-top:6px;line-height:1.5;">
+            Try: Unsplash, Pinterest, Reddit, Imgur, any direct .jpg/.png/.webp URL
+          </div>
+        </div>
+
+        <!-- Quick example URLs -->
+        <div>
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">⚡ Try an example</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800')">🏔 Mountain landscape</button>
+            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=800')">🌆 Cyberpunk cityscape</button>
+            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800')">👤 Portrait photography</button>
+            <button class="std-example-btn" onclick="stdLoadExample(this,'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800')">🌈 Abstract gradient art</button>
+          </div>
+        </div>
+
+        <!-- Image preview -->
+        <div id="stdPreviewWrap" style="display:none;">
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">Preview</div>
+          <img id="stdPreview" style="width:100%;height:160px;object-fit:cover;border-radius:10px;border:1px solid var(--border2);" alt="Preview"/>
+        </div>
+
+        <!-- Style target -->
+        <div>
+          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">🎯 Optimise for:</div>
+          <div class="std-style-chips">
+            <button class="std-style-chip sel" data-target="midjourney" onclick="stdSetTarget(this)">Midjourney</button>
+            <button class="std-style-chip" data-target="dalle" onclick="stdSetTarget(this)">DALL·E</button>
+            <button class="std-style-chip" data-target="flux" onclick="stdSetTarget(this)">Flux</button>
+            <button class="std-style-chip" data-target="firefly" onclick="stdSetTarget(this)">Firefly</button>
+            <button class="std-style-chip" data-target="general" onclick="stdSetTarget(this)">General</button>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div style="display:flex;gap:8px;">
+          <button class="ipb-btn primary" id="stdDescribeBtn" onclick="stdDescribeImage()" style="flex:1;justify-content:center;">✨ Describe This Image</button>
+          <button class="ipb-btn" onclick="stdReset()" title="Reset">🔄 Reset</button>
+        </div>
+
+      </div><!-- /std-left -->
+
+      <div class="std-right">
+        <div class="ipb-output-label">
+          <span>✨ AI PROMPT OUTPUT</span>
+          <button class="ipb-btn" id="stdCopyBtn" onclick="stdCopy()" style="padding:4px 10px;font-size:10px;display:none;">📋 Copy</button>
+        </div>
+        <div class="std-output" id="stdOutput">
+          <div class="std-empty" id="stdEmpty">
+            Paste an image URL on the left<br/>then click <strong style="color:var(--orange);">Describe This Image</strong><br/>
+            <span style="font-size:11px;margin-top:8px;display:block;color:var(--ink3);">Claude will analyse the style, mood, lighting<br/>and write a prompt you can use in any AI image tool</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--ink3);line-height:1.6;border-top:1px solid var(--border);padding-top:12px;">
+          💡 <strong style="color:var(--ink2);">How it works:</strong> Claude AI analyses the image at the URL — style, composition, lighting, color palette and mood — then writes an optimised prompt. Works with any publicly accessible image URL.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+<!-- ══════════════════════════════════════════
+     TOOL 6 — 📰 WHAT'S NEW IN AI
+══════════════════════════════════════════ -->
+<div class="tool-sec">
+  <div class="tool-sec-hdr">
+    <h2>📰 What's New in AI</h2>
+    <span class="tool-built-badge">Live Feed</span>
+  </div>
+  <div class="news-wrap">
+    <div class="news-header">
+      <div>
+        <div class="ipb-title">AI news, <span style="color:var(--orange);">right now.</span></div>
+        <div class="ipb-subtitle">Top stories from Hacker News · updates every visit</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="news-tabs">
+          <button class="news-tab active" onclick="newsTab(this,'ai')">🤖 AI</button>
+          <button class="news-tab" onclick="newsTab(this,'llm')">🧠 LLM</button>
+          <button class="news-tab" onclick="newsTab(this,'image')">🎨 Image</button>
+          <button class="news-tab" onclick="newsTab(this,'startup')">🚀 Startups</button>
+        </div>
+        <button class="news-refresh" onclick="loadNews(currentNewsQuery)">
+          <i class="ph ph-arrow-clockwise"></i> Refresh
+        </button>
+      </div>
+    </div>
+    <div class="news-list" id="newsList">
+      <div class="news-loading"><div class="std-spinner"></div> Loading latest AI news...</div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
+
+
+
+
+
+
+
+<!-- 💬 CHAT AI -->
+<section class="cs-section" data-cat="chat">
+  <div class="sec-hdr">
+    <h2>💬 Chat AI</h2>
+    <span class="sec-count">5 tools</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://chat.openai.com" target="_blank" rel="noopener" data-cat="chat" data-name="ChatGPT">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=openai.com&sz=128" alt="ChatGPT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🤖</div>
+      <div class="tc-name">ChatGPT</div>
+      <div class="tc-desc">The world's most popular AI assistant. GPT-4o, advanced reasoning, image understanding and more.</div>
+      <span class="tc-tag">OpenAI</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://claude.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Claude">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">✨</div>
+      <div class="tc-name">Claude</div>
+      <div class="tc-desc">Anthropic's AI — exceptional writing, analysis and coding. Best for long-context tasks and nuanced reasoning.</div>
+      <span class="tc-tag">Anthropic</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://gemini.google.com" target="_blank" rel="noopener" data-cat="chat" data-name="Gemini">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">💎</div>
+      <div class="tc-name">Gemini</div>
+      <div class="tc-desc">Google's multimodal AI. Integrates with Google Workspace and has access to real-time search.</div>
+      <span class="tc-tag">Google</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://perplexity.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Perplexity">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" alt="Perplexity" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🔍</div>
+      <div class="tc-name">Perplexity</div>
+      <div class="tc-desc">AI-powered search engine with real-time web access and cited sources. Best for research.</div>
+      <span class="tc-tag">Search AI</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://deepseek.com" target="_blank" rel="noopener" data-cat="chat" data-name="DeepSeek">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=128" alt="DeepSeek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🧠</div>
+      <div class="tc-name">DeepSeek</div>
+      <div class="tc-desc">Powerful open-source reasoning model. Exceptional at math, coding and technical problem solving.</div>
+      <span class="tc-tag">Open Source</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 🎨 IMAGE AI -->
+<section class="cs-section" data-cat="image">
+  <div class="sec-hdr">
+    <h2>🎨 Image AI</h2>
+    <span class="sec-count">4 tools</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://midjourney.com" target="_blank" rel="noopener" data-cat="image" data-name="Midjourney">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=128" alt="Midjourney" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🖼️</div>
+      <div class="tc-name">Midjourney</div>
+      <div class="tc-desc">The gold standard for AI art. Unmatched aesthetic quality for illustrations, concept art and photography.</div>
+      <span class="tc-tag">Image Gen</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://firefly.adobe.com" target="_blank" rel="noopener" data-cat="image" data-name="Adobe Firefly">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" alt="Adobe Firefly" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🔥</div>
+      <div class="tc-name">Adobe Firefly</div>
+      <div class="tc-desc">Commercially safe AI generation integrated into the Adobe ecosystem. Perfect for design workflows.</div>
+      <span class="tc-tag">Adobe</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://ideogram.ai" target="_blank" rel="noopener" data-cat="image" data-name="Ideogram">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=128" alt="Ideogram" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">💡</div>
+      <div class="tc-name">Ideogram</div>
+      <div class="tc-desc">Best AI for generating text inside images. Posters, logos, and typography that actually look right.</div>
+      <span class="tc-tag">Text in Image</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://leonardo.ai" target="_blank" rel="noopener" data-cat="image" data-name="Leonardo AI">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=128" alt="Leonardo AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🎭</div>
+      <div class="tc-name">Leonardo AI</div>
+      <div class="tc-desc">Fine-tuned AI models for game assets, characters, and consistent style generation.</div>
+      <span class="tc-tag">Game &amp; Art</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 🎬 VIDEO AI -->
+<section class="cs-section" data-cat="video">
+  <div class="sec-hdr">
+    <h2>🎬 Video AI</h2>
+    <span class="sec-count">5 tools</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://sora.com" target="_blank" rel="noopener" data-cat="video" data-name="Sora">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=sora.com&sz=128" alt="Sora" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🎞️</div>
+      <div class="tc-name">Sora</div>
+      <div class="tc-desc">OpenAI's text-to-video model. Cinematic quality, complex scenes, realistic motion.</div>
+      <span class="tc-tag">OpenAI</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://runwayml.com" target="_blank" rel="noopener" data-cat="video" data-name="Runway">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=128" alt="Runway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🚀</div>
+      <div class="tc-name">Runway</div>
+      <div class="tc-desc">Professional AI video suite. Gen-3 video generation, inpainting, motion brush and more.</div>
+      <span class="tc-tag">Pro Video</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://pika.art" target="_blank" rel="noopener" data-cat="video" data-name="Pika Labs">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=pika.art&sz=128" alt="Pika" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-name">Pika Labs</div>
+      <div class="tc-desc">Fast, fun AI video generation. Great for short social clips, animations and quick edits.</div>
+      <span class="tc-tag">Social Video</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://lumalabs.ai" target="_blank" rel="noopener" data-cat="video" data-name="Luma AI">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128" alt="Luma AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🌟</div>
+      <div class="tc-name">Luma AI</div>
+      <div class="tc-desc">Dream Machine — high-quality video generation with realistic physics and fluid motion.</div>
+      <span class="tc-tag">3D &amp; Video</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://heygen.com" target="_blank" rel="noopener" data-cat="video" data-name="HeyGen">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=128" alt="HeyGen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">👤</div>
+      <div class="tc-name">HeyGen</div>
+      <div class="tc-desc">AI avatar video creation. Create talking head videos, translate content, scale video production.</div>
+      <span class="tc-tag">Avatar Video</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 💻 CODE AI -->
+<section class="cs-section" data-cat="code">
+  <div class="sec-hdr">
+    <h2>💻 Code AI</h2>
+    <span class="sec-count">4 tools</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://cursor.sh" target="_blank" rel="noopener" data-cat="code" data-name="Cursor">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=128" alt="Cursor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">⌨️</div>
+      <div class="tc-name">Cursor</div>
+      <div class="tc-desc">The AI-first code editor. Autocomplete, chat, and inline edits across your entire codebase.</div>
+      <span class="tc-tag">Code Editor</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://v0.dev" target="_blank" rel="noopener" data-cat="code" data-name="v0 by Vercel">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=v0.dev&sz=128" alt="v0" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">▲</div>
+      <div class="tc-name">v0 by Vercel</div>
+      <div class="tc-desc">Generate React UI components from text prompts. Ships production-ready Tailwind and shadcn code.</div>
+      <span class="tc-tag">UI Generation</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://bolt.new" target="_blank" rel="noopener" data-cat="code" data-name="Bolt.new">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=bolt.new&sz=128" alt="Bolt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-name">Bolt.new</div>
+      <div class="tc-desc">Full-stack AI app builder. Build, run and deploy complete apps from a single prompt in the browser.</div>
+      <span class="tc-tag">App Builder</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://replit.com" target="_blank" rel="noopener" data-cat="code" data-name="Replit AI">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=replit.com&sz=128" alt="Replit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🔄</div>
+      <div class="tc-name">Replit AI</div>
+      <div class="tc-desc">Cloud IDE with AI pair programmer. Code, run, and deploy from anywhere — no setup required.</div>
+      <span class="tc-tag">Cloud IDE</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 🎵 AUDIO AI -->
+<section class="cs-section" data-cat="audio">
+  <div class="sec-hdr">
+    <h2>🎵 Audio AI</h2>
+    <span class="sec-count">3 tools</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://suno.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Suno">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=suno.ai&sz=128" alt="Suno" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🎸</div>
+      <div class="tc-name">Suno</div>
+      <div class="tc-desc">Text-to-song AI. Generate full songs with vocals, instruments, and lyrics from a simple prompt.</div>
+      <span class="tc-tag">Music Gen</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://udio.com" target="_blank" rel="noopener" data-cat="audio" data-name="Udio">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=udio.com&sz=128" alt="Udio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🎵</div>
+      <div class="tc-name">Udio</div>
+      <div class="tc-desc">AI music generation with exceptional audio quality. Fine-grained style and genre control.</div>
+      <span class="tc-tag">Music Gen</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+    <a class="tool-card" href="https://murf.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Murf AI">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=murf.ai&sz=128" alt="Murf" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">🔊</div>
+      <div class="tc-name">Murf AI</div>
+      <div class="tc-desc">Professional AI voiceover platform. 120+ voices, 20+ languages. Perfect for videos and podcasts.</div>
+      <span class="tc-tag">Voice Over</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ⚡ PRODUCTIVITY -->
+<section class="cs-section" data-cat="productivity">
+  <div class="sec-hdr">
+    <h2>⚡ Productivity</h2>
+    <span class="sec-count">1 tool</span>
+  </div>
+  <div class="tool-grid">
+    <a class="tool-card" href="https://promptmetheus.com/?via=fin" target="_blank" rel="noopener" data-cat="productivity" data-name="Promptmetheus">
+      <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=promptmetheus.com&sz=128" alt="Promptmetheus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-name">Promptmetheus</div>
+      <div class="tc-desc">Professional prompt engineering IDE. Build, test, version and optimize prompts like a pro.</div>
+      <span class="tc-tag">Prompt Tools</span>
+      <i class="ph ph-arrow-up-right tc-arrow"></i>
+    </a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-text">Prompt<span>aholics</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="library.html" class="footer-lnk">Library</a>
+      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
+      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <span class="footer-sep">|</span>
+      <a href="about.html" class="footer-lnk">About Us</a>
+      <a href="blog.html" class="footer-lnk">Blog</a>
+      <a href="contact.html" class="footer-lnk">Contact</a>
+      <span class="footer-sep">|</span>
+      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
+      <a href="terms.html" class="footer-lnk accent">Terms</a>
+    </div>
+    <div class="footer-copy">© 2026 Promptaholics · Curated AI tools for creators</div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <a class="bn-item active" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
+  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
 </nav>
 
 <script>
-var TOOLS = [
-  // FEATURED
-  {name:'OpenArt',     cat:'image',  tag:'AI Image & Video Suite',   url:'https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg', badge:'',    feat:true},
-  {name:'ElevenLabs', cat:'audio',  tag:'AI Voice · Text to Speech', url:'https://try.elevenlabs.io/pchhf50bim6w', badge:'HOT', feat:true},
-  {name:'Promptmetheus',cat:'productivity',tag:'Prompt IDE & Optimizer',url:'https://promptmetheus.com/?via=fin', badge:'NEW', feat:true},
-  {name:'Writesonic', cat:'writing',tag:'AI Writer & SEO Tool',       url:'https://writesonic.com',               badge:'',    feat:true},
-  // CHAT
-  {name:'ChatGPT',    cat:'chat',   tag:'OpenAI · GPT-4o & GPT-5',  url:'https://chat.openai.com',              badge:'',    feat:true},
-  {name:'Claude',     cat:'chat',   tag:'Anthropic · Sonnet 4.6',    url:'https://claude.ai',                    badge:'',    feat:true},
-  {name:'Gemini',     cat:'chat',   tag:'Google · Gemini 2.5',       url:'https://gemini.google.com',            badge:'',    feat:false},
-  {name:'Perplexity', cat:'research',tag:'AI Search Engine',          url:'https://perplexity.ai',               badge:'',    feat:false},
-  {name:'Grok',       cat:'chat',   tag:'xAI · Real-time Info',      url:'https://grok.x.ai',                   badge:'NEW', feat:false},
-  {name:'Meta AI',    cat:'chat',   tag:'Meta · Llama 3',            url:'https://meta.ai',                      badge:'',    feat:false},
-  {name:'Microsoft Copilot',cat:'chat',tag:'Microsoft · GPT-4',      url:'https://copilot.microsoft.com',        badge:'',    feat:false},
-  {name:'DeepSeek',   cat:'chat',   tag:'DeepSeek · R1 Reasoning',   url:'https://chat.deepseek.com',            badge:'HOT', feat:false},
-  // IMAGE
-  {name:'Midjourney', cat:'image',  tag:'v7 · Discord + Web',        url:'https://midjourney.com',               badge:'',    feat:true},
-  {name:'DALL·E 3',   cat:'image',  tag:'OpenAI · In ChatGPT',       url:'https://openai.com/dall-e-3',          badge:'',    feat:false},
-  {name:'Stable Diffusion',cat:'image',tag:'Open Source · SDXL',    url:'https://stability.ai',                 badge:'',    feat:false},
-  {name:'Adobe Firefly',cat:'image',tag:'Adobe · Commercial Safe',   url:'https://firefly.adobe.com',            badge:'',    feat:false},
-  {name:'Ideogram',   cat:'image',  tag:'v3 · Text in Images',       url:'https://ideogram.ai',                  badge:'NEW', feat:false},
-  {name:'Leonardo AI',cat:'image',  tag:'AI Image & Assets',         url:'https://leonardo.ai',                  badge:'',    feat:false},
-  {name:'Canva AI',   cat:'image',  tag:'Design + AI Magic',         url:'https://canva.com',                    badge:'',    feat:false},
-  // VIDEO
-  {name:'Sora',       cat:'video',  tag:'OpenAI · Text to Video',    url:'https://sora.com',                     badge:'HOT', feat:true},
-  {name:'Runway',     cat:'video',  tag:'Gen-3 Alpha',               url:'https://runwayml.com',                 badge:'',    feat:false},
-  {name:'Kling AI',   cat:'video',  tag:'Kuaishou · Video AI',       url:'https://klingai.com',                  badge:'HOT', feat:false},
-  {name:'Pika Labs',  cat:'video',  tag:'Video Generation',          url:'https://pika.art',                     badge:'',    feat:false},
-  {name:'Luma AI',    cat:'video',  tag:'Dream Machine',             url:'https://lumalabs.ai/dream-machine',    badge:'',    feat:false},
-  {name:'HeyGen',     cat:'video',  tag:'AI Avatar Videos',          url:'https://heygen.com',                   badge:'',    feat:false},
-  {name:'Synthesia',  cat:'video',  tag:'AI Video Presenter',        url:'https://synthesia.io',                 badge:'',    feat:false},
-  // WRITING
-  {name:'Copy.ai',    cat:'writing',tag:'AI Marketing Copy',         url:'https://copy.ai',                      badge:'',    feat:false},
-  {name:'Jasper',     cat:'writing',tag:'AI Content Platform',       url:'https://jasper.ai',                    badge:'',    feat:false},
-  {name:'Grammarly',  cat:'writing',tag:'AI Writing Assistant',      url:'https://grammarly.com',                badge:'',    feat:false},
-  {name:'Rytr',       cat:'writing',tag:'AI Writing Tool',           url:'https://rytr.me',                      badge:'',    feat:false},
-  // CODE
-  {name:'GitHub Copilot',cat:'code',tag:'AI Code Assistant',         url:'https://github.com/features/copilot',  badge:'',    feat:false},
-  {name:'Cursor',     cat:'code',   tag:'AI Code Editor',            url:'https://cursor.sh',                    badge:'HOT', feat:false},
-  {name:'Replit AI',  cat:'code',   tag:'AI Coding Platform',        url:'https://replit.com',                   badge:'',    feat:false},
-  {name:'v0',         cat:'code',   tag:'Vercel · UI Generation',    url:'https://v0.dev',                       badge:'',    feat:false},
-  {name:'Bolt.new',   cat:'code',   tag:'Full-Stack AI Builder',     url:'https://bolt.new',                     badge:'HOT', feat:false},
-  // AUDIO
-  {name:'Suno',       cat:'audio',  tag:'AI Music Generation',       url:'https://suno.ai',                      badge:'',    feat:false},
-  {name:'Udio',       cat:'audio',  tag:'AI Music Creator',          url:'https://udio.com',                     badge:'',    feat:false},
-  {name:'Murf AI',    cat:'audio',  tag:'AI Voiceover Studio',       url:'https://murf.ai',                      badge:'',    feat:false},
-  {name:'Descript',   cat:'audio',  tag:'Audio & Video Editing',     url:'https://descript.com',                 badge:'',    feat:false},
-  // PRODUCTIVITY
-  {name:'Notion AI',  cat:'productivity',tag:'AI Workspace',         url:'https://notion.so/product/ai',         badge:'',    feat:false},
-  {name:'Make',       cat:'productivity',tag:'AI Automation',        url:'https://make.com',                     badge:'',    feat:false},
-  {name:'Zapier',     cat:'productivity',tag:'Workflow Automation',  url:'https://zapier.com',                   badge:'',    feat:false},
-  // SOCIAL
-  {name:'Buffer',     cat:'social', tag:'Social Media Scheduler',    url:'https://buffer.com',                   badge:'',    feat:false},
-  {name:'AdCreative', cat:'social', tag:'AI Ad Creative',            url:'https://adcreative.ai',                badge:'',    feat:false},
-  // RESEARCH
-  {name:'Elicit',     cat:'research',tag:'AI Research Tool',         url:'https://elicit.com',                   badge:'',    feat:false},
-  {name:'Consensus',  cat:'research',tag:'AI Paper Search',          url:'https://consensus.app',                badge:'',    feat:false},
-];
-
-var CATS = [
-  {id:'all',label:'All Tools'},
-  {id:'chat',label:'Chat & LLMs'},
-  {id:'image',label:'Image'},
-  {id:'video',label:'Video'},
-  {id:'writing',label:'Writing'},
-  {id:'code',label:'Code'},
-  {id:'audio',label:'Audio'},
-  {id:'productivity',label:'Productivity'},
-  {id:'social',label:'Social'},
-  {id:'research',label:'Research'},
-];
-
-var activeCat = 'all';
-var searchQ   = '';
-var saved = [];
-try { saved = JSON.parse(localStorage.getItem('pa_tools')||'[]'); } catch(e){}
-
-// ── LOGO: use img tag with src + onerror fallback ─────────────
-// Key insight: set onerror as a function AFTER creating element
-// so no inline JS quote issues
-
-var EMOJI = {"OpenArt": "🎨", "ElevenLabs": "🎙️", "Promptmetheus": "⚡", "Writesonic": "✍️", "ChatGPT": "🤖", "Claude": "🧠", "Gemini": "✨", "Perplexity": "🔍", "Grok": "🚀", "Meta AI": "🌐", "Microsoft Copilot": "💼", "DeepSeek": "🔬", "Midjourney": "🎨", "DALL·E 3": "🖼️", "Stable Diffusion": "🌈", "Adobe Firefly": "🔥", "Ideogram": "💡", "Leonardo AI": "🎭", "Canva AI": "🎪", "Sora": "🎬", "Runway": "🎥", "Kling AI": "📽️", "Pika Labs": "⚡", "Luma AI": "🌙", "HeyGen": "👤", "Synthesia": "🎭", "Copy.ai": "✏️", "Jasper": "📝", "Grammarly": "✅", "Rytr": "🖊️", "GitHub Copilot": "💻", "Cursor": "🖱️", "Replit AI": "🔧", "v0": "▲", "Bolt.new": "⚡", "Suno": "🎵", "Udio": "🎸", "Murf AI": "🔊", "Descript": "🎙️", "Notion AI": "📋", "Make": "🔄", "Zapier": "⚡", "Buffer": "📱", "AdCreative": "🎯", "Elicit": "🔬", "Consensus": "📊"};
-
-function makeLogo(name, url) {
-  var domain = '';
-  try {
-    var h = new URL(url).hostname;
-    domain = h.replace(/^www\./,'');
-  } catch(e){}
-
-  var emoji = EMOJI[name] || '🔧';
-
-  if (!domain) {
-    return '<div class="tc-logo"><span class="fallback">' + emoji + '</span></div>';
-  }
-
-  var src = 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=128';
-
-  // Only img — no span backup visible alongside it
-  return '<div class="tc-logo">' +
-    '<img src="' + src + '" alt="' + name + '" width="36" height="36" data-fb="' + emoji + '" />' +
-  '</div>';
-}
-
-function initLogos() {
-  document.querySelectorAll('.tc-logo img').forEach(function(img) {
-    img.onerror = function() {
-      // Replace entire logo div contents with just emoji
-      this.parentNode.innerHTML = '<span class="fallback">' + (this.getAttribute('data-fb') || '🔧') + '</span>';
-    };
-  });
-}
-
-// ── CARD HTML ─────────────────────────────────────────────────
-function card(t) {
-  var isSaved  = saved.indexOf(t.name) !== -1;
-  var badge    = t.badge ? '<span class="tc-badge badge-' + (t.badge==='HOT'?'hot':'new') + '">' + t.badge + '</span>' : '';
-  var saveIcon = isSaved ? '<i class="ph ph-star-fill" style="color:var(--orange)"></i>' : '<i class="ph ph-star"></i>';
-  var logo     = makeLogo(t.name, t.url);
-  
-  return '<div class="tc">' +
-    logo +
-    '<div class="tc-info">' +
-      '<div class="tc-name">' + t.name + '</div>' +
-      '<div class="tc-tag">'  + t.tag  + '</div>' +
-    '</div>' +
-    '<div class="tc-actions">' +
-      '<button class="tc-save' + (isSaved?' on':'') + '" data-n="' + t.name + '" onclick="doSave(this)">' + saveIcon + '</button>' +
-      '<a class="tc-visit" href="' + t.url + '" target="_blank" rel="noopener">Visit <i class="ph ph-arrow-up-right"></i></a>' +
-    '</div>' +
-    badge +
-  '</div>';
-}
-
-// ── FILTER ────────────────────────────────────────────────────
-function getList() {
-  return TOOLS.filter(function(t) {
-    var catOk  = activeCat === 'all' || t.cat === activeCat;
-    var srchOk = !searchQ  ||
-      t.name.toLowerCase().includes(searchQ) ||
-      t.tag.toLowerCase().includes(searchQ)  ||
-      t.cat.toLowerCase().includes(searchQ);
-    return catOk && srchOk;
-  });
-}
-
-// ── RENDER ────────────────────────────────────────────────────
-function render() {
-  var list     = getList();
-  var showFeat = activeCat === 'all' && !searchQ;
-  var featured = showFeat ? list.filter(function(t){ return t.feat; }) : [];
-  var rest     = showFeat ? list.filter(function(t){ return !t.feat; }) : list;
-
-  // Featured
-  var featSec  = document.getElementById('featSec');
-  var featGrid = document.getElementById('featGrid');
-  if (featured.length) {
-    featSec.style.display = 'block';
-    featGrid.innerHTML = featured.map(card).join('');
-  } else {
-    featSec.style.display = 'none';
-  }
-
-  // All tools
-  var allSec   = document.getElementById('allSec');
-  var grid     = document.getElementById('grid');
-  var allLabel = document.getElementById('allLabel');
-  var empty    = document.getElementById('empty');
-
-  if (list.length === 0) {
-    allSec.style.display = 'none';
-    empty.style.display  = 'block';
-  } else {
-    allSec.style.display = 'block';
-    empty.style.display  = 'none';
-    var catName = CATS.find(function(c){ return c.id === activeCat; });
-    allLabel.textContent = searchQ ? 'Results for "' + searchQ + '"' :
-      (activeCat === 'all' ? 'All Tools' : (catName ? catName.label : 'Tools'));
-    grid.innerHTML = rest.map(card).join('');
-  }
-
-  // Wire up onerror AFTER render
-  initLogos();
-}
-
-// ── FILTERS RENDER ────────────────────────────────────────────
-function renderFilters() {
-  document.getElementById('filters').innerHTML = CATS.map(function(c) {
-    return '<button class="ftab' + (activeCat===c.id?' on':'') + '" onclick="setFilter(\'' + c.id + '\')">' + c.label + '</button>';
-  }).join('');
-}
-
-function setFilter(cat) { activeCat = cat; renderFilters(); render(); }
-
-// ── SEARCH ────────────────────────────────────────────────────
-function doSearch(v) {
-  searchQ = v.trim().toLowerCase();
-  document.getElementById('srchX').classList.toggle('show', searchQ.length > 0);
-  render();
-}
-function clearSearch() {
-  document.getElementById('srch').value = '';
-  searchQ = '';
-  document.getElementById('srchX').classList.remove('show');
-  render();
-}
-
-// ── SAVE ──────────────────────────────────────────────────────
-function doSave(btn) {
-  var name = btn.getAttribute('data-n');
-  var idx  = saved.indexOf(name);
-  if (idx === -1) { saved.push(name); } else { saved.splice(idx, 1); }
-  localStorage.setItem('pa_tools', JSON.stringify(saved));
-  render();
-}
-
-// ── SAVED MODAL ───────────────────────────────────────────────
-function openSaved(e) {
-  e.preventDefault();
-  var n = saved.length;
-  if (!n) { alert('No saved tools yet. Tap ☆ on any tool to save it.'); return; }
-  alert('You have ' + n + ' saved tool' + (n>1?'s':'') + ':\n\n' + saved.join('\n'));
-}
-
-// ── MENU ──────────────────────────────────────────────────────
-function toggleMenu() {
-  document.getElementById('overlay').classList.toggle('open');
-  document.getElementById('smenu').classList.toggle('open');
-}
-
 // ── THEME ─────────────────────────────────────────────────────
 var theme = localStorage.getItem('pa_theme') || 'dark';
-if (theme === 'light') document.body.classList.add('light');
-function toggleTheme() {
+if(theme === 'light') document.body.classList.add('light');
+function toggleTheme(){
   theme = theme === 'dark' ? 'light' : 'dark';
   localStorage.setItem('pa_theme', theme);
-  document.body.classList.toggle('light');
-  updateThemeBtn();
+  document.body.classList.toggle('light', theme === 'light');
+  var tb = document.getElementById('themeBtn');
+  var sm = document.getElementById('smThemeIcon');
+  var icon = theme === 'light' ? '☀️' : '🌙';
+  if(tb) tb.textContent = icon;
+  if(sm) sm.textContent = icon;
 }
-function updateThemeBtn() {
-  var btn = document.getElementById('themeBtn');
-  if (btn) btn.innerHTML = theme === 'light' ? '<i class="ph ph-sun"></i>' : '<i class="ph ph-moon"></i>';
-}
-updateThemeBtn();
+(function(){
+  var icon = theme === 'light' ? '☀️' : '🌙';
+  var tb = document.getElementById('themeBtn');
+  var sm = document.getElementById('smThemeIcon');
+  if(tb) tb.textContent = icon;
+  if(sm) sm.textContent = icon;
+})();
 
-// ── INIT ──────────────────────────────────────────────────────
-renderFilters();
-render();
+// ── MENU ─────────────────────────────────────────────────────
+function toggleMenu(){
+  var m = document.getElementById('slideMenu');
+  var o = document.getElementById('menuOverlay');
+  m.classList.toggle('open');
+  o.classList.toggle('open');
+  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    document.getElementById('slideMenu').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// ── FLIP CARD ─────────────────────────────────────────────────
+// On mobile: first tap flips, second tap opens link
+// On desktop: hover flips, click opens link
+function handleFlipClick(e, card, url){
+  var isMobile = window.innerWidth < 768;
+  if(isMobile){
+    if(!card.classList.contains('flipped')){
+      e.preventDefault();
+      card.classList.add('flipped');
+      // Auto-flip back after 4s if no second tap
+      clearTimeout(card._flipTimer);
+      card._flipTimer = setTimeout(function(){ card.classList.remove('flipped'); }, 4000);
+    } else {
+      window.open(url, '_blank', 'noopener');
+      card.classList.remove('flipped');
+    }
+  } else {
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
+// ── FILTER BY CATEGORY ────────────────────────────────────────
+function filterCat(cat, btn){
+  // Update active pill
+  document.querySelectorAll('.cs-cat').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  // Clear search
+  document.getElementById('toolSearch').value = '';
+
+  var sections = document.querySelectorAll('.cs-section, .section-divider');
+  if(cat === 'all'){
+    sections.forEach(function(s){ s.classList.remove('hidden'); });
+    document.querySelectorAll('.tool-card, .flip-card').forEach(function(c){ c.classList.remove('hidden'); });
+    return;
+  }
+
+  // Show/hide sections
+  document.querySelectorAll('.cs-section').forEach(function(sec){
+    var secCat = sec.getAttribute('data-cat');
+    sec.classList.toggle('hidden', secCat !== cat);
+  });
+  // Show/hide dividers based on visible sections
+  document.querySelectorAll('.section-divider').forEach(function(d){ d.classList.add('hidden'); });
+}
+
+// ── SEARCH FILTER ─────────────────────────────────────────────
+function filterTools(){
+  var q = document.getElementById('toolSearch').value.toLowerCase().trim();
+
+  // Reset category pills
+  document.querySelectorAll('.cs-cat').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.cs-cat')[0].classList.add('active');
+
+  if(!q){
+    document.querySelectorAll('.cs-section, .section-divider').forEach(function(s){ s.classList.remove('hidden'); });
+    document.querySelectorAll('.tool-card, .flip-card').forEach(function(c){ c.classList.remove('hidden'); });
+    return;
+  }
+
+  // Hide all, show matches
+  document.querySelectorAll('.tool-card, .flip-card').forEach(function(card){
+    var name = card.getAttribute('data-name') || '';
+    var matches = name.toLowerCase().includes(q);
+    card.classList.toggle('hidden', !matches);
+  });
+
+  // Show sections that have visible cards
+  document.querySelectorAll('.cs-section').forEach(function(sec){
+    var visibleCards = sec.querySelectorAll('.tool-card:not(.hidden), .flip-card:not(.hidden)');
+    sec.classList.toggle('hidden', visibleCards.length === 0);
+  });
+  document.querySelectorAll('.section-divider').forEach(function(d){ d.classList.add('hidden'); });
+}
+
+
+// ══════════════════════════════════════════
+// TOOL 4 — COST CALCULATOR
+// ══════════════════════════════════════════
+var calcTools = [
+  { name:'ChatGPT Plus',  domain:'openai.com',     cost:20,  free:'Free (GPT-3.5)' },
+  { name:'Claude Pro',    domain:'claude.ai',      cost:20,  free:'Free tier' },
+  { name:'Midjourney',    domain:'midjourney.com', cost:10,  free:'No free tier' },
+  { name:'Runway Gen-3',  domain:'runwayml.com',   cost:15,  free:'Limited credits' },
+  { name:'ElevenLabs',    domain:'elevenlabs.io',  cost:22,  free:'Free (10k chars)' },
+  { name:'Cursor Pro',    domain:'cursor.sh',      cost:20,  free:'Free (2 weeks)' },
+  { name:'Perplexity',    domain:'perplexity.ai',  cost:20,  free:'Free search' },
+  { name:'Suno Pro',      domain:'suno.ai',        cost:10,  free:'Free (10 songs)' },
+];
+var calcEnabled = {};
+
+function calcInit(){
+  var list = document.getElementById('calcToolList');
+  if(!list) return;
+  list.innerHTML = calcTools.map(function(t,i){
+    return '<div class="calc-tool-row">' +
+      '<img class="calc-tool-logo" src="https://www.google.com/s2/favicons?domain='+t.domain+'&sz=64" alt="'+t.name+'" onerror="this.style.opacity=0"/>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div class="calc-tool-name">'+t.name+'</div>' +
+        '<div class="calc-tool-plan">$'+t.cost+'/mo · '+t.free+'</div>' +
+      '</div>' +
+      '<label class="calc-toggle"><input type="checkbox" id="calc-'+i+'" onchange="calcUpdate()"/><span class="calc-toggle-slider"></span></label>' +
+    '</div>';
+  }).join('');
+  calcUpdate();
+}
+
+function calcUpdate(){
+  var total = 0;
+  var active = [];
+  var hours = parseInt(document.getElementById('hoursSlider').value) || 40;
+  document.getElementById('hoursVal').textContent = hours + 'h';
+
+  calcTools.forEach(function(t,i){
+    var cb = document.getElementById('calc-'+i);
+    if(cb && cb.checked){ total += t.cost; active.push(t); }
+  });
+
+  document.getElementById('calcTotal').textContent = '$' + total;
+
+  var bd = document.getElementById('calcBreakdown');
+  if(active.length){
+    bd.innerHTML = active.map(function(t){
+      return '<div class="calc-breakdown-row">' +
+        '<span class="calc-breakdown-name">'+t.name+'</span>' +
+        '<span class="calc-breakdown-cost">$'+t.cost+'/mo</span>' +
+      '</div>';
+    }).join('') +
+    '<div class="calc-breakdown-row" style="border:1px solid var(--orange);background:rgba(255,98,36,.06);">' +
+      '<span class="calc-breakdown-name" style="color:var(--ink);">Cost per hour used</span>' +
+      '<span class="calc-breakdown-cost">$'+(total/hours).toFixed(2)+'/h</span>' +
+    '</div>';
+  } else {
+    bd.innerHTML = '<div style="text-align:center;padding:20px;color:var(--ink3);font-size:13px;">Toggle tools on the left to see breakdown</div>';
+  }
+
+  // Tip
+  var tip = document.getElementById('calcTip');
+  if(total === 0){
+    tip.textContent = "💡 Toggle the tools you use to calculate your monthly AI spend.";
+  } else if(total <= 20){
+    tip.textContent = ["✅ Efficient stack! $",total,"/mo is lean. Youre getting a lot of AI for the price."].join("");
+  } else if(total <= 60){
+    tip.textContent = "⚡ Solid power-user stack. Consider: are you using all these tools equally?";
+  } else {
+    tip.textContent = "🔥 $"+total+"/mo is serious spend. Make sure each tool earns its keep — free tiers exist for most.";
+  }
+}
+
+// ══════════════════════════════════════════
+// TOOL 5 — IMAGE STYLE DESCRIBER (URL-based, works live)
+// ══════════════════════════════════════════
+var stdTarget = 'midjourney';
+
+function stdSetTarget(btn){
+  stdTarget = btn.getAttribute('data-target');
+  document.querySelectorAll('.std-style-chip').forEach(function(b){ b.classList.remove('sel'); });
+  btn.classList.add('sel');
+}
+
+function stdLoadExample(btn, url){
+  document.getElementById('stdUrl').value = url;
+  // Show preview
+  var prev = document.getElementById('stdPreview');
+  var wrap = document.getElementById('stdPreviewWrap');
+  prev.src = url;
+  prev.onerror = function(){ wrap.style.display='none'; };
+  prev.onload  = function(){ wrap.style.display='block'; };
+  // Auto-describe after short delay
+  setTimeout(stdDescribeImage, 300);
+}
+
+function stdReset(){
+  document.getElementById('stdUrl').value = '';
+  var prev = document.getElementById('stdPreview');
+  var wrap = document.getElementById('stdPreviewWrap');
+  prev.src = '';
+  wrap.style.display = 'none';
+  var output  = document.getElementById('stdOutput');
+  var empty   = document.getElementById('stdEmpty');
+  var copyBtn = document.getElementById('stdCopyBtn');
+  output.innerHTML = '';
+  output.appendChild(empty);
+  empty.style.display = 'block';
+  copyBtn.style.display = 'none';
+}
+
+async function stdDescribeImage(){
+  var url    = (document.getElementById('stdUrl').value || '').trim();
+  if(!url){ 
+    alert('Please paste an image URL first.');
+    return;
+  }
+
+  // Show preview
+  var prev = document.getElementById('stdPreview');
+  var wrap = document.getElementById('stdPreviewWrap');
+  prev.src = url;
+  prev.onerror = function(){ wrap.style.display='none'; };
+  prev.onload  = function(){ wrap.style.display='block'; };
+
+  var output  = document.getElementById('stdOutput');
+  var empty   = document.getElementById('stdEmpty');
+  var copyBtn = document.getElementById('stdCopyBtn');
+  var btn     = document.getElementById('stdDescribeBtn');
+
+  // Loading state
+  empty.style.display = 'none';
+  output.innerHTML = '<div class="std-loading"><div class="std-spinner"></div> Claude is analysing the image...</div>';
+  copyBtn.style.display = 'none';
+  if(btn){ btn.disabled=true; btn.textContent='Analysing...'; }
+
+  var targetSuffix = {
+    midjourney: ' --ar 16:9 --v 7 --stylize 750 --quality 2',
+    dalle:      ', ultra detailed, high quality, 4K resolution',
+    flux:       ', ultra high detail, professional photography quality',
+    firefly:    ', ultra detailed, commercially safe, 4K',
+    general:    ''
+  };
+
+  var sysPrompt = 'You are an expert AI image prompt engineer. The user will provide an image URL. Analyse it thoroughly and write a detailed generation prompt covering: subject and composition, art style and medium, lighting conditions and quality, color palette and mood, camera angle and lens if applicable, and any distinctive visual elements. '
+    + 'Output ONLY the prompt — no explanation, no preamble, no markdown, no quotes. Just the raw prompt string.'
+    + (stdTarget === 'midjourney' ? ' End with: --ar 16:9 --v 7 --stylize 750 --quality 2' : '')
+    + (stdTarget === 'dalle'      ? ' End with: ultra detailed, 4K resolution, photorealistic.' : '')
+    + (stdTarget === 'flux'       ? ' End with: ultra high detail, professional photography.' : '')
+    + (stdTarget === 'firefly'    ? ' End with: commercially safe, ultra detailed, 4K.' : '');
+
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-opus-4-6',
+        max_tokens: 500,
+        system: sysPrompt,
+        messages: [{
+          role: 'user',
+          content: [{
+            type: 'image',
+            source: {
+              type: 'url',
+              url: url
+            }
+          }, {
+            type: 'text',
+            text: 'Analyse this image and write an AI image generation prompt optimised for ' + stdTarget + '.'
+          }]
+        }]
+      })
+    });
+
+    var data = await resp.json();
+
+    if(data.error){
+      throw new Error(data.error.message || 'API error');
+    }
+
+    var text = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text.trim() : '';
+    if(!text) throw new Error('No response from Claude');
+
+    output.textContent = text;
+    copyBtn.style.display = 'flex';
+
+  } catch(err) {
+    var msg = err.message || 'Unknown error';
+    if(msg.includes('Could not download') || msg.includes('url') || msg.includes('URL')){
+      output.innerHTML = '<div style="color:var(--ink2);font-family:sans-serif;font-size:12px;line-height:1.6;">'
+        + '⚠️ Could not access that image URL.<br><br>'
+        + '<strong>Tips:</strong><br>'
+        + '• Use a direct image link ending in .jpg, .png, or .webp<br>'
+        + '• Try one of the example images on the left<br>'
+        + '• Unsplash, Wikimedia, and Imgur direct links work well'
+        + '</div>';
+    } else {
+      output.innerHTML = '<div style="color:var(--ink2);font-family:sans-serif;font-size:12px;line-height:1.6;">⚠️ ' + msg + '</div>';
+    }
+    copyBtn.style.display = 'none';
+  }
+
+  if(btn){ btn.disabled=false; btn.textContent='✨ Describe This Image'; }
+}
+
+function stdCopy(){
+  var text = document.getElementById('stdOutput').textContent.trim();
+  if(!text) return;
+  var btn = document.getElementById('stdCopyBtn');
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text);
+  } else {
+    var ta=document.createElement('textarea'); ta.value=text;
+    ta.style.cssText='position:fixed;left:-9999px;'; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+  }
+  btn.innerHTML = '✅ Copied!';
+  btn.style.color = '#22c55e';
+  setTimeout(function(){ btn.innerHTML='📋 Copy'; btn.style.color=''; }, 2000);
+}
+
+// ══════════════════════════════════════════
+// TOOL 6 — WHAT'S NEW IN AI (HN API)
+// ══════════════════════════════════════════
+var currentNewsQuery = 'AI';
+var newsQueries = {
+  ai:      'AI OR artificial+intelligence OR OpenAI OR Anthropic OR Claude OR ChatGPT',
+  llm:     'LLM OR "language model" OR GPT OR Gemini OR Claude OR Llama',
+  image:   'Midjourney OR DALL-E OR Stable+Diffusion OR Sora OR "image generation" OR Flux',
+  startup: 'AI startup OR "AI funding" OR "AI raises" OR "million AI"'
+};
+
+function newsTab(btn, key){
+  document.querySelectorAll('.news-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentNewsQuery = newsQueries[key] || 'AI';
+  loadNews(currentNewsQuery);
+}
+
+async function loadNews(query){
+  var list = document.getElementById('newsList');
+  list.innerHTML = '<div class="news-loading"><div class="std-spinner"></div> Fetching latest stories...</div>';
+
+  try {
+    var url = 'https://hn.algolia.com/api/v1/search?query=' + encodeURIComponent(query) +
+              '&tags=story&hitsPerPage=12&numericFilters=points>10';
+    var resp = await fetch(url);
+    var data = await resp.json();
+    var hits = data.hits || [];
+
+    if(!hits.length){
+      list.innerHTML = '<div class="news-loading">No stories found right now. Try another tab.</div>';
+      return;
+    }
+
+    var now = Date.now();
+    list.innerHTML = hits.map(function(h, i){
+      var ago  = timeAgo(h.created_at);
+      var isNew= (now - new Date(h.created_at).getTime()) < 1000*60*60*6; // <6h
+      var url  = h.url || ('https://news.ycombinator.com/item?id='+h.objectID);
+      return '<a class="news-item" href="'+url+'" target="_blank" rel="noopener">' +
+        '<div class="news-rank">'+(i+1)+'</div>' +
+        '<div class="news-content">' +
+          '<div class="news-title">'+escHtmlNews(h.title)+(isNew ? '<span class="news-badge-new">NEW</span>' : '')+'</div>' +
+          '<div class="news-meta">' +
+            '<span class="news-pts">▲ '+(h.points||0)+' pts</span>' +
+            '<span>'+(h.num_comments||0)+' comments</span>' +
+            '<span>'+ago+'</span>' +
+            (h.url ? '<span>'+getDomain(h.url)+'</span>' : '') +
+          '</div>' +
+        '</div>' +
+        '<i class="ph ph-arrow-up-right news-arrow"></i>' +
+      '</a>';
+    }).join('');
+
+  } catch(err){
+    list.innerHTML = '<div class="news-loading">⚠️ Could not load stories. Check your connection.</div>';
+  }
+}
+
+function timeAgo(dateStr){
+  var diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
+  if(diff < 3600)  return Math.round(diff/60) + 'm ago';
+  if(diff < 86400) return Math.round(diff/3600) + 'h ago';
+  return Math.round(diff/86400) + 'd ago';
+}
+function getDomain(url){
+  try{ return new URL(url).hostname.replace('www.',''); }catch(e){ return ''; }
+}
+function escHtmlNews(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── INIT ALL TOOLS ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  calcInit();
+  loadNews(currentNewsQuery);
+});
+
 </script>
 </body>
 </html>
