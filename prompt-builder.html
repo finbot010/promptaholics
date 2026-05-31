@@ -3,1108 +3,391 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Prompt Builder — Promptaholics</title>
-<meta name="description" content="Build expert AI prompts with 9 proven frameworks. Free prompt builder for ChatGPT, Claude, Midjourney, Sora and more."/>
+<title>Prompt Builder — Promptaholics | Build Expert AI Prompts</title>
+<meta name="description" content="Build expert AI prompts using 9 proven frameworks — CoSTAR, RTF, AETHER, Chain-of-Thought and more. Voice dictation, AI enhance, copy and share."/>
+<link rel="canonical" href="https://promptaholics.com/prompt-builder.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
 <style>
-/* ── Reset & Base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#07070a;
-  --bg2:#0d0d12;
-  --surface:rgba(255,255,255,0.04);
-  --surface2:rgba(255,255,255,0.07);
-  --surface3:rgba(255,255,255,0.10);
-  --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.14);
-  --text:#f0f0f8;
-  --text2:#9090b0;
-  --text3:#44445a;
-  --orange:#ff6224;
-  --orange2:#e84e0e;
-  --orange-glow:rgba(255,98,36,0.35);
-  --orange-dim:rgba(255,98,36,0.12);
-  --blur:blur(20px);
-  --radius:18px;
-  --tab-h:64px;
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --surface:rgba(255,255,255,.05);
+  --radius:14px;
 }
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --surface:rgba(0,0,0,.04);
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s;min-height:100dvh;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'Instrument Sans',sans-serif;cursor:pointer;}
+textarea,input,select{font-family:'Instrument Sans',sans-serif;}
 
-html,body{
-  height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Instrument Sans',sans-serif;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s;}
+body.light .topnav{background:rgba(245,245,247,.95);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+.nav-signin:hover{background:#e84e0e;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 
-/* ── Animated background ── */
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(255,98,36,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(124,58,237,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 50% at 50% 10%, rgba(0,212,170,0.04) 0%, transparent 50%);
-  pointer-events:none;
-  z-index:0;
-  animation:bgShift 12s ease-in-out infinite alternate;
-}
-@keyframes bgShift{
-  0%{opacity:1;}
-  100%{opacity:.6;}
-}
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+a.sm-item{text-decoration:none;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
 
-/* ── Glass mixin ── */
-.glass{
-  background:var(--surface);
-  backdrop-filter:var(--blur);
-  -webkit-backdrop-filter:var(--blur);
-  border:1px solid var(--border2);
-}
-.glass-bright{
-  background:var(--surface2);
-  backdrop-filter:var(--blur);
-  -webkit-backdrop-filter:var(--blur);
-  border:1px solid var(--border2);
-}
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;cursor:pointer;border-left:none;border-right:none;border-bottom:none;background:none;text-decoration:none;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
 
-/* ── NAV ── */
-.nav{
-  position:fixed;top:0;left:0;right:0;
-  height:52px;
-  background:rgba(7,7,10,0.85);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;
-  z-index:100;
-}
-.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
-.nav-logo-mark{
-  width:28px;height:28px;
-  background:var(--orange);
-  border-radius:7px;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 12px var(--orange-glow);
-}
-.nav-logo-mark svg{width:11px;height:13px;}
-.nav-logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;color:var(--text);}
-.nav-logo-text span{color:var(--orange);}
-.nav-links{display:flex;gap:6px;align-items:center;}
-.nav-link{
-  font-size:12px;color:var(--text2);text-decoration:none;
-  padding:5px 10px;border-radius:8px;transition:all .15s;
-}
-.nav-link:hover{color:var(--orange);background:var(--orange-dim);}
-.nav-home-btn{
-  font-size:12px;font-weight:700;color:var(--text2);
-  background:var(--surface);border:1px solid var(--border2);
-  padding:5px 12px;border-radius:8px;text-decoration:none;
-  transition:all .15s;
-}
-.nav-home-btn:hover{border-color:var(--orange);color:var(--orange);}
+/* ── BUILDER LAYOUT ── */
+.builder-page{max-width:1200px;margin:0 auto;padding:32px 20px 120px;}
+@media(max-width:600px){.builder-page{padding:20px 16px 100px;}}
 
-/* ── MAIN LAYOUT ── */
-.app{
-  position:fixed;
-  top:52px;bottom:0;left:0;right:0;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  z-index:1;
-}
+/* ── PAGE HEADER ── */
+.pb-header{text-align:center;margin-bottom:36px;}
+.pb-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:16px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);}
+.pb-h1{font-family:'Syne',serif;font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-1.5px;line-height:1.0;margin-bottom:10px;}
+.pb-h1 span{color:var(--orange);}
+.pb-sub{font-size:15px;color:var(--ink2);max-width:460px;margin:0 auto;}
 
-/* ── MOBILE TAB BAR ── */
-.tab-bar{
-  display:flex;
-  background:rgba(7,7,10,0.92);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
-  flex-shrink:0;
-  order:2;
-  padding-bottom:env(safe-area-inset-bottom);
-}
-.tab-btn{
-  flex:1;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:3px;
-  padding:10px 0 8px;
-  background:none;border:none;
-  color:var(--text3);
-  cursor:pointer;
-  transition:all .2s;
-  font-family:'Instrument Sans',sans-serif;
-  position:relative;
-  touch-action:manipulation;
-}
-.tab-btn .t-icon{font-size:20px;transition:transform .2s;}
-.tab-btn .t-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
-.tab-btn.active{color:var(--orange);}
-.tab-btn.active .t-icon{transform:translateY(-2px);}
-.tab-btn::after{
-  content:'';
-  position:absolute;bottom:0;left:20%;right:20%;
-  height:2px;border-radius:2px;
-  background:var(--orange);
-  opacity:0;
-  transition:opacity .2s;
-  box-shadow:0 0 8px var(--orange);
-}
-.tab-btn.active::after{opacity:1;}
-
-/* ── TAB PANELS ── */
-.panels{
-  flex:1;
-  overflow:hidden;
-  position:relative;
-  order:1;
-}
-.panel{
-  position:absolute;
-  inset:0;
-  overflow-y:auto;
-  overflow-x:hidden;
-  padding:12px 12px 16px;
-  display:none;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:thin;
-  scrollbar-color:var(--border2) transparent;
-}
-.panel.active{display:block;}
-.panel::-webkit-scrollbar{width:4px;}
-.panel::-webkit-scrollbar-track{background:transparent;}
-.panel::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-
-/* ── PANEL HEADER ── */
-.panel-hdr{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:12px;padding:0 2px;
-}
-.panel-title{
-  font-family:'Syne',serif;
-  font-size:16px;font-weight:800;
-  color:var(--text);
-  letter-spacing:-.3px;
-}
-.panel-sub{font-size:11px;color:var(--text3);margin-top:2px;}
-
-/* ── FRAMEWORK CARDS ── */
-.fw-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
+/* ── FRAMEWORK PICKER ── */
+.fw-pick-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;}
+.fw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:28px;}
+@media(max-width:500px){.fw-grid{grid-template-columns:repeat(3,1fr);}}
 .fw-card{
-  background:var(--surface);
-  border:1.5px solid var(--border);
-  border-radius:14px;
-  padding:14px 12px;
-  cursor:pointer;
-  transition:all .2s;
-  position:relative;
-  overflow:hidden;
-  touch-action:manipulation;
+  padding:12px 10px;border-radius:12px;border:1px solid var(--border2);
+  background:var(--glass);cursor:pointer;transition:all .15s;
+  display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
 }
-.fw-card::before{
-  content:'';
-  position:absolute;
-  inset:-1px;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--fw-color,#ff6224)22,transparent 60%);
-  opacity:0;
-  transition:opacity .2s;
-}
-.fw-card:active{transform:scale(0.97);}
-.fw-card.active{
-  border-color:var(--fw-color,var(--orange));
-  background:var(--surface2);
-  box-shadow:0 0 20px -5px var(--fw-color,var(--orange-glow));
-}
-.fw-card.active::before{opacity:1;}
-.fw-icon-wrap{
-  width:32px;height:32px;
-  border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;
-  margin-bottom:8px;
-  background:rgba(var(--fw-r,255),var(--fw-g,98),var(--fw-b,36),0.15);
-}
-.fw-name{
-  font-family:'Syne',serif;
-  font-size:13px;font-weight:800;
-  color:var(--text);
-  margin-bottom:2px;
-  line-height:1.2;
-}
-.fw-desc{
-  font-size:10px;
-  color:var(--text3);
-  line-height:1.4;
-}
+.fw-card:hover{border-color:rgba(255,98,36,.4);background:rgba(255,98,36,.05);}
+.fw-card.active{border-color:var(--orange);background:rgba(255,98,36,.08);}
+.fw-card-icon{font-size:22px;line-height:1;}
+.fw-card-name{font-family:'Syne',serif;font-size:12px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+.fw-card-desc{font-size:9px;color:var(--ink3);line-height:1.3;}
 
-/* ── TOOL SELECTOR ── */
-.tool-pills{
-  display:flex;gap:6px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  padding-bottom:2px;
-  margin-bottom:12px;
-}
-.tool-pills::-webkit-scrollbar{display:none;}
-.tool-pill{
-  flex-shrink:0;
-  padding:7px 14px;
-  border-radius:20px;
-  border:1px solid var(--border2);
-  background:var(--surface);
-  font-size:11px;font-weight:700;
-  color:var(--text2);
-  cursor:pointer;
-  transition:all .15s;
-  white-space:nowrap;
-  font-family:'Instrument Sans',sans-serif;
-  touch-action:manipulation;
-}
-.tool-pill.active{
-  background:rgba(255,98,36,0.15);
-  border-color:rgba(255,98,36,0.4);
-  color:var(--orange);
-  box-shadow:0 0 12px -3px var(--orange-glow);
-}
+/* ── MAIN BUILDER GRID ── */
+.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:860px){.builder-grid{grid-template-columns:1fr;}}
 
-/* ── BUILD TAB ── */
-.fw-header-bar{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 14px;
-  background:var(--surface);
-  border:1px solid var(--border2);
-  border-radius:14px;
-  margin-bottom:12px;
-}
-.fw-header-icon{
-  width:36px;height:36px;
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;
-  flex-shrink:0;
-}
-.fw-header-name{
-  font-family:'Syne',serif;
-  font-size:14px;font-weight:800;
-  color:var(--text);
-}
-.fw-header-desc{font-size:10px;color:var(--text3);margin-top:2px;}
-.change-fw-btn{
-  margin-left:auto;
-  padding:5px 10px;
-  border-radius:8px;
-  border:1px solid var(--border2);
-  background:none;
-  color:var(--text3);
-  font-size:11px;font-weight:600;
-  cursor:pointer;
-  white-space:nowrap;
-  font-family:'Instrument Sans',sans-serif;
-  flex-shrink:0;
-}
+/* ── FIELDS PANEL ── */
+.fields-panel{background:var(--glass);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;}
+.panel-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.panel-head-left{display:flex;align-items:center;gap:8px;}
+.panel-fw-icon{font-size:18px;}
+.panel-fw-name{font-family:'Syne',serif;font-size:15px;font-weight:800;}
+.panel-fw-desc{font-size:10px;color:var(--ink3);}
+.panel-body{padding:16px;display:flex;flex-direction:column;gap:12px;}
 
-/* ── BLOCKS ── */
-.block{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  margin-bottom:8px;
-  overflow:hidden;
-  animation:blockSlide .2s ease both;
-}
-@keyframes blockSlide{
-  from{opacity:0;transform:translateY(8px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.block-hdr{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 12px 8px;
-  border-bottom:1px solid var(--border);
-}
-.block-tag{
-  font-size:9px;font-weight:800;
-  padding:2px 6px;
-  border-radius:5px;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-  flex-shrink:0;
-}
-.block-label{
-  font-size:12px;font-weight:700;
-  color:var(--text);
-  flex:1;
-}
-.block-clear{
-  background:none;border:none;
-  color:var(--text3);
-  font-size:14px;
-  cursor:pointer;
-  padding:2px 4px;
-  border-radius:5px;
-  transition:color .15s;
-}
-.block-clear:hover{color:var(--orange);}
-.block-body{padding:10px 12px;}
-.block-input{
-  width:100%;
-  background:transparent;
-  border:none;outline:none;
-  color:var(--text);
-  font-family:'Instrument Sans',sans-serif;
-  font-size:14px;
-  line-height:1.6;
-  resize:none;
-  min-height:42px;
-}
-.block-input::placeholder{color:var(--text3);}
-.block-input:focus{color:var(--text);}
-select.block-input{
-  -webkit-appearance:none;
-  cursor:pointer;
-  min-height:32px;
-  padding:4px 0;
-}
-select.block-input option{background:#111118;color:var(--text);}
+/* ── FIELD BLOCKS ── */
+.field-block{border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.field-tag{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.field-tag-letter{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;}
+.field-tag-name{color:var(--ink2);}
+.field-tag-voice{margin-left:auto;}
+.field-input{width:100%;padding:10px 12px;background:var(--glass2);border:none;border-top:1px solid var(--border);font-size:13px;color:var(--ink);resize:vertical;outline:none;transition:background .15s;line-height:1.5;}
+.field-input:focus{background:rgba(255,255,255,.07);}
+body.light .field-input{background:rgba(0,0,0,.04);}
+body.light .field-input:focus{background:rgba(0,0,0,.07);}
+.field-input::placeholder{color:var(--ink3);}
+.field-select{width:100%;padding:10px 12px;background:var(--glass2);border:none;border-top:1px solid var(--border);font-size:13px;color:var(--ink);outline:none;cursor:pointer;}
+body.light .field-select{background:rgba(0,0,0,.04);}
 
-/* ── MIC BTN ── */
-.mic-btn{
-  width:36px;height:36px;
-  border-radius:50%;
-  background:var(--surface2);
-  border:1.5px solid var(--border2);
-  color:var(--text2);
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;
-  transition:all .2s;
-  flex-shrink:0;
-}
-.mic-btn.listening{
-  background:rgba(255,98,36,0.15);
-  border-color:var(--orange);
-  color:var(--orange);
-  animation:micPulse 1s ease-in-out infinite;
-  box-shadow:0 0 16px -4px var(--orange-glow);
-}
-@keyframes micPulse{
-  0%,100%{box-shadow:0 0 0 0 var(--orange-glow);}
-  50%{box-shadow:0 0 0 8px rgba(255,98,36,0);}
-}
-
-/* ── ADD BLOCK BAR ── */
-.add-bar{
-  display:flex;gap:6px;flex-wrap:wrap;
-  padding:10px 12px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  margin-bottom:8px;
-}
-.add-bar-label{
-  font-size:10px;color:var(--text3);
-  flex-basis:100%;
-  font-weight:600;letter-spacing:.5px;text-transform:uppercase;
-}
-.add-block-btn{
-  padding:5px 10px;
-  border-radius:8px;
-  border:1px solid var(--border2);
-  background:none;
-  color:var(--text2);
-  font-size:11px;font-weight:600;
-  cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;
-  transition:all .15s;
-}
-.add-block-btn:hover{border-color:var(--orange);color:var(--orange);}
-
-/* ── PREVIEW ── */
+/* ── PREVIEW PANEL ── */
+.preview-panel{background:var(--glass);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;}
+.preview-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.preview-head-title{font-family:'Syne',serif;font-size:15px;font-weight:800;}
+.preview-actions{display:flex;gap:6px;flex-wrap:wrap;}
 .preview-box{
-  background:var(--surface);
-  border:1px solid var(--border2);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:8px;
-  min-height:180px;
-  position:relative;
+  flex:1;min-height:280px;padding:16px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--ink);line-height:1.75;
+  white-space:pre-wrap;word-break:break-word;
+  overflow-y:auto;
 }
-.preview-box.has-content{border-color:rgba(255,98,36,0.3);}
-.preview-hdr{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 14px;
-  border-bottom:1px solid var(--border);
-}
-.preview-label{
-  font-size:11px;font-weight:700;
-  color:var(--text2);
-  text-transform:uppercase;
-  letter-spacing:.8px;
-  flex:1;
-}
-.preview-stats{display:flex;gap:10px;}
-.pstat{font-size:10px;color:var(--text3);}
-.pstat span{color:var(--text2);font-weight:700;}
-.preview-text{
-  padding:14px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  line-height:1.7;
-  color:var(--text2);
-  white-space:pre-wrap;
-  word-break:break-word;
-  min-height:140px;
-}
-.preview-empty{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  min-height:140px;
-  color:var(--text3);
-  font-size:12px;
-  text-align:center;
-  gap:8px;
-  padding:20px;
-  font-family:'Instrument Sans',sans-serif;
-}
-.preview-empty .big{font-size:32px;}
+.preview-empty{color:var(--ink3);font-family:'Instrument Sans',sans-serif;font-size:13px;text-align:center;padding:40px 20px;line-height:1.7;}
+.preview-char-count{padding:8px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--ink3);display:flex;align-items:center;justify-content:space-between;}
 
-/* ── ACTION BUTTONS ── */
-.action-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-bottom:8px;
-}
-.action-row.three{grid-template-columns:1fr 1fr 1fr;}
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);transition:all .15s;}
+.btn:hover{border-color:var(--orange);color:var(--orange);}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.btn.primary:hover{background:#e84e0e;}
+.btn.success{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);color:#22c55e;}
+.btn.mic-active{background:rgba(255,98,36,.12);border-color:var(--orange);color:var(--orange);animation:micPulse 1s ease-in-out infinite;}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,98,36,.4);}50%{box-shadow:0 0 0 6px transparent;}}
+.voice-mini{width:24px;height:24px;border-radius:6px;border:1px solid var(--border2);background:var(--glass);color:var(--ink3);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.voice-mini:hover,.voice-mini.active{border-color:var(--orange);color:var(--orange);}
+.voice-mini.active{background:rgba(255,98,36,.1);animation:micPulse 1s ease-in-out infinite;}
 
-.btn{
-  padding:14px;
-  border-radius:12px;
-  font-family:'Instrument Sans',sans-serif;
-  font-size:13px;font-weight:700;
-  cursor:pointer;
-  border:none;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  transition:all .15s;
-  touch-action:manipulation;
+/* ── SEND TO TOOLS ── */
+.send-section{margin-top:16px;}
+.send-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;}
+.tool-btn{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:10px 6px;border-radius:10px;border:1px solid var(--border2);
+  background:var(--glass);transition:all .15s;cursor:pointer;
 }
-.btn-primary{
-  background:var(--orange);
-  color:#fff;
-  box-shadow:0 4px 16px -4px var(--orange-glow);
-}
-.btn-primary:hover{background:var(--orange2);}
-.btn-primary:active{transform:scale(0.97);}
-.btn-primary:disabled{opacity:.4;pointer-events:none;}
+.tool-btn:hover{border-color:rgba(255,98,36,.4);background:rgba(255,98,36,.06);transform:translateY(-1px);}
+.tool-logo{width:28px;height:28px;border-radius:7px;object-fit:cover;border:1px solid var(--border);}
+.tool-logo-fallback{width:28px;height:28px;border-radius:7px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.tool-name{font-size:10px;font-weight:700;color:var(--ink2);text-align:center;}
 
-/* Shimmer on primary button */
-.btn-primary.loading{
-  background:linear-gradient(90deg,var(--orange),#ff9f24,var(--orange));
-  background-size:200% 100%;
-  animation:shimmer .8s linear infinite;
-}
-@keyframes shimmer{to{background-position:-200% 0;}}
-
-.btn-secondary{
-  background:var(--surface2);
-  color:var(--text2);
-  border:1px solid var(--border2);
-}
-.btn-secondary:hover{border-color:var(--orange);color:var(--orange);}
-.btn-secondary:active{transform:scale(0.97);}
-.btn-secondary:disabled{opacity:.4;pointer-events:none;}
-
-.btn-ghost{
-  background:none;
-  color:var(--text3);
-  border:1px solid var(--border);
-  font-size:12px;
-  padding:10px;
-}
-.btn-ghost:hover{color:var(--text);border-color:var(--border2);}
-
-/* ── OPEN IN TOOL ── */
-.tool-open-row{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-  margin-bottom:8px;
-}
-.tool-open-btn{
-  padding:10px 6px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--text3);
-  font-size:10px;font-weight:700;
-  cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;
-  text-align:center;
-  transition:all .15s;
-  display:flex;flex-direction:column;
-  align-items:center;gap:3px;
-  touch-action:manipulation;
-}
-.tool-open-btn:hover{border-color:var(--orange);color:var(--orange);}
-.tool-open-btn .t-em{font-size:16px;}
-
-/* ── IMPROVE SECTION ── */
-.improve-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:8px;
-}
-.improve-toggle{
-  display:flex;align-items:center;gap:8px;
-  padding:12px 14px;
-  cursor:pointer;
-  font-size:13px;font-weight:700;
-  color:var(--text2);
-  transition:color .15s;
-  background:none;border:none;width:100%;text-align:left;
-  font-family:'Instrument Sans',sans-serif;
-}
-.improve-toggle:hover{color:var(--orange);}
-.improve-body{display:none;padding:0 14px 14px;}
-.improve-body.open{display:block;}
-.improve-textarea{
-  width:100%;
-  background:var(--surface2);
-  border:1px solid var(--border2);
-  border-radius:10px;
-  padding:12px;
-  color:var(--text);
-  font-family:'Instrument Sans',sans-serif;
-  font-size:13px;
-  line-height:1.6;
-  resize:none;
-  outline:none;
-  margin-bottom:10px;
-  min-height:100px;
-}
-.improve-textarea:focus{border-color:var(--orange);}
-.improve-opts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
-.imp-opt{
-  padding:5px 10px;
-  border-radius:8px;
-  border:1px solid var(--border2);
-  background:none;
-  color:var(--text3);
-  font-size:11px;font-weight:600;
-  cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;
-  transition:all .15s;
-}
-.imp-opt.active{
-  background:var(--orange-dim);
-  border-color:rgba(255,98,36,0.4);
-  color:var(--orange);
-}
-
-/* ── SAVED SECTION ── */
-.saved-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:8px;
-}
-.saved-toggle{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 14px;
-  cursor:pointer;
-  font-size:13px;font-weight:700;
-  color:var(--text2);
-  transition:color .15s;
-  background:none;border:none;width:100%;text-align:left;
-  font-family:'Instrument Sans',sans-serif;
-}
-.saved-list{display:none;padding:0 10px 10px;}
-.saved-list.open{display:block;}
-.saved-item{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 8px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:background .15s;
-  margin-bottom:2px;
-}
-.saved-item:hover{background:var(--surface2);}
-.saved-text{
-  flex:1;font-size:11px;color:var(--text2);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.saved-del{
-  background:none;border:none;
-  color:var(--text3);font-size:14px;
-  cursor:pointer;padding:2px 4px;
-  border-radius:4px;flex-shrink:0;
-}
-.saved-del:hover{color:#ff4d8f;}
-.saved-empty{
-  padding:12px 8px;
-  font-size:11px;color:var(--text3);
-  text-align:center;
-}
-
-/* ── LEARN TAB ── */
-.learn-switcher{
-  display:flex;gap:6px;
-  background:var(--surface);
-  border:1px solid var(--border2);
-  border-radius:12px;
-  padding:4px;
-  margin-bottom:12px;
-}
-.learn-sw-btn{
-  flex:1;
-  padding:7px;
-  border-radius:9px;
-  border:none;
-  background:none;
-  color:var(--text3);
-  font-size:11px;font-weight:700;
-  cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;
-  transition:all .15s;
-  text-align:center;
-}
-.learn-sw-btn.active{
-  background:var(--orange);
-  color:#fff;
-  box-shadow:0 2px 8px -2px var(--orange-glow);
-}
-
-.learn-card{
-  background:var(--surface);
-  border:1.5px solid var(--border);
-  border-radius:14px;
-  margin-bottom:8px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:border .15s;
-}
-.learn-card.open{border-color:var(--orange);}
-.learn-card-hdr{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px;
-  gap:10px;
-}
-.learn-fw-name{
-  font-family:'Syne',serif;
-  font-size:14px;font-weight:800;
-  color:var(--text);
-}
-.learn-fw-full{font-size:10px;color:var(--text3);margin-top:2px;}
-.learn-chevron{
-  font-size:16px;color:var(--text3);
-  transition:transform .2s;flex-shrink:0;
-}
-.learn-card.open .learn-chevron{transform:rotate(180deg);color:var(--orange);}
-.learn-body{
-  display:none;
-  border-top:1px solid var(--border);
-  padding:14px;
-}
-.learn-card.open .learn-body{display:block;}
-.learn-when{
-  font-size:9px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  color:var(--orange);margin-bottom:5px;
-}
-.learn-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
-.learn-steps{list-style:none;margin-bottom:10px;}
-.learn-steps li{
-  font-size:11px;color:var(--text2);
-  padding:5px 0;
-  border-bottom:1px solid var(--border);
-  display:flex;gap:8px;align-items:flex-start;
-  line-height:1.5;
-}
-.learn-steps li:last-child{border:none;}
-.learn-step-num{
-  background:var(--orange-dim);
-  color:var(--orange);
-  font-size:9px;font-weight:800;
-  width:16px;height:16px;
-  border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-top:1px;
-}
-.learn-eg-label{
-  font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--text3);margin-bottom:6px;
-}
-.learn-eg{
-  background:rgba(0,0,0,0.3);
-  border-left:2px solid var(--orange);
-  border-radius:8px;
-  padding:10px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--text2);
-  line-height:1.7;
-  white-space:pre-wrap;
-  margin-bottom:10px;
-}
-.learn-try-btn{
-  width:100%;
-  padding:9px;
-  border-radius:9px;
-  border:1px solid rgba(255,98,36,0.3);
-  background:var(--orange-dim);
-  color:var(--orange);
-  font-size:11px;font-weight:700;
-  cursor:pointer;
-  font-family:'Instrument Sans',sans-serif;
-  transition:all .15s;
-}
-.learn-try-btn:hover{background:rgba(255,98,36,0.2);}
-
-/* ── DESKTOP: Three panel layout ── */
-@media(min-width:860px){
-  .tab-bar{display:none !important;}
-  .panels{display:flex;gap:0;}
-  .panel{
-    position:relative;
-    display:flex !important;
-    flex-direction:column;
-    border-right:1px solid var(--border);
-    padding:16px;
-    overflow-y:auto;
-  }
-  .panel:last-child{border-right:none;}
-  #panelFramework{width:220px;flex-shrink:0;}
-  #panelBuild{flex:1;}
-  #panelLearn{width:300px;flex-shrink:0;border-left:1px solid var(--border);}
-  .fw-grid{grid-template-columns:1fr;}
-  .fw-card{padding:10px 12px;}
-  .tool-open-row{grid-template-columns:repeat(8,1fr);}
-}
+/* ── SHARE POPOVER ── */
+.share-popover{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(9,9,14,.98);border:1px solid var(--border2);border-radius:16px;padding:16px;display:flex;gap:8px;z-index:9998;box-shadow:0 8px 40px rgba(0,0,0,.6);backdrop-filter:blur(8px);max-width:calc(100vw - 32px);flex-wrap:wrap;justify-content:center;}
+.sp-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border-radius:10px;background:var(--glass2);border:1px solid var(--border2);color:var(--ink2);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;font-family:'Instrument Sans',sans-serif;}
+.sp-btn:hover{border-color:var(--orange);color:var(--orange);}
+.sp-close{background:none;border:none;color:var(--ink3);cursor:pointer;font-size:18px;padding:4px;align-self:flex-start;}
 
 /* ── TOAST ── */
-.toast{
-  position:fixed;
-  bottom:80px;left:50%;
-  transform:translateX(-50%);
-  background:var(--surface2);
-  border:1px solid var(--orange);
-  color:var(--text);
-  padding:10px 20px;
-  border-radius:24px;
-  font-size:13px;font-weight:600;
-  font-family:'Instrument Sans',sans-serif;
-  z-index:9999;
-  display:flex;align-items:center;gap:8px;
-  box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 20px -5px var(--orange-glow);
-  animation:toastIn .2s ease;
-  white-space:nowrap;
-}
-@keyframes toastIn{
-  from{opacity:0;transform:translateX(-50%) translateY(8px);}
-  to{opacity:1;transform:translateX(-50%) translateY(0);}
-}
-.toast-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--orange);
-  animation:micPulse 1s ease-in-out infinite;
-}
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:rgba(10,10,16,.98);border:1px solid var(--orange);color:var(--ink);padding:9px 18px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);animation:toastIn .2s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 
-/* ── COPY SUCCESS ANIMATION ── */
-@keyframes copySuccess{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.08);}
-  100%{transform:scale(1);}
-}
-.copy-success{animation:copySuccess .3s ease;}
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-logo-mark{width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.footer-logo-mark svg{width:9px;height:10px;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:center;}
+.footer-lnk{font-size:12px;color:var(--ink3);padding:4px 8px;border-radius:6px;transition:color .15s;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-lnk.accent{color:var(--orange);font-weight:600;}
+.footer-sep{color:var(--border2);padding:0 2px;font-size:12px;}
+.footer-copy{font-size:11px;color:var(--ink3);}
 
-/* ── LIGHT MODE ── */
-.light-mode{
-  --bg:#f4f4f8;
-  --bg2:#eaeaf0;
-  --surface:rgba(255,255,255,0.7);
-  --surface2:rgba(255,255,255,0.85);
-  --surface3:rgba(255,255,255,0.95);
-  --border:rgba(0,0,0,0.08);
-  --border2:rgba(0,0,0,0.12);
-  --text:#18170f;
-  --text2:#44444a;
-  --text3:#888899;
-}
-.light-mode body::before{
-  background:
-    radial-gradient(ellipse 80% 60% at 10% 20%,rgba(255,98,36,0.06) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 80%,rgba(124,58,237,0.05) 0%,transparent 60%);
-}
-
-/* ── SCROLLBAR GLOBAL ── */
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-
-/* ── MIC TOAST ── */
-.mic-toast{
-  position:fixed;bottom:80px;left:50%;
-  transform:translateX(-50%);
-  background:var(--surface2);
-  border:1px solid var(--orange);
-  color:var(--text);
-  padding:10px 20px;border-radius:24px;
-  font-size:13px;font-weight:600;
-  font-family:'Instrument Sans',sans-serif;
-  z-index:9999;
-  display:flex;align-items:center;gap:8px;
-  box-shadow:0 4px 20px rgba(0,0,0,.4);
-  animation:toastIn .2s ease;
-}
-.mic-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--orange);
-  animation:micPulse 1s ease-in-out infinite;
+/* ── MOBILE ── */
+@media(max-width:500px){
+  .pb-header{margin-bottom:24px;}
+  .tools-grid{grid-template-columns:repeat(4,1fr);}
+  .preview-actions{gap:4px;}
+  .btn{padding:6px 10px;font-size:11px;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
+<!-- TOP NAV -->
+<header class="topnav">
   <a class="nav-logo" href="/">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
-    </div>
-    <div class="nav-logo-text">Prompt<span>aholics</span></div>
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
-  <div class="nav-links">
-    <a href="library.html" class="nav-link">Library</a>
-    <button onclick="toggleTheme()" class="nav-home-btn" id="themeBtn"><i class="ph ph-moon"></i></button>
-    <a href="/" class="nav-home-btn">← Home</a>
+  <div class="nav-right">
+    <nav class="nav-desktop">
+      <a href="library.html" class="nav-lnk">Library</a>
+      <a href="prompt-builder.html" class="nav-lnk active">Builder</a>
+      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+    </nav>
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- SLIDE MENU -->
+<nav class="slide-menu" id="slideMenu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
+    <a class="sm-item active" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
+    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+  </div>
+  <div class="sm-foot">
+    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
 
-<!-- APP -->
-<div class="app">
+<!-- BUILDER PAGE -->
+<div class="builder-page">
 
-  <!-- PANELS -->
-  <div class="panels">
+  <!-- HEADER -->
+  <div class="pb-header">
+    <div class="pb-eyebrow"><i class="ph ph-wrench"></i> Prompt Builder · 9 Frameworks</div>
+    <h1 class="pb-h1">Build prompts that <span>actually work.</span></h1>
+    <p class="pb-sub">Pick a framework, fill the blocks, copy to any AI tool. Voice dictation included.</p>
+  </div>
 
-    <!-- PANEL 1: FRAMEWORKS -->
-    <div class="panel active" id="panelFramework">
-      <div class="panel-hdr">
-        <div>
-          <div class="panel-title">Frameworks</div>
-          <div class="panel-sub">Choose your prompt structure</div>
+  <!-- FRAMEWORK PICKER -->
+  <div class="fw-pick-label">Choose your framework</div>
+  <div class="fw-grid" id="fwGrid"><!-- filled by JS --></div>
+
+  <!-- MAIN BUILDER GRID -->
+  <div class="builder-grid">
+
+    <!-- FIELDS PANEL -->
+    <div class="fields-panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <span class="panel-fw-icon" id="panelFwIcon">⭐</span>
+          <div>
+            <div class="panel-fw-name" id="panelFwName">CoSTAR</div>
+            <div class="panel-fw-desc" id="panelFwDesc">Context · Objective · Style · Tone · Audience · Response</div>
+          </div>
         </div>
-        <button class="mic-btn" id="mainMicBtn" onclick="startDictation(null,'mainMicBtn')" title="Voice input">
-          <i class="ph ph-microphone"></i>
-        </button>
+        <button class="btn" onclick="clearFields()"><i class="ph ph-trash"></i> Clear</button>
       </div>
-      <!-- AI model pills -->
-      <div class="tool-pills" id="toolPills"></div>
-      <!-- Framework grid -->
-      <div class="fw-grid" id="fwGrid"></div>
+      <div class="panel-body" id="fieldsBody"><!-- filled by JS --></div>
     </div>
 
-    <!-- PANEL 2: BUILD -->
-    <div class="panel" id="panelBuild">
-      <!-- Current framework header -->
-      <div class="fw-header-bar" id="fwHeaderBar">
-        <div class="fw-header-icon" id="fwHeaderIcon">⭐</div>
-        <div>
-          <div class="fw-header-name" id="fwHeaderName">CoSTAR</div>
-          <div class="fw-header-desc" id="fwHeaderDesc">Fill in each block below</div>
-        </div>
-        <button class="change-fw-btn" onclick="switchTab('framework')">Change</button>
-      </div>
-      <!-- Blocks -->
-      <div id="blocksArea"></div>
-      <!-- Add block bar -->
-      <div class="add-bar" id="addBlockBar"></div>
-      <!-- Action buttons -->
-      <div class="action-row">
-        <button class="btn btn-primary" id="copyBtn" onclick="copyPrompt()" disabled>
-          <i class="ph ph-copy"></i> Copy & Save
-        </button>
-        <button class="btn btn-secondary" onclick="switchTab('preview')">
-          <i class="ph ph-eye"></i> Preview
-        </button>
-      </div>
-      <div class="action-row">
-        <button class="btn btn-ghost" onclick="toggleImprove()">
-          <i class="ph ph-sparkle"></i> Improve
-        </button>
-        <button class="btn btn-ghost" onclick="resetAll()">
-          <i class="ph ph-arrow-counter-clockwise"></i> Reset
-        </button>
-      </div>
-      <!-- Improve section -->
-      <div class="improve-card" id="improveCard">
-        <button class="improve-toggle" onclick="toggleImprove()">
-          <i class="ph ph-sparkle" style="color:var(--orange)"></i>
-          Improve a weak prompt
-          <i class="ph ph-caret-down" id="improveChevron" style="margin-left:auto;transition:transform .2s;"></i>
-        </button>
-        <div class="improve-body" id="improveBody">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <div style="flex:1;font-size:11px;color:var(--text3);">Paste your prompt</div>
-            <button class="mic-btn" id="improveMicBtn" onclick="startDictation('improveInput','improveMicBtn')" style="width:28px;height:28px;font-size:13px;">
-              <i class="ph ph-microphone"></i>
-            </button>
-          </div>
-          <textarea class="improve-textarea" id="improveInput" rows="4" placeholder="e.g. write me a blog about marketing"></textarea>
-          <div class="improve-opts" id="improveOptions">
-            <button class="imp-opt" data-imp="role">+ Role</button>
-            <button class="imp-opt" data-imp="structure">+ Structure</button>
-            <button class="imp-opt" data-imp="format">+ Format</button>
-            <button class="imp-opt" data-imp="specific">+ Specific</button>
-            <button class="imp-opt" data-imp="constraints">+ Constraints</button>
-            <button class="imp-opt" data-imp="tone">+ Tone</button>
-          </div>
-          <button class="btn btn-primary" style="width:100%;padding:12px;" onclick="runImprove()">
-            <i class="ph ph-sparkle"></i> Improve Prompt
-          </button>
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-head">
+        <div class="preview-head-title">✨ Your Prompt</div>
+        <div class="preview-actions">
+          <button class="btn" id="voiceBtn" onclick="toggleGlobalVoice()"><i class="ph ph-microphone"></i> Dictate</button>
+          <button class="btn" id="copyBtn" onclick="copyPrompt()"><i class="ph ph-copy"></i> Copy</button>
+          <button class="btn" onclick="sharePrompt()"><i class="ph ph-share-network"></i> Share</button>
+          <button class="btn" onclick="savePrompt()"><i class="ph ph-bookmark-simple"></i> Save</button>
         </div>
       </div>
-      <!-- Saved -->
-      <div class="saved-card">
-        <button class="saved-toggle" onclick="toggleSaved()">
-          <span><i class="ph ph-bookmark-simple" style="color:var(--orange);margin-right:6px;"></i>Saved Prompts <span id="savedCount">(0)</span></span>
-          <i class="ph ph-caret-down" id="savedArrow"></i>
-        </button>
-        <div class="saved-list" id="savedList"></div>
-      </div>
-    </div>
-
-    <!-- PANEL 3: PREVIEW -->
-    <div class="panel" id="panelPreview">
-      <div class="panel-hdr">
-        <div>
-          <div class="panel-title">Preview</div>
-          <div class="panel-sub">Your built prompt</div>
-        </div>
-      </div>
-      <!-- Preview box -->
       <div class="preview-box" id="previewBox">
-        <div class="preview-hdr">
-          <div class="preview-label">Output</div>
-          <div class="preview-stats" id="previewStats"></div>
-        </div>
-        <div class="preview-text" id="previewText">
-          <div class="preview-empty">
-            <span class="big">⚡</span>
-            Fill in the blocks and your prompt appears here
-          </div>
+        <div class="preview-empty" id="previewEmpty">
+          Fill in the fields on the left<br/>your prompt builds here in real time<br/>
+          <span style="font-size:11px;color:var(--ink3);margin-top:8px;display:block;">🎤 Tap <strong>Dictate</strong> to speak instead of type</span>
         </div>
       </div>
-      <!-- Copy + Open -->
-      <div class="action-row" style="margin-bottom:8px;">
-        <button class="btn btn-primary" id="copyBtn2" onclick="copyPrompt()" disabled>
-          <i class="ph ph-copy"></i> Copy & Save
-        </button>
-        <button class="btn btn-secondary" onclick="switchTab('build')">
-          <i class="ph ph-pencil"></i> Edit
-        </button>
+      <div class="preview-char-count">
+        <span id="charCount">0 characters</span>
+        <span id="wordCount">0 words</span>
       </div>
-      <!-- Open in tool -->
-      <div style="font-size:10px;color:var(--text3);margin-bottom:6px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Open in AI tool</div>
-      <div class="tool-open-row" id="toolOpenRow"></div>
+
+      <!-- SEND TO TOOLS -->
+      <div style="padding:0 18px 18px;">
+        <div class="send-label">Open in AI tool</div>
+        <div class="tools-grid" id="toolsGrid"><!-- filled by JS --></div>
+      </div>
     </div>
 
-    <!-- PANEL 4: LEARN -->
-    <div class="panel" id="panelLearn">
-      <div class="panel-hdr">
-        <div>
-          <div class="panel-title">Learn</div>
-          <div class="panel-sub">Master every framework</div>
-        </div>
-      </div>
-      <div id="learnCards"></div>
+  </div><!-- /builder-grid -->
+</div><!-- /builder-page -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
-
+    <div class="footer-links">
+      <a href="library.html" class="footer-lnk">Library</a>
+      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
+      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <span class="footer-sep">|</span>
+      <a href="about.html" class="footer-lnk">About Us</a>
+      <a href="blog.html" class="footer-lnk">Blog</a>
+      <a href="contact.html" class="footer-lnk">Contact</a>
+      <span class="footer-sep">|</span>
+      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
+      <a href="terms.html" class="footer-lnk accent">Terms</a>
+    </div>
+    <div class="footer-copy">© 2026 Promptaholics · Free forever</div>
   </div>
+</footer>
 
-  <!-- MOBILE TAB BAR -->
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('framework')" id="tabFramework">
-      <span class="t-icon"><i class="ph ph-squares-four"></i></span>
-      <span class="t-label">Frameworks</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('build')" id="tabBuild">
-      <span class="t-icon"><i class="ph ph-pencil-simple"></i></span>
-      <span class="t-label">Build</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('preview')" id="tabPreview">
-      <span class="t-icon"><i class="ph ph-eye"></i></span>
-      <span class="t-label">Preview</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('learn')" id="tabLearn">
-      <span class="t-icon"><i class="ph ph-graduation-cap"></i></span>
-      <span class="t-label">Learn</span>
-    </button>
-  </div>
-
-</div>
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bn-item active" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <a class="bn-item" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
+  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+</nav>
 
 <script>
-// ── THEME ──────────────────────────────────────────────────────
+// ── THEME ─────────────────────────────────────────────────────
 var theme = localStorage.getItem('pa_theme') || 'dark';
-if(theme==='light') document.documentElement.classList.add('light-mode');
-
+if(theme==='light') document.body.classList.add('light');
 function toggleTheme(){
-  theme = theme==='dark' ? 'light' : 'dark';
-  document.documentElement.classList.toggle('light-mode', theme==='light');
-  localStorage.setItem('pa_theme', theme);
-  var btn = document.getElementById('themeBtn');
-  if(btn) btn.innerHTML = theme==='light' ? '<i class="ph ph-sun"></i>' : '<i class="ph ph-moon"></i>';
+  theme=theme==='dark'?'light':'dark';
+  localStorage.setItem('pa_theme',theme);
+  document.body.classList.toggle('light',theme==='light');
+  updateThemeBtn();
 }
+function updateThemeBtn(){
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn');
+  var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon;
+  if(sm) sm.textContent=icon;
+}
+updateThemeBtn();
 
-// ── STATE ──────────────────────────────────────────────────────
-var currentFW   = 'costar';
-var currentTool = 'chatgpt';
-var blockValues = {};
-var savedOpen   = false;
-var improveOpen = false;
-var saved       = JSON.parse(localStorage.getItem('pb_saved')||'[]');
+// ── MENU ─────────────────────────────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('slideMenu');
+  var o=document.getElementById('menuOverlay');
+  m.classList.toggle('open'); o.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    document.getElementById('slideMenu').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
 
-// ── TOOL URLS ──────────────────────────────────────────────────
-var TOOL_URLS = {
-  chatgpt:'https://chat.openai.com/?q=',
-  claude:'https://claude.ai/new?q=',
-  gemini:'https://gemini.google.com/app?q=',
-  midjourney:'https://www.midjourney.com/imagine?prompt=',
-  sora:'https://sora.com/?prompt=',
-  runway:'https://app.runwayml.com/',
-  veo:'https://labs.google/veo?prompt=',
-  seedance:'https://seedance.ai/',
-};
-
-var TOOLS = [
-  {id:'chatgpt',  label:'ChatGPT',   emoji:'🤖'},
-  {id:'claude',   label:'Claude',    emoji:'🧠'},
-  {id:'gemini',   label:'Gemini',    emoji:'✨'},
-  {id:'midjourney',label:'MJ',       emoji:'🎨'},
-  {id:'sora',     label:'Sora',      emoji:'🎬'},
-  {id:'runway',   label:'Runway',    emoji:'🎥'},
-  {id:'veo',      label:'Veo',       emoji:'📹'},
-  {id:'seedance', label:'Seedance',  emoji:'🌱'},
-];
-
-// ── FRAMEWORKS ─────────────────────────────────────────────────
+// ── FRAMEWORKS ───────────────────────────────────────────────
 var FRAMEWORKS = [
   {
     id:'costar', name:'CoSTAR', icon:'⭐', color:'#ff6224',
@@ -1135,8 +418,8 @@ var FRAMEWORKS = [
     id:'rtf', name:'RTF', icon:'📋', color:'#9b6dff',
     desc:'Role · Task · Format — fast and focused',
     blocks:[
-      {id:'role', label:'Role', tag:'R', color:'#9b6dff', placeholder:'Act as a [role] with [expertise]...', type:'textarea', rows:2},
-      {id:'task', label:'Task', tag:'T', color:'#7b4dff', placeholder:'Your specific request or task...', type:'textarea', rows:3},
+      {id:'role',   label:'Role',   tag:'R', color:'#9b6dff', placeholder:'Act as a [role] with [expertise]...', type:'textarea', rows:2},
+      {id:'task',   label:'Task',   tag:'T', color:'#7b4dff', placeholder:'Your specific request or task...', type:'textarea', rows:3},
       {id:'format', label:'Format', tag:'F', color:'#5b2dff', placeholder:'How should the response be structured?', type:'text'},
     ],
     build:function(v){
@@ -1151,814 +434,446 @@ var FRAMEWORKS = [
     id:'cot', name:'Chain-of-Thought', icon:'🧠', color:'#00d4aa',
     desc:'Step-by-step reasoning for complex tasks',
     blocks:[
-      {id:'problem',  label:'Problem',        tag:'P', color:'#00d4aa', placeholder:'Describe the problem or question in detail...', type:'textarea', rows:3},
-      {id:'context',  label:'Context',        tag:'C', color:'#00b892', placeholder:'Any relevant background or constraints...', type:'textarea', rows:2},
-      {id:'approach', label:'Thinking Style', tag:'T', color:'#009c7a', placeholder:'How should the AI reason through this?', type:'select',
-        options:['Step by step','First principles','Pros and cons','Compare approaches',"Devil's advocate",'Socratic method','Systems thinking']},
-      {id:'output',   label:'Final Output',   tag:'O', color:'#008062', placeholder:'What should the final answer look like?', type:'text'},
+      {id:'problem',  label:'Problem',  tag:'P', color:'#00d4aa', placeholder:'Describe the problem or question in detail...', type:'textarea', rows:3},
+      {id:'context',  label:'Context',  tag:'C', color:'#00b892', placeholder:'Any relevant background or constraints...', type:'textarea', rows:2},
+      {id:'steps',    label:'Steps',    tag:'S', color:'#009e7a', placeholder:'Number of reasoning steps or specific approach...', type:'text'},
     ],
     build:function(v){
-      var p='Please think through this step by step.\n\n';
-      if(v.problem)  p+='Problem:\n'+v.problem+'\n\n';
-      if(v.context)  p+='Context:\n'+v.context+'\n\n';
-      if(v.approach) p+='Reasoning approach: '+v.approach+'\n\n';
-      p+='Work through this carefully, showing your reasoning at each step.';
-      if(v.output)   p+='\n\nFinal output should be: '+v.output;
+      var p='Let\'s think through this step by step.\n\n';
+      if(v.problem)  p+='Problem: '+v.problem+'\n\n';
+      if(v.context)  p+='Context: '+v.context+'\n\n';
+      if(v.steps)    p+='Please work through this in '+v.steps+' steps, showing your reasoning at each stage.';
+      else           p+='Please work through this systematically, showing your reasoning at each stage.';
       return p.trim();
     }
   },
   {
-    id:'marketing', name:'Marketing Copy', icon:'📣', color:'#ff4d8f',
-    desc:'High-converting ads, emails, landing pages',
-    blocks:[
-      {id:'product',  label:'Product / Service', tag:'P', color:'#ff4d8f', placeholder:'What are you promoting?', type:'text'},
-      {id:'audience', label:'Target Audience',   tag:'A', color:'#e0357a', placeholder:'Who is the ideal customer?', type:'text'},
-      {id:'channel',  label:'Channel',           tag:'C', color:'#c01d65', placeholder:'Where will this appear?', type:'select',
-        options:['Facebook/Instagram ad','Google ad','Email subject + body','Landing page headline','TikTok/Reels hook','LinkedIn post','YouTube ad','SMS']},
-      {id:'goal',     label:'Campaign Goal',     tag:'G', color:'#a00550', placeholder:'What action do you want?', type:'select',
-        options:['Brand awareness','Lead generation','Direct purchase','App download','Email signup','Event registration','Free trial']},
-      {id:'hook',     label:'Hook / Angle',      tag:'H', color:'#800030', placeholder:'Key message or emotional trigger...', type:'text'},
-      {id:'cta',      label:'Call to Action',    tag:'CTA', color:'#600018', placeholder:'e.g. Start free trial, Book a demo', type:'text'},
-    ],
-    build:function(v){
-      var p='You are an expert direct response copywriter.\n\n';
-      if(v.product)  p+='Product/Service: '+v.product+'\n';
-      if(v.audience) p+='Target audience: '+v.audience+'\n';
-      if(v.channel)  p+='Channel: '+v.channel+'\n';
-      if(v.goal)     p+='Goal: '+v.goal+'\n';
-      if(v.hook)     p+='Key angle: '+v.hook+'\n';
-      if(v.cta)      p+='CTA: '+v.cta+'\n';
-      p+='\nWrite high-converting copy for this '+(v.channel||'campaign')+'. Lead with the hook, build desire, handle objections, end with a clear CTA. Write 3 variations.';
-      return p.trim();
-    }
-  },
-  {
-    id:'coding', name:'Code Builder', icon:'💻', color:'#4dffb4',
-    desc:'Build, debug, review and refactor code',
-    blocks:[
-      {id:'task',    label:'Task',             tag:'T', color:'#4dffb4', placeholder:'What do you need to build or fix?', type:'textarea', rows:2},
-      {id:'lang',    label:'Language',         tag:'L', color:'#2de094', placeholder:'Programming language/framework', type:'select',
-        options:['JavaScript','TypeScript','Python','React','Node.js','Next.js','Vue.js','Go','Rust','Swift','Kotlin','C++','SQL','Bash']},
-      {id:'context', label:'Codebase Context', tag:'C', color:'#0dc074', placeholder:'Existing code or architecture info...', type:'textarea', rows:2},
-      {id:'style',   label:'Code Style',       tag:'S', color:'#00a054', placeholder:'Requirements or constraints', type:'select',
-        options:['Production-ready','Clean & commented','Beginner-friendly','Performance-optimized','Security-focused','Test-driven']},
-      {id:'output',  label:'Output Type',      tag:'O', color:'#008034', placeholder:'What should be delivered?', type:'select',
-        options:['Full implementation','Code review','Debugging help','Refactor','Architecture plan','Documentation','Tests only']},
-    ],
-    build:function(v){
-      var p='You are a senior '+(v.lang||'software')+' engineer with 15 years of experience.\n\n';
-      if(v.task)    p+='Task: '+v.task+'\n';
-      if(v.lang)    p+='Language/Framework: '+v.lang+'\n';
-      if(v.style)   p+='Code style: '+v.style+'\n';
-      if(v.context) p+='\nContext:\n'+v.context+'\n';
-      if(v.output)  p+='\nDeliver: '+v.output;
-      p+='\n\nInclude comments for key decisions. Handle edge cases. Show your reasoning.';
-      return p.trim();
-    }
-  },
-  {
-    id:'image', name:'Image Prompt', icon:'🎨', color:'#ffcc24',
-    desc:'Midjourney · DALL·E · Stable Diffusion · Flux',
-    blocks:[
-      {id:'subject',  label:'Subject',         tag:'S', color:'#ffcc24', placeholder:'Main subject of the image...', type:'text'},
-      {id:'setting',  label:'Setting / Scene', tag:'E', color:'#e0ad00', placeholder:'Environment, location, background...', type:'text'},
-      {id:'style',    label:'Art Style',       tag:'A', color:'#c08e00', placeholder:'Visual style or reference', type:'select',
-        options:['Photorealistic','Oil painting','Digital art','Watercolor','Cinematic','Anime/manga','3D render','Illustration','Concept art','Editorial photo','Minimalist']},
-      {id:'lighting', label:'Lighting',        tag:'L', color:'#a06e00', placeholder:'Lighting conditions', type:'select',
-        options:['Golden hour','Studio lighting','Dramatic/chiaroscuro','Soft natural','Neon-lit','Candlelight','Overcast','Backlit','Blue hour']},
-      {id:'mood',     label:'Mood',            tag:'M', color:'#805000', placeholder:'Atmosphere and feeling...', type:'text'},
-      {id:'params',   label:'Parameters',      tag:'P', color:'#603000', placeholder:'--ar ratio, --v 7, --stylize 750', type:'text'},
-    ],
-    build:function(v){
-      var parts=[];
-      if(v.subject)  parts.push(v.subject);
-      if(v.setting)  parts.push(v.setting);
-      if(v.style)    parts.push(v.style);
-      if(v.lighting) parts.push(v.lighting+' lighting');
-      if(v.mood)     parts.push(v.mood+' mood');
-      parts.push('ultra-detailed, masterpiece quality');
-      var p=parts.join(', ');
-      if(v.params)   p+=' '+v.params;
-      else if(currentTool==='midjourney') p+=' --ar 16:9 --v 7 --stylize 750';
-      return p;
-    }
-  },
-  {
-    id:'agent', name:'AI Agent', icon:'🤖', color:'#ff9f24',
-    desc:'Autonomous agents with goals and tools',
-    blocks:[
-      {id:'persona', label:'Agent Persona',   tag:'P', color:'#ff9f24', placeholder:'Name and role of the AI agent...', type:'text'},
-      {id:'goal',    label:'Primary Goal',    tag:'G', color:'#e08000', placeholder:'What is this agent trying to achieve?', type:'textarea', rows:2},
-      {id:'tools',   label:'Available Tools', tag:'T', color:'#c06000', placeholder:'What can the agent access or use?', type:'text'},
-      {id:'rules',   label:'Rules & Limits',  tag:'R', color:'#a04000', placeholder:'What should the agent never do?', type:'textarea', rows:2},
-      {id:'output',  label:'Output Style',    tag:'O', color:'#802000', placeholder:'How should results be reported?', type:'select',
-        options:['Step-by-step log','Final answer only','Structured JSON','Markdown report','Conversational','Executive summary']},
-    ],
-    build:function(v){
-      var p='You are '+(v.persona||'an AI agent')+', an autonomous AI assistant.\n\n';
-      if(v.goal)   p+='Primary Goal:\n'+v.goal+'\n\n';
-      if(v.tools)  p+='Available tools/resources: '+v.tools+'\n\n';
-      if(v.rules)  p+='Rules and constraints:\n'+v.rules+'\n\n';
-      if(v.output) p+='Report results as: '+v.output+'\n\n';
-      p+='Work autonomously toward the goal. Break it into steps, execute methodically, and report your progress.';
-      return p.trim();
-    }
-  },
-  {
-    id:'youtube', name:'YouTube Script', icon:'🎬', color:'#ff3333',
-    desc:'Hook, story, value, CTA — full scripts',
-    blocks:[
-      {id:'topic',    label:'Video Topic',    tag:'T', color:'#ff3333', placeholder:'What is the video about?', type:'text'},
-      {id:'audience', label:'Audience',       tag:'A', color:'#d02020', placeholder:'Who watches this channel?', type:'text'},
-      {id:'hook',     label:'Hook Style',     tag:'H', color:'#a00d0d', placeholder:'How to open', type:'select',
-        options:['Bold contrarian claim','Shocking statistic','Personal story','Curiosity gap question','Immediate value reveal','Dramatic scenario']},
-      {id:'length',   label:'Video Length',   tag:'L', color:'#800000', placeholder:'Target duration', type:'select',
-        options:['Short (60 seconds)','Medium (5-8 minutes)','Long (12-15 minutes)','Deep dive (20+ minutes)']},
-      {id:'cta',      label:'Call to Action', tag:'C', color:'#600000', placeholder:'Subscribe, buy, comment, link in bio...', type:'text'},
-    ],
-    build:function(v){
-      var p='You are an expert YouTube scriptwriter who specializes in high-retention videos.\n\n';
-      p+='Write a complete YouTube script for:\n\n';
-      if(v.topic)    p+='Topic: '+v.topic+'\n';
-      if(v.audience) p+='Audience: '+v.audience+'\n';
-      if(v.hook)     p+='Opening hook style: '+v.hook+'\n';
-      if(v.length)   p+='Target length: '+v.length+'\n';
-      if(v.cta)      p+='CTA: '+v.cta+'\n';
-      p+='\nStructure:\n1. HOOK (first 15 seconds)\n2. INTRO (credibility + value promise)\n3. MAIN CONTENT (pattern interrupts every 60-90s)\n4. OUTRO + CTA\n\nInclude [B-ROLL] and [PAUSE] notes.';
-      return p.trim();
-    }
-  },
-  {
-    id:'aether', name:'AETHER', icon:'🔮', color:'#7c3aed',
+    id:'aether', name:'AETHER', icon:'⚡', color:'#ff4d8f',
     desc:'Actor · Environment · Task · Hard Constraints · Examples · Refinement',
     blocks:[
-      {id:'actor',    label:'Actor (Role)',          tag:'A', color:'#7c3aed', placeholder:'You are a [specific expert] with [X years] experience in [field]...', type:'textarea', rows:2},
-      {id:'env',      label:'Environment (Context)', tag:'E', color:'#6b2fd9', placeholder:'Background: [situation]. Goal: [objective]. Audience: [who this is for]...', type:'textarea', rows:2},
-      {id:'task',     label:'Task (Instruction)',    tag:'T', color:'#5a25c4', placeholder:'Clearly state: Write / Summarize / Debug / Analyze / Rewrite [specific thing]...', type:'textarea', rows:2},
-      {id:'hard',     label:'Hard Constraints',      tag:'H', color:'#491cb0', placeholder:'Word limit: [X]. Tone: [X]. Avoid: [X]. Format: [X]...', type:'textarea', rows:2},
-      {id:'examples', label:'Examples (Few-Shot)',   tag:'E', color:'#38149b', placeholder:'Input: [sample]\nOutput: [what it should look like]...', type:'textarea', rows:3},
-      {id:'refine',   label:'Request for Refinement',tag:'R', color:'#270b87', placeholder:'Format as [table/JSON]. Self-review before finalizing. Ask clarifying questions if needed...', type:'textarea', rows:2},
+      {id:'actor',       label:'Actor',            tag:'A', color:'#ff4d8f', placeholder:'Who is the AI in this scenario?', type:'textarea', rows:2},
+      {id:'environment', label:'Environment',       tag:'E', color:'#e0365a', placeholder:'The context or world the actor operates in...', type:'textarea', rows:2},
+      {id:'task',        label:'Task',              tag:'T', color:'#c01e3c', placeholder:'The specific task or goal...', type:'textarea', rows:2},
+      {id:'constraints', label:'Hard Constraints',  tag:'H', color:'#a0062e', placeholder:'Rules the AI must never violate...', type:'textarea', rows:2},
+      {id:'examples',    label:'Examples',          tag:'Ex',color:'#ff7aa8', placeholder:'Example inputs/outputs to guide the AI...', type:'textarea', rows:2},
+      {id:'refinement',  label:'Refinement',        tag:'R', color:'#ffaac4', placeholder:'How to improve or iterate on the output...', type:'text'},
     ],
     build:function(v){
       var p='';
-      if(v.actor)    p+='ACTOR:\n'+v.actor+'\n\n';
-      if(v.env)      p+='ENVIRONMENT:\n'+v.env+'\n\n';
-      if(v.task)     p+='TASK:\n'+v.task+'\n\n';
-      if(v.hard)     p+='HARD CONSTRAINTS:\n'+v.hard+'\n\n';
-      if(v.examples) p+='EXAMPLES:\n'+v.examples+'\n\n';
-      if(v.refine)   p+='REFINEMENT:\n'+v.refine;
+      if(v.actor)       p+='You are '+v.actor+'.\n\n';
+      if(v.environment) p+='Environment: '+v.environment+'\n\n';
+      if(v.task)        p+='Task: '+v.task+'\n\n';
+      if(v.constraints) p+='Hard constraints:\n'+v.constraints+'\n\n';
+      if(v.examples)    p+='Examples:\n'+v.examples+'\n\n';
+      if(v.refinement)  p+='Refinement: '+v.refinement;
       return p.trim();
     }
   },
+  {
+    id:'risen', name:'RISEN', icon:'🚀', color:'#f59e0b',
+    desc:'Role · Instructions · Steps · End Goal · Narrowing',
+    blocks:[
+      {id:'role',         label:'Role',         tag:'R', color:'#f59e0b', placeholder:'The role the AI should take on...', type:'textarea', rows:2},
+      {id:'instructions', label:'Instructions', tag:'I', color:'#d97706', placeholder:'Specific instructions or guidelines...', type:'textarea', rows:2},
+      {id:'steps',        label:'Steps',        tag:'S', color:'#b45309', placeholder:'The steps the AI should follow...', type:'textarea', rows:2},
+      {id:'endgoal',      label:'End Goal',     tag:'E', color:'#92400e', placeholder:'The final output or desired result...', type:'textarea', rows:2},
+      {id:'narrowing',    label:'Narrowing',    tag:'N', color:'#fbbf24', placeholder:'Constraints that narrow the scope...', type:'textarea', rows:2},
+    ],
+    build:function(v){
+      var p='';
+      if(v.role)         p+='Role: '+v.role+'\n\n';
+      if(v.instructions) p+='Instructions: '+v.instructions+'\n\n';
+      if(v.steps)        p+='Steps to follow:\n'+v.steps+'\n\n';
+      if(v.endgoal)      p+='End goal: '+v.endgoal+'\n\n';
+      if(v.narrowing)    p+='Constraints: '+v.narrowing;
+      return p.trim();
+    }
+  },
+  {
+    id:'scqa', name:'SCQA', icon:'❓', color:'#06b6d4',
+    desc:'Situation · Complication · Question · Answer',
+    blocks:[
+      {id:'situation',    label:'Situation',    tag:'S', color:'#06b6d4', placeholder:'Set the scene — what is the current state?', type:'textarea', rows:2},
+      {id:'complication', label:'Complication', tag:'C', color:'#0891b2', placeholder:'What problem or tension exists?', type:'textarea', rows:2},
+      {id:'question',     label:'Question',     tag:'Q', color:'#0e7490', placeholder:'What needs to be resolved or answered?', type:'text'},
+      {id:'answer',       label:'Answer Style', tag:'A', color:'#155e75', placeholder:'How should the AI answer or resolve this?', type:'textarea', rows:2},
+    ],
+    build:function(v){
+      var p='';
+      if(v.situation)    p+='Situation: '+v.situation+'\n\n';
+      if(v.complication) p+='Complication: '+v.complication+'\n\n';
+      if(v.question)     p+='Key question: '+v.question+'\n\n';
+      if(v.answer)       p+='Please answer by: '+v.answer;
+      return p.trim();
+    }
+  },
+  {
+    id:'crispe', name:'CRISPE', icon:'🎯', color:'#8b5cf6',
+    desc:'Capacity · Role · Insight · Statement · Personality · Experiment',
+    blocks:[
+      {id:'capacity',    label:'Capacity',    tag:'C', color:'#8b5cf6', placeholder:'AI capacity needed (e.g. expert coder, creative writer)...', type:'text'},
+      {id:'role',        label:'Role',        tag:'R', color:'#7c3aed', placeholder:'Specific role to adopt...', type:'text'},
+      {id:'insight',     label:'Insight',     tag:'I', color:'#6d28d9', placeholder:'Background context and relevant knowledge...', type:'textarea', rows:2},
+      {id:'statement',   label:'Statement',   tag:'S', color:'#5b21b6', placeholder:'The exact task or statement...', type:'textarea', rows:2},
+      {id:'personality', label:'Personality', tag:'P', color:'#a78bfa', placeholder:'Style or personality traits for the response...', type:'text'},
+      {id:'experiment',  label:'Experiment',  tag:'E', color:'#c4b5fd', placeholder:'Ask for multiple versions or approaches...', type:'text'},
+    ],
+    build:function(v){
+      var p='';
+      if(v.capacity)    p+='Capacity: Act as '+v.capacity+'.\n';
+      if(v.role)        p+='Role: '+v.role+'\n';
+      if(v.insight)     p+='\nInsight: '+v.insight+'\n\n';
+      if(v.statement)   p+='Task: '+v.statement+'\n\n';
+      if(v.personality) p+='Personality: Respond with '+v.personality+' style.\n';
+      if(v.experiment)  p+='Experiment: '+v.experiment;
+      return p.trim();
+    }
+  },
+  {
+    id:'para', name:'PARA', icon:'📁', color:'#10b981',
+    desc:'Projects · Areas · Resources · Archive — for knowledge management',
+    blocks:[
+      {id:'projects',  label:'Projects',  tag:'P', color:'#10b981', placeholder:'Active projects relevant to this task...', type:'textarea', rows:2},
+      {id:'areas',     label:'Areas',     tag:'A', color:'#059669', placeholder:'Areas of responsibility or expertise...', type:'text'},
+      {id:'resources', label:'Resources', tag:'R', color:'#047857', placeholder:'Knowledge, tools, or references available...', type:'textarea', rows:2},
+      {id:'task',      label:'Task',      tag:'T', color:'#065f46', placeholder:'What should the AI help you accomplish?', type:'textarea', rows:2},
+    ],
+    build:function(v){
+      var p='';
+      if(v.projects)  p+='Active projects: '+v.projects+'\n\n';
+      if(v.areas)     p+='Area: '+v.areas+'\n\n';
+      if(v.resources) p+='Resources available: '+v.resources+'\n\n';
+      if(v.task)      p+='Task: '+v.task;
+      return p.trim();
+    }
+  },
+  {
+    id:'raci', name:'RACI', icon:'👥', color:'#ef4444',
+    desc:'Responsible · Accountable · Consulted · Informed',
+    blocks:[
+      {id:'task',        label:'Task',        tag:'T', color:'#ef4444', placeholder:'The task or deliverable to be created...', type:'textarea', rows:2},
+      {id:'responsible', label:'Responsible', tag:'R', color:'#dc2626', placeholder:'Who the AI should act as (responsible party)...', type:'text'},
+      {id:'accountable', label:'Accountable', tag:'A', color:'#b91c1c', placeholder:'Who the output is ultimately for...', type:'text'},
+      {id:'consulted',   label:'Consulted',   tag:'C', color:'#991b1b', placeholder:'Stakeholders whose input should be considered...', type:'text'},
+      {id:'informed',    label:'Informed',    tag:'I', color:'#7f1d1d', placeholder:'Who needs to understand the output...', type:'text'},
+    ],
+    build:function(v){
+      var p='';
+      if(v.task)        p+='Task: '+v.task+'\n\n';
+      if(v.responsible) p+='Acting as: '+v.responsible+'\n';
+      if(v.accountable) p+='Output for: '+v.accountable+'\n';
+      if(v.consulted)   p+='Considering input from: '+v.consulted+'\n';
+      if(v.informed)    p+='Written so that '+v.informed+' can understand it.';
+      return p.trim();
+    }
+  }
 ];
 
-// ── LEARN DATA ─────────────────────────────────────────────────
-var LEARN_DATA = [
-  {
-    name:'CoSTAR', full:'Context · Objective · Style · Tone · Audience · Response',
-    when:'Best for content creation, marketing, long-form writing',
-    desc:'The most comprehensive framework. Use it when you need precise control over every aspect of the output — from the writing style to the target audience.',
-    steps:['Context — What is the background situation?','Objective — What exactly do you want to achieve?','Style — What writing style? (formal, casual, persuasive)','Tone — What emotion or energy? (urgent, warm, authoritative)','Audience — Who is reading this?','Response — What format should the output take?'],
-    example:'Context: I run a fitness app targeting busy professionals.\nObjective: Write an email to re-engage inactive users.\nStyle: Conversational and motivating.\nTone: Warm, not pushy.\nAudience: 30-45 year olds with desk jobs.\nResponse: 150-word email with subject line.',
-    fw:'costar'
-  },
-  {
-    name:'RTF', full:'Role · Task · Format',
-    when:'Best for quick structured tasks — emails, summaries, reports',
-    desc:'Fast and effective. Assign a role, state the task, specify the format. Great when you need speed without sacrificing quality.',
-    steps:['Role — Who should the AI be? (expert, consultant, writer)','Task — What specific thing do you need done?','Format — How should the output be structured?'],
-    example:'Role: You are a senior UX designer.\nTask: Review this app description and list the top 5 usability issues.\nFormat: Numbered list, one sentence each.',
-    fw:'rtf'
-  },
-  {
-    name:'Chain-of-Thought', full:'Step-by-step reasoning',
-    when:'Best for complex problems, analysis, math, strategy',
-    desc:'Forces the AI to reason through a problem step by step. Dramatically improves accuracy on complex tasks.',
-    steps:['State the problem clearly','Ask the AI to "think step by step"','Request it show its reasoning before giving the answer','Optional: ask it to check its own work'],
-    example:'I need to decide whether to raise prices for my SaaS product. My current MRR is $12k with 200 customers at $60/month. Think through this step by step, considering churn risk, revenue impact, and competitive positioning. Show your reasoning.',
-    fw:'cot'
-  },
-  {
-    name:'Marketing Copy', full:'Hook · Problem · Solution · Proof · CTA',
-    when:'Best for ads, landing pages, sales emails, social posts',
-    desc:'The classic direct response formula adapted for AI. Works for any promotional content that needs to convert.',
-    steps:['Hook — Grab attention in the first line','Problem — Name the pain the reader feels','Solution — Introduce your offer as the answer','Proof — Add evidence (stats, testimonials, results)','CTA — Tell them exactly what to do next'],
-    example:'Write Facebook ad copy for a meal prep service.\nHook: Target busy parents who skip lunch.\nProblem: No time to cook healthy food.\nSolution: Ready-in-2-minutes meals delivered weekly.\nProof: 50,000 customers, 4.9 star rating.\nCTA: Get first week 50% off.',
-    fw:'marketing'
-  },
-  {
-    name:'Code Builder', full:'Language · Task · Requirements · Constraints',
-    when:'Best for coding tasks, scripts, debugging, code review',
-    desc:'Structured approach for getting clean, functional code. Specifying the language, requirements and constraints upfront saves multiple revision rounds.',
-    steps:['Language — Specify the programming language and version','Task — Describe exactly what the code should do','Requirements — List specific features or behaviors needed','Constraints — Any limitations (no external libraries, performance targets)'],
-    example:'Language: Python 3.11\nTask: Script that monitors a folder and emails me when new files are added.\nRequirements: Watch recursively, include filename and size in email, run as background process.\nConstraints: Use only standard library except smtplib.',
-    fw:'coding'
-  },
-  {
-    name:'Image Prompt', full:'Subject · Style · Lighting · Camera · Mood',
-    when:'Best for Midjourney, DALL·E, Stable Diffusion, Flux',
-    desc:'Image AI responds to very specific visual language. This framework covers the five elements that most affect image quality and style.',
-    steps:['Subject — What is the main focus of the image?','Style — Art style, medium, or artist reference','Lighting — Type and direction of light (golden hour, studio, dramatic)','Camera — Lens type, angle, shot distance (macro, wide angle, portrait)','Mood — Emotional atmosphere (ethereal, gritty, warm, cinematic)'],
-    example:'Subject: A lone astronaut on a red desert planet.\nStyle: Cinematic photography, realistic.\nLighting: Harsh alien sun, long dramatic shadows.\nCamera: Wide angle, low angle looking up.\nMood: Isolation, wonder, epic scale.\n--ar 16:9 --v 7 --stylize 750',
-    fw:'image'
-  },
-  {
-    name:'AI Agent', full:'Persona · Goal · Constraints · Tools · Output',
-    when:'Best for building AI assistants, bots, automated workflows',
-    desc:'Design a persistent AI persona with defined capabilities and boundaries.',
-    steps:['Persona — Give the AI a name, role and personality','Goal — What is this agent trying to achieve?','Constraints — What should it never do?','Tools — What information or capabilities does it have?','Output — How should it respond?'],
-    example:'Persona: You are Maya, a friendly customer success specialist.\nGoal: Help users solve product issues and feel valued.\nConstraints: Never discuss pricing, never make promises about features.\nTools: You know our product docs and FAQ.\nOutput: Warm, concise replies under 100 words.',
-    fw:'agent'
-  },
-  {
-    name:'YouTube Script', full:'Hook · Setup · Content · CTA',
-    when:'Best for YouTube videos, TikTok, Instagram Reels, Shorts',
-    desc:'Script structure optimized for video retention. The hook is everything — you have 3 seconds to stop the scroll.',
-    steps:['Hook — First 3 seconds: bold statement, question, or visual shock','Setup — 15-30 seconds: establish who this is for and what they will get','Content — The main value: teach, entertain, or inform','CTA — End with one clear action: subscribe, comment, click link'],
-    example:'Topic: How to make $1000 with AI tools.\nHook: "Most people use AI wrong — here is what actually makes money."\nSetup: "In the next 5 minutes I will show you 3 methods I tested myself."\nContent: Method 1 — AI copywriting. Method 2 — AI thumbnails. Method 3 — Prompt packs.\nCTA: "Comment which method you will try first."',
-    fw:'youtube'
-  },
-  {
-    name:'AETHER', full:'Actor · Environment · Task · Hard Constraints · Examples · Refinement',
-    when:'Best for complex, high-stakes prompts where precision matters',
-    desc:'The most complete prompt framework. AETHER ensures the AI fully understands its role, context, exact task, output boundaries, what good looks like, and how to deliver the final result.',
-    steps:['Actor — Assign the AI a specific, highly detailed persona or profession','Environment — Provide background, situational details, and overall goals','Task — Clearly state what you need the AI to do (summarize, rewrite, debug)','Hard Constraints — Define boundaries: word counts, styles to avoid, tone requirements','Examples — Provide sample input and output (few-shot learning)','Refinement — Direct the AI on output format, self-review, or follow-up questions'],
-    example:'Actor: You are a senior direct response copywriter with 15 years in SaaS.\nEnvironment: I am launching a B2B project management tool targeting 10-50 person teams.\nTask: Write a cold email to CTOs at software companies.\nHard Constraints: Under 120 words. No buzzwords. One CTA only.\nExamples: Input: "Our tool saves time." Output: "Teams using [Tool] ship features 40% faster."\nRefinement: Provide 3 variations. Self-review each for clarity and persuasion.',
-    fw:'aether'
-  },
+// ── TOOLS ──────────────────────────────────────────────────────
+var TOOLS = [
+  {id:'chatgpt',    name:'ChatGPT',    domain:'openai.com',        url:'https://chat.openai.com/?q='},
+  {id:'claude',     name:'Claude',     domain:'claude.ai',         url:'https://claude.ai/new?q='},
+  {id:'gemini',     name:'Gemini',     domain:'gemini.google.com', url:'https://gemini.google.com/app?q='},
+  {id:'perplexity', name:'Perplexity', domain:'perplexity.ai',     url:'https://perplexity.ai/?q='},
+  {id:'deepseek',   name:'DeepSeek',   domain:'deepseek.com',      url:'https://chat.deepseek.com/?q='},
+  {id:'midjourney', name:'Midjourney', domain:'midjourney.com',    url:'https://www.midjourney.com/imagine'},
+  {id:'ideogram',   name:'Ideogram',   domain:'ideogram.ai',       url:'https://ideogram.ai/'},
+  {id:'sora',       name:'Sora',       domain:'sora.com',          url:'https://sora.com/'},
 ];
 
-// ── TAB SWITCHING ──────────────────────────────────────────────
-var TAB_MAP = {
-  framework: {panel:'panelFramework', tab:'tabFramework'},
-  build:     {panel:'panelBuild',     tab:'tabBuild'},
-  preview:   {panel:'panelPreview',   tab:'tabPreview'},
-  learn:     {panel:'panelLearn',     tab:'tabLearn'},
-};
+// ── STATE ──────────────────────────────────────────────────────
+var activeFw    = FRAMEWORKS[0];
+var fieldValues = {};
+var isListening = false;
+var activeFieldId = null;
+var recognition = null;
 
-function switchTab(name){
-  Object.keys(TAB_MAP).forEach(function(k){
-    var m = TAB_MAP[k];
-    var panel = document.getElementById(m.panel);
-    var tab   = document.getElementById(m.tab);
-    if(panel) panel.classList.toggle('active', k===name);
-    if(tab)   tab.classList.toggle('active', k===name);
-  });
-}
-
-// ── RENDER TOOLS ──────────────────────────────────────────────
-function renderTools(){
-  var pills = document.getElementById('toolPills');
-  if(!pills) return;
-  pills.innerHTML = TOOLS.map(function(t){
-    return '<button class="tool-pill'+(currentTool===t.id?' active':'')+'" '+
-      'onclick="setTool(\''+t.id+'\')" data-tool="'+t.id+'">'+t.emoji+' '+t.label+'</button>';
-  }).join('');
-
-  // Also render open-in-tool row in preview
-  var row = document.getElementById('toolOpenRow');
-  if(row){
-    row.innerHTML = TOOLS.map(function(t){
-      return '<button class="tool-open-btn" onclick="openInTool(\''+t.id+'\')">'+
-        '<span class="t-em">'+t.emoji+'</span>'+t.label+'</button>';
-    }).join('');
-  }
-}
-
-function setTool(id){
-  currentTool = id;
-  // Update pills
-  document.querySelectorAll('.tool-pill').forEach(function(p){
-    p.classList.toggle('active', p.getAttribute('data-tool')===id);
-  });
-  updatePreview();
-}
-
-// ── RENDER FRAMEWORKS ─────────────────────────────────────────
-function renderFWGrid(){
-  var grid = document.getElementById('fwGrid');
-  if(!grid) return;
-  grid.innerHTML = FRAMEWORKS.map(function(fw){
-    var active = currentFW === fw.id;
-    // Parse hex color for CSS var
-    var hex = fw.color.replace('#','');
-    var r = parseInt(hex.substring(0,2),16);
-    var g = parseInt(hex.substring(2,4),16);
-    var b = parseInt(hex.substring(4,6),16);
-    return '<div class="fw-card'+(active?' active':'')+'" '+
-      'onclick="selectFW(\''+fw.id+'\')" '+
-      'style="--fw-color:'+fw.color+';--fw-r:'+r+';--fw-g:'+g+';--fw-b:'+b+'">'+
-      '<div class="fw-icon-wrap">'+fw.icon+'</div>'+
-      '<div class="fw-name">'+fw.name+'</div>'+
-      '<div class="fw-desc">'+fw.desc+'</div>'+
-    '</div>';
-  }).join('');
-}
-
-function selectFW(id){
-  currentFW = id;
-  blockValues = {};
-  renderFWGrid();
-  renderBlocks();
-  // Auto-switch to build tab on mobile
-  var isMobile = window.innerWidth < 860;
-  if(isMobile) switchTab('build');
-}
-
-// ── RENDER BLOCKS ─────────────────────────────────────────────
-function renderBlocks(){
-  var fw = FRAMEWORKS.find(function(f){ return f.id===currentFW; });
-  if(!fw) return;
-
-  // Update header
-  var hIcon = document.getElementById('fwHeaderIcon');
-  var hName = document.getElementById('fwHeaderName');
-  var hDesc = document.getElementById('fwHeaderDesc');
-  if(hIcon) hIcon.textContent = fw.icon;
-  if(hName) hName.textContent = fw.name;
-  if(hDesc) hDesc.style.color = fw.color;
-
-  var area = document.getElementById('blocksArea');
-  if(!area) return;
-
-  area.innerHTML = fw.blocks.map(function(b, i){
-    var val = blockValues[b.id] || '';
-    var inputHTML = '';
-    if(b.type==='select'){
-      inputHTML = '<select class="block-input" id="block_'+b.id+'" onchange="onBlockChange(\''+b.id+'\',this.value)">';
-      inputHTML += '<option value="">— select —</option>';
-      (b.options||[]).forEach(function(o){
-        inputHTML += '<option'+(o===val?' selected':'')+'>'+o+'</option>';
-      });
-      inputHTML += '</select>';
-    } else if(b.type==='textarea'){
-      inputHTML = '<textarea class="block-input" id="block_'+b.id+'" rows="'+(b.rows||2)+'" '+
-        'placeholder="'+b.placeholder.replace(/"/g,'&quot;')+'" '+
-        'oninput="onBlockChange(\''+b.id+'\',this.value)">'+val+'</textarea>';
-    } else {
-      inputHTML = '<input type="text" class="block-input" id="block_'+b.id+'" '+
-        'placeholder="'+b.placeholder.replace(/"/g,'&quot;')+'" '+
-        'value="'+val+'" oninput="onBlockChange(\''+b.id+'\',this.value)"/>';
-    }
-
-    var animDelay = (i * 60)+'ms';
-    return '<div class="block" id="blk_'+b.id+'" style="animation-delay:'+animDelay+'">'+
-      '<div class="block-hdr">'+
-        '<span class="block-tag" style="background:'+b.color+'22;color:'+b.color+'">'+b.tag+'</span>'+
-        '<span class="block-label">'+b.label+'</span>'+
-        '<button class="block-clear" onclick="clearBlock(\''+b.id+'\')">'+
-          '<i class="ph ph-x"></i>'+
-        '</button>'+
-      '</div>'+
-      '<div class="block-body">'+inputHTML+'</div>'+
-    '</div>';
-  }).join('');
-
-  renderAddBar();
-  updatePreview();
-}
-
-function renderAddBar(){
-  var bar = document.getElementById('addBlockBar');
-  if(!bar) return;
-  var extras = ['Examples','Constraints','Persona','Temperature','Language','Deadline'];
-  bar.innerHTML = '<span class="add-bar-label">Add block</span>'+
-    extras.map(function(e){
-      return '<button class="add-block-btn" onclick="addExtraBlock(\''+e+'\')">+ '+e+'</button>';
-    }).join('');
-}
-
-function addExtraBlock(name){
-  var id = 'extra_'+name.toLowerCase();
-  if(document.getElementById('blk_'+id)) return;
-  var area = document.getElementById('blocksArea');
-  var div = document.createElement('div');
-  div.className = 'block';
-  div.id = 'blk_'+id;
-  div.innerHTML = '<div class="block-hdr">'+
-    '<span class="block-tag" style="background:var(--surface3);color:var(--text2)">+</span>'+
-    '<span class="block-label">'+name+'</span>'+
-    '<button class="block-clear" onclick="removeExtraBlock(\''+id+'\')"><i class="ph ph-x"></i></button>'+
-    '</div>'+
-    '<div class="block-body">'+
-    '<textarea class="block-input" id="block_'+id+'" rows="2" placeholder="'+name+'..." '+
-    'oninput="onBlockChange(\''+id+'\',this.value)"></textarea>'+
-    '</div>';
-  area.appendChild(div);
-}
-
-function removeExtraBlock(id){
-  var el = document.getElementById('blk_'+id);
-  if(el) el.remove();
-  delete blockValues[id];
-  updatePreview();
-}
-
-function clearBlock(id){
-  blockValues[id] = '';
-  var el = document.getElementById('block_'+id);
-  if(el) el.value = '';
-  updatePreview();
-}
-
-// ── UPDATE PREVIEW ─────────────────────────────────────────────
-function onBlockChange(id, val){
-  blockValues[id] = val;
-  updatePreview();
-}
-
-function updatePreview(){
-  var fw = FRAMEWORKS.find(function(f){ return f.id===currentFW; });
-  if(!fw) return;
-
-  var allVals = {};
-  Object.keys(blockValues).forEach(function(k){ allVals[k] = blockValues[k]; });
-
-  var prompt = fw.build ? fw.build(allVals) : '';
-
-  // Append extra blocks
-  Object.keys(allVals).forEach(function(k){
-    if(k.startsWith('extra_') && allVals[k]){
-      var label = k.replace('extra_','');
-      label = label.charAt(0).toUpperCase()+label.slice(1);
-      if(prompt && !prompt.includes(label)) prompt += '\n\n'+label+':\n'+allVals[k];
-    }
-  });
-
-  var previewText = document.getElementById('previewText');
-  var previewBox  = document.getElementById('previewBox');
-  var previewStats = document.getElementById('previewStats');
-  var copyBtn  = document.getElementById('copyBtn');
-  var copyBtn2 = document.getElementById('copyBtn2');
-
-  if(!prompt || !prompt.trim()){
-    previewText.innerHTML = '<div class="preview-empty"><span class="big">⚡</span>Fill in the blocks and your prompt appears here</div>';
-    if(previewBox) previewBox.classList.remove('has-content');
-    if(copyBtn)  copyBtn.disabled = true;
-    if(copyBtn2) copyBtn2.disabled = true;
-    if(previewStats) previewStats.innerHTML = '';
-    return;
-  }
-
-  previewText.className = 'preview-text';
-  previewText.textContent = prompt;
-  if(previewBox) previewBox.classList.add('has-content');
-
-  var words = prompt.trim().split(/\s+/).length;
-  var chars = prompt.length;
-  if(previewStats){
-    previewStats.innerHTML =
-      '<div class="pstat"><span>'+words+'</span> w</div>'+
-      '<div class="pstat"><span>'+chars+'</span> ch</div>';
-  }
-
-  if(copyBtn)  copyBtn.disabled = false;
-  if(copyBtn2) copyBtn2.disabled = false;
-}
-
-function getCurrentPrompt(){
-  var el = document.getElementById('previewText');
-  return (el && el.classList.contains('preview-text') && el.textContent.trim().length > 10) ? el.textContent : '';
-}
-
-// ── COPY ──────────────────────────────────────────────────────
-function copyPrompt(){
-  var p = getCurrentPrompt();
-  if(!p) return;
-
-  // Save
-  try{
-    var saved2 = JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
-    var fw = FRAMEWORKS.find(function(f){ return f.id===currentFW; });
-    var name = (fw ? fw.name : 'Prompt')+' — '+new Date().toLocaleDateString();
-    if(!saved2.some(function(s){ return s.text===p; })){
-      saved2.unshift({name:name, text:p});
-      if(saved2.length>50) saved2=saved2.slice(0,50);
-      localStorage.setItem('pa_saved_text', JSON.stringify(saved2));
-    }
-    // Add to builder saved
-    saved.unshift({label:p.slice(0,60)+(p.length>60?'...':''), prompt:p, tool:currentTool, fw:currentFW, ts:Date.now()});
-    if(saved.length>20) saved=saved.slice(0,20);
-    localStorage.setItem('pb_saved', JSON.stringify(saved));
-    renderSaved();
-  }catch(e){}
-
-  // Copy
-  var btns = [document.getElementById('copyBtn'), document.getElementById('copyBtn2')];
-  function onDone(){
-    btns.forEach(function(btn){
-      if(!btn) return;
-      btn.innerHTML = '<i class="ph ph-check"></i> Copied!';
-      btn.classList.add('copy-success');
-      setTimeout(function(){
-        btn.innerHTML = '<i class="ph ph-copy"></i> Copy & Save';
-        btn.classList.remove('copy-success');
-      }, 2000);
-    });
-  }
-
-  try{
-    if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(p).then(onDone).catch(function(){
-        var ta=document.createElement('textarea');
-        ta.value=p; document.body.appendChild(ta); ta.select();
-        document.execCommand('copy'); document.body.removeChild(ta);
-        onDone();
-      });
-    } else {
-      var ta=document.createElement('textarea');
-      ta.value=p; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      onDone();
-    }
-  }catch(e){ onDone(); }
-}
-
-// ── OPEN IN TOOL ──────────────────────────────────────────────
-function openInTool(toolId){
-  var p = getCurrentPrompt();
-  if(!p){ showToastMsg('Build a prompt first!'); return; }
-  var id  = toolId || currentTool;
-  var url = (TOOL_URLS[id]||'https://chat.openai.com/?q=')+encodeURIComponent(p);
-  window.open(url,'_blank');
-}
-
-// ── RESET ─────────────────────────────────────────────────────
-function resetAll(){
-  blockValues = {};
-  renderBlocks();
-}
-
-// ── IMPROVE ───────────────────────────────────────────────────
-function toggleImprove(){
-  improveOpen = !improveOpen;
-  var body    = document.getElementById('improveBody');
-  var chevron = document.getElementById('improveChevron');
-  if(body)    body.classList.toggle('open', improveOpen);
-  if(chevron) chevron.style.transform = improveOpen ? 'rotate(180deg)' : '';
-}
-
-function toggleImpOpt(el){ el.classList.toggle('active'); }
-
-function runImprove(){
-  var raw = document.getElementById('improveInput').value.trim();
-  if(!raw){ showToastMsg('Paste a prompt first!'); return; }
-
-  var opts = [];
-  document.querySelectorAll('#improveOptions .imp-opt.active').forEach(function(el){
-    opts.push(el.getAttribute('data-imp'));
-  });
-
-  var improved = raw;
-  if(opts.includes('role'))        improved = 'You are a world-class expert with deep knowledge and real-world experience.\n\n'+improved;
-  if(opts.includes('structure'))   improved = improved+'\n\nApproach this systematically. Break it into clear sections.';
-  if(opts.includes('format'))      improved = improved+'\n\nFormat your response with clear headers, bullet points where appropriate, and a concise summary at the end.';
-  if(opts.includes('specific'))    improved = improved+'\n\nBe highly specific. Use real examples, concrete numbers, and avoid vague generalities.';
-  if(opts.includes('constraints')) improved = improved+'\n\nConstraints: Focus only on what is most important. Be concise. Prioritize actionability.';
-  if(opts.includes('tone'))        improved = improved+'\n\nTone: Professional yet accessible. Confident but not arrogant.';
-
-  var previewText = document.getElementById('previewText');
-  previewText.className = 'preview-text';
-  previewText.textContent = improved;
-  var previewBox = document.getElementById('previewBox');
-  if(previewBox) previewBox.classList.add('has-content');
-
-  var words = improved.trim().split(/\s+/).length;
-  var stats = document.getElementById('previewStats');
-  if(stats) stats.innerHTML = '<div class="pstat"><span>'+words+'</span> w</div><div class="pstat" style="color:var(--orange);font-weight:700;margin-left:auto;">IMPROVED</div>';
-
-  var copyBtn  = document.getElementById('copyBtn');
-  var copyBtn2 = document.getElementById('copyBtn2');
-  if(copyBtn)  copyBtn.disabled = false;
-  if(copyBtn2) copyBtn2.disabled = false;
-
-  toggleImprove();
-  var isMobile = window.innerWidth < 860;
-  if(isMobile) switchTab('preview');
-}
-
-// Wire up improve options
+// ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('#improveOptions .imp-opt').forEach(function(btn){
-    btn.addEventListener('click', function(){ toggleImpOpt(this); });
-  });
+  renderFwGrid();
+  selectFw(FRAMEWORKS[0]);
+  renderToolsGrid();
 });
 
-// ── SAVED ─────────────────────────────────────────────────────
-function toggleSaved(){
-  savedOpen = !savedOpen;
-  var list  = document.getElementById('savedList');
-  var arrow = document.getElementById('savedArrow');
-  if(list)  list.classList.toggle('open', savedOpen);
-  if(arrow) arrow.style.transform = savedOpen ? 'rotate(180deg)' : '';
+// ── FRAMEWORK GRID ─────────────────────────────────────────────
+function renderFwGrid(){
+  var g = document.getElementById('fwGrid');
+  if(!g) return;
+  g.innerHTML = FRAMEWORKS.map(function(fw){
+    return '<button class="fw-card'+(fw.id===activeFw.id?' active':'')+'" onclick="selectFw(FRAMEWORKS.find(function(f){return f.id===\''+fw.id+'\'}))">'
+      +'<span class="fw-card-icon">'+fw.icon+'</span>'
+      +'<span class="fw-card-name">'+fw.name+'</span>'
+      +'<span class="fw-card-desc">'+fw.desc.split(' · ').slice(0,3).join(' · ')+'</span>'
+      +'</button>';
+  }).join('');
 }
 
-function renderSaved(){
-  var list = document.getElementById('savedList');
-  var cnt  = document.getElementById('savedCount');
-  if(cnt) cnt.textContent = '('+saved.length+')';
-  if(!list) return;
-  if(!saved.length){
-    list.innerHTML = '<div class="saved-empty">No saved prompts yet.</div>';
+function selectFw(fw){
+  activeFw = fw;
+  fieldValues = {};
+  // Update grid active state
+  document.querySelectorAll('.fw-card').forEach(function(c,i){
+    c.classList.toggle('active', FRAMEWORKS[i] && FRAMEWORKS[i].id === fw.id);
+  });
+  // Update panel header
+  var icon = document.getElementById('panelFwIcon');
+  var name = document.getElementById('panelFwName');
+  var desc = document.getElementById('panelFwDesc');
+  if(icon) icon.textContent = fw.icon;
+  if(name) name.textContent = fw.name;
+  if(desc) desc.textContent = fw.desc;
+  renderFields();
+  buildPreview();
+}
+
+// ── FIELDS ─────────────────────────────────────────────────────
+function renderFields(){
+  var body = document.getElementById('fieldsBody');
+  if(!body) return;
+  body.innerHTML = activeFw.blocks.map(function(b){
+    var voiceBtn = '<button class="voice-mini" title="Dictate this field" onclick="dictateField(\''+b.id+'\')" id="vbtn-'+b.id+'">🎤</button>';
+    var tagHtml = '<div class="field-tag">'
+      +'<span class="field-tag-letter" style="background:'+b.color+'">'+b.tag+'</span>'
+      +'<span class="field-tag-name">'+b.label+'</span>'
+      +'<span class="field-tag-voice">'+voiceBtn+'</span>'
+      +'</div>';
+
+    var inputHtml = '';
+    if(b.type === 'select'){
+      inputHtml = '<select class="field-select" id="field-'+b.id+'" onchange="onFieldChange(\''+b.id+'\',this.value)">'
+        +'<option value="">Choose '+b.label+'...</option>'
+        +b.options.map(function(o){ return '<option value="'+o+'">'+o+'</option>'; }).join('')
+        +'</select>';
+    } else if(b.type === 'textarea'){
+      inputHtml = '<textarea class="field-input" id="field-'+b.id+'" rows="'+(b.rows||2)+'" placeholder="'+b.placeholder+'" oninput="onFieldChange(\''+b.id+'\',this.value)"></textarea>';
+    } else {
+      inputHtml = '<input class="field-input" type="text" id="field-'+b.id+'" placeholder="'+b.placeholder+'" oninput="onFieldChange(\''+b.id+'\',this.value)"/>';
+    }
+    return '<div class="field-block">'+tagHtml+inputHtml+'</div>';
+  }).join('');
+}
+
+function onFieldChange(id, val){
+  fieldValues[id] = val;
+  buildPreview();
+}
+
+function clearFields(){
+  fieldValues = {};
+  activeFw.blocks.forEach(function(b){
+    var el = document.getElementById('field-'+b.id);
+    if(el){ el.value = ''; }
+  });
+  buildPreview();
+}
+
+// ── PREVIEW ────────────────────────────────────────────────────
+function buildPreview(){
+  var box   = document.getElementById('previewBox');
+  var empty = document.getElementById('previewEmpty');
+  var cc    = document.getElementById('charCount');
+  var wc    = document.getElementById('wordCount');
+  if(!box) return;
+
+  var prompt = activeFw.build(fieldValues);
+
+  if(!prompt){
+    box.innerHTML = '';
+    if(empty){ empty.style.display='block'; box.appendChild(empty); }
+    if(cc) cc.textContent = '0 characters';
+    if(wc) wc.textContent = '0 words';
     return;
   }
-  list.innerHTML = saved.map(function(s,i){
-    return '<div class="saved-item" onclick="loadSaved('+i+')">'+
-      '<span class="saved-text">'+s.label+'</span>'+
-      '<button class="saved-del" onclick="deleteSaved('+i+',event)"><i class="ph ph-x"></i></button>'+
-    '</div>';
-  }).join('');
+
+  if(empty) empty.style.display = 'none';
+  box.textContent = prompt;
+  if(cc) cc.textContent = prompt.length + ' characters';
+  if(wc) wc.textContent = prompt.split(/\s+/).filter(Boolean).length + ' words';
 }
 
-function loadSaved(i){
-  var s = saved[i];
-  if(!s) return;
-  var fw = FRAMEWORKS.find(function(f){ return f.id===s.fw; });
-  if(fw){ currentFW = s.fw; blockValues = {}; renderFWGrid(); renderBlocks(); }
-  var previewText = document.getElementById('previewText');
-  if(previewText){ previewText.className='preview-text'; previewText.textContent=s.prompt; }
-  var previewBox = document.getElementById('previewBox');
-  if(previewBox) previewBox.classList.add('has-content');
-  var copyBtn  = document.getElementById('copyBtn');
-  var copyBtn2 = document.getElementById('copyBtn2');
-  if(copyBtn)  copyBtn.disabled = false;
-  if(copyBtn2) copyBtn2.disabled = false;
+function getPrompt(){
+  var box = document.getElementById('previewBox');
+  return box ? box.textContent.trim() : '';
 }
 
-function deleteSaved(i,e){
-  e.stopPropagation();
-  saved.splice(i,1);
-  localStorage.setItem('pb_saved', JSON.stringify(saved));
-  renderSaved();
+// ── COPY ───────────────────────────────────────────────────────
+function copyPrompt(){
+  var text = getPrompt();
+  if(!text){ showToast('Nothing to copy yet!'); return; }
+  var btn = document.getElementById('copyBtn');
+  function done(){
+    btn.innerHTML = '<i class="ph ph-check"></i> Copied!';
+    btn.classList.add('success');
+    setTimeout(function(){ btn.innerHTML='<i class="ph ph-copy"></i> Copy'; btn.classList.remove('success'); }, 2200);
+    showToast('✅ Prompt copied!');
+    autoSave(text);
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fbCopy(text); done(); });
+  } else { fbCopy(text); done(); }
+}
+function fbCopy(t){
+  var ta=document.createElement('textarea'); ta.value=t;
+  ta.style.cssText='position:fixed;left:-9999px;opacity:0;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
 }
 
-// ── LEARN ─────────────────────────────────────────────────────
-function renderLearn(){
-  var container = document.getElementById('learnCards');
-  if(!container) return;
-  container.innerHTML = LEARN_DATA.map(function(fw,i){
-    var stepsHtml = fw.steps.map(function(s,j){
-      return '<li><span class="learn-step-num">'+(j+1)+'</span><span>'+s+'</span></li>';
-    }).join('');
-    var ex = fw.example.replace(/\n/g,'<br>');
-    return [
-      '<div class="learn-card" id="lc'+i+'" onclick="toggleLearnCard('+i+')">',
-        '<div class="learn-card-hdr">',
-          '<div>',
-            '<div class="learn-fw-name">'+fw.name+'</div>',
-            '<div class="learn-fw-full">'+fw.full+'</div>',
-          '</div>',
-          '<i class="ph ph-caret-down learn-chevron"></i>',
-        '</div>',
-        '<div class="learn-body">',
-          '<div class="learn-when">When to use</div>',
-          '<div class="learn-desc">'+fw.desc+'</div>',
-          '<div class="learn-when">How it works</div>',
-          '<ul class="learn-steps">'+stepsHtml+'</ul>',
-          '<div class="learn-eg-label">Example prompt</div>',
-          '<div class="learn-eg">'+ex+'</div>',
-          '<button class="learn-try-btn" data-fw="'+fw.fw+'" onclick="tryFramework(event,this)">Try this framework →</button>',
-        '</div>',
-      '</div>'
-    ].join('');
-  }).join('');
+// ── SAVE ───────────────────────────────────────────────────────
+function autoSave(text){
+  try{
+    var saved=JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
+    var name=activeFw.name+' Prompt';
+    if(!saved.some(function(s){ return s.text===text; })){
+      saved.unshift({name:name,text:text});
+      if(saved.length>50) saved=saved.slice(0,50);
+      localStorage.setItem('pa_saved_text',JSON.stringify(saved));
+    }
+  }catch(e){}
+}
+function savePrompt(){
+  var text = getPrompt();
+  if(!text){ showToast('Nothing to save yet!'); return; }
+  autoSave(text);
+  var btn = document.querySelector('[onclick="savePrompt()"]');
+  if(btn){
+    btn.innerHTML='<i class="ph ph-check"></i> Saved!';
+    btn.classList.add('success');
+    setTimeout(function(){ btn.innerHTML='<i class="ph ph-bookmark-simple"></i> Save'; btn.classList.remove('success'); },2200);
+  }
+  showToast('⭐ Prompt saved!');
 }
 
-function toggleLearnCard(i){
-  var card = document.getElementById('lc'+i);
-  var isOpen = card.classList.contains('open');
-  document.querySelectorAll('.learn-card').forEach(function(c){ c.classList.remove('open'); });
-  if(!isOpen) card.classList.add('open');
+// ── SHARE ──────────────────────────────────────────────────────
+function sharePrompt(){
+  var text = getPrompt();
+  if(!text){ showToast('Build a prompt first!'); return; }
+  var shareText = activeFw.name+' Prompt — built on Promptaholics';
+  var shareUrl  = 'https://promptaholics.com/prompt-builder.html';
+
+  var old = document.getElementById('sharePopover');
+  if(old){ old.remove(); return; }
+
+  if(navigator.share && window.innerWidth < 768){
+    navigator.share({ title:shareText, text:text+'\n\n'+shareUrl, url:shareUrl }).catch(function(){});
+    return;
+  }
+
+  var enc=encodeURIComponent(shareText+' '+shareUrl);
+  var pop=document.createElement('div');
+  pop.id='sharePopover'; pop.className='share-popover';
+
+  function mkA(href,em,label){
+    var a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener';
+    a.className='sp-btn'; a.innerHTML='<span style="font-size:18px;">'+em+'</span>'+label;
+    return a;
+  }
+  var cp=document.createElement('button'); cp.className='sp-btn';
+  cp.innerHTML='<span style="font-size:18px;">🔗</span>Copy Link';
+  cp.onclick=function(){ fbCopy(shareUrl); cp.innerHTML='<span style="font-size:18px;">✅</span>Done!'; setTimeout(function(){ pop.remove(); },1200); };
+  var cl=document.createElement('button'); cl.className='sp-close'; cl.textContent='✕';
+  cl.onclick=function(){ pop.remove(); };
+
+  pop.appendChild(mkA('https://twitter.com/intent/tweet?text='+enc,'𝕏','Twitter'));
+  pop.appendChild(mkA('https://wa.me/?text='+enc,'💬','WhatsApp'));
+  pop.appendChild(mkA('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(shareUrl),'💼','LinkedIn'));
+  pop.appendChild(cp); pop.appendChild(cl);
+  document.body.appendChild(pop);
+  setTimeout(function(){
+    document.addEventListener('click',function h(e){
+      if(!pop.contains(e.target)){ pop.remove(); document.removeEventListener('click',h); }
+    });
+  },150);
 }
 
-function tryFramework(e,btn){
-  e.stopPropagation();
-  var id = btn.getAttribute('data-fw');
-  selectFW(id);
-  switchTab('build');
+// ── VOICE ──────────────────────────────────────────────────────
+function toggleGlobalVoice(){
+  if(isListening){ stopDictation(); return; }
+  // Dictate into the first textarea field
+  var firstField = activeFw.blocks.find(function(b){ return b.type==='textarea' || b.type==='text'; });
+  if(firstField) dictateField(firstField.id);
 }
 
-// ── TOAST ─────────────────────────────────────────────────────
-function showToastMsg(msg){
-  var existing = document.getElementById('appToast');
-  if(existing) existing.remove();
-  var t = document.createElement('div');
-  t.className = 'toast';
-  t.id = 'appToast';
-  t.innerHTML = '<i class="ph ph-info" style="color:var(--orange)"></i><span>'+msg+'</span>';
-  document.body.appendChild(t);
-  setTimeout(function(){ if(t.parentNode) t.remove(); }, 2500);
-}
-
-// ── VOICE DICTATION ───────────────────────────────────────────
-var recognition   = null;
-var isListening   = false;
-var activeMicBtn  = null;
-var activeTarget  = null;
-
-function initSpeech(){
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR) return null;
-  var r = new SR();
-  r.continuous = false;
-  r.interimResults = true;
-  r.lang = 'en-US';
-  r.maxAlternatives = 1;
-  return r;
-}
-
-function startDictation(targetId, btnId){
+function dictateField(fieldId){
   if(isListening){ stopDictation(); return; }
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ showToastMsg('Voice not supported. Try Chrome or Edge.'); return; }
+  if(!SR){ showToast('Voice not supported — try Chrome or Safari'); return; }
 
-  var target = targetId ? document.getElementById(targetId) : document.querySelector('.block-input');
-  if(!target) return;
-  activeTarget = target;
-  activeMicBtn = document.getElementById(btnId);
-  recognition  = initSpeech();
+  activeFieldId = fieldId;
+  recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  var voiceBtn = document.getElementById('voiceBtn');
+  var vbtn     = document.getElementById('vbtn-'+fieldId);
+  var fieldEl  = document.getElementById('field-'+fieldId);
 
   recognition.onstart = function(){
     isListening = true;
-    if(activeMicBtn) activeMicBtn.classList.add('listening');
-    showMicToast('Listening... speak now', true);
-    activeTarget.focus();
+    if(voiceBtn){ voiceBtn.innerHTML='<i class="ph ph-microphone-slash"></i> Stop'; voiceBtn.classList.add('mic-active'); }
+    if(vbtn)     vbtn.classList.add('active');
+    showToast('🎤 Listening...');
   };
-
   recognition.onresult = function(e){
-    var interim = '', final = '';
+    var final='', interim='';
     for(var i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal) final += e.results[i][0].transcript;
-      else interim += e.results[i][0].transcript;
+      if(e.results[i].isFinal) final+=e.results[i][0].transcript;
+      else interim+=e.results[i][0].transcript;
     }
-    if(interim) activeTarget.value = final+interim;
-    if(final)   activeTarget.value = final;
-    activeTarget.dispatchEvent(new Event('input',{bubbles:true}));
+    if(fieldEl) fieldEl.value = (fieldEl.value + (final||interim)).trim();
+    if(final){ fieldValues[fieldId]=fieldEl.value; buildPreview(); }
   };
-
   recognition.onerror = function(e){
-    var msg = e.error==='no-speech' ? 'No speech detected' :
-              e.error==='not-allowed' ? 'Microphone access denied' : 'Error: '+e.error;
-    showMicToast(msg, false);
-    setTimeout(removeMicToast, 2000);
+    showToast('Voice error: '+e.error);
     stopDictation();
   };
-
-  recognition.onend = function(){
-    stopDictation();
-    if(activeTarget && activeTarget.value){
-      showMicToast('Got it! ✓', false);
-      setTimeout(removeMicToast, 1500);
-    }
-  };
-
+  recognition.onend = function(){ stopDictation(); };
   recognition.start();
 }
 
 function stopDictation(){
   isListening = false;
-  if(recognition){ try{ recognition.stop(); }catch(e){} }
-  if(activeMicBtn){
-    activeMicBtn.classList.remove('listening');
-    var icon = activeMicBtn.querySelector('i');
-    if(icon) icon.className = 'ph ph-microphone';
+  if(recognition){ try{ recognition.stop(); }catch(e){} recognition=null; }
+  var voiceBtn = document.getElementById('voiceBtn');
+  if(voiceBtn){ voiceBtn.innerHTML='<i class="ph ph-microphone"></i> Dictate'; voiceBtn.classList.remove('mic-active'); }
+  if(activeFieldId){
+    var vbtn = document.getElementById('vbtn-'+activeFieldId);
+    if(vbtn) vbtn.classList.remove('active');
+    activeFieldId = null;
   }
 }
 
-function showMicToast(msg, listening){
-  removeMicToast();
-  var t = document.createElement('div');
-  t.className = 'mic-toast';
-  t.id = 'micToast';
-  t.innerHTML = (listening ? '<div class="mic-dot"></div>' : '<i class="ph ph-microphone" style="color:var(--orange)"></i>')+'<span>'+msg+'</span>';
-  document.body.appendChild(t);
+// ── TOOLS GRID ─────────────────────────────────────────────────
+function renderToolsGrid(){
+  var g = document.getElementById('toolsGrid');
+  if(!g) return;
+  g.innerHTML = TOOLS.map(function(t){
+    return '<button class="tool-btn" onclick="openInTool(\''+t.id+'\')" title="Open in '+t.name+'">'
+      +'<img class="tool-logo" src="https://www.google.com/s2/favicons?domain='+t.domain+'&sz=64" alt="'+t.name+'" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'"/>'
+      +'<div class="tool-logo-fallback" style="display:none;">🤖</div>'
+      +'<span class="tool-name">'+t.name+'</span>'
+      +'</button>';
+  }).join('');
 }
 
-function removeMicToast(){
-  var t = document.getElementById('micToast');
-  if(t) t.remove();
+function openInTool(toolId){
+  var text = getPrompt();
+  if(!text){ showToast('Build a prompt first!'); return; }
+  var tool = TOOLS.find(function(t){ return t.id===toolId; });
+  if(!tool) return;
+  var url = tool.url + encodeURIComponent(text);
+  window.open(url,'_blank','noopener');
 }
 
-// Keyboard shortcut: Ctrl/Cmd + Shift + M
-document.addEventListener('keydown', function(e){
-  if((e.ctrlKey||e.metaKey) && e.shiftKey && e.key==='M'){
-    e.preventDefault();
-    startDictation(null,'mainMicBtn');
-  }
-});
-
-// ── INIT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function(){
-  // Theme button
-  var tb = document.getElementById('themeBtn');
-  if(tb) tb.innerHTML = theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
-
-  renderTools();
-  renderFWGrid();
-  renderBlocks();
-  renderSaved();
-  renderLearn();
-});
+// ── TOAST ──────────────────────────────────────────────────────
+function showToast(msg){
+  var old=document.getElementById('mainToast'); if(old) old.remove();
+  var t=document.createElement('div'); t.id='mainToast'; t.className='toast';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); },2500);
+}
 </script>
 </body>
 </html>
