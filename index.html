@@ -862,6 +862,52 @@ a{text-decoration:none;color:inherit;}
 .sv-btn{padding:6px 10px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;}
 .sv-btn:hover{border-color:var(--orange);color:var(--orange);}
 #savedOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:799;}
+
+.share-popover {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 18px; z-index: 1000;
+  min-width: 280px; box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  animation: fadeUp .2s ease;
+}
+.sp-title {
+  font-family: 'Syne', serif; font-weight: 800; font-size: 13px;
+  color: var(--text); margin-bottom: 14px;
+}
+.sp-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 8px; margin-bottom: 12px;
+}
+.sp-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 10px 6px; background: var(--s2); border: 1px solid var(--border2);
+  border-radius: 10px; text-decoration: none; cursor: pointer;
+  color: var(--text2); font-size: 9px; font-weight: 700;
+  font-family: 'Instrument Sans', sans-serif;
+  transition: border-color .15s, color .15s;
+}
+.sp-btn:hover { border-color: var(--orange); color: var(--orange); }
+.sp-btn span { font-size: 9px; font-weight: 700; }
+.sp-close {
+  width: 100%; background: none; border: 1px solid var(--border2);
+  color: var(--text3); padding: 9px; border-radius: 9px;
+  font-size: 12px; cursor: pointer; font-family: 'Instrument Sans', sans-serif;
+  transition: all .15s;
+}
+.sp-close:hover { border-color: var(--orange); color: var(--orange); }
+
+
+.pc-save,.pc-share{
+  width:28px;height:28px;border-radius:7px;
+  border:1px solid var(--border2);background:var(--glass);
+  color:var(--ink2);cursor:pointer;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .15s;
+}
+.pc-save:hover,.pc-share:hover,.pc-copy:hover{
+  border-color:var(--orange);color:var(--orange);
+}
+.sb-item button{color:var(--ink2);}
 </style>
 </head>
 <body>
@@ -899,6 +945,7 @@ a{text-decoration:none;color:inherit;}
     <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
     <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
     <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <button class="sm-item" onclick="openSavedPanel();toggleMenu();" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;"><i class="ph ph-bookmark-simple"></i> Saved Prompts <span id="smSavedCount" style="margin-left:auto;font-size:10px;background:var(--orange);color:#fff;padding:1px 6px;border-radius:4px;font-weight:700;"></span></button>
   </div>
   <div class="sm-section">
     <div class="sm-label">Company</div>
@@ -1008,69 +1055,89 @@ a{text-decoration:none;color:inherit;}
     </div>
 
     <div class="showcase-scroll" id="promptScroll">
-      <div style="width:24px;flex-shrink:0;"></div>
-
-      <div class="prompt-card-lg" data-name="Viral TikTok Hook Generator" data-prompt="You are a world-class viral content strategist. Write 25 high-retention TikTok hooks for [TOPIC] that stop the scroll in the first 2 seconds. Each hook must use tension, contrast, or curiosity. Keep under 12 words each. Format as a numbered list.">
+      <div style="width:16px;flex-shrink:0;"></div>
+      <div class="prompt-card-lg" data-name="Viral LinkedIn Thought Leader" data-prompt="Write a powerful LinkedIn post about [TOPIC] for [TARGET AUDIENCE]. Structure: 1) Pattern-interrupting opening 2) Main insight or contrarian take 3) Supporting evidence or story 4) Practical takeaway 5) Engagement question. Max 1300 chars. Short paragraphs. No hashtag spam.">
         <div class="pc-tool-badge badge-chatgpt">ChatGPT · Business</div>
         <div class="pc-name">Viral LinkedIn Thought Leader</div>
         <div class="pc-preview">Write a powerful LinkedIn post about [TOPIC] for [AUDIENCE]. Make it insightful, engaging, and position the writer as a thought leader...</div>
         <div class="pc-footer">
-          <div class="pc-tags"><span class="pc-tag">linkedin</span><span class="pc-tag">content</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div class="pc-tags"><span class="pc-tag">linkedin</span><span class="pc-tag">personal brand</span></div>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
-
-      <div class="prompt-card-lg" data-name="Cinematic Short Film Director" data-prompt="Create a 10-second cinematic video of [SCENE]. Camera: slow push-in from wide to medium. Lighting: dramatic golden hour. Color: warm cinematic tones. Mood: epic and contemplative.">
+      <div class="prompt-card-lg" data-name="Hollywood Cinematographer" data-prompt="You are a world-class Hollywood cinematographer on a $300M blockbuster. Create an ultra-detailed Midjourney prompt for: [SCENE]. Include: camera lens, lighting setup, color palette, composition, atmosphere. End with --ar 16:9 --v 7 --stylize 750.">
         <div class="pc-tool-badge badge-mj">Midjourney · Image</div>
         <div class="pc-name">Hollywood Cinematographer</div>
-        <div class="pc-preview">You are a world-class Hollywood cinematographer working on a $300M blockbuster. Create an ultra-detailed production-ready image prompt for: [SCENE]...</div>
+        <div class="pc-preview">Create an ultra-detailed Midjourney image prompt for: [SCENE]. Camera, lighting, color, atmosphere all specified...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">cinematic</span><span class="pc-tag">film</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
-
-      <div class="prompt-card-lg" data-name="Hollywood Cinematographer" data-prompt="You are a world-class Hollywood cinematographer on a $300M blockbuster. Create an ultra-detailed Midjourney prompt for: [SCENE]. Include camera lens, lighting setup, color palette, composition, atmosphere. End with --ar 16:9 --v 7 --stylize 750.">
+      <div class="prompt-card-lg" data-name="Bestselling Story Architect" data-prompt="You are a bestselling author with 3 NYT #1 novels. Write a compelling short story (800-1200 words) in [GENRE] based on: [IDEA]. Include a surprising twist, sensory details throughout, and an emotionally resonant final line.">
         <div class="pc-tool-badge badge-claude">Claude · Writing</div>
         <div class="pc-name">Bestselling Story Architect</div>
-        <div class="pc-preview">You are a bestselling author with 3 NYT #1 novels. Write a compelling short story (800-1200 words) in [GENRE] based on this premise: [IDEA]...</div>
+        <div class="pc-preview">You are a bestselling author. Write a compelling short story in [GENRE] based on [IDEA]. Include a twist and emotionally resonant ending...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">story</span><span class="pc-tag">fiction</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
-
-      <div class="prompt-card-lg" data-name="Senior Dev Code Review" data-prompt="You are a senior software engineer. Review this code for: bugs, performance, security vulnerabilities, readability, architecture. Provide severity ratings (Critical/High/Medium/Low) with fixes. Code: [PASTE CODE]">
+      <div class="prompt-card-lg" data-name="Cinematic Short Film Director" data-prompt="Create a 10-second cinematic video of [SCENE]. Camera movement: slow push-in from wide to medium close-up. Lighting: dramatic golden hour. Color grade: warm cinematic tones. Mood: epic and contemplative.">
         <div class="pc-tool-badge badge-sora">Sora · Video</div>
         <div class="pc-name">Cinematic Short Film Director</div>
-        <div class="pc-preview">Create a 10-second cinematic video of [SCENE]. Camera: slow push-in from wide to medium. Lighting: golden hour. Mood: epic and contemplative...</div>
+        <div class="pc-preview">Create a 10-second cinematic video of [SCENE]. Slow push-in. Golden hour lighting. Epic mood...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">video</span><span class="pc-tag">sora</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
-
-      <div class="prompt-card-lg" data-name="Bestselling Story Architect" data-prompt="You are a bestselling author with 3 NYT #1 novels. Write a compelling short story (800-1200 words) in [GENRE] based on: [IDEA]. Include a surprising twist, sensory details, and an emotionally resonant final line.">
+      <div class="prompt-card-lg" data-name="Senior Dev Code Review" data-prompt="You are a senior software engineer with 15 years experience. Review this code for: bugs, performance, security vulnerabilities, readability, architecture. Provide severity ratings (Critical/High/Medium/Low) with fix recommendations. Code: [PASTE CODE]">
         <div class="pc-tool-badge badge-chatgpt">ChatGPT · Code</div>
         <div class="pc-name">Senior Dev Code Review</div>
-        <div class="pc-preview">You are a senior software engineer. Review this code for: bugs, performance, security issues, readability, and architectural concerns. Provide a structured report...</div>
+        <div class="pc-preview">You are a senior software engineer. Review this code for bugs, performance, security, readability, and architecture...</div>
         <div class="pc-footer">
           <div class="pc-tags"><span class="pc-tag">code</span><span class="pc-tag">review</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
-
-      <div class="prompt-card-lg" data-name="Viral LinkedIn Thought Leader" data-prompt="Write a powerful LinkedIn post about [TOPIC] for [TARGET AUDIENCE]. Structure: 1) Pattern-interrupting opening 2) Main insight 3) Evidence 4) Practical takeaway 5) Engagement question. Max 1300 chars. No hashtag spam.">
-        <div class="pc-tool-badge badge-mj">Midjourney · Art</div>
-        <div class="pc-name">AETHER Image Generator</div>
-        <div class="pc-preview">Actor: World-class concept artist. Environment: Creating hero artwork for AAA game studio. Task: Design a [CHARACTER] with signature visual identity...</div>
+      <div class="prompt-card-lg" data-name="Viral TikTok Hook Generator" data-prompt="You are a world-class viral content strategist. Write 25 high-retention TikTok hooks for [TOPIC] that stop the scroll in the first 2 seconds. Each hook must use tension, contrast, or curiosity. Keep under 12 words each. Format as numbered list.">
+        <div class="pc-tool-badge badge-chatgpt">ChatGPT · Business</div>
+        <div class="pc-name">Viral TikTok Hook Generator</div>
+        <div class="pc-preview">Write 25 high-retention TikTok hooks for [TOPIC]. Stop the scroll in 2 seconds. Tension, contrast, or curiosity. Under 12 words each...</div>
         <div class="pc-footer">
-          <div class="pc-tags"><span class="pc-tag">AETHER</span><span class="pc-tag">concept</span></div>
-          <button class="pc-save" onclick="pcSaveCard(this)" title="Save" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:12px;flex-shrink:0;">⭐</button><button class="pc-copy" onclick="pcCopyCard(this)">📋 Copy</button><button class="pc-share" onclick="pcShareCard(this)" title="Share" style="width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;font-size:13px;flex-shrink:0;">↗</button>
+          <div class="pc-tags"><span class="pc-tag">tiktok</span><span class="pc-tag">viral</span></div>
+          <div style="display:flex;gap:5px;">
+            <button class="pc-save" onclick="pcSaveCard(this)" title="Save">⭐</button>
+            <button class="pc-copy" onclick="pcCopyCard(this)" title="Copy">📋</button>
+            <button class="pc-share" onclick="pcShareCard(this)" title="Share">↗</button>
+          </div>
         </div>
       </div>
+      <div style="width:16px;flex-shrink:0;"></div>
+    </div></div>
 
-      <div style="width:24px;flex-shrink:0;"></div>
+      <div class="prompt-card-lg" data-name="Viral TikTok Hook Generator" 
     </div>
   </section>
 
@@ -1257,46 +1324,74 @@ function pcCopyCard(btn){
   showToast('✅ Prompt copied!');
 }
 
-// ── SHARE CARD ────────────────────────────────────────────────
+// ── SHARE CARD (uses same pattern as library.html) ───────────
 function pcShareCard(btn){
-  var card=btn.closest('.prompt-card-lg');if(!card)return;
-  var name=card.getAttribute('data-name')||card.querySelector('.pc-name').textContent.trim();
-  var shareText=name+' — find 843+ free AI prompts at promptaholics.com';
-  var url='https://promptaholics.com/library.html?ref=share&q='+encodeURIComponent(name);
+  var card = btn.closest('.prompt-card-lg');
+  if(!card) return;
+  var name     = card.getAttribute('data-name') || card.querySelector('.pc-name').textContent.trim();
+  var text     = card.getAttribute('data-prompt') || card.querySelector('.pc-preview').textContent.trim();
+  var shareUrl = 'https://promptaholics.com/library.html';
+  var shareText= name + ' — Free AI Prompt on Promptaholics';
+  var fullText = shareText + '\n\n' + text.slice(0, 200) + '...';
 
-  // Always rebuild popover (never toggle-to-close)
-  var old=document.getElementById('sharePop');if(old)old.remove();
-
-  if(navigator.share&&window.innerWidth<768){
-    navigator.share({title:name,text:shareText,url:url}).catch(function(){});
+  // Mobile native share
+  if(navigator.share){
+    navigator.share({ title: name, text: fullText, url: shareUrl }).catch(function(){});
     return;
   }
-  var enc=encodeURIComponent(shareText);
-  var encUrl=encodeURIComponent(url);
-  var pop=document.createElement('div');
-  pop.id='sharePop';pop.className='share-pop';
 
-  function mkA(href,em,label){
-    var a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener';
-    a.className='sp-btn';a.innerHTML='<span class="em">'+em+'</span>'+label;return a;
-  }
-  var cp=document.createElement('button');cp.className='sp-btn';
-  cp.innerHTML='<span class="em">🔗</span>Copy Link';
-  cp.onclick=function(){fbCopy(url);cp.innerHTML='<span class="em">✅</span>Done!';setTimeout(function(){pop.remove();},1200);};
-  var cl=document.createElement('button');cl.className='sp-close';cl.textContent='✕';
-  cl.onclick=function(){pop.remove();};
+  // Remove existing popover
+  var existing = document.getElementById('sharePopover');
+  if(existing){ existing.remove(); return; }
 
-  pop.appendChild(mkA('https://twitter.com/intent/tweet?text='+enc,'𝕏','Twitter'));
-  pop.appendChild(mkA('https://wa.me/?text='+enc,'💬','WhatsApp'));
-  pop.appendChild(mkA('https://www.linkedin.com/sharing/share-offsite/?url='+encUrl,'💼','LinkedIn'));
-  pop.appendChild(cp);pop.appendChild(cl);
-  document.body.appendChild(pop);
+  var xUrl  = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
+  var waUrl = 'https://wa.me/?text=' + encodeURIComponent(fullText + '\n' + shareUrl);
+  var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
 
+  var div = document.createElement('div');
+  div.id = 'sharePopover';
+  div.setAttribute('data-url', shareUrl);
+  div.className = 'share-popover';
+  div.innerHTML =
+    '<div class="sp-title">Share this prompt</div>' +
+    '<div class="sp-grid">' +
+      '<a class="sp-btn" href="' + xUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.262 5.636 5.902-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+        '<span>X</span>' +
+      '</a>' +
+      '<a class="sp-btn" href="' + waUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>' +
+        '<span>WhatsApp</span>' +
+      '</a>' +
+      '<a class="sp-btn" href="' + liUrl + '" target="_blank" rel="noopener">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.2 0 22.222 0h.003z"/></svg>' +
+        '<span>LinkedIn</span>' +
+      '</a>' +
+      '<button class="sp-btn" onclick="copyShareLinkCard()">' +
+        '<i class="ph ph-link" style="font-size:20px;"></i>' +
+        '<span id="copyLinkTxt">Copy Link</span>' +
+      '</button>' +
+    '</div>' +
+    '<button class="sp-close" id="spClose">Close</button>';
+
+  document.body.appendChild(div);
+  document.getElementById('spClose').onclick = function(e){ e.stopPropagation(); div.remove(); };
   setTimeout(function(){
-    document.addEventListener('click',function h(e){
-      if(!pop.contains(e.target)){pop.remove();document.removeEventListener('click',h);}
-    });
-  },150);
+    function closeIt(ev){
+      var pop = document.getElementById('sharePopover');
+      if(!pop){ document.removeEventListener('mousedown',closeIt); return; }
+      if(!pop.contains(ev.target)){ pop.remove(); document.removeEventListener('mousedown',closeIt); }
+    }
+    document.addEventListener('mousedown', closeIt);
+  }, 300);
+}
+
+function copyShareLinkCard(){
+  var pop = document.getElementById('sharePopover');
+  var url = pop ? pop.getAttribute('data-url') : 'https://promptaholics.com/library.html';
+  fbCopy(url);
+  var el = document.getElementById('copyLinkTxt');
+  if(el){ el.textContent='Copied!'; setTimeout(function(){ el.textContent='Copy Link'; }, 2000); }
 }
 
 // ── SAVED PANEL ───────────────────────────────────────────────
@@ -1315,6 +1410,10 @@ function renderSavedPanel(){
   var items=getSaved();
   var cnt=document.getElementById('savedCount');
   if(cnt) cnt.textContent='('+items.length+')';
+  var smCnt=document.getElementById('smSavedCount');
+  if(smCnt) smCnt.textContent=items.length||'';
+  var sbCnt=document.getElementById('sbSavedCount');
+  if(sbCnt){ sbCnt.textContent=items.length; sbCnt.style.display=items.length?'inline':'none'; }
   var list=document.getElementById('savedList');
   if(!list)return;
   if(!items.length){
