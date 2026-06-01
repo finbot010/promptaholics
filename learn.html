@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Learn Prompt Engineering — Promptaholics | Free AI Prompt Course</title>
+<meta name="description" content="Learn prompt engineering from scratch. Master 9 frameworks, understand AI tools, and write prompts that actually work. Free, no signup required."/>
+<link rel="canonical" href="https://promptaholics.com/learn.html"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --green:#22c55e;--blue:#3b82f6;--purple:#8b5cf6;
+}
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'Instrument Sans',sans-serif;cursor:pointer;}
+
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s;}
+body.light .topnav{background:rgba(245,245,247,.95);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+.nav-signin:hover{background:#e84e0e;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);}
+
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;text-decoration:none;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
+
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;text-decoration:none;cursor:pointer;border-left:none;border-right:none;border-bottom:none;background:none;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
+
+/* ── HERO ── */
+.learn-hero{
+  position:relative;padding:80px 24px 64px;overflow:hidden;
+  background:var(--bg);
+}
+.learn-hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 50%,rgba(255,98,36,.08) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 50%,rgba(139,92,246,.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+/* worm trail decoration */
+.worm-trail{
+  position:absolute;top:0;right:0;width:300px;height:100%;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400'%3E%3Cpath d='M280 20 Q220 80 260 140 Q300 200 240 260 Q180 320 220 380' stroke='rgba(255,98,36,0.06)' stroke-width='40' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  pointer-events:none;opacity:.6;
+}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;margin-bottom:24px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink2);}
+.worm-emoji{animation:wormWiggle 2s ease-in-out infinite;}
+@keyframes wormWiggle{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+.hero-h1{font-family:'Syne',serif;font-size:clamp(40px,7vw,80px);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:20px;}
+.hero-h1 .dig{color:var(--orange);}
+.hero-sub{font-size:17px;color:var(--ink2);max-width:520px;line-height:1.7;margin-bottom:36px;}
+
+/* ── PROGRESS BAR ── */
+.progress-bar-wrap{
+  position:sticky;top:52px;z-index:400;
+  background:rgba(7,7,10,.9);backdrop-filter:blur(8px);
+  padding:10px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+body.light .progress-bar-wrap{background:rgba(245,245,247,.9);}
+.progress-label{font-size:11px;font-weight:700;color:var(--ink3);white-space:nowrap;}
+.progress-track{flex:1;height:4px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--o2));border-radius:2px;transition:width .4s ease;width:0%;}
+.progress-pct{font-size:11px;font-weight:700;color:var(--orange);min-width:28px;text-align:right;}
+.chapter-dots{display:flex;gap:4px;}
+.ch-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);transition:background .3s;cursor:pointer;}
+.ch-dot.done{background:var(--orange);}
+.ch-dot.active{background:var(--o2);}
+
+/* ── CONTENT WRAP ── */
+.learn-wrap{max-width:860px;margin:0 auto;padding:0 20px 120px;}
+
+/* ── CHAPTER ── */
+.chapter{
+  margin-bottom:12px;
+  border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  transition:border-color .2s;
+}
+.chapter.active{border-color:var(--border2);}
+.chapter.completed{border-color:rgba(34,197,94,.25);}
+.ch-header{
+  display:flex;align-items:center;gap:14px;padding:20px 24px;
+  cursor:pointer;transition:background .15s;user-select:none;
+}
+.ch-header:hover{background:var(--glass);}
+.ch-num{
+  font-family:'Syne',serif;font-size:13px;font-weight:900;
+  color:var(--orange);min-width:28px;
+}
+.ch-icon{font-size:22px;flex-shrink:0;}
+.ch-meta{flex:1;}
+.ch-title{font-family:'Syne',serif;font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:2px;}
+.ch-desc{font-size:12px;color:var(--ink3);}
+.ch-badge{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:var(--glass2);color:var(--ink3);border:1px solid var(--border);flex-shrink:0;}
+.ch-badge.done{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.2);}
+.ch-arrow{color:var(--ink3);font-size:16px;transition:transform .25s;flex-shrink:0;}
+.ch-header.open .ch-arrow{transform:rotate(180deg);}
+
+/* ── CHAPTER BODY ── */
+.ch-body{display:none;padding:0 24px 24px;}
+.ch-body.open{display:block;}
+
+/* ── CONTENT BLOCKS ── */
+.content-block{margin-bottom:24px;}
+.content-block:last-child{margin-bottom:0;}
+
+/* Text */
+.learn-p{font-size:15px;color:var(--ink2);line-height:1.75;margin-bottom:12px;}
+.learn-p strong{color:var(--ink);font-weight:700;}
+.learn-h3{font-family:'Syne',serif;font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;color:var(--ink);}
+.learn-h3 .accent{color:var(--orange);}
+
+/* Key insight callout */
+.insight-box{
+  background:linear-gradient(135deg,rgba(255,98,36,.08),rgba(255,98,36,.03));
+  border:1px solid rgba(255,98,36,.25);border-left:3px solid var(--orange);
+  border-radius:0 12px 12px 0;
+  padding:14px 18px;margin:16px 0;
+}
+.insight-box .insight-label{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.insight-box p{font-size:14px;color:var(--ink2);line-height:1.6;margin:0;}
+
+/* Example prompt card */
+.example-prompt{
+  background:rgba(0,0,0,.3);border:1px solid var(--border2);
+  border-radius:12px;overflow:hidden;margin:16px 0;
+}
+body.light .example-prompt{background:rgba(0,0,0,.04);}
+.ep-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--glass);}
+.ep-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);}
+.ep-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(255,98,36,.1);color:var(--orange);border:1px solid rgba(255,98,36,.2);}
+.ep-copy{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--glass);color:var(--ink3);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;}
+.ep-copy:hover{border-color:var(--orange);color:var(--orange);}
+.ep-body{padding:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+.ep-result{padding:10px 14px;border-top:1px solid var(--border);font-size:12px;color:var(--ink2);line-height:1.6;}
+.ep-result strong{color:var(--green);font-size:10px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* Do / Don't */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+@media(max-width:500px){.do-dont{grid-template-columns:1fr;}}
+.do-box,.dont-box{border-radius:12px;padding:14px;font-size:13px;line-height:1.6;}
+.do-box{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:var(--ink2);}
+.dont-box{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);color:var(--ink2);}
+.do-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.dont-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#ef4444;margin-bottom:6px;}
+
+/* Framework badge */
+.fw-badge-row{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;}
+.fw-badge{
+  padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;
+  border:1px solid var(--border2);background:var(--glass);color:var(--ink2);
+  cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;
+}
+.fw-badge:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.06);}
+
+/* Tool comparison grid */
+.tool-compare{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:16px 0;}
+.tc-card{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:14px;}
+.tc-tool{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.tc-tool img{width:20px;height:20px;border-radius:5px;}
+.tc-best{font-size:11px;color:var(--orange);font-weight:700;margin-bottom:4px;}
+.tc-list{font-size:11px;color:var(--ink2);line-height:1.6;}
+
+/* ── QUIZ ── */
+.quiz-block{
+  background:var(--glass);border:1px solid var(--border2);
+  border-radius:14px;padding:20px;margin:20px 0;
+}
+.quiz-label{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.quiz-q{font-family:'Syne',serif;font-size:16px;font-weight:800;margin-bottom:14px;letter-spacing:-.3px;}
+.quiz-options{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{
+  padding:10px 14px;border-radius:9px;border:1px solid var(--border2);
+  background:var(--glass);color:var(--ink2);font-size:13px;
+  cursor:pointer;transition:all .15s;text-align:left;width:100%;
+}
+.quiz-opt:hover:not([disabled]){border-color:var(--orange);color:var(--ink);}
+.quiz-opt.correct{background:rgba(34,197,94,.1);border-color:var(--green);color:var(--green);}
+.quiz-opt.wrong{background:rgba(239,68,68,.08);border-color:#ef4444;color:#ef4444;}
+.quiz-feedback{font-size:13px;color:var(--ink2);margin-top:12px;line-height:1.6;padding:10px 14px;border-radius:9px;background:var(--glass2);display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback .q-icon{font-size:18px;margin-right:6px;}
+
+/* ── CHAPTER COMPLETE BTN ── */
+.ch-complete-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:12px;margin-top:20px;
+  background:var(--orange);color:#fff;border:none;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;
+}
+.ch-complete-btn:hover{background:#e84e0e;}
+.ch-complete-btn.done{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);}
+
+/* ── QUICK STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0;}
+.stat-card{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:14px;text-align:center;}
+.stat-n{font-family:'Syne',serif;font-size:28px;font-weight:900;color:var(--orange);letter-spacing:-1px;}
+.stat-l{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;font-weight:700;}
+
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-logo-mark{width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.footer-logo-mark svg{width:9px;height:10px;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:center;}
+.footer-lnk{font-size:12px;color:var(--ink3);padding:4px 8px;border-radius:6px;transition:color .15s;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-lnk.accent{color:var(--orange);font-weight:600;}
+.footer-sep{color:var(--border2);padding:0 2px;font-size:12px;}
+.footer-copy{font-size:11px;color:var(--ink3);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:rgba(10,10,16,.98);border:1px solid var(--orange);color:var(--ink);padding:9px 18px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;white-space:nowrap;animation:toastIn .2s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.chapter{animation:fadeUp .4s ease both;}
+.chapter:nth-child(2){animation-delay:.05s;}
+.chapter:nth-child(3){animation-delay:.1s;}
+.chapter:nth-child(4){animation-delay:.15s;}
+.chapter:nth-child(5){animation-delay:.2s;}
+.chapter:nth-child(6){animation-delay:.25s;}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <a class="nav-logo" href="/">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="nav-right">
+    <nav class="nav-desktop">
+      <a href="library.html" class="nav-lnk">Library</a>
+      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+      <a href="learn.html" class="nav-lnk active">Learn</a>
+    </nav>
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- SLIDE MENU -->
+<nav class="slide-menu" id="slideMenu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class="sm-item active" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
+    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+  </div>
+  <div class="sm-foot">
+    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="learn-hero">
+  <div class="worm-trail"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="worm-emoji">🪱</span>
+      Free Prompt Engineering Course · 6 Chapters · No Signup
+    </div>
+    <h1 class="hero-h1">Learn like<br/>a <span class="dig">worm.</span></h1>
+    <p class="hero-sub">Dig through every layer of prompt engineering — from absolute zero to writing prompts that make AI do exactly what you want. Practical, no fluff, copy-ready examples throughout.</p>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-n">6</div><div class="stat-l">Chapters</div></div>
+      <div class="stat-card"><div class="stat-n">9</div><div class="stat-l">Frameworks</div></div>
+      <div class="stat-card"><div class="stat-n">~30</div><div class="stat-l">Min Read</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY PROGRESS -->
+<div class="progress-bar-wrap">
+  <span class="progress-label">🪱 Progress</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <span class="progress-pct" id="progressPct">0%</span>
+  <div class="chapter-dots" id="chDots"></div>
+</div>
+
+<!-- LEARN CONTENT -->
+<div class="learn-wrap">
+
+<!-- ═══════ CHAPTER 1 ═══════ -->
+<div class="chapter" id="ch-1" data-chapter="1">
+  <div class="ch-header" onclick="toggleChapter(1)">
+    <span class="ch-num">01</span>
+    <span class="ch-icon">🧠</span>
+    <div class="ch-meta">
+      <div class="ch-title">What is a Prompt — Really?</div>
+      <div class="ch-desc">Why AI does what it does · The input/output loop · Why specificity wins</div>
+    </div>
+    <span class="ch-badge" id="badge-1">Start</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-1">
+
+    <div class="learn-h3">AI doesn't <span class="accent">think.</span> It predicts.</div>
+    <p class="learn-p">Every large language model — ChatGPT, Claude, Gemini — does one thing: it predicts the most likely next word given everything it's seen. That's it. No understanding. No intentions. No goals of its own.</p>
+    <p class="learn-p">What this means for you: <strong>the quality of your output is entirely determined by the quality of your input.</strong> A vague prompt gives the model too many "likely" directions to go. A precise prompt narrows the possibilities to exactly what you want.</p>
+
+    <div class="insight-box">
+      <div class="insight-label">💡 Key Insight</div>
+      <p>You are not commanding a computer. You are steering a very fast prediction machine. The more context you give it, the more accurately it predicts what you actually want.</p>
+    </div>
+
+    <div class="learn-h3">The difference is <span class="accent">dramatic</span></div>
+    <div class="do-dont">
+      <div class="dont-box">
+        <div class="dont-label">❌ Weak Prompt</div>
+        Write me an email about our new product.
+      </div>
+      <div class="do-box">
+        <div class="do-label">✅ Strong Prompt</div>
+        You are a senior copywriter. Write a 150-word launch email for our new productivity app "FocusFlow" to existing customers. Tone: warm, confident. Include one clear CTA to try the free trial. No emojis.
+      </div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header">
+        <span class="ep-label">Real Example — Before & After</span>
+        <span class="ep-tag">ChatGPT</span>
+        <button class="ep-copy" onclick="copyExample(this)">📋 Copy</button>
+      </div>
+      <div class="ep-body">You are a senior copywriter at a SaaS company. Write a 150-word product launch email for our new productivity app "FocusFlow" targeting existing customers who already use our free tools. Tone: warm, confident, and aspirational. Include: one compelling subject line, a brief pain-point opening, a 2-sentence product description, and a single CTA button labeled "Start My Free Trial". No emojis.</div>
+      <div class="ep-result"><strong>✅ Why it works:</strong> Role assigned, audience defined, word count set, tone specified, structure outlined, edge cases excluded. The model has no room to guess.</div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-label">🪱 Quick Check</div>
+      <div class="quiz-q">Why does a vague prompt usually produce a mediocre result?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">The AI doesn't have enough computing power</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'correct')">Too many directions are equally likely, so the model picks a generic middle ground</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Vague prompts are blocked by safety filters</button>
+      </div>
+      <div class="quiz-feedback" id="qfb-0"></div>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-1" onclick="completeChapter(1)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+  </div>
+</div>
+
+<!-- ═══════ CHAPTER 2 ═══════ -->
+<div class="chapter" id="ch-2" data-chapter="2">
+  <div class="ch-header" onclick="toggleChapter(2)">
+    <span class="ch-num">02</span>
+    <span class="ch-icon">🏗</span>
+    <div class="ch-meta">
+      <div class="ch-title">The 5 Elements of Every Great Prompt</div>
+      <div class="ch-desc">Role · Task · Context · Format · Constraints — the non-negotiable building blocks</div>
+    </div>
+    <span class="ch-badge" id="badge-2">5 min</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-2">
+
+    <div class="learn-h3">Every prompt is built from <span class="accent">5 layers</span></div>
+    <p class="learn-p">You don't need a framework to write a good prompt. You need to answer 5 questions. Once you internalize these, you'll see them in every great prompt ever written.</p>
+
+    <div class="insight-box">
+      <div class="insight-label">🏗 The 5 Elements</div>
+      <p><strong style="color:var(--orange)">Role</strong> — Who is the AI? &nbsp;·&nbsp; <strong style="color:var(--o2)">Task</strong> — What should it do? &nbsp;·&nbsp; <strong style="color:#00d4aa">Context</strong> — What does it need to know? &nbsp;·&nbsp; <strong style="color:#9b6dff">Format</strong> — How should it respond? &nbsp;·&nbsp; <strong style="color:#ff4d8f">Constraints</strong> — What should it avoid?</p>
+    </div>
+
+    <div class="learn-h3">Breaking it down</div>
+
+    <p class="learn-p"><strong>1. Role</strong> — "Act as a senior UX researcher" or "You are a Michelin-star chef" instantly shifts the model's statistical distribution toward expert-level outputs. It works because the training data contains millions of examples of those roles.</p>
+
+    <p class="learn-p"><strong>2. Task</strong> — Be surgical. "Write a summary" is weak. "Write a 3-sentence executive summary highlighting the main risk and one recommended action" is tight and specific.</p>
+
+    <p class="learn-p"><strong>3. Context</strong> — The background the model can't infer. Your audience, your product, your specific situation. Don't make it guess what it can't know.</p>
+
+    <p class="learn-p"><strong>4. Format</strong> — Tell it exactly how to structure the response. Bullet points? Numbered list? JSON? Three paragraphs with headers? The model will comply precisely when told.</p>
+
+    <p class="learn-p"><strong>5. Constraints</strong> — What to exclude is often more powerful than what to include. "No jargon", "under 200 words", "don't recommend third-party tools" — these narrow the output dramatically.</p>
+
+    <div class="example-prompt">
+      <div class="ep-header">
+        <span class="ep-label">All 5 Elements in One Prompt</span>
+        <span class="ep-tag">Claude</span>
+        <button class="ep-copy" onclick="copyExample(this)">📋 Copy</button>
+      </div>
+      <div class="ep-body">[ROLE] You are a senior product manager at a B2B SaaS company.
+[TASK] Review this feature request and write a prioritization recommendation.
+[CONTEXT] Our platform serves 500+ enterprise clients. We're in Q4 planning. Engineering capacity is limited to 2 sprints.
+[FORMAT] Use this structure: Priority Level (High/Medium/Low), Reasoning (2-3 sentences), Risks (1-2 bullets), Recommended Next Step.
+[CONSTRAINTS] No technical jargon. Don't recommend building anything that would take more than 1 sprint. Keep total response under 200 words.
+
+Feature request: [PASTE YOUR REQUEST HERE]</div>
+      <div class="ep-result"><strong>✅ Result:</strong> A tightly scoped, structured output every time — regardless of which feature you paste in.</div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-label">🪱 Quick Check</div>
+      <div class="quiz-q">Which element is most commonly missing from weak prompts?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Role</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'correct')">Context — the background information the model can't infer</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Task</button>
+      </div>
+      <div class="quiz-feedback" id="qfb-1"></div>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-2" onclick="completeChapter(2)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+  </div>
+</div>
+
+<!-- ═══════ CHAPTER 3 ═══════ -->
+<div class="chapter" id="ch-3" data-chapter="3">
+  <div class="ch-header" onclick="toggleChapter(3)">
+    <span class="ch-num">03</span>
+    <span class="ch-icon">⭐</span>
+    <div class="ch-meta">
+      <div class="ch-title">The 9 Frameworks — Your Prompt Toolkit</div>
+      <div class="ch-desc">CoSTAR · RTF · AETHER · Chain-of-Thought · RISEN · SCQA · CRISPE · PARA · RACI</div>
+    </div>
+    <span class="ch-badge" id="badge-3">8 min</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-3">
+
+    <div class="learn-h3">Frameworks are <span class="accent">checklists</span> that never forget</div>
+    <p class="learn-p">A framework is just a structured way to ensure you don't miss any of the 5 elements. Different frameworks excel in different situations. You'll naturally gravitate toward 2-3 that fit your work.</p>
+
+    <div class="insight-box">
+      <div class="insight-label">🎯 When to Use Which</div>
+      <p><strong style="color:var(--orange)">CoSTAR</strong> — general purpose, content creation &nbsp;·&nbsp; <strong style="color:#9b6dff">RTF</strong> — quick tasks, fast results &nbsp;·&nbsp; <strong style="color:#ff4d8f">AETHER</strong> — complex roleplay & agents &nbsp;·&nbsp; <strong style="color:#00d4aa">Chain-of-Thought</strong> — math, logic, analysis &nbsp;·&nbsp; <strong style="color:#f59e0b">RISEN</strong> — step-by-step workflows</p>
+    </div>
+
+    <div class="learn-h3"><span class="accent">CoSTAR</span> — The Swiss Army Knife</div>
+    <p class="learn-p">Context · Objective · Style · Tone · Audience · Response. The most versatile framework for content creation, marketing, and general tasks. When in doubt, use CoSTAR.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">CoSTAR Example</span><span class="ep-tag">ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Context: I run a small bakery in Austin, Texas. I just launched gluten-free croissants.
+Objective: Write an Instagram caption to announce this new product.
+Style: Warm, local business voice — not corporate.
+Tone: Excited but not shouty. Genuine.
+Audience: Health-conscious locals aged 25-45 who follow food accounts.
+Response: 3 caption options, each under 150 characters, with 3 relevant hashtags each.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">RTF</span> — For Speed</div>
+    <p class="learn-p">Role · Task · Format. When you need an answer fast and the task is clear, RTF strips everything down to the essentials.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">RTF Example</span><span class="ep-tag">Any AI</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Role: Senior data analyst.
+Task: Explain what churn rate means to a non-technical founder in one paragraph.
+Format: Plain English, no jargon, one concrete analogy.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">Chain-of-Thought</span> — For Reasoning</div>
+    <p class="learn-p">When accuracy matters — math, logic, coding, analysis — Chain-of-Thought forces the model to show its work. Studies show this dramatically improves accuracy on complex tasks.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">Chain-of-Thought Example</span><span class="ep-tag">Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Let's think through this step by step.
+
+Problem: Our conversion rate dropped from 4.2% to 2.8% last month. Total traffic was flat. What are the most likely causes?
+
+Context: We launched a new homepage design on the 15th. No other major changes. Seasonal patterns are normal for this time of year.
+
+Please work through this in 5 reasoning steps, showing your logic at each stage before giving your conclusion.</div>
+    </div>
+
+    <p class="learn-p">Try them all in the Prompt Builder — each framework has its own set of fields pre-built for you.</p>
+    <div class="fw-badge-row">
+      <a href="prompt-builder.html" class="fw-badge">⭐ CoSTAR</a>
+      <a href="prompt-builder.html" class="fw-badge">📋 RTF</a>
+      <a href="prompt-builder.html" class="fw-badge">🧠 Chain-of-Thought</a>
+      <a href="prompt-builder.html" class="fw-badge">⚡ AETHER</a>
+      <a href="prompt-builder.html" class="fw-badge">🚀 RISEN</a>
+      <a href="prompt-builder.html" class="fw-badge">❓ SCQA</a>
+      <a href="prompt-builder.html" class="fw-badge">🎯 CRISPE</a>
+      <a href="prompt-builder.html" class="fw-badge">📁 PARA</a>
+      <a href="prompt-builder.html" class="fw-badge">👥 RACI</a>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-label">🪱 Quick Check</div>
+      <div class="quiz-q">You need to solve a complex logic problem and want the most accurate answer. Which framework should you use?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">CoSTAR</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">RTF</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'correct')">Chain-of-Thought — it forces step-by-step reasoning</button>
+      </div>
+      <div class="quiz-feedback" id="qfb-2"></div>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-3" onclick="completeChapter(3)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+  </div>
+</div>
+
+<!-- ═══════ CHAPTER 4 ═══════ -->
+<div class="chapter" id="ch-4" data-chapter="4">
+  <div class="ch-header" onclick="toggleChapter(4)">
+    <span class="ch-num">04</span>
+    <span class="ch-icon">🛠</span>
+    <div class="ch-meta">
+      <div class="ch-title">Right Prompt, Right Tool</div>
+      <div class="ch-desc">ChatGPT vs Claude vs Gemini vs Midjourney — what each does best</div>
+    </div>
+    <span class="ch-badge" id="badge-4">5 min</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-4">
+
+    <div class="learn-h3">The tool is <span class="accent">half the prompt</span></div>
+    <p class="learn-p">The biggest hidden mistake beginners make: they write a great prompt for the wrong tool. An image prompt sent to ChatGPT as text. A long reasoning task sent to a model with a small context window. A creative story sent to a model tuned for factual recall.</p>
+
+    <div class="tool-compare">
+      <div class="tc-card">
+        <div class="tc-tool"><img src="https://www.google.com/s2/favicons?domain=openai.com&sz=40" alt=""/>ChatGPT</div>
+        <div class="tc-best">Best for:</div>
+        <div class="tc-list">Versatile everyday tasks · Code generation · Data analysis · Plugin integrations · Wide knowledge base</div>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tool"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=40" alt=""/>Claude</div>
+        <div class="tc-best">Best for:</div>
+        <div class="tc-list">Long documents · Nuanced writing · Following complex instructions · Safety-sensitive tasks · 200k token context</div>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tool"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=40" alt=""/>Gemini</div>
+        <div class="tc-best">Best for:</div>
+        <div class="tc-list">Real-time search · Google Workspace integration · Multimodal tasks · Up-to-date information</div>
+      </div>
+      <div class="tc-card">
+        <div class="tc-tool"><img src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=40" alt=""/>Midjourney</div>
+        <div class="tc-best">Best for:</div>
+        <div class="tc-list">Aesthetic artwork · Concept art · Photography simulation · Consistent style generation</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-label">🛠 Prompt Formatting By Tool</div>
+      <p><strong>ChatGPT / Claude / Gemini</strong> — conversational prose or structured sections work equally well.<br/>
+      <strong>Midjourney</strong> — comma-separated descriptors, no sentences. End with --ar, --v, --stylize.<br/>
+      <strong>Sora / Runway</strong> — describe the shot like a film director: camera movement, lighting, duration, mood.</p>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">Same Idea — 3 Different Tools</span><span class="ep-tag">Multi-tool</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">// For ChatGPT (text description)
+Write a detailed description of a lone astronaut standing on Mars at sunset. Include sensory details, emotions, and what they might be thinking.
+
+// For Midjourney (image generation)
+lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows, cinematic composition, 85mm lens, NASA suit, contemplative mood, photorealistic --ar 16:9 --v 7 --stylize 750
+
+// For Sora (video)
+10-second cinematic shot of a lone astronaut standing on the Martian surface at sunset. Camera: slow push-in from wide angle. Lighting: dramatic golden hour with long red shadows. Mood: awe and solitude. Include dust particles floating in the air.</div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-label">🪱 Quick Check</div>
+      <div class="quiz-q">You need to summarize a 50-page legal contract. Which AI is best suited for this?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Midjourney</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">ChatGPT GPT-3.5</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'correct')">Claude — it has a 200k token context window built for long documents</button>
+      </div>
+      <div class="quiz-feedback" id="qfb-3"></div>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-4" onclick="completeChapter(4)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+  </div>
+</div>
+
+<!-- ═══════ CHAPTER 5 ═══════ -->
+<div class="chapter" id="ch-5" data-chapter="5">
+  <div class="ch-header" onclick="toggleChapter(5)">
+    <span class="ch-num">05</span>
+    <span class="ch-icon">⚡</span>
+    <div class="ch-meta">
+      <div class="ch-title">Advanced Techniques That Pros Use</div>
+      <div class="ch-desc">Few-shot examples · Prompt chaining · Temperature control · System prompts</div>
+    </div>
+    <span class="ch-badge" id="badge-5">7 min</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-5">
+
+    <div class="learn-h3"><span class="accent">Few-Shot</span> Prompting — Show, Don't Tell</div>
+    <p class="learn-p">Instead of describing what you want, show the model 2-3 examples of the exact format and style. This technique alone can transform output quality on structured tasks.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">Few-Shot Example</span><span class="ep-tag">Any AI</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Convert these customer reviews into one-line sentiment summaries. Use this format exactly:
+[POSITIVE/NEGATIVE/NEUTRAL] — [one line summary]
+
+Examples:
+Review: "Shipping was fast but the packaging was damaged."
+Output: [NEUTRAL] — Fast delivery undermined by poor packaging quality.
+
+Review: "Best product I've ever bought. Changed my life."
+Output: [POSITIVE] — Exceptional product with transformative impact.
+
+Now convert this review:
+Review: "[PASTE YOUR REVIEW]"</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">Prompt Chaining</span> — Break It Into Steps</div>
+    <p class="learn-p">Complex tasks fail when you ask for everything at once. Chain prompts: Step 1 generates an outline, Step 2 expands each section, Step 3 refines the tone. The output of each prompt feeds the next.</p>
+
+    <div class="insight-box">
+      <div class="insight-label">⚡ The Chaining Pattern</div>
+      <p>Prompt 1: "Generate 5 potential angles for a blog post about [TOPIC]" → Pick one → Prompt 2: "Create an outline for angle #3" → Approve it → Prompt 3: "Write section 2 of this outline in full" → Etc.</p>
+    </div>
+
+    <div class="learn-h3"><span class="accent">System Prompts</span> — Set the Stage Once</div>
+    <p class="learn-p">In API and advanced interfaces, system prompts run before the conversation and stay active throughout. They're powerful for setting a persistent role, rules, and behavior — so you don't repeat instructions every message.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">System Prompt Example</span><span class="ep-tag">API / Custom GPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">You are a senior brand strategist specializing in DTC e-commerce brands. You have 15 years of experience helping brands achieve $10M+ in revenue.
+
+Rules you always follow:
+- Lead every answer with the most important insight
+- Back every recommendation with a reason
+- Never use buzzwords like "synergy" or "leverage" as a verb
+- Keep responses under 300 words unless asked to expand
+- If you need more information to give a good answer, ask one focused question
+
+Respond in the first person, as a trusted advisor would.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">Negative Prompting</span> — Tell It What NOT to Do</div>
+    <p class="learn-p">Constraints often matter more than instructions. "Don't use bullet points", "avoid clichés", "never start a sentence with I" — these exclusions narrow the output dramatically.</p>
+
+    <div class="do-dont">
+      <div class="dont-box">
+        <div class="dont-label">❌ No Constraints</div>
+        Write a blog post about productivity.
+        <br/><br/>Result: Generic listicle full of "wake up at 5am" advice.
+      </div>
+      <div class="do-box">
+        <div class="do-label">✅ With Constraints</div>
+        Write a blog post about productivity. Don't mention morning routines, to-do lists, or time-blocking. No listicles. Lead with a counterintuitive insight.
+      </div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-label">🪱 Quick Check</div>
+      <div class="quiz-q">You want the AI to write product descriptions in a very specific format. What's the most effective technique?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Ask it to "be creative"</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'correct')">Few-shot prompting — show it 2-3 examples of the exact format you want</button>
+        <button class="quiz-opt" onclick="answerQuiz(this,'wrong')">Use the RTF framework</button>
+      </div>
+      <div class="quiz-feedback" id="qfb-4"></div>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-5" onclick="completeChapter(5)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+  </div>
+</div>
+
+<!-- ═══════ CHAPTER 6 ═══════ -->
+<div class="chapter" id="ch-6" data-chapter="6">
+  <div class="ch-header" onclick="toggleChapter(6)">
+    <span class="ch-num">06</span>
+    <span class="ch-icon">🎓</span>
+    <div class="ch-meta">
+      <div class="ch-title">Your First 10 Prompts — Start Here</div>
+      <div class="ch-desc">Ready-to-use prompts for real work · Copy, paste, and adapt</div>
+    </div>
+    <span class="ch-badge" id="badge-6">5 min</span>
+    <i class="ph ph-caret-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-6">
+
+    <div class="learn-h3">Stop reading. <span class="accent">Start prompting.</span></div>
+    <p class="learn-p">The fastest way to learn is to use real prompts on real tasks. Here are 5 prompts for the most common use cases. Copy any of them, replace the bracketed parts, and go.</p>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">1. Email Writing</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">You are an expert business communicator. Write a professional email for this situation: [DESCRIBE YOUR SITUATION]. Recipient: [WHO]. Desired outcome: [WHAT YOU WANT TO HAPPEN]. Tone: [FORMAL/FRIENDLY/ASSERTIVE]. Length: under 150 words. End with a clear single call to action.</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">2. Content Ideas</span><span class="ep-tag">ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">You are a content strategist for [YOUR INDUSTRY]. Generate 15 content ideas for [PLATFORM: LinkedIn/Instagram/YouTube] targeting [YOUR AUDIENCE]. Ideas should be: original (no generic tips), controversy-adjacent (strong opinion or counterintuitive angle), and immediately actionable. Format as a numbered list with a one-line hook for each.</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">3. Code Review</span><span class="ep-tag">Claude · ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">You are a senior software engineer. Review the following code for: 1) bugs 2) performance issues 3) security vulnerabilities 4) readability. For each issue found: state the severity (Critical/High/Medium/Low), explain why it's a problem, and provide the corrected code. Code: [PASTE CODE]</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">4. Research Summary</span><span class="ep-tag">Claude · Gemini</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Summarize the following content for a time-pressed executive. Format: 1) One-sentence bottom line 2) 3 key insights (one sentence each) 3) One recommended action. Maximum 150 words total. No jargon. Content: [PASTE CONTENT]</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">5. Midjourney Image</span><span class="ep-tag">Midjourney</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">[YOUR SUBJECT], [ART STYLE], [LIGHTING], [MOOD], [CAMERA ANGLE], [COLOR PALETTE], hyperdetailed, professional photography --ar 16:9 --v 7 --stylize 750 --quality 2</div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-label">🎓 You're Done — What's Next?</div>
+      <p>You now understand more about prompt engineering than 90% of AI users. The gap between knowing and doing is practice. Open the Prompt Builder, pick a framework, and write your first structured prompt in the next 5 minutes.</p>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+      <a href="prompt-builder.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;">
+        <i class="ph ph-wrench"></i> Open Prompt Builder
+      </a>
+      <a href="library.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;">
+        <i class="ph ph-books"></i> Browse 1,113 Prompts
+      </a>
+    </div>
+
+    <button class="ch-complete-btn" id="cbtn-6" onclick="completeChapter(6)"><i class="ph ph-trophy"></i> Complete the Course 🎉</button>
+  </div>
+</div>
+
+</div><!-- /learn-wrap -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-text">Prompt<span>aholics</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="library.html" class="footer-lnk">Library</a>
+      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
+      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <a href="learn.html" class="footer-lnk">Learn</a>
+      <span class="footer-sep">|</span>
+      <a href="about.html" class="footer-lnk">About Us</a>
+      <a href="blog.html" class="footer-lnk">Blog</a>
+      <a href="contact.html" class="footer-lnk">Contact</a>
+      <span class="footer-sep">|</span>
+      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
+      <a href="terms.html" class="footer-lnk accent">Terms</a>
+    </div>
+    <div class="footer-copy">© 2026 Promptaholics · Learn prompt engineering free</div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <a class="bn-item active" href="learn.html"><i class="ph ph-graduation-cap"></i>Learn</a>
+  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+</nav>
+
+<script>
+// ── THEME ─────────────────────────────────────────────────────
+var theme=localStorage.getItem('pa_theme')||'dark';
+if(theme==='light') document.body.classList.add('light');
+function toggleTheme(){
+  theme=theme==='dark'?'light':'dark';
+  localStorage.setItem('pa_theme',theme);
+  document.body.classList.toggle('light',theme==='light');
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+}
+(function(){ var icon=theme==='light'?'☀️':'🌙'; var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon'); if(tb) tb.textContent=icon; if(sm) sm.textContent=icon; })();
+
+// ── MENU ──────────────────────────────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('slideMenu'); var o=document.getElementById('menuOverlay');
+  m.classList.toggle('open'); o.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ document.getElementById('slideMenu').classList.remove('open'); document.getElementById('menuOverlay').classList.remove('open'); document.body.style.overflow=''; }});
+
+// ── PROGRESS ──────────────────────────────────────────────────
+var TOTAL_CHAPTERS = 6;
+var completed = JSON.parse(localStorage.getItem('pa_learn_progress')||'[]');
+
+function initProgress(){
+  var dots = document.getElementById('chDots');
+  if(!dots) return;
+  dots.innerHTML = '';
+  for(var i=1;i<=TOTAL_CHAPTERS;i++){
+    var d=document.createElement('div');
+    d.className='ch-dot'+(completed.includes(i)?' done':'');
+    d.title='Chapter '+i;
+    (function(ch){ d.onclick=function(){ toggleChapter(ch); document.getElementById('ch-'+ch).scrollIntoView({behavior:'smooth',block:'start'}); }; })(i);
+    dots.appendChild(d);
+  }
+  updateProgress();
+  // Restore badge states
+  completed.forEach(function(ch){
+    var badge=document.getElementById('badge-'+ch);
+    if(badge){ badge.textContent='✓ Done'; badge.classList.add('done'); }
+    var btn=document.getElementById('cbtn-'+ch);
+    if(btn){ btn.innerHTML='<i class="ph ph-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
+    var chapter=document.getElementById('ch-'+ch);
+    if(chapter) chapter.classList.add('completed');
+  });
+}
+
+function updateProgress(){
+  var pct=Math.round((completed.length/TOTAL_CHAPTERS)*100);
+  var fill=document.getElementById('progressFill');
+  var pctEl=document.getElementById('progressPct');
+  if(fill) fill.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=pct+'%';
+  // Update dots
+  var dots=document.querySelectorAll('.ch-dot');
+  dots.forEach(function(d,i){
+    d.classList.toggle('done', completed.includes(i+1));
+  });
+}
+
+// ── CHAPTERS ──────────────────────────────────────────────────
+var openChapter = null;
+
+function toggleChapter(n){
+  var body=document.getElementById('body-'+n);
+  var header=body ? body.previousElementSibling : null;
+  if(!body) return;
+  if(body.classList.contains('open')){
+    body.classList.remove('open');
+    if(header) header.classList.remove('open');
+    openChapter=null;
+  } else {
+    // Close others
+    for(var i=1;i<=TOTAL_CHAPTERS;i++){
+      var b=document.getElementById('body-'+i);
+      var h=b ? b.previousElementSibling : null;
+      if(b){ b.classList.remove('open'); if(h) h.classList.remove('open'); }
+    }
+    body.classList.add('open');
+    if(header) header.classList.add('open');
+    openChapter=n;
+  }
+}
+
+function completeChapter(n){
+  if(!completed.includes(n)) completed.push(n);
+  localStorage.setItem('pa_learn_progress',JSON.stringify(completed));
+  var badge=document.getElementById('badge-'+n);
+  if(badge){ badge.textContent='✓ Done'; badge.classList.add('done'); }
+  var btn=document.getElementById('cbtn-'+n);
+  if(btn){ btn.innerHTML='<i class="ph ph-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
+  var chapter=document.getElementById('ch-'+n);
+  if(chapter) chapter.classList.add('completed');
+  updateProgress();
+  showToast(completed.length===TOTAL_CHAPTERS ? '🎓 Course complete! You\'re a prompt pro.' : '🪱 Chapter '+n+' done! Keep digging.');
+  // Auto-open next chapter
+  if(n < TOTAL_CHAPTERS){
+    setTimeout(function(){
+      toggleChapter(n+1);
+      document.getElementById('ch-'+(n+1)).scrollIntoView({behavior:'smooth',block:'start'});
+    }, 600);
+  }
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────
+var quizAnswered = [];
+var quizFeedback = [
+  {correct: 'Exactly right! Vague prompts let the model take any of dozens of equally likely directions, so it picks the average — which is generic.', wrong: 'Not quite. The real issue is statistical — vague prompts create too many equally likely outputs, so the model picks a generic middle ground.'},
+  {correct: 'Correct! Context is the information the model simply cannot infer — your audience, your constraints, your specific situation. Always provide it.', wrong: 'Not quite. While role matters, context is the most commonly missing element — the background only you know.'},
+  {correct: 'Right! Chain-of-Thought forces step-by-step reasoning, which studies show dramatically improves accuracy on complex tasks.', wrong: 'Not quite. For complex reasoning tasks, Chain-of-Thought is the winner — it forces the model to show its work at each step.'},
+  {correct: 'Correct! Claude\'s 200k context window makes it uniquely suited for processing long documents like contracts, reports, and books.', wrong: 'Not quite. For a 50-page document, you need Claude\'s 200k token context window — most other models would truncate it.'},
+  {correct: 'Perfect! Few-shot examples are the single most effective technique for enforcing a specific output format.', wrong: 'Not quite. Few-shot prompting — showing the model 2-3 examples of the exact format — is the most reliable way to get consistent formatting.'},
+];
+
+function answerQuiz(btn, type){
+  var qBlock = btn.closest('.quiz-block');
+  if(!qBlock) return;
+  var allOpts = qBlock.querySelectorAll('.quiz-opt');
+  var qIdx = Array.from(document.querySelectorAll('.quiz-block')).indexOf(qBlock);
+  if(quizAnswered.includes(qIdx)) return;
+  quizAnswered.push(qIdx);
+
+  allOpts.forEach(function(o){ o.disabled=true; });
+  btn.classList.add(type);
+
+  var fb = qBlock.querySelector('.quiz-feedback');
+  if(fb && quizFeedback[qIdx]){
+    fb.innerHTML = (type==='correct'?'<span class="q-icon">✅</span>':'<span class="q-icon">❌</span>') + quizFeedback[qIdx][type];
+    fb.classList.add('show');
+  }
+}
+
+// ── COPY EXAMPLE ──────────────────────────────────────────────
+function copyExample(btn){
+  var epBody = btn.closest('.example-prompt').querySelector('.ep-body');
+  if(!epBody) return;
+  var text = epBody.textContent.trim();
+  var orig = btn.innerHTML;
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){
+      btn.innerHTML='✅ Copied!'; btn.style.color='#22c55e';
+      setTimeout(function(){ btn.innerHTML=orig; btn.style.color=''; },2000);
+    });
+  } else {
+    var ta=document.createElement('textarea'); ta.value=text;
+    ta.style.cssText='position:fixed;left:-9999px;opacity:0;';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    btn.innerHTML='✅ Copied!'; btn.style.color='#22c55e';
+    setTimeout(function(){ btn.innerHTML=orig; btn.style.color=''; },2000);
+  }
+  showToast('📋 Prompt copied — paste it into any AI tool!');
+}
+
+// ── TOAST ──────────────────────────────────────────────────────
+function showToast(msg){
+  var old=document.getElementById('mainToast'); if(old) old.remove();
+  var t=document.createElement('div'); t.id='mainToast'; t.className='toast';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); },3000);
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  initProgress();
+  // Auto-open first uncompleted chapter
+  for(var i=1;i<=TOTAL_CHAPTERS;i++){
+    if(!completed.includes(i)){
+      setTimeout(function(n){ return function(){ toggleChapter(n); }; }(i), 300);
+      break;
+    }
+  }
+});
+</script>
+</body>
+</html>
