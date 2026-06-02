@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Image Vault — Promptaholics | AI Image Gallery & Prompts</title>
+<meta name="description" content="Community AI image gallery. See the prompt behind every image. Copy, remix, and create. No more bad renders — just pure eye candy."/>
+<link rel="canonical" href="https://promptaholics.com/vault.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'"/>
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut }
+    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
+    updateDoc, doc, increment, serverTimestamp, getDoc }
+    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  // Storage handled by Cloudinary (free, no upgrade needed)
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+    authDomain: "promptaholics-534d3.firebaseapp.com",
+    projectId: "promptaholics-534d3",
+    storageBucket: "promptaholics-534d3.firebasestorage.app",
+    messagingSenderId: "426595742101",
+    appId: "1:426595742101:web:1eb95579695bc6b1a5869c",
+    measurementId: "G-80H30NJST9"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+  // No Firebase storage needed
+  const provider = new GoogleAuthProvider();
+  provider.addScope('email');
+
+  // Expose to global scope
+  window._fb = { auth, db, provider,
+    signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
+    collection, addDoc, getDocs, query, orderBy, where,
+    updateDoc, doc, increment, serverTimestamp, getDoc };
+
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --glass3:rgba(255,255,255,.12);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --blur:blur(12px);
+  --green:#22c55e;--red:#ef4444;
+}
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);--glass3:rgba(0,0,0,.10);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;min-height:100dvh;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'Instrument Sans',sans-serif;cursor:pointer;}
+
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);}
+body.light .topnav{background:rgba(245,245,247,.92);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;border:none;}
+.nav-signin:hover{background:#e84e0e;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);}
+
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;text-decoration:none;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;border:none;cursor:pointer;width:100%;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
+
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;text-decoration:none;border-left:none;border-right:none;border-bottom:none;background:none;cursor:pointer;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
+
+/* ── HERO ── */
+.vault-hero{
+  position:relative;padding:64px 24px 48px;text-align:center;overflow:hidden;
+}
+.vault-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(255,98,36,.1) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 50%,rgba(139,92,246,.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.vault-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:16px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);}
+.vault-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.vault-h1{font-family:'Syne',serif;font-size:clamp(36px,6vw,72px);font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:14px;}
+.vault-h1 span{color:var(--orange);}
+.vault-tagline{font-size:16px;color:var(--ink2);margin-bottom:28px;font-style:italic;}
+.vault-tagline strong{color:var(--ink);font-style:normal;}
+.vault-stats{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:28px;}
+.vault-stat{text-align:center;}
+.vault-stat .n{font-family:'Syne',serif;font-size:28px;font-weight:900;color:var(--orange);}
+.vault-stat .l{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;}
+.vault-ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;background:var(--orange);color:#fff;font-size:13px;font-weight:700;border-radius:11px;border:none;transition:all .2s;cursor:pointer;}
+.btn-primary:hover{background:#e84e0e;transform:translateY(-1px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:13px;font-weight:600;border-radius:11px;transition:all .2s;cursor:pointer;}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
+
+/* ── MODEL FILTER PILLS ── */
+.filter-wrap{max-width:1400px;margin:0 auto;padding:0 24px 20px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+.model-pill{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:11px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;}
+.model-pill:hover{background:var(--glass2);color:var(--ink);}
+.model-pill.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
+.model-logo{width:14px;height:14px;border-radius:3px;object-fit:cover;}
+
+/* ── MASONRY GRID ── */
+.vault-main{max-width:1400px;margin:0 auto;padding:0 24px 120px;}
+.masonry{
+  columns:4 260px;
+  column-gap:12px;
+}
+@media(max-width:600px){.masonry{columns:2 160px;}}
+
+/* ── VAULT CARD ── */
+.vcard{
+  break-inside:avoid;
+  margin-bottom:12px;
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--glass);
+  border:1px solid var(--border2);
+  cursor:pointer;
+  transition:all .25s;
+  animation:cardIn .4s ease both;
+}
+.vcard:hover{border-color:rgba(255,98,36,.4);transform:translateY(-3px);box-shadow:0 16px 48px -8px rgba(0,0,0,.6);}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.vcard-img{width:100%;display:block;object-fit:cover;transition:transform .4s;}
+.vcard:hover .vcard-img{transform:scale(1.03);}
+.vcard-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));
+  padding:40px 12px 12px;
+  transform:translateY(4px);
+  transition:transform .25s;
+  opacity:0;
+}
+.vcard:hover .vcard-overlay{opacity:1;transform:translateY(0);}
+.vcard-title{font-family:'Syne',serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vcard-creator{font-size:10px;color:rgba(255,255,255,.6);}
+.vcard-actions{display:flex;gap:5px;margin-top:8px;}
+.vcard-btn{display:inline-flex;align-items:center;gap:3px;padding:4px 9px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;backdrop-filter:blur(4px);cursor:pointer;transition:all .15s;}
+.vcard-btn:hover{background:rgba(255,98,36,.6);border-color:var(--orange);}
+.vcard-like-count{font-size:9px;opacity:.7;}
+.vcard-model-badge{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:5px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:rgba(0,0,0,.6);color:#fff;backdrop-filter:blur(4px);}
+
+/* ── EMPTY / LOADING ── */
+.vault-loading{text-align:center;padding:60px 20px;color:var(--ink3);}
+.vault-loading .spin{font-size:32px;animation:spin 1s linear infinite;display:block;margin-bottom:12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.vault-empty{text-align:center;padding:80px 20px;}
+.vault-empty h3{font-family:'Syne',serif;font-size:24px;font-weight:800;margin-bottom:8px;}
+.vault-empty p{color:var(--ink2);margin-bottom:24px;}
+
+/* ── SUBMIT MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:800;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{width:100%;max-width:560px;max-height:92dvh;overflow-y:auto;background:rgba(10,10,16,.97);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.7);}
+body.light .modal{background:rgba(245,245,247,.97);}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);}
+.modal-title{font-family:'Syne',serif;font-size:18px;font-weight:800;}
+.modal-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;}
+.modal-close:hover{border-color:var(--orange);color:var(--orange);}
+.modal-body{padding:24px;}
+.form-row{margin-bottom:16px;}
+.form-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;display:block;}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:10px 14px;
+  background:var(--glass2);border:1px solid var(--border2);
+  border-radius:10px;font-size:13px;color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;outline:none;
+  transition:border .2s;
+}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.5;}
+.form-select{cursor:pointer;}
+body.light .form-input,body.light .form-textarea,body.light .form-select{background:rgba(0,0,0,.04);}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:rgba(255,98,36,.4);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--ink3);}
+
+/* Upload zone */
+.upload-zone{
+  border:2px dashed var(--border2);border-radius:12px;
+  padding:32px 20px;text-align:center;cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--orange);background:rgba(255,98,36,.04);}
+.upload-zone-icon{font-size:32px;margin-bottom:8px;opacity:.5;}
+.upload-zone-text{font-size:13px;color:var(--ink2);font-weight:600;}
+.upload-zone-sub{font-size:11px;color:var(--ink3);margin-top:4px;}
+.upload-preview{width:100%;max-height:200px;object-fit:cover;border-radius:8px;display:none;margin-top:12px;}
+.upload-progress{height:3px;background:var(--border2);border-radius:2px;margin-top:8px;display:none;}
+.upload-progress-fill{height:100%;background:var(--orange);border-radius:2px;transition:width .3s;width:0%;}
+
+/* Submit button */
+.submit-btn{
+  width:100%;padding:13px;background:var(--orange);color:#fff;
+  font-size:14px;font-weight:700;border-radius:11px;border:none;
+  cursor:pointer;transition:all .2s;margin-top:8px;
+}
+.submit-btn:hover:not([disabled]){background:#e84e0e;}
+.submit-btn[disabled]{opacity:.5;cursor:not-allowed;}
+.submit-note{font-size:11px;color:var(--ink3);text-align:center;margin-top:8px;line-height:1.5;}
+
+/* ── IMAGE DETAIL MODAL ── */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:900;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.detail-overlay.open{display:flex;}
+.detail-modal{
+  width:100%;max-width:900px;max-height:92dvh;overflow-y:auto;
+  background:rgba(10,10,16,.98);border:1px solid var(--border2);
+  border-radius:20px;display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:0 24px 80px rgba(0,0,0,.8);
+}
+@media(max-width:700px){.detail-modal{grid-template-columns:1fr;}}
+.detail-img-wrap{position:relative;overflow:hidden;border-radius:20px 0 0 20px;}
+@media(max-width:700px){.detail-img-wrap{border-radius:20px 20px 0 0;max-height:300px;}}
+.detail-img{width:100%;height:100%;object-fit:cover;display:block;}
+.detail-info{padding:24px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;}
+.detail-title{font-family:'Syne',serif;font-size:20px;font-weight:900;letter-spacing:-.4px;}
+.detail-creator{font-size:12px;color:var(--ink2);}
+.detail-model-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;font-size:10px;font-weight:700;background:var(--glass2);border:1px solid var(--border2);color:var(--ink2);}
+.detail-prompt-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);}
+.detail-prompt-box{background:rgba(0,0,0,.3);border:1px solid var(--border2);border-radius:10px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);line-height:1.7;max-height:160px;overflow-y:auto;}
+body.light .detail-prompt-box{background:rgba(0,0,0,.04);}
+.detail-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.detail-tag{padding:2px 8px;border-radius:4px;font-size:10px;background:var(--glass2);border:1px solid var(--border);color:var(--ink3);}
+.detail-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--border);}
+.detail-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:9px;font-size:12px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;transition:all .15s;}
+.detail-btn:hover{border-color:var(--orange);color:var(--orange);}
+.detail-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.detail-btn.primary:hover{background:#e84e0e;}
+.detail-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.4);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);z-index:10;}
+
+/* ── AUTH GATE ── */
+.auth-gate{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;
+  backdrop-filter:blur(8px);display:none;
+  align-items:center;justify-content:center;padding:20px;
+}
+.auth-gate.open{display:flex;}
+.auth-card{
+  background:rgba(10,10,16,.98);border:1px solid var(--border2);
+  border-radius:20px;padding:40px 32px;text-align:center;
+  max-width:380px;width:100%;
+}
+.auth-icon{font-size:48px;margin-bottom:16px;}
+.auth-title{font-family:'Syne',serif;font-size:24px;font-weight:900;margin-bottom:8px;}
+.auth-sub{font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
+.google-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:12px 20px;
+  background:#fff;color:#1a1a2e;
+  font-size:14px;font-weight:700;border-radius:11px;border:none;
+  cursor:pointer;transition:all .2s;margin-bottom:10px;
+}
+.google-btn:hover{background:#f0f0f0;transform:translateY(-1px);}
+.google-btn svg{flex-shrink:0;}
+.auth-cancel{font-size:12px;color:var(--ink3);cursor:pointer;border:none;background:none;padding:4px;}
+.auth-cancel:hover{color:var(--ink2);}
+.auth-note{font-size:11px;color:var(--ink3);margin-top:12px;line-height:1.5;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:rgba(10,10,16,.98);border:1px solid var(--orange);color:var(--ink);padding:9px 18px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;white-space:nowrap;animation:toastIn .2s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;}
+.footer-lnk{font-size:12px;color:var(--ink3);padding:4px 8px;border-radius:6px;transition:color .15s;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-sep{color:var(--border2);padding:0 2px;}
+.footer-copy{font-size:11px;color:var(--ink3);}
+
+@media(max-width:600px){
+  .vault-main,.filter-wrap{padding-left:16px;padding-right:16px;}
+  .vault-h1{font-size:36px;letter-spacing:-1px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <a class="nav-logo" href="/">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="nav-right">
+    <nav class="nav-desktop">
+      <a href="library.html" class="nav-lnk">Library</a>
+      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+      <a href="vault.html" class="nav-lnk active">Image Vault</a>
+      <a href="learn.html" class="nav-lnk">Learn</a>
+    </nav>
+    <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+<nav class="slide-menu" id="slideMenu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class="sm-item active" href="vault.html"><i class="ph ph-images"></i> Image Vault</a>
+    <a class="sm-item" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy</a>
+    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms</a>
+  </div>
+  <div class="sm-foot">
+    <button class="sm-signin-btn" onclick="handleAuthClick();toggleMenu();" id="smAuthBtn">
+      <i class="ph ph-google-logo"></i> Sign In with Google
+    </button>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="vault-hero">
+  <div class="vault-eyebrow"><span class="vault-dot"></span> Community Image Gallery · Prompts Included</div>
+  <h1 class="vault-h1">Image <span>Vault</span></h1>
+  <p class="vault-tagline"><strong>No more bad renders.</strong> Just pure eye candy.</p>
+  <div class="vault-stats">
+    <div class="vault-stat"><div class="n" id="statImages">0</div><div class="l">Images</div></div>
+    <div class="vault-stat"><div class="n" id="statCreators">0</div><div class="l">Creators</div></div>
+    <div class="vault-stat"><div class="n" id="statModels">10+</div><div class="l">AI Models</div></div>
+  </div>
+  <div class="vault-ctas">
+    <button class="btn-primary" onclick="openSubmit()"><i class="ph ph-upload-simple"></i> Submit Your Image</button>
+    <button class="btn-ghost" onclick="scrollToGallery()"><i class="ph ph-images"></i> Browse Gallery</button>
+  </div>
+</section>
+
+<!-- MODEL FILTER -->
+<div class="filter-wrap" id="modelFilter">
+  <button class="model-pill active" onclick="filterModel('all',this)">All</button>
+  <button class="model-pill" onclick="filterModel('midjourney',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=32" alt=""/> Midjourney
+  </button>
+  <button class="model-pill" onclick="filterModel('dalle',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=openai.com&sz=32" alt=""/> DALL·E
+  </button>
+  <button class="model-pill" onclick="filterModel('flux',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=blackforestlabs.ai&sz=32" alt=""/> Flux
+  </button>
+  <button class="model-pill" onclick="filterModel('firefly',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=32" alt=""/> Firefly
+  </button>
+  <button class="model-pill" onclick="filterModel('ideogram',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=32" alt=""/> Ideogram
+  </button>
+  <button class="model-pill" onclick="filterModel('sora',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=sora.com&sz=32" alt=""/> Sora
+  </button>
+  <button class="model-pill" onclick="filterModel('runway',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=32" alt=""/> Runway
+  </button>
+  <button class="model-pill" onclick="filterModel('grok',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=x.ai&sz=32" alt=""/> Grok
+  </button>
+  <button class="model-pill" onclick="filterModel('chatgpt',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=openai.com&sz=32" alt=""/> ChatGPT
+  </button>
+  <button class="model-pill" onclick="filterModel('other',this)">Other</button>
+</div>
+
+<!-- GALLERY -->
+<div class="vault-main" id="gallerySection">
+  <div class="masonry" id="masonryGrid">
+    <div class="vault-loading">
+      <span class="spin">⚙️</span>
+      Loading the vault...
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submitOverlay" onclick="closeSubmitOutside(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">🎨 Submit to Image Vault</div>
+      <button class="modal-close" onclick="closeSubmit()"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label class="form-label">Image (max 5MB)</label>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()"
+          ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event)">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" style="display:none" onchange="handleFile(this.files[0])"/>
+          <div class="upload-zone-icon">🖼️</div>
+          <div class="upload-zone-text">Drop image here or click to browse</div>
+          <div class="upload-zone-sub">PNG · JPG · WebP · GIF · Max 5MB</div>
+          <img id="uploadPreview" class="upload-preview" alt="Preview"/>
+          <div class="upload-progress" id="uploadProgress"><div class="upload-progress-fill" id="uploadProgressFill"></div></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Title</label>
+        <input class="form-input" type="text" id="submitTitle" placeholder="e.g. Cyberpunk Samurai at Dawn" maxlength="80"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Prompt Used</label>
+        <textarea class="form-textarea" id="submitPrompt" placeholder="Paste the exact prompt you used to generate this image..."></textarea>
+      </div>
+      <div class="form-row">
+        <label class="form-label">AI Model</label>
+        <select class="form-select" id="submitModel">
+          <option value="">Select model...</option>
+          <option value="midjourney">Midjourney</option>
+          <option value="dalle">DALL·E</option>
+          <option value="flux">Flux</option>
+          <option value="firefly">Adobe Firefly</option>
+          <option value="ideogram">Ideogram</option>
+          <option value="sora">Sora</option>
+          <option value="runway">Runway</option>
+          <option value="grok">Grok</option>
+          <option value="nana">Nana</option>
+          <option value="gluade">Gluade</option>
+          <option value="chatgpt">ChatGPT</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Tags (comma separated)</label>
+        <input class="form-input" type="text" id="submitTags" placeholder="cyberpunk, portrait, neon, cinematic"/>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitImage()">Submit for Review</button>
+      <div class="submit-note">
+        All submissions are reviewed before appearing in the gallery.<br/>
+        By submitting you confirm this image was generated by AI and you have rights to share it.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE DETAIL MODAL -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetailOutside(event)">
+  <div class="detail-modal">
+    <div class="detail-img-wrap">
+      <img id="detailImg" class="detail-img" alt=""/>
+      <button class="detail-close" onclick="closeDetail()"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="detail-info">
+      <div>
+        <div class="detail-title" id="detailTitle"></div>
+        <div class="detail-creator" id="detailCreator"></div>
+      </div>
+      <div class="detail-model-badge" id="detailModel"></div>
+      <div>
+        <div class="detail-prompt-label">Prompt Used</div>
+        <div class="detail-prompt-box" id="detailPrompt"></div>
+      </div>
+      <div class="detail-tags" id="detailTags"></div>
+      <div class="detail-actions">
+        <button class="detail-btn primary" onclick="copyDetailPrompt()"><i class="ph ph-copy"></i> Copy Prompt</button>
+        <button class="detail-btn" onclick="remixPrompt()"><i class="ph ph-shuffle"></i> Remix</button>
+        <button class="detail-btn" onclick="likeFromDetail()"><i class="ph ph-heart"></i> Like <span id="detailLikeCount"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH GATE -->
+<div class="auth-gate" id="authGate">
+  <div class="auth-card">
+    <div class="auth-icon">🔐</div>
+    <div class="auth-title">Sign in to contribute</div>
+    <div class="auth-sub">Join the Promptaholics community. Submit your AI images, like your favorites, and get credit for your prompts.</div>
+    <button class="google-btn" onclick="signInGoogle()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Continue with Google
+    </button>
+    <button class="auth-cancel" onclick="closeAuthGate()">Cancel</button>
+    <div class="auth-note">Your Google email is saved securely. No spam. Ever.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-text">Prompt<span>aholics</span> — Image Vault</div>
+    <div class="footer-links">
+      <a href="library.html" class="footer-lnk">Library</a>
+      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
+      <a href="vault.html" class="footer-lnk">Image Vault</a>
+      <a href="learn.html" class="footer-lnk">Learn</a>
+      <span class="footer-sep">|</span>
+      <a href="privacy.html" class="footer-lnk">Privacy</a>
+      <a href="terms.html" class="footer-lnk">Terms</a>
+    </div>
+    <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery</div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bn-item active" href="vault.html"><i class="ph ph-images"></i>Vault</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <button class="bn-item" onclick="handleAuthClick()"><i class="ph ph-user"></i>Sign In</button>
+</nav>
+
+<script>
+// ── THEME ─────────────────────────────────────────────────────
+var theme=localStorage.getItem('pa_theme')||'dark';
+if(theme==='light') document.body.classList.add('light');
+function toggleTheme(){
+  theme=theme==='dark'?'light':'dark';
+  localStorage.setItem('pa_theme',theme);
+  document.body.classList.toggle('light',theme==='light');
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+}
+(function(){
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+})();
+
+// ── MENU ──────────────────────────────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('slideMenu'); var o=document.getElementById('menuOverlay');
+  m.classList.toggle('open'); o.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    document.getElementById('slideMenu').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('open');
+    closeSubmit(); closeDetail(); closeAuthGate();
+    document.body.style.overflow='';
+  }
+});
+
+// ── FIREBASE STATE ─────────────────────────────────────────────
+var fb = null;
+var currentUser = null;
+var allImages = [];
+var activeModel = 'all';
+var currentDetail = null;
+var ADMIN_EMAIL = 'promptaholics1@gmail.com';
+
+window.addEventListener('firebase-ready', function(){
+  fb = window._fb;
+  fb.onAuthStateChanged(fb.auth, function(user){
+    currentUser = user;
+    updateAuthUI();
+    if(user) loadImages();
+    else loadImages(); // load gallery even without login
+  });
+});
+
+function updateAuthUI(){
+  var btn = document.getElementById('navAuthBtn');
+  var smBtn = document.getElementById('smAuthBtn');
+  if(currentUser){
+    if(btn) btn.textContent = currentUser.displayName ? currentUser.displayName.split(' ')[0] : 'Account';
+    if(smBtn) smBtn.innerHTML = '<i class="ph ph-sign-out"></i> Sign Out';
+    if(smBtn) smBtn.onclick = function(){ fb.signOut(fb.auth); };
+  } else {
+    if(btn){ btn.textContent = 'Sign In'; btn.onclick = handleAuthClick; }
+    if(smBtn){ smBtn.innerHTML = '<i class="ph ph-google-logo"></i> Sign In with Google'; smBtn.onclick = signInGoogle; }
+  }
+}
+
+// ── AUTH ──────────────────────────────────────────────────────
+function handleAuthClick(){
+  if(currentUser){
+    fb.signOut(fb.auth).then(function(){ showToast('Signed out'); });
+  } else {
+    openAuthGate();
+  }
+}
+function openAuthGate(){ document.getElementById('authGate').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeAuthGate(){ document.getElementById('authGate').classList.remove('open'); document.body.style.overflow=''; }
+function signInGoogle(){
+  fb.signInWithPopup(fb.auth, fb.provider).then(function(result){
+    var user = result.user;
+    currentUser = user;
+    closeAuthGate();
+    showToast('Welcome, '+(user.displayName||'Creator')+'!');
+    updateAuthUI();
+    // Save user email to Firestore for email list
+    saveUserEmail(user);
+  }).catch(function(err){
+    showToast('Sign in failed — try again');
+  });
+}
+function saveUserEmail(user){
+  try{
+    var usersRef = fb.collection(fb.db, 'vault-users');
+    fb.addDoc(usersRef, {
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      uid: user.uid,
+      joinedAt: fb.serverTimestamp()
+    }).catch(function(){});
+  }catch(e){}
+}
+
+// ── LOAD IMAGES ───────────────────────────────────────────────
+async function loadImages(){
+  var grid = document.getElementById('masonryGrid');
+  grid.innerHTML = '<div class="vault-loading"><span class="spin">⚙️</span>Loading the vault...</div>';
+  try {
+    var q = fb.query(
+      fb.collection(fb.db, 'vault-submissions'),
+      fb.where('status','==','approved'),
+      fb.orderBy('createdAt','desc')
+    );
+    var snap = await fb.getDocs(q);
+    allImages = [];
+    var creators = new Set();
+    snap.forEach(function(d){
+      var data = d.data();
+      data._id = d.id;
+      allImages.push(data);
+      if(data.creatorEmail) creators.add(data.creatorEmail);
+    });
+    // Update stats
+    document.getElementById('statImages').textContent = allImages.length;
+    document.getElementById('statCreators').textContent = creators.size;
+    renderGallery();
+  } catch(e){
+    grid.innerHTML = '<div class="vault-empty"><h3>Gallery Loading...</h3><p>Firebase setup required. See setup guide.</p></div>';
+  }
+}
+
+// ── RENDER GALLERY ────────────────────────────────────────────
+function renderGallery(){
+  var grid = document.getElementById('masonryGrid');
+  var list = activeModel === 'all' ? allImages : allImages.filter(function(img){ return img.model === activeModel; });
+  if(!list.length){
+    grid.innerHTML = '<div class="vault-empty"><h3>No images yet '+(activeModel!=='all'?'for this model':'')+'</h3><p>Be the first to submit your AI creation.</p><button class="btn-primary" onclick="openSubmit()"><i class="ph ph-upload-simple"></i> Submit First Image</button></div>';
+    return;
+  }
+  grid.innerHTML = list.map(function(img, i){
+    var delay = Math.min(i * 0.04, 0.5);
+    return '<div class="vcard" style="animation-delay:'+delay+'s" onclick="openDetail(\''+img._id+'\')">'+
+      '<img class="vcard-img" src="'+escHtml(img.imageUrl)+'" alt="'+escHtml(img.title)+'" loading="lazy"/>'+
+      '<div class="vcard-model-badge">'+escHtml(getModelLabel(img.model))+'</div>'+
+      '<div class="vcard-overlay">'+
+        '<div class="vcard-title">'+escHtml(img.title)+'</div>'+
+        '<div class="vcard-creator">by '+escHtml(img.creatorName||'Anonymous')+'</div>'+
+        '<div class="vcard-actions">'+
+          '<button class="vcard-btn" onclick="event.stopPropagation();copyPromptById(\''+img._id+'\')"><i class="ph ph-copy"></i> Copy Prompt</button>'+
+          '<button class="vcard-btn" onclick="event.stopPropagation();likeImage(\''+img._id+'\')"><i class="ph ph-heart"></i> <span class="vcard-like-count">'+( img.likes||0)+'</span></button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+// ── FILTER BY MODEL ───────────────────────────────────────────
+function filterModel(model, btn){
+  activeModel = model;
+  document.querySelectorAll('.model-pill').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  renderGallery();
+}
+
+// ── MODEL LABEL ───────────────────────────────────────────────
+var MODEL_LABELS = {
+  midjourney:'Midjourney', dalle:'DALL·E', flux:'Flux', firefly:'Firefly',
+  ideogram:'Ideogram', sora:'Sora', runway:'Runway', grok:'Grok',
+  nana:'Nana', gluade:'Gluade', chatgpt:'ChatGPT', other:'Other'
+};
+function getModelLabel(m){ return MODEL_LABELS[m] || m || 'AI'; }
+
+// ── DETAIL MODAL ──────────────────────────────────────────────
+function openDetail(id){
+  var img = allImages.find(function(i){ return i._id === id; });
+  if(!img) return;
+  currentDetail = img;
+  document.getElementById('detailImg').src = img.imageUrl;
+  document.getElementById('detailTitle').textContent = img.title;
+  document.getElementById('detailCreator').textContent = 'by '+(img.creatorName||'Anonymous');
+  document.getElementById('detailModel').innerHTML = '<img style="width:14px;height:14px;border-radius:3px;margin-right:4px;" src="https://www.google.com/s2/favicons?domain='+getModelDomain(img.model)+'&sz=32" onerror="this.style.display=\'none\'"/> '+getModelLabel(img.model);
+  document.getElementById('detailPrompt').textContent = img.prompt;
+  document.getElementById('detailLikeCount').textContent = img.likes||0;
+  var tagsEl = document.getElementById('detailTags');
+  tagsEl.innerHTML = '';
+  (img.tags||[]).forEach(function(t){
+    var span = document.createElement('span');
+    span.className = 'detail-tag';
+    span.textContent = '#'+t;
+    tagsEl.appendChild(span);
+  });
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  currentDetail=null;
+}
+function closeDetailOutside(e){ if(e.target===document.getElementById('detailOverlay')) closeDetail(); }
+
+var MODEL_DOMAINS = {
+  midjourney:'midjourney.com', dalle:'openai.com', flux:'blackforestlabs.ai',
+  firefly:'adobe.com', ideogram:'ideogram.ai', sora:'sora.com',
+  runway:'runwayml.com', grok:'x.ai', chatgpt:'openai.com'
+};
+function getModelDomain(m){ return MODEL_DOMAINS[m] || 'promptaholics.com'; }
+
+function copyDetailPrompt(){
+  if(!currentDetail) return;
+  copyToClipboard(currentDetail.prompt);
+  showToast('Prompt copied!');
+}
+function remixPrompt(){
+  if(!currentDetail) return;
+  // Pre-fill the prompt builder with this prompt
+  var enc = encodeURIComponent(currentDetail.prompt);
+  window.open('prompt-builder.html?remix='+enc,'_blank');
+}
+function likeFromDetail(){
+  if(!currentDetail) return;
+  likeImage(currentDetail._id);
+}
+async function likeImage(id){
+  if(!currentUser){ openAuthGate(); return; }
+  try{
+    var ref = fb.doc(fb.db,'vault-submissions',id);
+    await fb.updateDoc(ref, { likes: fb.increment(1) });
+    var img = allImages.find(function(i){ return i._id===id; });
+    if(img){ img.likes=(img.likes||0)+1; }
+    if(currentDetail && currentDetail._id===id){
+      currentDetail.likes=(currentDetail.likes||0)+1;
+      document.getElementById('detailLikeCount').textContent=currentDetail.likes;
+    }
+    showToast('Liked!');
+  }catch(e){ showToast('Could not like — try again'); }
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────
+var selectedFile = null;
+function openSubmit(){
+  if(!currentUser){ openAuthGate(); return; }
+  document.getElementById('submitOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSubmit(){
+  document.getElementById('submitOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeSubmitOutside(e){ if(e.target===document.getElementById('submitOverlay')) closeSubmit(); }
+
+function dragOver(e){ e.preventDefault(); document.getElementById('uploadZone').classList.add('drag'); }
+function dragLeave(e){ document.getElementById('uploadZone').classList.remove('drag'); }
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag');
+  var f = e.dataTransfer.files[0];
+  if(f) handleFile(f);
+}
+function handleFile(file){
+  if(!file) return;
+  if(file.size > 5*1024*1024){ showToast('File too large — max 5MB'); return; }
+  selectedFile = file;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var prev = document.getElementById('uploadPreview');
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitImage(){
+  if(!currentUser){ openAuthGate(); return; }
+  var title   = document.getElementById('submitTitle').value.trim();
+  var prompt  = document.getElementById('submitPrompt').value.trim();
+  var model   = document.getElementById('submitModel').value;
+  var tagsRaw = document.getElementById('submitTags').value;
+
+  if(!selectedFile){ showToast('Please select an image'); return; }
+  if(!title){ showToast('Please add a title'); return; }
+  if(!prompt){ showToast('Please paste your prompt'); return; }
+  if(!model){ showToast('Please select the AI model'); return; }
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+
+  var progress = document.getElementById('uploadProgress');
+  var fill     = document.getElementById('uploadProgressFill');
+  progress.style.display = 'block';
+
+  try {
+    // Upload image to Cloudinary (free, no server needed)
+    var cloudName   = 'dgqbzarfw';
+    var uploadPreset = 'promptaholics_vault';        // ← create unsigned preset in Cloudinary
+
+    var p = 0;
+    var prog = setInterval(function(){ p=Math.min(p+8,90); fill.style.width=p+'%'; },300);
+
+    var formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('upload_preset', uploadPreset);
+    formData.append('folder', 'vault');
+
+    var cloudResp = await fetch('https://api.cloudinary.com/v1_1/'+cloudName+'/image/upload', {
+      method: 'POST',
+      body: formData
+    });
+    var cloudData = await cloudResp.json();
+    clearInterval(prog); fill.style.width='95%';
+
+    if(!cloudData.secure_url) throw new Error('Cloudinary upload failed');
+    var imageUrl = cloudData.secure_url;
+    fill.style.width='100%';
+
+    // Parse tags
+    var tags = tagsRaw.split(',').map(function(t){ return t.trim().toLowerCase(); }).filter(Boolean);
+
+    // Save to Firestore — status: pending (requires admin approval)
+    await fb.addDoc(fb.collection(fb.db,'vault-submissions'), {
+      title:       title,
+      prompt:      prompt,
+      model:       model,
+      tags:        tags,
+      imageUrl:    imageUrl,
+      creatorName: currentUser.displayName || 'Anonymous',
+      creatorEmail:currentUser.email,
+      creatorUid:  currentUser.uid,
+      likes:       0,
+      status:      'pending',
+      createdAt:   fb.serverTimestamp()
+    });
+
+    showToast('Submitted for review! We\'ll approve it soon.');
+    closeSubmit();
+    // Reset form
+    selectedFile=null;
+    document.getElementById('submitTitle').value='';
+    document.getElementById('submitPrompt').value='';
+    document.getElementById('submitModel').value='';
+    document.getElementById('submitTags').value='';
+    document.getElementById('uploadPreview').style.display='none';
+    progress.style.display='none'; fill.style.width='0%';
+
+  } catch(e){
+    showToast('Upload failed — try again');
+  }
+  btn.disabled=false; btn.textContent='Submit for Review';
+}
+
+// ── COPY PROMPT ───────────────────────────────────────────────
+function copyPromptById(id){
+  var img = allImages.find(function(i){ return i._id===id; });
+  if(!img) return;
+  copyToClipboard(img.prompt);
+  showToast('Prompt copied!');
+}
+function copyToClipboard(text){
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(text).catch(function(){ fbCopy(text); }); }
+  else fbCopy(text);
+}
+function fbCopy(t){
+  var ta=document.createElement('textarea'); ta.value=t;
+  ta.style.cssText='position:fixed;left:-9999px;opacity:0;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta);
+}
+
+// ── SCROLL TO GALLERY ─────────────────────────────────────────
+function scrollToGallery(){
+  document.getElementById('gallerySection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── UTILS ─────────────────────────────────────────────────────
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg){
+  var old=document.getElementById('mainToast'); if(old) old.remove();
+  var t=document.createElement('div'); t.id='mainToast'; t.className='toast';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); },2800);
+}
+</script>
+</body>
+</html>

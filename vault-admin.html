@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Image Vault Admin — Promptaholics</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800;900&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged }
+    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+  import { getFirestore, collection, getDocs, query, where, orderBy,
+    updateDoc, doc, deleteDoc, serverTimestamp }
+    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+    authDomain: "promptaholics-534d3.firebaseapp.com",
+    projectId: "promptaholics-534d3",
+    storageBucket: "promptaholics-534d3.firebasestorage.app",
+    messagingSenderId: "426595742101",
+    appId: "1:426595742101:web:1eb95579695bc6b1a5869c",
+    measurementId: "G-80H30NJST9"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+  window._fb = { auth, db, provider, signInWithPopup, GoogleAuthProvider,
+    onAuthStateChanged, collection, getDocs, query, where, orderBy,
+    updateDoc, doc, deleteDoc, serverTimestamp };
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;--orange:#ff6224;--green:#22c55e;--red:#ef4444;--glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;padding:24px;}
+h1{font-family:'Syne',serif;font-size:28px;font-weight:900;margin-bottom:4px;}
+h1 span{color:var(--orange);}
+.sub{font-size:13px;color:var(--ink2);margin-bottom:24px;}
+.auth-section{max-width:380px;text-align:center;margin:80px auto;}
+.auth-section h2{font-family:'Syne',serif;font-size:22px;font-weight:800;margin-bottom:8px;}
+.auth-section p{color:var(--ink2);font-size:14px;margin-bottom:20px;}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;background:#fff;color:#1a1a2e;font-size:14px;font-weight:700;border-radius:11px;border:none;cursor:pointer;}
+.google-btn:hover{background:#f0f0f0;}
+.google-btn svg{flex-shrink:0;}
+.tabs{display:flex;gap:8px;margin-bottom:20px;}
+.tab{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);cursor:pointer;}
+.tab.active{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
+.stats-row{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+.stat-card{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:14px 20px;text-align:center;}
+.stat-n{font-family:'Syne',serif;font-size:28px;font-weight:900;color:var(--orange);}
+.stat-l{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.sub-card{background:var(--glass);border:1px solid var(--border2);border-radius:14px;overflow:hidden;}
+.sub-img{width:100%;height:200px;object-fit:cover;display:block;}
+.sub-body{padding:14px;}
+.sub-title{font-family:'Syne',serif;font-size:15px;font-weight:800;margin-bottom:4px;}
+.sub-meta{font-size:11px;color:var(--ink3);margin-bottom:8px;}
+.sub-prompt{font-size:11px;color:var(--ink2);line-height:1.5;margin-bottom:10px;max-height:80px;overflow-y:auto;font-family:monospace;background:rgba(0,0,0,.2);border-radius:6px;padding:8px;}
+.sub-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.sub-tag{padding:2px 6px;border-radius:4px;font-size:9px;background:var(--glass2);border:1px solid var(--border);color:var(--ink3);}
+.sub-actions{display:flex;gap:6px;}
+.approve-btn{flex:1;padding:8px;border-radius:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.approve-btn:hover{background:rgba(34,197,94,.2);}
+.reject-btn{flex:1;padding:8px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.reject-btn:hover{background:rgba(239,68,68,.2);}
+.delete-btn{padding:8px 12px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:12px;cursor:pointer;}
+.status-pending{color:#f59e0b;}
+.status-approved{color:var(--green);}
+.status-rejected{color:var(--red);}
+.empty{text-align:center;padding:60px 20px;color:var(--ink3);}
+.user-list{display:flex;flex-direction:column;gap:8px;}
+.user-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:10px;}
+.user-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;background:var(--glass2);}
+.user-name{font-size:13px;font-weight:700;}
+.user-email{font-size:11px;color:var(--ink3);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(10,10,16,.98);border:1px solid var(--orange);color:var(--ink);padding:9px 18px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<div id="authSection" class="auth-section">
+  <h2>Admin Access</h2>
+  <p>Sign in with your admin Google account (promptaholics1@gmail.com) to review submissions.</p>
+  <button class="google-btn" onclick="adminSignIn()">
+    <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+    Sign In with Google
+  </button>
+</div>
+
+<div id="adminPanel" style="display:none;">
+  <h1>Image <span>Vault</span> Admin</h1>
+  <div class="sub">Logged in as <strong id="adminEmail"></strong> · <a href="vault.html" style="color:var(--orange);">View Gallery</a></div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-n" id="sPending">0</div><div class="stat-l">Pending</div></div>
+    <div class="stat-card"><div class="stat-n" id="sApproved">0</div><div class="stat-l">Approved</div></div>
+    <div class="stat-card"><div class="stat-n" id="sUsers">0</div><div class="stat-l">Users</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('pending',this)">Pending Review</button>
+    <button class="tab" onclick="showTab('approved',this)">Approved</button>
+    <button class="tab" onclick="showTab('users',this)">Users / Emails</button>
+  </div>
+
+  <div id="tabPending">
+    <div class="card-grid" id="pendingGrid"></div>
+  </div>
+  <div id="tabApproved" style="display:none;">
+    <div class="card-grid" id="approvedGrid"></div>
+  </div>
+  <div id="tabUsers" style="display:none;">
+    <div class="user-list" id="userList"></div>
+  </div>
+</div>
+
+<script>
+var fb = null;
+var ADMIN_EMAIL = 'promptaholics1@gmail.com';
+var allSubmissions = [];
+var allUsers = [];
+
+window.addEventListener('firebase-ready', function(){
+  fb = window._fb;
+  fb.onAuthStateChanged(fb.auth, function(user){
+    if(user && user.email === ADMIN_EMAIL){
+      document.getElementById('authSection').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      document.getElementById('adminEmail').textContent = user.email;
+      loadAll();
+    } else if(user) {
+      alert('Access denied. Admin only.');
+      fb.auth.signOut();
+    }
+  });
+});
+
+function adminSignIn(){
+  fb.signInWithPopup(fb.auth, fb.provider).catch(function(){ alert('Sign in failed'); });
+}
+
+async function loadAll(){
+  // Load submissions
+  var snap = await fb.getDocs(fb.query(fb.collection(fb.db,'vault-submissions'), fb.orderBy('createdAt','desc')));
+  allSubmissions = [];
+  snap.forEach(function(d){ var data=d.data(); data._id=d.id; allSubmissions.push(data); });
+
+  var pending  = allSubmissions.filter(function(s){ return s.status==='pending'; });
+  var approved = allSubmissions.filter(function(s){ return s.status==='approved'; });
+  document.getElementById('sPending').textContent  = pending.length;
+  document.getElementById('sApproved').textContent = approved.length;
+
+  renderPending(pending);
+  renderApproved(approved);
+
+  // Load users
+  var uSnap = await fb.getDocs(fb.collection(fb.db,'vault-users'));
+  allUsers = [];
+  uSnap.forEach(function(d){ allUsers.push(d.data()); });
+  document.getElementById('sUsers').textContent = allUsers.length;
+  renderUsers();
+}
+
+function renderPending(list){
+  var grid = document.getElementById('pendingGrid');
+  if(!list.length){ grid.innerHTML='<div class="empty">No pending submissions</div>'; return; }
+  grid.innerHTML = list.map(function(s){ return makeCard(s, true); }).join('');
+}
+function renderApproved(list){
+  var grid = document.getElementById('approvedGrid');
+  if(!list.length){ grid.innerHTML='<div class="empty">No approved submissions</div>'; return; }
+  grid.innerHTML = list.map(function(s){ return makeCard(s, false); }).join('');
+}
+function renderUsers(){
+  var ul = document.getElementById('userList');
+  if(!allUsers.length){ ul.innerHTML='<div class="empty">No users yet</div>'; return; }
+  ul.innerHTML = allUsers.map(function(u){
+    return '<div class="user-row">'
+      +'<img class="user-avatar" src="'+(u.photoURL||'')+'" alt="" onerror="this.src=\'\'" />'
+      +'<div><div class="user-name">'+(u.displayName||'User')+'</div><div class="user-email">'+(u.email||'')+'</div></div>'
+      +'</div>';
+  }).join('');
+}
+
+function makeCard(s, showActions){
+  var tags = (s.tags||[]).map(function(t){ return '<span class="sub-tag">#'+t+'</span>'; }).join('');
+  var d = s.createdAt ? (s.createdAt.toDate ? s.createdAt.toDate().toLocaleDateString() : 'Recent') : 'Recent';
+  return '<div class="sub-card" id="card-'+s._id+'">'
+    +'<img class="sub-img" src="'+s.imageUrl+'" alt="'+s.title+'"/>'
+    +'<div class="sub-body">'
+    +'<div class="sub-title">'+s.title+'</div>'
+    +'<div class="sub-meta">by '+s.creatorName+' · '+s.model+' · '+d+'</div>'
+    +'<div class="sub-prompt">'+s.prompt+'</div>'
+    +'<div class="sub-tags">'+tags+'</div>'
+    +(showActions
+      ? '<div class="sub-actions"><button class="approve-btn" onclick="approve(\''+s._id+'\')">✅ Approve</button><button class="reject-btn" onclick="reject(\''+s._id+'\')">❌ Reject</button></div>'
+      : '<div class="sub-actions"><button class="delete-btn" onclick="deleteItem(\''+s._id+'\')">Delete</button></div>'
+    )
+    +'</div></div>';
+}
+
+async function approve(id){
+  try{
+    await fb.updateDoc(fb.doc(fb.db,'vault-submissions',id), { status:'approved' });
+    document.getElementById('card-'+id).remove();
+    showToast('Approved!');
+    loadAll();
+  }catch(e){ showToast('Error — try again'); }
+}
+async function reject(id){
+  try{
+    await fb.updateDoc(fb.doc(fb.db,'vault-submissions',id), { status:'rejected' });
+    document.getElementById('card-'+id).remove();
+    showToast('Rejected');
+    loadAll();
+  }catch(e){ showToast('Error — try again'); }
+}
+async function deleteItem(id){
+  if(!confirm('Permanently delete this submission?')) return;
+  try{
+    await fb.deleteDoc(fb.doc(fb.db,'vault-submissions',id));
+    document.getElementById('card-'+id).remove();
+    showToast('Deleted');
+  }catch(e){ showToast('Error'); }
+}
+
+function showTab(tab, btn){
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('tabPending').style.display  = tab==='pending'  ? 'block':'none';
+  document.getElementById('tabApproved').style.display = tab==='approved' ? 'block':'none';
+  document.getElementById('tabUsers').style.display    = tab==='users'    ? 'block':'none';
+}
+
+function showToast(msg){
+  var old=document.getElementById('mainToast'); if(old) old.remove();
+  var t=document.createElement('div'); t.id='mainToast'; t.className='toast';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); },2500);
+}
+</script>
+</body>
+</html>
