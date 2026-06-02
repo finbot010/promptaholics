@@ -2,796 +2,897 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-<link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
-<link rel="manifest" href="/site.webmanifest"/>
-<meta name="theme-color" content="#ff6224"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Prompt Library — 402 Free AI Prompts | Promptaholics</title>
-<meta name="description" content="Browse 299 free AI prompts for ChatGPT, Midjourney, DALL-E and more."/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Free AI Prompt Library — 1,113 Expert Prompts | Promptaholics</title>
+<meta name="description" content="Browse 1,113 free expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
 <link rel="canonical" href="https://promptaholics.com/library.html"/>
-<meta name="google-adsense-account" content="ca-pub-1731098620016005"/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<!-- Schema.org -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free AI Prompt Library","description":"1,113 expert AI prompts for ChatGPT, Claude, Midjourney and more","url":"https://promptaholics.com/library.html","publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
 <style>
-
-*{box-sizing:border-box;margin:0;padding:0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#08080b;--surface:#111116;--surface2:#18181f;--surface3:#1e1e27;
-  --border:#1f1f2a;--border2:#2a2a38;
-  --text:#f0f0f8;--text2:#9999b0;--text3:#4a4a62;
-  --orange:#ff6224;--orange2:#e84e0e;
-  --teal:#00ccaa;--violet:#8b5cf6;
-  --hh:60px;
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --glass3:rgba(255,255,255,.12);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --blur:blur(12px);
 }
-.light{--bg:#f5f5f0;--surface:#fff;--surface2:#efefea;--surface3:#e5e5e0;--border:#e0ddd6;--border2:#c8c4bc;--text:#18170f;--text2:#58554e;--text3:#9a9590;}
-body{background:var(--bg);color:var(--text);font-family:sans-serif;min-height:100vh;}
-a{color:var(--orange);text-decoration:none;}
-
-/* HEADER */
-.hdr{height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,8,11,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
-.light .hdr{background:rgba(245,245,240,.96);}
-.logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
-.logo-box{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.logo-box svg{width:13px;height:15px;}
-.logo-name{font-family:Syne,serif;font-size:16px;font-weight:800;color:var(--text);}
-.logo-name span{color:var(--orange);}
-.nav{display:flex;align-items:center;gap:8px;}
-.nav a{font-size:13px;color:var(--text2);padding:7px 12px;border-radius:8px;transition:all .15s;font-weight:500;}
-.nav a:hover{color:var(--orange);}
-.nav .home-btn{background:var(--orange);color:#fff;font-weight:700;border-radius:9px;}
-.nav .home-btn:hover{background:var(--orange2);color:#fff;}
-.theme-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;}
-@media(max-width:600px){.nav a:not(.home-btn){display:none;}}
-
-/* LAYOUT */
-.wrap{display:flex;min-height:calc(100vh - var(--hh));}
-.sidebar{width:210px;flex-shrink:0;border-right:1px solid var(--border);padding:16px 12px;position:sticky;top:var(--hh);height:calc(100vh - var(--hh));overflow-y:auto;scrollbar-width:thin;}
-@media(max-width:860px){.sidebar{display:none;}}
-.sb-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:16px;}
-.sb-label:first-child{margin-top:0;}
-.cbtn{display:flex;align-items:center;gap:6px;width:100%;padding:7px 10px;background:none;border:none;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;color:var(--text2);transition:all .15s;text-align:left;}
-.cbtn:hover{background:var(--surface2);color:var(--text);}
-.cbtn.active{background:rgba(255,98,36,.1);color:var(--orange);}
-.cico{font-size:14px;flex-shrink:0;}
-.ccnt{margin-left:auto;font-size:11px;color:var(--text3);}
-.tag-cloud{display:flex;flex-wrap:wrap;gap:5px;}
-.tpill{font-size:11px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:4px 9px;border-radius:10px;cursor:pointer;transition:all .15s;}
-.tpill:hover,.tpill.active{background:rgba(255,98,36,.1);border-color:var(--orange);color:var(--orange);}
-
-/* MOBILE CAT BAR */
-.mob-cats{display:none;overflow-x:auto;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:var(--hh);z-index:40;scrollbar-width:none;}
-.mob-cats::-webkit-scrollbar{display:none;}
-@media(max-width:860px){.mob-cats{display:flex;}}
-.mob-cats .cbtn{flex-shrink:0;white-space:nowrap;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;}
-.mob-cats .cbtn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
-
-/* MAIN */
-.main{flex:1;min-width:0;padding:16px 20px;}
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
-.srch{flex:1;min-width:180px;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:10px;font-family:sans-serif;font-size:14px;outline:none;}
-.srch:focus{border-color:var(--orange);}
-.srch::placeholder{color:var(--text3);}
-select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-family:sans-serif;font-size:13px;cursor:pointer;}
-.rcnt{font-size:13px;color:var(--text2);margin-bottom:14px;}
-
-/* GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border .2s;animation:fadeUp .3s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-.card:hover{border-color:var(--border2);}
-.feat-card{border-color:rgba(255,98,36,.25);}
-.ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;}
-.cname{font-family:Syne,serif;font-size:15px;font-weight:800;color:var(--text);line-height:1.25;}
-.favbtn{background:none;border:none;cursor:pointer;font-size:18px;color:var(--text3);flex-shrink:0;padding:0;}
-.favbtn.on{color:#e84e0e;}
-.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 9px;border-radius:8px;margin-bottom:8px;}
-.bc{background:rgba(0,204,170,.1);color:var(--teal);}
-.bm{background:rgba(139,92,246,.1);color:var(--violet);}
-.bo{background:rgba(255,98,36,.1);color:var(--orange);}
-.cprev{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-.ctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
-.ctag{font-size:10px;background:var(--surface2);color:var(--text3);padding:3px 8px;border-radius:6px;}
-.cfoot{display:flex;gap:8px;}
-.bcopy{flex:1;background:var(--orange);color:#fff;border:none;padding:9px;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;font-weight:700;transition:background .15s;}
-.bcopy:hover{background:var(--orange2);}
-.bprev{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:9px 14px;border-radius:9px;cursor:pointer;font-family:sans-serif;font-size:13px;font-weight:600;white-space:nowrap;transition:all .15s;}
-.bprev:hover{border-color:var(--orange);color:var(--orange);}
-.empty{text-align:center;padding:60px 20px;color:var(--text2);}
-.empty-e{font-size:40px;display:block;margin-bottom:12px;}
-
-/* MODAL */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:18px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;padding:28px;}
-.mhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;}
-.mtitle{font-family:Syne,serif;font-size:20px;font-weight:800;color:var(--text);}
-.mclose{background:var(--surface2);border:1px solid var(--border);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:18px;flex-shrink:0;}
-.mmeta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.mpill{font-size:11px;background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:3px 10px;border-radius:8px;}
-.mtext{font-size:13px;color:var(--text2);line-height:1.75;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;white-space:pre-wrap;font-family:'Fira Code','Courier New',monospace;margin-bottom:14px;}
-.mfoot{display:flex;gap:8px;}
-.mfoot button{flex:1;padding:11px;border-radius:10px;cursor:pointer;font-family:sans-serif;font-size:14px;font-weight:700;}
-#mCopyBtn{background:var(--orange);color:#fff;border:none;}
-#mCopyBtn:hover{background:var(--orange2);}
-#mFavBtn{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);}
-
-/* ── MOBILE FIXES ── */
-body{overflow-x:hidden;}
-@media(max-width:768px){
-  button,input,select,textarea{font-size:16px!important;}
-  button.act-btn,button.build-btn,.bcopy,.bprev{min-height:48px;}
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);--glass3:rgba(0,0,0,.10);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
 }
-/* ── Bottom Nav ── */
-.bottom-nav {
-  display: flex;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  z-index: 200; height: 60px;
-  padding: 0;
-}
-.bn-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 3px; text-decoration: none;
-  color: var(--text3); font-size: 10px; font-weight: 600;
-  border-top: 2px solid transparent;
-  transition: color .15s; cursor: pointer;
-  -webkit-tap-highlight-color: rgba(255,98,36,.1);
-  touch-action: manipulation;
-  font-family: 'Instrument Sans', sans-serif;
-}
-.bn-item.active { color: var(--orange); border-top-color: var(--orange); }
-.bn-item:hover  { color: var(--text2); }
-.bn-icon { font-size: 22px; line-height: 1; }
-/* Pad main content above bottom nav on mobile */
-.main-wrap { padding-bottom: 70px; }
-@media (min-width: 900px) {
-  .bottom-nav { display: none; }
-  .main-wrap  { padding-bottom: 0; }
-}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;min-height:100dvh;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'Instrument Sans',sans-serif;cursor:pointer;}
 
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);transition:background .3s;}
+body.light .topnav{background:rgba(245,245,247,.92);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+.nav-signin:hover{background:#e84e0e;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 
-/* ── Phosphor Icons ── */
-.ph { font-size: inherit; line-height: 1; display: inline-block; }
-.bn-icon.ph { font-size: 22px; line-height: 1; display: block; }
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;text-decoration:none;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
 
-/* ── Share button ── */
-.bshare {
-  background: var(--s2);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  transition: all .15s;
-  flex-shrink: 0;
-  touch-action: manipulation;
-}
-.bshare:hover { border-color: var(--orange); color: var(--orange); }
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;text-decoration:none;border-left:none;border-right:none;border-bottom:none;background:none;cursor:pointer;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
 
-/* Also add share to modal */
-.modal-share {
-  background: var(--s2);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  height: 40px;
-  padding: 0 14px;
-  border-radius: 9px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-}
-.modal-share:hover { border-color: var(--orange); color: var(--orange); }
+/* ── PAGE HEADER ── */
+.lib-header{padding:40px 24px 0;max-width:1400px;margin:0 auto;}
+.lib-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:14px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);}
+.lib-h1{font-family:'Syne',serif;font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:8px;line-height:1.0;}
+.lib-h1 span{color:var(--orange);}
+.lib-sub{font-size:14px;color:var(--ink2);margin-bottom:24px;}
 
-/* ── Share Popover ── */
-.share-popover {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-  background: var(--surface); border: 1px solid var(--border2);
-  border-radius: 16px; padding: 18px; z-index: 1000;
-  min-width: 280px; box-shadow: 0 8px 32px rgba(0,0,0,.5);
-  animation: fadeUp .2s ease;
-}
-.sp-title {
-  font-family: 'Syne', serif; font-weight: 800; font-size: 13px;
-  color: var(--text); margin-bottom: 14px;
-}
-.sp-grid {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 8px; margin-bottom: 12px;
-}
-.sp-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  padding: 10px 6px; background: var(--s2); border: 1px solid var(--border2);
-  border-radius: 10px; text-decoration: none; cursor: pointer;
-  color: var(--text2); font-size: 9px; font-weight: 700;
-  font-family: 'Instrument Sans', sans-serif;
-  transition: border-color .15s, color .15s;
-}
-.sp-btn:hover { border-color: var(--orange); color: var(--orange); }
-.sp-btn span { font-size: 9px; font-weight: 700; }
-.sp-close {
-  width: 100%; background: none; border: 1px solid var(--border2);
-  color: var(--text3); padding: 9px; border-radius: 9px;
-  font-size: 12px; cursor: pointer; font-family: 'Instrument Sans', sans-serif;
-  transition: all .15s;
-}
-.sp-close:hover { border-color: var(--orange); color: var(--orange); }
+/* ── SEARCH BAR ── */
+.search-wrap{position:relative;max-width:520px;margin-bottom:20px;}
+.search-input{width:100%;padding:11px 16px 11px 42px;background:var(--glass2);border:1px solid var(--border2);border-radius:12px;font-size:14px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;transition:border .2s;backdrop-filter:var(--blur);}
+.search-input:focus{border-color:rgba(255,98,36,.4);background:var(--glass3);}
+.search-input::placeholder{color:var(--ink3);}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:16px;pointer-events:none;}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink3);font-size:14px;cursor:pointer;display:none;padding:4px;}
+.search-clear.show{display:block;}
 
-/* ── OpenArt affiliate button ── */
-.bopenart {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 10px;
-  height: 34px;
-  background: linear-gradient(135deg, #e11d48, #7c3aed);
-  color: #fff;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: opacity .15s;
-  white-space: nowrap;
-  font-family: 'Instrument Sans', sans-serif;
-  flex-shrink: 0;
+/* ── EXPERT PROMPT OF THE WEEK ── */
+.potw-wrap{max-width:1400px;margin:0 auto;padding:0 24px 24px;}
+.potw-card{
+  position:relative;overflow:hidden;border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,159,36,.06),rgba(255,98,36,.04));
+  border:1px solid rgba(255,98,36,.3);
+  backdrop-filter:var(--blur);
+  padding:20px 24px;
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;
 }
-.bopenart:hover { opacity: .85; color: #fff; }
+@media(max-width:600px){.potw-card{grid-template-columns:1fr;}}
+.potw-card::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:180px;height:180px;
+  background:radial-gradient(circle,rgba(255,98,36,.15),transparent 70%);
+  pointer-events:none;
+}
+.potw-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.potw-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.potw-title{font-family:'Syne',serif;font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;}
+.potw-cat{font-size:11px;color:var(--orange);font-weight:700;margin-bottom:10px;}
+.potw-preview{font-size:12px;color:var(--ink2);line-height:1.6;font-family:'JetBrains Mono',monospace;}
+.potw-actions{display:flex;flex-direction:column;gap:6px;min-width:120px;}
+@media(max-width:600px){.potw-actions{flex-direction:row;}}
+.potw-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:12px;font-weight:700;border:1px solid rgba(255,98,36,.3);background:rgba(255,98,36,.08);color:var(--orange);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.potw-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.potw-week{font-size:10px;color:var(--ink3);margin-top:8px;text-align:center;}
 
-/* ── Share Popover — bulletproof ── */
-.share-popover {
-  position: fixed !important;
-  bottom: 90px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  background: var(--surface) !important;
-  border: 1.5px solid var(--orange) !important;
-  border-radius: 16px !important;
-  padding: 18px !important;
-  z-index: 9999 !important;
-  min-width: 290px !important;
-  max-width: 360px !important;
-  width: calc(100vw - 40px) !important;
-  box-shadow: 0 8px 40px rgba(0,0,0,.6) !important;
-  animation: fadeUp .15s ease !important;
+/* ── CATEGORY PILLS ── */
+.cat-wrap{max-width:1400px;margin:0 auto;padding:0 24px 16px;display:flex;gap:6px;flex-wrap:wrap;}
+.cat-pill{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;
+  border:1px solid var(--border2);background:var(--glass);
+  font-size:12px;font-weight:600;color:var(--ink2);
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.cat-pill:hover{border-color:var(--border2);background:var(--glass2);color:var(--ink);}
+.cat-pill.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
+.cat-pill-icon{font-size:14px;line-height:1;}
+.cat-pill-count{font-size:10px;color:var(--ink3);background:var(--glass2);padding:1px 5px;border-radius:4px;}
+.cat-pill.active .cat-pill-count{background:rgba(255,98,36,.15);color:var(--orange);}
+
+/* ── TAG STRIP ── */
+.tag-strip{max-width:1400px;margin:0 auto;padding:0 24px 20px;display:flex;gap:5px;flex-wrap:wrap;}
+.tag-chip{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--glass);color:var(--ink3);cursor:pointer;transition:all .12s;}
+.tag-chip:hover,.tag-chip.active{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.3);color:var(--orange);}
+
+/* ── RESULT COUNT + SORT ── */
+.lib-toolbar{max-width:1400px;margin:0 auto;padding:0 24px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.lib-count{font-size:13px;color:var(--ink2);}
+.lib-count strong{color:var(--ink);}
+.lib-sort{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);}
+.lib-sort select{background:var(--glass2);border:1px solid var(--border2);border-radius:7px;color:var(--ink2);font-size:12px;padding:5px 8px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;}
+
+/* ── MAIN GRID ── */
+.lib-main{max-width:1400px;margin:0 auto;padding:0 24px 120px;}
+.prompt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+}
+@media(max-width:640px){.prompt-grid{grid-template-columns:1fr;}}
+
+/* ── PROMPT CARD — GLASSMORPHISM ── */
+.pcard{
+  position:relative;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:16px;
+  padding:16px;
+  transition:all .2s;
+  overflow:hidden;
+  animation:cardIn .35s ease both;
+}
+body.light .pcard{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.08);}
+.pcard::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.pcard:hover{
+  border-color:rgba(255,98,36,.35);
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px -8px rgba(0,0,0,.5),0 0 0 1px rgba(255,98,36,.1);
+  background:rgba(255,255,255,.06);
+}
+body.light .pcard:hover{box-shadow:0 8px 24px -4px rgba(0,0,0,.12);}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* Featured card */
+.pcard.feat{
+  border-color:rgba(255,98,36,.25);
+  background:linear-gradient(135deg,rgba(255,98,36,.07),rgba(255,255,255,.03));
+}
+.pcard.feat::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--o2));
+  border-radius:16px 16px 0 0;
 }
 
-/* ── Mobile category pills ── */
-.search-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-.search-row .srch { flex: 1; margin-bottom: 0; }
-.srch-clear {
-  background: var(--s2); border: 1px solid var(--border2);
-  color: var(--text3); width: 36px; height: 36px;
-  border-radius: 8px; cursor: pointer; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.srch-clear:hover { border-color: var(--orange); color: var(--orange); }
+/* Card parts */
+.pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;}
+.pcard-name{font-family:'Syne',serif;font-size:14px;font-weight:800;letter-spacing:-.2px;line-height:1.3;flex:1;}
+.pcard-fav{width:28px;height:28px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.pcard-fav:hover,.pcard-fav.on{border-color:rgba(255,80,80,.4);color:#ff5050;}
+.pcard-fav.on{background:rgba(255,80,80,.08);}
 
-.mob-cats {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-bottom: 4px;
-  -webkit-overflow-scrolling: touch;
-}
-.mob-cats::-webkit-scrollbar { display: none; }
-.mob-cat {
-  flex-shrink: 0;
-  padding: 6px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  background: var(--surface);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text2);
-  cursor: pointer;
-  transition: all .15s;
-  white-space: nowrap;
-  font-family: 'Instrument Sans', sans-serif;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(255,98,36,.1);
-}
-.mob-cat.active {
-  background: rgba(255,98,36,.1);
-  border-color: rgba(255,98,36,.35);
-  color: var(--orange);
-}
-.mob-cat:hover { border-color: var(--border); color: var(--text); }
+.pcard-meta{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.pcard-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.badge-chatgpt{background:rgba(16,163,127,.1);color:#10a37f;border:1px solid rgba(16,163,127,.2);}
+.badge-claude{background:rgba(212,140,60,.1);color:#d48c3c;border:1px solid rgba(212,140,60,.2);}
+.badge-midjourney{background:rgba(255,98,36,.1);color:var(--orange);border:1px solid rgba(255,98,36,.2);}
+.badge-sora{background:rgba(124,58,237,.1);color:#7c3aed;border:1px solid rgba(124,58,237,.2);}
+.badge-gemini{background:rgba(66,133,244,.1);color:#4285f4;border:1px solid rgba(66,133,244,.2);}
+.badge-runway{background:rgba(0,212,170,.1);color:#00d4aa;border:1px solid rgba(0,212,170,.2);}
+.badge-other{background:var(--glass2);color:var(--ink3);border:1px solid var(--border);}
 
-/* Hide mob-cats on desktop (sidebar handles it) */
-@media (min-width: 860px) {
-  .mob-cats { display: none; }
-  .search-row { margin-bottom: 0; }
+.pcard-tool-logo{width:14px;height:14px;border-radius:3px;object-fit:cover;}
+
+.pcard-cat{font-size:10px;color:var(--ink3);}
+.pcard-preview{font-size:11px;color:var(--ink2);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-family:'JetBrains Mono',monospace;}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.ctag{padding:2px 6px;border-radius:4px;font-size:9px;font-weight:600;background:var(--glass2);border:1px solid var(--border);color:var(--ink3);cursor:pointer;transition:all .12s;}
+.ctag:hover{border-color:rgba(255,98,36,.3);color:var(--orange);}
+
+/* Card footer */
+.pcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.pcard-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:8px;font-size:11px;font-weight:700;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);transition:all .15s;}
+.pcard-btn:hover{border-color:var(--orange);color:var(--orange);}
+.pcard-btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.pcard-btn.primary:hover{background:#e84e0e;}
+.pcard-icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.pcard-icon-btn:hover{border-color:var(--orange);color:var(--orange);}
+.oa-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:700;border:1px solid rgba(255,98,36,.25);background:rgba(255,98,36,.06);color:var(--orange);transition:all .15s;}
+.oa-btn:hover{background:var(--orange);color:#fff;}
+
+/* ── PROMPT MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:800;backdrop-filter:blur(6px);}
+.modal-overlay.open{display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{
+  width:100%;max-width:640px;max-height:90dvh;overflow-y:auto;
+  background:rgba(12,12,18,.96);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border2);border-radius:20px;
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
 }
-/* On mobile hide the sidebar */
-@media (max-width: 860px) {
-  .sidebar { display: none; }
+body.light .modal{background:rgba(245,245,247,.96);}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;}
+.modal-title{font-family:'Syne',serif;font-size:18px;font-weight:800;letter-spacing:-.3px;flex:1;}
+.modal-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .15s;}
+.modal-close:hover{border-color:var(--orange);color:var(--orange);}
+.modal-body{padding:20px 24px;}
+.modal-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.modal-text{
+  background:rgba(0,0,0,.3);border:1px solid var(--border2);border-radius:12px;
+  padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--ink);line-height:1.7;white-space:pre-wrap;word-break:break-word;
+  max-height:320px;overflow-y:auto;margin-bottom:16px;
+}
+body.light .modal-text{background:rgba(0,0,0,.04);}
+.modal-foot{display:flex;gap:8px;flex-wrap:wrap;padding:0 24px 20px;}
+
+/* Dynamic prompt page link */
+.modal-permalink{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);padding:6px 10px;border-radius:7px;border:1px solid var(--border);background:var(--glass);transition:all .15s;}
+.modal-permalink:hover{border-color:var(--orange);color:var(--orange);}
+
+/* ── SHARE POPOVER ── */
+.share-popover{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(9,9,14,.97);border:1px solid var(--border2);border-radius:16px;padding:16px;z-index:900;min-width:280px;max-width:calc(100vw - 32px);box-shadow:0 8px 40px rgba(0,0,0,.6);backdrop-filter:blur(12px);animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(8px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.sp-title{font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:10px;text-align:center;}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px;}
+.sp-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 5px;border-radius:9px;background:var(--glass2);border:1px solid var(--border2);color:var(--ink2);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;font-family:'Instrument Sans',sans-serif;}
+.sp-btn:hover{border-color:var(--orange);color:var(--orange);}
+.sp-close{width:100%;padding:8px;border-radius:8px;background:none;border:1px solid var(--border2);color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;}
+.sp-close:hover{color:var(--ink2);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:rgba(10,10,16,.98);border:1px solid var(--orange);color:var(--ink);padding:9px 18px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;pointer-events:none;white-space:nowrap;animation:toastIn .2s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(6px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:60px 20px;color:var(--ink3);}
+.empty-state i{font-size:40px;margin-bottom:12px;display:block;}
+.empty-state h3{font-family:'Syne',serif;font-size:18px;color:var(--ink2);margin-bottom:6px;}
+
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-logo-mark{width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-mark svg{width:9px;height:10px;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;}
+.footer-lnk{font-size:12px;color:var(--ink3);padding:4px 8px;border-radius:6px;transition:color .15s;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-lnk.accent{color:var(--orange);font-weight:600;}
+.footer-sep{color:var(--border2);padding:0 2px;font-size:12px;}
+.footer-copy{font-size:11px;color:var(--ink3);}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .lib-header,.potw-wrap,.cat-wrap,.tag-strip,.lib-toolbar,.lib-main{padding-left:16px;padding-right:16px;}
+  .lib-h1{font-size:28px;}
+  .potw-card{padding:16px;}
 }
 </style>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 </head>
-<body style="padding-bottom:70px;">
+<body>
 
-<header class="hdr">
-  <a class="logo" href="/">
-    <div class="logo-box"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
-    <div class="logo-name">Prompt<span>aholics</span></div>
+<!-- TOP NAV -->
+<header class="topnav">
+  <a class="nav-logo" href="/">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
-  <div class="nav">
-    <a href="/">← Home</a>
-    <a href="prompt-builder.html"><i class="ph ph-wrench"></i> Builder</a>
-    <a href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()"><i class="ph ph-moon"></i></button>
+  <div class="nav-right">
+    <nav class="nav-desktop">
+      <a href="library.html" class="nav-lnk active">Library</a>
+      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+      <a href="learn.html" class="nav-lnk">Learn</a>
+    </nav>
+    <a href="login.html" class="nav-signin">Sign In</a>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
   </div>
 </header>
 
-<div class="mob-cats" id="mobCats"></div>
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+<nav class="slide-menu" id="slideMenu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item active" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
+    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class="sm-item" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy</a>
+    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms</a>
+  </div>
+  <div class="sm-foot">
+    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+  </div>
+</nav>
 
-<div class="wrap">
-  <aside class="sidebar">
-    <div class="sb-label">Category</div>
-    <div id="catList"></div>
-    <div class="sb-label">Tags</div>
-    <div class="tag-cloud" id="tagCloud"></div>
-  </aside>
-  <div class="main">
-    <div class="toolbar">
-      <div class="search-row">
-        <input class="srch" id="searchInput" type="text" placeholder="Search 843 prompts..." oninput="renderCards();document.getElementById('srchClear').style.display=this.value?'flex':'none';"/>
-        <button class="srch-clear" id="srchClear" onclick="clearSearch()" style="display:none;">
-          <i class="ph ph-x"></i>
-        </button>
+<!-- PAGE HEADER -->
+<div class="lib-header">
+  <div class="lib-eyebrow"><i class="ph ph-books"></i> Free AI Prompt Library</div>
+  <h1 class="lib-h1"><span id="libCount">1,113</span> expert prompts.<br/>Zero paywalls.</h1>
+  <p class="lib-sub">ChatGPT · Claude · Midjourney · Sora · Runway · Gemini · DeepSeek and more</p>
+  <div class="search-wrap">
+    <i class="ph ph-magnifying-glass search-icon"></i>
+    <input class="search-input" type="text" id="searchInput" placeholder="Search prompts, tools, categories..." oninput="onSearch(this.value)" autocomplete="off"/>
+    <button class="search-clear" id="searchClear" onclick="clearSearch()"><i class="ph ph-x"></i></button>
+  </div>
+</div>
+
+<!-- EXPERT PROMPT OF THE WEEK -->
+<div class="potw-wrap">
+  <div class="potw-card" id="potwCard">
+    <div>
+      <div class="potw-label">⭐ Expert Prompt of the Week</div>
+      <div class="potw-title" id="potwTitle">Loading...</div>
+      <div class="potw-cat" id="potwCat"></div>
+      <div class="potw-preview" id="potwPreview"></div>
+    </div>
+    <div class="potw-actions">
+      <button class="potw-btn" id="potwCopy" onclick="potwCopyPrompt()"><i class="ph ph-copy"></i> Copy Prompt</button>
+      <button class="potw-btn" onclick="potwViewFull()"><i class="ph ph-eye"></i> View Full</button>
+      <div class="potw-week" id="potwWeek"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY PILLS -->
+<div class="cat-wrap" id="catWrap"><!-- filled by JS --></div>
+
+<!-- TAG STRIP -->
+<div class="tag-strip" id="tagStrip"><!-- filled by JS --></div>
+
+<!-- TOOLBAR -->
+<div class="lib-toolbar">
+  <div class="lib-count" id="libCountBar">Loading...</div>
+  <div class="lib-sort">
+    Sort:
+    <select id="sortSelect" onchange="onSort(this.value)">
+      <option value="default">Default</option>
+      <option value="alpha">A → Z</option>
+      <option value="feat">Featured first</option>
+    </select>
+  </div>
+</div>
+
+<!-- PROMPT GRID -->
+<div class="lib-main">
+  <div class="prompt-grid" id="promptGrid">
+    <div class="empty-state"><i class="ph ph-circle-notch" style="animation:spin 1s linear infinite;"></i><h3>Loading prompts...</h3></div>
+  </div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+
+<!-- PROMPT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="promptModal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-meta" id="modalMeta"></div>
       </div>
-      <div class="mob-cats" id="mobCats"></div>
+      <button class="modal-close" onclick="closeModal()"><i class="ph ph-x"></i></button>
     </div>
-    <div class="rcnt" id="rcnt"></div>
-    <div class="grid" id="mainGrid"></div>
+    <div class="modal-body">
+      <div class="modal-text" id="modalText"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="pcard-btn primary" onclick="modalCopy()"><i class="ph ph-copy"></i> Copy Prompt</button>
+      <button class="pcard-btn" onclick="modalShare()"><i class="ph ph-share-network"></i> Share</button>
+      <button class="pcard-btn" onclick="modalSave()"><i class="ph ph-bookmark-simple"></i> Save</button>
+      <a class="modal-permalink" id="modalLink" href="#"><i class="ph ph-link"></i> Direct Link</a>
+    </div>
   </div>
 </div>
 
-<!-- MODAL -->
-<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <div class="mhead">
-      <div class="mtitle" id="mTitle"></div>
-      <button class="mclose" onclick="closeModal()"><i class="ph ph-x"></i></button>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
-    <div class="mmeta">
-      <span class="mpill" id="mCat"></span>
-      <span class="mpill" id="mTool"></span>
+    <div class="footer-links">
+      <a href="library.html" class="footer-lnk">Library</a>
+      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
+      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <a href="learn.html" class="footer-lnk">Learn</a>
+      <span class="footer-sep">|</span>
+      <a href="about.html" class="footer-lnk">About Us</a>
+      <a href="blog.html" class="footer-lnk">Blog</a>
+      <a href="contact.html" class="footer-lnk">Contact</a>
+      <span class="footer-sep">|</span>
+      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
+      <a href="terms.html" class="footer-lnk accent">Terms</a>
     </div>
-    <div class="mtext" id="mText"></div>
-    <div class="mfoot">
-      <button id="mCopyBtn" onclick="modalCopy()"><i class="ph ph-copy"></i> Copy Prompt</button>
-    <a id="mOpenArtBtn" href="https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg" target="_blank" rel="noopener" style="display:none;" class="bopenart"><i class="ph ph-image"></i> Try on OpenArt</a>
-    <button class="modal-share" id="mShareBtn" onclick="modalShare()"><i class="ph ph-share-network"></i> Share</button>
-      <button id="mFavBtn" onclick="modalFav()"><i class="ph ph-heart"></i> Save</button>
-    </div>
+    <div class="footer-copy">© 2026 Promptaholics · 1,113 free AI prompts · No signup required</div>
   </div>
-</div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bn-item active" href="library.html"><i class="ph ph-books"></i>Library</a>
+  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
+  <a class="bn-item" href="learn.html"><i class="ph ph-graduation-cap"></i>Learn</a>
+  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+</nav>
 
 <script src="prompts.js"></script>
-
-<!-- Safety check — shows error if prompts.js failed to load -->
 <script>
-if (typeof PROMPTS === 'undefined' || !Array.isArray(PROMPTS)) {
-  document.getElementById('mainGrid').innerHTML = '<div class="empty"><span class="empty-e">⚠️</span><h3>Library failed to load</h3><p>Please hard refresh the page (Ctrl+Shift+R) or <a href="/">return home</a>.</p></div>';
-  throw new Error("PROMPTS not defined — prompts.js failed to load");
+if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)) window.PROMPTS=[];
+
+// ── CATEGORY CONFIG — icons + descriptions ────────────────────
+var CAT_CONFIG = {
+  'All':                   {icon:'🔮', desc:'Everything'},
+  'Business & Marketing':  {icon:'📈', desc:'Growth & strategy'},
+  'Writing & Content':     {icon:'✍️', desc:'Copy & storytelling'},
+  'Image Generation':      {icon:'🎨', desc:'Midjourney & DALL·E'},
+  'Marketing & Psychology':{icon:'🧠', desc:'Persuasion & influence'},
+  'Business & Offers':     {icon:'💼', desc:'Sales & proposals'},
+  'Creative & Art':        {icon:'🎭', desc:'Fiction & creativity'},
+  'Code & Tech':           {icon:'💻', desc:'Dev & engineering'},
+  'AI Agents':             {icon:'🤖', desc:'Automation & agents'},
+  'Video & Film':          {icon:'🎬', desc:'Scripts & storyboards'},
+  'Health':                {icon:'❤️', desc:'Wellness & medical'},
+  'Photography':           {icon:'📸', desc:'Shots & editing'},
+  'Real Estate':           {icon:'🏡', desc:'Listings & leads'},
+  'Legal':                 {icon:'⚖️', desc:'Contracts & compliance'},
+  'Education & Learning':  {icon:'📚', desc:'Teaching & courses'},
+  'Wellness':              {icon:'🌿', desc:'Mindfulness & self-care'},
+  'Other':                 {icon:'✨', desc:'Miscellaneous'},
+  // NEW categories
+  'Social Media':          {icon:'📱', desc:'TikTok, Instagram, X'},
+  'E-commerce':            {icon:'🛒', desc:'Product & sales copy'},
+  'Finance & Investing':   {icon:'💰', desc:'Analysis & planning'},
+};
+
+// ── TOOL CONFIG ───────────────────────────────────────────────
+var TOOL_CONFIG = {
+  chatgpt:    {label:'ChatGPT',    color:'#10a37f', cls:'badge-chatgpt',    domain:'openai.com'},
+  claude:     {label:'Claude',     color:'#d48c3c', cls:'badge-claude',     domain:'claude.ai'},
+  midjourney: {label:'Midjourney', color:'#ff6224', cls:'badge-midjourney', domain:'midjourney.com'},
+  sora:       {label:'Sora',       color:'#7c3aed', cls:'badge-sora',       domain:'sora.com'},
+  gemini:     {label:'Gemini',     color:'#4285f4', cls:'badge-gemini',     domain:'gemini.google.com'},
+  runway:     {label:'Runway',     color:'#00d4aa', cls:'badge-runway',     domain:'runwayml.com'},
+};
+function getToolConfig(tool){
+  return TOOL_CONFIG[tool] || {label:tool||'AI',color:'#7070a0',cls:'badge-other',domain:'openai.com'};
 }
-</script>
 
-<script>
-var favs = JSON.parse(localStorage.getItem('pa_favs')||'[]');
+// ── STATE ─────────────────────────────────────────────────────
 var activeCat = 'All';
 var activeTag = '';
-var curModal = null;
-var theme = localStorage.getItem('pa_theme')||'dark';
+var searchQ   = '';
+var sortMode  = 'default';
+var favs      = [];
+try{ favs = JSON.parse(localStorage.getItem('pa_favs')||'[]'); }catch(e){}
+var curModal  = null;
+var theme     = localStorage.getItem('pa_theme')||'dark';
 if(theme==='light') document.body.classList.add('light');
 
-function openSaved(e){
-  if(e) e.preventDefault();
-  var ids = [];
-  try { ids = JSON.parse(localStorage.getItem('pa_favs')||'[]'); } catch(err){}
-  var texts = [];
-  try { texts = JSON.parse(localStorage.getItem('pa_saved_text')||'[]'); } catch(err){}
-  var total = ids.length + texts.length;
-  if(!total){ alert('No saved prompts yet. Tap the heart on any prompt to save it.'); return; }
-  var msg = '★ You have '+total+' saved prompt'+(total>1?'s':'')+'.\n\nGo to the homepage to view, copy and download them as PDF.';
-  if(confirm(msg + '\n\nOpen homepage now?')){ window.location.href = '/?saved=1'; }
-}
-
+// ── THEME ─────────────────────────────────────────────────────
 function toggleTheme(){
-  localStorage.setItem('pa_theme', theme==='dark'?'light':'dark');
-  location.reload();
+  theme=theme==='dark'?'light':'dark';
+  localStorage.setItem('pa_theme',theme);
+  document.body.classList.toggle('light',theme==='light');
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+}
+(function(){
+  var icon=theme==='light'?'☀️':'🌙';
+  var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
+  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+})();
+
+// ── MENU ──────────────────────────────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('slideMenu'); var o=document.getElementById('menuOverlay');
+  m.classList.toggle('open'); o.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){ closeModal(); document.getElementById('slideMenu').classList.remove('open'); document.getElementById('menuOverlay').classList.remove('open'); document.body.style.overflow=''; }
+});
+
+// ── EXPERT PROMPT OF THE WEEK ─────────────────────────────────
+function initPotw(){
+  if(!PROMPTS.length) return;
+  // Rotate weekly based on ISO week number
+  var d=new Date(); var jan1=new Date(d.getFullYear(),0,1);
+  var week=Math.ceil(((d-jan1)/86400000+jan1.getDay()+1)/7);
+  // Pick from featured prompts only
+  var featured=PROMPTS.filter(function(p){ return p.feat; });
+  if(!featured.length) featured=PROMPTS;
+  var idx=week % featured.length;
+  var p=featured[idx];
+  curPotwId = p.id;
+  document.getElementById('potwTitle').textContent=p.name;
+  document.getElementById('potwCat').textContent=(CAT_CONFIG[p.cat]||{icon:'✨'}).icon+' '+p.cat+' · '+getToolConfig(p.tool).label;
+  document.getElementById('potwPreview').textContent=p.text.slice(0,180)+(p.text.length>180?'…':'');
+  document.getElementById('potwWeek').textContent='Week '+week+' pick';
+}
+var curPotwId=null;
+function potwCopyPrompt(){
+  if(!curPotwId) return;
+  var p=PROMPTS.find(function(x){ return x.id===curPotwId; });
+  if(!p) return;
+  copyToClipboard(p.text);
+  var btn=document.getElementById('potwCopy');
+  btn.innerHTML='<i class="ph ph-check"></i> Copied!';
+  setTimeout(function(){ btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt'; },2000);
+  showToast('✅ Copied!');
+}
+function potwViewFull(){
+  if(curPotwId) openModal(curPotwId);
 }
 
-var CATS = ['All','Writing & Content','Video & Film','Business & Marketing','Image Generation',
-  'Code & Tech','Creative & Art','Education & Learning','AI Agents','Other',
-  'Wellness','Health','Photography','Real Estate','Legal'];
-
-var CAT_ICONS = {'All':'✦','Writing & Content':'✍️','Business & Marketing':'💼',
-  'Image Generation':'🎨','Code & Tech':'💻','Creative & Art':'🎭',
-  'Education & Learning':'📚','AI Agents':'🤖','Other':'⚙️',
-  'Wellness':'🧘','Health':'💊','Photography':'📸','Real Estate':'🏠','Legal':'⚖️'};
-
-function renderMobCats(){
-  var el = document.getElementById('mobCats');
-  if (!el) return;
-  var catSet = {};
-  if (Array.isArray(PROMPTS)) {
-    PROMPTS.forEach(function(p){ catSet[p.cat] = 1; });
-  }
-  var cats = ['All'].concat(Object.keys(catSet).sort());
-  var html = '';
-  for (var i = 0; i < cats.length; i++) {
-    var c = cats[i];
-    var active = (activeCat === c) ? ' active' : '';
-    html += '<button class="mob-cat' + active + '" data-cat="' + c.replace(/"/g,'&quot;') + '" onclick="setMobCat(this)">' + c + '</button>';
-  }
-  el.innerHTML = html;
+// ── CATEGORY PILLS ────────────────────────────────────────────
+function getCats(){
+  var counts={};
+  PROMPTS.forEach(function(p){
+    counts[p.cat]=(counts[p.cat]||0)+1;
+  });
+  return counts;
 }
 
-
-function setMobCat(btn){
-  activeCat = btn.getAttribute('data-cat');
-  renderCats();
-  renderMobCats();
-  renderCards();
-  // Scroll to grid
-  var g = document.getElementById('mainGrid');
-  if(g) setTimeout(function(){ g.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+function renderCatPills(){
+  var wrap=document.getElementById('catWrap'); if(!wrap) return;
+  var counts=getCats();
+  var cats=['All'].concat(Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }));
+  wrap.innerHTML=cats.map(function(cat){
+    var cfg=CAT_CONFIG[cat]||{icon:'✨'};
+    var n=cat==='All'?PROMPTS.length:(counts[cat]||0);
+    return '<button class="cat-pill'+(activeCat===cat?' active':'')+'" onclick="setCat(\''+escAttr(cat)+'\')">'
+      +'<span class="cat-pill-icon">'+cfg.icon+'</span>'
+      +cat
+      +'<span class="cat-pill-count">'+n+'</span>'
+      +'</button>';
+  }).join('');
 }
 
-function clearSearch(){
+function setCat(cat){
+  activeCat=cat; activeTag=''; searchQ='';
   document.getElementById('searchInput').value='';
-  document.getElementById('srchClear').style.display='none';
+  document.getElementById('searchClear').classList.remove('show');
+  document.querySelectorAll('.cat-pill').forEach(function(p){ p.classList.toggle('active',p.textContent.trim().startsWith(CAT_CONFIG[cat]&&cat!=='All'?'':(cat==='All'?'🔮':''))||p.onclick.toString().includes("'"+cat+"'")); });
+  renderCatPills();
   renderCards();
+  renderTags();
 }
 
-function renderCats(){
-  var h='';
-  for(var i=0;i<CATS.length;i++){
-    var n=CATS[i];
-    var cnt = n==='All' ? (Array.isArray(PROMPTS)?PROMPTS.length:0) : (Array.isArray(PROMPTS)?PROMPTS.filter(function(p){return p.cat===n;}).length:0);
-    var cls = 'cbtn'+(activeCat===n?' active':'');
-    h+='<button class="'+cls+'" onclick="setCat(\''+n+'\')"><span class="cico">'+(CAT_ICONS[n]||'•')+'</span>'+n+'<span class="ccnt">'+cnt+'</span></button>';
-  }
-  var d=document.getElementById('catList'); if(d) d.innerHTML=h;
-  var m=document.getElementById('mobCats'); if(m) m.innerHTML=h;
-}
-
+// ── TAG STRIP ─────────────────────────────────────────────────
 function renderTags(){
-  var ts={};
-  PROMPTS.forEach(function(p){(p.tags||[]).forEach(function(t){ts[t]=1;});});
-  var arr=Object.keys(ts).sort();
-  var h='';
-  for(var i=0;i<arr.length;i++){
-    var t=arr[i];
-    var active=activeTag===t?' active':'';
-    h+='<span class="tpill'+active+'" data-tag="'+t.replace(/"/g,'&quot;')+'" onclick="setTagEl(this)">'+t+'</span>';
-  }
-  var el=document.getElementById('tagCloud');
-  if(el) el.innerHTML=h;
+  var strip=document.getElementById('tagStrip'); if(!strip) return;
+  var list=getFilteredList();
+  var tagCounts={};
+  list.forEach(function(p){ (p.tags||[]).forEach(function(t){ tagCounts[t]=(tagCounts[t]||0)+1; }); });
+  var top=Object.entries(tagCounts).sort(function(a,b){ return b[1]-a[1]; }).slice(0,24).map(function(e){ return e[0]; });
+  strip.innerHTML=top.map(function(t){
+    return '<button class="tag-chip'+(activeTag===t?' active':'')+'" onclick="setTag(\''+escAttr(t)+'\')">#'+t+'</button>';
+  }).join('');
 }
 
-function getList(){
-  var q=document.getElementById('searchInput').value.toLowerCase().trim();
-  var list=Array.isArray(PROMPTS)?PROMPTS.slice():[];
-  if(activeCat!=='All') list=list.filter(function(p){return p.cat===activeCat;});
-  if(activeTag) list=list.filter(function(p){return p.tags.indexOf(activeTag)!==-1;});
-  if(q) list=list.filter(function(p){
-    var ql=q.toLowerCase();
-    return p.name.toLowerCase().indexOf(ql)!==-1
-      ||p.cat.toLowerCase().indexOf(ql)!==-1
-      ||(p.tags||[]).some(function(t){return t.toLowerCase().indexOf(ql)!==-1;})
-      ||p.text.toLowerCase().indexOf(ql)!==-1;
-  });
-  // Default: featured first, then newest
-  list.sort(function(a,b){
-    if(a.feat && !b.feat) return -1;
-    if(!a.feat && b.feat) return 1;
-    return parseInt(b.id)-parseInt(a.id);
-  });
-  return list;
-}
-
-function renderCards(){
-  var list=getList();
-  var rc=document.getElementById('rcnt');
-  if(rc) rc.innerHTML='Showing <strong>'+list.length+'</strong> of <strong>'+PROMPTS.length+'</strong> prompts';
-  var g=document.getElementById('mainGrid');
-  if(!g) return;
-  if(!list.length){g.innerHTML='<div class="empty"><i class="ph ph-magnifying-glass" style="font-size:40px;color:var(--text3);"></i><h3>No prompts found</h3><p>Try different keywords.</p></div>';return;}
-  var h='';
-  for(var i=0;i<list.length;i++) h+=makeCard(list[i],i);
-  g.innerHTML=h;
-}
-
-function makeCard(p,i){
-  var fav = favs.indexOf(p.id) !== -1;
-  var isImg = p.cat === 'Image Generation' || p.tool === 'midjourney';
-  var bc = p.tool==='chatgpt' ? 'bc' : p.tool==='midjourney' ? 'bm' : 'bo';
-  var tl = p.tool==='chatgpt' ? 'ChatGPT' : p.tool==='midjourney' ? 'Midjourney' : 'Other';
-  var prev = (p.text.length>130 ? p.text.slice(0,130)+'\u2026' : p.text).replace(/\n/g,' ');
-  var tags = '';
-  var ptags = p.tags||[];
-  for(var t=0; t<Math.min(ptags.length,3); t++){
-    tags += '<span class="ctag" data-tag="'+ptags[t].replace(/"/g,'&quot;')+'" onclick="setTagEl(this)">'+ptags[t]+'</span>';
-  }
-  var oaUrl='https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg';
-  var oaBtn=isImg?'<a class="bopenart" href="'+oaUrl+'" target="_blank" rel="noopener">✴ Try on OpenArt</a>':'';
-  return [
-    '<div class="card'+(p.feat?' feat-card':'')+'" style="animation-delay:'+Math.min(i*.03,.4)+'s">',
-    '<div class="ctop"><div class="cname">'+p.name+'</div>',
-    '<button class="favbtn'+(fav?' on':'')+'" data-id="'+p.id+'" onclick="toggleFav(event,this)">'+(fav?'<i class="ph ph-heart-fill"></i>':'<i class="ph ph-heart"></i>')+'</button>',
-    '</div>',
-    '<span class="badge '+bc+'">'+tl+'</span>',
-    '<div class="cprev">'+prev+'</div>',
-    '<div class="ctags">'+tags+'</div>',
-    '<div class="cfoot">',
-    '<button class="bcopy" data-id="'+p.id+'" onclick="copyPrompt(event,this)"><i class="ph ph-copy"></i> Copy</button>',
-    '<button class="bshare" data-id="'+p.id+'" onclick="sharePrompt(event,this)"><i class="ph ph-share-network"></i></button>',
-    oaBtn,
-    '<button class="bprev" data-id="'+p.id+'" onclick="openModal(this.dataset.id)">Preview →</button>',
-    '</div></div>'
-  ].join('');
-}
-
-function setCat(n){activeCat=n;activeTag='';renderCats();renderCards();}
-function setTag(t){activeTag=activeTag===t?'':t;renderTags();renderCards();}
-function setTagEl(el){
-  var t=el.getAttribute('data-tag');
+function setTag(t){
   activeTag=activeTag===t?'':t;
   renderTags();
   renderCards();
-  // Scroll to grid
-  var g=document.getElementById('mainGrid');
-  if(g) g.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function sharePrompt(e, btn) {
-  e.stopPropagation();
-  var id = btn.getAttribute('data-id');
-  var p = PROMPTS.find(function(x){ return x.id === id; });
-  if (!p) return;
+// ── SEARCH ────────────────────────────────────────────────────
+function onSearch(q){
+  searchQ=q.toLowerCase().trim();
+  document.getElementById('searchClear').classList.toggle('show',searchQ.length>0);
+  activeCat='All';
+  renderCatPills();
+  renderCards();
+  renderTags();
+}
+function clearSearch(){
+  searchQ=''; document.getElementById('searchInput').value='';
+  document.getElementById('searchClear').classList.remove('show');
+  renderCards(); renderTags();
+}
 
-  var shareText = p.name + ' — Free AI Prompt on Promptaholics';
-  var shareUrl  = 'https://promptaholics.com/library.html?cat=' + encodeURIComponent(p.cat);
-  var fullText  = shareText + '\n\n' + p.text.slice(0, 200) + '...';
+// ── SORT ──────────────────────────────────────────────────────
+function onSort(v){ sortMode=v; renderCards(); }
 
-  // Mobile — use native share
-  if (navigator.share) {
-    navigator.share({ title: p.name, text: fullText, url: shareUrl }).catch(function(){});
+// ── GET FILTERED LIST ─────────────────────────────────────────
+function getFilteredList(){
+  var list=PROMPTS.slice();
+  if(activeCat!=='All') list=list.filter(function(p){ return p.cat===activeCat; });
+  if(activeTag) list=list.filter(function(p){ return (p.tags||[]).includes(activeTag); });
+  if(searchQ) list=list.filter(function(p){
+    return p.name.toLowerCase().includes(searchQ)||
+           p.text.toLowerCase().includes(searchQ)||
+           p.cat.toLowerCase().includes(searchQ)||
+           (p.tags||[]).some(function(t){ return t.toLowerCase().includes(searchQ); });
+  });
+  if(sortMode==='alpha') list.sort(function(a,b){ return a.name.localeCompare(b.name); });
+  if(sortMode==='feat') list.sort(function(a,b){ return (b.feat?1:0)-(a.feat?1:0); });
+  return list;
+}
+
+// ── RENDER CARDS ──────────────────────────────────────────────
+function renderCards(){
+  var grid=document.getElementById('promptGrid'); if(!grid) return;
+  var list=getFilteredList();
+  var bar=document.getElementById('libCountBar');
+  if(bar) bar.innerHTML='Showing <strong>'+list.length+'</strong> of <strong>'+PROMPTS.length+'</strong> prompts';
+
+  if(!list.length){
+    grid.innerHTML='<div class="empty-state"><i class="ph ph-magnifying-glass"></i><h3>No prompts found</h3><p>Try different keywords or clear filters.</p></div>';
     return;
   }
-
-  // Remove existing popover
-  var existing = document.getElementById('sharePopover');
-  if (existing) { existing.remove(); return; }
-
-  var xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
-  var waUrl = 'https://wa.me/?text=' + encodeURIComponent(fullText + '\n' + shareUrl);
-  var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
-
-  var div = document.createElement('div');
-  div.id = 'sharePopover';
-  div.setAttribute('data-url', shareUrl);
-  div.className = 'share-popover';
-  div.innerHTML =
-    '<div class="sp-title">Share this prompt</div>' +
-    '<div class="sp-grid">' +
-      '<a class="sp-btn" href="' + xUrl + '" target="_blank" rel="noopener">' +
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.262 5.636 5.902-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
-        '<span>X</span>' +
-      '</a>' +
-      '<a class="sp-btn" href="' + waUrl + '" target="_blank" rel="noopener">' +
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>' +
-        '<span>WhatsApp</span>' +
-      '</a>' +
-      '<a class="sp-btn" href="' + liUrl + '" target="_blank" rel="noopener">' +
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>' +
-        '<span>LinkedIn</span>' +
-      '</a>' +
-      '<button class="sp-btn" id="spCopyLink" onclick="copyShareLink()">' +
-        '<i class="ph ph-link" style="font-size:20px;"></i>' +
-        '<span id="copyLinkTxt">Copy Link</span>' +
-      '</button>' +
-    '</div>' +
-    '<button class="sp-close" id="spClose">Close</button>';
-
-  document.body.appendChild(div);
-  document.getElementById('spClose').onclick = function(e){ e.stopPropagation(); div.remove(); };
-
-  // Use mousedown with longer delay to avoid catching the button click
-  setTimeout(function(){
-    function closeIt(ev){
-      var pop = document.getElementById('sharePopover');
-      if(!pop) { document.removeEventListener('mousedown', closeIt); return; }
-      if(!pop.contains(ev.target)){
-        pop.remove();
-        document.removeEventListener('mousedown', closeIt);
-      }
-    }
-    document.addEventListener('mousedown', closeIt);
-  }, 300);
+  grid.innerHTML=list.map(function(p,i){ return makeCard(p,i); }).join('');
 }
 
-
-function copyShareLink() {
-  var pop = document.getElementById('sharePopover');
-  var url = pop ? pop.getAttribute('data-url') : location.href;
-  navigator.clipboard.writeText(url).then(function(){
-    var el = document.getElementById('copyLinkTxt');
-    if(el){ el.textContent = '✅'; setTimeout(function(){ el.textContent='Copy Link'; }, 2000); }
-  });
+// ── MAKE CARD ─────────────────────────────────────────────────
+function makeCard(p,i){
+  var tc   = getToolConfig(p.tool);
+  var fav  = favs.indexOf(p.id)!==-1;
+  var isImg= p.cat==='Image Generation'||p.tool==='midjourney';
+  var prev = p.text.replace(/\n/g,' ');
+  if(prev.length>140) prev=prev.slice(0,140)+'…';
+  var tags = (p.tags||[]).slice(0,3).map(function(t){
+    return '<button class="ctag" onclick="setTag(\''+escAttr(t)+'\')">'+escHtml(t)+'</button>';
+  }).join('');
+  var oaBtn=isImg?'<a class="oa-btn" href="https://openart.ai/home?utm_source=tolt&utm_medium=affiliate&utm_campaign=affiliate-tolt--acq-web&via=wilsonjg" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=openart.ai&sz=32" width="12" height="12" style="border-radius:2px;" alt=""/> OpenArt</a>':'';
+  var catCfg=CAT_CONFIG[p.cat]||{icon:'✨'};
+  return '<div class="pcard'+(p.feat?' feat':'')+'" style="animation-delay:'+Math.min(i*.025,.3)+'s">'
+    +'<div class="pcard-top">'
+    +'<div class="pcard-name">'+escHtml(p.name)+'</div>'
+    +'<button class="pcard-fav'+(fav?' on':'')+'" data-id="'+p.id+'" onclick="toggleFav(event,this)">'+(fav?'<i class="ph ph-heart-fill"></i>':'<i class="ph ph-heart"></i>')+'</button>'
+    +'</div>'
+    +'<div class="pcard-meta">'
+    +'<span class="pcard-badge '+tc.cls+'"><img class="pcard-tool-logo" src="https://www.google.com/s2/favicons?domain='+tc.domain+'&sz=32" alt="'+tc.label+'" onerror="this.style.display=\'none\'"/> '+tc.label+'</span>'
+    +'<span class="pcard-cat">'+catCfg.icon+' '+escHtml(p.cat)+'</span>'
+    +'</div>'
+    +'<div class="pcard-preview">'+escHtml(prev)+'</div>'
+    +'<div class="pcard-tags">'+tags+'</div>'
+    +'<div class="pcard-foot">'
+    +'<button class="pcard-btn primary" data-id="'+p.id+'" onclick="copyPrompt(event,this)"><i class="ph ph-copy"></i> Copy</button>'
+    +'<button class="pcard-icon-btn" data-id="'+p.id+'" onclick="sharePrompt(event,this)" title="Share"><i class="ph ph-share-network"></i></button>'
+    +'<button class="pcard-icon-btn" data-id="'+p.id+'" onclick="toggleFav(event,this)" title="Save"><i class="ph ph-bookmark-simple"></i></button>'
+    +oaBtn
+    +'<button class="pcard-btn" data-id="'+p.id+'" onclick="openModal(\''+p.id+'\')"><i class="ph ph-eye"></i> Preview</button>'
+    +'</div>'
+    +'</div>';
 }
 
+// ── COPY ──────────────────────────────────────────────────────
 function copyPrompt(e,btn){
   e.stopPropagation();
-  var id=typeof btn==='string'?btn:btn.getAttribute('data-id');
-  var p=PROMPTS.find(function(x){return x.id===id;});
+  var id=btn.getAttribute('data-id');
+  var p=PROMPTS.find(function(x){ return x.id===id; });
   if(!p) return;
-  // Auto-save to pa_favs when copied
-  if(favs.indexOf(id)===-1){
-    favs.push(id);
-    localStorage.setItem('pa_favs',JSON.stringify(favs));
-    renderCards();
-  }
-  var btn=e.target;
+  copyToClipboard(p.text);
   var orig=btn.innerHTML;
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(p.text).then(function(){
-      btn.innerHTML='✅ Saved!';
-      setTimeout(function(){btn.innerHTML=orig;},2000);
-    });
-  } else {
-    var ta=document.createElement('textarea');
-    ta.value=p.text; document.body.appendChild(ta);
-    ta.select(); document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.innerHTML='✅ Saved!';
-    setTimeout(function(){btn.innerHTML=orig;},2000);
-  }
-}
-function toggleFav(e,btn){
-  e.stopPropagation();
-  var id=typeof btn==='string'?btn:btn.getAttribute('data-id');
-  var i=favs.indexOf(id);
-  if(i===-1) favs.push(id); else favs.splice(i,1);
-  localStorage.setItem('pa_favs',JSON.stringify(favs));
-  renderCards();
+  btn.innerHTML='<i class="ph ph-check"></i> Copied!';
+  btn.style.background='rgba(34,197,94,.1)'; btn.style.borderColor='rgba(34,197,94,.4)'; btn.style.color='#22c55e';
+  setTimeout(function(){ btn.innerHTML=orig; btn.style.background=''; btn.style.borderColor=''; btn.style.color=''; },2000);
+  showToast('✅ Copied!');
+  autoSavePrompt(p);
 }
 
+function copyToClipboard(text){
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).catch(function(){ fbCopy(text); });
+  } else { fbCopy(text); }
+}
+function fbCopy(t){
+  var ta=document.createElement('textarea'); ta.value=t;
+  ta.style.cssText='position:fixed;left:-9999px;opacity:0;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta);
+}
+
+// ── SAVE/FAV ──────────────────────────────────────────────────
+function toggleFav(e,btn){
+  e.stopPropagation();
+  var id=btn.getAttribute('data-id');
+  var idx=favs.indexOf(id);
+  if(idx===-1){ favs.push(id); btn.classList.add('on'); btn.innerHTML='<i class="ph ph-heart-fill"></i>'; showToast('❤️ Saved!'); }
+  else{ favs.splice(idx,1); btn.classList.remove('on'); btn.innerHTML='<i class="ph ph-heart"></i>'; }
+  localStorage.setItem('pa_favs',JSON.stringify(favs));
+  var p=PROMPTS.find(function(x){ return x.id===id; });
+  if(p) autoSavePrompt(p);
+}
+function autoSavePrompt(p){
+  try{
+    var saved=JSON.parse(localStorage.getItem('pa_saved_text')||'[]');
+    if(!saved.some(function(s){ return s.text===p.text; })){
+      saved.unshift({name:p.name,text:p.text});
+      if(saved.length>50) saved=saved.slice(0,50);
+      localStorage.setItem('pa_saved_text',JSON.stringify(saved));
+    }
+  }catch(e){}
+}
+
+// ── SHARE ─────────────────────────────────────────────────────
+function sharePrompt(e,btn){
+  e.stopPropagation();
+  var id=btn.getAttribute('data-id');
+  var p=PROMPTS.find(function(x){ return x.id===id; });
+  if(!p) return;
+  doShare(p);
+}
+function doShare(p){
+  var text=p.name+' — Free AI Prompt on Promptaholics';
+  var url='https://promptaholics.com/library.html?prompt='+p.id;
+  var full=text+'\n\n'+p.text.slice(0,200)+'...\n\n'+url;
+  if(navigator.share&&window.innerWidth<768){
+    navigator.share({title:p.name,text:full,url:url}).catch(function(){});
+    return;
+  }
+  var old=document.getElementById('sharePopover'); if(old){ old.remove(); return; }
+  var pop=document.createElement('div'); pop.id='sharePopover'; pop.className='share-popover';
+  var enc=encodeURIComponent(text+' '+url);
+  pop.innerHTML='<div class="sp-title">Share this prompt</div>'
+    +'<div class="sp-grid">'
+    +'<a class="sp-btn" href="https://twitter.com/intent/tweet?text='+enc+'" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.262 5.636 5.902-5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Twitter</span></a>'
+    +'<a class="sp-btn" href="https://wa.me/?text='+encodeURIComponent(full)+'" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg><span>WhatsApp</span></a>'
+    +'<a class="sp-btn" href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><span>LinkedIn</span></a>'
+    +'<button class="sp-btn" id="spCopyLink"><i class="ph ph-link" style="font-size:18px;"></i><span>Copy Link</span></button>'
+    +'</div>'
+    +'<button class="sp-close" id="spClose">Close</button>';
+  document.body.appendChild(pop);
+  document.getElementById('spCopyLink').onclick=function(){
+    copyToClipboard(url); document.getElementById('spCopyLink').querySelector('span').textContent='Copied!';
+    setTimeout(function(){ pop.remove(); },1200);
+  };
+  document.getElementById('spClose').onclick=function(){ pop.remove(); };
+  setTimeout(function(){
+    function h(ev){ var p2=document.getElementById('sharePopover'); if(!p2){ document.removeEventListener('click',h); return; } if(!p2.contains(ev.target)){ p2.remove(); document.removeEventListener('click',h); } }
+    document.addEventListener('click',h);
+  },200);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
 function openModal(id){
-  var p=PROMPTS.find(function(x){return x.id===id;});
+  var p=PROMPTS.find(function(x){ return x.id===id; });
   if(!p) return;
   curModal=p;
-  document.getElementById('mTitle').textContent=p.name;
-  document.getElementById('mCat').textContent=p.cat;
-  document.getElementById('mTool').textContent=p.tool==='chatgpt'?'🤖 ChatGPT':p.tool==='midjourney'?'🎨 Midjourney':'⚙️ Other';
-  document.getElementById('mText').textContent=p.text;
-  document.getElementById('mFavBtn').innerHTML=favs.indexOf(id)!==-1?'<i class="ph ph-heart-fill"></i> Saved':'<i class="ph ph-heart"></i> Save';
-  var ov=document.getElementById('overlay');
-  ov.style.display='flex';
+  var tc=getToolConfig(p.tool);
+  var catCfg=CAT_CONFIG[p.cat]||{icon:'✨'};
+  document.getElementById('modalTitle').textContent=p.name;
+  document.getElementById('modalMeta').innerHTML=
+    '<span class="pcard-badge '+tc.cls+'">'+tc.label+'</span>'
+    +'<span class="pcard-badge badge-other">'+catCfg.icon+' '+escHtml(p.cat)+'</span>'
+    +((p.tags||[]).slice(0,3).map(function(t){ return '<span class="ctag">'+escHtml(t)+'</span>'; }).join(''));
+  document.getElementById('modalText').textContent=p.text;
+  // Dynamic link
+  var link=document.getElementById('modalLink');
+  link.href='library.html?prompt='+p.id;
+  link.setAttribute('title','Direct link to: '+p.name);
+  // Update page meta for SEO (dynamic prompt page behavior)
+  document.title=p.name+' — Free AI Prompt | Promptaholics';
+  history.pushState({promptId:p.id},'','/library.html?prompt='+p.id);
+  document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
 function closeModal(){
-  document.getElementById('overlay').style.display='none';
+  document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow='';
+  curModal=null;
+  history.pushState({},'','/library.html');
+  document.title='Free AI Prompt Library — 1,113 Expert Prompts | Promptaholics';
+}
+function closeModalOutside(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
 }
 function modalCopy(){
-  // Auto-save to pa_favs
-  if(curModal && curModal.id && favs.indexOf(curModal.id)===-1){
-    favs.push(curModal.id);
-    localStorage.setItem('pa_favs',JSON.stringify(favs));
-  }
   if(!curModal) return;
-  var btn=document.getElementById('mCopyBtn');
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(curModal.text).then(function(){
-      btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt';},2000);
-    });
-  } else {
-    var ta=document.createElement('textarea');
-    ta.value=curModal.text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.innerHTML='✅ Copied!';setTimeout(function(){btn.innerHTML='<i class="ph ph-copy"></i> Copy Prompt';},2000);
-  }
+  copyToClipboard(curModal.text);
+  showToast('✅ Copied!');
+  autoSavePrompt(curModal);
 }
-function modalShare(){
-  var btn = document.getElementById('mShareBtn');
-  if(!btn || !curModal) return;
-  var shareEl = document.createElement('button');
-  shareEl.setAttribute('data-id', curModal.id);
-  sharePrompt({stopPropagation:function(){}}, shareEl);
-}
-
-function modalFav(){
+function modalShare(){ if(curModal) doShare(curModal); }
+function modalSave(){
   if(!curModal) return;
-  var i=favs.indexOf(curModal.id);
-  if(i===-1) favs.push(curModal.id); else favs.splice(i,1);
-  localStorage.setItem('pa_favs',JSON.stringify(favs));
-  document.getElementById('mFavBtn').innerHTML=favs.indexOf(curModal.id)!==-1?'<i class="ph ph-heart-fill"></i> Saved':'<i class="ph ph-heart"></i> Save';
-  renderCards();
+  autoSavePrompt(curModal);
+  var btn=document.querySelector('.modal-foot .pcard-btn:nth-child(3)');
+  if(btn){ btn.innerHTML='<i class="ph ph-check"></i> Saved!'; btn.style.color='#22c55e'; setTimeout(function(){ btn.innerHTML='<i class="ph ph-bookmark-simple"></i> Save'; btn.style.color=''; },2000); }
+  showToast('⭐ Saved!');
 }
 
-// BOOT
-document.addEventListener('DOMContentLoaded', function(){
-  var tb=document.getElementById('themeBtn');
-  if(tb) tb.innerHTML=theme==='light'?'<i class="ph ph-sun"></i>':'<i class="ph ph-moon"></i>';
+// ── UTILS ─────────────────────────────────────────────────────
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 
-  // Read ?cat= URL param
-  var params = new URLSearchParams(window.location.search);
-  var catParam = params.get('cat');
-  if(catParam){
-    activeCat = decodeURIComponent(catParam.replace(/\+/g,' '));
-  }
+function showToast(msg){
+  var old=document.getElementById('mainToast'); if(old) old.remove();
+  var t=document.createElement('div'); t.id='mainToast'; t.className='toast';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ if(t.parentNode) t.remove(); },2500);
+}
 
-  // Wait for PROMPTS to load then render
-  function init(){
-    if(typeof PROMPTS !== 'undefined' && Array.isArray(PROMPTS) && PROMPTS.length){
-      renderCats();
-      renderMobCats();
-      renderTags();
-      renderCards();
-      if(catParam){
-        setTimeout(function(){
-          var grid = document.getElementById('mainGrid');
-          if(grid) grid.scrollIntoView({behavior:'smooth',block:'start'});
-        }, 200);
-      }
-    } else {
-      setTimeout(init, 50);
+// ── URL PARAMS — Dynamic prompt pages ─────────────────────────
+function handleUrlParams(){
+  var params=new URLSearchParams(window.location.search);
+  var promptId=params.get('prompt');
+  var cat=params.get('cat');
+  if(promptId){
+    var p=PROMPTS.find(function(x){ return x.id===promptId; });
+    if(p){
+      // Update SEO meta dynamically
+      document.title=p.name+' — Free AI Prompt | Promptaholics';
+      var metaDesc=document.querySelector('meta[name="description"]');
+      if(metaDesc) metaDesc.content=p.name+' — Free AI prompt for '+p.tool+'. '+p.text.slice(0,120)+'...';
+      setTimeout(function(){ openModal(promptId); },300);
     }
   }
-  init();
+  if(cat){ activeCat=decodeURIComponent(cat.replace(/\+/g,' ')); }
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+function init(){
+  if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)||!PROMPTS.length){
+    setTimeout(init,50); return;
+  }
+  var lc=document.getElementById('libCount');
+  if(lc) lc.textContent=PROMPTS.length.toLocaleString();
+  handleUrlParams();
+  initPotw();
+  renderCatPills();
+  renderCards();
+  renderTags();
+}
+document.addEventListener('DOMContentLoaded',init);
+window.addEventListener('popstate',function(e){
+  if(e.state&&e.state.promptId){ openModal(e.state.promptId); }
+  else{ closeModal(); }
 });
 </script>
-
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a class="bn-item" href="/">
-    <i class="ph ph-house bn-icon"></i>Home
-  </a>
-  <a class="bn-item" href="prompt-builder.html">
-    <i class="ph ph-wrench bn-icon"></i>Builder
-  </a>
-  <a class="bn-item active" href="library.html">
-    <i class="ph ph-books bn-icon"></i>Library
-  </a>
-  <a class="bn-item" href="creationstation.html">
-    <i class="ph ph-lightning bn-icon"></i>Tools
-  </a>
-  <a class="bn-item" href="#" onclick="openSaved(event)">
-    <i class="ph ph-star bn-icon"></i>Saved
-  </a>
-</nav>
-
 </body>
 </html>
