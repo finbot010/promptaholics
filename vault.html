@@ -666,10 +666,10 @@ async function loadImages(){
   var grid = document.getElementById('masonryGrid');
   grid.innerHTML = '<div class="vault-loading"><span class="spin">⚙️</span>Loading the vault...</div>';
   try {
+    // Simple query — no orderBy to avoid needing a Firestore index
     var q = fb.query(
       fb.collection(fb.db, 'vault-submissions'),
-      fb.where('status','==','approved'),
-      fb.orderBy('createdAt','desc')
+      fb.where('status','==','approved')
     );
     var snap = await fb.getDocs(q);
     allImages = [];
@@ -680,12 +680,33 @@ async function loadImages(){
       allImages.push(data);
       if(data.creatorEmail) creators.add(data.creatorEmail);
     });
+    // Sort by createdAt client-side (no index needed)
+    allImages.sort(function(a,b){
+      var ta = a.createdAt ? (a.createdAt.seconds||0) : 0;
+      var tb = b.createdAt ? (b.createdAt.seconds||0) : 0;
+      return tb - ta;
+    });
     // Update stats
     document.getElementById('statImages').textContent = allImages.length;
     document.getElementById('statCreators').textContent = creators.size;
     renderGallery();
   } catch(e){
-    grid.innerHTML = '<div class="vault-empty"><h3>Gallery Loading...</h3><p>Firebase setup required. See setup guide.</p></div>';
+    console.error('Firestore error:', e);
+    // Try without where filter as fallback
+    try {
+      var snap2 = await fb.getDocs(fb.collection(fb.db, 'vault-submissions'));
+      allImages = [];
+      snap2.forEach(function(d){
+        var data = d.data();
+        data._id = d.id;
+        if(data.status === 'approved') allImages.push(data);
+      });
+      document.getElementById('statImages').textContent = allImages.length;
+      renderGallery();
+    } catch(e2){
+      console.error('Fallback error:', e2);
+      grid.innerHTML = '<div class="vault-empty"><h3>Could not load gallery</h3><p>Error: '+e2.message+'</p><p>Check browser console for details.</p></div>';
+    }
   }
 }
 
