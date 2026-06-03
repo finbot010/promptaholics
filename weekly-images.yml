@@ -1,98 +1,26 @@
-# ═══════════════════════════════════════════════════════════
-#  PROMPTAHOLICS — Weekly Image Generator Workflow
-#  Runs every Monday at 9:00 AM ET automatically
-#  Also runnable manually from GitHub Actions tab
-# ═══════════════════════════════════════════════════════════
-
-name: Weekly Image Generator 🎨
-
+name: Weekly Image Generator
 on:
-  schedule:
-    - cron: '0 14 * * 1'   # Every Monday 9am ET (14:00 UTC)
   workflow_dispatch:
-    inputs:
-      reason:
-        description: 'Why are you running this manually?'
-        required: false
-        default: 'Manual refresh'
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Use Node 24 for actions
-
+  schedule:
+    - cron: '0 14 * * 1'
 jobs:
-  generate-images:
-    name: Generate Weekly Images
+  generate:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
     steps:
-
-      # ── 1: Checkout repo ──
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # ── 2: Setup Node 24 ──
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '24'
-
-      # ── 3: Verify API key exists ──
-      - name: Verify OpenAI API key
+      - run: node generate-images.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          if [ -z "$OPENAI_API_KEY" ]; then
-            echo "❌ ERROR: OPENAI_API_KEY secret is not set!"
-            echo "Go to: GitHub repo Settings → Secrets and variables → Actions → New repository secret"
-            echo "Name: OPENAI_API_KEY  Value: sk-..."
-            exit 1
-          else
-            echo "✅ OPENAI_API_KEY is set"
-          fi
-
-      # ── 4: Run the image generator ──
-      - name: Generate images via DALL·E 3
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          echo "🎨 Starting Promptaholics Weekly Image Generator"
-          echo "📅 Date: $(date)"
-          node generate-images.js
-
-      # ── 5: Check for new images ──
-      - name: Check for new images
-        id: check-images
-        run: |
-          if ls images/slot-*.jpg 2>/dev/null | head -1 > /dev/null; then
-            echo "images_exist=true" >> $GITHUB_OUTPUT
-            echo "✅ Images found:"
-            ls -lh images/slot-*.jpg
-          else
-            echo "images_exist=false" >> $GITHUB_OUTPUT
-            echo "⚠️ No slot images found"
-          fi
-
-      # ── 6: Commit and push ──
-      - name: Commit and push new images
-        if: steps.check-images.outputs.images_exist == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Promptaholics Bot 🤖"
-          git add images/
-          if git diff --staged --quiet; then
-            echo "ℹ️ No changes to commit"
-          else
-            WEEK=$(date +"%Y-W%V")
-            git commit -m "🎨 Weekly image refresh — $WEEK"
-            git push
-            echo "✅ Images pushed"
-          fi
-
-      # ── 7: Report ──
-      - name: Report completion
-        if: always()
-        run: |
-          echo "Run time: $(date) | Trigger: ${{ github.event_name }}"
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+      - run: |
+          git config user.email "bot@github.com"
+          git config user.name "Promptaholics Bot"
+          git add images/ || true
+          git diff --staged --quiet || git commit -m "Weekly images"
+          git push || true
