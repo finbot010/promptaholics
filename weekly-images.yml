@@ -13,6 +13,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Debug secrets
+        run: |
+          echo "CLOUDINARY_API_KEY length: ${#CLOUDINARY_API_KEY}"
+          echo "CLOUDINARY_API_SECRET length: ${#CLOUDINARY_API_SECRET}"
+          echo "OPENAI_API_KEY length: ${#OPENAI_API_KEY}"
+        env:
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - run: node generate-images.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
