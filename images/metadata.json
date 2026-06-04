@@ -1,24 +1,20 @@
 {
-  "generated_at": "2026-05-13T00:00:00.000Z",
-  "week": 1,
+  "generated_at": "2026-06-04T00:28:02.975Z",
+  "week": 23,
   "slot-1": {
     "name": "Golden Hour Portrait",
-    "category": "Photography · Auto-Generated Weekly",
-    "library_prompt": "Editorial portrait of [SUBJECT DESCRIPTION] during golden hour, warm amber and coral light from the side, Sony A7R V 85mm f/1.4 GM lens, shallow depth of field, skin tones luminous, Vogue fashion editorial aesthetic --ar 4:5 --v 7 --stylize 750 --style raw"
+    "prompt": "Editorial fashion portrait during golden hour. Warm amber and coral light from the side, 85mm lens f/1.4, extremely shallow depth of field, buttery bokeh background, skin tones luminous and warm, atmospheric golden haze, National Geographic meets Vogue aesthetic, cinematic photorealistic 8K quality."
   },
   "slot-2": {
     "name": "AI Action Figure Box",
-    "category": "Image Generation",
-    "library_prompt": "Photorealistic collectible toy packaging — [PERSON] as an action figure in a clear plastic clamshell blister pack, branded cardboard backing, name [NAME] in bold retro toy font, accessories: [LIST 3 ITEMS], shelf-ready retail photography, studio lighting, stark white background --ar 2:3 --v 7 --stylize 500"
+    "prompt": "Photorealistic product photography of a plastic toy action figure still sealed in its original retail box packaging. Clear plastic window showing the toy inside. Colorful cardboard backing with brand graphics. The toy is a miniature human-like superhero figure. Bright studio lighting, clean white background, commercial product photography quality 8K."
   },
   "slot-3": {
     "name": "Urban Street Photography",
-    "category": "Photography",
-    "library_prompt": "Decisive moment street photography in [CITY], [SUBJECT/SCENE], shot on Leica M11 with 35mm Summilux, available light only, high contrast black and white, authentic grain, Henri Cartier-Bresson documentary style --ar 3:2 --v 6.1 --style raw --stylize 400"
+    "prompt": "Black and white decisive moment street photography. Lone figure in geometric shadows on rain-slicked city street at night. High contrast monochrome, authentic film grain, available light only, Henri Cartier-Bresson documentary style, Leica rangefinder aesthetic, film noir atmosphere, ultra-realistic."
   },
   "slot-4": {
-    "name": "The Character Forge",
-    "category": "Creative & Art",
-    "library_prompt": "Design an original character: [CHARACTER CONCEPT]. Full character sheet with front, 3/4, and profile views. Art style: [anime / western comic / semi-realistic / Pixar 3D]. Include facial features, outfit with accessories, signature weapon or item, color palette swatch. Professional concept art quality, clean lines, dynamic pose."
+    "name": "Fantasy Hero Character",
+    "prompt": "Professional fantasy hero character concept art. Front-facing portrait with dramatic cinematic lighting. Intricate ornate armor with magical runes, flowing cape, heroic staff or shield. Semi-realistic art style between anime and western comic. Deep blues and gold accents. Epic fantasy game concept art quality 8K."
   }
 }
