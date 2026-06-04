@@ -9,9 +9,9 @@ const fs    = require('fs');
 const path  = require('path');
 
 const OPENAI_API_KEY       = process.env.OPENAI_API_KEY;
-const CLOUDINARY_CLOUD     = 'dgqbzarfw';
-const CLOUDINARY_API_KEY   = process.env.CLOUDINARY_API_KEY;
-const CLOUDINARY_API_SECRET= process.env.CLOUDINARY_API_SECRET;
+const CLOUDINARY_CLOUD      = 'dgqbzarfw';
+const CLOUDINARY_API_KEY    = process.env.CLOUDINARY_API_KEY    || '377132723958634';
+const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET || 'vmK17Y-sr-UWxEKek7_dZxkMC10';
 const FIREBASE_PROJECT_ID  = 'promptaholics-534d3';
 const FIREBASE_API_KEY     = 'AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ';
 const IMAGES_DIR           = path.join(__dirname, 'images');
@@ -27,7 +27,7 @@ const WEEKLY_SETS = [
     week: 1,
     prompts: [
       { file: 'slot-1.jpg', name: 'Golden Hour Portrait', model: 'chatgpt', tags: ['portrait','golden hour','editorial'], prompt: 'Editorial fashion portrait during golden hour. Warm amber and coral light from the side, 85mm lens f/1.4, extremely shallow depth of field, buttery bokeh background, skin tones luminous and warm, atmospheric golden haze, National Geographic meets Vogue aesthetic, cinematic photorealistic 8K quality.' },
-      { file: 'slot-2.jpg', name: 'AI Action Figure Box', model: 'chatgpt', tags: ['product','toy','commercial'], prompt: 'Photorealistic product photography of a plastic toy action figure still sealed in its original retail box packaging. Clear plastic window showing the toy inside. Colorful cardboard backing with brand graphics. The toy is a miniature human-like superhero figure. Bright studio lighting, clean white background, commercial product photography quality 8K.' },
+      { file: 'slot-2.jpg', name: 'Neon Cyberpunk Street', model: 'chatgpt', tags: ['cyberpunk','neon','street'], prompt: 'Hyper-detailed cyberpunk alley at night. Glowing neon signs in Japanese and English reflecting on wet cobblestones. Steam rising from grates. Food stall with warm light. No people, atmospheric and cinematic. Blade Runner aesthetic. Pink purple and teal color palette. Ultra detailed 8K photorealistic.' },
       { file: 'slot-3.jpg', name: 'Urban Street Photography', model: 'chatgpt', tags: ['street','black and white','cinematic'], prompt: 'Black and white decisive moment street photography. Lone figure in geometric shadows on rain-slicked city street at night. High contrast monochrome, authentic film grain, available light only, Henri Cartier-Bresson documentary style, Leica rangefinder aesthetic, film noir atmosphere, ultra-realistic.' },
       { file: 'slot-4.jpg', name: 'Fantasy Hero Character', model: 'chatgpt', tags: ['fantasy','character','concept art'], prompt: 'Professional fantasy hero character concept art. Front-facing portrait with dramatic cinematic lighting. Intricate ornate armor with magical runes, flowing cape, heroic staff or shield. Semi-realistic art style between anime and western comic. Deep blues and gold accents. Epic fantasy game concept art quality 8K.' },
     ]
