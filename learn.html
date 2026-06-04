@@ -274,6 +274,27 @@ body.light .example-prompt{background:rgba(0,0,0,.04);}
 .chapter:nth-child(4){animation-delay:.15s;}
 .chapter:nth-child(5){animation-delay:.2s;}
 .chapter:nth-child(6){animation-delay:.25s;}
+
+/* ── CHAPTER VIDEO ── */
+.ch-video-wrap{
+  position:relative;width:100%;padding-bottom:56.25%;
+  border-radius:14px;overflow:hidden;
+  background:#000;margin-bottom:28px;
+  border:1px solid var(--border2);
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+}
+.ch-video-wrap iframe{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;border:none;
+}
+.ch-video-label{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:5px;
+  background:rgba(255,0,0,.1);border:1px solid rgba(255,0,0,.2);
+  color:#ff4444;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:10px;
+}
 </style>
 </head>
 <body>
@@ -365,6 +386,10 @@ body.light .example-prompt{background:rgba(0,0,0,.04);}
     <span class="ch-icon">🧠</span>
     <div class="ch-meta">
       <div class="ch-title">What is a Prompt — Really?</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 1 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/EHiZfXmDNrk?rel=0&modestbranding=1" title="Chapter 1 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">Why AI does what it does · The input/output loop · Why specificity wins</div>
     </div>
     <span class="ch-badge" id="badge-1">Start</span>
@@ -425,6 +450,10 @@ body.light .example-prompt{background:rgba(0,0,0,.04);}
     <span class="ch-icon">🏗</span>
     <div class="ch-meta">
       <div class="ch-title">The 5 Elements of Every Great Prompt</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 2 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/EsqsXlCBV7w?rel=0&modestbranding=1" title="Chapter 2 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">Role · Task · Context · Format · Constraints — the non-negotiable building blocks</div>
     </div>
     <span class="ch-badge" id="badge-2">5 min</span>
@@ -490,6 +519,10 @@ Feature request: [PASTE YOUR REQUEST HERE]</div>
     <span class="ch-icon">⭐</span>
     <div class="ch-meta">
       <div class="ch-title">The 9 Frameworks — Your Prompt Toolkit</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 3 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/s8aqYfGObfA?rel=0&modestbranding=1" title="Chapter 3 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">CoSTAR · RTF · AETHER · Chain-of-Thought · RISEN · SCQA · CRISPE · PARA · RACI</div>
     </div>
     <span class="ch-badge" id="badge-3">8 min</span>
@@ -574,6 +607,10 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
     <span class="ch-icon">🛠</span>
     <div class="ch-meta">
       <div class="ch-title">Right Prompt, Right Tool</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 4 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/8oxj2sywqpk?rel=0&modestbranding=1" title="Chapter 4 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">ChatGPT vs Claude vs Gemini vs Midjourney — what each does best</div>
     </div>
     <span class="ch-badge" id="badge-4">5 min</span>
@@ -648,6 +685,10 @@ lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows,
     <span class="ch-icon">⚡</span>
     <div class="ch-meta">
       <div class="ch-title">Advanced Techniques That Pros Use</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 5 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/kaVyN2zxqF0?rel=0&modestbranding=1" title="Chapter 5 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">Few-shot examples · Prompt chaining · Temperature control · System prompts</div>
     </div>
     <span class="ch-badge" id="badge-5">7 min</span>
@@ -734,6 +775,10 @@ Respond in the first person, as a trusted advisor would.</div>
     <span class="ch-icon">🎓</span>
     <div class="ch-meta">
       <div class="ch-title">Your First 10 Prompts — Start Here</div>
+      <div class="ch-video-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Chapter 6 Video</div>
+      <div class="ch-video-wrap">
+        <iframe src="https://www.youtube.com/embed/L1PeIK0ODfc?rel=0&modestbranding=1" title="Chapter 6 — Promptaholics Learn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="ch-desc">Ready-to-use prompts for real work · Copy, paste, and adapt</div>
     </div>
     <span class="ch-badge" id="badge-6">5 min</span>
