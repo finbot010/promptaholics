@@ -372,6 +372,10 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 }
 body.light .pol-select{background:#fff;}
 .pol-select:focus{border-color:rgba(255,98,36,.4);}
+
+/* ── NEWS SECTION ALWAYS VISIBLE ── */
+#newsSection,
+.always-visible { display: block !important; }
 </style>
 </head>
 <body>
@@ -698,7 +702,7 @@ body.light .pol-select{background:#fff;}
 <!-- ══════════════════════════════════════════
      TOOL 6 — 📰 WHAT'S NEW IN AI
 ══════════════════════════════════════════ -->
-<div class="tool-sec">
+<div class="tool-sec always-visible" id="newsSection">
   <div class="tool-sec-hdr">
     <h2>📰 What's New in AI</h2>
     <span class="tool-built-badge">Live Feed</span>
@@ -1082,20 +1086,26 @@ function filterCat(cat, btn){
   // Clear search
   document.getElementById('toolSearch').value = '';
 
-  var sections = document.querySelectorAll('.cs-section, .section-divider');
   if(cat === 'all'){
-    sections.forEach(function(s){ s.classList.remove('hidden'); });
+    document.querySelectorAll('.cs-section, .section-divider').forEach(function(s){ s.classList.remove('hidden'); });
     document.querySelectorAll('.tool-card, .flip-card').forEach(function(c){ c.classList.remove('hidden'); });
+    // Always show news section
+    var ns = document.getElementById('newsSection');
+    if(ns) ns.classList.remove('hidden');
     return;
   }
 
-  // Show/hide sections
+  // Show/hide sections — never touch always-visible elements
   document.querySelectorAll('.cs-section').forEach(function(sec){
+    if(sec.classList.contains('always-visible')) return;
     var secCat = sec.getAttribute('data-cat');
     sec.classList.toggle('hidden', secCat !== cat);
   });
-  // Show/hide dividers based on visible sections
+  // Show/hide dividers
   document.querySelectorAll('.section-divider').forEach(function(d){ d.classList.add('hidden'); });
+  // Always keep news section visible
+  var ns = document.getElementById('newsSection');
+  if(ns) ns.classList.remove('hidden');
 }
 
 // ── SEARCH FILTER ─────────────────────────────────────────────
