@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-04T15:06:28.079Z",
+  "generated_at": "2026-06-04T15:37:58.719Z",
   "week": 23,
   "slot-1": {
     "name": "Golden Hour Portrait",
     "prompt": "Editorial fashion portrait during golden hour. Warm amber and coral light from the side, 85mm lens f/1.4, extremely shallow depth of field, buttery bokeh background, skin tones luminous and warm, atmospheric golden haze, National Geographic meets Vogue aesthetic, cinematic photorealistic 8K quality."
   },
   "slot-2": {
-    "name": "AI Action Figure Box",
-    "prompt": "Photorealistic product photography of a plastic toy action figure still sealed in its original retail box packaging. Clear plastic window showing the toy inside. Colorful cardboard backing with brand graphics. The toy is a miniature human-like superhero figure. Bright studio lighting, clean white background, commercial product photography quality 8K."
+    "name": "Neon Cyberpunk Street",
+    "prompt": "Hyper-detailed cyberpunk alley at night. Glowing neon signs in Japanese and English reflecting on wet cobblestones. Steam rising from grates. Food stall with warm light. No people, atmospheric and cinematic. Blade Runner aesthetic. Pink purple and teal color palette. Ultra detailed 8K photorealistic."
   },
   "slot-3": {
     "name": "Urban Street Photography",
