@@ -16,9 +16,10 @@ const FIREBASE_PROJECT_ID  = 'promptaholics-534d3';
 const FIREBASE_API_KEY     = 'AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ';
 const IMAGES_DIR           = path.join(__dirname, 'images');
 
-if (!OPENAI_API_KEY)        { console.error('❌ OPENAI_API_KEY not set');        process.exit(1); }
-if (!CLOUDINARY_API_KEY)    { console.error('❌ CLOUDINARY_API_KEY not set');    process.exit(1); }
-if (!CLOUDINARY_API_SECRET) { console.error('❌ CLOUDINARY_API_SECRET not set'); process.exit(1); }
+if (!OPENAI_API_KEY){ console.error('❌ OPENAI_API_KEY not set'); process.exit(1); }
+const HAS_CLOUDINARY = !!(CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET);
+if(!HAS_CLOUDINARY) console.log('⚠️ Cloudinary not configured — images saved locally only, skipping vault submission');
+else console.log('✅ Cloudinary configured — images will be submitted to Image Vault');
 
 // ── WEEKLY PROMPT SETS ──────────────────────────────────────
 const WEEKLY_SETS = [
@@ -322,15 +323,17 @@ async function main() {
       const kb = Math.round(fs.statSync(filepath).size / 1024);
       console.log(`  ✅ Saved locally → images/${p.file} (${kb}KB)`);
 
-      // Step 3 — Upload to Cloudinary
-      console.log(`  → Uploading to Cloudinary...`);
-      const cloudUrl = await cloudinaryUpload(b64, p.file);
-      console.log(`  ✅ Cloudinary: ${cloudUrl}`);
-
-      // Step 4 — Submit to Firestore as approved
-      console.log(`  → Submitting to Image Vault...`);
-      const docId = await submitToVault(cloudUrl, p);
-      console.log(`  ✅ Image Vault: ${docId.split('/').pop()}`);
+      // Step 3 — Upload to Cloudinary + submit to vault (if configured)
+      if(HAS_CLOUDINARY){
+        console.log(`  → Uploading to Cloudinary...`);
+        const cloudUrl = await cloudinaryUpload(b64, p.file);
+        console.log(`  ✅ Cloudinary: ${cloudUrl}`);
+        console.log(`  → Submitting to Image Vault...`);
+        const docId = await submitToVault(cloudUrl, p);
+        console.log(`  ✅ Image Vault: ${docId.split('/').pop()}`);
+      } else {
+        console.log(`  ⚠️ Skipping vault submission (Cloudinary not configured)`);
+      }
 
       successes++;
 
