@@ -15,7 +15,7 @@
   import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
-    updateDoc, doc, increment, serverTimestamp, getDoc }
+    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
   // Storage handled by Cloudinary (free, no upgrade needed)
 
@@ -40,7 +40,7 @@
   window._fb = { auth, db, provider,
     signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
     collection, addDoc, getDocs, query, orderBy, where,
-    updateDoc, doc, increment, serverTimestamp, getDoc };
+    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc };
 
   window.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -602,6 +602,24 @@ var activeModel = 'all';
 var currentDetail = null;
 var ADMIN_EMAIL = 'promptaholics1@gmail.com';
 
+// ── ADMIN DELETE FROM GALLERY ────────────────────────────────
+async function adminDeleteImage(id){
+  if(!currentUser || currentUser.email !== ADMIN_EMAIL) return;
+  if(!confirm('Delete this image from the vault?')) return;
+  try{
+    var docRef = fb.doc(fb.db,'vault-submissions',id);
+    await fb.deleteDoc(docRef);
+    // Remove from local array
+    allImages = allImages.filter(function(img){ return img._id !== id; });
+    // Update stats
+    document.getElementById('statImages').textContent = allImages.length;
+    renderGallery();
+    showToast('Image deleted');
+  }catch(e){
+    showToast('Delete failed — try again');
+  }
+}
+
 window.addEventListener('firebase-ready', function(){
   fb = window._fb;
   fb.onAuthStateChanged(fb.auth, function(user){
@@ -715,24 +733,81 @@ function renderGallery(){
   var grid = document.getElementById('masonryGrid');
   var list = activeModel === 'all' ? allImages : allImages.filter(function(img){ return img.model === activeModel; });
   if(!list.length){
-    grid.innerHTML = '<div class="vault-empty"><h3>No images yet '+(activeModel!=='all'?'for this model':'')+'</h3><p>Be the first to submit your AI creation.</p><button class="btn-primary" onclick="openSubmit()"><i class="ph ph-upload-simple"></i> Submit First Image</button></div>';
+    grid.innerHTML = '';
+    var empty = document.createElement('div');
+    empty.className = 'vault-empty';
+    empty.innerHTML = '<h3>No images yet</h3><p>Be the first to submit your AI creation.</p>';
+    var subBtn = document.createElement('button');
+    subBtn.className = 'btn-primary';
+    subBtn.textContent = 'Submit First Image';
+    subBtn.onclick = openSubmit;
+    empty.appendChild(subBtn);
+    grid.appendChild(empty);
     return;
   }
-  grid.innerHTML = list.map(function(img, i){
-    var delay = Math.min(i * 0.04, 0.5);
-    return '<div class="vcard" style="animation-delay:'+delay+'s" onclick="openDetail(\''+img._id+'\')">'+
-      '<img class="vcard-img" src="'+escHtml(img.imageUrl)+'" alt="'+escHtml(img.title)+'" loading="lazy"/>'+
-      '<div class="vcard-model-badge">'+escHtml(getModelLabel(img.model))+'</div>'+
-      '<div class="vcard-overlay">'+
-        '<div class="vcard-title">'+escHtml(img.title)+'</div>'+
-        '<div class="vcard-creator">by '+escHtml(img.creatorName||'Anonymous')+'</div>'+
-        '<div class="vcard-actions">'+
-          '<button class="vcard-btn" onclick="event.stopPropagation();copyPromptById(\''+img._id+'\')"><i class="ph ph-copy"></i> Copy Prompt</button>'+
-          '<button class="vcard-btn" onclick="event.stopPropagation();likeImage(\''+img._id+'\')"><i class="ph ph-heart"></i> <span class="vcard-like-count">'+( img.likes||0)+'</span></button>'+
-        '</div>'+
-      '</div>'+
-    '</div>';
-  }).join('');
+  var isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+  grid.innerHTML = '';
+  list.forEach(function(img, i){
+    var card = document.createElement('div');
+    card.className = 'vcard';
+    card.style.animationDelay = Math.min(i * 0.04, 0.5) + 's';
+    card.onclick = function(){ openDetail(img._id); };
+
+    var image = document.createElement('img');
+    image.className = 'vcard-img';
+    image.src = img.imageUrl;
+    image.alt = img.title;
+    image.loading = 'lazy';
+
+    var badge = document.createElement('div');
+    badge.className = 'vcard-model-badge';
+    badge.textContent = getModelLabel(img.model);
+
+    var overlay = document.createElement('div');
+    overlay.className = 'vcard-overlay';
+
+    var title = document.createElement('div');
+    title.className = 'vcard-title';
+    title.textContent = img.title;
+
+    var creator = document.createElement('div');
+    creator.className = 'vcard-creator';
+    creator.textContent = 'by ' + (img.creatorName || 'Anonymous');
+
+    var actions = document.createElement('div');
+    actions.className = 'vcard-actions';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'vcard-btn';
+    copyBtn.innerHTML = '<i class="ph ph-copy"></i> Copy Prompt';
+    copyBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); copyPromptById(id); }; })(img._id);
+
+    var likeBtn = document.createElement('button');
+    likeBtn.className = 'vcard-btn';
+    likeBtn.innerHTML = '<i class="ph ph-heart"></i> <span class="vcard-like-count">' + (img.likes||0) + '</span>';
+    likeBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); likeImage(id); }; })(img._id);
+
+    actions.appendChild(copyBtn);
+    actions.appendChild(likeBtn);
+
+    if(isAdmin){
+      var delBtn = document.createElement('button');
+      delBtn.className = 'vcard-btn';
+      delBtn.style.cssText = 'background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4);color:#ef4444;';
+      delBtn.innerHTML = '<i class="ph ph-trash"></i>';
+      delBtn.title = 'Delete image';
+      delBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); adminDeleteImage(id); }; })(img._id);
+      actions.appendChild(delBtn);
+    }
+
+    overlay.appendChild(title);
+    overlay.appendChild(creator);
+    overlay.appendChild(actions);
+    card.appendChild(image);
+    card.appendChild(badge);
+    card.appendChild(overlay);
+    grid.appendChild(card);
+  });
 }
 
 // ── FILTER BY MODEL ───────────────────────────────────────────
