@@ -376,6 +376,13 @@ body.light .pol-select{background:#fff;}
 /* ── NEWS SECTION ALWAYS VISIBLE ── */
 #newsSection,
 .always-visible { display: block !important; }
+
+/* ── MOBILE OVERFLOW FIX ── */
+*{box-sizing:border-box;}
+html{overflow-x:hidden;max-width:100vw;}
+body{overflow-x:hidden;max-width:100vw;width:100%;}
+img,video,iframe{max-width:100%;}
+.topnav{max-width:100vw;}
 </style>
 </head>
 <body>
@@ -391,6 +398,8 @@ body.light .pol-select{background:#fff;}
       <a href="library.html" class="nav-lnk">Library</a>
       <a href="prompt-builder.html" class="nav-lnk">Builder</a>
       <a href="creationstation.html" class="nav-lnk active">AI Tools</a>
+      <a href="learn.html" class="nav-lnk">Learn</a>
+      <a href="vault.html" class="nav-lnk">Image Vault</a>
     </nav>
     <a href="login.html" class="nav-signin">Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
@@ -413,6 +422,8 @@ body.light .pol-select{background:#fff;}
     <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
     <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
     <a class="sm-item active" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class="sm-item" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+    <a class="sm-item" href="vault.html"><i class="ph ph-images"></i> Image Vault</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
