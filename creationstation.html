@@ -945,7 +945,13 @@ img,video,iframe{max-width:100%;}
 
   <!-- SIZE + GENERATE BUTTON -->
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
-    <select id="polSize" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+    <select id="polModel" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="AI Model">
+      <option value="flux" selected>Flux — Fast & Creative</option>
+      <option value="gpt-image-2">GPT Image 2 — High Quality</option>
+      <option value="google/imagen-4.0-fast">Imagen 4 — Google</option>
+      <option value="stabilityai/stable-diffusion-3-medium">SD3 — Open Source</option>
+    </select>
+    <select id="polSize" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="Image Size">
       <option value="1024x1024">Square 1:1</option>
       <option value="1280x720">Landscape 16:9</option>
       <option value="720x1280">Portrait 9:16</option>
@@ -998,7 +1004,7 @@ img,video,iframe{max-width:100%;}
     <button id="polCopyPromptBtn" onclick="polCopyPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
       <i class="ti ti-copy" aria-hidden="true"></i> Copy Prompt
     </button>
-    <button onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+    <button id="polVaultBtn" onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
       <i class="ti ti-photo-up" aria-hidden="true"></i> Submit to Vault
     </button>
     <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
@@ -1850,9 +1856,52 @@ function polCopyPrompt(){
     : (function(t){ var ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); })(lastPolPrompt);
   showToast('Prompt copied!');
 }
-function polSubmitToVault(){
-  window.open('vault.html?prompt='+encodeURIComponent(lastPolPrompt||''), '_blank');
-  showToast('Opening Image Vault...');
+async function polSubmitToVault(){
+  if(!lastPolPrompt){  showToast('Generate an image first'); return; }
+  if(!lastPolImageUrl){ showToast('No image URL to submit'); return; }
+
+  // Require sign-in
+  var fb = window._fb;
+  if(!fb || !fb.auth || !fb.auth.currentUser){
+    showToast('Sign in to submit to the Vault');
+    window.open('vault.html', '_blank');
+    return;
+  }
+
+  var user = fb.auth.currentUser;
+  var btn  = document.getElementById('polVaultBtn');
+  var orig = btn ? btn.innerHTML : '';
+  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="font-size:14px;animation:spin .7s linear infinite;"></i> Submitting...'; }
+
+  try{
+    await fb.addDoc(fb.collection(fb.db, 'vault-submissions'), {
+      title:        (document.getElementById('polPrompt').value||'').trim().slice(0,80) || 'AI Generated Image',
+      prompt:       lastPolPrompt,
+      model:        document.getElementById('polModel') ? document.getElementById('polModel').value : 'flux',
+      tags:         ['ai-generated','creation-station'],
+      imageUrl:     lastPolImageUrl,
+      creatorName:  user.displayName || 'Anonymous',
+      creatorEmail: user.email || '',
+      creatorUid:   user.uid,
+      likes:        0,
+      status:       'pending',
+      createdAt:    fb.serverTimestamp ? fb.serverTimestamp() : new Date().toISOString()
+    });
+    showToast('Submitted for review!');
+    if(btn){ btn.innerHTML = '<i class="ti ti-check" style="font-size:14px;color:#22c55e;" aria-hidden="true"></i> Submitted!'; }
+    setTimeout(function(){ if(btn){ btn.disabled = false; btn.innerHTML = orig; } }, 3000);
+  } catch(err){
+    console.error('Vault submit error:', err);
+    showToast('Submit failed — check you are signed in');
+    if(btn){ btn.disabled = false; btn.innerHTML = orig; }
+  }
+}
+
+
+function switchToFlux(){
+  var sel = document.getElementById('polModel');
+  if(sel) sel.value = 'flux';
+  polGenerate();
 }
 
 async function polGenerate(){
@@ -1863,14 +1912,12 @@ async function polGenerate(){
   var count = getGenCount();
   var limit = getLimit();
   if(count >= limit){
-    if(!isUnlocked()){
-      openGate();
-    } else {
-      showToast('Daily limit reached (' + limit + '/day). Resets at midnight.');
-    }
+    if(!isUnlocked()){ openGate(); }
+    else { showToast('Daily limit reached (' + limit + '/day). Resets at midnight.'); }
     return;
   }
 
+  var selectedModel = document.getElementById('polModel') ? document.getElementById('polModel').value : 'flux';
   var fullPrompt = currentPolPreset ? prompt + ', ' + currentPolPreset : prompt;
   lastPolPrompt  = fullPrompt;
 
@@ -1886,7 +1933,7 @@ async function polGenerate(){
 
   btn.disabled = true; btn.style.opacity = '.6';
   if(btnText) btnText.textContent = 'Generating...';
-  if(btnIcon) btnIcon.textContent = '⏳';
+  if(btnIcon) btnIcon.className = 'ti ti-loader-2';
   if(img)     img.style.display   = 'none';
   if(empty)   empty.style.display = 'none';
   if(spinner) spinner.style.display = 'flex';
@@ -1903,23 +1950,31 @@ async function polGenerate(){
   }, 800);
 
   try{
-    var imgElement = await puter.ai.txt2img(fullPrompt, { model: 'gpt-image-2', quality: 'medium' });
+    // Model options — Flux is default (less restrictive)
+    var imgOptions;
+    if(selectedModel === 'flux'){
+      imgOptions = { model: 'flux' };
+    } else if(selectedModel === 'gpt-image-2'){
+      imgOptions = { model: 'gpt-image-2', quality: 'medium' };
+    } else {
+      imgOptions = { model: selectedModel };
+    }
+
+    var imgElement = await puter.ai.txt2img(fullPrompt, imgOptions);
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
 
     if(imgElement && imgElement.src){
-      // Increment BEFORE showing result
       var newCount = incrementGenCount();
-      lastPolImageUrl = imgElement.src;
-      if(img)     { img.src = imgElement.src; img.style.display = 'block'; }
-      if(spinner)   spinner.style.display = 'none';
-      if(empty)     empty.style.display   = 'none';
-      if(actions)   actions.style.display = 'flex';
+      lastPolImageUrl = imgElement.src || imgElement.currentSrc || '';
+      if(img)   { img.src = imgElement.src; img.style.display = 'block'; }
+      if(spinner) spinner.style.display = 'none';
+      if(empty)   empty.style.display   = 'none';
+      if(actions) actions.style.display = 'flex';
       var dlBtn = document.getElementById('polDownloadBtn');
       if(dlBtn) dlBtn.href = imgElement.src;
       showToast('Image ready!');
-      // Show gate proactively if they hit the limit
       var remaining = getLimit() - newCount;
       if(remaining === 1 && !isUnlocked()){
         setTimeout(function(){ showToast('1 generation left today — sign up for more!'); }, 2000);
@@ -1927,24 +1982,43 @@ async function polGenerate(){
     } else {
       throw new Error('No image returned');
     }
-  }catch(e){
+
+  } catch(e){
     clearInterval(progTimer);
     if(spinner) spinner.style.display = 'none';
     if(empty){
+      // Detect content policy block
+      var errMsg = (e && e.message ? e.message : '').toLowerCase();
+      var isBlocked = errMsg.includes('safety') || errMsg.includes('policy') ||
+                      errMsg.includes('rejected') || errMsg.includes('violat') ||
+                      errMsg.includes('inappropriate') || errMsg.includes('content');
+
       empty.style.display = 'block';
-      empty.innerHTML = '<div style="text-align:center;padding:20px;">'
-        +'<i class="ti ti-alert-triangle" style="font-size:32px;display:block;margin-bottom:10px;color:#f59e0b;"></i>'
-        +'<div style="font-size:13px;color:var(--ink2);margin-bottom:4px;font-weight:600;">Generation failed</div>'
-        +'<div style="font-size:11px;color:var(--ink3);margin-bottom:16px;">Puter.js may need a Puter login — click Try Again</div>'
-        +'<button onclick="polGenerate()" style="padding:8px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:Syne,serif;">Try Again</button>'
+      empty.innerHTML =
+        '<div style="text-align:center;padding:24px 16px;">'
+        +'<i class="ti ti-alert-triangle" style="font-size:36px;display:block;margin-bottom:12px;color:#f59e0b;" aria-hidden="true"></i>'
+        +'<div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px;">'
+        +(isBlocked ? 'Blocked by content filter' : 'Generation failed')
+        +'</div>'
+        +'<div style="font-size:12px;color:var(--ink2);line-height:1.7;margin-bottom:16px;">'
+        +(isBlocked
+          ? 'Try rephrasing — avoid realistic people,<br>violence, or explicit content.'
+          : 'Puter.js may be busy or need a login.<br>Try again or switch to a different model.')
+        +'</div>'
+        +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
+        +'<button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">'
+        +'<i class="ti ti-refresh" style="font-size:13px;" aria-hidden="true"></i> Try Again'
+        +'</button>'
+        +(isBlocked ? '<button onclick="switchToFlux()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;"><i class="ti ti-bolt"></i> Switch to Flux</button>' : '')
+        +'</div>'
         +'</div>';
     }
-    console.error('Image gen error:',e);
+    console.error('Image gen error:', e);
   }
 
   btn.disabled = false; btn.style.opacity = '1';
   if(btnText) btnText.textContent = 'Generate Image';
-  
+  if(btnIcon) btnIcon.className = 'ti ti-sparkles';
 }
 
 // Init counter on load
@@ -2056,5 +2130,34 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
+
+  <script type="module">
+    import { initializeApp }    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, collection, addDoc, serverTimestamp }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const app = initializeApp({
+      apiKey:            "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+      authDomain:        "promptaholics-534d3.firebaseapp.com",
+      projectId:         "promptaholics-534d3",
+      storageBucket:     "promptaholics-534d3.firebasestorage.app",
+      messagingSenderId: "426595742101",
+      appId:             "1:426595742101:web:1eb95579695bc6b1a5869c"
+    });
+    const auth     = getAuth(app);
+    const db       = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    window._fb = { auth, db, provider,
+      signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
+      collection, addDoc, serverTimestamp };
+
+    onAuthStateChanged(auth, function(user){
+      window._fbUser = user || null;
+      window.dispatchEvent(new CustomEvent('firebase-ready', { detail: { user } }));
+    });
+  </script>
 </body>
 </html>
