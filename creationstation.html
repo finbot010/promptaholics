@@ -1000,10 +1000,9 @@ img,video,iframe{max-width:100%;}
   <!-- SIZE + GENERATE BUTTON -->
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
     <select id="polModel" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="AI Model">
-      <option value="flux" selected>Flux — Fast & Creative</option>
-      <option value="gpt-image-2">GPT Image 2 — High Quality</option>
-      <option value="google/imagen-4.0-fast">Imagen 4 — Google</option>
-      <option value="stabilityai/stable-diffusion-3-medium">SD3 — Open Source</option>
+      <option value="openai" selected>GPT Image — Best Quality</option>
+      <option value="nano-banana">Gemini Flash — Fast & Free</option>
+      <option value="nano-banana-pro">Gemini Pro — Ultra Quality</option>
     </select>
     <select id="polSize" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="Image Size">
       <option value="1024x1024">Square 1:1</option>
@@ -2049,23 +2048,19 @@ async function polGenerate(){
 
   try{
     // Model options — Flux is default (less restrictive)
-    // puter.ai.txt2img(prompt, testMode)
-    // testMode = false means real generation
-    // For model selection Puter uses the second param as boolean only
-    // Model variants aren't supported via options — use prompt engineering instead
-    var modelSuffix = '';
-    if(selectedModel === 'flux'){
-      modelSuffix = ', digital art style, flux aesthetic';
-    } else if(selectedModel === 'gpt-image-2'){
-      modelSuffix = ', photorealistic, high quality';
-    } else if(selectedModel.includes('imagen')){
-      modelSuffix = ', Google Imagen style, photorealistic';
-    } else if(selectedModel.includes('stable-diffusion')){
-      modelSuffix = ', stable diffusion aesthetic, detailed';
+    // puter.ai.txt2img(prompt, options)
+    // Supported models: 'nano-banana' (Gemini Flash), 'nano-banana-pro' (Gemini Pro)
+    // Default driver uses OpenAI image generation
+    var puterOpts = { test_mode: false };
+    if(selectedModel === 'nano-banana'){
+      puterOpts.model = 'nano-banana';   // Gemini Flash
+    } else if(selectedModel === 'nano-banana-pro'){
+      puterOpts.model = 'nano-banana-pro'; // Gemini Pro
     }
-    var finalPrompt = fullPrompt + modelSuffix;
+    // 'openai' = default OpenAI driver (no model param needed)
+    // Default (flux/gpt-image-2/sd3) uses OpenAI image generation driver
 
-    var imgElement = await puter.ai.txt2img(finalPrompt, false);
+    var imgElement = await puter.ai.txt2img(fullPrompt, puterOpts);
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
