@@ -10,7 +10,42 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://js.puter.com/v2/"></script>
+
+  <script type="module">
+    import { initializeApp }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, collection, addDoc, serverTimestamp, deleteDoc, doc }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const app = initializeApp({
+      apiKey:            "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+      authDomain:        "promptaholics-534d3.firebaseapp.com",
+      projectId:         "promptaholics-534d3",
+      storageBucket:     "promptaholics-534d3.firebasestorage.app",
+      messagingSenderId: "426595742101",
+      appId:             "1:426595742101:web:1eb95579695bc6b1a5869c"
+    });
+
+    const auth     = getAuth(app);
+    const db       = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // Expose everything on window._fb
+    window._fb = {
+      auth, db, provider,
+      signInWithPopup, onAuthStateChanged, signOut,
+      collection, addDoc, serverTimestamp, deleteDoc, doc
+    };
+    window._fbReady = true;
+
+    onAuthStateChanged(auth, function(user){
+      window._fbUser = user || null;
+      window.dispatchEvent(new CustomEvent('firebase-ready', { detail: { user } }));
+    });
+  </script>
+  <script src="https://js.puter.com/v2/"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
@@ -1857,42 +1892,73 @@ function polCopyPrompt(){
   showToast('Prompt copied!');
 }
 async function polSubmitToVault(){
-  if(!lastPolPrompt){  showToast('Generate an image first'); return; }
-  if(!lastPolImageUrl){ showToast('No image URL to submit'); return; }
+  if(!lastPolPrompt)  { showToast('Generate an image first'); return; }
+  if(!lastPolImageUrl){ showToast('No image URL available'); return; }
 
-  // Require sign-in
+  var btn  = document.getElementById('polVaultBtn');
+  var orig = btn ? btn.innerHTML : '';
+
+  // Wait for Firebase to be ready (max 3 seconds)
+  var attempts = 0;
+  while(!window._fb && attempts < 30){
+    await new Promise(function(r){ setTimeout(r, 100); });
+    attempts++;
+  }
+
   var fb = window._fb;
-  if(!fb || !fb.auth || !fb.auth.currentUser){
-    showToast('Sign in to submit to the Vault');
-    window.open('vault.html', '_blank');
+  if(!fb){
+    showToast('Firebase not loaded — try refreshing');
+    return;
+  }
+
+  // Check sign-in
+  if(!fb.auth || !fb.auth.currentUser){
+    showToast('Sign in first to submit to the Vault');
+    if(typeof openGate === 'function') openGate();
     return;
   }
 
   var user = fb.auth.currentUser;
-  var btn  = document.getElementById('polVaultBtn');
-  var orig = btn ? btn.innerHTML : '';
-  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="font-size:14px;animation:spin .7s linear infinite;"></i> Submitting...'; }
+
+  // Show spinner
+  if(btn){
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ti ti-loader-2" style="font-size:14px;animation:spin .7s linear infinite;" aria-hidden="true"></i> Submitting...';
+  }
 
   try{
-    await fb.addDoc(fb.collection(fb.db, 'vault-submissions'), {
-      title:        (document.getElementById('polPrompt').value||'').trim().slice(0,80) || 'AI Generated Image',
+    var docData = {
+      title:        (document.getElementById('polPrompt') ? document.getElementById('polPrompt').value.trim().slice(0,80) : '') || 'AI Generated Image',
       prompt:       lastPolPrompt,
       model:        document.getElementById('polModel') ? document.getElementById('polModel').value : 'flux',
-      tags:         ['ai-generated','creation-station'],
+      tags:         ['ai-generated', 'creation-station'],
       imageUrl:     lastPolImageUrl,
       creatorName:  user.displayName || 'Anonymous',
-      creatorEmail: user.email || '',
+      creatorEmail: user.email       || '',
       creatorUid:   user.uid,
       likes:        0,
       status:       'pending',
-      createdAt:    fb.serverTimestamp ? fb.serverTimestamp() : new Date().toISOString()
-    });
-    showToast('Submitted for review!');
-    if(btn){ btn.innerHTML = '<i class="ti ti-check" style="font-size:14px;color:#22c55e;" aria-hidden="true"></i> Submitted!'; }
-    setTimeout(function(){ if(btn){ btn.disabled = false; btn.innerHTML = orig; } }, 3000);
+      createdAt:    fb.serverTimestamp()
+    };
+
+    console.log('Submitting to vault:', docData);
+    var ref = await fb.addDoc(fb.collection(fb.db, 'vault-submissions'), docData);
+    console.log('Vault submit success, doc id:', ref.id);
+
+    showToast('Submitted! Check Image Vault soon.');
+    if(btn){
+      btn.innerHTML = '<i class="ti ti-check" style="font-size:14px;color:#22c55e;" aria-hidden="true"></i> Submitted!';
+    }
+    setTimeout(function(){
+      if(btn){ btn.disabled = false; btn.innerHTML = orig; }
+    }, 3000);
+
   } catch(err){
-    console.error('Vault submit error:', err);
-    showToast('Submit failed — check you are signed in');
+    console.error('Vault submit error:', err.code, err.message);
+    var msg = err.code === 'permission-denied'
+      ? 'Permission denied — check Firestore rules'
+      : 'Submit failed: ' + (err.message || 'unknown error');
+    showToast(msg);
     if(btn){ btn.disabled = false; btn.innerHTML = orig; }
   }
 }
@@ -2131,33 +2197,5 @@ document.addEventListener('DOMContentLoaded', function(){
 
 </script>
 
-  <script type="module">
-    import { initializeApp }    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
-      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, collection, addDoc, serverTimestamp }
-      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-    const app = initializeApp({
-      apiKey:            "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
-      authDomain:        "promptaholics-534d3.firebaseapp.com",
-      projectId:         "promptaholics-534d3",
-      storageBucket:     "promptaholics-534d3.firebasestorage.app",
-      messagingSenderId: "426595742101",
-      appId:             "1:426595742101:web:1eb95579695bc6b1a5869c"
-    });
-    const auth     = getAuth(app);
-    const db       = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    window._fb = { auth, db, provider,
-      signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
-      collection, addDoc, serverTimestamp };
-
-    onAuthStateChanged(auth, function(user){
-      window._fbUser = user || null;
-      window.dispatchEvent(new CustomEvent('firebase-ready', { detail: { user } }));
-    });
-  </script>
 </body>
 </html>
