@@ -1922,6 +1922,32 @@ function polCopyPrompt(){
     : (function(t){ var ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); })(lastPolPrompt);
   showToast('Prompt copied!');
 }
+// Upload base64 image to Cloudinary and return URL
+async function uploadToCloudinary(dataUrl){
+  var CLOUD = 'dgqbzarfw';
+  var KEY   = '377132723958634';
+
+  // Build form data
+  var fd = new FormData();
+  fd.append('file', dataUrl);
+  fd.append('api_key', KEY);
+  fd.append('upload_preset', 'ml_default');
+  fd.append('folder', 'vault-submissions');
+
+  try {
+    var resp = await fetch('https://api.cloudinary.com/v1_1/' + CLOUD + '/image/upload', {
+      method: 'POST',
+      body: fd
+    });
+    var data = await resp.json();
+    if(data.secure_url) return data.secure_url;
+    throw new Error(data.error ? data.error.message : 'Upload failed');
+  } catch(e) {
+    console.error('Cloudinary upload error:', e);
+    throw e;
+  }
+}
+
 async function polSubmitToVault(){
   if(!lastPolPrompt)  { showToast('Generate an image first'); return; }
   if(!lastPolImageUrl){ showToast('No image URL available'); return; }
@@ -1958,12 +1984,24 @@ async function polSubmitToVault(){
   }
 
   try{
+    // Upload to Cloudinary first to get a real URL
+    if(btn) btn.innerHTML = '<i class="ti ti-cloud-upload" style="font-size:14px;animation:spin .7s linear infinite;" aria-hidden="true"></i> Uploading...';
+    var cloudUrl;
+    try {
+      cloudUrl = await uploadToCloudinary(lastPolImageUrl);
+    } catch(uploadErr) {
+      showToast('Image upload failed — try again');
+      if(btn){ btn.disabled = false; btn.innerHTML = orig; }
+      return;
+    }
+    if(btn) btn.innerHTML = '<i class="ti ti-loader-2" style="font-size:14px;animation:spin .7s linear infinite;" aria-hidden="true"></i> Submitting...';
+
     var docData = {
       title:        (document.getElementById('polPrompt') ? document.getElementById('polPrompt').value.trim().slice(0,80) : '') || 'AI Generated Image',
       prompt:       lastPolPrompt,
       model:        document.getElementById('polModel') ? document.getElementById('polModel').value : 'flux',
       tags:         ['ai-generated', 'creation-station'],
-      imageUrl:     lastPolImageUrl,
+      imageUrl:     cloudUrl,
       creatorName:  user.displayName || 'Anonymous',
       creatorEmail: user.email       || '',
       creatorUid:   user.uid,
@@ -2047,20 +2085,24 @@ async function polGenerate(){
   }, 800);
 
   try{
-    // Model options — Flux is default (less restrictive)
-    // puter.ai.txt2img(prompt, options)
-    // Supported models: 'nano-banana' (Gemini Flash), 'nano-banana-pro' (Gemini Pro)
-    // Default driver uses OpenAI image generation
-    var puterOpts = { test_mode: false };
-    if(selectedModel === 'nano-banana'){
-      puterOpts.model = 'nano-banana';   // Gemini Flash
-    } else if(selectedModel === 'nano-banana-pro'){
-      puterOpts.model = 'nano-banana-pro'; // Gemini Pro
+    // Correct Puter.js API — model strings confirmed from docs
+    var imgOptions;
+    if(selectedModel === 'flux' || selectedModel === 'gpt-image-2'){
+      imgOptions = { model: 'openai/gpt-image-2', quality: selectedModel === 'gpt-image-2' ? 'high' : 'low' };
+    } else if(selectedModel === 'imagen'){
+      imgOptions = { model: 'gemini-2.5-flash-image-preview' };
+    } else {
+      imgOptions = { model: 'openai/gpt-image-2', quality: 'low' };
     }
-    // 'openai' = default OpenAI driver (no model param needed)
-    // Default (flux/gpt-image-2/sd3) uses OpenAI image generation driver
 
-    var imgElement = await puter.ai.txt2img(fullPrompt, puterOpts);
+    var imgElement;
+    try {
+      imgElement = await puter.ai.txt2img(fullPrompt, imgOptions);
+    } catch(modelErr) {
+      console.warn('Model failed, trying default:', modelErr);
+      // Fallback to default model (no options)
+      imgElement = await puter.ai.txt2img(fullPrompt, false);
+    }
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
