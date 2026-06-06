@@ -1,114 +1,21 @@
-# ═══════════════════════════════════════════════════
-#  PROMPTAHOLICS — Netlify Configuration
-# ═══════════════════════════════════════════════════
-
-[build]
-  publish   = "."
-  functions = "netlify/functions"
-
-# ── PERFORMANCE HEADERS ──────────────────────────────
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options            = "DENY"
-    X-Content-Type-Options     = "nosniff"
-    Referrer-Policy            = "strict-origin-when-cross-origin"
-    Cache-Control              = "public, max-age=3600, stale-while-revalidate=86400"
+# Promptaholics — Netlify config
 
 [[headers]]
-  for = "*.html"
+  for = "/*.html"
   [headers.values]
-    Cache-Control = "public, max-age=300, must-revalidate"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
-# ── IMAGES — short cache so weekly AI images update properly ──
-[[headers]]
-  for = "/images/*"
-  [headers.values]
-    Cache-Control = "public, max-age=3600, must-revalidate"
-
-[[headers]]
-  for = "*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=3600, must-revalidate"
-
-[[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=3600, must-revalidate"
-
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin  = "*"
-    Access-Control-Allow-Headers = "Content-Type"
-    Access-Control-Allow-Methods = "POST, OPTIONS"
-
-# ── REDIRECTS ─────────────────────────────────────────
-[[redirects]]
-  from   = "http://promptaholics.com/*"
-  to     = "https://www.promptaholics.com/:splat"
-  status = 301
-  force  = true
-
-[[redirects]]
-  from   = "http://www.promptaholics.com/*"
-  to     = "https://www.promptaholics.com/:splat"
-  status = 301
-  force  = true
-
-# Prompts file — short cache so new prompts show quickly
 [[headers]]
   for = "/prompts.js"
   [headers.values]
-    Cache-Control = "public, max-age=300, must-revalidate"
+    Cache-Control = "public, max-age=86400"
 
-# ── CLEAN URLs (no .html extension) ──────────────────
-[[redirects]]
-  from   = "/privacy"
-  to     = "/privacy.html"
-  status = 200
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
 
-[[redirects]]
-  from   = "/terms"
-  to     = "/terms.html"
-  status = 200
-
-[[redirects]]
-  from   = "/library"
-  to     = "/library.html"
-  status = 200
-
-[[redirects]]
-  from   = "/builder"
-  to     = "/prompt-builder.html"
-  status = 200
-
-[[redirects]]
-  from   = "/studio"
-  to     = "/creationstation.html"
-  status = 200
-
-[[redirects]]
-  from = "/about"
-  to = "/about.html"
-  status = 200
-
-[[redirects]]
-  from = "/contact"
-  to = "/contact.html"
-  status = 200
-
-[[redirects]]
-  from = "/blog"
-  to = "/blog.html"
-  status = 200
-
-[[redirects]]
-  from = "/how-to-write-better-prompts"
-  to = "/how-to-write-better-prompts.html"
-  status = 200
-
-[[redirects]]
-  from = "/chatgpt-prompts-for-business"
-  to = "/chatgpt-prompts-for-business.html"
-  status = 200
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
