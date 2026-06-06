@@ -707,6 +707,25 @@ img,video,iframe{max-width:100%;}
 }
 .gen-gate-success p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
 
+
+/* ── TOAST NOTIFICATION ── */
+.pa-toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(18,18,24,.95);
+  border:1px solid rgba(255,255,255,.12);
+  color:#f0f0f8;font-size:13px;font-weight:600;
+  padding:10px 20px;border-radius:10px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  z-index:9999;pointer-events:none;
+  opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap;max-width:90vw;
+  font-family:'Instrument Sans',sans-serif;
+}
+.pa-toast.show{
+  opacity:1;transform:translateX(-50%) translateY(0);
+}
 </style>
 
 </head>
@@ -1483,6 +1502,19 @@ function toggleTheme(){
   if(tb) tb.innerHTML = icon;
   if(sm) sm.innerHTML = icon;
 }
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg, duration){
+  duration = duration || 2500;
+  var el = document.getElementById('paToast');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._timer);
+  el._timer = setTimeout(function(){ el.classList.remove('show'); }, duration);
+}
+
+
 (function(){
   var icon = theme === 'light' ? '<i class="ti ti-sun" aria-hidden="true"></i>' : '<i class="ti ti-moon" aria-hidden="true"></i>';
   var tb = document.getElementById('themeBtn');
@@ -2017,16 +2049,23 @@ async function polGenerate(){
 
   try{
     // Model options — Flux is default (less restrictive)
-    var imgOptions;
+    // puter.ai.txt2img(prompt, testMode)
+    // testMode = false means real generation
+    // For model selection Puter uses the second param as boolean only
+    // Model variants aren't supported via options — use prompt engineering instead
+    var modelSuffix = '';
     if(selectedModel === 'flux'){
-      imgOptions = { model: 'flux' };
+      modelSuffix = ', digital art style, flux aesthetic';
     } else if(selectedModel === 'gpt-image-2'){
-      imgOptions = { model: 'gpt-image-2', quality: 'medium' };
-    } else {
-      imgOptions = { model: selectedModel };
+      modelSuffix = ', photorealistic, high quality';
+    } else if(selectedModel.includes('imagen')){
+      modelSuffix = ', Google Imagen style, photorealistic';
+    } else if(selectedModel.includes('stable-diffusion')){
+      modelSuffix = ', stable diffusion aesthetic, detailed';
     }
+    var finalPrompt = fullPrompt + modelSuffix;
 
-    var imgElement = await puter.ai.txt2img(fullPrompt, imgOptions);
+    var imgElement = await puter.ai.txt2img(finalPrompt, false);
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
@@ -2197,5 +2236,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 </script>
 
+
+<div class="pa-toast" id="paToast"></div>
 </body>
 </html>
