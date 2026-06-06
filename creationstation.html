@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://js.puter.com/v2/index.js"></script>
+<script src="https://js.puter.com/v2/"></script>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
@@ -398,7 +398,7 @@ img,video,iframe{max-width:100%;}
   color:#a855f7;
 }
 </style>
-<script src="https://js.puter.com/v2/index.js"></script>
+
 </head>
 <body>
 
@@ -1380,23 +1380,24 @@ async function polGenerate(){
     var w = parseInt(parts[0]||'1024');
     var h = parseInt(parts[1]||'1024');
 
-    var result = await puter.ai.txt2img(fullPrompt, false);
+    // puter.ai.txt2img returns an HTMLImageElement directly
+    var imgElement = await puter.ai.txt2img(fullPrompt, { model: 'gpt-image-2', quality: 'medium' });
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
 
-    if(result && result.src){
-      lastPolImageUrl = result.src;
-      img.src = result.src;
+    if(imgElement && imgElement.src){
+      lastPolImageUrl = imgElement.src;
+      img.src = imgElement.src;
       img.style.display = 'block';
       spinner.style.display = 'none';
+      empty.style.display = 'none';
       actions.style.display = 'flex';
-      // Set download link
       var dlBtn = document.getElementById('polDownloadBtn');
-      if(dlBtn) dlBtn.href = result.src;
+      if(dlBtn) dlBtn.href = imgElement.src;
       showToast('✨ Image ready!');
     } else {
-      throw new Error('No image returned');
+      throw new Error('No image returned from Puter.js');
     }
 
   } catch(e) {
