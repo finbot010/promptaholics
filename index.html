@@ -98,11 +98,10 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .hero{
   position:relative;
   min-height:100dvh;
-  display:flex;flex-direction:column;
+  display:flex;
   align-items:center;justify-content:center;
-  text-align:center;
   overflow:hidden;
-  padding:60px 24px 80px;
+  padding:80px 40px 60px;
 }
 .hero-orb{
   position:absolute;top:50%;left:50%;
@@ -114,7 +113,7 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 }
 @keyframes orbBreath{from{transform:translate(-50%,-62%) scale(1);}to{transform:translate(-50%,-62%) scale(1.1);}}
 @media(max-width:600px){.hero-orb{width:280px;height:280px;top:-100px;}}
-.hero-content{position:relative;z-index:2;max-width:720px;}
+.hero-content{position:relative;z-index:2;text-align:left;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;margin-bottom:28px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);animation:fadeUp .6s ease both;}
 .eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
@@ -332,8 +331,9 @@ img,video,iframe{max-width:100%;}
 }
 .hero-split{
   max-width:1200px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 1fr;
+  display:grid !important;grid-template-columns:1fr 1fr;
   gap:60px;align-items:center;
+  text-align:left;
 }
 .hero-visual{
   position:relative;
@@ -400,6 +400,18 @@ img,video,iframe{max-width:100%;}
   .hero-split{grid-template-columns:1fr;gap:32px;}
   .hero-visual{order:-1;max-width:340px;margin:0 auto;}
   .hero{padding:100px 20px 40px;}
+}
+@media(max-width:420px){
+  .hero-visual{display:none;}
+}
+
+@media(max-width:768px){
+  .hero{padding:100px 20px 40px;}
+  .hero-split{grid-template-columns:1fr !important;gap:28px;text-align:center;}
+  .hero-content{text-align:center;}
+  .hero-ctas{justify-content:center;}
+  .hero-stats{justify-content:center;}
+  .hero-visual{order:-1;max-width:320px;margin:0 auto;}
 }
 @media(max-width:420px){
   .hero-visual{display:none;}
@@ -511,7 +523,7 @@ img,video,iframe{max-width:100%;}
     <!-- RIGHT: Library preview image -->
     <div class="hero-visual">
       <img
-        src="/images/hero-library-preview.png"
+        src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1780782815/promptaholics-hero-library.jpg"
         alt="Promptaholics AI Prompt Library Interface"
         loading="eager"
         width="1024"
