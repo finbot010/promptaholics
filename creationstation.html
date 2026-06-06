@@ -660,10 +660,12 @@ img,video,iframe{max-width:100%;}
           <div>
             <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">🤖 Model</div>
             <select id="polModel" class="pol-select">
-              <option value="flux">Flux (Best)</option>
+              <option value="flux">Flux (Best Quality)</option>
+              <option value="turbo">Turbo (Fastest)</option>
               <option value="flux-realism">Flux Realism</option>
               <option value="flux-anime">Flux Anime</option>
-              <option value="turbo">Turbo (Fastest)</option>
+              <option value="seedream">Seedream</option>
+              <option value="kontext">Kontext</option>
             </select>
           </div>
         </div>
@@ -1306,7 +1308,7 @@ function polGenerate(){
     if(status) status.textContent = msgs[mi];
   }, 3000);
 
-  // Build Pollinations URL — clean single-definition version
+  // Build Pollinations URL — updated to new gen.pollinations.ai endpoint
   var url = 'https://image.pollinations.ai/prompt/'
     + encodeURIComponent(prompt)
     + '?width='  + width
@@ -1314,6 +1316,13 @@ function polGenerate(){
     + '&model='  + model
     + '&nologo=true'
     + '&enhance=true'
+    + '&seed='   + seed;
+  // Also try new unified endpoint as fallback
+  var genUrl = 'https://gen.pollinations.ai/image/'
+    + encodeURIComponent(prompt)
+    + '?width='  + width
+    + '&height=' + height
+    + '&model='  + model
     + '&seed='   + seed;
 
   var tempImg = new Image();
@@ -1335,37 +1344,49 @@ function polGenerate(){
     btn.textContent = '✨ Generate Image';
   }, 60000);
 
+  // onload handled below with fallback logic
+
+  tempImg.onerror = function(){
+    // Try new gen.pollinations.ai endpoint as fallback
+    if(tempImg._triedGen){
+      if(didFinish) return;
+      didFinish = true;
+      clearTimeout(timeout);
+      clearInterval(msgTimer);
+      spin.style.display = 'none';
+      empty.style.display = 'block';
+      empty.innerHTML = '<div style="color:var(--ink2);font-size:12px;line-height:1.7;">'
+        + '⚠️ Generation failed.<br>'
+        + 'Pollinations may be busy — try again in a moment.<br><br>'
+        + '<button onclick="polGenerate()" style="padding:7px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
+        + '</div>';
+      btn.disabled = false;
+      btn.textContent = '✨ Generate Image';
+      return;
+    }
+    // First failure — try new endpoint
+    tempImg._triedGen = true;
+    if(status) status.textContent = 'Trying alternate server...';
+    tempImg.src = genUrl;
+  };
+
   tempImg.onload = function(){
     if(didFinish) return;
     didFinish = true;
     clearTimeout(timeout);
     clearInterval(msgTimer);
-    img.src = url;
+    // Use whichever URL worked
+    var workingUrl = tempImg._triedGen ? genUrl : url;
+    img.src = workingUrl;
     img.style.display = 'block';
     spin.style.display = 'none';
     empty.style.display = 'none';
     btn.disabled = false;
     btn.textContent = '✨ Generate Image';
-    dlBtn.href = url;
+    dlBtn.href = workingUrl;
     dlBtn.style.display = 'flex';
     cpBtn.style.display = 'flex';
     if(status) status.textContent = 'Image ready!';
-  };
-
-  tempImg.onerror = function(){
-    if(didFinish) return;
-    didFinish = true;
-    clearTimeout(timeout);
-    clearInterval(msgTimer);
-    spin.style.display = 'none';
-    empty.style.display = 'block';
-    empty.innerHTML = '<div style="color:var(--ink2);font-size:12px;line-height:1.7;">'
-      + '⚠️ Generation failed.<br>'
-      + 'Pollinations may be busy — try again.<br><br>'
-      + '<button onclick="polGenerate()" style="padding:7px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
-      + '</div>';
-    btn.disabled = false;
-    btn.textContent = '✨ Generate Image';
   };
 
   tempImg.src = url;
