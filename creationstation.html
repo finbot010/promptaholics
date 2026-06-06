@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://js.puter.com/v2/"></script>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
@@ -397,6 +397,281 @@ img,video,iframe{max-width:100%;}
   background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.3);
   color:#a855f7;
 }
+
+/* ══ IMAGE GENERATION GATE ══════════════════════════════════ */
+/* ══════════════════════════════════════════
+   GENERATION GATE — OUTSTANDING UI
+══════════════════════════════════════════ */
+.gen-gate-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  align-items:center;justify-content:center;padding:20px;
+}
+.gen-gate-overlay.open{display:flex;}
+
+/* Backdrop with animated gradient */
+.gen-gate-backdrop{
+  position:absolute;inset:0;
+  background:rgba(4,4,8,.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+
+/* Animated mesh behind card */
+.gen-gate-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 50%,rgba(255,98,36,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%,rgba(139,92,246,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 50% at 50% 80%,rgba(16,163,127,.07) 0%,transparent 60%);
+  animation:meshFloat 8s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes meshFloat{
+  0%{transform:translate(0,0) scale(1);}
+  100%{transform:translate(20px,-20px) scale(1.05);}
+}
+
+/* Main card */
+.gen-gate-card{
+  position:relative;z-index:1;
+  width:100%;max-width:480px;
+  border-radius:28px;overflow:hidden;
+  animation:cardDrop .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardDrop{
+  from{opacity:0;transform:translateY(32px) scale(.94);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Glass card body */
+.gen-gate-glass{
+  background:linear-gradient(160deg,rgba(18,18,26,.98) 0%,rgba(12,12,18,.98) 100%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04),
+    0 32px 80px rgba(0,0,0,.8),
+    0 0 120px rgba(255,98,36,.06);
+}
+
+/* Animated top accent */
+.gen-gate-accent{
+  height:2px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,98,36,.6) 20%,
+    #ff6224 40%,
+    #ffd700 50%,
+    #ff6224 60%,
+    rgba(255,98,36,.6) 80%,
+    transparent 100%);
+  background-size:300% 100%;
+  animation:accentSweep 3s linear infinite;
+}
+@keyframes accentSweep{to{background-position:-300% 0;}}
+
+/* Inner padding */
+.gen-gate-inner{padding:36px 32px 28px;}
+@media(max-width:480px){.gen-gate-inner{padding:28px 20px 20px;}}
+
+/* Floating icon */
+.gen-gate-orb{
+  width:72px;height:72px;
+  margin:0 auto 24px;
+  position:relative;
+}
+.gen-gate-orb-ring{
+  position:absolute;inset:-8px;
+  border-radius:50%;
+  border:1px solid rgba(255,98,36,.2);
+  animation:orbPulse 2s ease-in-out infinite;
+}
+.gen-gate-orb-ring2{
+  position:absolute;inset:-16px;
+  border-radius:50%;
+  border:1px solid rgba(255,98,36,.1);
+  animation:orbPulse 2s ease-in-out infinite .5s;
+}
+@keyframes orbPulse{
+  0%,100%{transform:scale(1);opacity:.6;}
+  50%{transform:scale(1.08);opacity:1;}
+}
+.gen-gate-orb-inner{
+  width:72px;height:72px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,98,36,.05));
+  border:1px solid rgba(255,98,36,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+  box-shadow:0 0 32px rgba(255,98,36,.15),inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+/* Usage pills */
+.gen-gate-pills{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-bottom:20px;
+}
+.gen-gate-pill{
+  width:28px;height:6px;border-radius:3px;
+  transition:all .3s;
+}
+.gen-gate-pill.used{background:var(--orange);}
+.gen-gate-pill.empty{background:rgba(255,255,255,.1);}
+
+/* Headline */
+.gen-gate-h{
+  font-family:'Syne',serif;
+  font-size:clamp(22px,4vw,28px);
+  font-weight:900;
+  letter-spacing:-0.8px;
+  line-height:1.15;
+  text-align:center;
+  color:#f0f0f8;
+  margin-bottom:10px;
+}
+.gen-gate-h em{
+  font-style:normal;
+  background:linear-gradient(135deg,#ff6224,#ffd700);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* Subtext */
+.gen-gate-sub{
+  font-size:13px;color:rgba(255,255,255,.45);
+  text-align:center;line-height:1.6;margin-bottom:24px;
+}
+
+/* Benefits */
+.gen-gate-benefits{
+  display:flex;flex-direction:column;gap:8px;
+  margin-bottom:24px;
+  padding:16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+}
+.gen-gate-benefit{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:rgba(255,255,255,.7);
+  font-weight:500;
+}
+.gen-gate-check{
+  width:20px;height:20px;border-radius:6px;
+  background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;flex-shrink:0;color:#22c55e;
+}
+
+/* Email input */
+.gen-gate-input{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  font-size:14px;color:#f0f0f8;
+  font-family:'Instrument Sans',sans-serif;
+  outline:none;transition:all .2s;
+  margin-bottom:10px;
+}
+.gen-gate-input:focus{
+  border-color:rgba(255,98,36,.5);
+  background:rgba(255,255,255,.07);
+  box-shadow:0 0 0 3px rgba(255,98,36,.1);
+}
+.gen-gate-input::placeholder{color:rgba(255,255,255,.25);}
+
+/* Primary CTA */
+.gen-gate-cta{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,#ff6224,#ff8c00);
+  color:#fff;border:none;border-radius:12px;
+  font-size:14px;font-weight:800;
+  font-family:'Instrument Sans',sans-serif;
+  cursor:pointer;transition:all .2s;
+  letter-spacing:.3px;
+  position:relative;overflow:hidden;
+  margin-bottom:14px;
+}
+.gen-gate-cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.gen-gate-cta:hover::before{opacity:1;}
+.gen-gate-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,98,36,.4);}
+.gen-gate-cta:active{transform:translateY(0);}
+
+/* Divider */
+.gen-gate-divider{
+  display:flex;align-items:center;gap:12px;
+  font-size:11px;color:rgba(255,255,255,.25);
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:12px;
+}
+.gen-gate-divider::before,.gen-gate-divider::after{
+  content:'';flex:1;height:1px;background:rgba(255,255,255,.08);
+}
+
+/* Google button */
+.gen-gate-google{
+  width:100%;padding:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  color:rgba(255,255,255,.8);
+  font-size:13px;font-weight:700;
+  font-family:'Instrument Sans',sans-serif;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:16px;
+}
+.gen-gate-google:hover{
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.2);
+  transform:translateY(-1px);
+}
+
+/* Footer note */
+.gen-gate-note{
+  font-size:10px;color:rgba(255,255,255,.2);
+  text-align:center;line-height:1.6;
+}
+.gen-gate-note a{color:rgba(255,98,36,.5);text-decoration:none;}
+.gen-gate-note a:hover{color:var(--orange);}
+
+/* Close button */
+.gen-gate-close{
+  position:absolute;top:14px;right:14px;z-index:10;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.4);font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;font-family:'Instrument Sans',sans-serif;
+}
+.gen-gate-close:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
+
+/* Success state */
+.gen-gate-success{
+  text-align:center;padding:20px 0;
+}
+.gen-gate-success-icon{
+  font-size:48px;margin-bottom:16px;
+  animation:successBounce .5s cubic-bezier(.68,-.55,.265,1.55);
+}
+@keyframes successBounce{
+  0%{transform:scale(0);}
+  60%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+.gen-gate-success h3{
+  font-family:'Syne',serif;font-size:22px;font-weight:900;
+  color:#f0f0f8;margin-bottom:8px;
+}
+.gen-gate-success p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+
 </style>
 
 </head>
@@ -417,7 +692,7 @@ img,video,iframe{max-width:100%;}
       <a href="vault.html" class="nav-lnk">Image Vault</a>
     </nav>
     <a href="login.html" class="nav-signin">Sign In</a>
-    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ti ti-moon" aria-hidden="true"></i></button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
   </div>
 </header>
@@ -450,7 +725,7 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-foot">
     <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
-    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon"><i class="ti ti-moon" aria-hidden="true"></i></span> Toggle Day / Night</button>
   </div>
 </nav>
 
@@ -466,12 +741,12 @@ img,video,iframe{max-width:100%;}
   <div class="cs-cats">
     <button class="cs-cat active" onclick="filterCat('all',this)">All</button>
     <button class="cs-cat" onclick="filterCat('featured',this)">⭐ Featured</button>
-    <button class="cs-cat" onclick="filterCat('chat',this)">💬 Chat AI</button>
-    <button class="cs-cat" onclick="filterCat('image',this)">🎨 Image</button>
-    <button class="cs-cat" onclick="filterCat('video',this)">🎬 Video</button>
-    <button class="cs-cat" onclick="filterCat('code',this)">💻 Code</button>
-    <button class="cs-cat" onclick="filterCat('audio',this)">🎵 Audio</button>
-    <button class="cs-cat" onclick="filterCat('productivity',this)">⚡ Productivity</button>
+    <button class="cs-cat" onclick="filterCat('chat',this)"><i class="ti ti-message-circle" aria-hidden="true"></i> Chat AI</button>
+    <button class="cs-cat" onclick="filterCat('image',this)"><i class="ti ti-photo" aria-hidden="true"></i> Image</button>
+    <button class="cs-cat" onclick="filterCat('video',this)"><i class="ti ti-video" aria-hidden="true"></i> Video</button>
+    <button class="cs-cat" onclick="filterCat('code',this)"><i class="ti ti-code" aria-hidden="true"></i> Code</button>
+    <button class="cs-cat" onclick="filterCat('audio',this)"><i class="ti ti-music" aria-hidden="true"></i> Audio</button>
+    <button class="cs-cat" onclick="filterCat('productivity',this)"><i class="ti ti-bolt" aria-hidden="true"></i> Productivity</button>
   </div>
 </section>
 
@@ -491,7 +766,7 @@ img,video,iframe{max-width:100%;}
       <div class="flip-inner">
         <div class="flip-front">
           <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=openart.ai&sz=128" alt="OpenArt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="ff-logo-fallback" style="display:none;">🎨</div>
+          <div class="ff-logo-fallback" style="display:none;"><i class="ti ti-brush" aria-hidden="true"></i></div>
           <div class="ff-name">OpenArt AI</div>
           <div class="ff-badge">Partner · Recommended</div>
           <div class="ff-hint">Hover to learn more ↗</div>
@@ -514,7 +789,7 @@ img,video,iframe{max-width:100%;}
       <div class="flip-inner">
         <div class="flip-front">
           <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="ff-logo-fallback" style="display:none;">🎙️</div>
+          <div class="ff-logo-fallback" style="display:none;"><i class="ti ti-microphone-2" aria-hidden="true"></i></div>
           <div class="ff-name">ElevenLabs</div>
           <div class="ff-badge">Partner · Top Pick</div>
           <div class="ff-hint">Hover to learn more ↗</div>
@@ -537,7 +812,7 @@ img,video,iframe{max-width:100%;}
       <div class="flip-inner">
         <div class="flip-front">
           <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=wisprflow.ai&sz=128" alt="Wispr Flow" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="ff-logo-fallback" style="display:none;">🎤</div>
+          <div class="ff-logo-fallback" style="display:none;"><i class="ti ti-microphone" aria-hidden="true"></i></div>
           <div class="ff-name">Wispr Flow</div>
           <div class="ff-badge">Partner · New</div>
           <div class="ff-hint">Hover to learn more ↗</div>
@@ -560,7 +835,7 @@ img,video,iframe{max-width:100%;}
       <div class="flip-inner">
         <div class="flip-front">
           <img class="ff-logo" src="https://www.google.com/s2/favicons?domain=promptmetheus.com&sz=128" alt="Promptmetheus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="ff-logo-fallback" style="display:none;">⚡</div>
+          <div class="ff-logo-fallback" style="display:none;"><i class="ti ti-bolt" aria-hidden="true"></i></div>
           <div class="ff-name">Promptmetheus</div>
           <div class="ff-badge">Partner · Tool</div>
           <div class="ff-hint">Hover to learn more ↗</div>
@@ -588,7 +863,7 @@ img,video,iframe{max-width:100%;}
 ══════════════════════════════════════════ -->
 <div class="tool-sec">
   <div class="tool-sec-hdr">
-    <h2>💰 AI Tool Cost Calculator</h2>
+    <h2><i class="ti ti-calculator" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>AI Tool Cost Calculator</h2>
     <span class="tool-built-badge">Built-in Tool</span>
   </div>
   <div class="calc-wrap">
@@ -633,7 +908,7 @@ img,video,iframe{max-width:100%;}
 ══════════════════════════════════════════ -->
 <div class="tool-sec always-visible" style="background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(255,98,36,.04),rgba(0,212,170,.03));border-color:rgba(139,92,246,.2);">
   <div class="tool-sec-hdr">
-    <h2>🎨 Free AI Image Generator</h2>
+    <h2><i class="ti ti-brush" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Free AI Image Generator</h2>
     <span class="tool-built-badge" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3);color:#7c3aed;">Free · GPT Image · No Key Needed</span>
   </div>
 
@@ -658,13 +933,13 @@ img,video,iframe{max-width:100%;}
     <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Quick Style</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;" id="stylePresets">
       <button class="pol-preset active" onclick="setPreset(this,'')">None</button>
-      <button class="pol-preset" onclick="setPreset(this,'photorealistic, 8K, cinematic lighting, hyperdetailed')">📷 Photo</button>
-      <button class="pol-preset" onclick="setPreset(this,'digital art, concept art, artstation, highly detailed, vibrant colors')">🎨 Digital Art</button>
-      <button class="pol-preset" onclick="setPreset(this,'anime style, Studio Ghibli aesthetic, soft colors, detailed background')">🌸 Anime</button>
-      <button class="pol-preset" onclick="setPreset(this,'oil painting, impressionist, textured canvas, visible brushstrokes, museum quality')">🖼️ Oil Paint</button>
-      <button class="pol-preset" onclick="setPreset(this,'cyberpunk aesthetic, neon lights, rain, dark city, volumetric lighting')">🌆 Cyberpunk</button>
-      <button class="pol-preset" onclick="setPreset(this,'3D render, Blender, octane render, soft studio lighting, product visualization')">💎 3D Render</button>
-      <button class="pol-preset" onclick="setPreset(this,'watercolor illustration, soft washes, delicate lines, pastel colors, artistic')">🎭 Watercolor</button>
+      <button class="pol-preset" onclick="setPreset(this,'photorealistic, 8K, cinematic lighting, hyperdetailed')"><i class="ti ti-camera" aria-hidden="true"></i> Photo</button>
+      <button class="pol-preset" onclick="setPreset(this,'digital art, concept art, artstation, highly detailed, vibrant colors')"><i class="ti ti-vector" aria-hidden="true"></i> Digital Art</button>
+      <button class="pol-preset" onclick="setPreset(this,'anime style, Studio Ghibli aesthetic, soft colors, detailed background')"><i class="ti ti-star" aria-hidden="true"></i> Anime</button>
+      <button class="pol-preset" onclick="setPreset(this,'oil painting, impressionist, textured canvas, visible brushstrokes, museum quality')"><i class="ti ti-paint" aria-hidden="true"></i> Oil Paint</button>
+      <button class="pol-preset" onclick="setPreset(this,'cyberpunk aesthetic, neon lights, rain, dark city, volumetric lighting')"><i class="ti ti-building-skyscraper" aria-hidden="true"></i> Cyberpunk</button>
+      <button class="pol-preset" onclick="setPreset(this,'3D render, Blender, octane render, soft studio lighting, product visualization')"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i> 3D Render</button>
+      <button class="pol-preset" onclick="setPreset(this,'watercolor illustration, soft washes, delicate lines, pastel colors, artistic')"><i class="ti ti-droplet" aria-hidden="true"></i> Watercolor</button>
     </div>
   </div>
 
@@ -676,9 +951,10 @@ img,video,iframe{max-width:100%;}
       <option value="720x1280">Portrait 9:16</option>
       <option value="1024x768">Classic 4:3</option>
     </select>
-    <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;">
-      <span id="polBtnIcon">✨</span>
+    <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Syne',serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;letter-spacing:.2px;">
+      <i class="ti ti-sparkles" id="polBtnIcon" style="font-size:16px;" aria-hidden="true"></i>
       <span id="polBtnText">Generate Image</span>
+      <span class="gen-counter-badge" id="genCountBadge">3/3 left</span>
     </button>
     <button onclick="polClear()" style="padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:9px;color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink3)'">Clear</button>
   </div>
@@ -688,7 +964,7 @@ img,video,iframe{max-width:100%;}
 
     <!-- EMPTY STATE -->
     <div id="polEmpty" style="text-align:center;padding:40px 20px;">
-      <div style="font-size:48px;margin-bottom:12px;opacity:.3;">🎨</div>
+      <i class="ti ti-brush" style="font-size:48px;opacity:.25;display:block;margin-bottom:12px;" aria-hidden="true"></i>
       <div style="font-size:13px;color:var(--ink3);line-height:1.6;">Your generated image will appear here<br/>
       <span style="font-size:11px;opacity:.6;">Powered by GPT Image — completely free</span></div>
     </div>
@@ -698,7 +974,7 @@ img,video,iframe{max-width:100%;}
       <!-- Animated gradient ring -->
       <div style="position:relative;width:80px;height:80px;">
         <div id="polRing" style="width:80px;height:80px;border-radius:50%;border:3px solid transparent;border-top-color:#7c3aed;border-right-color:#a855f7;animation:spinRing 1s linear infinite;"></div>
-        <div style="position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(168,85,247,.05));display:flex;align-items:center;justify-content:center;font-size:24px;">🎨</div>
+        <div style="position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(168,85,247,.05));display:flex;align-items:center;justify-content:center;"><i class="ti ti-brush" style="font-size:24px;color:var(--orange);" aria-hidden="true"></i></div>
       </div>
       <div style="text-align:center;">
         <div id="polStatus" style="font-size:13px;color:var(--ink2);font-weight:600;margin-bottom:4px;">Generating your image...</div>
@@ -717,16 +993,16 @@ img,video,iframe{max-width:100%;}
   <!-- ACTION BUTTONS (shown after generation) -->
   <div id="polActions" style="display:none;margin-top:12px;display:none;gap:8px;flex-wrap:wrap;">
     <a id="polDownloadBtn" href="#" download="promptaholics-ai-image.png" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;">
-      ⬇ Download
+      <i class="ti ti-download" aria-hidden="true"></i> Download
     </a>
     <button id="polCopyPromptBtn" onclick="polCopyPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
-      📋 Copy Prompt
+      <i class="ti ti-copy" aria-hidden="true"></i> Copy Prompt
     </button>
     <button onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
-      🖼️ Submit to Vault
+      <i class="ti ti-photo-up" aria-hidden="true"></i> Submit to Vault
     </button>
     <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
-      🔄 Regenerate
+      <i class="ti ti-refresh" aria-hidden="true"></i> Regenerate
     </button>
   </div>
 
@@ -740,7 +1016,7 @@ img,video,iframe{max-width:100%;}
 ══════════════════════════════════════════ -->
 <div class="tool-sec always-visible" id="newsSection">
   <div class="tool-sec-hdr">
-    <h2>📰 What's New in AI</h2>
+    <h2><i class="ti ti-news" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>What's New in AI</h2>
     <span class="tool-built-badge">Live Feed</span>
   </div>
   <div class="news-wrap">
@@ -751,10 +1027,10 @@ img,video,iframe{max-width:100%;}
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
         <div class="news-tabs">
-          <button class="news-tab active" onclick="newsTab(this,'ai')">🤖 AI</button>
-          <button class="news-tab" onclick="newsTab(this,'llm')">🧠 LLM</button>
-          <button class="news-tab" onclick="newsTab(this,'image')">🎨 Image</button>
-          <button class="news-tab" onclick="newsTab(this,'startup')">🚀 Startups</button>
+          <button class="news-tab active" onclick="newsTab(this,'ai')"><i class="ti ti-robot" aria-hidden="true"></i> AI</button>
+          <button class="news-tab" onclick="newsTab(this,'llm')"><i class="ti ti-brain" aria-hidden="true"></i> LLM</button>
+          <button class="news-tab" onclick="newsTab(this,'image')"><i class="ti ti-photo" aria-hidden="true"></i> Image</button>
+          <button class="news-tab" onclick="newsTab(this,'startup')"><i class="ti ti-rocket" aria-hidden="true"></i> Startups</button>
         </div>
         <button class="news-refresh" onclick="loadNews(currentNewsQuery)">
           <i class="ph ph-arrow-clockwise"></i> Refresh
@@ -778,13 +1054,13 @@ img,video,iframe{max-width:100%;}
 <!-- 💬 CHAT AI -->
 <section class="cs-section" data-cat="chat">
   <div class="sec-hdr">
-    <h2>💬 Chat AI</h2>
+    <h2><i class="ti ti-message-circle" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Chat AI</h2>
     <span class="sec-count">5 tools</span>
   </div>
   <div class="tool-grid">
     <a class="tool-card" href="https://chat.openai.com" target="_blank" rel="noopener" data-cat="chat" data-name="ChatGPT">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=openai.com&sz=128" alt="ChatGPT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🤖</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-robot" aria-hidden="true"></i></div>
       <div class="tc-name">ChatGPT</div>
       <div class="tc-desc">The world's most popular AI assistant. GPT-4o, advanced reasoning, image understanding and more.</div>
       <span class="tc-tag">OpenAI</span>
@@ -792,7 +1068,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://claude.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Claude">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">✨</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-sparkles" aria-hidden="true"></i></div>
       <div class="tc-name">Claude</div>
       <div class="tc-desc">Anthropic's AI — exceptional writing, analysis and coding. Best for long-context tasks and nuanced reasoning.</div>
       <span class="tc-tag">Anthropic</span>
@@ -800,7 +1076,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://gemini.google.com" target="_blank" rel="noopener" data-cat="chat" data-name="Gemini">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">💎</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-diamond" aria-hidden="true"></i></div>
       <div class="tc-name">Gemini</div>
       <div class="tc-desc">Google's multimodal AI. Integrates with Google Workspace and has access to real-time search.</div>
       <span class="tc-tag">Google</span>
@@ -808,7 +1084,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://perplexity.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Perplexity">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" alt="Perplexity" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🔍</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-search" aria-hidden="true"></i></div>
       <div class="tc-name">Perplexity</div>
       <div class="tc-desc">AI-powered search engine with real-time web access and cited sources. Best for research.</div>
       <span class="tc-tag">Search AI</span>
@@ -816,7 +1092,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://deepseek.com" target="_blank" rel="noopener" data-cat="chat" data-name="DeepSeek">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=128" alt="DeepSeek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🧠</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-brain" aria-hidden="true"></i></div>
       <div class="tc-name">DeepSeek</div>
       <div class="tc-desc">Powerful open-source reasoning model. Exceptional at math, coding and technical problem solving.</div>
       <span class="tc-tag">Open Source</span>
@@ -830,13 +1106,13 @@ img,video,iframe{max-width:100%;}
 <!-- 🎨 IMAGE AI -->
 <section class="cs-section" data-cat="image">
   <div class="sec-hdr">
-    <h2>🎨 Image AI</h2>
+    <h2><i class="ti ti-photo-ai" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Image AI</h2>
     <span class="sec-count">4 tools</span>
   </div>
   <div class="tool-grid">
     <a class="tool-card" href="https://midjourney.com" target="_blank" rel="noopener" data-cat="image" data-name="Midjourney">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=128" alt="Midjourney" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🖼️</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-photo" aria-hidden="true"></i></div>
       <div class="tc-name">Midjourney</div>
       <div class="tc-desc">The gold standard for AI art. Unmatched aesthetic quality for illustrations, concept art and photography.</div>
       <span class="tc-tag">Image Gen</span>
@@ -844,7 +1120,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://firefly.adobe.com" target="_blank" rel="noopener" data-cat="image" data-name="Adobe Firefly">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" alt="Adobe Firefly" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🔥</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-flame" aria-hidden="true"></i></div>
       <div class="tc-name">Adobe Firefly</div>
       <div class="tc-desc">Commercially safe AI generation integrated into the Adobe ecosystem. Perfect for design workflows.</div>
       <span class="tc-tag">Adobe</span>
@@ -852,7 +1128,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://ideogram.ai" target="_blank" rel="noopener" data-cat="image" data-name="Ideogram">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=128" alt="Ideogram" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">💡</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-bulb" aria-hidden="true"></i></div>
       <div class="tc-name">Ideogram</div>
       <div class="tc-desc">Best AI for generating text inside images. Posters, logos, and typography that actually look right.</div>
       <span class="tc-tag">Text in Image</span>
@@ -860,7 +1136,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://leonardo.ai" target="_blank" rel="noopener" data-cat="image" data-name="Leonardo AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=128" alt="Leonardo AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🎭</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-masks-theater" aria-hidden="true"></i></div>
       <div class="tc-name">Leonardo AI</div>
       <div class="tc-desc">Fine-tuned AI models for game assets, characters, and consistent style generation.</div>
       <span class="tc-tag">Game &amp; Art</span>
@@ -874,13 +1150,13 @@ img,video,iframe{max-width:100%;}
 <!-- 🎬 VIDEO AI -->
 <section class="cs-section" data-cat="video">
   <div class="sec-hdr">
-    <h2>🎬 Video AI</h2>
+    <h2><i class="ti ti-video" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Video AI</h2>
     <span class="sec-count">5 tools</span>
   </div>
   <div class="tool-grid">
     <a class="tool-card" href="https://klingai.com" target="_blank" rel="noopener" data-cat="video" data-name="Kling AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=klingai.com&sz=128" alt="Kling AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🎬</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-movie" aria-hidden="true"></i></div>
       <div class="tc-name">Kling AI</div>
       <div class="tc-desc">Top-rated AI video generator. Cinematic quality, 5-10s clips, realistic motion and physics.</div>
       <span class="tc-tag">Video Gen</span>
@@ -888,7 +1164,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://runwayml.com" target="_blank" rel="noopener" data-cat="video" data-name="Runway">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=128" alt="Runway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🚀</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-rocket" aria-hidden="true"></i></div>
       <div class="tc-name">Runway</div>
       <div class="tc-desc">Professional AI video suite. Gen-3 video generation, inpainting, motion brush and more.</div>
       <span class="tc-tag">Pro Video</span>
@@ -896,7 +1172,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://pika.art" target="_blank" rel="noopener" data-cat="video" data-name="Pika Labs">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=pika.art&sz=128" alt="Pika" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-bolt" aria-hidden="true"></i></div>
       <div class="tc-name">Pika Labs</div>
       <div class="tc-desc">Fast, fun AI video generation. Great for short social clips, animations and quick edits.</div>
       <span class="tc-tag">Social Video</span>
@@ -904,7 +1180,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://lumalabs.ai" target="_blank" rel="noopener" data-cat="video" data-name="Luma AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128" alt="Luma AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🌟</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-star" aria-hidden="true"></i></div>
       <div class="tc-name">Luma AI</div>
       <div class="tc-desc">Dream Machine — high-quality video generation with realistic physics and fluid motion.</div>
       <span class="tc-tag">3D &amp; Video</span>
@@ -912,7 +1188,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://heygen.com" target="_blank" rel="noopener" data-cat="video" data-name="HeyGen">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=128" alt="HeyGen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">👤</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-user" aria-hidden="true"></i></div>
       <div class="tc-name">HeyGen</div>
       <div class="tc-desc">AI avatar video creation. Create talking head videos, translate content, scale video production.</div>
       <span class="tc-tag">Avatar Video</span>
@@ -926,7 +1202,7 @@ img,video,iframe{max-width:100%;}
 <!-- 💻 CODE AI -->
 <section class="cs-section" data-cat="code">
   <div class="sec-hdr">
-    <h2>💻 Code AI</h2>
+    <h2><i class="ti ti-code" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Code AI</h2>
     <span class="sec-count">4 tools</span>
   </div>
   <div class="tool-grid">
@@ -948,7 +1224,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://bolt.new" target="_blank" rel="noopener" data-cat="code" data-name="Bolt.new">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=bolt.new&sz=128" alt="Bolt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-bolt" aria-hidden="true"></i></div>
       <div class="tc-name">Bolt.new</div>
       <div class="tc-desc">Full-stack AI app builder. Build, run and deploy complete apps from a single prompt in the browser.</div>
       <span class="tc-tag">App Builder</span>
@@ -956,7 +1232,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://replit.com" target="_blank" rel="noopener" data-cat="code" data-name="Replit AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=replit.com&sz=128" alt="Replit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🔄</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-refresh" aria-hidden="true"></i></div>
       <div class="tc-name">Replit AI</div>
       <div class="tc-desc">Cloud IDE with AI pair programmer. Code, run, and deploy from anywhere — no setup required.</div>
       <span class="tc-tag">Cloud IDE</span>
@@ -970,13 +1246,13 @@ img,video,iframe{max-width:100%;}
 <!-- 🎵 AUDIO AI -->
 <section class="cs-section" data-cat="audio">
   <div class="sec-hdr">
-    <h2>🎵 Audio AI</h2>
+    <h2><i class="ti ti-music" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Audio AI</h2>
     <span class="sec-count">3 tools</span>
   </div>
   <div class="tool-grid">
     <a class="tool-card" href="https://suno.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Suno">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=suno.ai&sz=128" alt="Suno" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🎸</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-music" aria-hidden="true"></i></div>
       <div class="tc-name">Suno</div>
       <div class="tc-desc">Text-to-song AI. Generate full songs with vocals, instruments, and lyrics from a simple prompt.</div>
       <span class="tc-tag">Music Gen</span>
@@ -984,7 +1260,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://udio.com" target="_blank" rel="noopener" data-cat="audio" data-name="Udio">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=udio.com&sz=128" alt="Udio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🎵</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-music" aria-hidden="true"></i></div>
       <div class="tc-name">Udio</div>
       <div class="tc-desc">AI music generation with exceptional audio quality. Fine-grained style and genre control.</div>
       <span class="tc-tag">Music Gen</span>
@@ -992,7 +1268,7 @@ img,video,iframe{max-width:100%;}
     </a>
     <a class="tool-card" href="https://murf.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Murf AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=murf.ai&sz=128" alt="Murf" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">🔊</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-volume" aria-hidden="true"></i></div>
       <div class="tc-name">Murf AI</div>
       <div class="tc-desc">Professional AI voiceover platform. 120+ voices, 20+ languages. Perfect for videos and podcasts.</div>
       <span class="tc-tag">Voice Over</span>
@@ -1006,13 +1282,13 @@ img,video,iframe{max-width:100%;}
 <!-- ⚡ PRODUCTIVITY -->
 <section class="cs-section" data-cat="productivity">
   <div class="sec-hdr">
-    <h2>⚡ Productivity</h2>
+    <h2><i class="ti ti-bolt" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Productivity</h2>
     <span class="sec-count">1 tool</span>
   </div>
   <div class="tool-grid">
     <a class="tool-card" href="https://promptmetheus.com/?via=fin" target="_blank" rel="noopener" data-cat="productivity" data-name="Promptmetheus">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=promptmetheus.com&sz=128" alt="Promptmetheus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="tc-logo-fallback" style="display:none;">⚡</div>
+      <div class="tc-logo-fallback" style="display:none;"><i class="ti ti-bolt" aria-hidden="true"></i></div>
       <div class="tc-name">Promptmetheus</div>
       <div class="tc-desc">Professional prompt engineering IDE. Build, test, version and optimize prompts like a pro.</div>
       <span class="tc-tag">Prompt Tools</span>
@@ -1023,6 +1299,104 @@ img,video,iframe{max-width:100%;}
 
 
 <!-- FOOTER -->
+
+<!-- ══ IMAGE GENERATION GATE ══════════════════════════════════ -->
+<div class="gen-gate-overlay" id="genGateOverlay">
+  <!-- Backdrop layers -->
+  <div class="gen-gate-backdrop" onclick="closeGate()"></div>
+  <div class="gen-gate-mesh"></div>
+
+  <!-- Card -->
+  <div class="gen-gate-card">
+    <div class="gen-gate-glass">
+      <!-- Animated accent bar -->
+      <div class="gen-gate-accent"></div>
+
+      <!-- Close button -->
+      <button class="gen-gate-close" onclick="closeGate()" aria-label="Close"><i class="ti ti-x" style="font-size:14px;" aria-hidden="true"></i></button>
+
+      <div class="gen-gate-inner">
+        <!-- Icon with pulse rings -->
+        <div class="gen-gate-orb">
+          <div class="gen-gate-orb-ring2"></div>
+          <div class="gen-gate-orb-ring"></div>
+          <div class="gen-gate-orb-inner" style="position:relative;width:72px;height:72px;">
+            <div style="position:absolute;inset:0;background:var(--glass2);border:0.5px solid var(--border2);border-radius:14px;transform:rotate(12deg);"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <i class="ti ti-brush" style="font-size:26px;color:var(--ink);" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage indicator pills -->
+        <div class="gen-gate-pills" id="gatePills">
+          <div class="gen-gate-pill used"></div>
+          <div class="gen-gate-pill used"></div>
+          <div class="gen-gate-pill used"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+          <div class="gen-gate-pill empty"></div>
+        </div>
+
+        <!-- Headline -->
+        <div class="gen-gate-h">You've used your <em>3 free</em><br/>generations today</div>
+        <div class="gen-gate-sub">Enter your email to unlock 10 more — plus get<br/>10 expert prompts every Monday. Free forever.</div>
+
+        <!-- Benefits -->
+        <div class="gen-gate-benefits">
+          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> 10 more image generations today</div>
+          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> 10 expert prompts every Monday (Promptaholics Weekly)</div>
+          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> Submit your images to the Image Vault</div>
+          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> Early access to new features</div>
+        </div>
+
+        <!-- Body (swaps to success state) -->
+        <div id="gateBody">
+          <!-- Email input -->
+          <div style="position:relative;margin-bottom:10px;">
+            <i class="ti ti-mail" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--ink3);pointer-events:none;" aria-hidden="true"></i>
+            <input
+              class="gen-gate-input"
+              type="email"
+              id="gateEmail"
+              placeholder="your@email.com"
+              onkeydown="if(event.key==='Enter') gateSubmitEmail()"
+              autocomplete="email"
+              style="padding-left:38px;margin-bottom:0;"
+            />
+          </div>
+          <button class="gen-gate-cta" id="gateEmailBtn" onclick="gateSubmitEmail()">
+            Get 10 More Generations →
+          </button>
+
+          <div class="gen-gate-divider">or sign in instantly</div>
+
+          <!-- Google Sign In -->
+          <button class="gen-gate-google" onclick="gateSignInGoogle()">
+            <svg width="16" height="16" viewBox="0 0 18 18">
+              <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
+              <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+              <path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/>
+              <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
+            </svg>
+            Continue with Google
+          </button>
+
+          <div class="gen-gate-note">
+            No spam. Unsubscribe anytime. By continuing you agree to our
+            <a href="privacy.html" target="_blank">Privacy Policy</a> &
+            <a href="terms.html" target="_blank">Terms</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1064,16 +1438,16 @@ function toggleTheme(){
   document.body.classList.toggle('light', theme === 'light');
   var tb = document.getElementById('themeBtn');
   var sm = document.getElementById('smThemeIcon');
-  var icon = theme === 'light' ? '☀️' : '🌙';
-  if(tb) tb.textContent = icon;
-  if(sm) sm.textContent = icon;
+  var icon = theme === 'light' ? '<i class="ti ti-sun" aria-hidden="true"></i>' : '<i class="ti ti-moon" aria-hidden="true"></i>';
+  if(tb) tb.innerHTML = icon;
+  if(sm) sm.innerHTML = icon;
 }
 (function(){
-  var icon = theme === 'light' ? '☀️' : '🌙';
+  var icon = theme === 'light' ? '<i class="ti ti-sun" aria-hidden="true"></i>' : '<i class="ti ti-moon" aria-hidden="true"></i>';
   var tb = document.getElementById('themeBtn');
   var sm = document.getElementById('smThemeIcon');
-  if(tb) tb.textContent = icon;
-  if(sm) sm.textContent = icon;
+  if(tb) tb.innerHTML = icon;
+  if(sm) sm.innerHTML = icon;
 })();
 
 // ── MENU ─────────────────────────────────────────────────────
@@ -1237,13 +1611,13 @@ function calcUpdate(){
   // Tip
   var tip = document.getElementById('calcTip');
   if(total === 0){
-    tip.textContent = "💡 Toggle the tools you use to calculate your monthly AI spend.";
+    tip.textContent = "Toggle the tools you use to calculate your monthly AI spend.";
   } else if(total <= 20){
-    tip.textContent = ["✅ Efficient stack! $",total,"/mo is lean. Youre getting a lot of AI for the price."].join("");
+    tip.textContent = ["Efficient stack! $",total,"/mo is lean. Youre getting a lot of AI for the price."].join("");
   } else if(total <= 60){
-    tip.textContent = "⚡ Solid power-user stack. Consider: are you using all these tools equally?";
+    tip.textContent = "Solid power-user stack. Consider: are you using all these tools equally?";
   } else {
-    tip.textContent = "🔥 $"+total+"/mo is serious spend. Make sure each tool earns its keep — free tiers exist for most.";
+    tip.textContent = "$"+total+"/mo is serious spend. Make sure each tool earns its keep — free tiers exist for most.";
   }
 }
 
@@ -1284,47 +1658,200 @@ function polCopyPrompt(){
     ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
   }
   var btn = document.getElementById('polCopyPromptBtn');
-  btn.innerHTML = '✅ Copied!';
-  setTimeout(function(){ btn.innerHTML='📋 Copy Prompt'; }, 2000);
+  btn.innerHTML = '<i class="ti ti-check" style="font-size:14px;"></i> Copied!';
+  setTimeout(function(){ btn.innerHTML='<i class="ti ti-copy" aria-hidden="true"></i> Copy Prompt'; }, 2000);
 }
 
+// ── DAILY RATE LIMIT + EMAIL GATE ────────────────────────────
+var FREE_LIMIT    = 3;
+var UNLOCK_LIMIT  = 10;
+var GEN_COUNT_KEY = 'pa_gen_count';
+var GEN_DATE_KEY  = 'pa_gen_date';
+var GEN_UNLOCKED  = 'pa_gen_unlocked';
+
+function getGenCount(){
+  var today = new Date().toDateString();
+  var saved = localStorage.getItem(GEN_DATE_KEY);
+  if(saved !== today){
+    localStorage.setItem(GEN_DATE_KEY, today);
+    localStorage.setItem(GEN_COUNT_KEY, '0');
+  }
+  return parseInt(localStorage.getItem(GEN_COUNT_KEY)||'0');
+}
+function incrementGenCount(){
+  var c = getGenCount() + 1;
+  localStorage.setItem(GEN_COUNT_KEY, String(c));
+  updateGenCounterUI(c);
+  return c;
+}
+function isUnlocked(){
+  return localStorage.getItem(GEN_UNLOCKED) === 'true';
+}
+function unlockGenerations(){
+  localStorage.setItem(GEN_UNLOCKED, 'true');
+}
+function getLimit(){
+  return isUnlocked() ? UNLOCK_LIMIT : FREE_LIMIT;
+}
+function updateGenCounterUI(count){
+  var limit = getLimit();
+  var remaining = Math.max(0, limit - count);
+  var btn = document.getElementById('polGenBtn');
+  var btnText = document.getElementById('polBtnText');
+  if(!btn) return;
+  if(remaining === 0){
+    if(btnText) btnText.textContent = 'Daily Limit Reached';
+    btn.style.opacity = '.5';
+  } else {
+    if(btnText) btnText.textContent = 'Generate Image';
+    btn.style.opacity = '1';
+  }
+  // Update counter badge
+  var badge = document.getElementById('genCountBadge');
+  if(badge) badge.textContent = remaining + '/' + limit + ' left';
+}
+
+// ── GATE ──────────────────────────────────────────────────────
+function openGate(){
+  // Generate stars
+  var stars = document.getElementById('gateStars');
+  if(stars && stars.children.length === 0){
+    for(var i=0; i<20; i++){
+      var s = document.createElement('div');
+      s.className = 'gen-gate-star';
+      s.style.left = Math.random()*100+'%';
+      s.style.top  = Math.random()*100+'%';
+      s.style.setProperty('--d', (2+Math.random()*3)+'s');
+      s.style.setProperty('--delay', (Math.random()*3)+'s');
+      s.style.setProperty('--op', (0.2+Math.random()*0.5)+'');
+      stars.appendChild(s);
+    }
+  }
+  document.getElementById('genGateOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){
+    var ei = document.getElementById('gateEmail');
+    if(ei) ei.focus();
+  }, 400);
+}
+function closeGate(){
+  document.getElementById('genGateOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function gateSubmitEmail(){
+  var emailEl = document.getElementById('gateEmail');
+  var email   = emailEl ? emailEl.value.trim() : '';
+  if(!email || !email.includes('@')){
+    emailEl.style.borderColor = 'rgba(239,68,68,.5)';
+    emailEl.placeholder = 'Please enter a valid email';
+    setTimeout(function(){ emailEl.style.borderColor = ''; emailEl.placeholder = 'your@email.com'; }, 2000);
+    return;
+  }
+  var btn = document.getElementById('gateEmailBtn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Saving...'; }
+
+  // Save email to Firebase if available
+  try{
+    if(window._fb && window._fb.addDoc){
+      await window._fb.addDoc(window._fb.collection(window._fb.db,'vault-users'),{
+        email: email,
+        source: 'image-generator-gate',
+        joinedAt: window._fb.serverTimestamp ? window._fb.serverTimestamp() : new Date().toISOString()
+      });
+    }
+  }catch(e){ /* silent — save locally anyway */ }
+
+  // Save locally
+  localStorage.setItem('pa_user_email', email);
+  unlockGenerations();
+  localStorage.setItem(GEN_COUNT_KEY, '0'); // Reset count for today
+
+  // Show success
+  var body = document.getElementById('gateBody');
+  if(body){
+    body.innerHTML = '<div class="gen-gate-success">'
+      +'<div class="success-icon"><i class="ti ti-circle-check-filled" style="font-size:48px;color:#22c55e;"></i></div>'
+      +'<h3>You\'re in!</h3>'
+      +'<p>10 generations unlocked for today.<br/>Check your inbox Monday for expert prompts.</p>'
+      +'<div style="margin-top:20px;">'
+      +'<button onclick="closeGate()" style="padding:11px 28px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:Syne,serif;">Start Generating →</button>'
+      +'</div>'
+      +'</div>';
+  }
+  updateGenCounterUI(0);
+  setTimeout(function(){ closeGate(); }, 2800);
+}
+
+async function gateSignInGoogle(){
+  // Use Firebase Google Auth if available
+  if(window._fb && window._fb.signInWithPopup){
+    try{
+      var result = await window._fb.signInWithPopup(window._fb.auth, window._fb.provider);
+      var user = result.user;
+      // Save email
+      try{
+        await window._fb.addDoc(window._fb.collection(window._fb.db,'vault-users'),{
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+          source: 'image-generator-gate',
+          joinedAt: window._fb.serverTimestamp ? window._fb.serverTimestamp() : new Date().toISOString()
+        });
+      }catch(e){}
+      localStorage.setItem('pa_user_email', user.email||'');
+      unlockGenerations();
+      localStorage.setItem(GEN_COUNT_KEY, '0');
+      var body = document.getElementById('gateBody');
+      if(body){
+        body.innerHTML = '<div class="gen-gate-success">'
+          +'<div class="success-icon"><i class="ti ti-circle-check-filled" style="font-size:48px;color:#22c55e;"></i></div>'
+          +'<h3>Welcome, '+(user.displayName ? user.displayName.split(' ')[0] : 'Creator')+'!</h3>'
+          +'<p>10 generations unlocked for today.<br/>Every Monday: 10 expert prompts in your inbox.</p>'
+          +'<div style="margin-top:20px;">'
+          +'<button onclick="closeGate()" style="padding:11px 28px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:Syne,serif;">Start Generating →</button>'
+          +'</div>'
+          +'</div>';
+      }
+      updateGenCounterUI(0);
+      setTimeout(function(){ closeGate(); }, 2800);
+    }catch(e){
+      showToast('Sign in failed — try email instead');
+    }
+  } else {
+    showToast('Loading Google Sign In...');
+  }
+}
+
+// ── IMAGE GENERATOR ───────────────────────────────────────────
 var currentPolPreset = '';
-var lastPolPrompt = '';
-var lastPolImageUrl = '';
+var lastPolPrompt    = '';
+var lastPolImageUrl  = '';
 
 function setPreset(btn, preset){
   document.querySelectorAll('.pol-preset').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
   currentPolPreset = preset;
 }
-
 function polClear(){
   document.getElementById('polPrompt').value = '';
-  document.getElementById('polImage').style.display = 'none';
-  document.getElementById('polEmpty').style.display = 'block';
-  document.getElementById('polActions').style.display = 'none';
-  lastPolPrompt = '';
-  lastPolImageUrl = '';
+  var img   = document.getElementById('polImage');
+  var empty = document.getElementById('polEmpty');
+  var acts  = document.getElementById('polActions');
+  if(img)   img.style.display   = 'none';
+  if(empty) empty.style.display = 'block';
+  if(acts)  acts.style.display  = 'none';
+  lastPolPrompt = ''; lastPolImageUrl = '';
 }
-
 function polCopyPrompt(){
   if(!lastPolPrompt) return;
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(lastPolPrompt);
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = lastPolPrompt;
-    ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-  }
-  showToast('📋 Prompt copied!');
+  navigator.clipboard && window.isSecureContext
+    ? navigator.clipboard.writeText(lastPolPrompt)
+    : (function(t){ var ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); })(lastPolPrompt);
+  showToast('Prompt copied!');
 }
-
 function polSubmitToVault(){
-  // Redirect to vault with prompt pre-filled
-  var enc = encodeURIComponent(lastPolPrompt||'');
-  window.open('vault.html?prompt='+enc, '_blank');
+  window.open('vault.html?prompt='+encodeURIComponent(lastPolPrompt||''), '_blank');
   showToast('Opening Image Vault...');
 }
 
@@ -1332,9 +1859,20 @@ async function polGenerate(){
   var prompt = (document.getElementById('polPrompt').value||'').trim();
   if(!prompt){ document.getElementById('polPrompt').focus(); showToast('Enter a prompt first'); return; }
 
-  // Build full prompt with style preset
+  // Rate limit check
+  var count = getGenCount();
+  var limit = getLimit();
+  if(count >= limit){
+    if(!isUnlocked()){
+      openGate();
+    } else {
+      showToast('Daily limit reached (' + limit + '/day). Resets at midnight.');
+    }
+    return;
+  }
+
   var fullPrompt = currentPolPreset ? prompt + ', ' + currentPolPreset : prompt;
-  lastPolPrompt = fullPrompt;
+  lastPolPrompt  = fullPrompt;
 
   var btn     = document.getElementById('polGenBtn');
   var btnText = document.getElementById('polBtnText');
@@ -1346,25 +1884,16 @@ async function polGenerate(){
   var status  = document.getElementById('polStatus');
   var prog    = document.getElementById('polProgress');
 
-  // Show spinner
-  btn.disabled = true;
-  btn.style.opacity = '.6';
-  btnText.textContent = 'Generating...';
-  btnIcon.textContent = '⏳';
-  img.style.display = 'none';
-  empty.style.display = 'none';
-  spinner.style.display = 'flex';
-  actions.style.display = 'none';
+  btn.disabled = true; btn.style.opacity = '.6';
+  if(btnText) btnText.textContent = 'Generating...';
+  if(btnIcon) btnIcon.textContent = '⏳';
+  if(img)     img.style.display   = 'none';
+  if(empty)   empty.style.display = 'none';
+  if(spinner) spinner.style.display = 'flex';
+  if(actions) actions.style.display = 'none';
 
-  // Progress animation
   var progVal = 0;
-  var msgs = [
-    'Painting your vision...',
-    'Adding details...',
-    'Rendering textures...',
-    'Almost ready...',
-    'Final touches...'
-  ];
+  var msgs = ['Painting your vision...','Adding details...','Rendering textures...','Almost ready...','Final touches...'];
   var mi = 0;
   var progTimer = setInterval(function(){
     progVal = Math.min(progVal + (progVal < 80 ? 3 : 0.5), 90);
@@ -1373,51 +1902,56 @@ async function polGenerate(){
     if(status) status.textContent = msgs[mi];
   }, 800);
 
-  try {
-    // Use Puter.js for free GPT Image generation
-    var sizeVal = document.getElementById('polSize').value;
-    var parts = sizeVal.split('x');
-    var w = parseInt(parts[0]||'1024');
-    var h = parseInt(parts[1]||'1024');
-
-    // puter.ai.txt2img returns an HTMLImageElement directly
+  try{
     var imgElement = await puter.ai.txt2img(fullPrompt, { model: 'gpt-image-2', quality: 'medium' });
 
     clearInterval(progTimer);
     if(prog) prog.style.width = '100%';
 
     if(imgElement && imgElement.src){
+      // Increment BEFORE showing result
+      var newCount = incrementGenCount();
       lastPolImageUrl = imgElement.src;
-      img.src = imgElement.src;
-      img.style.display = 'block';
-      spinner.style.display = 'none';
-      empty.style.display = 'none';
-      actions.style.display = 'flex';
+      if(img)     { img.src = imgElement.src; img.style.display = 'block'; }
+      if(spinner)   spinner.style.display = 'none';
+      if(empty)     empty.style.display   = 'none';
+      if(actions)   actions.style.display = 'flex';
       var dlBtn = document.getElementById('polDownloadBtn');
       if(dlBtn) dlBtn.href = imgElement.src;
-      showToast('✨ Image ready!');
+      showToast('Image ready!');
+      // Show gate proactively if they hit the limit
+      var remaining = getLimit() - newCount;
+      if(remaining === 1 && !isUnlocked()){
+        setTimeout(function(){ showToast('1 generation left today — sign up for more!'); }, 2000);
+      }
     } else {
-      throw new Error('No image returned from Puter.js');
+      throw new Error('No image returned');
     }
-
-  } catch(e) {
+  }catch(e){
     clearInterval(progTimer);
-    spinner.style.display = 'none';
-    empty.style.display = 'block';
-    empty.innerHTML = '<div style="text-align:center;padding:20px;">'
-      + '<div style="font-size:32px;margin-bottom:10px;">⚠️</div>'
-      + '<div style="font-size:13px;color:var(--ink2);margin-bottom:4px;font-weight:600;">Generation failed</div>'
-      + '<div style="font-size:11px;color:var(--ink3);margin-bottom:16px;">Puter.js may need a moment — try again</div>'
-      + '<button onclick="polGenerate()" style="padding:8px 20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
-      + '</div>';
-    console.error('Image gen error:', e);
+    if(spinner) spinner.style.display = 'none';
+    if(empty){
+      empty.style.display = 'block';
+      empty.innerHTML = '<div style="text-align:center;padding:20px;">'
+        +'<i class="ti ti-alert-triangle" style="font-size:32px;display:block;margin-bottom:10px;color:#f59e0b;"></i>'
+        +'<div style="font-size:13px;color:var(--ink2);margin-bottom:4px;font-weight:600;">Generation failed</div>'
+        +'<div style="font-size:11px;color:var(--ink3);margin-bottom:16px;">Puter.js may need a Puter login — click Try Again</div>'
+        +'<button onclick="polGenerate()" style="padding:8px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:Syne,serif;">Try Again</button>'
+        +'</div>';
+    }
+    console.error('Image gen error:',e);
   }
 
-  btn.disabled = false;
-  btn.style.opacity = '1';
-  btnText.textContent = 'Generate Image';
-  btnIcon.textContent = '✨';
+  btn.disabled = false; btn.style.opacity = '1';
+  if(btnText) btnText.textContent = 'Generate Image';
+  
 }
+
+// Init counter on load
+(function(){
+  var c = getGenCount();
+  updateGenCounterUI(c);
+})();
 
 
 // ══════════════════════════════════════════
