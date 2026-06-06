@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://js.puter.com/v2/index.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
 <!-- GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
@@ -383,7 +384,21 @@ html{overflow-x:hidden;max-width:100vw;}
 body{overflow-x:hidden;max-width:100vw;width:100%;}
 img,video,iframe{max-width:100%;}
 .topnav{max-width:100vw;}
+
+/* ── IMAGE GENERATOR UX ── */
+@keyframes spinRing{to{transform:rotate(360deg);}}
+.pol-preset{
+  padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;
+  border:1px solid var(--border2);background:var(--glass);
+  color:var(--ink3);cursor:pointer;transition:all .15s;
+  font-family:'Instrument Sans',sans-serif;
+}
+.pol-preset:hover,.pol-preset.active{
+  background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.3);
+  color:#a855f7;
+}
 </style>
+<script src="https://js.puter.com/v2/index.js"></script>
 </head>
 <body>
 
@@ -614,103 +629,111 @@ img,video,iframe{max-width:100%;}
 <div class="section-divider"></div>
 
 <!-- ══════════════════════════════════════════
-     TOOL 5 — 🎨 AI IMAGE GENERATOR (Pollinations)
+     TOOL 5 — 🎨 AI IMAGE GENERATOR (Puter.js)
 ══════════════════════════════════════════ -->
-<div class="tool-sec">
+<div class="tool-sec always-visible" style="background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(255,98,36,.04),rgba(0,212,170,.03));border-color:rgba(139,92,246,.2);">
   <div class="tool-sec-hdr">
     <h2>🎨 Free AI Image Generator</h2>
-    <span class="tool-built-badge">No API Key · Powered by Pollinations</span>
+    <span class="tool-built-badge" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3);color:#7c3aed;">Free · GPT Image · No Key Needed</span>
   </div>
-  <div class="std-wrap">
-    <div class="std-header">
-      <div class="ipb-title">Type a prompt. <span style="color:var(--orange);">Get an image.</span> Free.</div>
-      <div class="ipb-subtitle">Powered by Pollinations AI · Flux model · No account needed · No limits</div>
+
+  <!-- PROMPT INPUT -->
+  <div style="margin-bottom:14px;">
+    <div style="position:relative;">
+      <textarea
+        id="polPrompt"
+        rows="3"
+        placeholder="Describe your image... e.g. a lone astronaut on Mars at golden hour, cinematic, hyperdetailed, 8K"
+        style="width:100%;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(139,92,246,.25);border-radius:12px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;min-height:80px;line-height:1.6;transition:border .2s;"
+        onfocus="this.style.borderColor='rgba(139,92,246,.5)'"
+        onblur="this.style.borderColor='rgba(139,92,246,.25)'"
+        onkeydown="if(event.key==='Enter'&&event.ctrlKey) polGenerate()"
+      ></textarea>
+      <div style="position:absolute;bottom:10px;right:12px;font-size:10px;color:var(--ink3);">Ctrl+Enter to generate</div>
     </div>
-    <div class="std-body">
-      <div class="std-left">
+  </div>
 
-        <!-- Prompt input -->
-        <div>
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">✏️ Your Prompt</div>
-          <textarea id="polPrompt" rows="4" placeholder="a lone astronaut standing on Mars at golden hour, cinematic lighting, dramatic sky, hyperrealistic..." style="width:100%;padding:10px 14px;background:var(--glass2);border:1px solid var(--border2);border-radius:10px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;line-height:1.5;"></textarea>
-        </div>
+  <!-- STYLE PRESETS -->
+  <div style="margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Quick Style</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;" id="stylePresets">
+      <button class="pol-preset active" onclick="setPreset(this,'')">None</button>
+      <button class="pol-preset" onclick="setPreset(this,'photorealistic, 8K, cinematic lighting, hyperdetailed')">📷 Photo</button>
+      <button class="pol-preset" onclick="setPreset(this,'digital art, concept art, artstation, highly detailed, vibrant colors')">🎨 Digital Art</button>
+      <button class="pol-preset" onclick="setPreset(this,'anime style, Studio Ghibli aesthetic, soft colors, detailed background')">🌸 Anime</button>
+      <button class="pol-preset" onclick="setPreset(this,'oil painting, impressionist, textured canvas, visible brushstrokes, museum quality')">🖼️ Oil Paint</button>
+      <button class="pol-preset" onclick="setPreset(this,'cyberpunk aesthetic, neon lights, rain, dark city, volumetric lighting')">🌆 Cyberpunk</button>
+      <button class="pol-preset" onclick="setPreset(this,'3D render, Blender, octane render, soft studio lighting, product visualization')">💎 3D Render</button>
+      <button class="pol-preset" onclick="setPreset(this,'watercolor illustration, soft washes, delicate lines, pastel colors, artistic')">🎭 Watercolor</button>
+    </div>
+  </div>
 
-        <!-- Quick prompts -->
-        <div>
-          <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px;">⚡ Quick start</div>
-          <div style="display:flex;flex-direction:column;gap:5px;">
-            <button class="std-example-btn" onclick="polLoadExample(this)">🚀 Astronaut on Mars, golden hour, hyperrealistic</button>
-            <button class="std-example-btn" onclick="polLoadExample(this)">🌆 Cyberpunk Tokyo street at night, neon rain, cinematic</button>
-            <button class="std-example-btn" onclick="polLoadExample(this)">🌊 Underwater ancient ruins, bioluminescent creatures, 4K</button>
-            <button class="std-example-btn" onclick="polLoadExample(this)">🦁 Majestic lion portrait, oil painting, dramatic lighting</button>
-          </div>
-        </div>
+  <!-- SIZE + GENERATE BUTTON -->
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+    <select id="polSize" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;">
+      <option value="1024x1024">Square 1:1</option>
+      <option value="1280x720">Landscape 16:9</option>
+      <option value="720x1280">Portrait 9:16</option>
+      <option value="1024x768">Classic 4:3</option>
+    </select>
+    <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;">
+      <span id="polBtnIcon">✨</span>
+      <span id="polBtnText">Generate Image</span>
+    </button>
+    <button onclick="polClear()" style="padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:9px;color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink3)'">Clear</button>
+  </div>
 
-        <!-- Settings row -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div>
-            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">📐 Size</div>
-            <select id="polSize" class="pol-select">
-              <option value="1024x1024">Square (1024×1024)</option>
-              <option value="1280x720">Landscape (1280×720)</option>
-              <option value="720x1280">Portrait (720×1280)</option>
-              <option value="1920x1080">Wide (1920×1080)</option>
-            </select>
-          </div>
-          <div>
-            <div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">🤖 Model</div>
-            <select id="polModel" class="pol-select">
-              <option value="flux">Flux (Best Quality)</option>
-              <option value="turbo">Turbo (Fastest)</option>
-              <option value="flux-realism">Flux Realism</option>
-              <option value="flux-anime">Flux Anime</option>
-              <option value="seedream">Seedream</option>
-              <option value="kontext">Kontext</option>
-            </select>
-          </div>
-        </div>
+  <!-- IMAGE OUTPUT AREA -->
+  <div id="polOutputWrap" style="position:relative;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);min-height:280px;display:flex;align-items:center;justify-content:center;">
 
-        <!-- Action buttons -->
-        <div style="display:flex;gap:8px;">
-          <button class="ipb-btn primary" id="polGenBtn" onclick="polGenerate()" style="flex:1;justify-content:center;font-size:14px;padding:11px 20px;">✨ Generate Image</button>
-          <button class="ipb-btn" onclick="polReset()" title="Reset">🔄</button>
-        </div>
+    <!-- EMPTY STATE -->
+    <div id="polEmpty" style="text-align:center;padding:40px 20px;">
+      <div style="font-size:48px;margin-bottom:12px;opacity:.3;">🎨</div>
+      <div style="font-size:13px;color:var(--ink3);line-height:1.6;">Your generated image will appear here<br/>
+      <span style="font-size:11px;opacity:.6;">Powered by GPT Image — completely free</span></div>
+    </div>
 
-      </div><!-- /std-left -->
-
-      <!-- RIGHT: Output -->
-      <div class="std-right" style="align-items:center;">
-        <div class="ipb-output-label" style="width:100%;">
-          <span>🖼 GENERATED IMAGE</span>
-          <div style="display:flex;gap:6px;">
-            <button class="ipb-btn" id="polCopyPromptBtn" onclick="polCopyPrompt()" style="padding:4px 10px;font-size:10px;display:none;">📋 Copy Prompt</button>
-            <a class="ipb-btn" id="polDownloadBtn" href="#" download="promptaholics-ai-image.jpg" style="padding:4px 10px;font-size:10px;display:none;">⬇ Save</a>
-          </div>
-        </div>
-
-        <!-- Image output -->
-        <div id="polOutput" style="width:100%;flex:1;min-height:300px;background:rgba(0,0,0,.25);border:1px solid var(--border2);border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
-          <div id="polEmpty" style="text-align:center;color:var(--ink3);font-size:13px;line-height:1.7;padding:20px;">
-            Type a prompt and click<br/><strong style="color:var(--orange);">Generate Image</strong><br/>
-            <span style="font-size:11px;margin-top:6px;display:block;">No account · No API key · Completely free</span>
-          </div>
-          <div id="polSpinner" style="display:none;flex-direction:column;align-items:center;gap:12px;">
-            <div class="std-spinner" style="width:32px;height:32px;border-width:3px;"></div>
-            <div style="font-size:12px;color:var(--ink2);" id="polStatus">Generating your image...</div>
-          </div>
-          <img id="polImage" style="display:none;width:100%;height:100%;object-fit:contain;border-radius:13px;" alt="Generated image"/>
-        </div>
-
-        <div style="font-size:11px;color:var(--ink3);line-height:1.6;border-top:1px solid var(--border);padding-top:12px;width:100%;">
-          💡 Powered by <strong style="color:var(--ink2);">Pollinations AI</strong> — free, open-source, no limits. Images generate in ~5-15 seconds. Try the <strong style="color:var(--ink2);">Prompt Builder</strong> page for more advanced prompts.
-        </div>
+    <!-- SPINNER -->
+    <div id="polSpinner" style="display:none;flex-direction:column;align-items:center;gap:16px;padding:40px;">
+      <!-- Animated gradient ring -->
+      <div style="position:relative;width:80px;height:80px;">
+        <div id="polRing" style="width:80px;height:80px;border-radius:50%;border:3px solid transparent;border-top-color:#7c3aed;border-right-color:#a855f7;animation:spinRing 1s linear infinite;"></div>
+        <div style="position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(168,85,247,.05));display:flex;align-items:center;justify-content:center;font-size:24px;">🎨</div>
+      </div>
+      <div style="text-align:center;">
+        <div id="polStatus" style="font-size:13px;color:var(--ink2);font-weight:600;margin-bottom:4px;">Generating your image...</div>
+        <div style="font-size:11px;color:var(--ink3);">This takes 10-30 seconds</div>
+      </div>
+      <!-- Progress bar -->
+      <div style="width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;">
+        <div id="polProgress" style="height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:2px;width:0%;transition:width .5s;"></div>
       </div>
     </div>
+
+    <!-- GENERATED IMAGE -->
+    <img id="polImage" style="display:none;width:100%;height:auto;object-fit:contain;border-radius:14px;" alt="AI Generated Image"/>
+  </div>
+
+  <!-- ACTION BUTTONS (shown after generation) -->
+  <div id="polActions" style="display:none;margin-top:12px;display:none;gap:8px;flex-wrap:wrap;">
+    <a id="polDownloadBtn" href="#" download="promptaholics-ai-image.png" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;">
+      ⬇ Download
+    </a>
+    <button id="polCopyPromptBtn" onclick="polCopyPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+      📋 Copy Prompt
+    </button>
+    <button onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+      🖼️ Submit to Vault
+    </button>
+    <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+      🔄 Regenerate
+    </button>
+  </div>
+
+  <div style="margin-top:10px;font-size:10px;color:var(--ink3);text-align:center;">
+    Free · No account needed · Powered by <a href="https://puter.com" target="_blank" rel="noopener" style="color:var(--ink3);">Puter.js</a> + GPT Image
   </div>
 </div>
-<div class="section-divider"></div>
-
-
 
 <!-- ══════════════════════════════════════════
      TOOL 6 — 📰 WHAT'S NEW IN AI
@@ -1265,132 +1288,136 @@ function polCopyPrompt(){
   setTimeout(function(){ btn.innerHTML='📋 Copy Prompt'; }, 2000);
 }
 
-function polGenerate(){
-  var prompt = (document.getElementById('polPrompt').value || '').trim();
-  if(!prompt){ 
-    document.getElementById('polPrompt').focus();
-    return; 
+var currentPolPreset = '';
+var lastPolPrompt = '';
+var lastPolImageUrl = '';
+
+function setPreset(btn, preset){
+  document.querySelectorAll('.pol-preset').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentPolPreset = preset;
+}
+
+function polClear(){
+  document.getElementById('polPrompt').value = '';
+  document.getElementById('polImage').style.display = 'none';
+  document.getElementById('polEmpty').style.display = 'block';
+  document.getElementById('polActions').style.display = 'none';
+  lastPolPrompt = '';
+  lastPolImageUrl = '';
+}
+
+function polCopyPrompt(){
+  if(!lastPolPrompt) return;
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(lastPolPrompt);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = lastPolPrompt;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
   }
+  showToast('📋 Prompt copied!');
+}
 
-  var sizeVal = document.getElementById('polSize').value;
-  var model   = document.getElementById('polModel').value;
-  var parts   = sizeVal.split('x');
-  var width   = parts[0] || '1024';
-  var height  = parts[1] || '1024';
-  var seed    = Math.floor(Math.random() * 999999);
+function polSubmitToVault(){
+  // Redirect to vault with prompt pre-filled
+  var enc = encodeURIComponent(lastPolPrompt||'');
+  window.open('vault.html?prompt='+enc, '_blank');
+  showToast('Opening Image Vault...');
+}
 
-  var img    = document.getElementById('polImage');
-  var empty  = document.getElementById('polEmpty');
-  var spin   = document.getElementById('polSpinner');
-  var btn    = document.getElementById('polGenBtn');
-  var dlBtn  = document.getElementById('polDownloadBtn');
-  var cpBtn  = document.getElementById('polCopyPromptBtn');
-  var status = document.getElementById('polStatus');
+async function polGenerate(){
+  var prompt = (document.getElementById('polPrompt').value||'').trim();
+  if(!prompt){ document.getElementById('polPrompt').focus(); showToast('Enter a prompt first'); return; }
+
+  // Build full prompt with style preset
+  var fullPrompt = currentPolPreset ? prompt + ', ' + currentPolPreset : prompt;
+  lastPolPrompt = fullPrompt;
+
+  var btn     = document.getElementById('polGenBtn');
+  var btnText = document.getElementById('polBtnText');
+  var btnIcon = document.getElementById('polBtnIcon');
+  var spinner = document.getElementById('polSpinner');
+  var empty   = document.getElementById('polEmpty');
+  var img     = document.getElementById('polImage');
+  var actions = document.getElementById('polActions');
+  var status  = document.getElementById('polStatus');
+  var prog    = document.getElementById('polProgress');
 
   // Show spinner
-  img.style.display   = 'none';
-  empty.style.display = 'none';
-  spin.style.display  = 'flex';
-  dlBtn.style.display = 'none';
-  cpBtn.style.display = 'none';
   btn.disabled = true;
-  btn.textContent = '⏳ Generating...';
+  btn.style.opacity = '.6';
+  btnText.textContent = 'Generating...';
+  btnIcon.textContent = '⏳';
+  img.style.display = 'none';
+  empty.style.display = 'none';
+  spinner.style.display = 'flex';
+  actions.style.display = 'none';
 
+  // Progress animation
+  var progVal = 0;
   var msgs = [
-    'Generating your image...',
-    'Painting the details...',
-    'Almost there...',
-    'Adding the finishing touches...'
+    'Painting your vision...',
+    'Adding details...',
+    'Rendering textures...',
+    'Almost ready...',
+    'Final touches...'
   ];
   var mi = 0;
-  var msgTimer = setInterval(function(){
+  var progTimer = setInterval(function(){
+    progVal = Math.min(progVal + (progVal < 80 ? 3 : 0.5), 90);
+    if(prog) prog.style.width = progVal + '%';
     mi = (mi+1) % msgs.length;
     if(status) status.textContent = msgs[mi];
-  }, 3000);
+  }, 800);
 
-  // Build Pollinations URL — updated to new gen.pollinations.ai endpoint
-  var url = 'https://image.pollinations.ai/prompt/'
-    + encodeURIComponent(prompt)
-    + '?width='  + width
-    + '&height=' + height
-    + '&model='  + model
-    + '&nologo=true'
-    + '&enhance=true'
-    + '&seed='   + seed;
-  // Also try new unified endpoint as fallback
-  var genUrl = 'https://gen.pollinations.ai/image/'
-    + encodeURIComponent(prompt)
-    + '?width='  + width
-    + '&height=' + height
-    + '&model='  + model
-    + '&seed='   + seed;
+  try {
+    // Use Puter.js for free GPT Image generation
+    var sizeVal = document.getElementById('polSize').value;
+    var parts = sizeVal.split('x');
+    var w = parseInt(parts[0]||'1024');
+    var h = parseInt(parts[1]||'1024');
 
-  var tempImg = new Image();
+    var result = await puter.ai.txt2img(fullPrompt, false);
 
-  // Timeout — Pollinations can take up to 60s
-  var didFinish = false;
-  var timeout = setTimeout(function(){
-    if(didFinish) return;
-    didFinish = true;
-    clearInterval(msgTimer);
-    spin.style.display = 'none';
-    empty.style.display = 'block';
-    empty.innerHTML = '<div style="color:var(--ink2);font-size:12px;line-height:1.7;">'
-      + '⚠️ Taking longer than expected.<br>'
-      + 'Pollinations is busy — try again in a moment.<br><br>'
-      + '<button onclick="polGenerate()" style="padding:7px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
-      + '</div>';
-    btn.disabled = false;
-    btn.textContent = '✨ Generate Image';
-  }, 60000);
+    clearInterval(progTimer);
+    if(prog) prog.style.width = '100%';
 
-  // onload handled below with fallback logic
-
-  tempImg.onerror = function(){
-    // Try new gen.pollinations.ai endpoint as fallback
-    if(tempImg._triedGen){
-      if(didFinish) return;
-      didFinish = true;
-      clearTimeout(timeout);
-      clearInterval(msgTimer);
-      spin.style.display = 'none';
-      empty.style.display = 'block';
-      empty.innerHTML = '<div style="color:var(--ink2);font-size:12px;line-height:1.7;">'
-        + '⚠️ Generation failed.<br>'
-        + 'Pollinations may be busy — try again in a moment.<br><br>'
-        + '<button onclick="polGenerate()" style="padding:7px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
-        + '</div>';
-      btn.disabled = false;
-      btn.textContent = '✨ Generate Image';
-      return;
+    if(result && result.src){
+      lastPolImageUrl = result.src;
+      img.src = result.src;
+      img.style.display = 'block';
+      spinner.style.display = 'none';
+      actions.style.display = 'flex';
+      // Set download link
+      var dlBtn = document.getElementById('polDownloadBtn');
+      if(dlBtn) dlBtn.href = result.src;
+      showToast('✨ Image ready!');
+    } else {
+      throw new Error('No image returned');
     }
-    // First failure — try new endpoint
-    tempImg._triedGen = true;
-    if(status) status.textContent = 'Trying alternate server...';
-    tempImg.src = genUrl;
-  };
 
-  tempImg.onload = function(){
-    if(didFinish) return;
-    didFinish = true;
-    clearTimeout(timeout);
-    clearInterval(msgTimer);
-    // Use whichever URL worked
-    var workingUrl = tempImg._triedGen ? genUrl : url;
-    img.src = workingUrl;
-    img.style.display = 'block';
-    spin.style.display = 'none';
-    empty.style.display = 'none';
-    btn.disabled = false;
-    btn.textContent = '✨ Generate Image';
-    dlBtn.href = workingUrl;
-    dlBtn.style.display = 'flex';
-    cpBtn.style.display = 'flex';
-    if(status) status.textContent = 'Image ready!';
-  };
+  } catch(e) {
+    clearInterval(progTimer);
+    spinner.style.display = 'none';
+    empty.style.display = 'block';
+    empty.innerHTML = '<div style="text-align:center;padding:20px;">'
+      + '<div style="font-size:32px;margin-bottom:10px;">⚠️</div>'
+      + '<div style="font-size:13px;color:var(--ink2);margin-bottom:4px;font-weight:600;">Generation failed</div>'
+      + '<div style="font-size:11px;color:var(--ink3);margin-bottom:16px;">Puter.js may need a moment — try again</div>'
+      + '<button onclick="polGenerate()" style="padding:8px 20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Try Again</button>'
+      + '</div>';
+    console.error('Image gen error:', e);
+  }
 
-  tempImg.src = url;
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btnText.textContent = 'Generate Image';
+  btnIcon.textContent = '✨';
 }
+
 
 // ══════════════════════════════════════════
 // TOOL 6 — WHAT'S NEW IN AI (HN API)
