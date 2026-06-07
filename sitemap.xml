@@ -1,31 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ✦ HOMEPAGE — main prompt library (259+ prompts) -->
+  <!-- ✦ HOMEPAGE -->
   <url>
     <loc>https://promptaholics.com/</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- ✦ PROMPT LIBRARY PAGE ── full 299 prompt grid -->
+  <!-- ✦ PROMPT LIBRARY -->
   <url>
     <loc>https://promptaholics.com/library.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- ✦ CREATION STATION — AI tools directory (50+ tools) -->
+  <!-- ✦ FREE COURSE -->
   <url>
-    <loc>https://promptaholics.com/creationstation.html</loc>
-    <lastmod>2026-05-06</lastmod>
+    <loc>https://promptaholics.com/learn.html</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- ✦ SEO PAGE 2 — targets "free ChatGPT prompts" keyword -->
+  <!-- ✦ PROMPT BUILDER -->
+  <url>
+    <loc>https://promptaholics.com/prompt-builder.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ✦ CREATION STATION -->
+  <url>
+    <loc>https://promptaholics.com/creationstation.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ✦ IMAGE VAULT -->
+  <url>
+    <loc>https://promptaholics.com/vault.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ✦ SEO — Free Prompt Engineering Course -->
+  <url>
+    <loc>https://promptaholics.com/free-prompt-engineering-course.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ✦ SEO — Best ChatGPT Prompts -->
+  <url>
+    <loc>https://promptaholics.com/best-chatgpt-prompts.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ✦ SEO — Free ChatGPT Prompts -->
   <url>
     <loc>https://promptaholics.com/free-chatgpt-prompts.html</loc>
     <lastmod>2026-05-06</lastmod>
@@ -33,7 +73,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ✦ SEO PAGE 3 — targets "best Midjourney prompts" keyword -->
+  <!-- ✦ SEO — Best Midjourney Prompts -->
   <url>
     <loc>https://promptaholics.com/best-midjourney-prompts.html</loc>
     <lastmod>2026-05-07</lastmod>
@@ -41,7 +81,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ✦ SEO ARTICLE PAGE — targets "AI prompt library" keyword -->
+  <!-- ✦ SEO — AI Prompt Library -->
   <url>
     <loc>https://promptaholics.com/ai-prompt-library.html</loc>
     <lastmod>2026-05-06</lastmod>
@@ -57,10 +97,4 @@
     <priority>0.3</priority>
   </url>
 
-  <url>
-    <loc>https://promptaholics.com/prompt-builder.html</loc>
-    <lastmod>2026-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 </urlset>
