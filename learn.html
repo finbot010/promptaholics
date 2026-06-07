@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
 <style>
@@ -472,6 +472,49 @@ iframe{
   border:0;
   border-radius:12px;
 }
+
+/* ── VIDEO EMBEDS — BULLETPROOF 16:9 ── */
+.ch-video-wrap{
+  position:relative !important;
+  width:100% !important;
+  padding-bottom:56.25% !important;
+  height:0 !important;
+  overflow:hidden !important;
+  border-radius:12px;
+  background:#000;
+  margin-bottom:20px;
+  display:block;
+}
+.ch-video-wrap iframe{
+  position:absolute !important;
+  top:0 !important; left:0 !important;
+  width:100% !important;
+  height:100% !important;
+  border:0;
+  border-radius:12px;
+}
+
+/* ── MOBILE FIXES ── */
+@media(max-width:768px){
+  .ch-header{padding:16px;gap:10px;}
+  .ch-title{font-size:15px;}
+  .ch-desc{font-size:11px;}
+  .ch-num{font-size:12px;min-width:22px;}
+  .ch-body{padding:0 14px 20px;}
+  .learn-p{font-size:13px;line-height:1.7;}
+  .learn-h3{font-size:16px;}
+  .quiz-opt{min-height:48px;padding:12px 16px;font-size:14px;display:flex;align-items:center;}
+  .quiz-options{gap:10px;}
+  .complete-btn{margin-top:24px !important;min-height:48px;width:100%;justify-content:center;}
+  input,textarea,select{font-size:16px !important;-webkit-text-size-adjust:100%;}
+}
+
+/* ── ACCORDION ANIMATION ── */
+.ch-body.open{animation:bodyOpen .3s ease;}
+@keyframes bodyOpen{
+  from{opacity:0;transform:translateY(-6px);}
+  to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -484,14 +527,14 @@ iframe{
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a href="library.html" class="nav-lnk">Library</a>
-      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
-      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
-      <a href="learn.html" class="nav-lnk active">Learn</a>
+      <a class='nav-lnk' href='/library'>Library</a>
+      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
+      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
+      <a class='nav-lnk active' href='/learn'>Learn</a>
     </nav>
-    <a href="login.html" class="nav-signin">Sign In</a>
+    <a class='nav-signin' href='/login'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
 </header>
 
@@ -506,22 +549,22 @@ iframe{
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
-    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
-    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
-    <a class="sm-item active" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+    <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
+    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item active' href='/learn'><i class="ti ti-school"></i> Learn</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
-    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='/terms'><i class="ti ti-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -563,12 +606,20 @@ iframe{
     <div class="ch-meta">
       <div class="ch-title">What is a Prompt — Really?</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/EHiZfXmDNrk?rel=0&modestbranding=1&playsinline=1" title="Chapter 1 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/EHiZfXmDNrk?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 1 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">Why AI does what it does · The input/output loop · Why specificity wins</div>
     </div>
     <span class="ch-badge" id="badge-1">Start</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-1">
 
@@ -614,7 +665,7 @@ iframe{
       <div class="quiz-feedback" id="qfb-0"></div>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-1" onclick="completeChapter(1)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+    <button class="ch-complete-btn" id="cbtn-1" onclick="completeChapter(1)"><i class="ti ti-check-circle"></i> Mark Complete & Continue</button>
   </div>
 </div>
 
@@ -625,12 +676,20 @@ iframe{
     <div class="ch-meta">
       <div class="ch-title">The 5 Elements of Every Great Prompt</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/EsqsXlCBV7w?rel=0&modestbranding=1&playsinline=1" title="Chapter 2 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/EsqsXlCBV7w?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 2 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">Role · Task · Context · Format · Constraints — the non-negotiable building blocks</div>
     </div>
     <span class="ch-badge" id="badge-2">5 min</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-2">
 
@@ -681,7 +740,7 @@ Feature request: [PASTE YOUR REQUEST HERE]</div>
       <div class="quiz-feedback" id="qfb-1"></div>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-2" onclick="completeChapter(2)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+    <button class="ch-complete-btn" id="cbtn-2" onclick="completeChapter(2)"><i class="ti ti-check-circle"></i> Mark Complete & Continue</button>
   </div>
 </div>
 
@@ -692,12 +751,20 @@ Feature request: [PASTE YOUR REQUEST HERE]</div>
     <div class="ch-meta">
       <div class="ch-title">The 9 Frameworks — Your Prompt Toolkit</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/s8aqYfGObfA?rel=0&modestbranding=1&playsinline=1" title="Chapter 3 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/s8aqYfGObfA?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 3 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">CoSTAR · RTF · AETHER · Chain-of-Thought · RISEN · SCQA · CRISPE · PARA · RACI</div>
     </div>
     <span class="ch-badge" id="badge-3">8 min</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-3">
 
@@ -745,15 +812,15 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
 
     <p class="learn-p">Try them all in the Prompt Builder — each framework has its own set of fields pre-built for you.</p>
     <div class="fw-badge-row">
-      <a href="prompt-builder.html" class="fw-badge">⭐ CoSTAR</a>
-      <a href="prompt-builder.html" class="fw-badge">📋 RTF</a>
-      <a href="prompt-builder.html" class="fw-badge">🧠 Chain-of-Thought</a>
-      <a href="prompt-builder.html" class="fw-badge">⚡ AETHER</a>
-      <a href="prompt-builder.html" class="fw-badge">🚀 RISEN</a>
-      <a href="prompt-builder.html" class="fw-badge">❓ SCQA</a>
-      <a href="prompt-builder.html" class="fw-badge">🎯 CRISPE</a>
-      <a href="prompt-builder.html" class="fw-badge">📁 PARA</a>
-      <a href="prompt-builder.html" class="fw-badge">👥 RACI</a>
+      <a class='fw-badge' href='/prompt-builder'>⭐ CoSTAR</a>
+      <a class='fw-badge' href='/prompt-builder'>📋 RTF</a>
+      <a class='fw-badge' href='/prompt-builder'>🧠 Chain-of-Thought</a>
+      <a class='fw-badge' href='/prompt-builder'>⚡ AETHER</a>
+      <a class='fw-badge' href='/prompt-builder'>🚀 RISEN</a>
+      <a class='fw-badge' href='/prompt-builder'>❓ SCQA</a>
+      <a class='fw-badge' href='/prompt-builder'>🎯 CRISPE</a>
+      <a class='fw-badge' href='/prompt-builder'>📁 PARA</a>
+      <a class='fw-badge' href='/prompt-builder'>👥 RACI</a>
     </div>
 
     <div class="quiz-block">
@@ -767,7 +834,7 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
       <div class="quiz-feedback" id="qfb-2"></div>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-3" onclick="completeChapter(3)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+    <button class="ch-complete-btn" id="cbtn-3" onclick="completeChapter(3)"><i class="ti ti-check-circle"></i> Mark Complete & Continue</button>
   </div>
 </div>
 
@@ -778,12 +845,20 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
     <div class="ch-meta">
       <div class="ch-title">Right Prompt, Right Tool</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/8oxj2sywqpk?rel=0&modestbranding=1&playsinline=1" title="Chapter 4 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/8oxj2sywqpk?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 4 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">ChatGPT vs Claude vs Gemini vs Midjourney — what each does best</div>
     </div>
     <span class="ch-badge" id="badge-4">5 min</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-4">
 
@@ -843,7 +918,7 @@ lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows,
       <div class="quiz-feedback" id="qfb-3"></div>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-4" onclick="completeChapter(4)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+    <button class="ch-complete-btn" id="cbtn-4" onclick="completeChapter(4)"><i class="ti ti-check-circle"></i> Mark Complete & Continue</button>
   </div>
 </div>
 
@@ -854,12 +929,20 @@ lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows,
     <div class="ch-meta">
       <div class="ch-title">Advanced Techniques That Pros Use</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/kaVyN2zxqF0?rel=0&modestbranding=1&playsinline=1" title="Chapter 5 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/kaVyN2zxqF0?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 5 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">Few-shot examples · Prompt chaining · Temperature control · System prompts</div>
     </div>
     <span class="ch-badge" id="badge-5">7 min</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-5">
 
@@ -931,7 +1014,7 @@ Respond in the first person, as a trusted advisor would.</div>
       <div class="quiz-feedback" id="qfb-4"></div>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-5" onclick="completeChapter(5)"><i class="ph ph-check-circle"></i> Mark Complete & Continue</button>
+    <button class="ch-complete-btn" id="cbtn-5" onclick="completeChapter(5)"><i class="ti ti-check-circle"></i> Mark Complete & Continue</button>
   </div>
 </div>
 
@@ -942,12 +1025,20 @@ Respond in the first person, as a trusted advisor would.</div>
     <div class="ch-meta">
       <div class="ch-title">Your First 10 Prompts — Start Here</div>
       <div class="ch-video-wrap">
-        <iframe src="https://www.youtube-nocookie.com/embed/L1PeIK0ODfc?rel=0&modestbranding=1&playsinline=1" title="Chapter 6 — Promptaholics Learn" width="560" height="315" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe
+  src="https://www.youtube-nocookie.com/embed/L1PeIK0ODfc?rel=0&modestbranding=1&playsinline=1"
+  title="Chapter 6 — Promptaholics"
+  width="560" height="315"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowfullscreen
+  referrerpolicy="strict-origin-when-cross-origin"
+></iframe>
       </div>
       <div class="ch-desc">Ready-to-use prompts for real work · Copy, paste, and adapt</div>
     </div>
     <span class="ch-badge" id="badge-6">5 min</span>
-    <i class="ph ph-caret-down ch-arrow"></i>
+    <i class="ti ti-chevron-down ch-arrow"></i>
   </div>
   <div class="ch-body" id="body-6">
 
@@ -985,15 +1076,15 @@ Respond in the first person, as a trusted advisor would.</div>
     </div>
 
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
-      <a href="prompt-builder.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;">
-        <i class="ph ph-wrench"></i> Open Prompt Builder
+      <a href='/prompt-builder' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;'>
+        <i class="ti ti-tool"></i> Open Prompt Builder
       </a>
-      <a href="library.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;">
-        <i class="ph ph-books"></i> Browse 1,113 Prompts
+      <a href='/library' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;'>
+        <i class="ti ti-books"></i> Browse 1,113 Prompts
       </a>
     </div>
 
-    <button class="ch-complete-btn" id="cbtn-6" onclick="completeChapter(6)"><i class="ph ph-trophy"></i> Complete the Course 🎉</button>
+    <button class="ch-complete-btn" id="cbtn-6" onclick="completeChapter(6)"><i class="ti ti-trophy"></i> Complete the Course 🎉</button>
   </div>
 </div>
 
@@ -1007,17 +1098,17 @@ Respond in the first person, as a trusted advisor would.</div>
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a href="library.html" class="footer-lnk">Library</a>
-      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
-      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
-      <a href="learn.html" class="footer-lnk">Learn</a>
+      <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
+      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
+      <a class='footer-lnk' href='/learn'>Learn</a>
       <span class="footer-sep">|</span>
-      <a href="about.html" class="footer-lnk">About Us</a>
-      <a href="blog.html" class="footer-lnk">Blog</a>
-      <a href="contact.html" class="footer-lnk">Contact</a>
+      <a class='footer-lnk' href='/about'>About Us</a>
+      <a class='footer-lnk' href='/blog'>Blog</a>
+      <a class='footer-lnk' href='/contact'>Contact</a>
       <span class="footer-sep">|</span>
-      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
-      <a href="terms.html" class="footer-lnk accent">Terms</a>
+      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
+      <a class='footer-lnk accent' href='/terms'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Learn prompt engineering free</div>
   </div>
@@ -1025,11 +1116,11 @@ Respond in the first person, as a trusted advisor would.</div>
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
-  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
-  <a class="bn-item active" href="learn.html"><i class="ph ph-graduation-cap"></i>Learn</a>
-  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+  <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item active' href='/learn'><i class="ti ti-school"></i>Learn</a>
+  <a class='bn-item' href='/login'><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>
@@ -1075,7 +1166,7 @@ function initProgress(){
     var badge=document.getElementById('badge-'+ch);
     if(badge){ badge.textContent='✓ Done'; badge.classList.add('done'); }
     var btn=document.getElementById('cbtn-'+ch);
-    if(btn){ btn.innerHTML='<i class="ph ph-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
+    if(btn){ btn.innerHTML='<i class="ti ti-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
     var chapter=document.getElementById('ch-'+ch);
     if(chapter) chapter.classList.add('completed');
   });
@@ -1106,7 +1197,6 @@ function toggleChapter(n){
     if(header) header.classList.remove('open');
     openChapter=null;
   } else {
-    // Close others
     for(var i=1;i<=TOTAL_CHAPTERS;i++){
       var b=document.getElementById('body-'+i);
       var h=b ? b.previousElementSibling : null;
@@ -1115,11 +1205,10 @@ function toggleChapter(n){
     body.classList.add('open');
     if(header) header.classList.add('open');
     openChapter=n;
-    // Smooth scroll to chapter on mobile
-    if(window.innerWidth <= 768 && header){
+    if(window.innerWidth<=768 && header){
       setTimeout(function(){
-        header.scrollIntoView({behavior:'smooth', block:'start'});
-      }, 100);
+        header.scrollIntoView({behavior:'smooth',block:'start'});
+      },150);
     }
   }
 }
@@ -1130,7 +1219,7 @@ function completeChapter(n){
   var badge=document.getElementById('badge-'+n);
   if(badge){ badge.textContent='✓ Done'; badge.classList.add('done'); }
   var btn=document.getElementById('cbtn-'+n);
-  if(btn){ btn.innerHTML='<i class="ph ph-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
+  if(btn){ btn.innerHTML='<i class="ti ti-check-circle"></i> Completed ✓'; btn.classList.add('done'); }
   var chapter=document.getElementById('ch-'+n);
   if(chapter) chapter.classList.add('completed');
   updateProgress();
