@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prompt of the Day — Promptaholics</title>
+<meta name="description" content="A brand new AI prompt generated fresh every day. 8 categories. 9 frameworks. Free forever."/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+/* ── BRAND TOKENS (exact match to library.html) ── */
+:root{
+  --bg:#07070a;
+  --bg2:#0d0d14;
+  --ink:#f0f0f8;
+  --ink2:#7070a0;
+  --ink3:#30304a;
+  --orange:#ff6224;
+  --o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);
+  --glass2:rgba(255,255,255,.08);
+  --glass3:rgba(255,255,255,.12);
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.13);
+  --blur:blur(12px);
+  --radius:16px;
+  --cat-color:#ff6224;
+}
+
+html,body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  min-height:100dvh;overflow-x:hidden;
+}
+
+/* ── CANVAS BG ── */
+#bgCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* ── GRAIN ── */
+.grain{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+  animation:grain .4s steps(1) infinite;
+}
+@keyframes grain{
+  0%{background-position:0 0;}25%{background-position:-4px 2px;}
+  50%{background-position:3px -3px;}75%{background-position:2px 4px;}
+}
+
+/* ── TOPNAV (matches site) ── */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:56px;
+  background:rgba(7,7,10,.92);
+  backdrop-filter:var(--blur);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Syne',serif;font-weight:900;font-size:17px;
+  color:var(--ink);text-decoration:none;
+}
+.nav-logo svg{width:20px;height:22px;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-link{
+  padding:6px 12px;border-radius:8px;font-size:12px;
+  font-weight:600;color:var(--ink2);text-decoration:none;
+  transition:all .15s;
+}
+.nav-link:hover{color:var(--ink);background:var(--glass);}
+.nav-cta{
+  padding:7px 16px;border-radius:8px;font-size:12px;
+  font-weight:700;background:var(--orange);color:#fff;
+  text-decoration:none;transition:all .15s;
+}
+.nav-cta:hover{background:var(--o2);}
+@media(max-width:600px){
+  .nav-links .nav-link{display:none;}
+  .nav-cta{font-size:11px;padding:6px 12px;}
+}
+
+/* ── MAIN STAGE ── */
+.stage{
+  position:relative;z-index:10;
+  min-height:100dvh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:80px 24px 110px;
+  max-width:860px;margin:0 auto;
+}
+
+/* ── DATE LABEL ── */
+.date-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--ink3);
+  letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:22px;
+  animation:fadeUp .5s .1s ease both;
+}
+
+/* ── CATEGORY BADGE ── */
+.cat-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px 6px 10px;border-radius:30px;
+  background:rgba(255,98,36,.08);
+  border:1px solid rgba(255,98,36,.2);
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--orange);
+  margin-bottom:28px;cursor:pointer;
+  transition:all .2s;
+  animation:fadeUp .5s .15s ease both;
+}
+.cat-badge:hover{background:rgba(255,98,36,.13);border-color:rgba(255,98,36,.35);}
+.cat-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--orange);box-shadow:0 0 8px var(--orange);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+
+/* ── LOADING ── */
+.loading-wrap{
+  min-height:220px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+}
+.loading-orbs{display:flex;gap:10px;}
+.orb{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--orange);
+  animation:orbUp .6s ease infinite;
+}
+.orb:nth-child(2){animation-delay:.12s;background:var(--o2);}
+.orb:nth-child(3){animation-delay:.24s;}
+@keyframes orbUp{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.loading-msg{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--ink3);letter-spacing:1px;
+}
+
+/* ── THE PROMPT (the star of the show) ── */
+.prompt-wrap{
+  width:100%;text-align:center;position:relative;
+  animation:fadeUp .4s ease both;
+}
+
+/* Huge decorative quote */
+.deco-quote{
+  font-family:'Syne',serif;font-weight:900;
+  font-size:260px;line-height:.55;
+  color:rgba(255,98,36,.04);
+  position:absolute;top:-20px;left:-30px;
+  pointer-events:none;user-select:none;
+  z-index:0;
+}
+
+.prompt-text{
+  font-family:'Syne',serif;
+  font-weight:800;
+  font-size:clamp(26px,4.5vw,58px);
+  line-height:1.12;
+  letter-spacing:-.5px;
+  color:var(--ink);
+  position:relative;z-index:2;
+  min-height:180px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Typewriter cursor */
+.cur{
+  display:inline-block;width:3px;height:.9em;
+  background:var(--orange);border-radius:2px;
+  margin-left:3px;vertical-align:middle;
+  animation:blink .65s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* ── META CHIPS ── */
+.meta-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;flex-wrap:wrap;
+  margin:24px 0 32px;
+  animation:fadeUp .5s ease both;
+}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:6px;
+  background:var(--glass);border:1px solid var(--border);
+  font-size:11px;font-weight:600;color:var(--ink2);
+  letter-spacing:.3px;
+}
+.chip i{font-size:12px;}
+.chip.fw{
+  background:rgba(255,98,36,.07);
+  border-color:rgba(255,98,36,.18);
+  color:var(--orange);
+}
+.chip.gold{
+  background:rgba(255,159,36,.07);
+  border-color:rgba(255,159,36,.18);
+  color:var(--o2);
+}
+
+/* ── ACTION BUTTONS (brand-matched) ── */
+.actions{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;flex-wrap:wrap;
+  animation:fadeUp .5s .05s ease both;
+}
+
+/* Primary — matches site btn-hero-primary */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:10px;
+  background:var(--orange);color:#fff;
+  font-family:'Instrument Sans',sans-serif;
+  font-weight:700;font-size:13px;letter-spacing:.2px;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.btn-primary:hover{background:var(--o2);transform:translateY(-2px);}
+.btn-primary:active{transform:none;}
+.btn-primary i{font-size:15px;}
+.btn-primary.spinning i{animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Secondary — matches pcard-btn */
+.btn-sec{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 18px;border-radius:10px;
+  background:var(--glass);
+  border:1px solid var(--border2);
+  color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  font-weight:600;font-size:13px;
+  cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.btn-sec:hover{background:var(--glass2);transform:translateY(-2px);}
+.btn-sec i{font-size:15px;}
+.btn-sec.copied{border-color:rgba(34,197,94,.3);color:#22c55e;}
+
+/* Gold variant */
+.btn-gold{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 18px;border-radius:10px;
+  background:rgba(255,159,36,.08);
+  border:1px solid rgba(255,159,36,.2);
+  color:var(--o2);
+  font-family:'Instrument Sans',sans-serif;
+  font-weight:600;font-size:13px;
+  cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.btn-gold:hover{background:rgba(255,159,36,.14);transform:translateY(-2px);}
+.btn-gold i{font-size:15px;}
+
+/* Icon-only (matches pcard-icon-btn) */
+.btn-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:10px;
+  background:var(--glass);
+  border:1px solid var(--border2);
+  color:var(--ink2);cursor:pointer;
+  transition:all .2s;font-size:16px;
+}
+.btn-icon:hover{
+  background:rgba(255,98,36,.1);
+  border-color:rgba(255,98,36,.25);
+  color:var(--orange);
+  transform:translateY(-2px);
+}
+.btn-icon i{font-size:16px;}
+
+/* ── GLOW DIVIDER ── */
+.divider{
+  width:100px;height:1px;margin:44px auto 36px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  opacity:.4;animation:fadeUp .5s .3s ease both;
+}
+
+/* ── STATS (matches hero-stats) ── */
+.stats{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;flex-wrap:wrap;
+  animation:fadeUp .5s .35s ease both;
+}
+.stat{text-align:center;padding:0 28px;}
+.stat .n{
+  display:block;font-family:'Syne',serif;font-weight:900;
+  font-size:32px;color:var(--orange);letter-spacing:-.5px;
+  line-height:1;
+}
+.stat .l{
+  display:block;font-size:9px;color:var(--ink3);
+  letter-spacing:2px;text-transform:uppercase;margin-top:4px;
+}
+.stat-sep{width:1px;height:36px;background:var(--border);}
+@media(max-width:480px){
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .stat-sep{display:none;}
+  .stat{padding:0;}
+}
+
+/* ── PREVIOUS PROMPTS STRIP ── */
+.prev-strip{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;gap:14px;
+  padding:12px 24px;
+  background:rgba(7,7,10,.94);
+  backdrop-filter:var(--blur);
+  border-top:1px solid var(--border);
+  animation:slideUp .6s .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:none;}}
+.prev-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;color:var(--ink3);
+  letter-spacing:2px;text-transform:uppercase;
+  white-space:nowrap;flex-shrink:0;
+}
+.prev-list{
+  display:flex;gap:6px;overflow-x:auto;
+  scrollbar-width:none;flex:1;
+}
+.prev-list::-webkit-scrollbar{display:none;}
+.prev-chip{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 10px;border-radius:6px;
+  background:var(--glass);border:1px solid var(--border);
+  font-size:10px;color:var(--ink2);
+  max-width:180px;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+  cursor:pointer;transition:all .15s;
+  font-family:'Instrument Sans',sans-serif;
+}
+.prev-chip i{font-size:11px;flex-shrink:0;color:var(--ink3);}
+.prev-chip:hover{background:var(--glass2);color:var(--ink);}
+
+/* ── CATEGORY MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;z-index:800;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal-panel{
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:20px;padding:28px;
+  width:min(460px,90vw);
+  transform:translateY(12px) scale(.97);
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.modal-bg.open .modal-panel{transform:none;}
+.modal-title{
+  font-family:'Syne',serif;font-weight:900;
+  font-size:22px;margin-bottom:18px;
+  letter-spacing:-.3px;
+}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cat-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;border-radius:12px;
+  background:var(--glass);border:1px solid var(--border);
+  cursor:pointer;transition:all .15s;text-align:left;
+  font-family:'Instrument Sans',sans-serif;
+}
+.cat-btn:hover{border-color:rgba(255,98,36,.25);background:rgba(255,98,36,.05);}
+.cat-btn.active{border-color:rgba(255,98,36,.4);background:rgba(255,98,36,.08);}
+.cat-btn-icon{font-size:20px;flex-shrink:0;}
+.cat-btn-info{flex:1;}
+.cat-btn-name{font-size:12px;font-weight:700;color:var(--ink);display:block;}
+.cat-btn-desc{font-size:10px;color:var(--ink3);display:block;margin-top:1px;}
+
+/* ── TOAST (matches site) ── */
+.pa-toast{
+  position:fixed;bottom:70px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:rgba(13,13,20,.96);
+  border:1px solid var(--border2);
+  color:var(--ink);font-size:12px;font-weight:600;
+  padding:9px 18px;border-radius:10px;
+  backdrop-filter:var(--blur);
+  z-index:999;pointer-events:none;
+  opacity:0;transition:all .25s;
+  font-family:'Instrument Sans',sans-serif;
+  white-space:nowrap;
+}
+.pa-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:600;
+  background:rgba(7,7,10,.97);border-top:1px solid var(--border);
+  padding:6px 0 env(safe-area-inset-bottom,0);
+}
+.mobile-nav-inner{display:flex;justify-content:space-around;}
+.mn-btn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 10px;color:var(--ink3);text-decoration:none;
+  font-size:9px;font-weight:700;letter-spacing:.3px;
+  background:none;border:none;cursor:pointer;transition:color .15s;
+}
+.mn-btn i{font-size:20px;}
+.mn-btn.active,.mn-btn:hover{color:var(--orange);}
+@media(max-width:768px){
+  .mobile-nav{display:block;}
+  .prev-strip{bottom:56px;}
+  body{padding-bottom:56px;}
+}
+
+/* ── UTILS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="bgCanvas"></canvas>
+
+<!-- ── TOPNAV ── -->
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 22 24" fill="none">
+      <path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/>
+      <path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/>
+    </svg>
+    Prompt<span>aholics</span>
+  </a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="prompt-builder.html" class="nav-link">Builder</a>
+    <a href="vault.html" class="nav-link">Vault</a>
+    <a href="library.html" class="nav-cta">1,363+ Prompts →</a>
+  </div>
+</nav>
+
+<!-- ── MAIN STAGE ── -->
+<main class="stage">
+
+  <!-- Date -->
+  <div class="date-label" id="dateLabel">Day #001 · Loading...</div>
+
+  <!-- Category badge -->
+  <div class="cat-badge" onclick="openCatModal()" id="catBadge">
+    <div class="cat-dot"></div>
+    <span id="catName">Business Strategy</span>
+    <i class="ti ti-chevron-down" style="font-size:11px;opacity:.6;"></i>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="loading-orbs">
+      <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+    </div>
+    <div class="loading-msg" id="loadingMsg">Crafting your prompt...</div>
+  </div>
+
+  <!-- Prompt display -->
+  <div class="prompt-wrap" id="promptWrap" style="display:none;">
+    <div class="deco-quote">"</div>
+    <div class="prompt-text" id="promptText"></div>
+  </div>
+
+  <!-- Meta chips -->
+  <div class="meta-row" id="metaRow" style="display:none;">
+    <div class="chip fw"><i class="ti ti-bolt"></i><span id="metaFw">RTF</span></div>
+    <div class="chip gold"><i class="ti ti-target"></i><span id="metaDiff">Intermediate</span></div>
+    <div class="chip"><i class="ti ti-clock"></i><span id="metaTime">~3 min</span></div>
+    <div class="chip"><i class="ti ti-robot"></i><span id="metaTool">ChatGPT · Claude</span></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions" id="actionsRow" style="display:none;">
+    <button class="btn-primary" onclick="doGenerate()" id="genBtn">
+      <i class="ti ti-sparkles" id="genIcon"></i>Generate Another
+    </button>
+    <button class="btn-sec" onclick="doCopy()" id="copyBtn">
+      <i class="ti ti-copy"></i>Copy
+    </button>
+    <a href="prompt-builder.html" class="btn-gold" id="buildBtn">
+      <i class="ti ti-tool"></i>Build It
+    </a>
+    <button class="btn-icon" onclick="doShare()" title="Share">
+      <i class="ti ti-share"></i>
+    </button>
+    <button class="btn-icon" onclick="doBookmark()" title="Save" id="bookmarkBtn">
+      <i class="ti ti-bookmark" id="bookmarkIcon"></i>
+    </button>
+    <button class="btn-icon" onclick="openCatModal()" title="Change category">
+      <i class="ti ti-layout-grid"></i>
+    </button>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><span class="n">1,363</span><span class="l">Prompts</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="n" id="statGen">0</span><span class="l">Generated Today</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="n">9</span><span class="l">Frameworks</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="n">$0</span><span class="l">Forever Free</span></div>
+  </div>
+
+</main>
+
+<!-- ── PREV STRIP ── -->
+<div class="prev-strip" id="prevStrip">
+  <div class="prev-label">Recent</div>
+  <div class="prev-list" id="prevList"></div>
+</div>
+
+<!-- ── CATEGORY MODAL ── -->
+<div class="modal-bg" id="catModal" onclick="closeCatModalBg(event)">
+  <div class="modal-panel">
+    <div class="modal-title">Choose Category</div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="pa-toast" id="paToast"></div>
+
+<!-- ── MOBILE NAV ── -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mn-btn"><i class="ti ti-home"></i>Home</a>
+    <a href="library.html" class="mn-btn"><i class="ti ti-books"></i>Library</a>
+    <button class="mn-btn active" onclick="doGenerate()"><i class="ti ti-sparkles"></i>Generate</button>
+    <a href="prompt-builder.html" class="mn-btn"><i class="ti ti-tool"></i>Builder</a>
+    <a href="vault.html" class="mn-btn"><i class="ti ti-photo"></i>Vault</a>
+  </div>
+</nav>
+
+<script>
+// ══════════════════════════════════════════
+//  CANVAS — floating orbs (brand colors)
+// ══════════════════════════════════════════
+const cvs = document.getElementById('bgCanvas');
+const ctx = cvs.getContext('2d');
+let W,H,orbs=[];
+
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;}
+
+class Orb{
+  constructor(){this.init(true);}
+  init(rand){
+    this.x=Math.random()*W;
+    this.y=rand?Math.random()*H:H+100;
+    this.r=Math.random()*220+80;
+    this.vx=(Math.random()-.5)*.12;
+    this.vy=-(Math.random()*.25+.06);
+    this.a=Math.random()*.055+.008;
+    // Brand colors only: orange #ff6224 or gold #ff9f24
+    this.isGold=Math.random()>.55;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.y+this.r<0)this.init(false);
+  }
+  draw(){
+    const h=this.isGold?28:18; // hue for gold vs orange
+    const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+    g.addColorStop(0,  `hsla(${h},100%,55%,${this.a})`);
+    g.addColorStop(.5, `hsla(${h},90%,45%,${this.a*.25})`);
+    g.addColorStop(1,  `hsla(${h},80%,30%,0)`);
+    ctx.fillStyle=g;
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();
+  }
+}
+
+function initOrbs(){orbs=Array.from({length:7},()=>new Orb());}
+function tick(){ctx.clearRect(0,0,W,H);orbs.forEach(o=>{o.update();o.draw();});requestAnimationFrame(tick);}
+addEventListener('resize',resize);resize();initOrbs();tick();
+
+// ══════════════════════════════════════════
+//  CATEGORIES
+// ══════════════════════════════════════════
+const CATS=[
+  {id:'business',  icon:'💼',name:'Business Strategy',  desc:'Growth, positioning, GTM',   fw:'CoSTAR',        diff:'Intermediate',time:'~4 min',tool:'Claude · ChatGPT'},
+  {id:'marketing', icon:'📣',name:'Marketing & Sales',   desc:'Copy, campaigns, funnels',   fw:'RISEN',         diff:'Intermediate',time:'~3 min',tool:'ChatGPT'},
+  {id:'creative',  icon:'✍️',name:'Creative Writing',    desc:'Stories, scripts, worlds',   fw:'AETHER',        diff:'Beginner',    time:'~5 min',tool:'Claude'},
+  {id:'code',      icon:'💻',name:'Coding & Tech',       desc:'Build, debug, architect',    fw:'Chain-of-Thought',diff:'Advanced',  time:'~6 min',tool:'Claude · GPT-4'},
+  {id:'finance',   icon:'📈',name:'Finance & Wealth',    desc:'Investing, ROI, systems',    fw:'RTF',           diff:'Intermediate',time:'~3 min',tool:'ChatGPT'},
+  {id:'growth',    icon:'🧠',name:'Personal Growth',     desc:'Habits, mindset, mastery',   fw:'SCQA',          diff:'Beginner',    time:'~4 min',tool:'Claude'},
+  {id:'image',     icon:'🎨',name:'Image Generation',    desc:'Midjourney, DALL·E, Flux',   fw:'RTF',           diff:'Beginner',    time:'~2 min',tool:'Midjourney'},
+  {id:'agents',    icon:'⚡',name:'AI Agents',           desc:'Workflows, automation',      fw:'CRISPE',        diff:'Advanced',    time:'~5 min',tool:'Claude · GPT-4'},
+];
+
+// ══════════════════════════════════════════
+//  PROMPT TEMPLATES (per category)
+// ══════════════════════════════════════════
+const PROMPTS={
+  business:[
+    "Act as a Fortune 500 Chief Strategy Officer. Analyze the competitive landscape for [INDUSTRY] and build a 90-day market entry strategy. Include positioning, pricing anchors, and the one asymmetric advantage most founders miss.",
+    "Simulate a board-level strategy session for a company that just lost its biggest client. 6 months of runway remain. Build the pivot framework: what to kill, what to double down on, and how to reframe the story for investors.",
+    "You are a startup advisor. Diagnose why [COMPANY TYPE] plateaus at $1M ARR and never reaches $10M. Write the exact strategic intervention — organizational, product, and go-to-market. Be surgical. No platitudes.",
+    "Design a go-to-market strategy for a [PRODUCT] entering a market dominated by one giant. Identify the underserved segment, the wedge product, and the distribution channel that doesn't require competing head-on.",
+  ],
+  marketing:[
+    "Write 7 email subject lines for a [PRODUCT] launch using pattern interruption, not clickbait. Each line should make the reader feel seen — like it was written for them specifically. Include the psychological trigger each one exploits.",
+    "You are David Ogilvy reborn with knowledge of TikTok algorithms. Write a full campaign brief for [BRAND] targeting [AUDIENCE]. Include the core human truth, the campaign idea, 3 executions, and the one line the brand must never say.",
+    "Simulate a conversion optimization audit for a landing page selling [PRODUCT]. Identify the 5 biggest leaks using the LIFT model, then rewrite the hero section, CTA, and first objection block from scratch.",
+    "Write a product launch sequence: 5 emails, 5 days. Day 1 builds the problem. Day 2 makes it personal. Day 3 introduces the solution. Day 4 crushes objections. Day 5 creates urgency without being desperate. Product: [PASTE].",
+  ],
+  creative:[
+    "Write the opening chapter of a story where the antagonist believes — with complete moral certainty — that they are the hero. Set it in [WORLD]. Every detail must make the reader understand the villain's logic while dreading what comes next.",
+    "Create a short story told entirely through the search history of one person over 30 days. No dialogue. No description. Just timestamps and queries that reveal a complete emotional arc from ordinary life to something irreversible.",
+    "Write a 3-minute short film scene where two strangers on a train discover they are connected by the same event — but experienced it from opposite sides. No exposition. Show everything through subtext and behavior.",
+    "Write a scene where a character must deliver devastating news, but every sentence they plan to say gets replaced by something smaller and safer. Show the gap between what they mean and what they actually say.",
+  ],
+  code:[
+    "You are a senior systems architect at a FAANG company. Design the database schema, API structure, and caching strategy for a real-time collaborative prompt library serving 100,000 concurrent users. Include race conditions and failure modes most engineers ignore.",
+    "Debug this architecture: [PASTE CODE]. Don't just fix the bug — explain the chain of assumptions that led to it, the systemic pattern it represents, and the refactor that eliminates the entire class of bugs forever.",
+    "Write a TypeScript utility that transforms unstructured AI output into typed, validated, structured data. Handle partial JSON, nested arrays with mixed types, and hallucinated fields. Include edge cases and tests.",
+    "Design the authentication and authorization system for a multi-tenant SaaS application. Include the token strategy, permission model, rate limiting approach, and the three security vulnerabilities most developers introduce at this stage.",
+  ],
+  finance:[
+    "Simulate a Wealth Architecture Agent. Given: [INCOME, EXPENSES, AGE, RISK TOLERANCE] — build the complete 10-year wealth system. Include the savings waterfall, investment allocation by account type, automatic rebalancing trigger, and the single metric to track monthly.",
+    "Analyze this investment thesis: [PASTE]. Steelman it, then tear it apart. Identify the 3 assumptions that must be true for it to work, the tail risk scenario that kills it, and the one data point that would change your verdict.",
+    "You are a CFO reviewing a founder's financial model for the first time. Identify every assumption doing heavy lifting but looking innocuous. Rewrite the model narrative so investors ask better questions instead of the easy ones.",
+    "Build a personal finance decision matrix. For every financial decision I face, give me the 5 questions to ask, the order in which to ask them, and the criteria that push a decision from 'analyze more' to 'act now'.",
+  ],
+  growth:[
+    "Design a 90-day personal operating system for someone who wants to [GOAL] but keeps self-sabotaging. Include the morning protocol, weekly review structure, decision filters to use under pressure, and the identity statement to read every morning.",
+    "You are a behavioral psychologist studying the gap between intention and action. For someone who wants to [HABIT] but hasn't started, map the exact psychological architecture of their resistance. Then design the minimum viable habit that bypasses it entirely.",
+    "Write the letter a 70-year-old version of me would send back to advise on [CHALLENGE]. Make it painfully specific. Include what they'd tell me to stop optimizing for immediately, the one relationship to prioritize, and the sentence that would feel like a gut punch.",
+    "Map the complete learning path from [CURRENT SKILL LEVEL] to [TARGET LEVEL] in [SKILL]. Include the exact resources in sequence, the checkpoints that prove you've advanced, the common plateau at week 6, and how to break through it.",
+  ],
+  image:[
+    "Cinematic portrait of [CHARACTER DESCRIPTION] in [SETTING]. Shot on Hasselblad 907X, 85mm f/1.4. Golden hour light raking across the scene. Deep shadow detail. The expression reveals [EMOTION] with complete restraint. Photorealistic. 8K. Oscar-winning cinematography aesthetic.",
+    "Architectural visualization of [BUILDING TYPE] suspended [LOCATION]. Brutalist concrete meets biophilic design. Moss-covered cantilevers. Rain-soaked surfaces reflecting amber city light. Rendered by Luxion KeyShot. Hyperdetailed. Magazine editorial quality.",
+    "Abstract digital artwork representing [CONCEPT] as a collision of [TEXTURE 1] and [TEXTURE 2]. Chromatic aberration. Controlled depth of field. Color palette: [COLOR 1] and [COLOR 2] with [ACCENT] appearing only where chaos becomes order. 4K. Artstation trending.",
+    "Street photography: [CITY], [TIME OF DAY]. Decisive moment. A stranger frozen mid-step under a neon sign that reads [TEXT]. Leica M11, 35mm Summicron, ISO 3200. Grain visible. The kind of shot that wins World Press Photo. Color: muted everything except [ONE COLOR].",
+  ],
+  agents:[
+    "Simulate a multi-agent research pipeline: Agent 1 scrapes and summarizes [TOPIC], Agent 2 fact-checks and scores credibility, Agent 3 synthesizes into a structured brief, Agent 4 identifies the 3 things the human must still verify. Write the full agent handoff protocol with input/output schemas.",
+    "Design an AI agent that acts as a Chief of Staff for a solo founder. Define its 8 core tools, trigger conditions for each, the escalation protocol for ambiguity, and the weekly summary format. Make it feel like a real employee, not a chatbot.",
+    "You are building an autonomous AI agent to [TASK]. Map the complete decision tree: what information it needs before acting, actions at each node, error states and recovery, and the hard stops where it must ask a human. Be exhaustive.",
+    "Architect a prompt chaining system that takes a vague user goal and decomposes it into a sequence of AI calls. Include the decomposition logic, how context passes between steps, how to handle a failed step mid-chain, and the final synthesis prompt.",
+  ],
+};
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let activeCat = CATS[Math.floor(Math.random()*CATS.length)];
+let currentPrompt = '';
+let genCount = parseInt(localStorage.getItem('pa_potd_gen')||'0');
+let prevPrompts = JSON.parse(localStorage.getItem('pa_potd_prev')||'[]');
+let savedPrompts = JSON.parse(localStorage.getItem('pa_potd_saved')||'[]');
+let typeTimer = null;
+
+// ══════════════════════════════════════════
+//  TYPEWRITER
+// ══════════════════════════════════════════
+function typewrite(el,text,speed,onDone){
+  clearTimeout(typeTimer);
+  el.innerHTML='';
+  let i=0;
+  function step(){
+    if(i<text.length){
+      el.innerHTML=text.slice(0,++i)+'<span class="cur"></span>';
+      typeTimer=setTimeout(step,speed);
+    } else {
+      el.innerHTML=text;
+      if(onDone)onDone();
+    }
+  }
+  step();
+}
+
+// ══════════════════════════════════════════
+//  GENERATE
+// ══════════════════════════════════════════
+const loadingMsgs=['Crafting your prompt...','Applying framework...','Sharpening the edges...','Almost ready...'];
+let loadTimer=null;
+
+function doGenerate(catOverride){
+  const cat = catOverride||activeCat;
+
+  // Show loading
+  document.getElementById('loadingWrap').style.display='flex';
+  document.getElementById('promptWrap').style.display='none';
+  document.getElementById('metaRow').style.display='none';
+  document.getElementById('actionsRow').style.display='none';
+
+  // Spin button
+  const btn=document.getElementById('genBtn');
+  const icon=document.getElementById('genIcon');
+  btn.classList.add('spinning');
+
+  // Rotate loading messages
+  let mi=0;
+  clearInterval(loadTimer);
+  loadTimer=setInterval(()=>{
+    mi=(mi+1)%loadingMsgs.length;
+    document.getElementById('loadingMsg').textContent=loadingMsgs[mi];
+  },600);
+
+  setTimeout(()=>{
+    clearInterval(loadTimer);
+    btn.classList.remove('spinning');
+
+    // Pick prompt
+    const pool=PROMPTS[cat.id]||PROMPTS.business;
+    currentPrompt=pool[Math.floor(Math.random()*pool.length)];
+
+    // Update UI
+    document.getElementById('catName').textContent=cat.name;
+    document.getElementById('metaFw').textContent=cat.fw+' Framework';
+    document.getElementById('metaDiff').textContent=cat.diff;
+    document.getElementById('metaTime').textContent=cat.time;
+    document.getElementById('metaTool').textContent=cat.tool;
+
+    // Hide loading
+    document.getElementById('loadingWrap').style.display='none';
+    document.getElementById('promptWrap').style.display='block';
+
+    // Typewrite
+    typewrite(document.getElementById('promptText'),currentPrompt,15,()=>{
+      document.getElementById('metaRow').style.display='flex';
+      document.getElementById('actionsRow').style.display='flex';
+      // Reset bookmark icon
+      document.getElementById('bookmarkIcon').className='ti ti-bookmark';
+    });
+
+    // Update bookmark state
+    updateBookmarkState();
+
+    // Track
+    genCount++;
+    localStorage.setItem('pa_potd_gen',genCount);
+    document.getElementById('statGen').textContent=genCount;
+
+    // Add to prev
+    prevPrompts.unshift(currentPrompt);
+    prevPrompts=prevPrompts.slice(0,6);
+    localStorage.setItem('pa_potd_prev',JSON.stringify(prevPrompts));
+    renderPrev();
+
+  },1200+Math.random()*400);
+}
+
+// ══════════════════════════════════════════
+//  COPY
+// ══════════════════════════════════════════
+function doCopy(){
+  if(!currentPrompt)return;
+  navigator.clipboard.writeText(currentPrompt).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.innerHTML='<i class="ti ti-check"></i>Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.innerHTML='<i class="ti ti-copy"></i>Copy';btn.classList.remove('copied');},2000);
+  });
+}
+
+// ══════════════════════════════════════════
+//  SHARE
+// ══════════════════════════════════════════
+function doShare(){
+  if(navigator.share&&currentPrompt){
+    navigator.share({
+      title:'Prompt of the Day — Promptaholics',
+      text:currentPrompt,
+      url:window.location.href,
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    showToast('Link copied!');
+  }
+}
+
+// ══════════════════════════════════════════
+//  BOOKMARK / SAVE
+// ══════════════════════════════════════════
+function doBookmark(){
+  if(!currentPrompt)return;
+  const idx=savedPrompts.indexOf(currentPrompt);
+  if(idx>-1){
+    savedPrompts.splice(idx,1);
+    showToast('Removed from saved');
+  } else {
+    savedPrompts.push(currentPrompt);
+    showToast('Saved to your prompts!');
+  }
+  localStorage.setItem('pa_potd_saved',JSON.stringify(savedPrompts));
+  updateBookmarkState();
+}
+function updateBookmarkState(){
+  const saved=savedPrompts.includes(currentPrompt);
+  document.getElementById('bookmarkIcon').className=
+    saved?'ti ti-bookmark-filled':'ti ti-bookmark';
+  const btn=document.getElementById('bookmarkBtn');
+  btn.style.color=saved?'var(--orange)':'';
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('paToast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ══════════════════════════════════════════
+//  PREV PROMPTS
+// ══════════════════════════════════════════
+function renderPrev(){
+  const list=document.getElementById('prevList');
+  if(!prevPrompts.length){list.innerHTML='<span style="font-size:10px;color:var(--ink3);font-family:\'JetBrains Mono\',monospace;">Generate your first prompt above</span>';return;}
+  list.innerHTML=prevPrompts.map(p=>
+    `<div class="prev-chip" onclick="reusePrompt(${JSON.stringify(p)})">
+      <i class="ti ti-history"></i>
+      ${p.slice(0,55)}...
+    </div>`
+  ).join('');
+}
+function reusePrompt(p){
+  currentPrompt=p;
+  document.getElementById('promptWrap').style.display='block';
+  document.getElementById('loadingWrap').style.display='none';
+  document.getElementById('metaRow').style.display='flex';
+  document.getElementById('actionsRow').style.display='flex';
+  typewrite(document.getElementById('promptText'),p,8);
+  updateBookmarkState();
+}
+
+// ══════════════════════════════════════════
+//  CATEGORY MODAL
+// ══════════════════════════════════════════
+function openCatModal(){
+  const modal=document.getElementById('catModal');
+  document.getElementById('catGrid').innerHTML=CATS.map(c=>
+    `<button class="cat-btn ${c.id===activeCat.id?'active':''}" onclick="selectCat('${c.id}')">
+      <span class="cat-btn-icon">${c.icon}</span>
+      <span class="cat-btn-info">
+        <span class="cat-btn-name">${c.name}</span>
+        <span class="cat-btn-desc">${c.desc}</span>
+      </span>
+    </button>`
+  ).join('');
+  modal.classList.add('open');
+}
+function closeCatModalBg(e){
+  if(e.target===document.getElementById('catModal'))
+    document.getElementById('catModal').classList.remove('open');
+}
+function selectCat(id){
+  activeCat=CATS.find(c=>c.id===id)||CATS[0];
+  document.getElementById('catModal').classList.remove('open');
+  doGenerate(activeCat);
+}
+
+// ══════════════════════════════════════════
+//  DATE LABEL
+// ══════════════════════════════════════════
+function setDate(){
+  const start=new Date('2026-01-01');
+  const now=new Date();
+  const day=Math.floor((now-start)/86400000)+1;
+  const fmt=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('dateLabel').textContent=`Day #${String(day).padStart(3,'0')} · ${fmt}`;
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+setDate();
+document.getElementById('statGen').textContent=genCount;
+renderPrev();
+setTimeout(()=>doGenerate(activeCat),300);
+</script>
+</body>
+</html>
