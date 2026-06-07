@@ -515,6 +515,79 @@ iframe{
   from{opacity:0;transform:translateY(-6px);}
   to{opacity:1;transform:translateY(0);}
 }
+
+/* ══════════════════════════════════════════
+   Z-INDEX FIX — Video clickable on mobile
+   Progress bar invisible overlay was
+   blocking taps on the video iframes
+══════════════════════════════════════════ */
+
+/* 1. Progress bar — pointer-events only on visible children
+      The wrapper itself passes clicks through */
+.progress-bar-wrap{
+  pointer-events:none;       /* invisible parts don't block taps */
+  overflow:visible;          /* don't let it expand hit area */
+}
+/* Re-enable clicks on actual visible interactive elements */
+.progress-label,
+.progress-track,
+.progress-fill,
+.progress-pct,
+.chapter-dots,
+.ch-dot{
+  pointer-events:auto;
+}
+
+/* 2. Video wrapper — explicitly on top, accepts all clicks */
+.ch-video-wrap{
+  position:relative !important;
+  z-index:10 !important;
+  pointer-events:auto !important;
+}
+
+/* 3. The iframe itself — must receive pointer events */
+.ch-video-wrap iframe{
+  pointer-events:auto !important;
+  z-index:10 !important;
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  width:100% !important;
+  height:100% !important;
+}
+
+/* 4. Chapter body — sits above any sticky overflow */
+.ch-body{
+  position:relative;
+  z-index:5;
+}
+
+/* 5. Learn wrap — isolate stacking context */
+.learn-wrap{
+  position:relative;
+  z-index:1;
+  isolation:isolate;
+}
+
+/* 6. On mobile — lower progress bar z-index further
+      so it can never bleed over content */
+@media(max-width:768px){
+  .progress-bar-wrap{
+    z-index:50 !important;  /* way below content z-index:10 */
+    position:sticky;
+    top:52px;
+    /* Shrink to exactly its visible height — no overflow */
+    overflow:hidden;
+    height:auto;
+  }
+  /* Video gets highest priority on mobile */
+  .ch-video-wrap{
+    z-index:100 !important;
+  }
+  .ch-video-wrap iframe{
+    z-index:100 !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -605,6 +678,12 @@ iframe{
     <span class="ch-num">01</span>
     <div class="ch-meta">
       <div class="ch-title">What is a Prompt — Really?</div>
+      <div class="ch-desc">Why AI does what it does · The input/output loop · Why specificity wins</div>
+    </div>
+    <span class="ch-badge" id="badge-1">Start</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-1">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/EHiZfXmDNrk?rel=0&modestbranding=1&playsinline=1"
@@ -616,12 +695,7 @@ iframe{
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">Why AI does what it does · The input/output loop · Why specificity wins</div>
-    </div>
-    <span class="ch-badge" id="badge-1">Start</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-1">
+
 
     <div class="learn-h3">AI doesn't <span class="accent">think.</span> It predicts.</div>
     <p class="learn-p">Every large language model — ChatGPT, Claude, Gemini — does one thing: it predicts the most likely next word given everything it's seen. That's it. No understanding. No intentions. No goals of its own.</p>
@@ -675,6 +749,12 @@ iframe{
     <span class="ch-num">02</span>
     <div class="ch-meta">
       <div class="ch-title">The 5 Elements of Every Great Prompt</div>
+      <div class="ch-desc">Role · Task · Context · Format · Constraints — the non-negotiable building blocks</div>
+    </div>
+    <span class="ch-badge" id="badge-2">5 min</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-2">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/EsqsXlCBV7w?rel=0&modestbranding=1&playsinline=1"
@@ -686,12 +766,7 @@ iframe{
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">Role · Task · Context · Format · Constraints — the non-negotiable building blocks</div>
-    </div>
-    <span class="ch-badge" id="badge-2">5 min</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-2">
+
 
     <div class="learn-h3">Every prompt is built from <span class="accent">5 layers</span></div>
     <p class="learn-p">You don't need a framework to write a good prompt. You need to answer 5 questions. Once you internalize these, you'll see them in every great prompt ever written.</p>
@@ -750,6 +825,12 @@ Feature request: [PASTE YOUR REQUEST HERE]</div>
     <span class="ch-num">03</span>
     <div class="ch-meta">
       <div class="ch-title">The 9 Frameworks — Your Prompt Toolkit</div>
+      <div class="ch-desc">CoSTAR · RTF · AETHER · Chain-of-Thought · RISEN · SCQA · CRISPE · PARA · RACI</div>
+    </div>
+    <span class="ch-badge" id="badge-3">8 min</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-3">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/s8aqYfGObfA?rel=0&modestbranding=1&playsinline=1"
@@ -761,12 +842,7 @@ Feature request: [PASTE YOUR REQUEST HERE]</div>
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">CoSTAR · RTF · AETHER · Chain-of-Thought · RISEN · SCQA · CRISPE · PARA · RACI</div>
-    </div>
-    <span class="ch-badge" id="badge-3">8 min</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-3">
+
 
     <div class="learn-h3">Frameworks are <span class="accent">checklists</span> that never forget</div>
     <p class="learn-p">A framework is just a structured way to ensure you don't miss any of the 5 elements. Different frameworks excel in different situations. You'll naturally gravitate toward 2-3 that fit your work.</p>
@@ -844,6 +920,12 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
     <span class="ch-num">04</span>
     <div class="ch-meta">
       <div class="ch-title">Right Prompt, Right Tool</div>
+      <div class="ch-desc">ChatGPT vs Claude vs Gemini vs Midjourney — what each does best</div>
+    </div>
+    <span class="ch-badge" id="badge-4">5 min</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-4">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/8oxj2sywqpk?rel=0&modestbranding=1&playsinline=1"
@@ -855,12 +937,7 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">ChatGPT vs Claude vs Gemini vs Midjourney — what each does best</div>
-    </div>
-    <span class="ch-badge" id="badge-4">5 min</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-4">
+
 
     <div class="learn-h3">The tool is <span class="accent">half the prompt</span></div>
     <p class="learn-p">The biggest hidden mistake beginners make: they write a great prompt for the wrong tool. An image prompt sent to ChatGPT as text. A long reasoning task sent to a model with a small context window. A creative story sent to a model tuned for factual recall.</p>
@@ -928,6 +1005,12 @@ lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows,
     <span class="ch-num">05</span>
     <div class="ch-meta">
       <div class="ch-title">Advanced Techniques That Pros Use</div>
+      <div class="ch-desc">Few-shot examples · Prompt chaining · Temperature control · System prompts</div>
+    </div>
+    <span class="ch-badge" id="badge-5">7 min</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-5">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/kaVyN2zxqF0?rel=0&modestbranding=1&playsinline=1"
@@ -939,12 +1022,7 @@ lone astronaut standing on Mars, golden hour sunset, red dust, dramatic shadows,
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">Few-shot examples · Prompt chaining · Temperature control · System prompts</div>
-    </div>
-    <span class="ch-badge" id="badge-5">7 min</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-5">
+
 
     <div class="learn-h3"><span class="accent">Few-Shot</span> Prompting — Show, Don't Tell</div>
     <p class="learn-p">Instead of describing what you want, show the model 2-3 examples of the exact format and style. This technique alone can transform output quality on structured tasks.</p>
@@ -1024,6 +1102,12 @@ Respond in the first person, as a trusted advisor would.</div>
     <span class="ch-num">06</span>
     <div class="ch-meta">
       <div class="ch-title">Your First 10 Prompts — Start Here</div>
+      <div class="ch-desc">Ready-to-use prompts for real work · Copy, paste, and adapt</div>
+    </div>
+    <span class="ch-badge" id="badge-6">5 min</span>
+    <i class="ti ti-chevron-down ch-arrow"></i>
+  </div>
+  <div class="ch-body" id="body-6">
       <div class="ch-video-wrap">
         <iframe
   src="https://www.youtube-nocookie.com/embed/L1PeIK0ODfc?rel=0&modestbranding=1&playsinline=1"
@@ -1035,12 +1119,7 @@ Respond in the first person, as a trusted advisor would.</div>
   referrerpolicy="strict-origin-when-cross-origin"
 ></iframe>
       </div>
-      <div class="ch-desc">Ready-to-use prompts for real work · Copy, paste, and adapt</div>
-    </div>
-    <span class="ch-badge" id="badge-6">5 min</span>
-    <i class="ti ti-chevron-down ch-arrow"></i>
-  </div>
-  <div class="ch-body" id="body-6">
+
 
     <div class="learn-h3">Stop reading. <span class="accent">Start prompting.</span></div>
     <p class="learn-p">The fastest way to learn is to use real prompts on real tasks. Here are 5 prompts for the most common use cases. Copy any of them, replace the bracketed parts, and go.</p>
