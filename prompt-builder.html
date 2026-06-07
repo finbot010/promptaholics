@@ -280,6 +280,53 @@ img,video,iframe{max-width:100%;}
   background:var(--orange);border-color:var(--orange);color:#fff;
 }
 .ai-result-btn.primary:hover{background:#e84e0e;}
+
+/* ── FRAMEWORK BADGES ── */
+.fw-card-name-row{display:flex;align-items:center;gap:4px;justify-content:center;flex-wrap:wrap;}
+.fw-badge{
+  font-size:8px;font-weight:800;letter-spacing:.5px;
+  text-transform:uppercase;padding:1px 5px;
+  border-radius:3px;background:rgba(255,98,36,.15);
+  border:1px solid rgba(255,98,36,.25);color:var(--orange);
+  white-space:nowrap;line-height:1.6;
+}
+.fw-card.active .fw-badge{background:rgba(255,98,36,.25);border-color:rgba(255,98,36,.5);}
+
+/* ── COLLAPSIBLE FRAMEWORK DRAWER ── */
+.fw-drawer{
+  border:1px solid var(--border2);border-radius:14px;
+  overflow:hidden;margin-bottom:20px;
+  background:var(--glass);
+}
+.fw-drawer-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;cursor:pointer;
+  transition:background .15s;user-select:none;
+}
+.fw-drawer-header:hover{background:rgba(255,255,255,.03);}
+.fw-drawer-selected{
+  display:flex;align-items:center;gap:10px;
+}
+.fw-drawer-sel-icon{font-size:18px;}
+.fw-drawer-sel-name{
+  font-size:13px;font-weight:800;
+  font-family:'Syne',serif;color:var(--ink);
+}
+.fw-drawer-sel-badge{
+  font-size:9px;font-weight:800;letter-spacing:.5px;
+  text-transform:uppercase;padding:2px 7px;
+  border-radius:4px;background:rgba(255,98,36,.12);
+  border:1px solid rgba(255,98,36,.25);color:var(--orange);
+}
+.fw-drawer-hint{font-size:11px;color:var(--ink3);}
+.fw-drawer-chevron{
+  font-size:14px;color:var(--ink3);transition:transform .2s;
+}
+.fw-drawer.open .fw-drawer-chevron{transform:rotate(180deg);}
+.fw-drawer-body{
+  display:none;padding:12px;border-top:1px solid var(--border2);
+}
+.fw-drawer.open .fw-drawer-body{display:block;}
 </style>
 </head>
 <body>
@@ -344,9 +391,23 @@ img,video,iframe{max-width:100%;}
     <p class="pb-sub">Pick a framework, fill the blocks, copy to any AI tool. Voice dictation included.</p>
   </div>
 
-  <!-- FRAMEWORK PICKER -->
-  <div class="fw-pick-label">Choose your framework</div>
-  <div class="fw-grid" id="fwGrid"><!-- filled by JS --></div>
+  <!-- FRAMEWORK PICKER — Collapsible Drawer -->
+  <div class="fw-drawer open" id="fwDrawer">
+    <div class="fw-drawer-header" onclick="toggleFwDrawer()">
+      <div class="fw-drawer-selected">
+        <span class="fw-drawer-sel-icon" id="drawerIcon">⭐</span>
+        <span class="fw-drawer-sel-name" id="drawerName">CoSTAR</span>
+        <span class="fw-drawer-sel-badge" id="drawerBadge">Balanced</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="fw-drawer-hint" id="drawerHint">9 frameworks</span>
+        <span class="fw-drawer-chevron">▾</span>
+      </div>
+    </div>
+    <div class="fw-drawer-body">
+      <div class="fw-grid" id="fwGrid"><!-- filled by JS --></div>
+    </div>
+  </div>
 
   <!-- MAIN BUILDER GRID -->
   <div class="builder-grid">
@@ -507,7 +568,7 @@ document.addEventListener('keydown',function(e){
 // ── FRAMEWORKS ───────────────────────────────────────────────
 var FRAMEWORKS = [
   {
-    id:'costar', name:'CoSTAR', icon:'⭐', color:'#ff6224',
+    id:'costar', badge:'Balanced', name:'CoSTAR', icon:'⭐', color:'#ff6224',
     desc:'Context · Objective · Style · Tone · Audience · Response',
     blocks:[
       {id:'context',   label:'Context',        tag:'C', color:'#ff6224', placeholder:'Background information the AI needs to know...', type:'textarea', rows:2},
@@ -532,12 +593,12 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'rtf', name:'RTF', icon:'📋', color:'#9b6dff',
+    id:'rtf', badge:'Speed', name:'RTF', icon:'📋', color:'#9b6dff',
     desc:'Role · Task · Format — fast and focused',
     blocks:[
-      {id:'role',   label:'Role',   tag:'R', color:'#9b6dff', placeholder:'Act as a [role] with [expertise]...', type:'textarea', rows:2},
-      {id:'task',   label:'Task',   tag:'T', color:'#7b4dff', placeholder:'Your specific request or task...', type:'textarea', rows:3},
-      {id:'format', label:'Format', tag:'F', color:'#5b2dff', placeholder:'How should the response be structured?', type:'text'},
+      {id:'role',   label:'Role',   tag:'R', color:'#9b6dff', placeholder:'e.g. Act as a senior financial advisor with 15 years of experience', type:'textarea', rows:2},
+      {id:'task',   label:'Task',   tag:'T', color:'#7b4dff', placeholder:'e.g. Explain compound interest to a 25-year-old with no finance background', type:'textarea', rows:3},
+      {id:'format', label:'Format', tag:'F', color:'#5b2dff', placeholder:'e.g. 3 bullet points, then a 2-sentence summary', type:'text'},
     ],
     build:function(v){
       var p='';
@@ -548,7 +609,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'cot', name:'Chain-of-Thought', icon:'🧠', color:'#00d4aa',
+    id:'cot', badge:'Complex', name:'Chain-of-Thought', icon:'🧠', color:'#00d4aa',
     desc:'Step-by-step reasoning for complex tasks',
     blocks:[
       {id:'problem',  label:'Problem',  tag:'P', color:'#00d4aa', placeholder:'Describe the problem or question in detail...', type:'textarea', rows:3},
@@ -565,15 +626,15 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'aether', name:'AETHER', icon:'⚡', color:'#ff4d8f',
+    id:'aether', badge:'Creative', name:'AETHER', icon:'⚡', color:'#ff4d8f',
     desc:'Actor · Environment · Task · Hard Constraints · Examples · Refinement',
     blocks:[
-      {id:'actor',       label:'Actor',            tag:'A', color:'#ff4d8f', placeholder:'Who is the AI in this scenario?', type:'textarea', rows:2},
-      {id:'environment', label:'Environment',       tag:'E', color:'#e0365a', placeholder:'The context or world the actor operates in...', type:'textarea', rows:2},
-      {id:'task',        label:'Task',              tag:'T', color:'#c01e3c', placeholder:'The specific task or goal...', type:'textarea', rows:2},
-      {id:'constraints', label:'Hard Constraints',  tag:'H', color:'#a0062e', placeholder:'Rules the AI must never violate...', type:'textarea', rows:2},
-      {id:'examples',    label:'Examples',          tag:'Ex',color:'#ff7aa8', placeholder:'Example inputs/outputs to guide the AI...', type:'textarea', rows:2},
-      {id:'refinement',  label:'Refinement',        tag:'R', color:'#ffaac4', placeholder:'How to improve or iterate on the output...', type:'text'},
+      {id:'actor',       label:'Actor',            tag:'A', color:'#ff4d8f', placeholder:'e.g. Senior SaaS Copywriter with 10 years B2B experience', type:'textarea', rows:2},
+      {id:'environment', label:'Environment',       tag:'E', color:'#e0365a', placeholder:'e.g. Fast-growing startup, tech-savvy audience, competitive market', type:'textarea', rows:2},
+      {id:'task',        label:'Task',              tag:'T', color:'#c01e3c', placeholder:'e.g. Write 3 cold email subject lines for a CRM tool targeting CMOs', type:'textarea', rows:2},
+      {id:'constraints', label:'Hard Constraints',  tag:'H', color:'#a0062e', placeholder:'e.g. No emojis, under 60 chars, no clickbait phrases', type:'textarea', rows:2},
+      {id:'examples',    label:'Examples',          tag:'Ex',color:'#ff7aa8', placeholder:'e.g. Good: "Double your pipeline in 30 days" / Bad: "Check this out!"', type:'textarea', rows:2},
+      {id:'refinement',  label:'Refinement',        tag:'R', color:'#ffaac4', placeholder:'e.g. Make version B more curiosity-driven, less feature-focused', type:'text'},
     ],
     build:function(v){
       var p='';
@@ -587,7 +648,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'risen', name:'RISEN', icon:'🚀', color:'#f59e0b',
+    id:'risen', badge:'Detailed', name:'RISEN', icon:'🚀', color:'#f59e0b',
     desc:'Role · Instructions · Steps · End Goal · Narrowing',
     blocks:[
       {id:'role',         label:'Role',         tag:'R', color:'#f59e0b', placeholder:'The role the AI should take on...', type:'textarea', rows:2},
@@ -607,7 +668,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'scqa', name:'SCQA', icon:'❓', color:'#06b6d4',
+    id:'scqa', badge:'Storytelling', name:'SCQA', icon:'❓', color:'#06b6d4',
     desc:'Situation · Complication · Question · Answer',
     blocks:[
       {id:'situation',    label:'Situation',    tag:'S', color:'#06b6d4', placeholder:'Set the scene — what is the current state?', type:'textarea', rows:2},
@@ -625,7 +686,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'crispe', name:'CRISPE', icon:'🎯', color:'#8b5cf6',
+    id:'crispe', badge:'Expert', name:'CRISPE', icon:'🎯', color:'#8b5cf6',
     desc:'Capacity · Role · Insight · Statement · Personality · Experiment',
     blocks:[
       {id:'capacity',    label:'Capacity',    tag:'C', color:'#8b5cf6', placeholder:'AI capacity needed (e.g. expert coder, creative writer)...', type:'text'},
@@ -647,7 +708,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'para', name:'PARA', icon:'📁', color:'#10b981',
+    id:'para', badge:'Knowledge', name:'PARA', icon:'📁', color:'#10b981',
     desc:'Projects · Areas · Resources · Archive — for knowledge management',
     blocks:[
       {id:'projects',  label:'Projects',  tag:'P', color:'#10b981', placeholder:'Active projects relevant to this task...', type:'textarea', rows:2},
@@ -665,7 +726,7 @@ var FRAMEWORKS = [
     }
   },
   {
-    id:'raci', name:'RACI', icon:'👥', color:'#ef4444',
+    id:'raci', badge:'Teams', name:'RACI', icon:'👥', color:'#ef4444',
     desc:'Responsible · Accountable · Consulted · Informed',
     blocks:[
       {id:'task',        label:'Task',        tag:'T', color:'#ef4444', placeholder:'The task or deliverable to be created...', type:'textarea', rows:2},
@@ -719,10 +780,15 @@ function renderFwGrid(){
   g.innerHTML = FRAMEWORKS.map(function(fw){
     return '<button class="fw-card'+(fw.id===activeFw.id?' active':'')+'" onclick="selectFw(FRAMEWORKS.find(function(f){return f.id===\''+fw.id+'\'}))">'
       +'<span class="fw-card-icon">'+fw.icon+'</span>'
-      +'<span class="fw-card-name">'+fw.name+'</span>'
+      +'<div class="fw-card-name-row"><span class="fw-card-name">'+fw.name+'</span>'+(fw.badge?'<span class="fw-badge">'+fw.badge+'</span>':'')+'</div>'
       +'<span class="fw-card-desc">'+fw.desc.split(' · ').slice(0,3).join(' · ')+'</span>'
       +'</button>';
   }).join('');
+}
+
+function toggleFwDrawer(){
+  var drawer = document.getElementById('fwDrawer');
+  if(drawer) drawer.classList.toggle('open');
 }
 
 function selectFw(fw){
@@ -739,6 +805,18 @@ function selectFw(fw){
   if(icon) icon.textContent = fw.icon;
   if(name) name.textContent = fw.name;
   if(desc) desc.textContent = fw.desc;
+  // Update drawer header to show selected framework
+  var dIcon  = document.getElementById('drawerIcon');
+  var dName  = document.getElementById('drawerName');
+  var dBadge = document.getElementById('drawerBadge');
+  var dHint  = document.getElementById('drawerHint');
+  if(dIcon)  dIcon.textContent  = fw.icon;
+  if(dName)  dName.textContent  = fw.name;
+  if(dBadge) dBadge.textContent = fw.badge || '';
+  if(dHint)  dHint.textContent  = fw.desc.split(' · ').slice(0,2).join(' · ');
+  // Auto-collapse drawer after selection
+  var drawer = document.getElementById('fwDrawer');
+  if(drawer) drawer.classList.remove('open');
   renderFields();
   buildPreview();
 }
