@@ -120,9 +120,9 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .hero-h1{font-family:'Syne',serif;font-size:clamp(48px,8vw,96px);font-weight:900;line-height:.95;letter-spacing:-3px;margin-bottom:24px;animation:fadeUp .7s .1s ease both;}
 .hero-h1 .line1{display:block;color:var(--ink);}
 .hero-h1 .line2{display:block;color:transparent;background:linear-gradient(90deg,var(--orange),var(--o2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--ink2);max-width:480px;margin:0 auto 36px;line-height:1.65;animation:fadeUp .7s .2s ease both;}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--ink2);max-width:480px;margin:0 0 36px;line-height:1.65;animation:fadeUp .7s .2s ease both;}
 .hero-sub strong{color:var(--ink);font-weight:600;}
-.hero-ctas{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.hero-ctas{display:flex;align-items:center;justify-content:flex-start;gap:12px;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
 .btn-hero-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;border:none;cursor:pointer;transition:all .2s;font-family:'Instrument Sans',sans-serif;}
 .btn-hero-primary:hover{background:#e84e0e;transform:translateY(-1px);}
 .btn-hero-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:var(--glass);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;border:1px solid var(--border2);cursor:pointer;transition:all .2s;font-family:'Instrument Sans',sans-serif;}
@@ -407,14 +407,199 @@ img,video,iframe{max-width:100%;}
 
 @media(max-width:768px){
   .hero{padding:100px 20px 40px;}
-  .hero-split{grid-template-columns:1fr !important;gap:28px;text-align:center;}
-  .hero-content{text-align:center;}
-  .hero-ctas{justify-content:center;}
-  .hero-stats{justify-content:center;}
-  .hero-visual{order:-1;max-width:320px;margin:0 auto;}
+  .hero-split{grid-template-columns:1fr !important;gap:28px;}
 }
 @media(max-width:420px){
   .hero-visual{display:none;}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 1 — Hero typography
+   clamp() already set but bottoms out at 48px
+   which is still too big at 320px phones
+   Sharp breakpoints give better control
+══════════════════════════════════════════ */
+
+/* Override clamp with stepped sizes */
+@media(max-width:480px){
+  .hero-h1{
+    font-size:40px !important;
+    letter-spacing:-2px;
+    line-height:1.0;
+    margin-bottom:16px;
+  }
+}
+@media(max-width:360px){
+  .hero-h1{
+    font-size:34px !important;
+    letter-spacing:-1.5px;
+  }
+}
+
+/* Sub text align left on mobile (matches hero-content) */
+@media(max-width:768px){
+  .hero-sub{
+    text-align:left;
+    max-width:100%;
+    margin-left:0;
+    margin-right:0;
+    font-size:15px;
+  }
+  .hero-eyebrow{margin-bottom:20px;}
+  .hero-content{text-align:left;}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 2 — Hero image responsive
+   Desktop: right column (already works)
+   Tablet: smaller, below text
+   Mobile: hidden below 420px (already set)
+   Mid-mobile (421-767): show scaled down
+══════════════════════════════════════════ */
+@media(max-width:767px) and (min-width:421px){
+  .hero-visual{
+    max-width:280px;
+    margin:0 auto;
+    order:1; /* below text */
+    opacity:.85;
+  }
+  .hero-split{
+    gap:20px;
+  }
+}
+@media(max-width:768px){
+  /* Prevent image from overflowing container */
+  .hero-visual img{
+    width:100%;
+    height:auto;
+    max-width:100%;
+    border-radius:14px;
+  }
+  /* Reduce glow intensity on mobile (performance) */
+  .hero-visual{
+    box-shadow:
+      0 0 0 1px rgba(255,98,36,.12),
+      0 0 40px rgba(255,98,36,.08),
+      0 16px 40px rgba(0,0,0,.4);
+  }
+  /* Pause float animation on mobile to save battery */
+  .hero-visual{animation:none;}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 3 — CTAs
+   Already stack at 420px — reinforce and add
+   min tap targets
+══════════════════════════════════════════ */
+@media(max-width:768px){
+  .hero-ctas{
+    justify-content:flex-start;
+    gap:10px;
+  }
+}
+@media(max-width:480px){
+  .hero-ctas{
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+  }
+  .btn-hero-primary,
+  .btn-hero-ghost{
+    width:100%;
+    justify-content:center;
+    min-height:48px; /* 44px+ tap target */
+    padding:14px 20px;
+    font-size:14px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 4 — Why Promptaholics grid
+   Currently: 3-col → 1-col (900px jump)
+   Better: 3-col → 2-col → 1-col stepped
+══════════════════════════════════════════ */
+
+/* Override existing 900px rule */
+@media(min-width:701px) and (max-width:900px){
+  .why-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:1px;
+  }
+  /* Last card spans full width when 3 items in 2-col */
+  .why-card:last-child{
+    grid-column:1/-1;
+    border-top:1px solid var(--border);
+  }
+}
+@media(max-width:700px){
+  .why-grid{
+    grid-template-columns:1fr !important;
+    gap:0;
+  }
+  .why-card{
+    padding:32px 24px;
+    border-bottom:1px solid var(--border);
+  }
+  .why-card:last-child{border-bottom:none;}
+  .why-num{font-size:48px;margin-bottom:12px;}
+  .why-title{font-size:18px;}
+  .why-body{font-size:13px;}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 5 — Stats grid on mobile
+   2x2 instead of 4-wide row
+══════════════════════════════════════════ */
+@media(max-width:480px){
+  .hero-stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid var(--border2);
+    text-align:center;
+  }
+  .stat-divider{display:none;}
+  .hero-stat .n{font-size:22px;}
+  .hero-stat .l{font-size:10px;}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE FIX 6 — Social bar + vault teaser
+   Better mobile layout
+══════════════════════════════════════════ */
+@media(max-width:480px){
+  .social-bar{
+    gap:6px;
+    justify-content:center;
+  }
+  .social-btn{
+    font-size:11px;
+    padding:7px 11px;
+    gap:5px;
+  }
+  /* Vault teaser 2x2 on mobile */
+  .vault-preview-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px;
+  }
+  .section-title{font-size:clamp(24px,6vw,40px);}
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE GLOBAL — Prevent horizontal scroll
+══════════════════════════════════════════ */
+html,body{
+  overflow-x:hidden;
+  max-width:100vw;
+}
+*{box-sizing:border-box;}
+img,video,iframe{max-width:100%;}
+
+/* iOS Safari fix */
+@media(max-width:768px){
+  input,textarea,select{font-size:16px !important;-webkit-text-size-adjust:100%;}
 }
 </style>
 </head>
