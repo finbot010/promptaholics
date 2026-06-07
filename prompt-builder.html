@@ -325,8 +325,163 @@ img,video,iframe{max-width:100%;}
 .fw-drawer.open .fw-drawer-chevron{transform:rotate(180deg);}
 .fw-drawer-body{
   display:none;padding:12px;border-top:1px solid var(--border2);
+  position:relative;
 }
 .fw-drawer.open .fw-drawer-body{display:block;}
+
+/* ══════════════════════════════════════════
+   MOBILE FIX 1 — Sticky "Your Prompt" box
+   On mobile the preview panel sticks just
+   below the top nav while fields scroll below
+══════════════════════════════════════════ */
+@media(max-width:860px){
+
+  /* Stack columns */
+  .builder-grid{
+    grid-template-columns:1fr;
+    display:flex;
+    flex-direction:column-reverse; /* Fields below, prompt above */
+  }
+
+  /* Sticky preview panel */
+  .preview-panel{
+    position:sticky;
+    top:60px; /* height of topnav */
+    z-index:100;
+    max-height:42vh;
+    overflow:hidden;
+    border-radius:var(--radius);
+    box-shadow:0 8px 32px rgba(0,0,0,.4);
+  }
+
+  /* Shrink the preview box inside */
+  .preview-box{
+    max-height:28vh;
+    overflow-y:auto;
+    font-size:12px;
+  }
+
+  /* Hide AI helper + send tools on mobile to save space */
+  .ai-helper-wrap{display:none;}
+  #toolsGrid{display:none;}
+  .send-label{display:none;}
+
+  /* Compact preview header */
+  .preview-head-title{font-size:12px;}
+  .preview-actions .btn span{ display:none; } /* icon only */
+
+  /* Fields panel scrolls naturally below */
+  .fields-panel{
+    border-radius:var(--radius);
+    margin-top:12px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   MOBILE FIX 2 — Framework grid →
+   Horizontal scrollable row with snap points
+══════════════════════════════════════════ */
+@media(max-width:860px){
+  .fw-drawer-body{padding:8px 0 8px 12px;}
+
+  .fw-grid{
+    /* Override the 3-col grid */
+    display:flex !important;
+    flex-direction:row;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:8px;
+    padding-bottom:8px;
+    /* Hide scrollbar but keep scroll */
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .fw-grid::-webkit-scrollbar{display:none;}
+
+  /* Each card snaps into place */
+  .fw-card{
+    flex:0 0 auto;
+    width:100px;
+    scroll-snap-align:start;
+    border-radius:10px;
+    padding:10px 8px;
+  }
+
+  /* Fade hint on right edge showing more cards exist */
+  .fw-drawer-body::after{
+    content:'';
+    position:absolute;
+    right:0;top:0;bottom:0;
+    width:40px;
+    background:linear-gradient(to right, transparent, var(--bg));
+    pointer-events:none;
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .fw-drawer-body{position:relative;overflow:hidden;}
+}
+
+/* ══════════════════════════════════════════
+   MOBILE FIX 3 — iOS Safari auto-zoom fix
+   All inputs/textareas MUST be >= 16px
+   on mobile to prevent Safari auto-zoom
+══════════════════════════════════════════ */
+@media(max-width:860px){
+  /* Every input, textarea, select on the page */
+  input,
+  textarea,
+  select,
+  .field-input,
+  .field-select,
+  .ai-helper-input,
+  .gen-gate-input{
+    font-size:16px !important;
+    /* Also fix placeholder size */
+    -webkit-text-size-adjust:100%;
+  }
+
+  /* Fix placeholder color since we're overriding */
+  input::placeholder,
+  textarea::placeholder,
+  .field-input::placeholder,
+  .ai-helper-input::placeholder{
+    font-size:16px;
+    color:var(--ink3);
+  }
+
+  /* Select boxes need special treatment on iOS */
+  select,
+  .field-select{
+    font-size:16px !important;
+    /* Prevent iOS from adding its own styling */
+    -webkit-appearance:none;
+    appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    padding-right:32px;
+  }
+
+  /* Fw drawer inputs */
+  .fw-badge{font-size:7px;}
+  .fw-card-name{font-size:11px;}
+}
+
+/* ══════════════════════════════════════════
+   EXTRA — Smooth scroll hint animation
+   Pulses the fw-grid left on first load
+   to show it's scrollable
+══════════════════════════════════════════ */
+@media(max-width:860px){
+  @keyframes scrollHint{
+    0%{transform:translateX(0);}
+    30%{transform:translateX(-20px);}
+    60%{transform:translateX(0);}
+    100%{transform:translateX(0);}
+  }
+  .fw-grid.hint{animation:scrollHint 1s ease .5s both;}
+}
 </style>
 </head>
 <body>
@@ -771,6 +926,15 @@ document.addEventListener('DOMContentLoaded', function(){
   renderFwGrid();
   selectFw(FRAMEWORKS[0]);
   renderToolsGrid();
+
+  // Mobile scroll hint — show users the fw-grid scrolls
+  if(window.innerWidth <= 860){
+    var grid = document.getElementById('fwGrid');
+    if(grid && !localStorage.getItem('pa_pb_hinted')){
+      grid.classList.add('hint');
+      localStorage.setItem('pa_pb_hinted','1');
+    }
+  }
 });
 
 // ── FRAMEWORK GRID ─────────────────────────────────────────────

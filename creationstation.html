@@ -726,6 +726,129 @@ img,video,iframe{max-width:100%;}
 .pa-toast.show{
   opacity:1;transform:translateX(-50%) translateY(0);
 }
+
+/* ══════════════════════════════════════════
+   CS FIX 1 — Sticky cost calculator total
+   Desktop: side panel (unchanged)
+   Mobile: sticky bar pinned above bottom nav
+══════════════════════════════════════════ */
+@media(max-width:700px){
+  .calc-right{
+    position:sticky;
+    bottom:56px;
+    z-index:200;
+    background:rgba(10,10,16,.97);
+    border:1px solid rgba(255,98,36,.25);
+    border-radius:16px 16px 0 0;
+    padding:12px 20px !important;
+    box-shadow:0 -8px 32px rgba(0,0,0,.5);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    margin-top:8px;
+  }
+  .calc-total-box{
+    display:flex !important;
+    align-items:center;
+    justify-content:space-between;
+    flex-direction:row !important;
+    gap:12px;
+    margin-bottom:0 !important;
+  }
+  .calc-total-label{font-size:12px;color:var(--ink3);margin-bottom:0 !important;}
+  .calc-total-amount{
+    font-size:28px;margin:0;
+    background:linear-gradient(135deg,#ff6224,#ffd700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .calc-total-period{display:none;}
+  .calc-breakdown{display:none;}
+  .calc-tip{font-size:11px;padding:8px 0 0;border-top:1px solid rgba(255,255,255,.06);margin-top:8px;}
+
+  /* 44px minimum tap targets for tool rows */
+  .calc-tool-row{min-height:44px;display:flex;align-items:center;padding:6px 0;cursor:pointer;}
+  .calc-tool-row input[type="checkbox"]{
+    width:22px;height:22px;min-width:22px;
+    cursor:pointer;accent-color:var(--orange);
+    flex-shrink:0;
+  }
+  /* Make the whole row label tappable */
+  .calc-tool-row label{
+    min-height:44px;display:flex;align-items:center;
+    width:100%;cursor:pointer;gap:10px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   CS FIX 2 — Filter pills: horizontal swipe
+══════════════════════════════════════════ */
+@media(max-width:768px){
+  .cs-cats{
+    flex-wrap:nowrap !important;
+    overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;-ms-overflow-style:none;
+    padding-bottom:8px;
+    mask-image:linear-gradient(to right,transparent,black 12px,black calc(100% - 24px),transparent);
+    -webkit-mask-image:linear-gradient(to right,transparent,black 12px,black calc(100% - 24px),transparent);
+  }
+  .cs-cats::-webkit-scrollbar{display:none;}
+  .cs-cat{flex-shrink:0;scroll-snap-align:start;white-space:nowrap;min-height:36px;display:flex;align-items:center;}
+}
+
+/* ══════════════════════════════════════════
+   CS FIX 3 — News feed mobile polish
+══════════════════════════════════════════ */
+@media(max-width:768px){
+  .news-item{padding:10px 10px;gap:8px;border-radius:10px;}
+  .news-rank{font-size:14px;min-width:18px;}
+  .news-title{font-size:12px;line-height:1.5;}
+  /* Hide comments count and time on mobile — keep pts + domain */
+  .news-meta span:nth-child(2){display:none;}
+  .news-meta span:nth-child(3){display:none;}
+  .news-pts{font-size:10px;}
+  .news-arrow{font-size:12px;flex-shrink:0;}
+  /* Swipeable news tabs */
+  .news-tabs{
+    flex-wrap:nowrap;overflow-x:auto;
+    scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;
+  }
+  .news-tabs::-webkit-scrollbar{display:none;}
+  .news-tab{flex-shrink:0;white-space:nowrap;min-height:36px;display:flex;align-items:center;}
+}
+
+/* ══════════════════════════════════════════
+   CS FIX 4 — Flip cards: hover → tap
+   On touch devices show tap-to-flip UI
+══════════════════════════════════════════ */
+@media(hover:none) and (pointer:coarse){
+  /* Remove CSS hover flip — JS handles it via .flipped class */
+  .flip-card:hover .flip-inner{transform:none;}
+
+  /* Add tap hint on front face */
+  .flip-front::after{
+    content:'Tap to learn more';
+    position:absolute;bottom:8px;left:0;right:0;
+    text-align:center;font-size:9px;font-weight:700;
+    color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;
+  }
+
+  /* When .flipped — show back via opacity instead of rotateY */
+  .flip-card.flipped .flip-inner{transform:none;}
+  .flip-card.flipped .flip-front{opacity:0;pointer-events:none;transition:opacity .2s;}
+  .flip-card.flipped .flip-back{
+    transform:rotateY(0deg);opacity:1;
+    transition:opacity .2s;
+  }
+  .flip-back{opacity:0;transform:rotateY(0deg);}
+}
+
+/* iOS Safari 16px fix */
+@media(max-width:768px){
+  input,textarea,select{font-size:16px !important;-webkit-text-size-adjust:100%;}
+}
 </style>
 
 </head>
@@ -739,13 +862,13 @@ img,video,iframe{max-width:100%;}
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a href="library.html" class="nav-lnk">Library</a>
-      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
-      <a href="creationstation.html" class="nav-lnk active">AI Tools</a>
-      <a href="learn.html" class="nav-lnk">Learn</a>
-      <a href="vault.html" class="nav-lnk">Image Vault</a>
+      <a class='nav-lnk' href='/library'>Library</a>
+      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
+      <a class='nav-lnk active' href='/creationstation'>AI Tools</a>
+      <a class='nav-lnk' href='/learn'>Learn</a>
+      <a class='nav-lnk' href='/vault'>Image Vault</a>
     </nav>
-    <a href="login.html" class="nav-signin">Sign In</a>
+    <a class='nav-signin' href='/login'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ti ti-moon" aria-hidden="true"></i></button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
   </div>
@@ -763,22 +886,22 @@ img,video,iframe{max-width:100%;}
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
     <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
-    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
-    <a class="sm-item active" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
-    <a class="sm-item" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
-    <a class="sm-item" href="vault.html"><i class="ph ph-images"></i> Image Vault</a>
+    <a class='sm-item' href='/library'><i class="ph ph-books"></i> Prompt Library</a>
+    <a class='sm-item' href='/prompt-builder'><i class="ph ph-wrench"></i> Prompt Builder</a>
+    <a class='sm-item active' href='/creationstation'><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class='sm-item' href='/learn'><i class="ph ph-graduation-cap"></i> Learn</a>
+    <a class='sm-item' href='/vault'><i class="ph ph-images"></i> Image Vault</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
-    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='/about'><i class="ph ph-info"></i> About Us</a>
+    <a class='sm-item' href='/blog'><i class="ph ph-newspaper"></i> Blog</a>
+    <a class='sm-item' href='/contact'><i class="ph ph-envelope"></i> Contact</a>
+    <a class='sm-item' href='/privacy'><i class="ph ph-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='/terms'><i class="ph ph-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='/login'><i class="ph ph-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon"><i class="ti ti-moon" aria-hidden="true"></i></span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -1447,8 +1570,8 @@ img,video,iframe{max-width:100%;}
 
           <div class="gen-gate-note">
             No spam. Unsubscribe anytime. By continuing you agree to our
-            <a href="privacy.html" target="_blank">Privacy Policy</a> &
-            <a href="terms.html" target="_blank">Terms</a>.
+            <a href='/privacy' target='_blank'>Privacy Policy</a> &
+            <a href='/terms' target='_blank'>Terms</a>.
           </div>
         </div>
       </div>
@@ -1463,16 +1586,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a href="library.html" class="footer-lnk">Library</a>
-      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
-      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
+      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a href="about.html" class="footer-lnk">About Us</a>
-      <a href="blog.html" class="footer-lnk">Blog</a>
-      <a href="contact.html" class="footer-lnk">Contact</a>
+      <a class='footer-lnk' href='/about'>About Us</a>
+      <a class='footer-lnk' href='/blog'>Blog</a>
+      <a class='footer-lnk' href='/contact'>Contact</a>
       <span class="footer-sep">|</span>
-      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
-      <a href="terms.html" class="footer-lnk accent">Terms</a>
+      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
+      <a class='footer-lnk accent' href='/terms'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Curated AI tools for creators</div>
   </div>
@@ -1481,10 +1604,10 @@ img,video,iframe{max-width:100%;}
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
   <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
-  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
-  <a class="bn-item active" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
-  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+  <a class='bn-item' href='/library'><i class="ph ph-books"></i>Library</a>
+  <a class='bn-item' href='/prompt-builder'><i class="ph ph-wrench"></i>Builder</a>
+  <a class='bn-item active' href='/creationstation'><i class="ph ph-lightning"></i>Tools</a>
+  <a class='bn-item' href='/login'><i class="ph ph-user"></i>Sign In</a>
 </nav>
 
 <script>
