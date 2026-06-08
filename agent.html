@@ -897,9 +897,14 @@ async function addToLibrary(prompt, btn){
     const { getFirestore, collection, addDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
 
     const firebaseConfig = {
-      apiKey: "AIzaSyBYdBllJLaBBm1iZuIjy5FFlMr1E7gPvXo",
+      apiKey: "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
       authDomain: "promptaholics-534d3.firebaseapp.com",
+      databaseURL: "https://promptaholics-534d3-default-rtdb.firebaseio.com",
       projectId: "promptaholics-534d3",
+      storageBucket: "promptaholics-534d3.firebasestorage.app",
+      messagingSenderId: "426595742101",
+      appId: "1:426595742101:web:1eb95579695bc6b1a5869c",
+      measurementId: "G-80H30NJST9"
     };
 
     const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
