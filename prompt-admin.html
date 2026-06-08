@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prompt Admin — Promptaholics</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);--orange:#ff6224;--o2:#ff9f24;--green:#22c55e;--red:#ef4444;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans','Segoe UI',sans-serif;min-height:100dvh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:rgba(7,7,10,.95);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.topbar-logo{font-weight:900;font-size:16px;color:var(--ink);}
+.topbar-logo span{color:var(--orange);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.status-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px;}
+
+/* Auth gate */
+.auth-gate{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:20px;text-align:center;}
+.auth-gate h2{font-size:24px;font-weight:800;}
+.auth-gate p{color:var(--ink2);font-size:14px;}
+.btn-google{display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border-radius:12px;background:var(--orange);color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all .2s;}
+.btn-google:hover{background:var(--o2);}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;}
+.stat-n{font-size:28px;font-weight:900;color:var(--orange);}
+.stat-l{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);}
+.tab{padding:10px 18px;font-size:12px;font-weight:700;color:var(--ink3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;}
+.tab.active{color:var(--orange);border-bottom-color:var(--orange);}
+
+/* Filter + search */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.search-input{flex:1;min-width:200px;padding:8px 14px;border-radius:8px;background:var(--bg2);border:1px solid var(--border2);color:var(--ink);font-size:13px;outline:none;}
+.search-input:focus{border-color:rgba(255,98,36,.35);}
+.filter-select{padding:8px 12px;border-radius:8px;background:var(--bg2);border:1px solid var(--border2);color:var(--ink2);font-size:12px;outline:none;}
+.btn-export{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(255,159,36,.08);border:1px solid rgba(255,159,36,.2);color:var(--o2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-export:hover{background:rgba(255,159,36,.15);}
+.btn-approve-all{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;}
+
+/* Prompt cards */
+.prompt-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:10px;transition:all .2s;}
+.prompt-card:hover{border-color:var(--border2);}
+.pc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.pc-name{font-size:14px;font-weight:700;color:var(--ink);}
+.pc-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.pc-badge{padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.pc-badge.cat{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.15);color:var(--orange);}
+.pc-badge.fw{background:rgba(255,159,36,.08);border:1px solid rgba(255,159,36,.15);color:var(--o2);}
+.pc-badge.source{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);color:#60a5fa;}
+.pc-badge.pending{background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.2);color:#eab308;}
+.pc-badge.approved{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.pc-badge.rejected{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);}
+.pc-text{font-size:12px;color:var(--ink2);line-height:1.65;font-family:'JetBrains Mono','Courier New',monospace;background:var(--glass);border-radius:8px;padding:12px;margin-bottom:12px;}
+.pc-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.pc-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;}
+.pc-btn.approve{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.25);color:var(--green);}
+.pc-btn.approve:hover{background:rgba(34,197,94,.2);}
+.pc-btn.reject{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.2);color:var(--red);}
+.pc-btn.reject:hover{background:rgba(239,68,68,.14);}
+.pc-btn.edit{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.pc-btn.copy{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.pc-date{font-size:10px;color:var(--ink3);margin-top:8px;}
+
+/* Edit modal */
+.modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:28px;width:min(600px,92vw);max-height:80vh;overflow-y:auto;transform:translateY(12px);transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.modal-bg.open .modal-panel{transform:none;}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:16px;}
+.modal-field{margin-bottom:14px;}
+.modal-label{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block;}
+.modal-input{width:100%;padding:10px 14px;border-radius:8px;background:var(--bg);border:1px solid var(--border2);color:var(--ink);font-size:13px;outline:none;font-family:inherit;}
+.modal-textarea{width:100%;padding:10px 14px;border-radius:8px;background:var(--bg);border:1px solid var(--border2);color:var(--ink);font-size:12px;outline:none;font-family:'JetBrains Mono','Courier New',monospace;resize:vertical;min-height:120px;line-height:1.6;}
+.modal-input:focus,.modal-textarea:focus{border-color:rgba(255,98,36,.35);}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+
+/* Export panel */
+.export-panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:20px;}
+.export-code{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;color:var(--ink2);line-height:1.7;overflow-x:auto;white-space:pre-wrap;max-height:400px;overflow-y:auto;}
+
+/* Empty state */
+.empty{text-align:center;padding:60px 24px;color:var(--ink3);}
+.empty i{font-size:48px;margin-bottom:16px;display:block;}
+.empty p{font-size:14px;}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(13,13,20,.96);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* Loading spinner */
+.spinner{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--ink3);}
+.spinner i{font-size:32px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr;}.pc-btn span{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">Prompt<span>aholics</span> · Admin</div>
+  <div class="topbar-right">
+    <div class="status-badge" id="authStatus">Not signed in</div>
+    <button class="btn-google" id="authBtn" onclick="handleAuth()">
+      <i class="ti ti-brand-google"></i> Sign In
+    </button>
+  </div>
+</div>
+
+<!-- AUTH GATE -->
+<div class="auth-gate" id="authGate">
+  <i class="ti ti-shield-lock" style="font-size:64px;color:var(--ink3);"></i>
+  <h2>Admin Access Required</h2>
+  <p>Sign in with <strong>promptaholics1@gmail.com</strong> to access the prompt review queue.</p>
+  <button class="btn-google" onclick="handleAuth()">
+    <i class="ti ti-brand-google"></i> Sign In with Google
+  </button>
+</div>
+
+<!-- MAIN ADMIN (hidden until auth) -->
+<div class="wrap" id="adminPanel" style="display:none;">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-n" id="statPending">0</div><div class="stat-l">Pending Review</div></div>
+    <div class="stat-card"><div class="stat-n" id="statApproved">0</div><div class="stat-l">Approved</div></div>
+    <div class="stat-card"><div class="stat-n" id="statRejected">0</div><div class="stat-l">Rejected</div></div>
+    <div class="stat-card"><div class="stat-n" id="statTotal">0</div><div class="stat-l">Total Submitted</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('pending',this)">⏳ Pending</button>
+    <button class="tab" onclick="switchTab('approved',this)">✅ Approved</button>
+    <button class="tab" onclick="switchTab('rejected',this)">❌ Rejected</button>
+    <button class="tab" onclick="switchTab('export',this)">📦 Export to JS</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar" id="mainToolbar">
+    <input class="search-input" id="searchInput" placeholder="Search prompts..." oninput="filterPrompts()"/>
+    <select class="filter-select" id="catFilter" onchange="filterPrompts()">
+      <option value="">All Categories</option>
+    </select>
+    <button class="btn-approve-all" onclick="approveAll()"><i class="ti ti-checks"></i> Approve All Visible</button>
+    <button class="btn-export" onclick="switchTab('export',document.querySelectorAll('.tab')[3])"><i class="ti ti-download"></i> Export JS</button>
+  </div>
+
+  <!-- Prompt list -->
+  <div id="promptList"></div>
+
+  <!-- Export panel -->
+  <div id="exportPanel" style="display:none;">
+    <div class="export-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:16px;font-weight:800;">Export Approved Prompts</div>
+          <div style="font-size:12px;color:var(--ink3);margin-top:4px;">Copy this block and append to your prompts.js file</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="pc-btn copy" onclick="copyExport()"><i class="ti ti-copy"></i> <span>Copy All</span></button>
+          <button class="pc-btn approve" onclick="markAllExported()"><i class="ti ti-check"></i> <span>Mark Exported</span></button>
+        </div>
+      </div>
+      <div class="export-code" id="exportCode">Loading approved prompts...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="editModal" onclick="closeEditModal(event)">
+  <div class="modal-panel">
+    <div class="modal-title">Edit Prompt</div>
+    <div class="modal-field">
+      <label class="modal-label">Name</label>
+      <input class="modal-input" id="editName"/>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Category</label>
+      <input class="modal-input" id="editCat"/>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Framework</label>
+      <input class="modal-input" id="editFw"/>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Prompt Text</label>
+      <textarea class="modal-textarea" id="editText" rows="6"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="pc-btn" style="background:var(--glass);border-color:var(--border2);color:var(--ink2);" onclick="closeEditModal()">Cancel</button>
+      <button class="pc-btn approve" onclick="saveEdit()"><i class="ti ti-check"></i> Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, collection, getDocs, doc, updateDoc, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const ADMIN_EMAIL = 'promptaholics1@gmail.com';
+const firebaseConfig = {
+  apiKey: "AIzaSyBYdBllJLaBBm1iZuIjy5FFlMr1E7gPvXo",
+  authDomain: "promptaholics-534d3.firebaseapp.com",
+  projectId: "promptaholics-534d3",
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+// Global state
+let allPrompts = [];
+let filteredPrompts = [];
+let activeTab = 'pending';
+let editingId = null;
+
+// ── AUTH ──────────────────────────────────
+window.handleAuth = async () => {
+  if(auth.currentUser){
+    await signOut(auth);
+  } else {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch(e){ showToast('Sign in failed: '+e.message); }
+  }
+};
+
+onAuthStateChanged(auth, user => {
+  if(user && user.email === ADMIN_EMAIL){
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('authStatus').textContent = '✅ '+user.displayName;
+    document.getElementById('authBtn').innerHTML = '<i class="ti ti-logout"></i> Sign Out';
+    loadPrompts();
+  } else {
+    document.getElementById('authGate').style.display = 'flex';
+    document.getElementById('adminPanel').style.display = 'none';
+    document.getElementById('authStatus').textContent = user ? '⛔ Wrong account' : 'Not signed in';
+    document.getElementById('authBtn').innerHTML = '<i class="ti ti-brand-google"></i> Sign In';
+    if(user) showToast('Access denied — use promptaholics1@gmail.com');
+  }
+});
+
+// ── LOAD PROMPTS ──────────────────────────
+async function loadPrompts(){
+  document.getElementById('promptList').innerHTML = '<div class="spinner"><i class="ti ti-loader-2"></i></div>';
+  try {
+    const snap = await getDocs(query(collection(db,'pending-prompts'), orderBy('addedAt','desc')));
+    allPrompts = snap.docs.map(d => ({docId: d.id, ...d.data()}));
+    updateStats();
+    populateCatFilter();
+    filterPrompts();
+  } catch(e){
+    document.getElementById('promptList').innerHTML = `<div class="empty"><i class="ti ti-alert-circle"></i><p>Error loading prompts: ${e.message}</p></div>`;
+  }
+}
+
+function updateStats(){
+  const pending  = allPrompts.filter(p=>p.status==='pending').length;
+  const approved = allPrompts.filter(p=>p.status==='approved').length;
+  const rejected = allPrompts.filter(p=>p.status==='rejected').length;
+  document.getElementById('statPending').textContent  = pending;
+  document.getElementById('statApproved').textContent = approved;
+  document.getElementById('statRejected').textContent = rejected;
+  document.getElementById('statTotal').textContent    = allPrompts.length;
+}
+
+function populateCatFilter(){
+  const cats = [...new Set(allPrompts.map(p=>p.cat).filter(Boolean))].sort();
+  const sel = document.getElementById('catFilter');
+  sel.innerHTML = '<option value="">All Categories</option>' +
+    cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+// ── FILTER + RENDER ───────────────────────
+window.filterPrompts = () => {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const cat = document.getElementById('catFilter').value;
+  filteredPrompts = allPrompts
+    .filter(p => activeTab === 'export' ? p.status === 'approved' : p.status === activeTab)
+    .filter(p => !q || p.name?.toLowerCase().includes(q) || p.text?.toLowerCase().includes(q))
+    .filter(p => !cat || p.cat === cat);
+  renderPrompts();
+};
+
+function renderPrompts(){
+  const list = document.getElementById('promptList');
+  if(!filteredPrompts.length){
+    list.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>No ${activeTab} prompts found.</p></div>`;
+    return;
+  }
+  list.innerHTML = filteredPrompts.map(p => `
+    <div class="prompt-card" id="card-${p.docId}">
+      <div class="pc-header">
+        <div class="pc-name">${esc(p.name||'Unnamed Prompt')}</div>
+        <span class="pc-badge ${p.status||'pending'}">${p.status||'pending'}</span>
+      </div>
+      <div class="pc-meta">
+        ${p.cat?`<span class="pc-badge cat">${esc(p.cat)}</span>`:''}
+        ${p.framework||p.fw?`<span class="pc-badge fw">${esc(p.framework||p.fw)}</span>`:''}
+        <span class="pc-badge source">${esc(p.source||'pa-agent')}</span>
+      </div>
+      <div class="pc-text">${esc(p.text||'')}</div>
+      <div class="pc-actions">
+        ${p.status!=='approved'?`<button class="pc-btn approve" onclick="approvePrompt('${p.docId}')"><i class="ti ti-check"></i> <span>Approve</span></button>`:''}
+        ${p.status!=='rejected'?`<button class="pc-btn reject" onclick="rejectPrompt('${p.docId}')"><i class="ti ti-x"></i> <span>Reject</span></button>`:''}
+        <button class="pc-btn edit" onclick="openEdit('${p.docId}')"><i class="ti ti-pencil"></i> <span>Edit</span></button>
+        <button class="pc-btn copy" onclick="copyText('${escAttr(p.text||'')}')"><i class="ti ti-copy"></i> <span>Copy</span></button>
+      </div>
+      <div class="pc-date">Submitted: ${p.addedAt?new Date(p.addedAt).toLocaleString():'Unknown'}</div>
+    </div>
+  `).join('');
+}
+
+// ── APPROVE / REJECT ──────────────────────
+window.approvePrompt = async (docId) => {
+  await updateDoc(doc(db,'pending-prompts',docId), {status:'approved',approvedAt:new Date().toISOString()});
+  const p = allPrompts.find(x=>x.docId===docId);
+  if(p) p.status='approved';
+  updateStats();filterPrompts();
+  showToast('✅ Prompt approved!');
+};
+window.rejectPrompt = async (docId) => {
+  await updateDoc(doc(db,'pending-prompts',docId), {status:'rejected',rejectedAt:new Date().toISOString()});
+  const p = allPrompts.find(x=>x.docId===docId);
+  if(p) p.status='rejected';
+  updateStats();filterPrompts();
+  showToast('❌ Prompt rejected');
+};
+window.approveAll = async () => {
+  const pending = filteredPrompts.filter(p=>p.status==='pending');
+  if(!pending.length){showToast('No pending prompts to approve');return;}
+  await Promise.all(pending.map(p=>updateDoc(doc(db,'pending-prompts',p.docId),{status:'approved',approvedAt:new Date().toISOString()})));
+  pending.forEach(p=>p.status='approved');
+  updateStats();filterPrompts();
+  showToast(`✅ Approved ${pending.length} prompts!`);
+};
+
+// ── EDIT ──────────────────────────────────
+window.openEdit = (docId) => {
+  const p = allPrompts.find(x=>x.docId===docId);
+  if(!p) return;
+  editingId = docId;
+  document.getElementById('editName').value = p.name||'';
+  document.getElementById('editCat').value  = p.cat||'';
+  document.getElementById('editFw').value   = p.framework||p.fw||'RTF';
+  document.getElementById('editText').value = p.text||'';
+  document.getElementById('editModal').classList.add('open');
+};
+window.closeEditModal = (e) => {
+  if(!e || e.target===document.getElementById('editModal'))
+    document.getElementById('editModal').classList.remove('open');
+};
+window.saveEdit = async () => {
+  const updates = {
+    name: document.getElementById('editName').value,
+    cat:  document.getElementById('editCat').value,
+    framework: document.getElementById('editFw').value,
+    text: document.getElementById('editText').value,
+    editedAt: new Date().toISOString(),
+  };
+  await updateDoc(doc(db,'pending-prompts',editingId), updates);
+  const p = allPrompts.find(x=>x.docId===editingId);
+  if(p) Object.assign(p, updates);
+  document.getElementById('editModal').classList.remove('open');
+  filterPrompts();showToast('✅ Prompt updated!');
+};
+
+// ── EXPORT ────────────────────────────────
+window.switchTab = (tab, btn) => {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const isExport = tab === 'export';
+  document.getElementById('promptList').style.display = isExport?'none':'block';
+  document.getElementById('exportPanel').style.display = isExport?'block':'none';
+  document.getElementById('mainToolbar').style.display = isExport?'none':'flex';
+  if(isExport) generateExport();
+  else filterPrompts();
+};
+
+function generateExport(){
+  const approved = allPrompts.filter(p=>p.status==='approved' && !p.exported);
+  if(!approved.length){
+    document.getElementById('exportCode').textContent = '// No new approved prompts to export yet.';
+    return;
+  }
+  // Find highest existing ID
+  let nextId = 1486;
+  try{
+    if(typeof PROMPTS !== 'undefined') nextId = Math.max(...PROMPTS.map(p=>parseInt(p.id)||0)) + 1;
+  }catch(e){}
+
+  const lines = approved.map((p,i) => {
+    const id = nextId + i;
+    const tags = (p.tags||['ai-generated','pa-agent']).map(t=>`"${t}"`).join(',');
+    const text = (p.text||'').replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+    const name = (p.name||'PA Prompt').replace(/"/g,'\\"');
+    const cat  = (p.cat||'AI Agents').replace(/"/g,'\\"');
+    const desc = (p.desc||text.slice(0,80)+'...').replace(/"/g,'\\"');
+    return `{id:'${id}',name:"${name}",tool:"chatgpt",cat:"${cat}",tags:[${tags}],feat:false,text:"${text}",desc:"${desc}"}`;
+  });
+
+  document.getElementById('exportCode').textContent = lines.join(',\n');
+}
+
+window.copyExport = () => {
+  const code = document.getElementById('exportCode').textContent;
+  navigator.clipboard.writeText(code).then(()=>showToast('Copied! Paste into prompts.js'));
+};
+
+window.markAllExported = async () => {
+  const approved = allPrompts.filter(p=>p.status==='approved'&&!p.exported);
+  await Promise.all(approved.map(p=>updateDoc(doc(db,'pending-prompts',p.docId),{exported:true,exportedAt:new Date().toISOString()})));
+  approved.forEach(p=>p.exported=true);
+  showToast('Marked '+approved.length+' prompts as exported');
+  generateExport();
+};
+
+// ── UTILS ─────────────────────────────────
+window.copyText = (text) => {
+  navigator.clipboard.writeText(text).then(()=>showToast('Copied!'));
+};
+function esc(s){ const d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+function escAttr(s){ return s.replace(/'/g,'&#39;').replace(/"/g,'&quot;'); }
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
