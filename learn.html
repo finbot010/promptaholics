@@ -46,6 +46,8 @@ body.light .topnav{background:rgba(245,245,247,.95);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
 .nav-signin:hover{background:#e84e0e;}
+@media(max-width:480px){.nav-signin{display:none !important;}}
+@media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-icon:hover{color:var(--orange);}
 
@@ -600,12 +602,12 @@ iframe{
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a class='nav-lnk' href='/library'>Library</a>
-      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
-      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
-      <a class='nav-lnk active' href='/learn'>Learn</a>
+      <a class='nav-lnk' href='library.html'>Library</a>
+      <a class='nav-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='nav-lnk' href='creationstation.html'>AI Tools</a>
+      <a class='nav-lnk active' href='learn.html'>Learn</a>
     </nav>
-    <a class='nav-signin' href='/login'>Sign In</a>
+    <a class='nav-signin' href='login.html'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
@@ -623,21 +625,23 @@ iframe{
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
     <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
-    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
-    <a class='sm-item' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
-    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
-    <a class='sm-item active' href='/learn'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='library.html'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='prompt-builder.html'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='creationstation.html'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item active' href='learn.html'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='vault.html'><i class="ti ti-photo"></i> Image Vault</a>
+    <a class='sm-item' href='login.html'><i class="ti ti-user"></i> Sign In</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
-    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
-    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
-    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
-    <a class='sm-item' href='/terms'><i class="ti ti-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='index.html'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='library.html'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='index.html'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='login.html'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -888,15 +892,15 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
 
     <p class="learn-p">Try them all in the Prompt Builder — each framework has its own set of fields pre-built for you.</p>
     <div class="fw-badge-row">
-      <a class='fw-badge' href='/prompt-builder'>⭐ CoSTAR</a>
-      <a class='fw-badge' href='/prompt-builder'>📋 RTF</a>
-      <a class='fw-badge' href='/prompt-builder'>🧠 Chain-of-Thought</a>
-      <a class='fw-badge' href='/prompt-builder'>⚡ AETHER</a>
-      <a class='fw-badge' href='/prompt-builder'>🚀 RISEN</a>
-      <a class='fw-badge' href='/prompt-builder'>❓ SCQA</a>
-      <a class='fw-badge' href='/prompt-builder'>🎯 CRISPE</a>
-      <a class='fw-badge' href='/prompt-builder'>📁 PARA</a>
-      <a class='fw-badge' href='/prompt-builder'>👥 RACI</a>
+      <a class='fw-badge' href='prompt-builder.html'>⭐ CoSTAR</a>
+      <a class='fw-badge' href='prompt-builder.html'>📋 RTF</a>
+      <a class='fw-badge' href='prompt-builder.html'>🧠 Chain-of-Thought</a>
+      <a class='fw-badge' href='prompt-builder.html'>⚡ AETHER</a>
+      <a class='fw-badge' href='prompt-builder.html'>🚀 RISEN</a>
+      <a class='fw-badge' href='prompt-builder.html'>❓ SCQA</a>
+      <a class='fw-badge' href='prompt-builder.html'>🎯 CRISPE</a>
+      <a class='fw-badge' href='prompt-builder.html'>📁 PARA</a>
+      <a class='fw-badge' href='prompt-builder.html'>👥 RACI</a>
     </div>
 
     <div class="quiz-block">
@@ -1155,10 +1159,10 @@ Respond in the first person, as a trusted advisor would.</div>
     </div>
 
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
-      <a href='/prompt-builder' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;'>
+      <a href='prompt-builder.html' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--orange);color:#fff;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;'>
         <i class="ti ti-tool"></i> Open Prompt Builder
       </a>
-      <a href='/library' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;'>
+      <a href='library.html' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;'>
         <i class="ti ti-books"></i> Browse 1,113 Prompts
       </a>
     </div>
@@ -1177,17 +1181,17 @@ Respond in the first person, as a trusted advisor would.</div>
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a class='footer-lnk' href='/library'>Library</a>
-      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
-      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
-      <a class='footer-lnk' href='/learn'>Learn</a>
+      <a class='footer-lnk' href='library.html'>Library</a>
+      <a class='footer-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='footer-lnk' href='creationstation.html'>AI Tools</a>
+      <a class='footer-lnk' href='learn.html'>Learn</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk' href='/about'>About Us</a>
-      <a class='footer-lnk' href='/blog'>Blog</a>
-      <a class='footer-lnk' href='/contact'>Contact</a>
+      <a class='footer-lnk' href='index.html'>About Us</a>
+      <a class='footer-lnk' href='library.html'>Blog</a>
+      <a class='footer-lnk' href='index.html'>Contact</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
-      <a class='footer-lnk accent' href='/terms'>Terms</a>
+      <a class='footer-lnk accent' href='privacy.html'>Privacy</a>
+      <a class='footer-lnk accent' href='privacy.html'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Learn prompt engineering free</div>
   </div>
@@ -1196,10 +1200,10 @@ Respond in the first person, as a trusted advisor would.</div>
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
   <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
-  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
-  <a class='bn-item' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
-  <a class='bn-item active' href='/learn'><i class="ti ti-school"></i>Learn</a>
-  <a class='bn-item' href='/login'><i class="ti ti-user"></i>Sign In</a>
+  <a class='bn-item' href='library.html'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='prompt-builder.html'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item active' href='learn.html'><i class="ti ti-school"></i>Learn</a>
+  <a class='bn-item' href='login.html'><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>

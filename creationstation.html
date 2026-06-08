@@ -87,6 +87,8 @@ body.light .topnav{background:rgba(245,245,247,.95);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
 .nav-signin:hover{background:#e84e0e;}
+@media(max-width:480px){.nav-signin{display:none !important;}}
+@media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 
@@ -939,15 +941,15 @@ img,video,iframe{max-width:100%;}
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a class='nav-lnk' href='/library'>Library</a>
-      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
-      <a class='nav-lnk active' href='/creationstation'>AI Tools</a>
-      <a class='nav-lnk' href='/learn'>Learn</a>
-      <a class='nav-lnk' href='/vault'>Image Vault</a>
+      <a class='nav-lnk' href='library.html'>Library</a>
+      <a class='nav-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='nav-lnk active' href='creationstation.html'>AI Tools</a>
+      <a class='nav-lnk' href='learn.html'>Learn</a>
+      <a class='nav-lnk' href='vault.html'>Image Vault</a>
     </nav>
-    <a class='nav-signin' href='/login'>Sign In</a>
+    <a class='nav-signin' href='login.html'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ti ti-moon" aria-hidden="true"></i></button>
-    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
 </header>
 
@@ -962,23 +964,23 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
-    <a class='sm-item' href='/library'><i class="ph ph-books"></i> Prompt Library</a>
-    <a class='sm-item' href='/prompt-builder'><i class="ph ph-wrench"></i> Prompt Builder</a>
-    <a class='sm-item active' href='/creationstation'><i class="ph ph-lightning"></i> AI Tools</a>
-    <a class='sm-item' href='/learn'><i class="ph ph-graduation-cap"></i> Learn</a>
-    <a class='sm-item' href='/vault'><i class="ph ph-images"></i> Image Vault</a>
+    <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
+    <a class='sm-item' href='library.html'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='prompt-builder.html'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item active' href='creationstation.html'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item' href='learn.html'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='vault.html'><i class="ti ti-photo"></i> Image Vault</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class='sm-item' href='/about'><i class="ph ph-info"></i> About Us</a>
-    <a class='sm-item' href='/blog'><i class="ph ph-newspaper"></i> Blog</a>
-    <a class='sm-item' href='/contact'><i class="ph ph-envelope"></i> Contact</a>
-    <a class='sm-item' href='/privacy'><i class="ph ph-lock"></i> Privacy Policy</a>
-    <a class='sm-item' href='/terms'><i class="ph ph-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='index.html'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='library.html'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='index.html'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-clipboard-list"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a class='sm-signin' href='/login'><i class="ph ph-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='login.html'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon"><i class="ti ti-moon" aria-hidden="true"></i></span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -989,7 +991,7 @@ img,video,iframe{max-width:100%;}
   <h1 class="cs-h1">Your <span>creation</span><br/>station.</h1>
   <p class="cs-sub">Every AI tool worth using — in one place. No fluff, no clickbait. Just the best tools for creators.</p>
   <div class="cs-search-wrap">
-    <i class="ph ph-magnifying-glass cs-search-icon"></i>
+    <i class="ti ti-magnifying-glass cs-search-icon"></i>
     <input type="text" class="cs-search" id="toolSearch" placeholder="Search tools..." oninput="filterTools()" autocomplete="off"/>
   </div>
   <div class="cs-cats">
@@ -1292,7 +1294,7 @@ img,video,iframe{max-width:100%;}
           <button class="news-tab" onclick="newsTab(this,'startup')"><i class="ti ti-rocket" aria-hidden="true"></i> Startups</button>
         </div>
         <button class="news-refresh" onclick="loadNews(currentNewsQuery)">
-          <i class="ph ph-arrow-clockwise"></i> Refresh
+          <i class="ti ti-arrow-clockwise"></i> Refresh
         </button>
       </div>
     </div>
@@ -1323,7 +1325,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">ChatGPT</div>
       <div class="tc-desc">The world's most popular AI assistant. GPT-4o, advanced reasoning, image understanding and more.</div>
       <span class="tc-tag">OpenAI</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://claude.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Claude">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1331,7 +1333,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Claude</div>
       <div class="tc-desc">Anthropic's AI — exceptional writing, analysis and coding. Best for long-context tasks and nuanced reasoning.</div>
       <span class="tc-tag">Anthropic</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://gemini.google.com" target="_blank" rel="noopener" data-cat="chat" data-name="Gemini">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1339,7 +1341,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Gemini</div>
       <div class="tc-desc">Google's multimodal AI. Integrates with Google Workspace and has access to real-time search.</div>
       <span class="tc-tag">Google</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://perplexity.ai" target="_blank" rel="noopener" data-cat="chat" data-name="Perplexity">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" alt="Perplexity" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1347,7 +1349,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Perplexity</div>
       <div class="tc-desc">AI-powered search engine with real-time web access and cited sources. Best for research.</div>
       <span class="tc-tag">Search AI</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://deepseek.com" target="_blank" rel="noopener" data-cat="chat" data-name="DeepSeek">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=deepseek.com&sz=128" alt="DeepSeek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1355,7 +1357,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">DeepSeek</div>
       <div class="tc-desc">Powerful open-source reasoning model. Exceptional at math, coding and technical problem solving.</div>
       <span class="tc-tag">Open Source</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1375,7 +1377,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Midjourney</div>
       <div class="tc-desc">The gold standard for AI art. Unmatched aesthetic quality for illustrations, concept art and photography.</div>
       <span class="tc-tag">Image Gen</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://firefly.adobe.com" target="_blank" rel="noopener" data-cat="image" data-name="Adobe Firefly">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" alt="Adobe Firefly" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1383,7 +1385,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Adobe Firefly</div>
       <div class="tc-desc">Commercially safe AI generation integrated into the Adobe ecosystem. Perfect for design workflows.</div>
       <span class="tc-tag">Adobe</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://ideogram.ai" target="_blank" rel="noopener" data-cat="image" data-name="Ideogram">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=128" alt="Ideogram" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1391,7 +1393,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Ideogram</div>
       <div class="tc-desc">Best AI for generating text inside images. Posters, logos, and typography that actually look right.</div>
       <span class="tc-tag">Text in Image</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://leonardo.ai" target="_blank" rel="noopener" data-cat="image" data-name="Leonardo AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=leonardo.ai&sz=128" alt="Leonardo AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1399,7 +1401,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Leonardo AI</div>
       <div class="tc-desc">Fine-tuned AI models for game assets, characters, and consistent style generation.</div>
       <span class="tc-tag">Game &amp; Art</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1419,7 +1421,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Kling AI</div>
       <div class="tc-desc">Top-rated AI video generator. Cinematic quality, 5-10s clips, realistic motion and physics.</div>
       <span class="tc-tag">Video Gen</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://runwayml.com" target="_blank" rel="noopener" data-cat="video" data-name="Runway">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=128" alt="Runway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1427,7 +1429,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Runway</div>
       <div class="tc-desc">Professional AI video suite. Gen-3 video generation, inpainting, motion brush and more.</div>
       <span class="tc-tag">Pro Video</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://pika.art" target="_blank" rel="noopener" data-cat="video" data-name="Pika Labs">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=pika.art&sz=128" alt="Pika" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1435,7 +1437,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Pika Labs</div>
       <div class="tc-desc">Fast, fun AI video generation. Great for short social clips, animations and quick edits.</div>
       <span class="tc-tag">Social Video</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://lumalabs.ai" target="_blank" rel="noopener" data-cat="video" data-name="Luma AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128" alt="Luma AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1443,7 +1445,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Luma AI</div>
       <div class="tc-desc">Dream Machine — high-quality video generation with realistic physics and fluid motion.</div>
       <span class="tc-tag">3D &amp; Video</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://heygen.com" target="_blank" rel="noopener" data-cat="video" data-name="HeyGen">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=heygen.com&sz=128" alt="HeyGen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1451,7 +1453,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">HeyGen</div>
       <div class="tc-desc">AI avatar video creation. Create talking head videos, translate content, scale video production.</div>
       <span class="tc-tag">Avatar Video</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1471,7 +1473,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Cursor</div>
       <div class="tc-desc">The AI-first code editor. Autocomplete, chat, and inline edits across your entire codebase.</div>
       <span class="tc-tag">Code Editor</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://v0.dev" target="_blank" rel="noopener" data-cat="code" data-name="v0 by Vercel">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=v0.dev&sz=128" alt="v0" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1479,7 +1481,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">v0 by Vercel</div>
       <div class="tc-desc">Generate React UI components from text prompts. Ships production-ready Tailwind and shadcn code.</div>
       <span class="tc-tag">UI Generation</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://bolt.new" target="_blank" rel="noopener" data-cat="code" data-name="Bolt.new">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=bolt.new&sz=128" alt="Bolt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1487,7 +1489,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Bolt.new</div>
       <div class="tc-desc">Full-stack AI app builder. Build, run and deploy complete apps from a single prompt in the browser.</div>
       <span class="tc-tag">App Builder</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://replit.com" target="_blank" rel="noopener" data-cat="code" data-name="Replit AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=replit.com&sz=128" alt="Replit" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1495,7 +1497,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Replit AI</div>
       <div class="tc-desc">Cloud IDE with AI pair programmer. Code, run, and deploy from anywhere — no setup required.</div>
       <span class="tc-tag">Cloud IDE</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1515,7 +1517,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Suno</div>
       <div class="tc-desc">Text-to-song AI. Generate full songs with vocals, instruments, and lyrics from a simple prompt.</div>
       <span class="tc-tag">Music Gen</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://udio.com" target="_blank" rel="noopener" data-cat="audio" data-name="Udio">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=udio.com&sz=128" alt="Udio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1523,7 +1525,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Udio</div>
       <div class="tc-desc">AI music generation with exceptional audio quality. Fine-grained style and genre control.</div>
       <span class="tc-tag">Music Gen</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
     <a class="tool-card" href="https://murf.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Murf AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=murf.ai&sz=128" alt="Murf" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1531,7 +1533,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Murf AI</div>
       <div class="tc-desc">Professional AI voiceover platform. 120+ voices, 20+ languages. Perfect for videos and podcasts.</div>
       <span class="tc-tag">Voice Over</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1551,7 +1553,7 @@ img,video,iframe{max-width:100%;}
       <div class="tc-name">Promptmetheus</div>
       <div class="tc-desc">Professional prompt engineering IDE. Build, test, version and optimize prompts like a pro.</div>
       <span class="tc-tag">Prompt Tools</span>
-      <i class="ph ph-arrow-up-right tc-arrow"></i>
+      <i class="ti ti-arrow-up-right tc-arrow"></i>
     </a>
   </div>
 </section>
@@ -1647,8 +1649,8 @@ img,video,iframe{max-width:100%;}
 
           <div class="gen-gate-note">
             No spam. Unsubscribe anytime. By continuing you agree to our
-            <a href='/privacy' target='_blank'>Privacy Policy</a> &
-            <a href='/terms' target='_blank'>Terms</a>.
+            <a href='privacy.html' target='_blank'>Privacy Policy</a> &
+            <a href='privacy.html' target='_blank'>Terms</a>.
           </div>
         </div>
       </div>
@@ -1663,16 +1665,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a class='footer-lnk' href='/library'>Library</a>
-      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
-      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
+      <a class='footer-lnk' href='library.html'>Library</a>
+      <a class='footer-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='footer-lnk' href='creationstation.html'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk' href='/about'>About Us</a>
-      <a class='footer-lnk' href='/blog'>Blog</a>
-      <a class='footer-lnk' href='/contact'>Contact</a>
+      <a class='footer-lnk' href='index.html'>About Us</a>
+      <a class='footer-lnk' href='library.html'>Blog</a>
+      <a class='footer-lnk' href='index.html'>Contact</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
-      <a class='footer-lnk accent' href='/terms'>Terms</a>
+      <a class='footer-lnk accent' href='privacy.html'>Privacy</a>
+      <a class='footer-lnk accent' href='privacy.html'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Curated AI tools for creators</div>
   </div>
@@ -1680,11 +1682,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class='bn-item' href='/library'><i class="ph ph-books"></i>Library</a>
-  <a class='bn-item' href='/prompt-builder'><i class="ph ph-wrench"></i>Builder</a>
-  <a class='bn-item active' href='/creationstation'><i class="ph ph-lightning"></i>Tools</a>
-  <a class='bn-item' href='/login'><i class="ph ph-user"></i>Sign In</a>
+  <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='library.html'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='prompt-builder.html'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item active' href='creationstation.html'><i class="ti ti-bolt"></i>Tools</a>
+  <a class='bn-item' href='login.html'><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>
@@ -2425,7 +2427,7 @@ async function loadNews(query){
         +'<div class="news-title">'+s.title+'</div>'
         +'<div class="news-meta"><span class="news-pts">▲ '+s.pts+' pts</span><span>'+s.comments+' comments</span><span>'+s.time+'</span><span>'+s.domain+'</span></div>'
         +'</div>'
-        +'<i class="ph ph-arrow-up-right news-arrow"></i>'
+        +'<i class="ti ti-arrow-up-right news-arrow"></i>'
         +'</a>';
     }).join('');
     return;
@@ -2447,7 +2449,7 @@ async function loadNews(query){
       +(h.url?'<span>'+getDomain(h.url)+'</span>':'')
       +'</div>'
       +'</div>'
-      +'<i class="ph ph-arrow-up-right news-arrow"></i>'
+      +'<i class="ti ti-arrow-up-right news-arrow"></i>'
       +'</a>';
   }).join('');
 }

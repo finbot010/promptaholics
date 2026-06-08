@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
@@ -51,6 +51,8 @@ body.light .topnav{background:rgba(245,245,247,.95);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
 .nav-signin:hover{background:#e84e0e;}
+@media(max-width:480px){.nav-signin{display:none;}}
+@media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 
@@ -155,7 +157,7 @@ body.light .field-select{background:rgba(0,0,0,.04);}
 .btn.success{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);color:#22c55e;}
 .btn.mic-active{background:rgba(255,98,36,.12);border-color:var(--orange);color:var(--orange);animation:micPulse 1s ease-in-out infinite;}
 @keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,98,36,.4);}50%{box-shadow:0 0 0 6px transparent;}}
-.voice-mini{width:24px;height:24px;border-radius:6px;border:1px solid var(--border2);background:var(--glass);color:var(--ink3);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.voice-mini{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,98,36,.25);background:rgba(255,98,36,.07);color:var(--orange);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .voice-mini:hover,.voice-mini.active{border-color:var(--orange);color:var(--orange);}
 .voice-mini.active{background:rgba(255,98,36,.1);animation:micPulse 1s ease-in-out infinite;}
 
@@ -482,6 +484,19 @@ img,video,iframe{max-width:100%;}
   }
   .fw-grid.hint{animation:scrollHint 1s ease .5s both;}
 }
+
+/* Mic icon — brand orange with pulse when active */
+.voice-mini i{font-size:13px;}
+.voice-mini.listening{
+  background:rgba(239,68,68,.15) !important;
+  border-color:rgba(239,68,68,.4) !important;
+  color:#ef4444 !important;
+  animation:micPulse .8s ease infinite;
+}
+@keyframes micPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4);}
+  50%{box-shadow:0 0 0 6px rgba(239,68,68,0);}
+}
 </style>
 </head>
 <body>
@@ -502,7 +517,7 @@ img,video,iframe{max-width:100%;}
     </nav>
     <a href="login.html" class="nav-signin">Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
 </header>
 
@@ -517,21 +532,24 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
-    <a class="sm-item active" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
-    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
+    <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
+    <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Free Course</a>
+    <a class="sm-item" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
+    <a class="sm-item" href="login.html"><i class="ti ti-user"></i> Sign In</a>
+    <a class="sm-item active" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy Policy</a>
-    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms of Service</a>
+    <a class="sm-item" href="about.html"><i class="ti ti-info-circle"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ti ti-news"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ti ti-mail"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class="sm-item" href="terms.html"><i class="ti ti-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a href="login.html" class="sm-signin"><i class="ph ph-user"></i> Sign In / Register</a>
+    <a href="login.html" class="sm-signin"><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -541,7 +559,7 @@ img,video,iframe{max-width:100%;}
 
   <!-- HEADER -->
   <div class="pb-header">
-    <div class="pb-eyebrow"><i class="ph ph-wrench"></i> Prompt Builder · 9 Frameworks</div>
+    <div class="pb-eyebrow"><i class="ti ti-tool"></i> Prompt Builder · 9 Frameworks</div>
     <h1 class="pb-h1">Build prompts that <span>actually work.</span></h1>
     <p class="pb-sub">Pick a framework, fill the blocks, copy to any AI tool. Voice dictation included.</p>
   </div>
@@ -577,7 +595,7 @@ img,video,iframe{max-width:100%;}
             <div class="panel-fw-desc" id="panelFwDesc">Context · Objective · Style · Tone · Audience · Response</div>
           </div>
         </div>
-        <button class="btn" onclick="clearFields()"><i class="ph ph-trash"></i> Clear</button>
+        <button class="btn" onclick="clearFields()"><i class="ti ti-trash"></i> Clear</button>
       </div>
       <div class="panel-body" id="fieldsBody"><!-- filled by JS --></div>
     </div>
@@ -587,10 +605,10 @@ img,video,iframe{max-width:100%;}
       <div class="preview-head">
         <div class="preview-head-title">✨ Your Prompt</div>
         <div class="preview-actions">
-          <button class="btn" id="voiceBtn" onclick="toggleGlobalVoice()"><i class="ph ph-microphone"></i> Dictate</button>
-          <button class="btn" id="copyBtn" onclick="copyPrompt()"><i class="ph ph-copy"></i> Copy</button>
-          <button class="btn" onclick="sharePrompt()"><i class="ph ph-share-network"></i> Share</button>
-          <button class="btn" onclick="savePrompt()"><i class="ph ph-bookmark-simple"></i> Save</button>
+          <button class="btn" id="voiceBtn" onclick="toggleGlobalVoice()"><i class="ti ti-microphone"></i> Dictate</button>
+          <button class="btn" id="copyBtn" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy</button>
+          <button class="btn" onclick="sharePrompt()"><i class="ti ti-share"></i> Share</button>
+          <button class="btn" onclick="savePrompt()"><i class="ti ti-bookmark"></i> Save</button>
         </div>
       </div>
       <div class="preview-box" id="previewBox">
@@ -624,7 +642,7 @@ img,video,iframe{max-width:100%;}
             ></textarea>
             <button class="ai-helper-btn" id="aiHelperBtn" onclick="runAiHelper()">
               <div class="ai-helper-spinner" id="aiHelperSpinner"></div>
-              <i class="ph ph-sparkle" id="aiHelperIcon"></i>
+              <i class="ti ti-sparkles" id="aiHelperIcon"></i>
               Build Prompt
             </button>
           </div>
@@ -632,16 +650,16 @@ img,video,iframe{max-width:100%;}
             <div id="aiHelperResultText"></div>
             <div class="ai-helper-result-actions">
               <button class="ai-result-btn primary" onclick="useAiResult()">
-                <i class="ph ph-check"></i> Use This Prompt
+                <i class="ti ti-check"></i> Use This Prompt
               </button>
               <button class="ai-result-btn" onclick="copyAiResult()">
-                <i class="ph ph-copy"></i> Copy
+                <i class="ti ti-copy"></i> Copy
               </button>
               <button class="ai-result-btn" onclick="regenerateAiResult()">
-                <i class="ph ph-arrows-clockwise"></i> Regenerate
+                <i class="ti ti-refresh"></i> Regenerate
               </button>
               <button class="ai-result-btn" onclick="clearAiResult()">
-                <i class="ph ph-x"></i> Clear
+                <i class="ti ti-x"></i> Clear
               </button>
             </div>
           </div>
@@ -679,11 +697,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
-  <a class="bn-item active" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
-  <a class="bn-item" href="creationstation.html"><i class="ph ph-lightning"></i>Tools</a>
-  <a class="bn-item" href="login.html"><i class="ph ph-user"></i>Sign In</a>
+  <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ti ti-books"></i>Library</a>
+  <a class="bn-item active" href="prompt-builder.html"><i class="ti ti-tool"></i>Builder</a>
+  <a class="bn-item" href="creationstation.html"><i class="ti ti-bolt"></i>Tools</a>
+  <a class="bn-item" href="login.html"><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>
@@ -927,13 +945,57 @@ document.addEventListener('DOMContentLoaded', function(){
   selectFw(FRAMEWORKS[0]);
   renderToolsGrid();
 
-  // Mobile scroll hint — show users the fw-grid scrolls
+  // Mobile scroll hint
   if(window.innerWidth <= 860){
     var grid = document.getElementById('fwGrid');
     if(grid && !localStorage.getItem('pa_pb_hinted')){
       grid.classList.add('hint');
       localStorage.setItem('pa_pb_hinted','1');
     }
+  }
+
+  // ── URL PARAM PRE-FILL ──────────────────────────────────────
+  // Reads ?prompt=... from Prompt of the Day "Build It" button
+  var params = new URLSearchParams(window.location.search);
+  var incomingPrompt = params.get('prompt');
+  if(incomingPrompt){
+    try {
+      incomingPrompt = decodeURIComponent(incomingPrompt);
+    } catch(e){}
+
+    // Select RTF framework — best for pre-filled prompts
+    var rtfFw = FRAMEWORKS.find(function(f){ return f.id === 'context'; });
+    if(rtfFw){ selectFw(rtfFw); }
+
+    // Wait for fields to render then fill them
+    setTimeout(function(){
+      // Try to fill the first textarea/text field with the prompt
+      var firstField = activeFw.blocks[0];
+      if(firstField){
+        fieldValues[firstField.id] = incomingPrompt;
+        var el = document.getElementById('field-'+firstField.id);
+        if(el) el.value = incomingPrompt;
+      }
+      // Also try to fill a "task" field specifically
+      var taskField = activeFw.blocks.find(function(b){
+        return b.id === 'objective' || b.id === 'task' || b.id === 'role';
+      });
+      if(taskField){
+        fieldValues[taskField.id] = incomingPrompt;
+        var tel = document.getElementById('field-'+taskField.id);
+        if(tel) tel.value = incomingPrompt;
+      }
+      buildPreview();
+
+      // Scroll to fields panel smoothly
+      var fp = document.getElementById('fieldsBody');
+      if(fp) fp.scrollIntoView({behavior:'smooth', block:'start'});
+
+      // Show a toast
+      if(typeof showToast === 'function'){
+        showToast('Prompt loaded — refine your fields and generate!');
+      }
+    }, 150);
   }
 });
 
@@ -1061,9 +1123,9 @@ function copyPrompt(){
   if(!text){ showToast('Nothing to copy yet!'); return; }
   var btn = document.getElementById('copyBtn');
   function done(){
-    btn.innerHTML = '<i class="ph ph-check"></i> Copied!';
+    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
     btn.classList.add('success');
-    setTimeout(function(){ btn.innerHTML='<i class="ph ph-copy"></i> Copy'; btn.classList.remove('success'); }, 2200);
+    setTimeout(function(){ btn.innerHTML='<i class="ti ti-copy"></i> Copy'; btn.classList.remove('success'); }, 2200);
     showToast('✅ Prompt copied!');
     autoSave(text);
   }
@@ -1097,9 +1159,9 @@ function savePrompt(){
   autoSave(text);
   var btn = document.querySelector('[onclick="savePrompt()"]');
   if(btn){
-    btn.innerHTML='<i class="ph ph-check"></i> Saved!';
+    btn.innerHTML='<i class="ti ti-check"></i> Saved!';
     btn.classList.add('success');
-    setTimeout(function(){ btn.innerHTML='<i class="ph ph-bookmark-simple"></i> Save'; btn.classList.remove('success'); },2200);
+    setTimeout(function(){ btn.innerHTML='<i class="ti ti-bookmark"></i> Save'; btn.classList.remove('success'); },2200);
   }
   showToast('⭐ Prompt saved!');
 }
@@ -1171,7 +1233,7 @@ function dictateField(fieldId){
 
   recognition.onstart = function(){
     isListening = true;
-    if(voiceBtn){ voiceBtn.innerHTML='<i class="ph ph-microphone-slash"></i> Stop'; voiceBtn.classList.add('mic-active'); }
+    if(voiceBtn){ voiceBtn.innerHTML='<i class="ti ti-microphone-off"></i> Stop'; voiceBtn.classList.add('mic-active'); }
     if(vbtn)     vbtn.classList.add('active');
     showToast('🎤 Listening...');
   };
@@ -1196,7 +1258,7 @@ function stopDictation(){
   isListening = false;
   if(recognition){ try{ recognition.stop(); }catch(e){} recognition=null; }
   var voiceBtn = document.getElementById('voiceBtn');
-  if(voiceBtn){ voiceBtn.innerHTML='<i class="ph ph-microphone"></i> Dictate'; voiceBtn.classList.remove('mic-active'); }
+  if(voiceBtn){ voiceBtn.innerHTML='<i class="ti ti-microphone"></i> Dictate'; voiceBtn.classList.remove('mic-active'); }
   if(activeFieldId){
     var vbtn = document.getElementById('vbtn-'+activeFieldId);
     if(vbtn) vbtn.classList.remove('active');

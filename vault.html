@@ -82,6 +82,8 @@ body.light .topnav{background:rgba(245,245,247,.92);}
 .nav-lnk:hover{color:var(--ink);background:var(--glass2);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;border:none;}
+@media(max-width:480px){.nav-signin{display:none !important;}}
+@media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-signin:hover{background:#e84e0e;}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-icon:hover{color:var(--orange);}
@@ -486,7 +488,7 @@ img,video,iframe{max-width:100%;}
 
 <!-- TOP NAV -->
 <header class="topnav">
-  <a class="nav-logo" href="/">
+  <a class="nav-logo" href="index.html">
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
@@ -500,7 +502,7 @@ img,video,iframe{max-width:100%;}
     </nav>
     <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <button class="nav-icon" onclick="toggleMenu()"><i class="ph ph-list"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-list"></i></button>
   </div>
 </header>
 
@@ -513,24 +515,24 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item" href="/"><i class="ph ph-house"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ph ph-books"></i> Prompt Library</a>
-    <a class="sm-item" href="prompt-builder.html"><i class="ph ph-wrench"></i> Prompt Builder</a>
-    <a class="sm-item" href="creationstation.html"><i class="ph ph-lightning"></i> AI Tools</a>
-    <a class="sm-item active" href="vault.html"><i class="ph ph-images"></i> Image Vault</a>
-    <a class="sm-item" href="learn.html"><i class="ph ph-graduation-cap"></i> Learn</a>
+    <a class="sm-item" href="index.html"><i class="ti ti-home"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class="sm-item active" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
+    <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Learn</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ph ph-info"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ph ph-newspaper"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ph ph-lock"></i> Privacy</a>
-    <a class="sm-item" href="terms.html"><i class="ph ph-clipboard"></i> Terms</a>
+    <a class="sm-item" href="about.html"><i class="ti ti-info-circle"></i> About Us</a>
+    <a class="sm-item" href="blog.html"><i class="ti ti-news"></i> Blog</a>
+    <a class="sm-item" href="contact.html"><i class="ti ti-mail"></i> Contact</a>
+    <a class="sm-item" href="privacy.html"><i class="ti ti-lock"></i> Privacy</a>
+    <a class="sm-item" href="terms.html"><i class="ti ti-clipboard-list"></i> Terms</a>
   </div>
   <div class="sm-foot">
     <button class="sm-signin-btn" onclick="handleAuthClick();toggleMenu();" id="smAuthBtn">
-      <i class="ph ph-google-logo"></i> Sign In with Google
+      <i class="ti ti-brand-google"></i> Sign In with Google
     </button>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
@@ -547,8 +549,8 @@ img,video,iframe{max-width:100%;}
     <div class="vault-stat"><div class="n" id="statModels">10+</div><div class="l">AI Models</div></div>
   </div>
   <div class="vault-ctas">
-    <button class="btn-primary" onclick="openSubmit()"><i class="ph ph-upload-simple"></i> Submit Your Image</button>
-    <button class="btn-ghost" onclick="scrollToGallery()"><i class="ph ph-images"></i> Browse Gallery</button>
+    <button class="btn-primary" onclick="openSubmit()"><i class="ti ti-upload-simple"></i> Submit Your Image</button>
+    <button class="btn-ghost" onclick="scrollToGallery()"><i class="ti ti-photo"></i> Browse Gallery</button>
   </div>
 </section>
 
@@ -600,7 +602,7 @@ img,video,iframe{max-width:100%;}
   <div class="modal">
     <div class="modal-head">
       <div class="modal-title">🎨 Submit to Image Vault</div>
-      <button class="modal-close" onclick="closeSubmit()"><i class="ph ph-x"></i></button>
+      <button class="modal-close" onclick="closeSubmit()"><i class="ti ti-x"></i></button>
     </div>
     <div class="modal-body">
       <div class="form-row">
@@ -659,7 +661,7 @@ img,video,iframe{max-width:100%;}
   <div class="detail-modal">
     <div class="detail-img-wrap">
       <img id="detailImg" class="detail-img" alt=""/>
-      <button class="detail-close" onclick="closeDetail()"><i class="ph ph-x"></i></button>
+      <button class="detail-close" onclick="closeDetail()"><i class="ti ti-x"></i></button>
     </div>
     <div class="detail-info">
       <div>
@@ -673,9 +675,9 @@ img,video,iframe{max-width:100%;}
       </div>
       <div class="detail-tags" id="detailTags"></div>
       <div class="detail-actions">
-        <button class="detail-btn primary" onclick="copyDetailPrompt()"><i class="ph ph-copy"></i> Copy Prompt</button>
-        <button class="detail-btn" onclick="remixPrompt()"><i class="ph ph-shuffle"></i> Remix</button>
-        <button class="detail-btn" onclick="likeFromDetail()"><i class="ph ph-heart"></i> Like <span id="detailLikeCount"></span></button>
+        <button class="detail-btn primary" onclick="copyDetailPrompt()"><i class="ti ti-copy"></i> Copy Prompt</button>
+        <button class="detail-btn" onclick="remixPrompt()"><i class="ti ti-shuffle"></i> Remix</button>
+        <button class="detail-btn" onclick="likeFromDetail()"><i class="ti ti-heart"></i> Like <span id="detailLikeCount"></span></button>
       </div>
     </div>
   </div>
@@ -715,11 +717,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="/"><i class="ph ph-house"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ph ph-books"></i>Library</a>
-  <a class="bn-item active" href="vault.html"><i class="ph ph-images"></i>Vault</a>
-  <a class="bn-item" href="prompt-builder.html"><i class="ph ph-wrench"></i>Builder</a>
-  <button class="bn-item" onclick="handleAuthClick()"><i class="ph ph-user"></i>Sign In</button>
+  <a class="bn-item" href="index.html"><i class="ti ti-home"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ti ti-books"></i>Library</a>
+  <a class="bn-item" href="creationstation.html"><i class="ti ti-bolt"></i>AI Tools</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ti ti-tool"></i>Builder</a>
+  <a class="bn-item" href="learn.html"><i class="ti ti-school"></i>Learn</a>
 </nav>
 
 <script>
@@ -796,11 +798,11 @@ function updateAuthUI(){
   var smBtn = document.getElementById('smAuthBtn');
   if(currentUser){
     if(btn) btn.textContent = currentUser.displayName ? currentUser.displayName.split(' ')[0] : 'Account';
-    if(smBtn) smBtn.innerHTML = '<i class="ph ph-sign-out"></i> Sign Out';
+    if(smBtn) smBtn.innerHTML = '<i class="ti ti-sign-out"></i> Sign Out';
     if(smBtn) smBtn.onclick = function(){ fb.signOut(fb.auth); };
   } else {
     if(btn){ btn.textContent = 'Sign In'; btn.onclick = handleAuthClick; }
-    if(smBtn){ smBtn.innerHTML = '<i class="ph ph-google-logo"></i> Sign In with Google'; smBtn.onclick = signInGoogle; }
+    if(smBtn){ smBtn.innerHTML = '<i class="ti ti-brand-google"></i> Sign In with Google'; smBtn.onclick = signInGoogle; }
   }
 }
 
@@ -940,7 +942,7 @@ function renderGallery(){
 
     var copyBtn = document.createElement('button');
     copyBtn.className = 'vcard-btn';
-    copyBtn.innerHTML = '<i class="ph ph-copy"></i> Copy Prompt';
+    copyBtn.innerHTML = '<i class="ti ti-copy"></i> Copy Prompt';
     copyBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); copyPromptById(id); }; })(img._id);
 
     var liked = [];
@@ -949,7 +951,7 @@ function renderGallery(){
     var likeBtn = document.createElement('button');
     likeBtn.className = 'vcard-btn';
     likeBtn.style.cssText = alreadyLiked ? 'color:#ef4444;border-color:rgba(239,68,68,.3);' : '';
-    likeBtn.innerHTML = (alreadyLiked ? '<i class="ph ph-heart-fill"></i>' : '<i class="ph ph-heart"></i>') + ' <span class="vcard-like-count">' + (img.likes||0) + '</span>';
+    likeBtn.innerHTML = (alreadyLiked ? '<i class="ti ti-heart-fill"></i>' : '<i class="ti ti-heart"></i>') + ' <span class="vcard-like-count">' + (img.likes||0) + '</span>';
     likeBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); likeImage(id); }; })(img._id);
 
     actions.appendChild(copyBtn);
@@ -959,7 +961,7 @@ function renderGallery(){
       var delBtn = document.createElement('button');
       delBtn.className = 'vcard-btn';
       delBtn.style.cssText = 'background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.4);color:#ef4444;';
-      delBtn.innerHTML = '<i class="ph ph-trash"></i>';
+      delBtn.innerHTML = '<i class="ti ti-trash"></i>';
       delBtn.title = 'Delete image';
       delBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); adminDeleteImage(id); }; })(img._id);
       actions.appendChild(delBtn);

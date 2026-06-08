@@ -492,7 +492,7 @@ html,body{
     <button class="btn-sec" onclick="doCopy()" id="copyBtn">
       <i class="ti ti-copy"></i>Copy
     </button>
-    <a href="prompt-builder.html" class="btn-gold" id="buildBtn">
+    <a href="#" class="btn-gold" id="buildBtn" onclick="doBuildIt(event)">
       <i class="ti ti-tool"></i>Build It
     </a>
     <button class="btn-icon" onclick="doShare()" title="Share">
@@ -716,48 +716,102 @@ function doGenerate(catOverride){
     document.getElementById('loadingMsg').textContent=loadingMsgs[mi];
   },600);
 
-  setTimeout(()=>{
+  // ── Call Claude API for real generation ────────────────────
+  const systemPrompt = `You are an expert AI prompt engineer who writes world-class prompts.
+Generate ONE exceptional, highly specific AI prompt for the category: ${cat.name}.
+Framework to use: ${cat.fw}.
+The prompt must:
+- Be immediately usable with no editing required
+- Use [BRACKETED PLACEHOLDERS] for the one or two variables a user needs to fill in
+- Sound like it was written by a senior professional in this field
+- Be specific enough to get dramatically better results than a generic prompt
+- Be between 50-150 words
+- Not include any explanation or preamble — output the prompt text only`;
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      messages: [{ role: 'user', content: `Generate a ${cat.name} prompt using the ${cat.fw} framework. Output only the prompt, nothing else.` }],
+      system: systemPrompt
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
     clearInterval(loadTimer);
     btn.classList.remove('spinning');
 
-    // Pick prompt
-    const pool=PROMPTS[cat.id]||PROMPTS.business;
-    currentPrompt=pool[Math.floor(Math.random()*pool.length)];
+    // Get generated prompt
+    const generated = data.content && data.content[0] && data.content[0].text
+      ? data.content[0].text.trim()
+      : null;
+
+    // Fallback to templates if API fails
+    const pool = PROMPTS[cat.id] || PROMPTS.business;
+    currentPrompt = generated || pool[Math.floor(Math.random()*pool.length)];
 
     // Update UI
-    document.getElementById('catName').textContent=cat.name;
-    document.getElementById('metaFw').textContent=cat.fw+' Framework';
-    document.getElementById('metaDiff').textContent=cat.diff;
-    document.getElementById('metaTime').textContent=cat.time;
-    document.getElementById('metaTool').textContent=cat.tool;
+    document.getElementById('catName').textContent = cat.name;
+    document.getElementById('metaFw').textContent = cat.fw + ' Framework';
+    document.getElementById('metaDiff').textContent = cat.diff;
+    document.getElementById('metaTime').textContent = cat.time;
+    document.getElementById('metaTool').textContent = cat.tool;
 
-    // Hide loading
-    document.getElementById('loadingWrap').style.display='none';
-    document.getElementById('promptWrap').style.display='block';
+    // Hide loading, show prompt
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('promptWrap').style.display = 'block';
 
     // Typewrite
-    typewrite(document.getElementById('promptText'),currentPrompt,15,()=>{
-      document.getElementById('metaRow').style.display='flex';
-      document.getElementById('actionsRow').style.display='flex';
-      // Reset bookmark icon
-      document.getElementById('bookmarkIcon').className='ti ti-bookmark';
+    typewrite(document.getElementById('promptText'), currentPrompt, 14, () => {
+      document.getElementById('metaRow').style.display = 'flex';
+      document.getElementById('actionsRow').style.display = 'flex';
+      document.getElementById('bookmarkIcon').className = 'ti ti-bookmark';
     });
 
-    // Update bookmark state
     updateBookmarkState();
 
     // Track
     genCount++;
-    localStorage.setItem('pa_potd_gen',genCount);
-    document.getElementById('statGen').textContent=genCount;
+    localStorage.setItem('pa_potd_gen', genCount);
+    document.getElementById('statGen').textContent = genCount;
 
     // Add to prev
     prevPrompts.unshift(currentPrompt);
-    prevPrompts=prevPrompts.slice(0,6);
-    localStorage.setItem('pa_potd_prev',JSON.stringify(prevPrompts));
+    prevPrompts = prevPrompts.slice(0, 6);
+    localStorage.setItem('pa_potd_prev', JSON.stringify(prevPrompts));
     renderPrev();
+  })
+  .catch(() => {
+    // API failed — use template fallback silently
+    clearInterval(loadTimer);
+    btn.classList.remove('spinning');
+    const pool = PROMPTS[cat.id] || PROMPTS.business;
+    currentPrompt = pool[Math.floor(Math.random()*pool.length)];
 
-  },1200+Math.random()*400);
+    document.getElementById('catName').textContent = cat.name;
+    document.getElementById('metaFw').textContent = cat.fw + ' Framework';
+    document.getElementById('metaDiff').textContent = cat.diff;
+    document.getElementById('metaTime').textContent = cat.time;
+    document.getElementById('metaTool').textContent = cat.tool;
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('promptWrap').style.display = 'block';
+
+    typewrite(document.getElementById('promptText'), currentPrompt, 14, () => {
+      document.getElementById('metaRow').style.display = 'flex';
+      document.getElementById('actionsRow').style.display = 'flex';
+    });
+
+    updateBookmarkState();
+    genCount++;
+    localStorage.setItem('pa_potd_gen', genCount);
+    document.getElementById('statGen').textContent = genCount;
+    prevPrompts.unshift(currentPrompt);
+    prevPrompts = prevPrompts.slice(0, 6);
+    localStorage.setItem('pa_potd_prev', JSON.stringify(prevPrompts));
+    renderPrev();
+  });
 }
 
 // ══════════════════════════════════════════
@@ -771,6 +825,19 @@ function doCopy(){
     btn.classList.add('copied');
     setTimeout(()=>{btn.innerHTML='<i class="ti ti-copy"></i>Copy';btn.classList.remove('copied');},2000);
   });
+}
+
+// ══════════════════════════════════════════
+//  BUILD IT — passes prompt to builder via URL
+// ══════════════════════════════════════════
+function doBuildIt(e){
+  e.preventDefault();
+  if(!currentPrompt){
+    showToast('Generate a prompt first!');
+    return;
+  }
+  var encoded = encodeURIComponent(currentPrompt);
+  window.location.href = 'prompt-builder.html?prompt=' + encoded;
 }
 
 // ══════════════════════════════════════════

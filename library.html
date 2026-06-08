@@ -47,6 +47,14 @@ body.light .topnav{background:rgba(245,245,247,.92);}
 .nav-lnk:hover{color:var(--ink);background:var(--glass2);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+@media(max-width:480px){
+  /* Hide sign in button on very small screens — move to slide menu */
+  .nav-signin{display:none;}
+}
+@media(max-width:680px) and (min-width:481px){
+  /* Shrink sign in on mid-mobile */
+  .nav-signin{font-size:11px;padding:5px 10px;}
+}
 .nav-signin:hover{background:#e84e0e;}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-icon:hover{color:var(--orange);}
@@ -100,7 +108,15 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 /* POTW */
 .potw-wrap{max-width:1400px;margin:0 auto;padding:0 24px 24px;}
 .potw-card{position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,159,36,.06),rgba(255,98,36,.04));border:1px solid rgba(255,98,36,.3);backdrop-filter:var(--blur);padding:20px 24px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;}
-@media(max-width:600px){.potw-card{grid-template-columns:1fr;}}
+@media(max-width:600px){
+  .potw-card{grid-template-columns:1fr;padding:16px;}
+  .potw-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .potw-btn{flex:1;min-width:120px;justify-content:center;font-size:12px;padding:9px 14px;}
+  .potw-week{font-size:9px;}
+  .potw-badge{font-size:9px;padding:3px 8px;}
+  .potw-title{font-size:15px;}
+  .potw-preview{font-size:12px;-webkit-line-clamp:3;}
+}
 .potw-card::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,98,36,.15),transparent 70%);pointer-events:none;}
 .potw-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .potw-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;flex-shrink:0;}
@@ -182,6 +198,8 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard-badge.midjourney{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.25);color:#818cf8;}
 .pcard-badge.gemini{background:rgba(66,133,244,.1);border-color:rgba(66,133,244,.25);color:#4285f4;}
 .pcard-badge.default{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.2);color:#ff8c5a;}
+/* Universal compatible label */
+.pcard-compat{font-size:9px;color:var(--ink3);margin-top:2px;letter-spacing:.2px;}
 .pcard-tool-logo{width:12px;height:12px;border-radius:2px;}
 .pcard-cat{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.3px;}
 .pcard-preview{font-size:12px;color:rgba(255,255,255,.48);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
@@ -390,6 +408,7 @@ img,video,iframe{max-width:100%;}
       <a href="prompt-builder.html" class="nav-lnk">Builder</a>
       <a href="creationstation.html" class="nav-lnk">AI Tools</a>
       <a href="learn.html" class="nav-lnk">Learn</a>
+      <a href="vault.html" class="nav-lnk">Vault</a>
     </nav>
     <a href="login.html" class="nav-signin">Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
@@ -407,6 +426,8 @@ img,video,iframe{max-width:100%;}
     <div class="sm-lbl">Navigate</div>
     <a class="sm-item active" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
     <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
+    <a class="sm-item" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
+    <a class="sm-item" href="login.html"><i class="ti ti-user"></i> Sign In</a>
     <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
     <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
     <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Learn</a>
@@ -859,7 +880,7 @@ function makeCard(p,i){
     +'<span class="pcard-badge '+tc.cls+'">'
     +'<img class="pcard-tool-logo" src="https://www.google.com/s2/favicons?domain='+tc.domain+'&sz=32" alt="'+tc.label+'" onerror="this.style.display=\'none\'" loading="lazy"/> '+tc.label
     +'</span>'
-    +'<span class="pcard-cat">'+escHtml(p.cat)+'</span>'
+    +'<span class="pcard-cat">'+escHtml(p.cat)+'</span>'+'<span class="pcard-compat">Works with ChatGPT · Claude · Gemini</span>'
     +'</div>'
     +'<div class="pcard-preview">'+escHtml(prev)+'</div>'
     +(tags?'<div class="pcard-tags">'+tags+'</div>':'')
