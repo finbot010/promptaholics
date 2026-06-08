@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-04T15:37:58.719Z",
-  "week": 23,
+  "generated_at": "2026-06-08T17:21:52.537Z",
+  "week": 24,
   "slot-1": {
-    "name": "Golden Hour Portrait",
-    "prompt": "Editorial fashion portrait during golden hour. Warm amber and coral light from the side, 85mm lens f/1.4, extremely shallow depth of field, buttery bokeh background, skin tones luminous and warm, atmospheric golden haze, National Geographic meets Vogue aesthetic, cinematic photorealistic 8K quality."
+    "name": "Cyberpunk Neon Noir",
+    "prompt": "Ultra-detailed cyberpunk city at night. Heavy rain with neon reflections pooling on wet streets. Flying cars weaving between massive skyscrapers. Dramatic pink and teal volumetric lighting. Blade Runner 2049 aesthetic. Atmospheric fog and light rays through tall buildings. Cinematic masterpiece photorealistic 8K."
   },
   "slot-2": {
-    "name": "Neon Cyberpunk Street",
-    "prompt": "Hyper-detailed cyberpunk alley at night. Glowing neon signs in Japanese and English reflecting on wet cobblestones. Steam rising from grates. Food stall with warm light. No people, atmospheric and cinematic. Blade Runner aesthetic. Pink purple and teal color palette. Ultra detailed 8K photorealistic."
+    "name": "Epic Fantasy Landscape",
+    "prompt": "Epic fantasy landscape with ancient stone ruins on dramatic clifftop overlooking magical valley. Volumetric god rays breaking through storm clouds. Glowing magical elements in environment. Rich warm and cool color contrast. Sweeping cinematic composition. Tolkien meets Studio Ghibli aesthetic. Ultra-detailed painterly realism 8K."
   },
   "slot-3": {
-    "name": "Urban Street Photography",
-    "prompt": "Black and white decisive moment street photography. Lone figure in geometric shadows on rain-slicked city street at night. High contrast monochrome, authentic film grain, available light only, Henri Cartier-Bresson documentary style, Leica rangefinder aesthetic, film noir atmosphere, ultra-realistic."
+    "name": "Luxury Perfume Shot",
+    "prompt": "Hyper-realistic commercial studio product photography of a luxury perfume bottle. Soft dramatic key light with subtle rim lighting. Pure white background. Intricate glass detail catching the light beautifully. High-end magazine advertisement quality. Apple and Chanel level product photography. 4K ultra-sharp professional lighting."
   },
   "slot-4": {
-    "name": "Fantasy Hero Character",
-    "prompt": "Professional fantasy hero character concept art. Front-facing portrait with dramatic cinematic lighting. Intricate ornate armor with magical runes, flowing cape, heroic staff or shield. Semi-realistic art style between anime and western comic. Deep blues and gold accents. Epic fantasy game concept art quality 8K."
+    "name": "Cinematic Portrait",
+    "prompt": "Ultra-cinematic portrait with dramatic Hollywood-style lighting. ARRI Alexa camera aesthetic, anamorphic lens flares, volumetric light rays. Deep shadow contrast with warm key light. Film grain texture. Teal and orange color grade. Subject looks directly into camera with intense powerful expression. 8K cinematic quality."
   }
 }
