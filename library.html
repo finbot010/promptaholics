@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Free AI Prompt Library — 1,363 Expert Prompts | Promptaholics</title>
-<meta name="description" content="Browse 1,363 free expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
+<title>Free AI Prompt Library — 1,485 Expert Prompts | Promptaholics</title>
+<meta name="description" content="Browse 1,485 free expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
 <link rel="canonical" href="https://promptaholics.com/library.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free AI Prompt Library","description":"1,363 expert AI prompts for ChatGPT, Claude, Midjourney and more","url":"https://promptaholics.com/library.html","publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free AI Prompt Library","description":"1,485 expert AI prompts for ChatGPT, Claude, Midjourney and more","url":"https://promptaholics.com/library.html","publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" media="print" onload="this.media='all'"/>
@@ -372,6 +372,9 @@ img,video,iframe{max-width:100%;}
   input,textarea,select{font-size:16px !important;-webkit-text-size-adjust:100%;}
   input::placeholder,textarea::placeholder{font-size:16px;}
 }
+
+.badge-claude{background:rgba(218,119,86,.12);border-color:rgba(218,119,86,.3);color:#da7756;}
+.badge-other{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.2);color:#818cf8;}
 </style>
 </head>
 <body>
@@ -424,7 +427,7 @@ img,video,iframe{max-width:100%;}
 
 <div class="lib-header">
   <div class="lib-eyebrow"><i class="ti ti-books"></i> Free AI Prompt Library</div>
-  <h1 class="lib-h1"><span id="libCount">1,363</span> expert prompts.<br/>Zero paywalls.</h1>
+  <h1 class="lib-h1"><span id="libCount">1,485</span> expert prompts.<br/>Zero paywalls.</h1>
   <p class="lib-sub">ChatGPT · Claude · Midjourney · Sora · Runway · Gemini · DeepSeek and more</p>
   <div class="search-wrap">
     <i class="ti ti-search search-icon"></i>
@@ -532,7 +535,7 @@ img,video,iframe{max-width:100%;}
       <a href="privacy.html" class="footer-lnk accent">Privacy</a>
       <a href="terms.html" class="footer-lnk accent">Terms</a>
     </div>
-    <div class="footer-copy">2026 Promptaholics · 1,363 free AI prompts · No signup required</div>
+    <div class="footer-copy">2026 Promptaholics · 1,485 free AI prompts · No signup required</div>
   </div>
 </footer>
 
@@ -555,6 +558,10 @@ var CAT_CONFIG={
   'Productivity Systems & Agents':{icon:'⚙️'},
   'Email, Sales & Communication':{icon:'✉️'},
   'AI Agents, Finance & Learning':{icon:'💰'},
+  'Video & Film':{icon:'🎬'},
+  'Education & Learning':{icon:'📚'},
+  'Code & Tech':{icon:'💻'},
+  'Health':{icon:'❤️'},
   'Video & Film':{icon:'🎬'},'Health':{icon:'❤️'},'Photography':{icon:'📸'},
   'Real Estate':{icon:'🏡'},'Legal':{icon:'⚖️'},'Education & Learning':{icon:'📚'},
   'Wellness':{icon:'🌿'},'Other':{icon:'✨'},'Social Media':{icon:'📱'},
@@ -565,9 +572,10 @@ var TOOL_CONFIG={
   chatgpt:{label:'ChatGPT',cls:'badge-chatgpt',domain:'openai.com'},
   claude:{label:'Claude',cls:'badge-claude',domain:'claude.ai'},
   midjourney:{label:'Midjourney',cls:'badge-midjourney',domain:'midjourney.com'},
-  sora:{label:'Sora',cls:'badge-sora',domain:'sora.com'},
   gemini:{label:'Gemini',cls:'badge-gemini',domain:'gemini.google.com'},
-  runway:{label:'Runway',cls:'badge-runway',domain:'runwayml.com'}
+  runway:{label:'Runway',cls:'badge-runway',domain:'runwayml.com'},
+  kling:{label:'Kling AI',cls:'badge-other',domain:'klingai.com'},
+  other:{label:'AI Tool',cls:'badge-other',domain:'openai.com'}
 };
 function getTC(tool){ return TOOL_CONFIG[tool]||{label:tool||'AI',cls:'badge-other',domain:'openai.com'}; }
 
@@ -962,7 +970,7 @@ function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow=''; curModal=null;
   history.pushState({},'','/library.html');
-  document.title='Free AI Prompt Library - 1,363 Expert Prompts | Promptaholics';
+  document.title='Free AI Prompt Library - 1,485 Expert Prompts | Promptaholics';
 }
 function closeModalOutside(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); }
 function modalCopy(){ if(!curModal) return; copyToClipboard(curModal.text); showToast('Copied!'); autoSave(curModal); }
