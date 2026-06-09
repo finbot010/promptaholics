@@ -1,2 +1,18 @@
 # Secret config — never push this
 config.js
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# API keys
+*.key
+secrets.js
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
