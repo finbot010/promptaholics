@@ -16,4 +16,4 @@
     Cache-Control = "no-store"
 
 [functions]
-  directory = "netlify/functions"
+  directory = "netlify/functions/netlify/functions"
