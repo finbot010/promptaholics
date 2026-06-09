@@ -543,7 +543,15 @@ async function runAgent(){
   } catch(err) {
     console.error('Agent error:', err);
     steps.classList.remove('active');
-    showToast('Something went wrong — try again');
+    // Show specific error so we can debug
+    const msg = err.message || 'Unknown error';
+    showToast('Error: ' + msg.slice(0,60));
+    // Also show in step area
+    document.getElementById('agentSteps').innerHTML +=
+      `<div style="color:#ef4444;font-size:12px;margin-top:8px;padding:10px;background:rgba(239,68,68,.06);border-radius:8px;border:1px solid rgba(239,68,68,.2);">
+        ❌ ${msg}<br/>
+        <span style="opacity:.6;font-size:10px;">Check browser console for details (F12)</span>
+      </div>`;
   }
 
   // Reset button
@@ -666,11 +674,17 @@ Respond ONLY with valid JSON:
   });
 
   const data = await response.json();
+
+  // Surface API errors clearly
+  if(data.error){
+    throw new Error(data.error.message || JSON.stringify(data.error));
+  }
+
   const text = data.content && data.content[0] && data.content[0].text
     ? data.content[0].text.trim()
     : null;
 
-  if(!text) throw new Error('No response from API');
+  if(!text) throw new Error('Empty response — check API key in Netlify env vars');
 
   // Parse JSON — strip markdown fences if present
   const clean = text.replace(/```json|```/g,'').trim();

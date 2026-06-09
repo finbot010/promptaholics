@@ -1,9 +1,32 @@
-// Netlify serverless function — proxies Claude API calls
-// API key stays server-side and never exposed to browser
+// Netlify serverless function — proxies Claude API calls securely
 exports.handler = async (event) => {
+
+  // Handle CORS preflight
+  if(event.httpMethod === 'OPTIONS'){
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin':  '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: '',
+    };
+  }
+
   // Only allow POST
   if(event.httpMethod !== 'POST'){
     return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  // Check API key exists
+  if(!process.env.ANTHROPIC_API_KEY){
+    console.error('ANTHROPIC_API_KEY not set');
+    return {
+      statusCode: 500,
+      headers: {'Access-Control-Allow-Origin':'*'},
+      body: JSON.stringify({ error: 'API key not configured' }),
+    };
   }
 
   try {
@@ -12,34 +35,39 @@ exports.handler = async (event) => {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        'Content-Type':            'application/json',
-        'x-api-key':               process.env.ANTHROPIC_API_KEY,
-        'anthropic-version':       '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
+        'Content-Type':       'application/json',
+        'x-api-key':          process.env.ANTHROPIC_API_KEY,
+        'anthropic-version':  '2023-06-01',
       },
       body: JSON.stringify({
         model:      body.model      || 'claude-haiku-4-5-20251001',
         max_tokens: body.max_tokens || 2000,
-        system:     body.system,
-        messages:   body.messages,
+        system:     body.system     || '',
+        messages:   body.messages   || [],
       }),
     });
 
     const data = await response.json();
 
+    // Log errors from Claude
+    if(data.error){
+      console.error('Claude API error:', data.error);
+    }
+
     return {
-      statusCode: 200,
+      statusCode: response.status,
       headers: {
-        'Content-Type':                 'application/json',
-        'Access-Control-Allow-Origin':  '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type':                'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(data),
     };
 
   } catch(err) {
+    console.error('Function error:', err.message);
     return {
       statusCode: 500,
+      headers: {'Access-Control-Allow-Origin':'*'},
       body: JSON.stringify({ error: err.message }),
     };
   }
