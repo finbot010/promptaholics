@@ -728,9 +728,9 @@ The prompt must:
 - Be between 50-150 words
 - Not include any explanation or preamble — output the prompt text only`;
 
-  fetch('https://api.anthropic.com/v1/messages', {
+  fetch('/.netlify/functions/claude', {
     method: 'POST',
-    headers: {'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    headers: {'Content-Type':'application/json'},
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 300,
