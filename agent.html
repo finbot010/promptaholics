@@ -583,7 +583,7 @@ async function callClaudeAgent(goal, mode){
 2. Generate 5 original, highly specific, immediately usable prompts tailored to their exact goal — inspired by but NOT copied from the library
 3. For each prompt include: a name, category, framework (RTF/CoSTAR/RISEN/AETHER/Chain-of-Thought/SCQA/CRISPE), relevance score (0-100), and why it fits
 
-Respond ONLY with valid JSON in this exact format:
+You MUST respond with ONLY a valid JSON object. No explanation, no markdown, no backticks. Start your response with { and end with }.
 {
   "goalSummary": "one sentence summary of what the user wants",
   "categories": ["cat1","cat2","cat3"],
@@ -686,9 +686,20 @@ Respond ONLY with valid JSON:
 
   if(!text) throw new Error('Empty response — check API key in Netlify env vars');
 
-  // Parse JSON — strip markdown fences if present
-  const clean = text.replace(/```json|```/g,'').trim();
-  return JSON.parse(clean);
+  // Robust JSON parsing — strip fences, find first { to last }
+  let clean = text.replace(/```json|```/g,'').trim();
+  // Extract just the JSON object in case Claude added explanation text
+  const firstBrace = clean.indexOf('{');
+  const lastBrace  = clean.lastIndexOf('}');
+  if(firstBrace !== -1 && lastBrace !== -1){
+    clean = clean.slice(firstBrace, lastBrace + 1);
+  }
+  try {
+    return JSON.parse(clean);
+  } catch(parseErr) {
+    console.error('Raw Claude response:', text);
+    throw new Error('Could not parse AI response. Raw: ' + text.slice(0,100));
+  }
 }
 
 // ══════════════════════════════════════════
