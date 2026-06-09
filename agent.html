@@ -253,6 +253,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       }
     };
   </script>
+<script src="config.js"></script>
 </head>
 <body>
 <div class="grain"></div>
@@ -662,9 +663,14 @@ Respond ONLY with valid JSON:
 }`
   };
 
-  const response = await fetch('/.netlify/functions/claude', {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: {'Content-Type':'application/json'},
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': (window.ANTHROPIC_KEY || ''),
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 2000,
