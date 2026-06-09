@@ -10,10 +10,5 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-[[headers]]
-  for = "/netlify/functions/*"
-  [headers.values]
-    Cache-Control = "no-store"
-
 [functions]
   directory = "netlify/functions/netlify/functions"

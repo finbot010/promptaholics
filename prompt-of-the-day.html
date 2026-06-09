@@ -425,7 +425,6 @@ html,body{
 /* ── UTILS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
 </style>
-<script src="config.js"></script>
 </head>
 <body>
 
@@ -729,14 +728,9 @@ The prompt must:
 - Be between 50-150 words
 - Not include any explanation or preamble — output the prompt text only`;
 
-  fetch('https://api.anthropic.com/v1/messages', {
+  fetch('/.netlify/functions/claude', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': (window.ANTHROPIC_KEY || ''),
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
+    headers: {'Content-Type':'application/json'},
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 300,
