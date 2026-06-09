@@ -11,4 +11,4 @@
     Cache-Control = "public, max-age=86400"
 
 [functions]
-  directory = "netlify/functions/netlify/functions"
+  directory = "netlify/functions"
