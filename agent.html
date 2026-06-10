@@ -718,8 +718,10 @@ function showResults(data, goal){
 // ══════════════════════════════════════════
 //  PANEL BUILDERS
 // ══════════════════════════════════════════
+const promptStore = new Map();
 function buildPromptsPanel(prompts){
   if(!prompts||!Array.isArray(prompts)||!prompts.length) return '<div class="empty-state"><i class="ti ti-search-off"></i><p>No prompts found. Try a different goal.</p></div>';
+  prompts.forEach((p,i)=>promptStore.set('p'+i,p));
   return prompts.map((p,i)=>`
     <div class="prompt-result-card" style="animation-delay:${i*.06}s">
       <div class="prc-header">
@@ -734,10 +736,10 @@ function buildPromptsPanel(prompts){
       ${p.why?`<div style="font-size:11px;color:var(--ink3);margin-bottom:8px;font-style:italic;">${esc(p.why)}</div>`:''}
       <div class="prc-text">${esc(p.text||'')}</div>
       <div class="prc-actions">
-        <button class="prc-btn copy" onclick="copyText('${escAttr(p.text||'')}',this)"><i class="ti ti-copy"></i> Copy</button>
-        <a class="prc-btn build" href="prompt-builder.html?prompt=${encodeURIComponent(p.text||'')}"><i class="ti ti-tool"></i> Build It</a>
-        <button class="prc-btn save" onclick="savePrompt('${escAttr(p.text||'')}',this)"><i class="ti ti-bookmark"></i> Save</button>
-        <button class="prc-btn add-lib" onclick="addToLibrary(${JSON.stringify({name:p.name,text:p.text,category:p.category,framework:p.framework,relevance:p.relevance})},this)" title="Add to Promptaholics Library"><i class="ti ti-library-plus"></i> Add to Library</button>
+        <button class="prc-btn copy" data-action="copy" data-idx="${i}"><i class="ti ti-copy"></i> Copy</button>
+        <button class="prc-btn build" data-action="build" data-idx="${i}"><i class="ti ti-tool"></i> Build It</button>
+        <button class="prc-btn save" data-action="save" data-idx="${i}"><i class="ti ti-bookmark"></i> Save</button>
+        <button class="prc-btn add-lib" data-action="add" data-idx="${i}" title="Add to Promptaholics Library"><i class="ti ti-library-plus"></i> Add to Library</button>
       </div>
     </div>
   `).join('');
@@ -908,6 +910,19 @@ async function addToLibrary(prompt, btn){
     showToast('Saved locally — will sync when online');
   }
 }
+
+// ── EVENT DELEGATION for dynamic result buttons ──────────
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('[data-action]');
+  if(!btn) return;
+  const action = btn.dataset.action;
+  const idx = btn.dataset.idx;
+  const p = promptStore.get('p'+idx);
+  if(action === 'add') { if(p) addToLibrary(p, btn); }
+  else if(action === 'copy') { if(p) copyText(p.text||'', btn); }
+  else if(action === 'build') { if(p) window.location.href = 'prompt-builder.html?prompt=' + encodeURIComponent(p.text||''); }
+  else if(action === 'save') { if(p) savePrompt(p.text||'', btn); }
+});
 
 function resetAgent(){
   document.getElementById('goalInput').value = '';
