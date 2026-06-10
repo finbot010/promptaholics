@@ -569,55 +569,56 @@ function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
 //  CLAUDE API CALL
 // ══════════════════════════════════════════
 async function callClaudeAgent(goal, mode){
-  // Use Puter.js — free, no API key needed
-  // Users sign in with their own Puter account
-  const systemPrompts = {
-    prompts: `{"goalSummary":"summary here","categories":["cat1","cat2"],"prompts":[{"name":"Prompt Name","category":"Business & Marketing","framework":"RTF","relevance":95,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 2","category":"Writing & Content","framework":"CoSTAR","relevance":90,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 3","category":"Code & Tech","framework":"RISEN","relevance":85,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 4","category":"AI Agents","framework":"CRISPE","relevance":80,"why":"why","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 5","category":"Email, Sales & Communication","framework":"SCQA","relevance":75,"why":"why","text":"Full prompt with [PLACEHOLDER]"}]}
-
-CRITICAL: Your ENTIRE response must be ONLY valid JSON. Fill in the template above for the user goal. Start with { end with }. No other text.`,
-    content:,
-    content: `{"goalSummary":"summary","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"hook here","body":"full post here"},{"platform":"Twitter","type":"Thread","hook":"hook here","body":"full tweet here"},{"platform":"Email","type":"Newsletter","hook":"subject here","body":"full email here"},{"platform":"Instagram","type":"Caption","hook":"hook here","body":"full caption #hashtags"}]}
-
-CRITICAL: Respond with ONLY the JSON above filled in for the user goal. No words before {. No words after }. Raw JSON only.`,
-    images: `{"goalSummary":"summary","imagePrompts":[{"title":"Image 1","tool":"Midjourney","style":"cinematic","prompt":"full image prompt here"},{"title":"Image 2","tool":"DALL-E","style":"editorial","prompt":"full image prompt here"},{"title":"Image 3","tool":"Midjourney","style":"product","prompt":"full image prompt here"},{"title":"Image 4","tool":"Flux","style":"lifestyle","prompt":"full image prompt here"}]}
-
-CRITICAL: Respond with ONLY the JSON above filled in. No words before {. No words after }. Raw JSON only.`,
-    campaign: `{"goalSummary":"summary","campaignName":"Campaign Name","prompts":[{"name":"","category":"","framework":"","text":"","why":""},{"name":"","category":"","framework":"","text":"","why":""},{"name":"","category":"","framework":"","text":"","why":""}],"content":[{"platform":"LinkedIn","type":"Post","hook":"","body":""},{"platform":"Email","type":"Newsletter","hook":"","body":""}],"imagePrompts":[{"title":"","tool":"Midjourney","prompt":""},{"title":"","tool":"DALL-E","prompt":""}]}
-
-CRITICAL: Respond with ONLY the JSON above filled in for the user goal. No words before {. No words after }. Raw JSON only.`
-  };
-
   try {
-    // Sign in to Puter if not already
+    // Sign in to Puter if not already signed in
     if(!puter.auth.isSignedIn()){
       await puter.auth.signIn();
     }
 
-    const response = await puter.ai.chat(
-      `My goal: ${goal}`,
-      {
-        model: 'claude-haiku-4-5',
-        system: systemPrompts[mode]
-      }
-    );
-
-    const text = typeof response === 'string' ? response :
-                 response?.message?.content?.[0]?.text ||
-                 response?.text ||
-                 response?.content?.[0]?.text || '';
-
-    // Robust JSON extraction — find { } block anywhere in response
-    let clean = text.replace(/```json|```/g,'').trim();
-    const first = clean.indexOf('{');
-    const last  = clean.lastIndexOf('}');
-    if(first === -1 || last === -1 || last <= first){
-      throw new Error('No JSON found in response. Try again.');
+    // Build system prompt based on mode
+    let sysPrompt = '';
+    if(mode === 'prompts'){
+      sysPrompt = 'You are PA, an expert AI prompt agent. The user has a goal. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","categories":["string"],"prompts":[{"name":"string","category":"string","framework":"string","relevance":90,"why":"string","text":"string"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables in prompt text.';
+    } else if(mode === 'content'){
+      sysPrompt = 'You are PA, a content creation agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Twitter","type":"Thread","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"},{"platform":"Instagram","type":"Caption","hook":"string","body":"string"}]}.';
+    } else if(mode === 'images'){
+      sysPrompt = 'You are PA, an image prompt specialist. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","imagePrompts":[{"title":"string","tool":"Midjourney","style":"string","prompt":"string"},{"title":"string","tool":"DALL-E","style":"string","prompt":"string"},{"title":"string","tool":"Flux","style":"string","prompt":"string"},{"title":"string","tool":"Midjourney","style":"string","prompt":"string"}]}.';
+    } else {
+      sysPrompt = 'You are PA, a full campaign agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","campaignName":"string","prompts":[{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"}],"imagePrompts":[{"title":"string","tool":"Midjourney","prompt":"string"},{"title":"string","tool":"DALL-E","prompt":"string"}]}.';
     }
-    clean = clean.slice(first, last+1);
+
+    const userMsg = 'Goal: ' + goal + '. Return only valid JSON, no other text.';
+
+    const response = await puter.ai.chat(userMsg, {
+      model: 'claude-haiku-4-5',
+      system: sysPrompt
+    });
+
+    // Extract text from response
+    let text = '';
+    if(typeof response === 'string'){
+      text = response;
+    } else if(response && response.message && response.message.content){
+      const c = response.message.content;
+      if(Array.isArray(c)) text = c[0].text || '';
+      else text = c || '';
+    } else if(response && response.text){
+      text = response.text;
+    }
+
+    console.log('Claude raw response:', text.slice(0, 200));
+
+    // Extract JSON block
+    const first = text.indexOf('{');
+    const last  = text.lastIndexOf('}');
+    if(first === -1 || last === -1){
+      throw new Error('No JSON in response. Raw: ' + text.slice(0,100));
+    }
+    const clean = text.slice(first, last + 1);
     return JSON.parse(clean);
 
-  } catch(err) {
-    throw new Error(err.message || 'Puter AI error');
+  } catch(err){
+    throw new Error(err.message || 'Agent error');
   }
 }
 
