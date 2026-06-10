@@ -608,14 +608,22 @@ async function callClaudeAgent(goal, mode){
 
     console.log('Claude raw response:', text.slice(0, 200));
 
-    // Extract JSON block
-    const first = text.indexOf('{');
-    const last  = text.lastIndexOf('}');
+    // Extract JSON block — handles markdown fences and plain JSON
+    let clean = text;
+    // Strip markdown code fences
+    clean = clean.replace(/^```json\s*/m, '').replace(/^```\s*/m, '').replace(/```\s*$/m, '').trim();
+    // Find the first { and last }
+    const first = clean.indexOf('{');
+    const last  = clean.lastIndexOf('}');
     if(first === -1 || last === -1){
-      throw new Error('No JSON in response. Raw: ' + text.slice(0,100));
+      throw new Error('No JSON found. Response was: ' + text.slice(0,150));
     }
-    const clean = text.slice(first, last + 1);
-    return JSON.parse(clean);
+    clean = clean.slice(first, last + 1);
+    try {
+      return JSON.parse(clean);
+    } catch(e) {
+      throw new Error('JSON parse failed: ' + e.message + ' | Raw: ' + clean.slice(0,100));
+    }
 
   } catch(err){
     throw new Error(err.message || 'Agent error');
@@ -641,9 +649,10 @@ function showResults(data, goal){
   if(activeMode === 'prompts'){
     tabs.push({id:'prompts',icon:'ti ti-search',label:'Prompts ('+data.prompts.length+')'});
     panels.push({id:'prompts', html: buildPromptsPanel(data.prompts)});
-    // Meta badges
+    // Meta badges — safe check
+    const cats = Array.isArray(data.categories) ? data.categories : [];
     document.getElementById('resultMeta').innerHTML =
-      (data.categories||[]).map(c=>`<span class="result-badge prompts">${c}</span>`).join('');
+      cats.map(c=>`<span class="result-badge prompts">${esc(c)}</span>`).join('');
   }
   else if(activeMode === 'content'){
     tabs.push({id:'content',icon:'ti ti-pencil',label:'Content ('+data.contentPieces.length+')'});
@@ -682,7 +691,7 @@ function showResults(data, goal){
 //  PANEL BUILDERS
 // ══════════════════════════════════════════
 function buildPromptsPanel(prompts){
-  if(!prompts||!prompts.length) return '<div class="empty-state"><i class="ti ti-search-off"></i><p>No prompts found. Try a different goal.</p></div>';
+  if(!prompts||!Array.isArray(prompts)||!prompts.length) return '<div class="empty-state"><i class="ti ti-search-off"></i><p>No prompts found. Try a different goal.</p></div>';
   return prompts.map((p,i)=>`
     <div class="prompt-result-card" style="animation-delay:${i*.06}s">
       <div class="prc-header">
@@ -707,7 +716,7 @@ function buildPromptsPanel(prompts){
 }
 
 function buildContentPanel(pieces){
-  if(!pieces||!pieces.length) return '<div class="empty-state"><i class="ti ti-pencil-off"></i><p>No content generated. Try a different goal.</p></div>';
+  if(!pieces||!Array.isArray(pieces)||!pieces.length) return '<div class="empty-state"><i class="ti ti-pencil-off"></i><p>No content generated. Try a different goal.</p></div>';
   const platformClass = {LinkedIn:'linkedin',Twitter:'twitter',Instagram:'instagram',Email:'email',Blog:'blog'};
   return pieces.map((p,i)=>`
     <div class="content-card" style="animation-delay:${i*.06}s">
