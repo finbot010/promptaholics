@@ -498,6 +498,7 @@ img,video,iframe{max-width:100%;}
   50%{box-shadow:0 0 0 6px rgba(239,68,68,0);}
 }
 </style>
+<script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 
@@ -509,13 +510,13 @@ img,video,iframe{max-width:100%;}
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a href="library.html" class="nav-lnk">Library</a>
-      <a href="prompt-builder.html" class="nav-lnk active">Builder</a>
-      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
-      <a href="learn.html" class="nav-lnk">Learn</a>
-      <a href="vault.html" class="nav-lnk">Image Vault</a>
+      <a class='nav-lnk' href='/library'>Library</a>
+      <a class='nav-lnk active' href='/prompt-builder'>Builder</a>
+      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
+      <a class='nav-lnk' href='/learn'>Learn</a>
+      <a class='nav-lnk' href='/vault'>Image Vault</a>
     </nav>
-    <a href="login.html" class="nav-signin">Sign In</a>
+    <a class='nav-signin' href='/login'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
@@ -533,23 +534,23 @@ img,video,iframe{max-width:100%;}
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
     <a class="sm-item" href="/"><i class="ti ti-home"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
-    <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Free Course</a>
-    <a class="sm-item" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
-    <a class="sm-item" href="login.html"><i class="ti ti-user"></i> Sign In</a>
-    <a class="sm-item active" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
-    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='/learn'><i class="ti ti-school"></i> Free Course</a>
+    <a class='sm-item' href='/vault'><i class="ti ti-photo"></i> Image Vault</a>
+    <a class='sm-item' href='/login'><i class="ti ti-user"></i> Sign In</a>
+    <a class='sm-item active' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ti ti-info-circle"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ti ti-news"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ti ti-mail"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ti ti-lock"></i> Privacy Policy</a>
-    <a class="sm-item" href="terms.html"><i class="ti ti-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='/terms'><i class="ti ti-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a href="login.html" class="sm-signin"><i class="ti ti-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -680,16 +681,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a href="library.html" class="footer-lnk">Library</a>
-      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
-      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
+      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a href="about.html" class="footer-lnk">About Us</a>
-      <a href="blog.html" class="footer-lnk">Blog</a>
-      <a href="contact.html" class="footer-lnk">Contact</a>
+      <a class='footer-lnk' href='/about'>About Us</a>
+      <a class='footer-lnk' href='/blog'>Blog</a>
+      <a class='footer-lnk' href='/contact'>Contact</a>
       <span class="footer-sep">|</span>
-      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
-      <a href="terms.html" class="footer-lnk accent">Terms</a>
+      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
+      <a class='footer-lnk accent' href='/terms'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Free forever</div>
   </div>
@@ -698,10 +699,10 @@ img,video,iframe{max-width:100%;}
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
   <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ti ti-books"></i>Library</a>
-  <a class="bn-item active" href="prompt-builder.html"><i class="ti ti-tool"></i>Builder</a>
-  <a class="bn-item" href="creationstation.html"><i class="ti ti-bolt"></i>Tools</a>
-  <a class="bn-item" href="login.html"><i class="ti ti-user"></i>Sign In</a>
+  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item active' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item' href='/creationstation'><i class="ti ti-bolt"></i>Tools</a>
+  <a class='bn-item' href='/login'><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>
@@ -1330,23 +1331,17 @@ async function runAiHelper(){
   var fwDesc = activeFw ? activeFw.desc : '';
 
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 600,
-        system: 'You are an expert prompt engineer. The user will describe what they want to achieve with AI. You must write a complete, detailed, ready-to-use AI prompt using the ' + fwName + ' framework (' + fwDesc + '). Write ONLY the prompt itself — no explanation, no preamble, no markdown headers. Just the raw prompt text they can paste directly into ChatGPT, Claude, or any AI tool. Make it specific, detailed, and professional. Include role assignment, clear task, relevant context, desired format, and any constraints. Minimum 100 words.',
-        messages: [{ role: 'user', content: 'Create a prompt for: ' + query }]
-      })
-    });
-
-    var data = await resp.json();
-    var promptText = (data.content && data.content[0]) ? data.content[0].text.trim() : '';
+    // Use Puter.js — free, no API key needed
+    if(!puter.auth.isSignedIn()) await puter.auth.signIn();
+    var sysPrompt = 'You are an expert prompt engineer. The user will describe what they want to achieve with AI. You must write a complete, detailed, ready-to-use AI prompt using the ' + fwName + ' framework (' + fwDesc + '). Write ONLY the prompt itself — no explanation, no preamble, no markdown headers. Just the raw prompt text they can paste directly into ChatGPT, Claude, or any AI tool. Make it specific, detailed, and professional. Include role assignment, clear task, relevant context, desired format, and any constraints. Minimum 100 words.';
+    var aiResp = await puter.ai.chat(
+      'Create a prompt for: ' + query,
+      { model: 'claude-haiku-4-5', system: sysPrompt }
+    );
+    var promptText = typeof aiResp === 'string' ? aiResp.trim() :
+      (aiResp && aiResp.message && aiResp.message.content && aiResp.message.content[0]) ?
+      aiResp.message.content[0].text.trim() :
+      (aiResp && aiResp.text) ? aiResp.text.trim() : '';
 
     if(!promptText) throw new Error('No response');
 
