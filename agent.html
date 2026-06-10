@@ -253,6 +253,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       }
     };
   </script>
+<script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 <div class="grain"></div>
@@ -568,137 +569,81 @@ function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
 //  CLAUDE API CALL
 // ══════════════════════════════════════════
 async function callClaudeAgent(goal, mode){
-  // Sample real prompts to give Claude context
-  const librarySample = realPrompts.length > 0
-    ? realPrompts
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 30)
-        .map(p => `[${p.cat}] ${p.name}: ${p.text.slice(0,80)}`)
-        .join('\n')
-    : 'Library not loaded yet';
-
+  // Use Puter.js — free, no API key needed
+  // Users sign in with their own Puter account
   const systemPrompts = {
-    prompts: `You are PA, an expert AI prompt agent for Promptaholics — a library of 1,485+ prompts. Here is a sample of real prompts from the library:\n${librarySample}\n\nThe user has a goal. Your job is to:
-1. Understand their goal deeply
-2. Generate 5 original, highly specific, immediately usable prompts tailored to their exact goal — inspired by but NOT copied from the library
-3. For each prompt include: a name, category, framework (RTF/CoSTAR/RISEN/AETHER/Chain-of-Thought/SCQA/CRISPE), relevance score (0-100), and why it fits
+    prompts: `You are PA, an expert AI prompt agent for Promptaholics — a library of 1,485+ prompts across Business & Marketing, Writing & Content, Code & Tech, Email Sales & Communication, AI Agents Finance & Learning, Creative & Art, Education & Learning, Health, Image Generation, Video & Film, Productivity Systems & Agents.
 
-You MUST respond with ONLY a valid JSON object. No explanation, no markdown, no backticks. Start your response with { and end with }.
+The user has a goal. Generate 5 original, highly specific, immediately usable prompts tailored to their exact goal.
+For each prompt include: name, category, framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA), relevance (0-100), why it fits, and the full prompt text with [PLACEHOLDERS].
+
+Respond ONLY with valid JSON — start with { and end with }:
 {
-  "goalSummary": "one sentence summary of what the user wants",
-  "categories": ["cat1","cat2","cat3"],
+  "goalSummary": "one sentence summary",
+  "categories": ["cat1","cat2"],
   "prompts": [
-    {
-      "name": "Prompt Name",
-      "category": "Category",
-      "framework": "RTF",
-      "relevance": 95,
-      "why": "one sentence why this fits",
-      "text": "The full prompt text with [PLACEHOLDERS] for variables"
-    }
+    {"name":"","category":"","framework":"","relevance":95,"why":"","text":""}
   ]
 }`,
-    content: `You are PA, an expert content creation agent for Promptaholics. The user wants content created for their goal. Generate 4 pieces of ready-to-use content tailored specifically to their goal.
-
-Respond ONLY with valid JSON:
+    content: `You are PA, a content creation agent. Generate 4 ready-to-publish content pieces for the user's goal.
+Respond ONLY with valid JSON — start with { and end with }:
 {
   "goalSummary": "one sentence summary",
   "contentPieces": [
-    {
-      "platform": "LinkedIn",
-      "type": "Post",
-      "hook": "Opening line",
-      "body": "Full content piece ready to publish"
-    },
-    {
-      "platform": "Twitter",
-      "type": "Thread starter",
-      "hook": "Opening line",
-      "body": "Full tweet text"
-    },
-    {
-      "platform": "Email",
-      "type": "Subject line + body",
-      "hook": "Subject line",
-      "body": "Full email body"
-    },
-    {
-      "platform": "Instagram",
-      "type": "Caption",
-      "hook": "Opening line",
-      "body": "Full caption with hashtags"
-    }
+    {"platform":"LinkedIn","type":"Post","hook":"Opening line","body":"Full content"},
+    {"platform":"Twitter","type":"Thread","hook":"Opening line","body":"Full tweet"},
+    {"platform":"Email","type":"Newsletter","hook":"Subject line","body":"Full email"},
+    {"platform":"Instagram","type":"Caption","hook":"Opening line","body":"Full caption with hashtags"}
   ]
 }`,
-    images: `You are PA, an expert AI image prompt agent. Generate 4 exceptional AI image prompts tailored to the user's goal. Each prompt should be ready to use in Midjourney, DALL-E, or Flux.
-
-Respond ONLY with valid JSON:
+    images: `You are PA, an image prompt specialist. Generate 4 optimised AI image prompts.
+Respond ONLY with valid JSON — start with { and end with }:
 {
   "goalSummary": "one sentence summary",
   "imagePrompts": [
-    {
-      "title": "Image title",
-      "tool": "Midjourney",
-      "style": "Visual style description",
-      "prompt": "Full optimized image generation prompt"
-    }
+    {"title":"","tool":"Midjourney","style":"","prompt":"Full optimised image prompt"}
   ]
 }`,
-    campaign: `You are PA, a full campaign agent. Generate a complete campaign kit: 3 prompts + 2 content pieces + 2 image prompts, all perfectly aligned for the user's goal.
-
-Respond ONLY with valid JSON:
+    campaign: `You are PA, a full campaign agent. Generate a complete kit: 3 prompts + 2 content pieces + 2 image prompts.
+Respond ONLY with valid JSON — start with { and end with }:
 {
   "goalSummary": "one sentence summary",
   "campaignName": "Campaign name",
-  "prompts": [
-    {"name":"","category":"","framework":"","text":"","why":""}
-  ],
-  "content": [
-    {"platform":"","type":"","hook":"","body":""}
-  ],
-  "imagePrompts": [
-    {"title":"","tool":"","prompt":""}
-  ]
+  "prompts": [{"name":"","category":"","framework":"","text":"","why":""}],
+  "content": [{"platform":"","type":"","hook":"","body":""}],
+  "imagePrompts": [{"title":"","tool":"","prompt":""}]
 }`
   };
 
-  const response = await fetch('/.netlify/functions/claude', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 2000,
-      system: systemPrompts[mode],
-      messages: [{role:'user', content:`My goal: ${goal}`}]
-    })
-  });
-
-  const data = await response.json();
-
-  // Surface API errors clearly
-  if(data.error){
-    throw new Error(data.error.message || JSON.stringify(data.error));
-  }
-
-  const text = data.content && data.content[0] && data.content[0].text
-    ? data.content[0].text.trim()
-    : null;
-
-  if(!text) throw new Error('Empty response — check API key in Netlify env vars');
-
-  // Robust JSON parsing — strip fences, find first { to last }
-  let clean = text.replace(/```json|```/g,'').trim();
-  // Extract just the JSON object in case Claude added explanation text
-  const firstBrace = clean.indexOf('{');
-  const lastBrace  = clean.lastIndexOf('}');
-  if(firstBrace !== -1 && lastBrace !== -1){
-    clean = clean.slice(firstBrace, lastBrace + 1);
-  }
   try {
+    // Sign in to Puter if not already
+    if(!puter.auth.isSignedIn()){
+      await puter.auth.signIn();
+    }
+
+    const response = await puter.ai.chat(
+      `My goal: ${goal}`,
+      {
+        model: 'claude-haiku-4-5',
+        system: systemPrompts[mode]
+      }
+    );
+
+    const text = typeof response === 'string' ? response :
+                 response?.message?.content?.[0]?.text ||
+                 response?.text ||
+                 response?.content?.[0]?.text || '';
+
+    // Robust JSON extraction
+    let clean = text.replace(/```json|```/g,'').trim();
+    const first = clean.indexOf('{');
+    const last  = clean.lastIndexOf('}');
+    if(first !== -1 && last !== -1) clean = clean.slice(first, last+1);
+
     return JSON.parse(clean);
-  } catch(parseErr) {
-    console.error('Raw Claude response:', text);
-    throw new Error('Could not parse AI response. Raw: ' + text.slice(0,100));
+
+  } catch(err) {
+    throw new Error(err.message || 'Puter AI error');
   }
 }
 
