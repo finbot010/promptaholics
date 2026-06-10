@@ -301,6 +301,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="mode-btn" data-mode="campaign" onclick="setMode('campaign',this)">
         <i class="ti ti-rocket"></i> Full Campaign
       </button>
+      <button class="mode-btn" data-mode="custom" onclick="setMode('custom',this)">
+        <i class="ti ti-wand"></i> Write Me a Prompt
+      </button>
     </div>
 
     <!-- Input box -->
@@ -325,11 +328,13 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
     <!-- Suggestion chips -->
     <div class="suggestions" id="suggestions">
-      <div class="sug-chip" onclick="useSuggestion(this)">Grow a fitness brand on Instagram</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Launch a SaaS product</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Write content for a real estate agent</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Build an email sequence for coaches</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Create a personal brand for a developer</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Write 5 Instagram captions for a fitness coach</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Create a cold email sequence for a SaaS product</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Write marketing prompts for a real estate agent</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Build a content strategy for a life coach</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for responding to negative reviews</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for creating viral TikTok hooks</div>
+      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for writing my business bio</div>
     </div>
   </div>
 
@@ -441,6 +446,7 @@ const MODE_STEPS = {
   content:  ['Understanding your goal','Selecting best frameworks','Generating content pieces','Formatting for each platform'],
   images:   ['Understanding your goal','Analysing visual style','Crafting image prompts','Optimising for each tool'],
   campaign: ['Understanding your goal','Building prompt strategy','Generating content','Creating image prompts'],
+  custom:   ['Understanding your request','Selecting the best framework','Engineering your prompt','Polishing and refining'],
 };
 
 function setMode(mode, btn){
@@ -581,13 +587,15 @@ async function callClaudeAgent(goal, mode){
       sysPrompt = 'You are PA, an expert AI prompt agent. The user has a goal. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","categories":["string"],"prompts":[{"name":"string","category":"string","framework":"string","relevance":90,"why":"string","text":"string"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables in prompt text.';
     } else if(mode === 'content'){
       sysPrompt = 'You are PA, a content creation agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Twitter","type":"Thread","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"},{"platform":"Instagram","type":"Caption","hook":"string","body":"string"}]}.';
+    } else if(mode === 'custom'){
+      sysPrompt = 'You are PA, an expert prompt engineer. The user wants you to write them ONE perfect, highly specific, immediately usable AI prompt. Craft a single world-class prompt tailored exactly to their request. Return ONLY a JSON object: {"goalSummary":"one sentence about what this prompt does","prompts":[{"name":"descriptive name for the prompt","category":"most relevant category","framework":"best framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA)","relevance":99,"why":"why this framework works for this prompt","text":"the full prompt with [PLACEHOLDERS] for any variables the user needs to fill in"}]}. One prompt only. Make it exceptional.';
     } else if(mode === 'images'){
       sysPrompt = 'You are PA, an image prompt specialist. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","imagePrompts":[{"title":"string","tool":"Midjourney","style":"string","prompt":"string"},{"title":"string","tool":"DALL-E","style":"string","prompt":"string"},{"title":"string","tool":"Flux","style":"string","prompt":"string"},{"title":"string","tool":"Midjourney","style":"string","prompt":"string"}]}.';
     } else {
       sysPrompt = 'You are PA, a full campaign agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","campaignName":"string","prompts":[{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"}],"imagePrompts":[{"title":"string","tool":"Midjourney","prompt":"string"},{"title":"string","tool":"DALL-E","prompt":"string"}]}.';
     }
 
-    const userMsg = 'Goal: ' + goal + '. Return only valid JSON, no other text.';
+    const userMsg = 'Generate 5 prompts specifically for this goal: ' + goal + '. Each prompt must have name, category, framework, relevance, why, and text fields. Return ONLY a JSON object starting with { and ending with }. No markdown, no explanation.';
 
     const response = await puter.ai.chat(userMsg, {
       model: 'claude-haiku-4-5',
@@ -686,6 +694,16 @@ function showResults(data, goal){
                  Array.isArray(data.prompts) ? data.prompts : [];
     tabs.push({id:'images',icon:'ti ti-photo',label:'Image Prompts ('+(imgs.length||0)+')'});
     panels.push({id:'images', html: buildImagesPanel(imgs)});
+  }
+  else if(activeMode === 'custom'){
+    let prompts = [];
+    if(Array.isArray(data.prompts) && data.prompts.length){
+      prompts = data.prompts;
+    }
+    tabs.push({id:'prompts',icon:'ti ti-wand',label:'Your Custom Prompt'});
+    panels.push({id:'prompts', html: buildPromptsPanel(prompts)});
+    document.getElementById('resultMeta').innerHTML =
+      '<span class="result-badge prompts">✨ Custom Built</span>';
   }
   else if(activeMode === 'campaign'){
     const cp = Array.isArray(data.prompts)?data.prompts:[];
