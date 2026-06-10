@@ -577,14 +577,10 @@ async function callClaudeAgent(goal, mode){
 The user has a goal. Generate 5 original, highly specific, immediately usable prompts tailored to their exact goal.
 For each prompt include: name, category, framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA), relevance (0-100), why it fits, and the full prompt text with [PLACEHOLDERS].
 
-Respond ONLY with valid JSON — start with { and end with }:
-{
-  "goalSummary": "one sentence summary",
-  "categories": ["cat1","cat2"],
-  "prompts": [
-    {"name":"","category":"","framework":"","relevance":95,"why":"","text":""}
-  ]
-}`,
+Your response must be ONLY a JSON object. Do not include any text, headers, markdown, or explanation before or after the JSON. Do not use markdown code blocks. Begin your response with the { character and end with the } character. Nothing else.
+
+Required format:
+{"goalSummary":"one sentence summary","categories":["cat1","cat2"],"prompts":[{"name":"","category":"","framework":"","relevance":95,"why":"","text":""}]}`,
     content: `You are PA, a content creation agent. Generate 4 ready-to-publish content pieces for the user's goal.
 Respond ONLY with valid JSON — start with { and end with }:
 {
@@ -634,12 +630,14 @@ Respond ONLY with valid JSON — start with { and end with }:
                  response?.text ||
                  response?.content?.[0]?.text || '';
 
-    // Robust JSON extraction
+    // Robust JSON extraction — find { } block anywhere in response
     let clean = text.replace(/```json|```/g,'').trim();
     const first = clean.indexOf('{');
     const last  = clean.lastIndexOf('}');
-    if(first !== -1 && last !== -1) clean = clean.slice(first, last+1);
-
+    if(first === -1 || last === -1 || last <= first){
+      throw new Error('No JSON found in response. Try again.');
+    }
+    clean = clean.slice(first, last+1);
     return JSON.parse(clean);
 
   } catch(err) {
