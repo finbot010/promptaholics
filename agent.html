@@ -572,43 +572,19 @@ async function callClaudeAgent(goal, mode){
   // Use Puter.js — free, no API key needed
   // Users sign in with their own Puter account
   const systemPrompts = {
-    prompts: `You are PA, an expert AI prompt agent for Promptaholics — a library of 1,485+ prompts across Business & Marketing, Writing & Content, Code & Tech, Email Sales & Communication, AI Agents Finance & Learning, Creative & Art, Education & Learning, Health, Image Generation, Video & Film, Productivity Systems & Agents.
+    prompts: `{"goalSummary":"summary here","categories":["cat1","cat2"],"prompts":[{"name":"Prompt Name","category":"Business & Marketing","framework":"RTF","relevance":95,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 2","category":"Writing & Content","framework":"CoSTAR","relevance":90,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 3","category":"Code & Tech","framework":"RISEN","relevance":85,"why":"why it fits","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 4","category":"AI Agents","framework":"CRISPE","relevance":80,"why":"why","text":"Full prompt with [PLACEHOLDER]"},{"name":"Prompt 5","category":"Email, Sales & Communication","framework":"SCQA","relevance":75,"why":"why","text":"Full prompt with [PLACEHOLDER]"}]}
 
-The user has a goal. Generate 5 original, highly specific, immediately usable prompts tailored to their exact goal.
-For each prompt include: name, category, framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA), relevance (0-100), why it fits, and the full prompt text with [PLACEHOLDERS].
+CRITICAL: Your ENTIRE response must be ONLY valid JSON. Fill in the template above for the user goal. Start with { end with }. No other text.`,
+    content:,
+    content: `{"goalSummary":"summary","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"hook here","body":"full post here"},{"platform":"Twitter","type":"Thread","hook":"hook here","body":"full tweet here"},{"platform":"Email","type":"Newsletter","hook":"subject here","body":"full email here"},{"platform":"Instagram","type":"Caption","hook":"hook here","body":"full caption #hashtags"}]}
 
-Your response must be ONLY a JSON object. Do not include any text, headers, markdown, or explanation before or after the JSON. Do not use markdown code blocks. Begin your response with the { character and end with the } character. Nothing else.
+CRITICAL: Respond with ONLY the JSON above filled in for the user goal. No words before {. No words after }. Raw JSON only.`,
+    images: `{"goalSummary":"summary","imagePrompts":[{"title":"Image 1","tool":"Midjourney","style":"cinematic","prompt":"full image prompt here"},{"title":"Image 2","tool":"DALL-E","style":"editorial","prompt":"full image prompt here"},{"title":"Image 3","tool":"Midjourney","style":"product","prompt":"full image prompt here"},{"title":"Image 4","tool":"Flux","style":"lifestyle","prompt":"full image prompt here"}]}
 
-Required format:
-{"goalSummary":"one sentence summary","categories":["cat1","cat2"],"prompts":[{"name":"","category":"","framework":"","relevance":95,"why":"","text":""}]}`,
-    content: `You are PA, a content creation agent. Generate 4 ready-to-publish content pieces for the user's goal.
-Respond ONLY with valid JSON — start with { and end with }:
-{
-  "goalSummary": "one sentence summary",
-  "contentPieces": [
-    {"platform":"LinkedIn","type":"Post","hook":"Opening line","body":"Full content"},
-    {"platform":"Twitter","type":"Thread","hook":"Opening line","body":"Full tweet"},
-    {"platform":"Email","type":"Newsletter","hook":"Subject line","body":"Full email"},
-    {"platform":"Instagram","type":"Caption","hook":"Opening line","body":"Full caption with hashtags"}
-  ]
-}`,
-    images: `You are PA, an image prompt specialist. Generate 4 optimised AI image prompts.
-Respond ONLY with valid JSON — start with { and end with }:
-{
-  "goalSummary": "one sentence summary",
-  "imagePrompts": [
-    {"title":"","tool":"Midjourney","style":"","prompt":"Full optimised image prompt"}
-  ]
-}`,
-    campaign: `You are PA, a full campaign agent. Generate a complete kit: 3 prompts + 2 content pieces + 2 image prompts.
-Respond ONLY with valid JSON — start with { and end with }:
-{
-  "goalSummary": "one sentence summary",
-  "campaignName": "Campaign name",
-  "prompts": [{"name":"","category":"","framework":"","text":"","why":""}],
-  "content": [{"platform":"","type":"","hook":"","body":""}],
-  "imagePrompts": [{"title":"","tool":"","prompt":""}]
-}`
+CRITICAL: Respond with ONLY the JSON above filled in. No words before {. No words after }. Raw JSON only.`,
+    campaign: `{"goalSummary":"summary","campaignName":"Campaign Name","prompts":[{"name":"","category":"","framework":"","text":"","why":""},{"name":"","category":"","framework":"","text":"","why":""},{"name":"","category":"","framework":"","text":"","why":""}],"content":[{"platform":"LinkedIn","type":"Post","hook":"","body":""},{"platform":"Email","type":"Newsletter","hook":"","body":""}],"imagePrompts":[{"title":"","tool":"Midjourney","prompt":""},{"title":"","tool":"DALL-E","prompt":""}]}
+
+CRITICAL: Respond with ONLY the JSON above filled in for the user goal. No words before {. No words after }. Raw JSON only.`
   };
 
   try {
