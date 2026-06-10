@@ -606,7 +606,7 @@ async function callClaudeAgent(goal, mode){
       text = response.text;
     }
 
-    console.log('Claude raw response:', text.slice(0, 200));
+    console.log('Claude FULL response:', text);
 
     // Extract JSON block — handles markdown fences and plain JSON
     let clean = text;
@@ -647,28 +647,56 @@ function showResults(data, goal){
   const panels = [];
 
   if(activeMode === 'prompts'){
-    tabs.push({id:'prompts',icon:'ti ti-search',label:'Prompts ('+data.prompts.length+')'});
-    panels.push({id:'prompts', html: buildPromptsPanel(data.prompts)});
-    // Meta badges — safe check
+    // Safely extract prompts from ANY response structure
+    let prompts = [];
+    if(Array.isArray(data.prompts) && data.prompts.length){
+      prompts = data.prompts;
+    } else {
+      // Scan all keys for any array
+      for(const k of Object.keys(data)){
+        if(Array.isArray(data[k]) && data[k].length){
+          prompts = data[k].map(item => typeof item === 'object' && item !== null ? {
+            name: item.name || item.title || 'Prompt',
+            category: item.category || item.cat || 'General',
+            framework: item.framework || 'RTF',
+            relevance: item.relevance || item.score || 85,
+            why: item.why || item.description || '',
+            text: item.text || item.prompt || item.content || JSON.stringify(item)
+          } : {name:'Prompt', text:String(item), category:'General', framework:'RTF', relevance:80, why:''});
+          break;
+        }
+      }
+    }
+    tabs.push({id:'prompts',icon:'ti ti-search',label:'Prompts ('+(prompts.length||0)+')'});
+    panels.push({id:'prompts', html: buildPromptsPanel(prompts)});
     const cats = Array.isArray(data.categories) ? data.categories : [];
     document.getElementById('resultMeta').innerHTML =
       cats.map(c=>`<span class="result-badge prompts">${esc(c)}</span>`).join('');
   }
   else if(activeMode === 'content'){
-    tabs.push({id:'content',icon:'ti ti-pencil',label:'Content ('+data.contentPieces.length+')'});
-    panels.push({id:'content', html: buildContentPanel(data.contentPieces)});
+    const pieces = Array.isArray(data.contentPieces) ? data.contentPieces :
+                   Array.isArray(data.content) ? data.content :
+                   Array.isArray(data.pieces) ? data.pieces : [];
+    tabs.push({id:'content',icon:'ti ti-pencil',label:'Content ('+(pieces.length||0)+')'});
+    panels.push({id:'content', html: buildContentPanel(pieces)});
   }
   else if(activeMode === 'images'){
-    tabs.push({id:'images',icon:'ti ti-photo',label:'Image Prompts ('+data.imagePrompts.length+')'});
-    panels.push({id:'images', html: buildImagesPanel(data.imagePrompts)});
+    const imgs = Array.isArray(data.imagePrompts) ? data.imagePrompts :
+                 Array.isArray(data.images) ? data.images :
+                 Array.isArray(data.prompts) ? data.prompts : [];
+    tabs.push({id:'images',icon:'ti ti-photo',label:'Image Prompts ('+(imgs.length||0)+')'});
+    panels.push({id:'images', html: buildImagesPanel(imgs)});
   }
   else if(activeMode === 'campaign'){
+    const cp = Array.isArray(data.prompts)?data.prompts:[];
+    const cc = Array.isArray(data.content)?data.content:Array.isArray(data.contentPieces)?data.contentPieces:[];
+    const ci = Array.isArray(data.imagePrompts)?data.imagePrompts:Array.isArray(data.images)?data.images:[];
     tabs.push({id:'prompts',icon:'ti ti-search',label:'Prompts'});
     tabs.push({id:'content',icon:'ti ti-pencil',label:'Content'});
     tabs.push({id:'images',icon:'ti ti-photo',label:'Visuals'});
-    panels.push({id:'prompts', html: buildPromptsPanel(data.prompts)});
-    panels.push({id:'content', html: buildContentPanel(data.content)});
-    panels.push({id:'images',  html: buildImagesPanel(data.imagePrompts)});
+    panels.push({id:'prompts', html: buildPromptsPanel(cp)});
+    panels.push({id:'content', html: buildContentPanel(cc)});
+    panels.push({id:'images',  html: buildImagesPanel(ci)});
   }
 
   // Render tabs
