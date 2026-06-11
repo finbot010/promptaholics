@@ -253,7 +253,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       }
     };
   </script>
-<script src="https://js.puter.com/v2/"></script>
+<!-- Puter removed — PA now routes via Cloudflare Worker -->
 </head>
 <body>
 <div class="grain"></div>
@@ -549,16 +549,12 @@ async function runAgent(){
 
   } catch(err) {
     console.error('Agent error:', err);
-    steps.classList.remove('active');
-    // Show specific error so we can debug
-    const msg = err.message || 'Unknown error';
-    showToast('Error: ' + msg.slice(0,60));
-    // Also show in step area
-    document.getElementById('agentSteps').innerHTML +=
-      `<div style="color:#ef4444;font-size:12px;margin-top:8px;padding:10px;background:rgba(239,68,68,.06);border-radius:8px;border:1px solid rgba(239,68,68,.2);">
-        ❌ ${msg}<br/>
-        <span style="opacity:.6;font-size:10px;">Check browser console for details (F12)</span>
-      </div>`;
+    // Rich error UI already shown by showWorkerError() for API errors.
+    // For network/unknown errors, show a fallback card if nothing rendered yet.
+    const stepsEl = document.getElementById('agentSteps');
+    if(!stepsEl.querySelector('[style*="rgba(239,68,68"]')){
+      showWorkerError(0, err.message || 'Unknown error');
+    }
   }
 
   // Reset button
@@ -572,70 +568,162 @@ async function runAgent(){
 function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
 // ══════════════════════════════════════════
-//  CLAUDE API CALL
+//  CONFIG — set your worker URL after deploy
+// ══════════════════════════════════════════
+const WORKER_URL = 'https://pa-proxy.YOURNAME.workers.dev'; // ← replace after Cloudflare deploy
+
+// Intent → model routing:
+//   images  → Gemini Flash (fast, great for visual descriptions)
+//   all others → Claude Sonnet 4-6 (depth for prompts/content/campaign)
+
+// ══════════════════════════════════════════
+//  WORKER API CALL
 // ══════════════════════════════════════════
 async function callClaudeAgent(goal, mode){
-  try {
-    // Sign in to Puter if not already signed in
-    if(!puter.auth.isSignedIn()){
-      await puter.auth.signIn();
-    }
 
-    // Build system prompt based on mode
-    let sysPrompt = '';
-    if(mode === 'prompts'){
-      sysPrompt = 'You are PA, an expert AI prompt agent. The user has a goal. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","categories":["string"],"prompts":[{"name":"string","category":"string","framework":"string","relevance":90,"why":"string","text":"string"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables in prompt text.';
-    } else if(mode === 'content'){
-      sysPrompt = 'You are PA, a content creation agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Twitter","type":"Thread","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"},{"platform":"Instagram","type":"Caption","hook":"string","body":"string"}]}.';
-    } else if(mode === 'custom'){
-      sysPrompt = 'You are PA, an expert prompt engineer. The user wants you to write them ONE perfect, highly specific, immediately usable AI prompt. Craft a single world-class prompt tailored exactly to their request. Return ONLY a JSON object: {"goalSummary":"one sentence about what this prompt does","prompts":[{"name":"descriptive name for the prompt","category":"most relevant category","framework":"best framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA)","relevance":99,"why":"why this framework works for this prompt","text":"the full prompt with [PLACEHOLDERS] for any variables the user needs to fill in"}]}. One prompt only. Make it exceptional.';
-    } else if(mode === 'images'){
-      sysPrompt = 'You are PA, an image prompt specialist. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","imagePrompts":[{"title":"string","tool":"Midjourney","style":"string","prompt":"string"},{"title":"string","tool":"DALL-E","style":"string","prompt":"string"},{"title":"string","tool":"Flux","style":"string","prompt":"string"},{"title":"string","tool":"Midjourney","style":"string","prompt":"string"}]}.';
-    } else {
-      sysPrompt = 'You are PA, a full campaign agent. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","campaignName":"string","prompts":[{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"}],"imagePrompts":[{"title":"string","tool":"Midjourney","prompt":"string"},{"title":"string","tool":"DALL-E","prompt":"string"}]}.';
-    }
-
-    const userMsg = 'Generate 5 prompts specifically for this goal: ' + goal + '. Each prompt must have name, category, framework, relevance, why, and text fields. Return ONLY a JSON object starting with { and ending with }. No markdown, no explanation.';
-
-    const response = await puter.ai.chat(userMsg, {
-      model: 'claude-haiku-4-5',
-      system: sysPrompt
-    });
-
-    // Extract text from response
-    let text = '';
-    if(typeof response === 'string'){
-      text = response;
-    } else if(response && response.message && response.message.content){
-      const c = response.message.content;
-      if(Array.isArray(c)) text = c[0].text || '';
-      else text = c || '';
-    } else if(response && response.text){
-      text = response.text;
-    }
-
-    console.log('Claude FULL response:', text);
-
-    // Extract JSON block — handles markdown fences and plain JSON
-    let clean = text;
-    // Strip markdown code fences
-    clean = clean.replace(/^```json\s*/m, '').replace(/^```\s*/m, '').replace(/```\s*$/m, '').trim();
-    // Find the first { and last }
-    const first = clean.indexOf('{');
-    const last  = clean.lastIndexOf('}');
-    if(first === -1 || last === -1){
-      throw new Error('No JSON found. Response was: ' + text.slice(0,150));
-    }
-    clean = clean.slice(first, last + 1);
-    try {
-      return JSON.parse(clean);
-    } catch(e) {
-      throw new Error('JSON parse failed: ' + e.message + ' | Raw: ' + clean.slice(0,100));
-    }
-
-  } catch(err){
-    throw new Error(err.message || 'Agent error');
+  // ── System prompts (unchanged from Puter version) ──
+  let sysPrompt = '';
+  if(mode === 'prompts'){
+    sysPrompt = 'You are PA, an expert AI prompt agent for Promptaholics — a free AI prompt library with 1,485+ prompts, tagline "Zero idea. Hero prompt." The user has a goal. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","categories":["string"],"prompts":[{"name":"string","category":"string","framework":"string","relevance":90,"why":"string","text":"string"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables in prompt text.';
+  } else if(mode === 'content'){
+    sysPrompt = 'You are PA, a content creation agent for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Twitter","type":"Thread","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"},{"platform":"Instagram","type":"Caption","hook":"string","body":"string"}]}.';
+  } else if(mode === 'custom'){
+    sysPrompt = 'You are PA, an expert prompt engineer for Promptaholics. The user wants you to write them ONE perfect, highly specific, immediately usable AI prompt. Craft a single world-class prompt tailored exactly to their request. Return ONLY a JSON object: {"goalSummary":"one sentence about what this prompt does","prompts":[{"name":"descriptive name for the prompt","category":"most relevant category","framework":"best framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA)","relevance":99,"why":"why this framework works for this prompt","text":"the full prompt with [PLACEHOLDERS] for any variables the user needs to fill in"}]}. One prompt only. Make it exceptional.';
+  } else if(mode === 'images'){
+    sysPrompt = 'You are PA, an image prompt specialist for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","imagePrompts":[{"title":"string","tool":"Midjourney","style":"string","prompt":"string"},{"title":"string","tool":"DALL-E","style":"string","prompt":"string"},{"title":"string","tool":"Flux","style":"string","prompt":"string"},{"title":"string","tool":"Midjourney","style":"string","prompt":"string"}]}.';
+  } else {
+    sysPrompt = 'You are PA, a full campaign agent for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","campaignName":"string","prompts":[{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"}],"imagePrompts":[{"title":"string","tool":"Midjourney","prompt":"string"},{"title":"string","tool":"DALL-E","prompt":"string"}]}.';
   }
+
+  const userMsg = mode === 'prompts'
+    ? 'Generate 5 prompts specifically for this goal: ' + goal + '. Each prompt must have name, category, framework, relevance, why, and text fields. Return ONLY a JSON object starting with { and ending with }. No markdown, no explanation.'
+    : 'Goal: ' + goal + '. Return ONLY a valid JSON object starting with { and ending with }. No markdown, no explanation, no extra text.';
+
+  // ── Route: images → Gemini Flash, everything else → Claude ──
+  const intent = (mode === 'images') ? 'image' : 'create';
+
+  // ── Call Worker ──
+  let res;
+  try {
+    res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        intent,
+        max_tokens: 2048,
+        system: sysPrompt,
+        messages: [{ role: 'user', content: userMsg }]
+      })
+    });
+  } catch(err) {
+    throw new Error('Network error — could not reach PA Worker. Check your connection.');
+  }
+
+  // ── Handle worker errors ──
+  if(!res.ok){
+    const errData = await res.json().catch(()=>({}));
+    const errMsg = errData.error || ('HTTP ' + res.status);
+
+    // Show rich error UI with CTA
+    showWorkerError(res.status, errMsg);
+    throw new Error(errMsg);
+  }
+
+  const data = await res.json();
+  const text = data.text || '';
+
+  // ── Log which model responded ──
+  console.log('PA Router:', data.router, '|', data.model, '| tokens:', JSON.stringify(data.usage));
+
+  // ── Extract JSON ──
+  let clean = text
+    .replace(/^```json\s*/m, '')
+    .replace(/^```\s*/m, '')
+    .replace(/```\s*$/m, '')
+    .trim();
+
+  const first = clean.indexOf('{');
+  const last  = clean.lastIndexOf('}');
+  if(first === -1 || last === -1){
+    throw new Error('No JSON in response. Got: ' + text.slice(0,150));
+  }
+  clean = clean.slice(first, last + 1);
+
+  try {
+    return JSON.parse(clean);
+  } catch(e) {
+    throw new Error('JSON parse failed: ' + e.message + ' | Raw: ' + clean.slice(0,100));
+  }
+}
+
+// ══════════════════════════════════════════
+//  RICH ERROR UI
+// ══════════════════════════════════════════
+function showWorkerError(status, msg){
+  const stepsEl = document.getElementById('agentSteps');
+
+  // Error type → config
+  let icon, title, body, ctas;
+
+  if(status === 429 || (msg && msg.includes('rate'))){
+    icon  = '⏱️';
+    title = 'Rate Limit Hit';
+    body  = 'Too many requests in a short time. Wait 30 seconds and try again, or sign in for higher limits.';
+    ctas  = [
+      { label: '🔄 Retry', action: ()=>runAgent(), primary: true },
+      { label: '🔑 Sign In for More', href: 'login.html' }
+    ];
+  } else if(status === 402 || (msg && (msg.includes('credit') || msg.includes('quota') || msg.includes('billing')))){
+    icon  = '⚡';
+    title = 'Usage Limit Reached';
+    body  = 'PA has hit its usage limit for now. Sign in to get your own free credits, or upgrade for unlimited runs.';
+    ctas  = [
+      { label: '🚀 Sign In — Get Free Credits', href: 'login.html', primary: true },
+      { label: '💎 Upgrade to Pro', href: 'pricing.html' }
+    ];
+  } else if(status === 401 || status === 403){
+    icon  = '🔑';
+    title = 'Authentication Error';
+    body  = 'The worker could not authenticate with the AI provider. This is a config issue — try again in a moment.';
+    ctas  = [
+      { label: '🔄 Try Again', action: ()=>runAgent(), primary: true }
+    ];
+  } else if(status === 502 || status === 503){
+    icon  = '📡';
+    title = 'Service Unavailable';
+    body  = 'The AI provider is temporarily down. Usually resolves in under a minute.';
+    ctas  = [
+      { label: '🔄 Retry', action: ()=>runAgent(), primary: true },
+      { label: '📊 AI Status', href: 'https://status.anthropic.com', target: '_blank' }
+    ];
+  } else {
+    icon  = '❌';
+    title = 'Something Went Wrong';
+    body  = msg || 'An unexpected error occurred. Try again or refresh the page.';
+    ctas  = [
+      { label: '🔄 Retry', action: ()=>runAgent(), primary: true }
+    ];
+  }
+
+  const ctaHtml = ctas.map((c,i) => {
+    const style = (i===0 && c.primary)
+      ? 'display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;border:none;cursor:pointer;font-family:\'Instrument Sans\',sans-serif;text-decoration:none;'
+      : 'display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:var(--glass2);color:var(--ink2);font-weight:600;font-size:13px;border:1px solid var(--border2);cursor:pointer;font-family:\'Instrument Sans\',sans-serif;text-decoration:none;';
+    if(c.href){
+      return `<a href="${c.href}" ${c.target?'target="'+c.target+'"':''} style="${style}">${c.label}</a>`;
+    }
+    return `<button onclick="(${c.action.toString()})()" style="${style}">${c.label}</button>`;
+  }).join('');
+
+  stepsEl.innerHTML += `
+    <div style="margin-top:16px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-size:22px;">${icon}</span>
+        <span style="font-weight:700;font-size:15px;color:#f87171;">${title}</span>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:16px;">${body}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">${ctaHtml}</div>
+    </div>`;
 }
 
 // ══════════════════════════════════════════
