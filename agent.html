@@ -61,9 +61,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 /* ── INPUT STAGE ── */
 .input-stage{width:100%;max-width:760px;animation:fadeUp .5s .15s ease both;}
 
-/* Mode selector */
+/* Mode selector — swipeable on mobile */
 .mode-row{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
-.mode-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;cursor:pointer;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);transition:all .2s;font-family:'Instrument Sans',sans-serif;}
+.mode-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;cursor:pointer;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);transition:all .2s;font-family:'Instrument Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
 .mode-btn:hover{background:var(--glass2);color:var(--ink);}
 .mode-btn.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
 .mode-btn i{font-size:14px;}
@@ -74,6 +74,12 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .input-field{flex:1;background:none;border:none;outline:none;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:16px;line-height:1.5;resize:none;min-height:52px;max-height:140px;padding:12px 0;overflow-y:auto;}
 .input-field::placeholder{color:var(--ink3);}
 .input-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;padding-bottom:6px;}
+
+/* Clear (X) button */
+.btn-clear{display:none;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--glass2);border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-size:12px;transition:all .15s;flex-shrink:0;}
+.btn-clear:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#f87171;}
+.btn-clear.visible{display:flex;}
+
 .btn-run{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;background:var(--orange);color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
 .btn-run:hover{background:var(--o2);transform:translateY(-1px);}
 .btn-run:disabled{opacity:.5;cursor:not-allowed;transform:none;}
@@ -82,10 +88,32 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 @keyframes spin{to{transform:rotate(360deg);}}
 .char-count{font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
 
-/* Suggestion chips */
+/* Suggestion chips — wrap on desktop, hidden extras on mobile */
 .suggestions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
 .sug-chip{padding:6px 12px;border-radius:20px;background:var(--glass);border:1px solid var(--border);font-size:11px;color:var(--ink2);cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
 .sug-chip:hover{background:var(--glass2);color:var(--ink);border-color:var(--border2);}
+
+/* Fixed bottom Run PA bar — mobile only */
+.mobile-run-bar{display:none;position:fixed;bottom:64px;left:0;right:0;z-index:550;padding:10px 16px;background:rgba(7,7,10,.97);border-top:1px solid var(--border);backdrop-filter:var(--blur);}
+.mobile-run-bar .btn-run{width:100%;justify-content:center;padding:14px;font-size:15px;border-radius:14px;}
+
+@media(max-width:768px){
+  /* Swipeable mode row */
+  .mode-row{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px;scrollbar-width:none;-ms-overflow-style:none;}
+  .mode-row::-webkit-scrollbar{display:none;}
+
+  /* Hide desktop Run PA button on mobile — use fixed bar instead */
+  .input-actions .btn-run{display:none;}
+
+  /* Show fixed bottom Run PA bar */
+  .mobile-run-bar{display:block;}
+
+  /* Hide lower-priority suggestion chips on mobile — show only top 4 */
+  .sug-chip:nth-child(n+5){display:none;}
+
+  /* Push toast above fixed bar */
+  .pa-toast{bottom:130px;}
+}
 
 /* ── AGENT STEPS (running state) ── */
 .agent-steps{width:100%;max-width:760px;margin-top:32px;display:none;}
@@ -318,6 +346,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
         onkeydown="handleKey(event)"
       ></textarea>
       <div class="input-actions">
+        <button class="btn-clear" id="clearBtn" onclick="clearInput()" title="Clear">
+          <i class="ti ti-x"></i>
+        </button>
         <span class="char-count" id="charCount">0/500</span>
         <button class="btn-run" id="runBtn" onclick="runAgent()">
           <i class="ti ti-sparkles" id="runIcon"></i>
@@ -326,16 +357,24 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
-    <!-- Suggestion chips -->
+    <!-- Suggestion chips — top 3 shown on mobile via CSS, all 7 on desktop -->
     <div class="suggestions" id="suggestions">
-      <div class="sug-chip" onclick="useSuggestion(this)">Write 5 Instagram captions for a fitness coach</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Create a cold email sequence for a SaaS product</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Write marketing prompts for a real estate agent</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Build a content strategy for a life coach</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for responding to negative reviews</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for creating viral TikTok hooks</div>
-      <div class="sug-chip" onclick="useSuggestion(this)">Write me a prompt for writing my business bio</div>
+      <div class="sug-chip" data-full="Write 5 Instagram captions for a fitness coach" onclick="useSuggestion(this)">IG Fitness Captions</div>
+      <div class="sug-chip" data-full="Create a cold email sequence for a SaaS product" onclick="useSuggestion(this)">SaaS Cold Emails</div>
+      <div class="sug-chip" data-full="Write marketing prompts for a real estate agent" onclick="useSuggestion(this)">Real Estate Prompts</div>
+      <div class="sug-chip" data-full="Build a content strategy for a life coach" onclick="useSuggestion(this)">Life Coach Content</div>
+      <div class="sug-chip" data-full="Write me a prompt for responding to negative reviews" onclick="useSuggestion(this)">Negative Review Response</div>
+      <div class="sug-chip" data-full="Write me a prompt for creating viral TikTok hooks" onclick="useSuggestion(this)">Viral TikTok Hooks</div>
+      <div class="sug-chip" data-full="Write me a prompt for writing my business bio" onclick="useSuggestion(this)">Business Bio Prompt</div>
     </div>
+  </div>
+
+  <!-- Fixed bottom Run PA bar — mobile only -->
+  <div class="mobile-run-bar" id="mobileRunBar">
+    <button class="btn-run" id="runBtnMobile" onclick="runAgent()">
+      <i class="ti ti-sparkles" id="runIconMobile"></i>
+      <span id="runLabelMobile">Run PA</span>
+    </button>
   </div>
 
   <!-- Agent Steps -->
@@ -462,12 +501,24 @@ function setMode(mode, btn){
 function updateCharCount(){
   const v = document.getElementById('goalInput').value.length;
   document.getElementById('charCount').textContent = v+'/500';
+  // Show/hide clear button
+  const clearBtn = document.getElementById('clearBtn');
+  if(v > 0) clearBtn.classList.add('visible');
+  else clearBtn.classList.remove('visible');
+}
+
+function clearInput(){
+  document.getElementById('goalInput').value = '';
+  updateCharCount();
+  document.getElementById('goalInput').focus();
 }
 function handleKey(e){
   if(e.key==='Enter' && !e.shiftKey){e.preventDefault();runAgent();}
 }
 function useSuggestion(el){
-  document.getElementById('goalInput').value = el.textContent.trim();
+  // Use full text content, not the CSS ::before short label
+  const fullText = el.getAttribute('onclick') ? el.textContent.trim() : el.textContent.trim();
+  document.getElementById('goalInput').value = el.dataset.full || el.textContent.trim();
   updateCharCount();
   document.getElementById('goalInput').focus();
 }
@@ -505,10 +556,17 @@ async function runAgent(){
   const btn = document.getElementById('runBtn');
   const icon = document.getElementById('runIcon');
   const label = document.getElementById('runLabel');
+  const btnM = document.getElementById('runBtnMobile');
+  const iconM = document.getElementById('runIconMobile');
+  const labelM = document.getElementById('runLabelMobile');
   btn.disabled = true;
+  if(btnM) btnM.disabled = true;
   icon.className = 'ti ti-loader-2';
+  if(iconM) iconM.className = 'ti ti-loader-2';
   label.textContent = 'Working...';
+  if(labelM) labelM.textContent = 'Working...';
   btn.classList.add('running');
+  if(btnM) btnM.classList.add('running');
 
   // Hide results, show steps
   document.getElementById('results').classList.remove('active');
@@ -559,9 +617,13 @@ async function runAgent(){
 
   // Reset button
   btn.disabled = false;
+  if(btnM) btnM.disabled = false;
   icon.className = 'ti ti-sparkles';
+  if(iconM) iconM.className = 'ti ti-sparkles';
   label.textContent = 'Run PA';
+  if(labelM) labelM.textContent = 'Run PA';
   btn.classList.remove('running');
+  if(btnM) btnM.classList.remove('running');
   isRunning = false;
 }
 
