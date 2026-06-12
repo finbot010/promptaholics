@@ -169,7 +169,7 @@ let activeFilter = 'pending';
 
 // ── Auth gate ───────────────────────────────────────────────────
 onAuthStateChanged(auth, async user => {
-  if(!user || !ADMIN_EMAILS.includes(promptaholics01@gmail.com)){
+  if(!user || !ADMIN_EMAILS.includes(user.email)){
     document.getElementById('adminPanel').style.display = 'none';
     document.getElementById('authGate').style.display  = 'flex';
     return;
@@ -330,8 +330,8 @@ window.copyText = function(text, btn){
   });
 };
 
-function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escAttr(str){ return String(str||'').replace(/'/g,"\\'").replace(/\n/g,'\\n'); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' ').replace(/\r/g,''); }
 
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -339,9 +339,6 @@ function showToast(msg){
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
-
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escAttr(s){ return String(s||'').replace(/'/g,"\\'").replace(/\n/g,' '); }
 </script>
 </body>
 </html>
