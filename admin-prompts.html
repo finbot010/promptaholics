@@ -233,15 +233,20 @@ async function loadPrompts(){
 
 function updateStats(){
   document.getElementById('statPending').textContent  = allPrompts.filter(p=>p.status==='pending').length;
-  document.getElementById('statLive').textContent     = allPrompts.filter(p=>p.status==='live').length;
+  document.getElementById('statLive').textContent     = allPrompts.filter(p=>p.status==='live'||p.status==='approved').length;
   document.getElementById('statRejected').textContent = allPrompts.filter(p=>p.status==='rejected').length;
 }
 
 function renderList(){
-  const list   = document.getElementById('promptList');
+  const list = document.getElementById('promptList');
   const filtered = activeFilter === 'all'
     ? allPrompts
-    : allPrompts.filter(p => p.status === activeFilter);
+    : allPrompts.filter(p => {
+        const s = p.status || 'pending';
+        // treat 'approved' same as 'live' for display
+        if(activeFilter === 'live') return s === 'live' || s === 'approved';
+        return s === activeFilter;
+      });
 
   if(!filtered.length){
     list.innerHTML = `<div class="empty"><i class="ti ti-inbox"></i><p>No ${activeFilter} prompts.</p></div>`;
@@ -251,21 +256,31 @@ function renderList(){
   list.innerHTML = filtered.map(p => {
     const date = p.submittedAt?.toDate
       ? p.submittedAt.toDate().toLocaleDateString()
-      : '—';
-    const isPending = p.status === 'pending';
+      : p.addedAt ? new Date(p.addedAt).toLocaleDateString() : '—';
+
+    // Handle both old (cat/desc) and new (category/text) field names
+    const name     = p.name || 'Untitled Prompt';
+    const category = p.category || p.cat || 'General';
+    const text     = p.text || p.desc || '';
+    const status   = p.status || 'pending';
+    const goal     = p.goal || '';
+    const framework = p.framework || '—';
+
+    const isPending = status === 'pending';
+
     return `
-    <div class="prompt-card status-${p.status}" id="card-${p.id}">
+    <div class="prompt-card status-${status}" id="card-${p.id}">
       <div class="card-header">
-        <div class="card-name">${esc(p.name||'Untitled Prompt')}</div>
+        <div class="card-name">${esc(name)}</div>
       </div>
       <div class="card-meta">
-        <span class="badge status-${p.status}">${p.status}</span>
-        <span class="badge cat">${esc(p.category||'General')}</span>
-        <span class="badge fw">${esc(p.framework||'RTF')}</span>
+        <span class="badge status-${status}">${status}</span>
+        <span class="badge cat">${esc(category)}</span>
+        <span class="badge fw">${esc(framework)}</span>
         <span class="badge source">PA Agent</span>
       </div>
-      ${p.goal ? `<div class="card-goal">Goal: "${esc(p.goal)}"</div>` : ''}
-      <div class="card-text">${esc(p.text||'')}</div>
+      ${goal ? `<div class="card-goal">Goal: "${esc(goal)}"</div>` : ''}
+      <div class="card-text">${esc(text)}</div>
       <div class="card-actions">
         ${isPending ? `
           <button class="btn-approve" onclick="approvePrompt('${p.id}')">
@@ -275,7 +290,7 @@ function renderList(){
             <i class="ti ti-x"></i> Reject
           </button>
         ` : ''}
-        <button class="btn-copy" onclick="copyText('${escAttr(p.text||'')}',this)">
+        <button class="btn-copy" onclick="copyText('${escAttr(text)}',this)">
           <i class="ti ti-copy"></i> Copy
         </button>
         <span class="card-date">${date}</span>
