@@ -1,31 +1,38 @@
-/**
- * Promptaholics — Export Approved Prompts to prompts.js
- * Runs via GitHub Action every Monday at 2PM UTC
- *
- * What it does:
- *  1. Connects to Firebase using service account credentials
- *  2. Reads all docs from 'prompts' collection (approved and live)
- *  3. Reads current prompts.js to get existing IDs + highest ID number
- *  4. Appends only NEW prompts (not already in prompts.js)
- *  5. Writes updated prompts.js back to repo
- *  6. GitHub Action then commits + pushes automatically
- */
+'use strict';
 
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
+const admin = require('firebase-admin');
+const fs    = require('fs');
+const path  = require('path');
 
-// ── Firebase Admin init (uses GitHub Secrets) ────────────────────
-const serviceAccount = {
-  type: 'service_account',
-  project_id: 'promptaholics-534d3',
-  client_email: process.env.FIREBASE_CLIENT_EMAIL,
-  private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-};
+// ── Firebase Admin init ──────────────────────────────────────────
+const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 
-initializeApp({ credential: cert(serviceAccount) });
-const db = getFirestore();
+if (!privateKey || !clientEmail) {
+  console.error('Missing FIREBASE_PRIVATE_KEY or FIREBASE_CLIENT_EMAIL secrets');
+  process.exit(1);
+}
+
+// Debug — show key format without exposing the actual key
+console.log('Client email:', clientEmail);
+console.log('Private key length:', privateKey.length);
+console.log('Private key starts with:', privateKey.slice(0, 30));
+console.log('Contains literal \\n:', privateKey.includes('\\n'));
+console.log('Contains real newline:', privateKey.includes('\n'));
+
+const formattedKey = privateKey.includes('\\n')
+  ? privateKey.replace(/\\n/g, '\n')
+  : privateKey;
+
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId:   'promptaholics-534d3',
+    clientEmail: clientEmail,
+    privateKey:  formattedKey,
+  })
+});
+
+const db = admin.firestore();
 
 // ── Helpers ───────────────────────────────────────────────────────
 function sanitize(str) {
@@ -38,92 +45,86 @@ function sanitize(str) {
 
 function promptToJs(p) {
   const tags = Array.isArray(p.tags)
-    ? '[' + p.tags.map(t => `"${sanitize(t)}"`).join(',') + ']'
+    ? '[' + p.tags.map(function(t){ return '"' + sanitize(t) + '"'; }).join(',') + ']'
     : '[]';
-  return `  {id:"${sanitize(p.id)}",name:"${sanitize(p.name)}",tool:"${sanitize(p.tool || 'chatgpt')}",cat:"${sanitize(p.cat || p.category || 'General')}",tags:${tags},feat:${p.feat === true},text:"${sanitize(p.text)}",desc:"${sanitize(p.desc || p.text?.slice(0, 80) || '')}"}`;
+  return '  {id:"' + sanitize(p.id) + '",name:"' + sanitize(p.name) + '",tool:"' + sanitize(p.tool || 'chatgpt') + '",cat:"' + sanitize(p.cat || p.category || 'General') + '",tags:' + tags + ',feat:' + (p.feat === true) + ',text:"' + sanitize(p.text || '') + '",desc:"' + sanitize(p.desc || (p.text || '').slice(0, 80)) + '"}';
 }
 
 // ── Main ─────────────────────────────────────────────────────────
 async function main() {
-  console.log('📦 Fetching approved prompts from Firestore...');
+  console.log('Fetching approved prompts from Firestore...');
 
-  // 1. Get all docs from live prompts collection
   const snap = await db.collection('prompts').get();
-  const firestorePrompts = snap.docs.map(d => ({ _docId: d.id, ...d.data() }));
-  console.log(`Found ${firestorePrompts.length} prompts in Firestore`);
+  const firestorePrompts = snap.docs.map(function(d){ return Object.assign({ _docId: d.id }, d.data()); });
+  console.log('Found ' + firestorePrompts.length + ' prompts in Firestore');
 
-  // 2. Read current prompts.js
-  const filePath = resolve(process.cwd(), 'prompts.js');
-  const currentContent = readFileSync(filePath, 'utf8');
+  const filePath = path.resolve(process.cwd(), 'prompts.js');
+  const currentContent = fs.readFileSync(filePath, 'utf8');
 
-  // 3. Extract existing IDs from prompts.js
-  const existingIds = new Set();
-  const idMatches = currentContent.matchAll(/id:"([^"]+)"/g);
-  for (const match of idMatches) existingIds.add(match[1]);
-  console.log(`Current prompts.js has ${existingIds.size} prompts`);
+  // Get existing names to avoid duplicates
+  const existingNames = new Set();
+  let nameMatch;
+  const nameRe = /name:"([^"]+)"/g;
+  while ((nameMatch = nameRe.exec(currentContent)) !== null) {
+    existingNames.add(nameMatch[1].toLowerCase().trim());
+  }
+  console.log('Current prompts.js has ' + existingNames.size + ' prompts');
 
-  // 4. Find highest existing numeric ID
+  // Find highest existing numeric ID
   let maxId = 0;
-  for (const id of existingIds) {
-    const num = parseInt(id, 10);
+  let idMatch;
+  const idRe = /id:"([^"]+)"/g;
+  while ((idMatch = idRe.exec(currentContent)) !== null) {
+    const num = parseInt(idMatch[1], 10);
     if (!isNaN(num) && num > maxId) maxId = num;
   }
-  console.log(`Highest existing ID: ${maxId}`);
+  console.log('Highest existing ID: ' + maxId);
 
-  // 5. Filter to only NEW prompts not already in prompts.js
-  // Match by Firestore doc ID or by name+text to avoid duplicates
-  const existingNames = new Set();
-  const nameMatches = currentContent.matchAll(/name:"([^"]+)"/g);
-  for (const match of nameMatches) existingNames.add(match[1].toLowerCase().trim());
-
-  const newPrompts = firestorePrompts.filter(p => {
-    const name = (p.name || '').toLowerCase().trim();
-    return !existingNames.has(name);
+  // Filter new prompts only
+  const newPrompts = firestorePrompts.filter(function(p) {
+    return !existingNames.has((p.name || '').toLowerCase().trim());
   });
 
   if (newPrompts.length === 0) {
-    console.log('✅ No new prompts to add. prompts.js is up to date.');
+    console.log('No new prompts to add. prompts.js is up to date.');
     process.exit(0);
   }
 
-  console.log(`Adding ${newPrompts.length} new prompts...`);
+  console.log('Adding ' + newPrompts.length + ' new prompts...');
 
-  // 6. Assign sequential IDs to new prompts
-  const promptsToAdd = newPrompts.map((p, i) => ({
-    ...p,
-    id: String(maxId + i + 1),
-    tool: p.tool || 'chatgpt',
-    cat: p.cat || p.category || 'General',
-    feat: p.feat === true,
-    desc: p.desc || (p.text || '').slice(0, 80),
-  }));
+  const promptsToAdd = newPrompts.map(function(p, i) {
+    return Object.assign({}, p, {
+      id:   String(maxId + i + 1),
+      tool: p.tool || 'chatgpt',
+      cat:  p.cat || p.category || 'General',
+      feat: p.feat === true,
+      desc: p.desc || (p.text || '').slice(0, 80),
+    });
+  });
 
-  // 7. Build new entries as JS object strings
   const newEntries = promptsToAdd.map(promptToJs).join(',\n');
 
-  // 8. Inject into prompts.js before the closing ];
-  // Handles both `];` and `\n];` endings
+  // Inject before closing ];
   const updatedContent = currentContent.replace(
-    /(\s*\];?\s*)$/,
-    `,\n${newEntries}\n];\n`
+    /(\n?\];\s*)$/,
+    ',\n' + newEntries + '\n];\n'
   );
 
-  // 9. Write back to file
-  writeFileSync(filePath, updatedContent, 'utf8');
-  console.log(`✅ prompts.js updated — added ${newPrompts.length} prompts`);
-  console.log('New IDs:', promptsToAdd.map(p => p.id).join(', '));
+  fs.writeFileSync(filePath, updatedContent, 'utf8');
+  console.log('prompts.js updated — added ' + newPrompts.length + ' prompts');
+  console.log('New IDs: ' + promptsToAdd.map(function(p){ return p.id; }).join(', '));
 
-  // 10. Mark exported prompts in Firestore so we know they're in prompts.js
+  // Mark as exported in Firestore
   const batch = db.batch();
-  for (const p of promptsToAdd) {
+  promptsToAdd.forEach(function(p) {
     const ref = db.collection('prompts').doc(p._docId);
     batch.update(ref, { exportedToJs: true, exportedAt: new Date().toISOString() });
-  }
+  });
   await batch.commit();
-  console.log('✅ Firestore export flags updated');
+  console.log('Firestore export flags updated. Done!');
 }
 
-main().catch(err => {
-  console.error('❌ Export failed:', err);
+main().catch(function(err) {
+  console.error('Export failed:', err.message || err);
   process.exit(1);
 });
