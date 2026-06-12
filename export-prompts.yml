@@ -1,14 +1,16 @@
 name: Export Approved Prompts
+
 on:
   schedule:
-    - cron: '0 14 * * 1'   # Every Monday 2PM UTC
-  workflow_dispatch:        # Manual trigger from Actions tab
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
 
 jobs:
   export:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -18,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Firebase Admin
         run: npm install firebase-admin
@@ -32,11 +34,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if [ ! -f "prompts.js" ] || ! git diff --quiet prompts.js; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
+          git diff --quiet prompts.js && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
@@ -44,10 +42,9 @@ jobs:
           git config user.name "PA Agent"
           git config user.email "promptaholics1@gmail.com"
           git add prompts.js
-          COUNT=$(node -e "if(require('fs').existsSync('prompts.js')){const c=require('fs').readFileSync('prompts.js','utf8');console.log((c.match(/id:/g)||[]).length)}else{console.log(0)}")
-          git commit -m "📚 Auto-export: library updated to ${COUNT} prompts [$(date +'%Y-%m-%d')]"
+          git commit -m "Auto-export: prompts.js updated $(date +'%Y-%m-%d')"
           git push
 
       - name: No new prompts
         if: steps.changes.outputs.changed == 'false'
-        run: echo "No new approved prompts to export."
+        run: echo "No new prompts to export."
