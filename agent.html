@@ -712,29 +712,31 @@ const WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
 // ══════════════════════════════════════════
 async function callClaudeAgent(goal, mode){
 
-  // ── System prompts (unchanged from Puter version) ──
+  // ── Lean system prompts — trimmed for token efficiency ──
+  // Full JSON schema moved to user message only where needed.
+  // Gemini re-enabled once billing is set up — use 'find' intent then.
   let sysPrompt = '';
   if(mode === 'prompts'){
-    sysPrompt = 'You are PA, an expert AI prompt agent for Promptaholics — a free AI prompt library with 1,485+ prompts, tagline "Zero idea. Hero prompt." The user has a goal. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","categories":["string"],"prompts":[{"name":"string","category":"string","framework":"string","relevance":90,"why":"string","text":"string"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables in prompt text.';
+    sysPrompt = 'You are PA, Promptaholics prompt agent. Return ONLY valid JSON: {"goalSummary":"str","categories":["str"],"prompts":[{"name":"str","category":"str","framework":"str","relevance":90,"why":"str","text":"str"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables.';
   } else if(mode === 'content'){
-    sysPrompt = 'You are PA, a content creation agent for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Twitter","type":"Thread","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"},{"platform":"Instagram","type":"Caption","hook":"string","body":"string"}]}.';
+    sysPrompt = 'You are PA, Promptaholics content agent. Return ONLY valid JSON: {"goalSummary":"str","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"str","body":"str"},{"platform":"Twitter","type":"Thread","hook":"str","body":"str"},{"platform":"Email","type":"Newsletter","hook":"str","body":"str"},{"platform":"Instagram","type":"Caption","hook":"str","body":"str"}]}.';
   } else if(mode === 'custom'){
-    sysPrompt = 'You are PA, an expert prompt engineer for Promptaholics. The user wants you to write them ONE perfect, highly specific, immediately usable AI prompt. Craft a single world-class prompt tailored exactly to their request. Return ONLY a JSON object: {"goalSummary":"one sentence about what this prompt does","prompts":[{"name":"descriptive name for the prompt","category":"most relevant category","framework":"best framework (RTF/CoSTAR/RISEN/AETHER/CRISPE/SCQA)","relevance":99,"why":"why this framework works for this prompt","text":"the full prompt with [PLACEHOLDERS] for any variables the user needs to fill in"}]}. One prompt only. Make it exceptional.';
+    sysPrompt = 'You are PA, expert prompt engineer. Write ONE exceptional, specific, immediately usable AI prompt. Return ONLY valid JSON: {"goalSummary":"str","prompts":[{"name":"str","category":"str","framework":"RTF|CoSTAR|RISEN|AETHER|CRISPE|SCQA","relevance":99,"why":"str","text":"full prompt with [PLACEHOLDERS]"}]}.';
   } else if(mode === 'images'){
-    sysPrompt = 'You are PA, an image prompt specialist for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","imagePrompts":[{"title":"string","tool":"Midjourney","style":"string","prompt":"string"},{"title":"string","tool":"DALL-E","style":"string","prompt":"string"},{"title":"string","tool":"Flux","style":"string","prompt":"string"},{"title":"string","tool":"Midjourney","style":"string","prompt":"string"}]}.';
+    sysPrompt = 'You are PA, image prompt specialist. Return ONLY valid JSON: {"goalSummary":"str","imagePrompts":[{"title":"str","tool":"Midjourney","style":"str","prompt":"str"},{"title":"str","tool":"DALL-E","style":"str","prompt":"str"},{"title":"str","tool":"Flux","style":"str","prompt":"str"},{"title":"str","tool":"Midjourney","style":"str","prompt":"str"}]}.';
   } else {
-    sysPrompt = 'You are PA, a full campaign agent for Promptaholics. Return ONLY a JSON object with no other text. Format: {"goalSummary":"string","campaignName":"string","prompts":[{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"},{"name":"string","category":"string","framework":"string","text":"string","why":"string"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"string","body":"string"},{"platform":"Email","type":"Newsletter","hook":"string","body":"string"}],"imagePrompts":[{"title":"string","tool":"Midjourney","prompt":"string"},{"title":"string","tool":"DALL-E","prompt":"string"}]}.';
+    sysPrompt = 'You are PA, Promptaholics campaign agent. Return ONLY valid JSON: {"goalSummary":"str","campaignName":"str","prompts":[{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"str","body":"str"},{"platform":"Email","type":"Newsletter","hook":"str","body":"str"}],"imagePrompts":[{"title":"str","tool":"Midjourney","prompt":"str"},{"title":"str","tool":"DALL-E","prompt":"str"}]}.';
   }
 
   const userMsg = mode === 'prompts'
-    ? 'Generate 5 prompts specifically for this goal: ' + goal + '. Each prompt must have name, category, framework, relevance, why, and text fields. Return ONLY a JSON object starting with { and ending with }. No markdown, no explanation.'
-    : 'Goal: ' + goal + '. Return ONLY a valid JSON object starting with { and ending with }. No markdown, no explanation, no extra text.';
+    ? 'Goal: ' + goal + '. Return 5 prompts as JSON. No markdown, no explanation.'
+    : 'Goal: ' + goal + '. Return JSON only. No markdown, no explanation.';
 
-  // ── Route: images + find prompts → Gemini Flash, writing tasks → Claude ──
-  // prompts = find/filter (Gemini: fast, cheap)
-  // images  = visual prompt engineering (Gemini: great at descriptions)
-  // content, custom, campaign = deep writing (Claude: best quality)
-  const intent = (mode === 'images') ? 'image' : (mode === 'prompts') ? 'find' : 'create';
+  // ── Routing ──────────────────────────────────────────────────
+  // images → Gemini (visual descriptions, token-light)
+  // prompts → Claude temporarily (Gemini free tier exhausted — re-enable after billing)
+  // content, custom, campaign → Claude (writing depth)
+  const intent = (mode === 'images') ? 'image' : 'create';
 
   // ── Call Worker ──
   let res;
