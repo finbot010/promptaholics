@@ -1,0 +1,9 @@
+{
+  "name": "promptaholics",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "export": "node scripts/export-prompts.js"
+  }
+}
