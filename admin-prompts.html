@@ -89,6 +89,11 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .btn-reject:disabled{opacity:.4;cursor:not-allowed;}
 .btn-copy{display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
 .btn-copy:hover{color:var(--ink);}
+.btn-delete{display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:9px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.15);color:var(--red);font-size:12px;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;margin-left:auto;}
+.btn-delete:hover{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.35);}
+.btn-delete:disabled{opacity:.4;cursor:not-allowed;}
+.btn-clear-all{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.btn-clear-all:hover{background:rgba(239,68,68,.16);}
 
 /* LOADING / EMPTY */
 .loading{text-align:center;padding:48px;color:var(--ink2);}
@@ -145,6 +150,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="filter-btn" onclick="setFilter('live',this)">🟢 Live</button>
       <button class="filter-btn" onclick="setFilter('rejected',this)">🔴 Rejected</button>
       <button class="filter-btn" onclick="setFilter('all',this)">All</button>
+      <button class="btn-clear-all" onclick="clearRejected()"><i class="ti ti-trash"></i> Clear All Rejected</button>
     </div>
     <div class="prompt-list" id="promptList">
       <div class="loading"><i class="ti ti-loader-2"></i>Loading…</div>
@@ -159,7 +165,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import {
   getFirestore, collection, getDocs,
-  doc, updateDoc, addDoc, serverTimestamp
+  doc, updateDoc, addDoc, deleteDoc, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import {
   getAuth, onAuthStateChanged,
@@ -290,6 +296,7 @@ function renderList(){
           <button class="btn-reject"  onclick="rejectPrompt('${p._id}')"><i class="ti ti-x"></i> Reject</button>
         `:''}
         <button class="btn-copy" onclick="copyText('${escAttr(text)}',this)"><i class="ti ti-copy"></i> Copy</button>
+        <button class="btn-delete" onclick="deletePrompt('${p._id}')"><i class="ti ti-trash"></i> Delete</button>
       </div>
     </div>`;
   }).join('');
@@ -352,7 +359,36 @@ window.rejectPrompt = async function(id){
   }
 };
 
-// ── FILTER ───────────────────────────────────────────────────────
+// ── DELETE SINGLE ────────────────────────────────────────────────
+window.deletePrompt = async function(id){
+  if(!confirm('Permanently delete this prompt? This cannot be undone.')) return;
+  const btn = document.querySelector(`#card-${id} .btn-delete`);
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader-2"></i>'; }
+  try {
+    await deleteDoc(doc(db,'pending-prompts',id));
+    allPrompts = allPrompts.filter(x=>x._id!==id);
+    updateStats(); renderList();
+    showToast('🗑 Prompt deleted');
+  } catch(e){
+    showToast('❌ Error: '+e.message);
+    if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-trash"></i> Delete'; }
+  }
+};
+
+// ── CLEAR ALL REJECTED ────────────────────────────────────────────
+window.clearRejected = async function(){
+  const rejected = allPrompts.filter(p=>p.status==='rejected');
+  if(!rejected.length){ showToast('No rejected prompts to clear'); return; }
+  if(!confirm(`Permanently delete all ${rejected.length} rejected prompts?`)) return;
+  try {
+    await Promise.all(rejected.map(p => deleteDoc(doc(db,'pending-prompts',p._id))));
+    allPrompts = allPrompts.filter(p=>p.status!=='rejected');
+    updateStats(); renderList();
+    showToast(`🗑 Cleared ${rejected.length} rejected prompts`);
+  } catch(e){
+    showToast('❌ Error: '+e.message);
+  }
+};
 window.setFilter = function(f,btn){
   activeFilter=f;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
