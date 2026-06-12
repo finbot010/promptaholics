@@ -29,7 +29,7 @@ jobs:
         env:
           FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-        run: node scripts/export-prompts.cjs
+        run: node export-prompts.cjs
       - name: Check for changes
         id: changes
         run: |
