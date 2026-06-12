@@ -1142,7 +1142,14 @@ async function addToLibrary(prompt, btn){
     btn.innerHTML = '<i class="ti ti-check"></i> Added!';
     btn.style.color = 'var(--green)';
     btn.disabled = false;
-    showToast('Prompt submitted for review — becomes part of the library!');
+    showToast('✅ Prompt submitted for review!');
+
+    // Redirect admin to approval page after 1.5s
+    setTimeout(() => {
+      if(window._paUser && window._paUser.email === 'promptaholics1@gmail.com'){
+        window.location.href = '/admin-prompts.html';
+      }
+    }, 1500);
   } catch(err) {
     console.error('Add to library failed:', err);
     // Fallback: save locally and show message
