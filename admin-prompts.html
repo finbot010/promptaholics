@@ -169,7 +169,10 @@ let activeFilter = 'pending';
 
 // ── Auth gate ───────────────────────────────────────────────────
 onAuthStateChanged(auth, async user => {
-  if(!user || !ADMIN_EMAILS.includes(Promptaholics01@gmail.com)){
+  // DEBUG — remove after confirming email
+  console.log('Signed in as:', user ? user.email : 'not signed in');
+
+  if(!user || !ADMIN_EMAILS.includes(user.email)){
     document.getElementById('adminPanel').style.display = 'none';
     document.getElementById('authGate').style.display  = 'flex';
     return;
