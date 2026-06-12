@@ -62,19 +62,19 @@ async function main() {
   const filePath = path.resolve(process.cwd(), 'prompts.js');
   const currentContent = fs.readFileSync(filePath, 'utf8');
 
-  // Get existing names to avoid duplicates
+  // Get existing names to avoid duplicates — handles both name:"x" and name:'x'
   const existingNames = new Set();
   let nameMatch;
-  const nameRe = /name:"([^"]+)"/g;
+  const nameRe = /name:["']([^"']+)["']/g;
   while ((nameMatch = nameRe.exec(currentContent)) !== null) {
     existingNames.add(nameMatch[1].toLowerCase().trim());
   }
   console.log('Current prompts.js has ' + existingNames.size + ' prompts');
 
-  // Find highest existing numeric ID
+  // Find highest existing numeric ID — handles both id:"1" and id:'1'
   let maxId = 0;
   let idMatch;
-  const idRe = /id:"([^"]+)"/g;
+  const idRe = /id:["']([^"']+)["']/g;
   while ((idMatch = idRe.exec(currentContent)) !== null) {
     const num = parseInt(idMatch[1], 10);
     if (!isNaN(num) && num > maxId) maxId = num;
