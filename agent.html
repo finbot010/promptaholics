@@ -75,10 +75,12 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .input-field::placeholder{color:var(--ink3);}
 .input-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;padding-bottom:6px;}
 
-/* Clear (X) button */
-.btn-clear{display:none;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--glass2);border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-size:12px;transition:all .15s;flex-shrink:0;}
-.btn-clear:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#f87171;}
-.btn-clear.visible{display:flex;}
+/* Mic button */
+.btn-mic{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0;font-size:16px;}
+.btn-mic:hover{background:var(--glass2);color:var(--ink);border-color:var(--border2);}
+.btn-mic.listening{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#f87171;animation:pulse-mic 1s ease infinite;}
+.btn-mic.unsupported{opacity:.3;cursor:not-allowed;}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.3);}50%{box-shadow:0 0 0 6px rgba(239,68,68,0);}}
 
 .btn-run{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;background:var(--orange);color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
 .btn-run:hover{background:var(--o2);transform:translateY(-1px);}
@@ -228,7 +230,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
   <!-- Firebase -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getFirestore, collection, addDoc, serverTimestamp }
+    import { getFirestore, collection, addDoc, updateDoc, doc, serverTimestamp }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
     import { getAuth, onAuthStateChanged }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -250,6 +252,10 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     window._paAddDoc = addDoc;
     window._paCollection = collection;
     window._paTimestamp  = serverTimestamp;
+
+    // Expose updateDoc for approval pipeline
+    window._paUpdateDoc = updateDoc;
+    window._paDoc = doc;
 
     onAuthStateChanged(auth, user => {
       window._paUser = user || null;
@@ -348,6 +354,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div class="input-actions">
         <button class="btn-clear" id="clearBtn" onclick="clearInput()" title="Clear">
           <i class="ti ti-x"></i>
+        </button>
+        <button class="btn-mic" id="micBtn" onclick="toggleDictation()" title="Speak your goal">
+          <i class="ti ti-microphone" id="micIcon"></i>
         </button>
         <span class="char-count" id="charCount">0/500</span>
         <button class="btn-run" id="runBtn" onclick="runAgent()">
@@ -512,6 +521,66 @@ function clearInput(){
   updateCharCount();
   document.getElementById('goalInput').focus();
 }
+
+// ── B: DICTATION (Web Speech API) ────────────────────────────────
+let recognition = null;
+let isListening = false;
+
+function initDictation(){
+  const micBtn = document.getElementById('micBtn');
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    micBtn.classList.add('unsupported');
+    micBtn.title = 'Dictation not supported on this browser';
+    return;
+  }
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    isListening = true;
+    micBtn.classList.add('listening');
+    document.getElementById('micIcon').className = 'ti ti-microphone-off';
+    micBtn.title = 'Tap to stop';
+    showToast('🎙 Listening…');
+  };
+
+  recognition.onresult = (e) => {
+    const transcript = Array.from(e.results)
+      .map(r => r[0].transcript).join('');
+    document.getElementById('goalInput').value = transcript;
+    updateCharCount();
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    document.getElementById('micIcon').className = 'ti ti-microphone';
+    micBtn.title = 'Speak your goal';
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    micBtn.classList.remove('listening');
+    document.getElementById('micIcon').className = 'ti ti-microphone';
+    if(e.error !== 'no-speech') showToast('Mic error: ' + e.error);
+  };
+}
+
+function toggleDictation(){
+  const micBtn = document.getElementById('micBtn');
+  if(micBtn.classList.contains('unsupported')) return;
+  if(!recognition) initDictation();
+  if(isListening){
+    recognition.stop();
+  } else {
+    document.getElementById('goalInput').value = '';
+    updateCharCount();
+    recognition.start();
+  }
+}
 function handleKey(e){
   if(e.key==='Enter' && !e.shiftKey){e.preventDefault();runAgent();}
 }
@@ -661,8 +730,11 @@ async function callClaudeAgent(goal, mode){
     ? 'Generate 5 prompts specifically for this goal: ' + goal + '. Each prompt must have name, category, framework, relevance, why, and text fields. Return ONLY a JSON object starting with { and ending with }. No markdown, no explanation.'
     : 'Goal: ' + goal + '. Return ONLY a valid JSON object starting with { and ending with }. No markdown, no explanation, no extra text.';
 
-  // ── Route: images → Gemini Flash, everything else → Claude ──
-  const intent = (mode === 'images') ? 'image' : 'create';
+  // ── Route: images + find prompts → Gemini Flash, writing tasks → Claude ──
+  // prompts = find/filter (Gemini: fast, cheap)
+  // images  = visual prompt engineering (Gemini: great at descriptions)
+  // content, custom, campaign = deep writing (Claude: best quality)
+  const intent = (mode === 'images') ? 'image' : (mode === 'prompts') ? 'find' : 'create';
 
   // ── Call Worker ──
   let res;
