@@ -795,49 +795,50 @@ async function callClaudeAgent(goal, mode){
 // ══════════════════════════════════════════
 function showWorkerError(status, msg){
   const stepsEl = document.getElementById('agentSteps');
+  const m = (msg || '').toLowerCase();
 
-  // Error type → config
   let icon, title, body, ctas;
 
-  if(status === 429 || (msg && msg.includes('rate'))){
+  // ── Strict status-code matching first, then keyword fallback ──
+  if(status === 429){
     icon  = '⏱️';
     title = 'Rate Limit Hit';
-    body  = 'Too many requests in a short time. Wait 30 seconds and try again, or sign in for higher limits.';
-    ctas  = [
-      { label: '🔄 Retry', action: ()=>runAgent(), primary: true },
-      { label: '🔑 Sign In for More', href: 'login.html' }
-    ];
-  } else if(status === 402 || (msg && (msg.includes('credit') || msg.includes('quota') || msg.includes('billing')))){
+    body  = 'Too many requests. Wait 30 seconds and try again.';
+    ctas  = [{ label: '🔄 Retry', action: ()=>runAgent(), primary: true }];
+
+  } else if(status === 402 || m.includes('credit') || m.includes('billing') || m.includes('insufficient_quota')){
     icon  = '⚡';
     title = 'Usage Limit Reached';
-    body  = 'PA has hit its usage limit for now. Sign in to get your own free credits, or upgrade for unlimited runs.';
+    body  = 'The AI account is out of credits. Sign in for your own free credits or upgrade for unlimited runs.';
     ctas  = [
       { label: '🚀 Sign In — Get Free Credits', href: 'login.html', primary: true },
       { label: '💎 Upgrade to Pro', href: 'pricing.html' }
     ];
-  } else if(status === 401 || status === 403){
+
+  } else if(status === 401 || status === 403 || m.includes('api_key') || m.includes('authentication') || m.includes('unauthorized')){
     icon  = '🔑';
-    title = 'Authentication Error';
-    body  = 'The worker could not authenticate with the AI provider. This is a config issue — try again in a moment.';
-    ctas  = [
-      { label: '🔄 Try Again', action: ()=>runAgent(), primary: true }
-    ];
-  } else if(status === 502 || status === 503){
+    title = 'API Key Error';
+    body  = 'The worker API key is missing or invalid. Check your Cloudflare Worker secrets (ANTHROPIC_API_KEY and GEMINI_API_KEY).';
+    ctas  = [{ label: '🔄 Try Again', action: ()=>runAgent(), primary: true }];
+
+  } else if(status === 502 || status === 503 || status === 0){
     icon  = '📡';
-    title = 'Service Unavailable';
-    body  = 'The AI provider is temporarily down. Usually resolves in under a minute.';
+    title = 'Worker Unreachable';
+    body  = 'Could not connect to the PA Worker. Check that your Cloudflare Worker is deployed and the URL is correct.';
     ctas  = [
       { label: '🔄 Retry', action: ()=>runAgent(), primary: true },
-      { label: '📊 AI Status', href: 'https://status.anthropic.com', target: '_blank' }
+      { label: '📊 Cloudflare Status', href: 'https://www.cloudflarestatus.com', target: '_blank' }
     ];
+
   } else {
     icon  = '❌';
     title = 'Something Went Wrong';
-    body  = msg || 'An unexpected error occurred. Try again or refresh the page.';
-    ctas  = [
-      { label: '🔄 Retry', action: ()=>runAgent(), primary: true }
-    ];
+    body  = 'An unexpected error occurred. Try again or check the browser console (F12) for details.';
+    ctas  = [{ label: '🔄 Retry', action: ()=>runAgent(), primary: true }];
   }
+
+  // Always show the raw error so you can debug
+  const debugLine = msg ? `<div style="margin-top:10px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ink3);background:var(--glass);border-radius:6px;padding:6px 10px;word-break:break-all;">HTTP ${status}: ${msg}</div>` : '';
 
   const ctaHtml = ctas.map((c,i) => {
     const style = (i===0 && c.primary)
@@ -857,6 +858,7 @@ function showWorkerError(status, msg){
       </div>
       <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:16px;">${body}</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">${ctaHtml}</div>
+      ${debugLine}
     </div>`;
 }
 
