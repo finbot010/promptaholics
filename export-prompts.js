@@ -26,10 +26,9 @@ const formattedKey = privateKey.includes('\\n')
 
 admin.initializeApp({
   credential: admin.credential.cert({
-    type: 'service_account',
-    project_id: 'promptaholics-534d3',
-    client_email: clientEmail,
-    private_key: formattedKey,
+    projectId:   'promptaholics-534d3',
+    clientEmail: clientEmail,
+    privateKey:  formattedKey,
   })
 });
 
