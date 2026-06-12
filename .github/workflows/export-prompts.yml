@@ -1,0 +1,59 @@
+# ══════════════════════════════════════════════════════════════════
+# Promptaholics — Weekly Prompt Export
+# Runs every Monday at 2PM UTC
+# Reads approved prompts from Firestore → appends to prompts.js → commits
+# ══════════════════════════════════════════════════════════════════
+
+name: Export Approved Prompts
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # Every Monday at 2PM UTC
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Needed to commit + push prompts.js
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Firebase Admin
+        run: npm install firebase-admin
+
+      - name: Run export script
+        env:
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+        run: node --input-type=module scripts/export-prompts.js
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet prompts.js || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push updated prompts.js
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name  "PA Agent"
+          git config user.email "promptaholics1@gmail.com"
+          git add prompts.js
+          PROMPT_COUNT=$(node -e "const fs=require('fs');const c=fs.readFileSync('prompts.js','utf8');const m=c.match(/id:"/g);console.log(m?m.length:0)")
+          git commit -m "📚 Auto-export: library updated to ${PROMPT_COUNT} prompts [$(date +'%Y-%m-%d')]"
+          git push
+
+      - name: No changes
+        if: steps.changes.outputs.changed != 'true'
+        run: echo "✅ No new prompts to export. prompts.js unchanged."
