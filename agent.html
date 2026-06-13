@@ -859,19 +859,84 @@ async function callWorker(goal, mode){
     images:   'You are PA, image prompt specialist. Return ONLY valid JSON: {"goalSummary":"str","imagePrompts":[{"title":"str","tool":"Midjourney","style":"str","prompt":"str"},{"title":"str","tool":"DALL-E","style":"str","prompt":"str"},{"title":"str","tool":"Flux","style":"str","prompt":"str"},{"title":"str","tool":"Midjourney","style":"str","prompt":"str"}]}.',
     campaign: 'You are PA, Promptaholics campaign agent. Return ONLY valid JSON: {"goalSummary":"str","campaignName":"str","prompts":[{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"str","body":"str"},{"platform":"Email","type":"Newsletter","hook":"str","body":"str"}],"imagePrompts":[{"title":"str","tool":"Midjourney","prompt":"str"},{"title":"str","tool":"DALL-E","prompt":"str"}]}.'
   };
-  const intent = mode === 'images' ? 'image' : 'create';
   const userMsg = 'Goal: ' + goal + '. Return JSON only. No markdown, no explanation.';
+  const system  = sysByMode[mode] || sysByMode.prompts;
 
+  // ── BYOK — call APIs directly, key never touches our server ──
+  const anthKey = localStorage.getItem('pa_byok_anthropic');
+  const googKey = localStorage.getItem('pa_byok_google');
+
+  if(byokActive && anthKey && mode !== 'images'){
+    // Direct Anthropic call
+    let res;
+    try {
+      res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': anthKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 2048,
+          system: system,
+          messages: [{ role:'user', content: userMsg }]
+        })
+      });
+    } catch(e){ throw new Error('Could not reach Anthropic API — check your key.'); }
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      showErrorCard(res.status, err.error?.message || 'Anthropic API error ' + res.status);
+      throw new Error('__handled__');
+    }
+    const data = await res.json();
+    const text = (data.content?.[0]?.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('{'), la = text.lastIndexOf('}');
+    if(fi===-1||la===-1) throw new Error('No JSON in Anthropic response');
+    try { return JSON.parse(text.slice(fi,la+1)); }
+    catch(e){ throw new Error('JSON parse failed'); }
+  }
+
+  if(byokActive && googKey){
+    // Direct Google Gemini call
+    const model = 'gemini-2.0-flash';
+    const url   = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${googKey}`;
+    let res;
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents:[{ parts:[{ text: system + '\n\n' + userMsg }] }],
+          generationConfig:{ maxOutputTokens:2048, temperature:0.7 }
+        })
+      });
+    } catch(e){ throw new Error('Could not reach Gemini API — check your key.'); }
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      showErrorCard(res.status, err.error?.message || 'Gemini API error ' + res.status);
+      throw new Error('__handled__');
+    }
+    const data = await res.json();
+    const text = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('{'), la = text.lastIndexOf('}');
+    if(fi===-1||la===-1) throw new Error('No JSON in Gemini response');
+    try { return JSON.parse(text.slice(fi,la+1)); }
+    catch(e){ throw new Error('JSON parse failed'); }
+  }
+
+  // ── Default — route through Cloudflare Worker ────────────────
+  const intent = mode === 'images' ? 'image' : 'create';
   let res;
   try {
     res = await fetch(WORKER_URL + '/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ intent, max_tokens: 2048, system: sysByMode[mode] || sysByMode.prompts, messages: [{ role:'user', content: userMsg }] })
+      body: JSON.stringify({ intent, max_tokens: 2048, system, messages: [{ role:'user', content: userMsg }] })
     });
-  } catch(e){
-    throw new Error('Network error — could not reach PA Worker.');
-  }
+  } catch(e){ throw new Error('Network error — could not reach PA Worker.'); }
 
   const data = await res.json();
   if(!res.ok){
