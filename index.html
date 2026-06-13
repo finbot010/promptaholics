@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Promptaholics — Free AI Prompt Library | 1,485+ Expert Prompts</title>
-<meta name="description" content="Free AI prompt library with 1,485+ expert prompts for ChatGPT, Claude, Midjourney, Sora and every major AI tool. No signup. No paywall."/>
+<title>Promptaholics — Free AI Prompt Library | 1,487+ Expert Prompts</title>
+<meta name="description" content="Free AI prompt library with 1,487+ expert prompts for ChatGPT, Claude, Midjourney and every major AI tool. No signup. No paywall."/>
 <link rel="canonical" href="https://promptaholics.com/"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
@@ -617,6 +617,7 @@ img,video,iframe{max-width:100%;}
     <nav class="nav-desktop">
       <a href="library.html" class="nav-lnk">Library</a>
       <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+      <a href="agent.html" class="nav-lnk">PA Agent</a>
       <a href="creationstation.html" class="nav-lnk">AI Tools</a>
       <a href="learn.html" class="nav-lnk">Learn</a>
       <a href="vault.html" class="nav-lnk">Image Vault</a>
@@ -641,6 +642,7 @@ img,video,iframe{max-width:100%;}
     <a class="sm-item active" href="index.html"><i class="ti ti-home"></i> Home</a>
     <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
     <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class="sm-item" href="agent.html"><i class="ti ti-sparkles"></i> PA Agent</a>
     <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
     <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Learn</a>
     <a class="sm-item" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
@@ -698,7 +700,7 @@ img,video,iframe{max-width:100%;}
         </a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><span class="n">1,485<span>+</span></span><span class="l">Prompts</span></div>
+        <div class="hero-stat"><span class="n" id="heroStatCount">1,487<span>+</span></span><span class="l">Prompts</span></div>
         <div class="stat-divider"></div>
         <div class="hero-stat"><span class="n">15</span><span class="l">Categories</span></div>
         <div class="stat-divider"></div>
@@ -1296,6 +1298,29 @@ document.addEventListener('DOMContentLoaded', function(){
     if(++tries > 60) clearInterval(poll);
   }, 50);
 });
+</script>
+<!-- Dynamic prompt count from prompts.js -->
+<script>
+(function(){
+  // prompts.js defines window.prompts array
+  // We load it and count the entries to keep the homepage in sync
+  var s = document.createElement('script');
+  s.src = 'prompts.js';
+  s.onload = function(){
+    try {
+      var count = (window.prompts && window.prompts.length) ? window.prompts.length : null;
+      if(!count) return;
+      var formatted = count.toLocaleString();
+      // Update eyebrow
+      var eyebrow = document.getElementById('heroCount');
+      if(eyebrow) eyebrow.textContent = formatted;
+      // Update hero stat
+      var stat = document.getElementById('heroStatCount');
+      if(stat) stat.innerHTML = formatted + '<span>+</span>';
+    } catch(e){}
+  };
+  document.body.appendChild(s);
+})();
 </script>
 </body>
 </html>
