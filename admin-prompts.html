@@ -95,7 +95,30 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .btn-clear-all{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
 .btn-clear-all:hover{background:rgba(239,68,68,.16);}
 
-/* LOADING / EMPTY */
+/* JSON DROP ZONE */
+.drop-section{margin-bottom:28px;}
+.drop-section h2{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.drop-zone{border:2px dashed var(--border2);border-radius:14px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--glass);position:relative;}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--orange);background:rgba(255,98,36,.05);}
+.drop-zone i{font-size:36px;color:var(--ink3);display:block;margin-bottom:10px;transition:color .2s;}
+.drop-zone:hover i,.drop-zone.dragover i{color:var(--orange);}
+.drop-zone p{font-size:13px;color:var(--ink2);margin-bottom:6px;}
+.drop-zone span{font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-preview{margin-top:14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;display:none;}
+.drop-preview.show{display:block;}
+.drop-preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.drop-preview-title{font-size:13px;font-weight:700;}
+.drop-preview-count{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--orange);}
+.drop-preview-list{max-height:160px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.drop-preview-item{font-size:11px;color:var(--ink2);padding:4px 8px;background:var(--glass);border-radius:5px;display:flex;align-items:center;gap:6px;}
+.drop-preview-item i{font-size:12px;color:var(--green);}
+.drop-actions{display:flex;gap:8px;}
+.btn-import{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;background:var(--orange);color:#fff;font-weight:700;font-size:12px;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:background .15s;}
+.btn-import:hover{background:var(--o2);}
+.btn-import:disabled{opacity:.5;cursor:not-allowed;}
+.btn-cancel-import{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
+.btn-cancel-import:hover{color:var(--ink);}
 .loading{text-align:center;padding:48px;color:var(--ink2);}
 .loading i{font-size:32px;display:block;margin-bottom:12px;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -145,6 +168,32 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div class="stat-card approved"><div class="stat-num" id="statLive">—</div><div class="stat-label">Live</div></div>
       <div class="stat-card rejected"><div class="stat-num" id="statRejected">—</div><div class="stat-label">Rejected</div></div>
     </div>
+    <!-- JSON DROP ZONE -->
+    <div class="drop-section">
+      <h2><i class="ti ti-file-upload" style="color:var(--orange)"></i> Bulk Import Prompts</h2>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" accept=".json" onchange="handleFileSelect(event)">
+        <i class="ti ti-cloud-upload"></i>
+        <p>Drop a JSON file here or click to browse</p>
+        <span>Format: [{name, text, cat, tool, tags, feat, desc}, ...]</span>
+      </div>
+      <div class="drop-preview" id="dropPreview">
+        <div class="drop-preview-header">
+          <span class="drop-preview-title">Ready to Import</span>
+          <span class="drop-preview-count" id="dropCount">0 prompts</span>
+        </div>
+        <div class="drop-preview-list" id="dropList"></div>
+        <div class="drop-actions">
+          <button class="btn-import" id="importBtn" onclick="importPrompts()">
+            <i class="ti ti-database-import"></i> Import to Firestore
+          </button>
+          <button class="btn-cancel-import" onclick="cancelImport()">
+            <i class="ti ti-x"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setFilter('pending',this)">🟠 Pending</button>
       <button class="filter-btn" onclick="setFilter('live',this)">🟢 Live</button>
@@ -403,6 +452,121 @@ window.copyText = function(text,btn){
     btn.innerHTML='<i class="ti ti-check"></i> Copied!';
     setTimeout(()=>btn.innerHTML=orig,2000);
   });
+};
+
+// ── JSON DROP ZONE ────────────────────────────────────────────────
+let pendingImport = [];
+
+// Drag and drop events
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if(file) processFile(file);
+});
+
+window.handleFileSelect = function(e){
+  const file = e.target.files[0];
+  if(file) processFile(file);
+};
+
+function processFile(file){
+  if(!file.name.endsWith('.json')){
+    showToast('❌ Please drop a .json file');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      let data = JSON.parse(e.target.result);
+      // Handle both array and object with prompts key
+      if(!Array.isArray(data) && data.prompts) data = data.prompts;
+      if(!Array.isArray(data)) throw new Error('JSON must be an array of prompts');
+      if(data.length === 0) throw new Error('No prompts found in file');
+
+      pendingImport = data.map(p => ({
+        name:      p.name     || 'Untitled Prompt',
+        text:      p.text     || p.prompt || '',
+        cat:       p.cat      || p.category || 'General',
+        tool:      p.tool     || 'chatgpt',
+        tags:      Array.isArray(p.tags) ? p.tags : [],
+        feat:      p.feat     === true,
+        desc:      p.desc     || (p.text||'').slice(0,80),
+      })).filter(p => p.text.length > 0);
+
+      showDropPreview();
+    } catch(err){
+      showToast('❌ Invalid JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function showDropPreview(){
+  const preview = document.getElementById('dropPreview');
+  const countEl = document.getElementById('dropCount');
+  const listEl  = document.getElementById('dropList');
+
+  countEl.textContent = pendingImport.length + ' prompts';
+  listEl.innerHTML = pendingImport.map(p =>
+    `<div class="drop-preview-item"><i class="ti ti-check"></i>${esc(p.name)} <span style="color:var(--ink3);margin-left:auto">${esc(p.cat)}</span></div>`
+  ).join('');
+  preview.classList.add('show');
+}
+
+window.cancelImport = function(){
+  pendingImport = [];
+  document.getElementById('dropPreview').classList.remove('show');
+  document.getElementById('dropZone').querySelector('input').value = '';
+};
+
+window.importPrompts = async function(){
+  if(!pendingImport.length) return;
+  const btn = document.getElementById('importBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Importing…';
+
+  let success = 0;
+  let failed  = 0;
+
+  for(const p of pendingImport){
+    try {
+      await addDoc(collection(db,'prompts'), {
+        name:       p.name,
+        text:       p.text,
+        cat:        p.cat,
+        tool:       p.tool,
+        tags:       p.tags,
+        feat:       p.feat,
+        desc:       p.desc,
+        source:     'json-import',
+        status:     'live',
+        views:      0,
+        copies:     0,
+        createdAt:  serverTimestamp(),
+        importedAt: serverTimestamp(),
+      });
+      success++;
+    } catch(e){
+      console.error('Failed to import:', p.name, e);
+      failed++;
+    }
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-database-import"></i> Import to Firestore';
+
+  if(failed === 0){
+    showToast('✅ Imported ' + success + ' prompts! Run GitHub Action to export.');
+  } else {
+    showToast('⚠️ ' + success + ' imported, ' + failed + ' failed — check console.');
+  }
+
+  cancelImport();
+  await loadPrompts();
 };
 
 function esc(s){ const d=document.createElement('div');d.textContent=String(s||'');return d.innerHTML; }
