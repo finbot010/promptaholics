@@ -73,6 +73,7 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   <div class="nav-links">
     <a href="/">Home</a>
     <a href="library.html">Library</a>
+    <a href="agent.html">PA Agent</a>
     <a href="contact.html">Contact</a>
   </div>
 </nav>
@@ -84,9 +85,9 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   <p class="page-intro">Promptaholics is a free AI prompt library designed for creators, marketers, developers and entrepreneurs who want better results from AI tools — without spending hours crafting the perfect prompt from scratch.</p>
 
   <div class="stats">
-    <div class="stat"><span class="stat-n">452+</span><div class="stat-l">Free Prompts</div></div>
+    <div class="stat"><span class="stat-n" id="statPrompts">1,487+</span><div class="stat-l">Free Prompts</div></div>
     <div class="stat"><span class="stat-n">15</span><div class="stat-l">Categories</div></div>
-    <div class="stat"><span class="stat-n">8</span><div class="stat-l">AI Models</div></div>
+    <div class="stat"><span class="stat-n">12+</span><div class="stat-l">AI Models</div></div>
   </div>
 
   <h2>Our Story</h2>
@@ -102,7 +103,7 @@ footer a:hover{color:var(--orange);text-decoration:none;}
     </div>
     <div class="value">
       <div class="value-icon">🎯</div>
-      <div><div class="value-title">Quality over quantity</div><div class="value-desc">We'd rather have 452 prompts that actually work than 10,000 that don't. Every prompt is tested and refined.</div></div>
+      <div><div class="value-title">Quality over quantity</div><div class="value-desc">We'd rather have thousands of prompts that actually work than 10,000 that don't. Every prompt is tested and refined.</div></div>
     </div>
     <div class="value">
       <div class="value-icon">🔧</div>
@@ -115,7 +116,7 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   </div>
 
   <h2>What You Can Do Here</h2>
-  <p><strong>Browse 452+ prompts</strong> organized by category — writing, image generation, video, code, business, wellness, legal, real estate and more.</p>
+  <p><strong>Browse 1,487+ prompts</strong> organized by category — writing, image generation, video, code, business, wellness, legal, real estate and more.</p>
   <p><strong>Use the Prompt Builder</strong> — our 8-framework builder transforms your rough idea into a structured, high-performance prompt in seconds.</p>
   <p><strong>Discover AI tools</strong> — our Creation Station directory lists the best AI tools for every creative need, with direct links and honest descriptions.</p>
   <p><strong>Save your favorites</strong> — bookmark prompts you love and download them as a PDF to keep forever.</p>
@@ -137,6 +138,7 @@ footer a:hover{color:var(--orange);text-decoration:none;}
     <a href="prompt-builder.html">Builder</a>
     <a href="creationstation.html">AI Tools</a>
     <a href="blog.html">Blog</a>
+    <a href="agent.html">PA Agent</a>
     <a href="contact.html">Contact</a>
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
@@ -144,5 +146,31 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   <div class="copyright">© 2026 Promptaholics. Free forever.</div>
 </footer>
 
+<!-- Dynamic prompt count from prompts.js -->
+<script>
+(function(){
+  var s = document.createElement('script');
+  s.src = 'prompts.js';
+  s.onload = function(){
+    try {
+      var count = window.prompts && window.prompts.length
+                ? window.prompts.length
+                : (window.PROMPTS && window.PROMPTS.length ? window.PROMPTS.length : null);
+      if(!count) return;
+      var formatted = count.toLocaleString();
+      // Update stat card
+      var el = document.getElementById('statPrompts');
+      if(el) el.textContent = formatted + '+';
+      // Update body text occurrences
+      document.querySelectorAll('p strong').forEach(function(el){
+        if(el.textContent.includes('1,487+') || el.textContent.includes('prompts')){
+          el.textContent = el.textContent.replace(/[\d,]+\+?\s*prompts/i, formatted + '+ prompts');
+        }
+      });
+    } catch(e){}
+  };
+  document.body.appendChild(s);
+})();
+</script>
 </body>
 </html>
