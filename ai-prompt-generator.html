@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Free AI Prompt Generator — Create Expert Prompts in Seconds | Promptaholics</title>
+<meta name="description" content="Free AI prompt generator that creates expert-level prompts for ChatGPT, Claude, Midjourney and more. No signup required. Generate prompts using 9 proven frameworks."/>
+<link rel="canonical" href="https://promptaholics.com/ai-prompt-generator.html"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);
+  --orange:#ff6224;--o2:#ff9f24;--green:#22c55e;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.7;overflow-x:hidden;}
+a{color:var(--orange);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);font-family:'Syne',serif;font-size:15px;font-weight:800;text-decoration:none;}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.nav-links{display:flex;gap:4px;}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;text-decoration:none;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-cta{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;text-decoration:none;}
+@media(max-width:600px){.nav-links{display:none;}}
+
+/* PAGE */
+.page-wrap{max-width:860px;margin:0 auto;padding:48px 24px 80px;}
+
+/* HERO */
+.page-hero{text-align:center;margin-bottom:48px;}
+.page-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;background:rgba(255,98,36,.08);padding:5px 14px;border-radius:20px;border:1px solid rgba(255,98,36,.2);}
+.page-hero h1{font-family:'Syne',serif;font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:16px;}
+.page-hero p{font-size:16px;color:var(--ink2);max-width:560px;margin:0 auto 28px;}
+.hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;}
+.hero-stat{text-align:center;}
+.hero-stat-num{font-family:'Syne',serif;font-size:24px;font-weight:900;color:var(--orange);}
+.hero-stat-label{font-size:11px;color:var(--ink3);margin-top:2px;}
+
+/* GENERATOR TOOL */
+.generator{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px;margin-bottom:48px;}
+.gen-title{font-family:'Syne',serif;font-size:18px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.gen-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:540px){.gen-fields{grid-template-columns:1fr;}}
+.gen-field label{display:block;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;}
+.gen-field select,.gen-field input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:9px;padding:10px 12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border .15s;-webkit-appearance:none;}
+.gen-field select:focus,.gen-field input:focus{border-color:rgba(255,98,36,.4);}
+.gen-goal{margin-bottom:14px;}
+.gen-goal label{display:block;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;}
+.gen-goal textarea{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:9px;padding:12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:14px;resize:vertical;min-height:80px;outline:none;transition:border .15s;line-height:1.5;}
+.gen-goal textarea:focus{border-color:rgba(255,98,36,.4);}
+.gen-goal textarea::placeholder{color:var(--ink3);}
+.btn-generate{width:100%;background:var(--orange);border:none;border-radius:10px;padding:14px;color:#fff;font-family:'Syne',serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-generate:hover{background:var(--o2);}
+.btn-generate:disabled{opacity:.5;cursor:not-allowed;}
+.gen-output{margin-top:20px;display:none;}
+.gen-output.show{display:block;}
+.gen-output-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;}
+.gen-output-text{background:var(--bg);border:1px solid var(--border2);border-radius:9px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink2);line-height:1.7;white-space:pre-wrap;min-height:120px;}
+.gen-output-actions{display:flex;gap:8px;margin-top:10px;}
+.btn-copy-output{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:8px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.btn-copy-output:hover{background:rgba(255,98,36,.15);}
+.btn-try-agent{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;font-family:'Instrument Sans',sans-serif;}
+.btn-try-agent:hover{color:var(--ink);}
+
+/* CONTENT SECTIONS */
+h2{font-family:'Syne',serif;font-size:24px;font-weight:800;margin:48px 0 16px;letter-spacing:-.3px;}
+h3{font-size:17px;font-weight:700;margin:28px 0 10px;}
+p{color:var(--ink2);margin-bottom:16px;font-size:15px;}
+ul,ol{color:var(--ink2);padding-left:20px;margin-bottom:16px;}
+li{margin-bottom:8px;font-size:15px;}
+strong{color:var(--ink);font-weight:700;}
+
+/* Framework cards */
+.frameworks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:24px 0;}
+.fw-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.fw-name{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--orange);}
+.fw-stands{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ink3);margin-bottom:8px;}
+.fw-desc{font-size:12px;color:var(--ink2);line-height:1.5;}
+.fw-best{font-size:10px;color:var(--ink3);margin-top:8px;font-style:italic;}
+
+/* Example prompts */
+.example-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:24px 0;}
+.example-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.example-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);margin-bottom:8px;}
+.example-title{font-size:14px;font-weight:700;margin-bottom:8px;}
+.example-text{font-size:12px;color:var(--ink2);line-height:1.65;font-family:'JetBrains Mono',monospace;background:var(--glass);border-radius:7px;padding:10px 12px;}
+
+/* CTA */
+.cta-box{background:linear-gradient(135deg,rgba(255,98,36,.08),rgba(255,159,36,.05));border:1px solid rgba(255,98,36,.2);border-radius:14px;padding:28px;text-align:center;margin:40px 0;}
+.cta-box h3{font-family:'Syne',serif;font-size:20px;font-weight:800;margin-bottom:8px;}
+.cta-box p{font-size:14px;color:var(--ink2);margin-bottom:20px;}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cta-btn-primary{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;background:var(--orange);color:#fff;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none;}
+.cta-btn-secondary{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:10px;font-weight:600;font-size:13px;text-decoration:none;}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(13,13,20,.97);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* Footer */
+.footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--ink3);font-size:12px;}
+.footer a{color:var(--ink3);}
+.footer a:hover{color:var(--orange);}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">⚡</div>
+    Prompt<span style="color:var(--orange)">aholics</span>
+  </a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-lnk">Library</a>
+    <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+    <a href="agent.html" class="nav-lnk">PA Agent</a>
+    <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+  </div>
+  <a href="library.html" class="nav-cta">Browse Prompts</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="page-label"><i class="ti ti-sparkles"></i> Free AI Tool</div>
+    <h1>AI Prompt Generator</h1>
+    <p>Create expert-level prompts for ChatGPT, Claude, Midjourney and every major AI tool in seconds. Built on 9 proven prompt engineering frameworks. No signup required.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">9</div><div class="hero-stat-label">Frameworks</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-label">AI Tools</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">$0</div><div class="hero-stat-label">Forever Free</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">1,487+</div><div class="hero-stat-label">Example Prompts</div></div>
+    </div>
+  </div>
+
+  <!-- GENERATOR TOOL -->
+  <div class="generator">
+    <div class="gen-title"><i class="ti ti-wand" style="color:var(--orange)"></i> Generate Your Prompt</div>
+    <div class="gen-fields">
+      <div class="gen-field">
+        <label>AI Tool</label>
+        <select id="genTool">
+          <option value="ChatGPT">ChatGPT</option>
+          <option value="Claude">Claude</option>
+          <option value="Gemini">Gemini</option>
+          <option value="Midjourney">Midjourney</option>
+          <option value="DALL-E">DALL-E 3</option>
+          <option value="Flux">Flux</option>
+          <option value="Runway">Runway</option>
+          <option value="Kling AI">Kling AI</option>
+        </select>
+      </div>
+      <div class="gen-field">
+        <label>Framework</label>
+        <select id="genFramework">
+          <option value="RTF">RTF (Role, Task, Format)</option>
+          <option value="CoSTAR">CoSTAR</option>
+          <option value="RISEN">RISEN</option>
+          <option value="AETHER">AETHER</option>
+          <option value="Chain-of-Thought">Chain-of-Thought</option>
+          <option value="CRISPE">CRISPE</option>
+          <option value="SCQA">SCQA</option>
+          <option value="Few-Shot">Few-Shot</option>
+          <option value="Zero-Shot">Zero-Shot</option>
+        </select>
+      </div>
+    </div>
+    <div class="gen-goal">
+      <label>What do you want to create or achieve?</label>
+      <textarea id="genGoal" placeholder="e.g. Write a viral LinkedIn post about AI productivity tips for marketing managers..."></textarea>
+    </div>
+    <button class="btn-generate" id="genBtn" onclick="generatePrompt()">
+      <i class="ti ti-sparkles" id="genIcon"></i>
+      <span id="genLabel">Generate Prompt</span>
+    </button>
+    <div class="gen-output" id="genOutput">
+      <div class="gen-output-label">Your Generated Prompt</div>
+      <div class="gen-output-text" id="genOutputText"></div>
+      <div class="gen-output-actions">
+        <button class="btn-copy-output" onclick="copyOutput()"><i class="ti ti-copy"></i> Copy Prompt</button>
+        <a href="agent.html" class="btn-try-agent"><i class="ti ti-robot"></i> Try PA Agent for More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE CONTENT -->
+  <h2>What Is an AI Prompt Generator?</h2>
+  <p>An AI prompt generator is a tool that helps you create structured, effective instructions for AI models like ChatGPT, Claude, and Midjourney. Instead of starting from a blank page and guessing what to write, a prompt generator applies proven frameworks and best practices to transform your rough idea into a precise, effective instruction.</p>
+  <p>The difference between a basic prompt and a well-engineered prompt can be dramatic. A poorly structured prompt might get you a generic, surface-level response. A well-structured prompt — with a clear role, specific task, context, and desired format — can produce expert-level output that would take a human professional hours to create.</p>
+  <p>This is what prompt engineering is about: understanding how AI models interpret instructions and crafting your inputs to get the best possible outputs. Our free AI prompt generator applies these principles automatically.</p>
+
+  <h2>The 9 Prompt Frameworks We Use</h2>
+  <p>Not all prompts are created equal. Professional prompt engineers use specific frameworks depending on the task. Here are the nine frameworks built into our generator:</p>
+
+  <div class="frameworks">
+    <div class="fw-card">
+      <div class="fw-name">RTF</div>
+      <div class="fw-stands">Role · Task · Format</div>
+      <div class="fw-desc">The simplest and most versatile framework. Define who Claude or ChatGPT should be, what it should do, and how to format the output.</div>
+      <div class="fw-best">Best for: Quick tasks, writing, summaries</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">CoSTAR</div>
+      <div class="fw-stands">Context · Objective · Style · Tone · Audience · Response</div>
+      <div class="fw-desc">A comprehensive framework that gives the AI everything it needs for content creation tasks. Especially powerful for marketing and communications.</div>
+      <div class="fw-best">Best for: Marketing copy, content creation</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">RISEN</div>
+      <div class="fw-stands">Role · Instructions · Steps · End Goal · Narrowing</div>
+      <div class="fw-desc">Ideal for complex multi-step tasks. The "narrowing" component adds constraints that improve output quality significantly.</div>
+      <div class="fw-best">Best for: Research, analysis, complex tasks</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">AETHER</div>
+      <div class="fw-stands">Audience · Ask · Tone · Examples · How · Result</div>
+      <div class="fw-desc">Built around the audience first — making it excellent for customer-facing content where knowing who you're writing for drives every other decision.</div>
+      <div class="fw-best">Best for: Customer content, copywriting</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">Chain-of-Thought</div>
+      <div class="fw-stands">Think step-by-step reasoning</div>
+      <div class="fw-desc">Asks the AI to reason through a problem step by step before answering. Dramatically improves accuracy on complex analytical and mathematical tasks.</div>
+      <div class="fw-best">Best for: Problem-solving, analysis, coding</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">CRISPE</div>
+      <div class="fw-stands">Capacity · Role · Insight · Statement · Personality · Experiment</div>
+      <div class="fw-desc">One of the most detailed frameworks, designed for tasks that require deep expertise and nuanced outputs. Takes longer to write but delivers superior results.</div>
+      <div class="fw-best">Best for: Expert-level outputs, consulting</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">SCQA</div>
+      <div class="fw-stands">Situation · Complication · Question · Answer</div>
+      <div class="fw-desc">Originally a consulting storytelling framework, adapted for AI prompting. Excellent for business communications and persuasive writing.</div>
+      <div class="fw-best">Best for: Business writing, presentations</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">Few-Shot</div>
+      <div class="fw-stands">Examples + New Task</div>
+      <div class="fw-desc">Provide 2-3 examples of the output you want, then ask for more. The AI learns your exact style and format from the examples. One of the most powerful techniques.</div>
+      <div class="fw-best">Best for: Style matching, formatting, creative</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-name">Zero-Shot</div>
+      <div class="fw-stands">Direct instruction only</div>
+      <div class="fw-desc">A clear, direct instruction with no examples. Works best for straightforward tasks with modern models. Fast and effective when you know exactly what you want.</div>
+      <div class="fw-best">Best for: Simple tasks, quick results</div>
+    </div>
+  </div>
+
+  <h2>How to Use an AI Prompt Generator Effectively</h2>
+
+  <h3>1. Start with your goal, not your prompt</h3>
+  <p>Before you open any prompt generator, get clear on what you actually want. What's the final output you need? Who will read it? What format should it be in? What tone? The more specifically you can answer these questions, the better your generated prompt will be.</p>
+
+  <h3>2. Choose the right framework for your task</h3>
+  <p>Different tasks benefit from different frameworks. If you're writing marketing copy, CoSTAR or AETHER will serve you better than Chain-of-Thought. If you're debugging code or solving a complex problem, Chain-of-Thought is the right choice. When in doubt, RTF is a solid default for most tasks.</p>
+
+  <h3>3. Match your prompt to the AI tool</h3>
+  <p>ChatGPT, Claude, and Midjourney all respond differently to the same prompt. Claude is particularly strong at nuanced analysis and long-form writing. ChatGPT excels at structured tasks and code. Midjourney requires a completely different type of prompt — focused on visual descriptors, styles, and parameters. Always select the right tool for your task before generating a prompt.</p>
+
+  <h3>4. Iterate and refine</h3>
+  <p>No generated prompt will be perfect on the first try. Use the generated prompt as a starting point, run it through the AI tool, then refine based on the output. Over time you'll develop intuition for what works in different situations.</p>
+
+  <h3>5. Save your best prompts</h3>
+  <p>When you find a prompt that works exceptionally well, save it. Build a personal library of prompts that work for your specific use cases. Our <a href="library.html">prompt library</a> has 1,487+ tested prompts you can use as starting points across 15 categories.</p>
+
+  <h2>Example Prompts Generated by Our Tool</h2>
+  <p>Here are examples of prompts generated using different frameworks for different AI tools:</p>
+
+  <div class="example-grid">
+    <div class="example-card">
+      <div class="example-tag">ChatGPT · RTF Framework</div>
+      <div class="example-title">Marketing Email Writer</div>
+      <div class="example-text">You are an expert email copywriter with 10 years of experience in B2B SaaS marketing. Your task is to write a promotional email announcing a new product feature to existing customers. The email should: open with a benefit-focused headline, lead with the customer's pain point before introducing the feature, include one specific use case with measurable outcome, have a clear single CTA, and stay under 200 words. Format as: Subject line, Preview text, Email body. Tone: professional but conversational, not corporate.</div>
+    </div>
+    <div class="example-card">
+      <div class="example-tag">Claude · Chain-of-Thought Framework</div>
+      <div class="example-title">Business Strategy Analyzer</div>
+      <div class="example-text">Think through this business decision step by step before giving your recommendation. The decision: [PASTE DECISION]. Step 1: Identify all the stakeholders affected and their interests. Step 2: List the key variables and unknowns. Step 3: Map out likely outcomes for each option (best case, realistic, worst case). Step 4: Identify what assumptions each outcome depends on. Step 5: Flag what information would change your recommendation if you had it. Step 6: Give your recommendation with clear reasoning. Show your thinking at each step.</div>
+    </div>
+    <div class="example-card">
+      <div class="example-tag">Midjourney · Zero-Shot Framework</div>
+      <div class="example-title">Product Photography Shot</div>
+      <div class="example-text">[PRODUCT] on white marble surface, soft diffused studio lighting from the left, shallow depth of field, premium product photography, clean minimalist composition, slight shadow beneath product, color temperature 5500K, shot on Canon EOS R5 with 100mm macro lens, commercial quality, high resolution, magazine-ready, professional retouching, --ar 4:5 --v 6 --style raw --q 2</div>
+    </div>
+  </div>
+
+  <h2>AI Prompt Generator vs Manual Prompt Writing</h2>
+  <p>You might wonder — why use an AI prompt generator instead of writing prompts manually? There are a few key advantages:</p>
+  <ul>
+    <li><strong>Speed:</strong> A good prompt generator can produce a structured prompt in seconds that might take you 10-15 minutes to write from scratch.</li>
+    <li><strong>Framework consistency:</strong> It's easy to forget elements of a framework when writing manually. A generator ensures every component is included.</li>
+    <li><strong>Starting point quality:</strong> Even if you customize the output, starting from a structured prompt is faster than starting from nothing.</li>
+    <li><strong>Learning tool:</strong> Seeing how different frameworks are applied helps you understand prompt engineering principles, making you better at writing prompts manually over time.</li>
+  </ul>
+  <p>That said, no generator replaces genuine understanding of what you need and why. The best AI prompt users combine tools like this generator with a solid library of tested prompts and the ability to customize and iterate.</p>
+
+  <div class="cta-box">
+    <h3>Ready to Go Deeper?</h3>
+    <p>Browse 1,487+ expert prompts in our free library, or use the PA Agent to generate custom prompts tailored to your exact goal using Claude AI.</p>
+    <div class="cta-btns">
+      <a href="library.html" class="cta-btn-primary"><i class="ti ti-books"></i> Browse Free Library</a>
+      <a href="agent.html" class="cta-btn-secondary"><i class="ti ti-sparkles"></i> Try PA Agent</a>
+    </div>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>Is this AI prompt generator really free?</h3>
+  <p>Yes — completely free, no signup required, no credit card, no usage limits. Promptaholics is a free AI prompt library and always will be. The generator on this page uses client-side logic to build structured prompts based on your inputs.</p>
+
+  <h3>What AI tools does this work with?</h3>
+  <p>Our prompt generator creates prompts optimized for ChatGPT (GPT-4o), Claude (Anthropic), Gemini (Google), Midjourney, DALL-E 3, Flux, Runway, and Kling AI. Each tool has slightly different prompt preferences built into the generator.</p>
+
+  <h3>What's the difference between the prompt generator and the PA Agent?</h3>
+  <p>The prompt generator on this page uses rule-based logic to apply frameworks to your input — it's fast and works without an internet connection. The <a href="agent.html">PA Agent</a> uses Claude AI to understand your goal in depth and generate 5 tailored expert prompts, create full content campaigns, or engineer a single perfect custom prompt. The PA Agent produces higher-quality, more contextual results — but requires the AI model to process your request.</p>
+
+  <h3>How do I know which framework to choose?</h3>
+  <p>Use RTF for most writing tasks. Use Chain-of-Thought for analysis, coding, and problem-solving. Use CoSTAR or AETHER for marketing and customer-facing content. Use Few-Shot when you have examples of the output style you want. When in doubt, RTF is the safest default — it works well for the vast majority of use cases.</p>
+
+  <h3>Can I save my generated prompts?</h3>
+  <p>You can copy any generated prompt to your clipboard. For a searchable library of 1,487+ tested prompts organized by category and tool, visit our <a href="library.html">prompt library</a>. You can also use the <a href="prompt-builder.html">Prompt Builder</a> to create and customize prompts using our framework-guided interface.</p>
+
+</div>
+
+<footer class="footer">
+  <p style="margin-bottom:8px;">
+    <a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="prompt-builder.html">Builder</a> · <a href="agent.html">PA Agent</a> · <a href="blog.html">Blog</a>
+  </p>
+  <p>© 2026 Promptaholics · Free AI Prompt Generator · Forever free.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Simple client-side prompt generator ──────────────────────────
+const FRAMEWORKS = {
+  'RTF': {
+    template: (tool, goal) => `You are an expert [ROLE relevant to: ${goal}].\n\nYour task: ${goal}\n\nFormat your response as:\n- [Structure your output clearly]\n- [Include specific sections relevant to the task]\n- [Specify length, tone, and style]\n\nTool: ${tool}. Be specific, avoid generic responses, and focus on producing immediately usable output.`
+  },
+  'CoSTAR': {
+    template: (tool, goal) => `Context: [Provide background information relevant to: ${goal}]\n\nObjective: ${goal}\n\nStyle: [Specify the writing style — formal/conversational/technical]\n\nTone: [Specify tone — professional/friendly/authoritative]\n\nAudience: [Describe who will read or use this output]\n\nResponse format: [Specify exactly how you want the output structured — paragraphs, bullet points, numbered list, table, etc.]\n\nUsing ${tool}, deliver the response following all of the above parameters precisely.`
+  },
+  'RISEN': {
+    template: (tool, goal) => `Role: You are an expert in [FIELD most relevant to: ${goal}].\n\nInstructions: ${goal}\n\nSteps to follow:\n1. [First step]\n2. [Second step]\n3. [Third step]\n4. [Review and refine]\n\nEnd goal: [Define what a successful output looks like — be specific about quality, completeness, and impact]\n\nNarrowing constraints:\n- Keep the response [LENGTH]\n- Focus specifically on [SPECIFIC ASPECT]\n- Avoid [WHAT TO EXCLUDE]\n\nUsing ${tool}, complete this task following each step in sequence.`
+  },
+  'AETHER': {
+    template: (tool, goal) => `Audience: [Describe the specific person who will receive or use this output — their background, knowledge level, and what they care about]\n\nAsk: ${goal}\n\nTone: [Specify the tone — e.g., warm and encouraging, direct and professional, urgent]\n\nExamples of what good output looks like:\n- Example 1: [Brief example of the style/quality you want]\n- Example 2: [Another example]\n\nHow to structure the response: [Describe the format — sections, headers, bullet points, length]\n\nResult: The final output should [describe the specific impact or use case of the output]\n\nUsing ${tool}, create this with the audience's perspective as your primary guide.`
+  },
+  'Chain-of-Thought': {
+    template: (tool, goal) => `Think through this step by step before giving your final answer.\n\nTask: ${goal}\n\nStep 1: Understand the core question or problem — restate it in your own words.\nStep 2: Identify what information or knowledge is needed.\nStep 3: Work through the reasoning systematically.\nStep 4: Consider alternative approaches or edge cases.\nStep 5: Arrive at your conclusion with clear reasoning.\nStep 6: Verify your answer makes sense and is complete.\n\nUsing ${tool}, show your reasoning at each step, then provide a clear final answer.`
+  },
+  'CRISPE': {
+    template: (tool, goal) => `Capacity and Role: You are a world-class expert in [FIELD] with extensive experience in [SPECIFIC DOMAIN relevant to: ${goal}].\n\nInsight: [Provide key background context that frames the task]\n\nStatement: ${goal}\n\nPersonality: Respond with the confidence and precision of a senior expert. Be direct, specific, and avoid hedging language.\n\nExperiment: After completing the main task, suggest 2-3 alternative approaches or improvements the user might not have considered.\n\nUsing ${tool}, deliver your response at the highest level of expertise.`
+  },
+  'SCQA': {
+    template: (tool, goal) => `Situation: [Describe the current state — what's happening and why it matters]\n\nComplication: [Describe the problem, challenge, or gap that needs to be addressed]\n\nQuestion: Based on the situation and complication, the key question is: [Frame the core question]\n\nAnswer: ${goal}\n\nUsing ${tool}, address the answer section by providing a complete, structured response that resolves the complication described above. Make it actionable and specific.`
+  },
+  'Few-Shot': {
+    template: (tool, goal) => `I want you to create content in this exact style. Here are examples:\n\nExample 1:\n[PASTE AN EXAMPLE OF THE OUTPUT STYLE YOU WANT]\n\nExample 2:\n[PASTE ANOTHER EXAMPLE]\n\nExample 3:\n[PASTE A THIRD EXAMPLE]\n\nNow create the following in the exact same style, format, and tone as the examples above:\n${goal}\n\nUsing ${tool}. Match the examples precisely — same structure, similar length, same voice.`
+  },
+  'Zero-Shot': {
+    template: (tool, goal) => `${goal}\n\nRequirements:\n- Be specific and detailed\n- Avoid generic or vague responses\n- Focus on immediately actionable output\n- Length: [SPECIFY]\n- Format: [SPECIFY]\n- Tone: [SPECIFY]\n\n[Using ${tool}]`
+  }
+};
+
+let isGenerating = false;
+
+function generatePrompt(){
+  if(isGenerating) return;
+  const tool = document.getElementById('genTool').value;
+  const fw = document.getElementById('genFramework').value;
+  const goal = document.getElementById('genGoal').value.trim();
+  if(!goal){ showToast('Enter your goal first'); return; }
+
+  isGenerating = true;
+  const btn = document.getElementById('genBtn');
+  const icon = document.getElementById('genIcon');
+  const label = document.getElementById('genLabel');
+  btn.disabled = true;
+  icon.className = 'ti ti-loader-2';
+  label.textContent = 'Generating…';
+
+  setTimeout(()=>{
+    const framework = FRAMEWORKS[fw];
+    const prompt = framework ? framework.template(tool, goal) : `[${fw}]\n\nTask: ${goal}\n\n[Using ${tool}]`;
+
+    document.getElementById('genOutputText').textContent = prompt;
+    document.getElementById('genOutput').classList.add('show');
+
+    btn.disabled = false;
+    icon.className = 'ti ti-sparkles';
+    label.textContent = 'Generate Again';
+    isGenerating = false;
+
+    document.getElementById('genOutput').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }, 600);
+}
+
+function copyOutput(){
+  const text = document.getElementById('genOutputText').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    showToast('✅ Prompt copied to clipboard!');
+  });
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// Allow Enter key in textarea to not submit
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('genGoal').addEventListener('keydown',e=>{
+    if(e.key==='Enter' && e.ctrlKey) generatePrompt();
+  });
+});
+</script>
+</body>
+</html>

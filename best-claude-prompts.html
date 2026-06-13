@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Best Claude Prompts 2026 — 50 Expert Prompts for Anthropic's Claude AI</title>
+<meta name="description" content="The 50 best Claude prompts for writing, coding, analysis, business and creative work. Expert-crafted prompts that get the most out of Claude's unique strengths."/>
+<link rel="canonical" href="https://promptaholics.com/best-claude-prompts.html"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);
+  --orange:#ff6224;--o2:#ff9f24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.7;overflow-x:hidden;}
+a{color:var(--orange);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);font-family:'Syne',serif;font-size:15px;font-weight:800;text-decoration:none;}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.nav-links{display:flex;gap:4px;}
+.nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;text-decoration:none;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-cta{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;text-decoration:none;}
+@media(max-width:600px){.nav-links{display:none;}}
+
+/* ARTICLE */
+.article-wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px;}
+.article-label{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.article-label::before{content:'';width:20px;height:2px;background:var(--orange);}
+h1{font-family:'Syne',serif;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:16px;}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink3);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.article-meta span{display:flex;align-items:center;gap:5px;}
+.article-intro{font-size:17px;color:var(--ink2);line-height:1.75;margin-bottom:36px;padding:20px 24px;background:var(--glass);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;}
+h2{font-family:'Syne',serif;font-size:22px;font-weight:800;margin:40px 0 16px;letter-spacing:-.3px;}
+h3{font-size:16px;font-weight:700;margin:28px 0 10px;color:var(--ink);}
+p{color:var(--ink2);margin-bottom:16px;font-size:15px;}
+ul,ol{color:var(--ink2);padding-left:20px;margin-bottom:16px;}
+li{margin-bottom:8px;font-size:15px;}
+strong{color:var(--ink);font-weight:700;}
+
+/* Prompt cards */
+.prompt-section{margin:32px 0;}
+.prompt-category{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;padding:8px 0;border-bottom:1px solid var(--border);}
+.prompt-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px;transition:border .2s;}
+.prompt-card:hover{border-color:var(--border2);}
+.prompt-num{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--orange);font-weight:700;margin-bottom:6px;}
+.prompt-name{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--ink);}
+.prompt-text{font-size:12px;color:var(--ink2);line-height:1.65;font-family:'JetBrains Mono',monospace;background:var(--glass);border-radius:7px;padding:10px 12px;margin-bottom:10px;white-space:pre-wrap;}
+.prompt-actions{display:flex;gap:6px;}
+.btn-copy{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.btn-copy:hover{background:rgba(255,98,36,.15);}
+.btn-try{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;font-family:'Instrument Sans',sans-serif;}
+.btn-try:hover{color:var(--ink);}
+
+/* CTA box */
+.cta-box{background:linear-gradient(135deg,rgba(255,98,36,.08),rgba(255,159,36,.05));border:1px solid rgba(255,98,36,.2);border-radius:14px;padding:28px;text-align:center;margin:40px 0;}
+.cta-box h3{font-family:'Syne',serif;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--ink);}
+.cta-box p{font-size:14px;color:var(--ink2);margin-bottom:20px;}
+.cta-box a{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--orange);color:#fff;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;}
+.cta-box a:hover{background:var(--o2);}
+
+/* TOC */
+.toc{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:36px;}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;}
+.toc ol{color:var(--ink2);padding-left:18px;}
+.toc li{font-size:13px;margin-bottom:6px;}
+.toc a{color:var(--ink2);text-decoration:none;}
+.toc a:hover{color:var(--orange);}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(13,13,20,.97);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* Footer */
+.footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--ink3);font-size:12px;margin-top:60px;}
+.footer a{color:var(--ink3);}
+.footer a:hover{color:var(--orange);}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark">⚡</div>
+    Prompt<span style="color:var(--orange)">aholics</span>
+  </a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-lnk">Library</a>
+    <a href="prompt-builder.html" class="nav-lnk">Builder</a>
+    <a href="agent.html" class="nav-lnk">PA Agent</a>
+    <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+  </div>
+  <a href="library.html" class="nav-cta">Browse Prompts</a>
+</nav>
+
+<article class="article-wrap">
+
+  <div class="article-label">Guide · Claude AI</div>
+  <h1>The 50 Best Claude Prompts in 2026</h1>
+  <div class="article-meta">
+    <span><i class="ti ti-calendar"></i> June 2026</span>
+    <span><i class="ti ti-clock"></i> 10 min read</span>
+    <span><i class="ti ti-sparkles"></i> 50 prompts</span>
+  </div>
+
+  <div class="article-intro">
+    Claude by Anthropic is one of the most powerful AI models available today — and it responds differently to prompts than ChatGPT does. This guide gives you the 50 best Claude prompts across writing, analysis, coding, business, and creative work, plus tips on how to get the most out of Claude's unique strengths.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#why-claude">Why Claude Needs Different Prompts</a></li>
+      <li><a href="#writing">Writing & Content Prompts</a></li>
+      <li><a href="#analysis">Analysis & Research Prompts</a></li>
+      <li><a href="#coding">Coding & Technical Prompts</a></li>
+      <li><a href="#business">Business & Strategy Prompts</a></li>
+      <li><a href="#creative">Creative & Storytelling Prompts</a></li>
+      <li><a href="#tips">Claude Prompting Tips</a></li>
+    </ol>
+  </div>
+
+  <h2 id="why-claude">Why Claude Needs Different Prompts</h2>
+  <p>Claude has distinct strengths that set it apart from other AI models. It excels at nuanced reasoning, handling long documents, following complex multi-step instructions, and producing writing that sounds genuinely human rather than AI-generated. It also has a strong sense of ethics and will push back on vague or misleading requests — which means the quality of your prompt matters more with Claude than with any other model.</p>
+  <p>The biggest mistake people make with Claude is treating it like a search engine. Claude thrives when you give it <strong>context, a clear role, specific constraints, and a defined output format</strong>. The prompts below are structured to work with these strengths, not against them.</p>
+  <p>One more key difference: Claude handles very long context windows exceptionally well. You can paste entire documents, contracts, or codebases and ask Claude to analyze them in detail — something most other models struggle with. Several prompts below take advantage of this capability.</p>
+
+  <div class="cta-box">
+    <h3>Find More Claude Prompts</h3>
+    <p>Browse 200+ Claude-specific prompts in our free library — organized by category, use case, and framework.</p>
+    <a href="library.html?tool=claude">Browse Claude Prompts →</a>
+  </div>
+
+  <h2 id="writing">✍️ Writing & Content Prompts</h2>
+  <p>Claude is one of the best AI models for long-form writing. Its outputs tend to be more nuanced, less repetitive, and more stylistically varied than other models. These prompts are optimized for Claude's writing strengths.</p>
+
+  <div class="prompt-section">
+    <div class="prompt-category">Writing & Content</div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#01</div>
+      <div class="prompt-name">Long-Form Article Writer</div>
+      <div class="prompt-text">You are an expert journalist and content strategist. Write a comprehensive, well-researched article about [TOPIC] for [TARGET AUDIENCE]. The article should be approximately [WORD COUNT] words. Structure it with a compelling headline, an opening hook that establishes why this matters right now, 4-6 main sections with subheadings, specific examples and data points in each section, a counterargument you address directly, and a conclusion with a clear takeaway. Write in a [TONE: authoritative/conversational/storytelling] tone. Avoid filler phrases, passive voice, and generic statements. Every paragraph should advance the reader's understanding.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#02</div>
+      <div class="prompt-name">Voice-Matched Ghostwriter</div>
+      <div class="prompt-text">Analyze the writing style in these samples and then write new content in that exact voice: [PASTE 3-5 PARAGRAPHS OF WRITING SAMPLES]. Identify: sentence length patterns, vocabulary level, rhythm and cadence, use of humor or irony, relationship with the reader, and any unique quirks. Then write [NEW CONTENT TOPIC] in 300-500 words that perfectly matches the voice. After writing, add a brief note explaining the stylistic choices you made to match the voice.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#03</div>
+      <div class="prompt-name">Email Newsletter Writer</div>
+      <div class="prompt-text">Write an email newsletter for [BRAND/CREATOR] going to [AUDIENCE DESCRIPTION]. Topic: [TOPIC]. Structure: Subject line (5 options, under 45 characters each), preview text (under 90 characters), opening that feels personal not broadcast, main content section (3 key points, each with a specific takeaway), one story or example that illustrates the main point, and a CTA that feels natural not salesy. Tone: [TONE]. Length: 400-500 words. Make it feel like it came from a real person, not a marketing team.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#04</div>
+      <div class="prompt-name">Book Chapter Outliner</div>
+      <div class="prompt-text">I am writing a non-fiction book about [TOPIC] for [TARGET READER]. Here is my working thesis: [THESIS]. Create a detailed chapter outline for Chapter [NUMBER]: [CHAPTER TITLE]. Include: the chapter's core argument (one sentence), an opening scene or hook, 4-6 main sections with titles, 2-3 sub-points per section, specific examples, stories, or data to include in each section, a transition strategy to the next chapter, and an estimated word count per section. Make the outline detailed enough that I could hand it to a writer and they'd know exactly what to write.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#05</div>
+      <div class="prompt-name">SEO Blog Post Optimizer</div>
+      <div class="prompt-text">You are an SEO content strategist and writer. Write an SEO-optimized blog post targeting the keyword: [TARGET KEYWORD]. Secondary keywords to include naturally: [LIST 3-5]. Target word count: [WORD COUNT]. Include: an H1 title that includes the main keyword, a meta description under 155 characters, an opening paragraph that addresses search intent directly, H2 and H3 subheadings that include keyword variations, internal linking suggestions marked as [INTERNAL LINK: topic], a FAQ section with 3-5 questions people also ask about this topic, and a conclusion with a clear CTA. Write for humans first, search engines second.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="analysis">🔍 Analysis & Research Prompts</h2>
+  <p>Claude's long context window and strong reasoning make it exceptional for analysis tasks. You can paste entire documents — reports, contracts, research papers, financial statements — and ask Claude to analyze them in depth. These prompts take full advantage of that capability.</p>
+
+  <div class="prompt-section">
+    <div class="prompt-category">Analysis & Research</div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#06</div>
+      <div class="prompt-name">Document Summarizer & Analyzer</div>
+      <div class="prompt-text">Analyze this document and provide: [PASTE DOCUMENT]. 1) Executive summary (3-5 sentences capturing the most important points), 2) Key findings or arguments (bullet points, prioritized by importance), 3) What's notable or surprising, 4) What's missing or not addressed, 5) Potential implications or next steps, 6) Any red flags or concerns. Format your response clearly with these sections labeled. Be direct and specific — avoid vague generalizations.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#07</div>
+      <div class="prompt-name">Competitive Intelligence Analyst</div>
+      <div class="prompt-text">You are a competitive intelligence analyst. Analyze [COMPETITOR NAME] based on this information: [PASTE ANY AVAILABLE DATA: website copy, reviews, pricing, job listings, social media]. Identify: their core value proposition, target customer segments, pricing strategy and positioning, key strengths (based on evidence), key weaknesses or gaps, what their customers love and hate (from reviews), and 3 opportunities for a competitor to differentiate. Be analytical, not speculative — flag anything that's an inference vs established fact.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#08</div>
+      <div class="prompt-name">Argument Steel-Manner</div>
+      <div class="prompt-text">I'm preparing to [defend a position / write an essay / pitch an idea] about: [YOUR POSITION]. First, steelman my position — present the strongest possible version of my argument, making it more compelling than I stated it. Then present the strongest counterarguments someone would make against my position (not strawmen, but the best objections a smart skeptic would raise). Finally, suggest how I should respond to the top 3 objections to make my argument bulletproof. Be intellectually honest throughout.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#09</div>
+      <div class="prompt-name">Research Synthesizer</div>
+      <div class="prompt-text">Synthesize the following research sources into a coherent analysis: [PASTE MULTIPLE SOURCES OR EXCERPTS]. Your synthesis should: identify the main themes across sources, note where sources agree and where they conflict, highlight the most important findings, identify gaps in the current research, and give me your assessment of what the evidence most strongly supports. Write it as a well-structured analysis, not a summary of each source. Cite sources by number when referencing specific points.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#10</div>
+      <div class="prompt-name">Contract Risk Reviewer</div>
+      <div class="prompt-text">Review this contract and identify risks and issues (educational purposes only — not legal advice): [PASTE CONTRACT SECTION]. Flag: unusual or one-sided clauses, missing standard protections, vague language that could be interpreted multiple ways, indemnification or liability concerns, termination clauses and their implications, auto-renewal traps, and any clause that significantly favors one party. Rate each flag: Minor / Moderate / Major. Suggest what questions to ask a lawyer about before signing. Plain language only.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="coding">💻 Coding & Technical Prompts</h2>
+  <p>Claude is exceptional at code — particularly at explaining code, reviewing it for bugs and security issues, and writing code that's clean and well-documented. Claude also handles large codebases well, making it ideal for refactoring and architecture decisions.</p>
+
+  <div class="prompt-section">
+    <div class="prompt-category">Coding & Technical</div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#11</div>
+      <div class="prompt-name">Code Reviewer</div>
+      <div class="prompt-text">Review this code and provide a comprehensive analysis: [PASTE CODE]. Evaluate: correctness (does it do what it's supposed to do?), edge cases not handled, security vulnerabilities, performance considerations, readability and maintainability, naming conventions, error handling quality, and test coverage gaps. For each issue found: describe the problem, explain why it matters, and show the corrected code. Prioritize issues by severity: Critical / High / Medium / Low. End with an overall assessment and the top 3 improvements to make first.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#12</div>
+      <div class="prompt-name">Code Explainer</div>
+      <div class="prompt-text">Explain this code to me as if I'm a [LEVEL: beginner/intermediate/senior] developer who hasn't seen this codebase before: [PASTE CODE]. Cover: what this code does overall, how it works step by step, why it's written this way (design decisions), any patterns or conventions used, potential gotchas or non-obvious behavior, and how I would modify it to [SPECIFIC CHANGE]. Use comments in the code to highlight important parts, then explain in plain language below.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#13</div>
+      <div class="prompt-name">Bug Debugger</div>
+      <div class="prompt-text">Help me debug this issue. Here's what's happening: [DESCRIBE BUG]. Here's the relevant code: [PASTE CODE]. Here's the error message (if any): [PASTE ERROR]. Here's what I've already tried: [LIST ATTEMPTS]. Please: identify the most likely cause of the bug, explain why this causes the observed behavior, provide a fix with explanation, suggest how to test the fix, and mention any related issues this bug might indicate. If you need more context to diagnose accurately, ask specific questions.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#14</div>
+      <div class="prompt-name">Architecture Decision Advisor</div>
+      <div class="prompt-text">I need to make an architecture decision for [PROJECT/SYSTEM]. Here are the options I'm considering: Option A: [DESCRIBE], Option B: [DESCRIBE], Option C: [DESCRIBE]. My constraints are: [TEAM SIZE, SCALE REQUIREMENTS, BUDGET, TIMELINE, EXISTING STACK]. Evaluate each option on: performance at scale, development complexity, maintenance burden, cost, team learning curve, and long-term flexibility. Give me a recommendation with clear reasoning, and flag the assumptions you're making. Include what questions I should answer before finalizing the decision.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#15</div>
+      <div class="prompt-name">Technical Documentation Writer</div>
+      <div class="prompt-text">Write comprehensive technical documentation for: [SYSTEM/FEATURE/API]. Audience: [DEVELOPERS/END USERS/BOTH]. Include: overview (what it is and why it exists), prerequisites, quick start guide (get it working in under 5 minutes), detailed reference (all parameters, options, return values), code examples for the 5 most common use cases, error messages and troubleshooting, and a changelog placeholder. Format in clean Markdown. Write for clarity — assume the reader is smart but unfamiliar with this specific system.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="business">📊 Business & Strategy Prompts</h2>
+  <p>Claude's strength in structured reasoning makes it an excellent business thinking partner. It can hold complex multi-variable problems in context, challenge your assumptions, and produce clear, actionable strategic frameworks.</p>
+
+  <div class="prompt-section">
+    <div class="prompt-category">Business & Strategy</div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#16</div>
+      <div class="prompt-name">Business Plan Section Writer</div>
+      <div class="prompt-text">Write the [SECTION: Executive Summary / Market Analysis / Business Model / Financial Projections / Competitive Analysis] section of a business plan for: [BUSINESS DESCRIPTION]. Target reader: [INVESTORS / BANK / INTERNAL]. Include: specific data and market sizing where relevant, realistic projections with clear assumptions stated, honest assessment of risks alongside opportunities, and language that is professional but not filled with jargon. Flag any section where I need to fill in specific numbers or research you don't have access to. Length: [WORD COUNT].</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#17</div>
+      <div class="prompt-name">Strategic Decision Framework</div>
+      <div class="prompt-text">I need to make this strategic decision: [DECISION]. The context is: [BACKGROUND]. The options are: [LIST OPTIONS]. Help me think through this by: identifying the key variables that should drive this decision, mapping the likely outcomes of each option (best case, realistic case, worst case), identifying what assumptions each option depends on, flagging what I might be missing or not considering, and recommending how to gather more information before deciding. Don't just validate my existing thinking — push back where you see gaps.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#18</div>
+      <div class="prompt-name">Pitch Deck Narrative Builder</div>
+      <div class="prompt-text">Help me build the narrative arc for a [SEED/SERIES A/CORPORATE] pitch deck about: [BUSINESS DESCRIPTION]. The story should take investors through: the undeniable problem (make them feel it), why existing solutions fall short, our unique insight or approach, why we're the right team, the market opportunity (with realistic sizing), our traction and proof points, business model and unit economics, what we're raising and what we'll do with it. Write the narrative arc as flowing prose I can adapt into slides, not bullet points. Keep it honest — investors can smell spin.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#19</div>
+      <div class="prompt-name">Pricing Strategy Analyst</div>
+      <div class="prompt-text">Analyze and recommend a pricing strategy for: [PRODUCT/SERVICE DESCRIPTION]. Current or proposed price: [PRICE]. Competitors and their pricing: [LIST]. Target customer: [DESCRIPTION]. Evaluate: cost-plus vs value-based vs competitive pricing approaches, psychological pricing opportunities, tiering or packaging options, price anchoring tactics, how price affects perceived quality in this market, and optimal price point with reasoning. Include a price increase communication template if recommending a higher price than current. Note assumptions made.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#20</div>
+      <div class="prompt-name">Meeting Agenda and Prep Builder</div>
+      <div class="prompt-text">Create a complete preparation package for this meeting: [MEETING TYPE AND CONTEXT]. Attendees: [LIST WITH ROLES]. Meeting goal: [DESIRED OUTCOME]. Include: agenda with time allocations, key talking points for each agenda item, data or materials to prepare in advance, questions to ask each stakeholder, likely objections or pushback with response strategies, decision framework for any choices to be made, and a follow-up email template for after the meeting. Format it as a one-page briefing document I can review the morning of the meeting.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="creative">🎨 Creative & Storytelling Prompts</h2>
+  <p>Claude's creative writing is distinctive — it tends to produce work that has genuine voice, emotional depth, and structural sophistication. Unlike some models that produce technically correct but flat prose, Claude can write with style. These prompts are designed to unlock that capability.</p>
+
+  <div class="prompt-section">
+    <div class="prompt-category">Creative & Storytelling</div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#21</div>
+      <div class="prompt-name">Short Story Generator</div>
+      <div class="prompt-text">Write a short story (800-1200 words) in the [GENRE] genre. Core premise: [IDEA]. Requirements: a main character with a specific, concrete want (not abstract), a scene that establishes the world and stakes in the first paragraph, rising tension that changes direction at least once, dialogue that reveals character rather than explains it, a twist or revelation in the final third, and a last line that resonates emotionally. Avoid: clichés, adverb overload, on-the-nose dialogue, and neat tidy endings unless they're earned. Make it the kind of story someone would want to share.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#22</div>
+      <div class="prompt-name">Brand Storytelling Architect</div>
+      <div class="prompt-text">Craft the brand story for [COMPANY/PRODUCT]. Background: [PASTE ANY RELEVANT INFO]. The story should cover: the origin (the real reason this was built — the frustration, the gap, the 'why'), the villain (the problem or old way of doing things), the hero (the customer and their transformation), the guide (the brand's role), and the stakes (what's possible now vs before). Write 3 versions: a 2-sentence tagline story, a 150-word about section for the website, and a 5-minute founder story for speaking engagements. Each should be emotionally true, not corporate.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#23</div>
+      <div class="prompt-name">Screenplay Scene Writer</div>
+      <div class="prompt-text">Write a screenplay scene in proper format. Setup: Characters: [NAMES AND BRIEF DESCRIPTION]. Location: [SETTING]. What needs to happen dramatically in this scene: [DRAMATIC PURPOSE]. What each character wants in this scene: [WANTS]. What they're hiding or not saying: [SUBTEXT]. Write the scene so the subtext is always present but never stated explicitly. Use action lines sparingly — only what we'd see on screen. End the scene differently emotionally than it began. Length: 1-2 pages of screenplay format.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#24</div>
+      <div class="prompt-name">Personal Essay Writer</div>
+      <div class="prompt-text">Help me write a personal essay about: [EXPERIENCE OR TOPIC]. My angle or insight: [WHAT I WANT TO SAY]. Key memory or scene I want to include: [SCENE]. The essay should: open with a specific sensory scene (not a statement of theme), move between present reflection and past memory fluidly, avoid explaining the meaning — let the story show it, include at least one moment of genuine uncertainty or self-questioning, and end with an image or moment that leaves the reader with something to think about. Length: [500-800 / 800-1200 / 1200-2000] words. My writing voice is: [DESCRIBE YOUR VOICE].</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">#25</div>
+      <div class="prompt-name">Dialogue Writer</div>
+      <div class="prompt-text">Write a dialogue scene between these characters: [CHARACTER A: name, personality, what they want right now], [CHARACTER B: name, personality, what they want right now]. The scene takes place at: [LOCATION AND CIRCUMSTANCES]. The underlying tension is: [WHAT'S REALLY AT STAKE BETWEEN THEM]. Rules: neither character should say exactly what they mean, every line should advance the conflict or reveal character, use silences and action beats as part of the dialogue, and end the scene at a point of change — something is different after this conversation than before. About 400-600 words.</div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
+        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="tips">💡 Claude Prompting Tips That Actually Work</h2>
+
+  <h3>1. Give Claude a role and a reason</h3>
+  <p>Claude responds significantly better when you assign it a specific expert role. Instead of "write a business plan," say "You are a startup advisor with 15 years of experience helping early-stage founders. Write a business plan for..." The role gives Claude a frame of reference for tone, depth, and what to prioritize.</p>
+
+  <h3>2. Use long context windows strategically</h3>
+  <p>Claude can handle extremely long inputs — paste entire documents, codebases, or research papers and ask Claude to work with them. Most people underuse this capability. If you're asking Claude to analyze, summarize, or critique something, give it the full source material rather than trying to summarize it yourself first.</p>
+
+  <h3>3. Tell Claude what format you want</h3>
+  <p>Claude will match whatever format you specify. If you want bullet points, say so. If you want a table, ask for a table. If you want flowing prose with no headers, specify that. Without format guidance Claude will choose a reasonable default — but your specific needs are almost always better served by specifying the format explicitly.</p>
+
+  <h3>4. Ask Claude to push back</h3>
+  <p>Unlike some AI models that try to validate everything you say, Claude will challenge you if you ask it to. Phrases like "don't just validate my thinking — tell me what I'm missing" or "steelman the counterargument" will get you more intellectually honest responses that actually improve your thinking.</p>
+
+  <h3>5. Iterate with follow-ups</h3>
+  <p>Claude maintains context exceptionally well across a conversation. Instead of trying to write one massive perfect prompt, start with a solid prompt and refine with follow-ups. "Make it shorter," "change the tone to be more direct," "add more specific examples" — Claude will apply these changes accurately without losing the work already done.</p>
+
+  <div class="cta-box">
+    <h3>Want More Expert Prompts?</h3>
+    <p>Promptaholics has 1,487+ free prompts for Claude, ChatGPT, Midjourney and every major AI tool. No signup. No paywall.</p>
+    <a href="library.html">Browse the Free Library →</a>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <p style="margin-bottom:8px;">
+    <a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="prompt-builder.html">Builder</a> · <a href="agent.html">PA Agent</a> · <a href="blog.html">Blog</a>
+  </p>
+  <p>© 2026 Promptaholics · Free AI Prompt Library · Forever free.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function copyPrompt(btn){
+  const text = btn.closest('.prompt-card').querySelector('.prompt-text').textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+    btn.style.color = 'var(--green,#22c55e)';
+    setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; }, 2000);
+    const t = document.getElementById('toast');
+    t.textContent = '✅ Prompt copied!';
+    t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(()=>t.classList.remove('show'), 2500);
+  });
+}
+</script>
+</body>
+</html>
