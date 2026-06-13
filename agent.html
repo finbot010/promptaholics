@@ -212,7 +212,20 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .pa-toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(13,13,20,.96);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;backdrop-filter:var(--blur);z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
 .pa-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* Mobile nav */
+/* DAY / NIGHT MODE */
+body.light{
+  --bg:#f5f5f7;--bg2:#ffffff;--bg3:#eeeeee;
+  --ink:#1a1a2e;--ink2:rgba(26,26,46,.65);--ink3:rgba(26,26,46,.35);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --glass:rgba(0,0,0,.03);--glass2:rgba(0,0,0,.06);
+}
+body.light .topnav{background:rgba(245,245,247,.95);}
+body.light .mobile-nav{background:rgba(245,245,247,.97);}
+body.light .input-box{background:var(--bg2);}
+body.light .pa-toast{background:rgba(245,245,247,.97);color:var(--ink);}
+body.light .grain{opacity:.015;}
+.theme-btn{width:32px;height:32px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s;flex-shrink:0;}
+.theme-btn:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
 .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:600;background:rgba(7,7,10,.97);border-top:1px solid var(--border);padding:6px 0 env(safe-area-inset-bottom,0);}
 .mobile-nav-inner{display:flex;justify-content:space-around;}
 .mn-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;color:var(--ink3);text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.3px;background:none;border:none;cursor:pointer;transition:color .15s;}
@@ -221,6 +234,60 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 @media(max-width:768px){.mobile-nav{display:block;}body{padding-bottom:64px;}}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+/* ── USAGE BAR ─────────────────────────────────────── */
+.usage-bar{width:100%;max-width:760px;margin-bottom:12px;animation:fadeUp .4s ease both;}
+.usage-inner{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:10px;background:var(--glass);border:1px solid var(--border);font-size:11px;}
+.usage-pips{display:flex;gap:4px;flex:1;}
+.usage-pip{width:20px;height:6px;border-radius:3px;background:var(--border2);transition:background .3s;}
+.usage-pip.used{background:var(--orange);}
+.usage-pip.empty{background:var(--glass2);}
+.usage-label{color:var(--ink3);white-space:nowrap;}
+.usage-label strong{color:var(--ink2);}
+.usage-upgrade{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--orange);cursor:pointer;white-space:nowrap;background:none;border:none;font-family:'Instrument Sans',sans-serif;padding:0;}
+.usage-upgrade:hover{text-decoration:underline;}
+.usage-byok-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--green);padding:2px 8px;border-radius:5px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);}
+
+/* ── SIGN-IN GATE ──────────────────────────────────── */
+.signin-gate{position:fixed;inset:0;z-index:800;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(7,7,10,.85);backdrop-filter:blur(12px);animation:fadeUp .3s ease both;}
+.signin-gate.hidden{display:none;}
+.gate-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:36px 32px;max-width:400px;width:100%;text-align:center;}
+.gate-icon{font-size:40px;margin-bottom:16px;}
+.gate-title{font-family:'Syne',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+.gate-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
+.gate-perks{display:flex;flex-direction:column;gap:6px;margin-bottom:24px;text-align:left;}
+.gate-perk{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);}
+.gate-perk i{color:var(--green);font-size:14px;}
+.btn-google-signin{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border-radius:12px;background:#fff;color:#1a1a2e;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.btn-google-signin:hover{background:#f0f0f0;}
+.btn-google-signin svg{flex-shrink:0;}
+.gate-skip{font-size:11px;color:var(--ink3);cursor:pointer;background:none;border:none;font-family:'Instrument Sans',sans-serif;}
+.gate-skip:hover{color:var(--ink2);}
+
+/* ── BYOK PANEL ────────────────────────────────────── */
+.byok-panel{width:100%;max-width:760px;margin-bottom:16px;animation:fadeUp .4s ease both;}
+.byok-toggle-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--glass);border:1px solid var(--border);cursor:pointer;transition:border .2s;}
+.byok-toggle-row:hover{border-color:var(--border2);}
+.byok-toggle-label{font-size:12px;font-weight:700;flex:1;}
+.byok-toggle-sub{font-size:10px;color:var(--ink3);}
+.byok-switch{width:36px;height:20px;border-radius:10px;background:var(--glass2);border:1px solid var(--border2);position:relative;transition:all .2s;flex-shrink:0;}
+.byok-switch.on{background:rgba(34,197,94,.2);border-color:rgba(34,197,94,.4);}
+.byok-switch::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--ink3);transition:all .2s;}
+.byok-switch.on::after{left:18px;background:var(--green);}
+.byok-fields{padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--glass);display:none;}
+.byok-fields.show{display:block;}
+.byok-field-row{margin-bottom:10px;}
+.byok-field-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+.byok-field-label span{font-size:9px;padding:1px 6px;border-radius:4px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);text-transform:none;letter-spacing:0;}
+.byok-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border .15s;}
+.byok-input:focus{border-color:rgba(34,197,94,.4);}
+.byok-save-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;margin-top:4px;}
+.byok-save-btn:hover{background:rgba(34,197,94,.18);}
+.byok-clear-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;margin-top:4px;margin-left:6px;}
+.byok-clear-btn:hover{color:var(--red);border-color:rgba(239,68,68,.3);}
+.byok-note{font-size:11px;line-height:1.6;margin-top:10px;padding:10px 12px;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:rgba(34,197,94,.9);}
+.byok-note i{color:var(--green);margin-right:4px;}
+.byok-note strong{color:var(--green);}
 </style>
 
 <!-- Firebase -->
@@ -282,7 +349,12 @@ window.savePromptToFirestore = async function(promptData){
     <a href="prompt-of-the-day.html" class="nav-link">Daily Prompt</a>
     <a href="agent.html" class="nav-link active">PA Agent</a>
   </div>
-  <a href="login.html" class="nav-signin">Sign In</a>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle day/night">
+      <i class="ti ti-moon" id="themeIcon"></i>
+    </button>
+    <a href="login.html" class="nav-signin">Sign In</a>
+  </div>
 </nav>
 
 <main class="main">
@@ -290,6 +362,41 @@ window.savePromptToFirestore = async function(promptData){
     <div class="hero-eyebrow"><i class="ti ti-sparkles"></i> Powered by Claude + Gemini</div>
     <h1 class="hero-title">Meet <span class="hl">PA</span><br>Your Prompt Agent</h1>
     <p class="hero-sub">Tell PA what you want to achieve. It finds the right prompts, builds your content, and creates your visuals — all in one shot.</p>
+  </div>
+
+  <!-- USAGE BAR -->
+  <div class="usage-bar" id="usageBar">
+    <div class="usage-inner">
+      <div class="usage-pips" id="usagePips"></div>
+      <span class="usage-label" id="usageLabel"><strong>3</strong> free runs today</span>
+      <button class="usage-upgrade" onclick="showByok()" id="usageUpgradeBtn">
+        <i class="ti ti-key"></i> Use own key →
+      </button>
+    </div>
+  </div>
+
+  <!-- BYOK PANEL -->
+  <div class="byok-panel" id="byokPanel" style="display:none;">
+    <div class="byok-toggle-row" onclick="toggleByokFields()">
+      <div>
+        <div class="byok-toggle-label"><i class="ti ti-key" style="color:var(--green)"></i> Bring Your Own API Key</div>
+        <div class="byok-toggle-sub">Unlimited runs · Your key stays in your browser</div>
+      </div>
+      <div class="byok-switch" id="byokSwitch"></div>
+    </div>
+    <div class="byok-fields" id="byokFields">
+      <div class="byok-field-row">
+        <div class="byok-field-label">Anthropic API Key <span>Claude Sonnet</span></div>
+        <input class="byok-input" type="password" id="byokAnthropicKey" placeholder="sk-ant-api03-..." autocomplete="off"/>
+      </div>
+      <div class="byok-field-row">
+        <div class="byok-field-label">Google AI Key <span>Gemini Flash</span></div>
+        <input class="byok-input" type="password" id="byokGoogleKey" placeholder="AIza..." autocomplete="off"/>
+      </div>
+      <button class="byok-save-btn" onclick="saveByokKeys()"><i class="ti ti-check"></i> Save Keys</button>
+      <button class="byok-clear-btn" onclick="clearByokKeys()"><i class="ti ti-trash"></i> Clear</button>
+      <div class="byok-note"><i class="ti ti-shield-check"></i> <strong>Your keys are stored only in your browser's localStorage</strong> — never sent to our servers. We route your requests <strong>directly to Anthropic/Google</strong> using your key.</div>
+    </div>
   </div>
 
   <div class="input-stage">
@@ -356,6 +463,26 @@ window.savePromptToFirestore = async function(promptData){
   </div>
 </main>
 
+<!-- SIGN-IN GATE -->
+<div class="signin-gate hidden" id="signinGate">
+  <div class="gate-card">
+    <div class="gate-icon">⚡</div>
+    <h2 class="gate-title">You've used your 3 free runs</h2>
+    <p class="gate-sub">Sign in with Google to get <strong>10 free runs per day</strong> — free forever.</p>
+    <div class="gate-perks">
+      <div class="gate-perk"><i class="ti ti-check"></i> 10 PA Agent runs per day</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Save prompts to your library</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Access prompt history</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Or bring your own API key for unlimited</div>
+    </div>
+    <button class="btn-google-signin" onclick="signInWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Continue with Google — It's Free
+    </button>
+    <button class="gate-skip" onclick="showByok()">Or use your own API key →</button>
+  </div>
+</div>
+
 <!-- Mobile fixed Run PA -->
 <div class="mobile-run-bar">
   <button class="btn-run" id="runBtnM" onclick="runAgent()">
@@ -380,6 +507,173 @@ window.savePromptToFirestore = async function(promptData){
 <canvas id="bgCanvas" style="display:none"></canvas>
 
 <script>
+// ════════════════════════════════════════════════════
+//  DAY / NIGHT THEME
+// ════════════════════════════════════════════════════
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  localStorage.setItem('pa_theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeIcon').className = isLight ? 'ti ti-sun' : 'ti ti-moon';
+}
+// Init theme from localStorage
+(function(){
+  if(localStorage.getItem('pa_theme') === 'light'){
+    document.body.classList.add('light');
+    document.addEventListener('DOMContentLoaded', () => {
+      const ic = document.getElementById('themeIcon');
+      if(ic) ic.className = 'ti ti-sun';
+    });
+  }
+})();
+
+// ════════════════════════════════════════════════════
+//  USAGE LIMITS + BYOK SYSTEM
+// ════════════════════════════════════════════════════
+const FREE_ANON_LIMIT   = 3;
+const FREE_SIGNIN_LIMIT = 10;
+const USAGE_KEY = 'pa_usage_' + new Date().toDateString();
+const BYOK_ANTH = 'pa_byok_anthropic';
+const BYOK_GOOG = 'pa_byok_google';
+
+let paUser     = null;
+let byokActive = false;
+
+// ── Firebase auth init ────────────────────────────────
+(function initFirebaseAuth(){
+  const s = document.createElement('script');
+  s.type = 'module';
+  s.textContent = `
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    const app  = initializeApp({
+      apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+      authDomain:"promptaholics-534d3.firebaseapp.com",
+      projectId:"promptaholics-534d3",
+      appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
+    });
+    const auth = getAuth(app);
+    window._paAuth = auth;
+    window._paProvider = new GoogleAuthProvider();
+    window._paSignIn   = () => signInWithPopup(auth, window._paProvider);
+    onAuthStateChanged(auth, user => {
+      window._paUser = user || null;
+      window.dispatchEvent(new CustomEvent('pa-auth', { detail: user }));
+    });
+  `;
+  document.head.appendChild(s);
+})();
+
+window.addEventListener('pa-auth', e => {
+  paUser = e.detail;
+  updateUsageBar();
+  if(paUser){
+    // Close gate if open
+    document.getElementById('signinGate').classList.add('hidden');
+    showToast('✅ Signed in as ' + paUser.email);
+  }
+});
+
+// ── Usage helpers ─────────────────────────────────────
+function getUsedRuns(){ return parseInt(localStorage.getItem(USAGE_KEY)||'0',10); }
+function incUsedRuns(){ localStorage.setItem(USAGE_KEY, getUsedRuns()+1); }
+function getRunLimit(){ return paUser ? FREE_SIGNIN_LIMIT : FREE_ANON_LIMIT; }
+function hasRunsLeft(){ return byokActive || getUsedRuns() < getRunLimit(); }
+
+function updateUsageBar(){
+  if(byokActive){
+    document.getElementById('usagePips').innerHTML = '';
+    document.getElementById('usageLabel').innerHTML = '<span class="usage-byok-badge"><i class="ti ti-key"></i> BYOK Active — Unlimited</span>';
+    document.getElementById('usageUpgradeBtn').style.display = 'none';
+    return;
+  }
+  const used  = getUsedRuns();
+  const limit = getRunLimit();
+  const pips  = Array.from({length:limit},(_,i) =>
+    `<div class="usage-pip ${i < used ? 'used' : 'empty'}"></div>`
+  ).join('');
+  document.getElementById('usagePips').innerHTML = pips;
+  const left = Math.max(0, limit - used);
+  document.getElementById('usageLabel').innerHTML =
+    `<strong>${left}</strong> free run${left!==1?'s':''} today${paUser?' (signed in)':''}`;
+  document.getElementById('usageUpgradeBtn').style.display = left === 0 ? 'inline-flex' : 'inline-flex';
+}
+
+// ── BYOK ─────────────────────────────────────────────
+function checkByokOnLoad(){
+  const ak = localStorage.getItem(BYOK_ANTH);
+  const gk = localStorage.getItem(BYOK_GOOG);
+  if(ak || gk){
+    byokActive = true;
+    document.getElementById('byokPanel').style.display = 'block';
+    document.getElementById('byokSwitch').classList.add('on');
+    document.getElementById('byokFields').classList.add('show');
+    if(ak) document.getElementById('byokAnthropicKey').value = ak;
+    if(gk) document.getElementById('byokGoogleKey').value    = gk;
+    updateUsageBar();
+  }
+}
+
+function showByok(){
+  document.getElementById('signinGate').classList.add('hidden');
+  document.getElementById('byokPanel').style.display = 'block';
+  document.getElementById('byokSwitch').classList.add('on');
+  document.getElementById('byokFields').classList.add('show');
+  document.getElementById('byokPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function toggleByokFields(){
+  const fields = document.getElementById('byokFields');
+  const sw     = document.getElementById('byokSwitch');
+  const show   = !fields.classList.contains('show');
+  fields.classList.toggle('show', show);
+  sw.classList.toggle('on', show);
+}
+
+function saveByokKeys(){
+  const ak = document.getElementById('byokAnthropicKey').value.trim();
+  const gk = document.getElementById('byokGoogleKey').value.trim();
+  if(!ak && !gk){ showToast('Enter at least one API key'); return; }
+  if(ak) localStorage.setItem(BYOK_ANTH, ak);
+  if(gk) localStorage.setItem(BYOK_GOOG, gk);
+  byokActive = true;
+  updateUsageBar();
+  showToast('✅ Keys saved — unlimited runs active!');
+}
+
+function clearByokKeys(){
+  localStorage.removeItem(BYOK_ANTH);
+  localStorage.removeItem(BYOK_GOOG);
+  byokActive = false;
+  document.getElementById('byokAnthropicKey').value = '';
+  document.getElementById('byokGoogleKey').value    = '';
+  document.getElementById('byokSwitch').classList.remove('on');
+  document.getElementById('byokFields').classList.remove('show');
+  updateUsageBar();
+  showToast('Keys cleared');
+}
+
+function signInWithGoogle(){
+  if(window._paSignIn){
+    window._paSignIn().catch(e => {
+      if(e.code !== 'auth/popup-closed-by-user') showToast('Sign in failed — try again');
+    });
+  }
+}
+
+// ── Gate check before each run ────────────────────────
+function checkGate(){
+  if(byokActive) return true;
+  if(hasRunsLeft()) return true;
+  // Show gate
+  document.getElementById('signinGate').classList.remove('hidden');
+  return false;
+}
+
+// Init on load
+checkByokOnLoad();
+updateUsageBar();
+
 // ════════════════════════════════════════════════════
 //  CONFIG
 // ════════════════════════════════════════════════════
@@ -486,6 +780,9 @@ async function runAgent(){
   const goal = document.getElementById('goalInput').value.trim();
   if(!goal){ showToast('Enter a goal first'); return; }
 
+  // ── Gate check ──────────────────────────────────────
+  if(!checkGate()) return;
+
   isRunning = true;
   setRunBtn(true);
   document.getElementById('errorContainer').innerHTML = '';
@@ -506,6 +803,9 @@ async function runAgent(){
     await stepDo('step3', 'Crafting results', 0);
 
     const result = await callWorker(goal, activeMode);
+
+    // ── Increment usage ────────────────────────────────
+    if(!byokActive){ incUsedRuns(); updateUsageBar(); }
 
     await stepDone('step3');
     await stepDo('step4', 'Finalising output', 400);
