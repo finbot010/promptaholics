@@ -152,7 +152,26 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .lib-sort{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);}
 .lib-sort select{background:var(--glass2);border:1px solid var(--border2);border-radius:7px;color:var(--ink2);font-size:12px;padding:5px 8px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;}
 
-/* PROMPT GRID */
+/* COLLAPSIBLE TAG DRAWER — mobile */
+.tag-drawer-toggle{display:none;align-items:center;gap:8px;padding:8px 16px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;width:auto;margin:0 16px 8px;}
+.tag-drawer-toggle:hover{border-color:rgba(255,98,36,.3);color:var(--orange);}
+.tag-drawer-toggle .tag-toggle-count{font-size:10px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);padding:1px 6px;border-radius:4px;margin-left:auto;}
+.tag-drawer-toggle i{font-size:14px;transition:transform .2s;}
+.tag-drawer-toggle.open i.chevron{transform:rotate(180deg);}
+@media(max-width:768px){
+  .tag-drawer-toggle{display:flex;}
+  .tag-strip{
+    overflow:hidden;
+    max-height:0;
+    transition:max-height .3s ease, padding .3s ease;
+    padding-bottom:0 !important;
+  }
+  .tag-strip.drawer-open{
+    max-height:200px;
+    overflow-y:auto;
+    padding-bottom:12px !important;
+  }
+}
 .lib-main{max-width:1400px;margin:0 auto;padding:0 24px 120px;}
 .prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
 @media(max-width:640px){.prompt-grid{grid-template-columns:1fr;}}
@@ -202,7 +221,9 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard-compat{font-size:9px;color:var(--ink3);margin-top:2px;letter-spacing:.2px;}
 .pcard-tool-logo{width:12px;height:12px;border-radius:2px;}
 .pcard-cat{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:.3px;}
-.pcard-preview{font-size:12px;color:rgba(255,255,255,.48);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.pcard-preview{font-size:12px;color:rgba(255,255,255,.48);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;position:relative;}
+/* Smooth gradient fade for longer truncated text */
+.pcard-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to bottom,transparent,rgba(13,13,20,.96));pointer-events:none;}
 .pcard-tags{display:flex;flex-wrap:wrap;gap:4px;}
 .ctag{padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.35);font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
 .ctag:hover{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.25);color:rgba(255,98,36,.9);}
@@ -481,6 +502,12 @@ img,video,iframe{max-width:100%;}
 </div>
 
 <div class="cat-wrap" id="catWrap"></div>
+<button class="tag-drawer-toggle" id="tagDrawerToggle" onclick="toggleTagDrawer()">
+  <i class="ti ti-adjustments-horizontal"></i>
+  Filter by Tag
+  <i class="ti ti-chevron-down chevron"></i>
+  <span class="tag-toggle-count" id="tagToggleCount" style="display:none"></span>
+</button>
 <div class="tag-strip" id="tagStrip"></div>
 
 <div class="lib-toolbar">
@@ -702,7 +729,28 @@ function renderTags(){
     strip.appendChild(btn);
   });
 }
-function setTag(t){ activeTag=activeTag===t?'':t; renderTags(); renderCards(); }
+function setTag(t){ activeTag=activeTag===t?'':t; renderTags(); renderCards();
+  // Update toggle count badge
+  var badge = document.getElementById('tagToggleCount');
+  if(badge){ badge.textContent = activeTag ? '1 active' : ''; badge.style.display = activeTag ? 'inline' : 'none'; }
+}
+
+function toggleTagDrawer(){
+  var strip = document.getElementById('tagStrip');
+  var toggle = document.getElementById('tagDrawerToggle');
+  if(!strip || !toggle) return;
+  var isOpen = strip.classList.toggle('drawer-open');
+  toggle.classList.toggle('open', isOpen);
+}
+
+function clearAll(){
+  activeCat='All'; activeTag=''; searchQ='';
+  var inp = document.getElementById('searchInput');
+  if(inp) inp.value='';
+  document.getElementById('searchClear').classList.remove('show');
+  document.getElementById('aiResultsBar').classList.remove('show');
+  renderCatPills(); renderCards(); renderTags();
+}
 
 // AI SEARCH — lazy initialized, only runs after user types
 var _aiSearchReady = false;
@@ -808,7 +856,18 @@ function renderCards(){
   var bar=document.getElementById('libCountBar');
   if(bar) bar.innerHTML='Showing <strong>'+Math.min(PAGE_SIZE,currentList.length)+'</strong> of <strong>'+currentList.length+'</strong> prompts';
   if(!currentList.length){
-    grid.innerHTML='<div class="empty-state"><i class="ti ti-search"></i><h3>No prompts found</h3><p>Try different keywords or clear filters.</p></div>';
+    var q = searchQ || activeTag || activeCat;
+    grid.innerHTML='<div class="empty-state">'
+      +'<i class="ti ti-search-off"></i>'
+      +'<h3>No prompts found</h3>'
+      +'<p>No results for <strong>"'+escHtml(q)+'"</strong> — try different keywords or clear your filters.</p>'
+      +'<div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'
+      +'<button onclick="clearAll()" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;" onmouseover="this.style.borderColor=\'rgba(255,98,36,.3)\';this.style.color=\'var(--orange)\'" onmouseout="this.style.borderColor=\'var(--border2)\';this.style.color=\'var(--ink2)\'">'
+      +'<i class="ti ti-x"></i> Clear Filters</button>'
+      +'<a href="agent.html?goal='+encodeURIComponent(q)+'" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.3);color:var(--orange);font-size:12px;font-weight:700;text-decoration:none;transition:all .15s;" onmouseover="this.style.background=\'rgba(255,98,36,.18)\'" onmouseout="this.style.background=\'rgba(255,98,36,.1)\'">'
+      +'<i class="ti ti-sparkles"></i> Ask PA Agent to write this prompt</a>'
+      +'</div>'
+      +'</div>';
     removeLoadMore();
     return;
   }
