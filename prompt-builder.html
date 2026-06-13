@@ -160,12 +160,10 @@ body.light .field-select{background:rgba(0,0,0,.04);}
 .voice-mini{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,98,36,.25);background:rgba(255,98,36,.07);color:var(--orange);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .voice-mini:hover,.voice-mini.active{border-color:var(--orange);color:var(--orange);}
 .voice-mini.active{background:rgba(255,98,36,.1);animation:micPulse 1s ease-in-out infinite;}
-/* AI Expand wand button */
-.expand-mini{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,159,36,.2);background:rgba(255,159,36,.06);color:var(--o2);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer;}
-.expand-mini:hover{border-color:rgba(255,159,36,.4);background:rgba(255,159,36,.12);color:var(--o2);}
+.expand-mini{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,159,36,.2);background:rgba(255,159,36,.06);color:var(--o2,#ff9f24);font-size:11px;display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer;}
+.expand-mini:hover{border-color:rgba(255,159,36,.4);background:rgba(255,159,36,.12);}
 .expand-mini:disabled{opacity:.3;cursor:not-allowed;}
-/* Token count */
-#tokenCount{font-size:11px;color:var(--green,#22c55e);font-family:'JetBrains Mono',monospace;transition:color .3s;}
+@keyframes expandSpin{to{transform:rotate(360deg);}}
 
 /* ── SEND TO TOOLS ── */
 .send-section{margin-top:16px;}
@@ -629,7 +627,7 @@ img,video,iframe{max-width:100%;}
       <div class="preview-char-count">
         <span id="charCount">0 characters</span>
         <span id="wordCount">0 words</span>
-        <span id="tokenCount" title="Estimated tokens (÷4 rule)">~0 tokens</span>
+        <span id="tokenCount" style="font-family:'JetBrains Mono',monospace;color:#22c55e;transition:color .3s;" title="Estimated tokens (÷4 rule)">~0 tokens</span>
       </div>
 
       <!-- SEND TO TOOLS -->
@@ -1063,9 +1061,7 @@ function renderFields(){
   if(!body) return;
   body.innerHTML = activeFw.blocks.map(function(b){
     var voiceBtn = '<button class="voice-mini" title="Dictate this field" onclick="dictateField(\''+b.id+'\')" id="vbtn-'+b.id+'">🎤</button>';
-    var expandBtn = b.type !== 'select'
-      ? '<button class="expand-mini" title="AI Expand — fill this field for me" onclick="aiExpandField(\''+b.id+'\',\''+b.label+'\')" id="ebtn-'+b.id+'"><i class="ti ti-wand"></i></button>'
-      : '';
+    var expandBtn = (b.type !== 'select') ? '<button class="expand-mini" title="AI Expand" onclick="aiExpandField(\''+b.id+'\',\''+b.label+'\')" id="ebtn-'+b.id+'"><i class="ti ti-wand"></i></button>' : '';
     var tagHtml = '<div class="field-tag">'
       +'<span class="field-tag-letter" style="background:'+b.color+'">'+b.tag+'</span>'
       +'<span class="field-tag-name">'+b.label+'</span>'
@@ -1087,52 +1083,38 @@ function renderFields(){
   }).join('');
 }
 
+function onFieldChange(id, val){
+  fieldValues[id] = val;
+  buildPreview();
+}
+
 async function aiExpandField(fieldId, fieldLabel){
-  var el = document.getElementById('field-'+fieldId);
+  var el  = document.getElementById('field-'+fieldId);
   var btn = document.getElementById('ebtn-'+fieldId);
   if(!el) return;
-
   var currentVal = el.value.trim();
   if(!currentVal){ showToast('Type something first — AI will expand it'); return; }
-
-  // Show loading state
-  if(btn){ btn.innerHTML='<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i>'; btn.disabled=true; }
-
+  if(btn){ btn.innerHTML='<i class="ti ti-loader-2" style="animation:expandSpin .7s linear infinite;display:inline-block;"></i>'; btn.disabled=true; }
   try {
     var WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
     var fw = activeFw ? activeFw.name : 'CoSTAR';
-    var sys = 'You are an expert prompt engineer helping fill in a "'+fieldLabel+'" field for a '+fw+' framework prompt. The user typed a short or vague value. Expand it into a detailed, specific, professional version. Return ONLY the expanded text — no explanation, no quotes, no preamble. Keep it concise (2-4 sentences max) and directly useful as a prompt field value.';
-
-    var res = await fetch(WORKER_URL + '/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        intent: 'create',
-        max_tokens: 256,
-        system: sys,
-        messages: [{ role: 'user', content: 'Expand this '+fieldLabel+' value: "'+currentVal+'"' }]
-      })
+    var sys = 'You are an expert prompt engineer. Expand this "'+fieldLabel+'" field value for a '+fw+' prompt framework. Turn the short input into a detailed, specific, professional version. Return ONLY the expanded text — no explanation, no quotes, no preamble. 2-4 sentences max.';
+    var res = await fetch(WORKER_URL+'/api/generate',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({intent:'create',max_tokens:200,system:sys,messages:[{role:'user',content:'Expand: "'+currentVal+'"'}]})
     });
-
     if(!res.ok) throw new Error('Worker error');
     var data = await res.json();
-    var expanded = (data.text || '').trim();
+    var expanded = (data.text||'').trim();
     if(!expanded) throw new Error('No response');
-
     el.value = expanded;
     fieldValues[fieldId] = expanded;
     buildPreview();
-    showToast('✨ Field expanded!');
-
+    showToast('✨ '+fieldLabel+' expanded!');
   } catch(e){
     showToast('Could not expand — try again');
-    console.error('AI expand error:', e);
   }
-
   if(btn){ btn.innerHTML='<i class="ti ti-wand"></i>'; btn.disabled=false; }
-}
-  fieldValues[id] = val;
-  buildPreview();
 }
 
 function clearFields(){
@@ -1159,8 +1141,8 @@ function buildPreview(){
     if(empty){ empty.style.display='block'; box.appendChild(empty); }
     if(cc) cc.textContent = '0 characters';
     if(wc) wc.textContent = '0 words';
-    var tc = document.getElementById('tokenCount');
-    if(tc) tc.textContent = '~0 tokens';
+    var tc2 = document.getElementById('tokenCount');
+    if(tc2){ tc2.textContent='~0 tokens'; tc2.style.color='#22c55e'; }
     return;
   }
 
@@ -1168,13 +1150,11 @@ function buildPreview(){
   box.textContent = prompt;
   if(cc) cc.textContent = prompt.length + ' characters';
   if(wc) wc.textContent = prompt.split(/\s+/).filter(Boolean).length + ' words';
-  // Estimate tokens: ~4 chars per token (OpenAI/Anthropic approximation)
   var tc = document.getElementById('tokenCount');
   if(tc){
     var est = Math.ceil(prompt.length / 4);
     tc.textContent = '~' + est.toLocaleString() + ' tokens';
-    // Color code: green < 1k, orange 1k-4k, red > 4k
-    tc.style.color = est < 1000 ? 'var(--green,#22c55e)' : est < 4000 ? 'var(--orange)' : '#ef4444';
+    tc.style.color = est < 1000 ? '#22c55e' : est < 4000 ? 'var(--orange)' : '#ef4444';
   }
 }
 
@@ -1351,20 +1331,13 @@ function openInTool(toolId){
   var tool = TOOLS.find(function(t){ return t.id===toolId; });
   if(!tool) return;
   var url = tool.url + encodeURIComponent(text);
-
-  // Copy prompt to clipboard first, then open tool
   function doOpen(){
     showToast('✅ Prompt copied! Opening '+tool.name+'...');
     setTimeout(function(){ window.open(url,'_blank','noopener'); }, 600);
   }
-
   if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(text).then(doOpen).catch(function(){
-      fbCopy(text); doOpen();
-    });
-  } else {
-    fbCopy(text); doOpen();
-  }
+    navigator.clipboard.writeText(text).then(doOpen).catch(function(){ fbCopy(text); doOpen(); });
+  } else { fbCopy(text); doOpen(); }
 }
 
 // ── TOAST ──────────────────────────────────────────────────────
