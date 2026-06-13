@@ -498,7 +498,7 @@ img,video,iframe{max-width:100%;}
   50%{box-shadow:0 0 0 6px rgba(239,68,68,0);}
 }
 </style>
-<script src="https://js.puter.com/v2/"></script>
+<!-- Puter removed — AI Writer now uses Cloudflare Worker -->
 </head>
 <body>
 
@@ -932,7 +932,7 @@ var TOOLS = [
   {id:'deepseek',   name:'DeepSeek',   domain:'deepseek.com',      url:'https://chat.deepseek.com/?q='},
   {id:'midjourney', name:'Midjourney', domain:'midjourney.com',    url:'https://www.midjourney.com/imagine'},
   {id:'ideogram',   name:'Ideogram',   domain:'ideogram.ai',       url:'https://ideogram.ai/'},
-  {id:'sora',       name:'Sora',       domain:'sora.com',          url:'https://sora.com/'},
+  {id:'kling',      name:'Kling AI',   domain:'klingai.com',       url:'https://klingai.com/'},
 ];
 
 // ── STATE ──────────────────────────────────────────────────────
@@ -1333,22 +1333,27 @@ async function runAiHelper(){
   var fwDesc = activeFw ? activeFw.desc : '';
 
   try {
-    // Use Puter.js — free, no API key needed
-    if(!puter.auth.isSignedIn()) await puter.auth.signIn();
+    // Use Cloudflare Worker — no API key in browser
+    var WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
     var sysPrompt = 'You are an expert prompt engineer. The user will describe what they want to achieve with AI. You must write a complete, detailed, ready-to-use AI prompt using the ' + fwName + ' framework (' + fwDesc + '). Write ONLY the prompt itself — no explanation, no preamble, no markdown headers. Just the raw prompt text they can paste directly into ChatGPT, Claude, or any AI tool. Make it specific, detailed, and professional. Include role assignment, clear task, relevant context, desired format, and any constraints. Minimum 100 words.';
-    var aiResp = await puter.ai.chat(
-      'Create a prompt for: ' + query,
-      { model: 'claude-haiku-4-5', system: sysPrompt }
-    );
-    var promptText = typeof aiResp === 'string' ? aiResp.trim() :
-      (aiResp && aiResp.message && aiResp.message.content && aiResp.message.content[0]) ?
-      aiResp.message.content[0].text.trim() :
-      (aiResp && aiResp.text) ? aiResp.text.trim() : '';
 
+    var res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        intent: 'create',
+        max_tokens: 1024,
+        system: sysPrompt,
+        messages: [{ role: 'user', content: 'Create a prompt for: ' + query }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Worker error ' + res.status);
+    var data = await res.json();
+    var promptText = (data.text || '').replace(/```[\s\S]*?```/g, '').trim();
     if(!promptText) throw new Error('No response');
 
     lastAiResult = promptText;
-
     if(text)   text.textContent = promptText;
     if(result) result.classList.add('show');
     showToast('✨ Prompt ready!');
