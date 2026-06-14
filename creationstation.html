@@ -375,6 +375,16 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 .news-loading{padding:32px;text-align:center;color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;}
 .news-badge-new{font-size:8px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;vertical-align:middle;margin-left:4px;}
 /* shared section label */
+/* Aspect ratio toggle buttons */
+.ratio-btn{display:inline-flex;flex-direction:column;align-items:center;gap:5px;padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;min-width:72px;}
+.ratio-btn:hover{border-color:var(--border2);color:var(--ink2);}
+.ratio-btn.active{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.4);color:#a78bfa;}
+.ratio-preview{background:var(--ink3);border-radius:2px;opacity:.5;transition:all .15s;}
+.ratio-btn.active .ratio-preview{background:#a78bfa;opacity:1;}
+.ratio-label{font-size:9px;font-weight:600;letter-spacing:.3px;color:var(--ink3);white-space:nowrap;}
+.ratio-btn.active .ratio-label{color:#a78bfa;}
+@media(max-width:480px){.ratio-btn{min-width:60px;padding:6px 8px;font-size:10px;}}
+
 .tool-sec{max-width:1200px;margin:0 auto;padding:0 24px 64px;}
 .tool-sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .tool-sec-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
@@ -1121,53 +1131,9 @@ img,video,iframe{max-width:100%;}
 
 <div class="section-divider"></div>
 
-<!-- ══════════════════════════════════════════
-     TOOL 4 — 💰 AI COST CALCULATOR
-══════════════════════════════════════════ -->
-<div class="tool-sec">
-  <div class="tool-sec-hdr">
-    <h2><i class="ti ti-calculator" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>AI Tool Cost Calculator</h2>
-    <span class="tool-built-badge">Built-in Tool</span>
-  </div>
-  <div class="calc-wrap">
-    <div class="calc-header">
-      <div>
-        <div class="ipb-title">How much are you <span style="color:var(--orange);">really</span> spending on AI?</div>
-        <div class="ipb-subtitle">Toggle the tools you use, set your monthly hours — see the real total</div>
-      </div>
-      <div style="font-family:'Syne',serif;font-size:13px;font-weight:700;color:var(--ink3);">Your stack ↓</div>
-    </div>
-    <div class="calc-body">
-      <div class="calc-left">
-        <div id="calcToolList">
-          <!-- injected by JS -->
-        </div>
-        <div class="calc-hours-wrap" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
-          <div class="calc-hours-label">
-            <span>⏱ Hours/month you use AI</span>
-            <span id="hoursVal" style="color:var(--orange);font-weight:700;">40h</span>
-          </div>
-          <input type="range" class="calc-slider" id="hoursSlider" min="1" max="200" value="40" oninput="calcUpdate()"/>
-        </div>
-      </div>
-      <div class="calc-right">
-        <div class="calc-total-box">
-          <div class="calc-total-label">Monthly Total</div>
-          <div class="calc-total-amount" id="calcTotal">$0</div>
-          <div class="calc-total-period">per month</div>
-        </div>
-        <div class="calc-breakdown" id="calcBreakdown">
-          <!-- filled by JS -->
-        </div>
-        <div class="calc-tip" id="calcTip">Toggle the tools you use on the left to see your cost breakdown.</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section-divider"></div>
 
 <!-- ══════════════════════════════════════════
-     TOOL 5 — 🎨 AI IMAGE GENERATOR (Puter.js)
+     TOOL 4 — 🎨 AI IMAGE GENERATOR (Puter.js)
 ══════════════════════════════════════════ -->
 <div class="tool-sec always-visible" style="background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(255,98,36,.04),rgba(0,212,170,.03));border-color:rgba(139,92,246,.2);">
   <div class="tool-sec-hdr">
@@ -1207,17 +1173,38 @@ img,video,iframe{max-width:100%;}
   </div>
 
   <!-- SIZE + GENERATE BUTTON -->
+  <div style="margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Aspect Ratio</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button onclick="setAspectRatio('1024x1024',this)" class="ratio-btn active" title="Square — Instagram posts, profile pics">
+        <div class="ratio-preview" style="width:22px;height:22px;"></div>
+        <span>1:1</span>
+        <span class="ratio-label">Square</span>
+      </button>
+      <button onclick="setAspectRatio('720x1280',this)" class="ratio-btn" title="Portrait — TikTok, Instagram Stories & Reels">
+        <div class="ratio-preview" style="width:14px;height:22px;"></div>
+        <span>9:16</span>
+        <span class="ratio-label">TikTok / Reels</span>
+      </button>
+      <button onclick="setAspectRatio('1280x720',this)" class="ratio-btn" title="Landscape — YouTube thumbnails, Twitter">
+        <div class="ratio-preview" style="width:28px;height:16px;"></div>
+        <span>16:9</span>
+        <span class="ratio-label">YouTube</span>
+      </button>
+      <button onclick="setAspectRatio('1024x768',this)" class="ratio-btn" title="Classic 4:3">
+        <div class="ratio-preview" style="width:24px;height:18px;"></div>
+        <span>4:3</span>
+        <span class="ratio-label">Classic</span>
+      </button>
+    </div>
+    <input type="hidden" id="polSize" value="1024x1024"/>
+  </div>
+
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
     <select id="polModel" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="AI Model">
       <option value="openai" selected>GPT Image — Best Quality</option>
       <option value="nano-banana">Gemini Flash — Fast & Free</option>
       <option value="nano-banana-pro">Gemini Pro — Ultra Quality</option>
-    </select>
-    <select id="polSize" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="Image Size">
-      <option value="1024x1024">Square 1:1</option>
-      <option value="1280x720">Landscape 16:9</option>
-      <option value="720x1280">Portrait 9:16</option>
-      <option value="1024x768">Classic 4:3</option>
     </select>
     <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Syne',serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;letter-spacing:.2px;">
       <i class="ti ti-sparkles" id="polBtnIcon" style="font-size:16px;" aria-hidden="true"></i>
@@ -1282,6 +1269,51 @@ img,video,iframe{max-width:100%;}
     Free · No account needed · Powered by <a href="https://puter.com" target="_blank" rel="noopener" style="color:var(--ink3);">Puter.js</a> + GPT Image
   </div>
 </div>
+
+<!-- ══════════════════════════════════════════
+     TOOL 5 — 💰 AI COST CALCULATOR
+══════════════════════════════════════════ -->
+<div class="tool-sec">
+  <div class="tool-sec-hdr">
+    <h2><i class="ti ti-calculator" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>AI Tool Cost Calculator</h2>
+    <span class="tool-built-badge">Built-in Tool</span>
+  </div>
+  <div class="calc-wrap">
+    <div class="calc-header">
+      <div>
+        <div class="ipb-title">How much are you <span style="color:var(--orange);">really</span> spending on AI?</div>
+        <div class="ipb-subtitle">Toggle the tools you use, set your monthly hours — see the real total</div>
+      </div>
+      <div style="font-family:'Syne',serif;font-size:13px;font-weight:700;color:var(--ink3);">Your stack ↓</div>
+    </div>
+    <div class="calc-body">
+      <div class="calc-left">
+        <div id="calcToolList">
+          <!-- injected by JS -->
+        </div>
+        <div class="calc-hours-wrap" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="calc-hours-label">
+            <span>⏱ Hours/month you use AI</span>
+            <span id="hoursVal" style="color:var(--orange);font-weight:700;">40h</span>
+          </div>
+          <input type="range" class="calc-slider" id="hoursSlider" min="1" max="200" value="40" oninput="calcUpdate()"/>
+        </div>
+      </div>
+      <div class="calc-right">
+        <div class="calc-total-box">
+          <div class="calc-total-label">Monthly Total</div>
+          <div class="calc-total-amount" id="calcTotal">$0</div>
+          <div class="calc-total-period">per month</div>
+        </div>
+        <div class="calc-breakdown" id="calcBreakdown">
+          <!-- filled by JS -->
+        </div>
+        <div class="calc-tip" id="calcTip">Toggle the tools you use on the left to see your cost breakdown.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
 
 <!-- ══════════════════════════════════════════
      TOOL 6 — 📰 WHAT'S NEW IN AI
@@ -1834,7 +1866,12 @@ function filterTools(){
 
 
 // ══════════════════════════════════════════
-// TOOL 4 — COST CALCULATOR
+// TOOL 4 — FREE AI IMAGE GENERATOR
+function setAspectRatio(size, btn){
+  document.getElementById('polSize').value = size;
+  document.querySelectorAll('.ratio-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+}
 // ══════════════════════════════════════════
 var calcTools = [
   { name:'ChatGPT Plus',  domain:'openai.com',     cost:20,  free:'Free (GPT-3.5)' },
@@ -2138,12 +2175,9 @@ function polCopyPrompt(){
 // Upload base64 image to Cloudinary and return URL
 async function uploadToCloudinary(dataUrl){
   var CLOUD = 'dgqbzarfw';
-  var KEY   = '377132723958634';
 
-  // Build form data
   var fd = new FormData();
   fd.append('file', dataUrl);
-  fd.append('api_key', KEY);
   fd.append('upload_preset', 'ml_default');
   fd.append('folder', 'vault-submissions');
 
@@ -2154,7 +2188,8 @@ async function uploadToCloudinary(dataUrl){
     });
     var data = await resp.json();
     if(data.secure_url) return data.secure_url;
-    throw new Error(data.error ? data.error.message : 'Upload failed');
+    console.error('Cloudinary response:', data);
+    throw new Error(data.error ? data.error.message : 'Upload failed — check upload preset is unsigned');
   } catch(e) {
     console.error('Cloudinary upload error:', e);
     throw e;
@@ -2322,7 +2357,23 @@ async function polGenerate(){
 
     if(imgElement && imgElement.src){
       var newCount = incrementGenCount();
-      lastPolImageUrl = imgElement.src || imgElement.currentSrc || '';
+
+      // Convert blob URL to base64 so Cloudinary can upload it
+      try {
+        var blobResp = await fetch(imgElement.src);
+        var blob     = await blobResp.blob();
+        var base64   = await new Promise(function(res, rej){
+          var reader = new FileReader();
+          reader.onload  = function(){ res(reader.result); };
+          reader.onerror = rej;
+          reader.readAsDataURL(blob);
+        });
+        lastPolImageUrl = base64;
+      } catch(convErr){
+        console.warn('Could not convert to base64, using src directly:', convErr);
+        lastPolImageUrl = imgElement.src;
+      }
+
       if(img)   { img.src = imgElement.src; img.style.display = 'block'; }
       if(spinner) spinner.style.display = 'none';
       if(empty)   empty.style.display   = 'none';
