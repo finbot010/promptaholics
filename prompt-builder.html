@@ -219,6 +219,31 @@ body{overflow-x:hidden;max-width:100vw;width:100%;}
 img,video,iframe{max-width:100%;}
 .topnav{max-width:100vw;}
 
+/* ── BYOK PANEL ─────────────────────────────────── */
+.byok-wrap{margin-bottom:8px;}
+.byok-status-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:var(--glass);border:1px solid var(--border);font-size:11px;}
+.byok-pips{display:flex;gap:3px;}
+.byok-pip{width:14px;height:4px;border-radius:2px;background:var(--border2);}
+.byok-pip.used{background:var(--orange);}
+.byok-status-text{flex:1;color:var(--ink2);}
+.byok-status-text strong{color:var(--ink);}
+.byok-status-active{color:var(--green);font-weight:700;}
+.byok-key-btn{font-size:10px;font-weight:700;color:var(--orange);background:none;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;padding:0;white-space:nowrap;}
+.byok-key-btn:hover{text-decoration:underline;}
+.byok-drawer{display:none;padding:12px;border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;background:var(--glass);}
+.byok-drawer.show{display:block;}
+.byok-field{margin-bottom:8px;}
+.byok-field-lbl{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;}
+.byok-field-inp{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:7px;padding:8px 10px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;transition:border .15s;}
+.byok-field-inp:focus{border-color:rgba(34,197,94,.4);}
+.byok-btns{display:flex;gap:6px;margin-top:6px;}
+.byok-save{padding:7px 14px;border-radius:7px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;}
+.byok-save:hover{background:rgba(34,197,94,.18);}
+.byok-clr{padding:7px 12px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:11px;cursor:pointer;font-family:'Instrument Sans',sans-serif;}
+.byok-clr:hover{color:#ef4444;border-color:rgba(239,68,68,.3);}
+.byok-note{font-size:10px;line-height:1.5;margin-top:8px;padding:8px 10px;border-radius:6px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);color:rgba(34,197,94,.9);}
+.byok-note strong{color:#22c55e;}
+
 /* ── AI PROMPT HELPER ── */
 .ai-helper-wrap{
   border-top:1px solid var(--border2);
@@ -633,6 +658,30 @@ img,video,iframe{max-width:100%;}
       <!-- SEND TO TOOLS -->
       <div style="padding:0 18px 18px;">
         <div class="send-label">Open in AI tool</div>
+
+        <!-- BYOK / USAGE -->
+        <div class="byok-wrap">
+          <div class="byok-status-row">
+            <div class="byok-pips" id="bPips"></div>
+            <span class="byok-status-text" id="bStatus"><strong>3</strong> free AI writes today</span>
+            <button class="byok-key-btn" onclick="bToggleDrawer()" id="bKeyBtn"><i class="ti ti-key"></i> Use own key →</button>
+          </div>
+          <div class="byok-drawer" id="bDrawer">
+            <div class="byok-field">
+              <div class="byok-field-lbl">Anthropic API Key (Claude)</div>
+              <input class="byok-field-inp" type="password" id="bAnthKey" placeholder="sk-ant-api03-..." autocomplete="off"/>
+            </div>
+            <div class="byok-field">
+              <div class="byok-field-lbl">Google AI Key (Gemini)</div>
+              <input class="byok-field-inp" type="password" id="bGoogKey" placeholder="AIza..." autocomplete="off"/>
+            </div>
+            <div class="byok-btns">
+              <button class="byok-save" onclick="bSaveKeys()"><i class="ti ti-check"></i> Save Keys</button>
+              <button class="byok-clr" onclick="bClearKeys()"><i class="ti ti-trash"></i> Clear</button>
+            </div>
+            <div class="byok-note"><i class="ti ti-shield-check"></i> <strong>Your keys are stored only in your browser's localStorage</strong> — never sent to our servers. Requests go <strong>directly to Anthropic/Google</strong> using your key.</div>
+          </div>
+        </div>
 
         <!-- AI PROMPT HELPER -->
         <div class="ai-helper-wrap">
@@ -1359,10 +1408,99 @@ function aiHelperKeydown(e){
   }
 }
 
+// ════════════════════════════════════════════════════
+//  BYOK SYSTEM FOR BUILDER
+// ════════════════════════════════════════════════════
+var B_ANTH     = 'pa_byok_anthropic';
+var B_GOOG     = 'pa_byok_google';
+var B_USAGE    = 'pb_usage_' + new Date().toDateString();
+var B_FREE_LMT = 3;
+var bByokActive = false;
+
+function bGetUsed(){ return parseInt(localStorage.getItem(B_USAGE)||'0',10); }
+function bIncUsed(){ localStorage.setItem(B_USAGE, bGetUsed()+1); }
+function bHasRuns(){ return bByokActive || bGetUsed() < B_FREE_LMT; }
+
+function bUpdateUI(){
+  var used  = bGetUsed();
+  var limit = B_FREE_LMT;
+  var pips  = document.getElementById('bPips');
+  var stat  = document.getElementById('bStatus');
+  var btn   = document.getElementById('bKeyBtn');
+  if(!pips || !stat) return;
+
+  if(bByokActive){
+    pips.innerHTML = '';
+    stat.innerHTML = '<span class="byok-status-active"><i class="ti ti-sparkles"></i> Custom API Active — Unlimited</span>';
+    if(btn){ btn.innerHTML='<i class="ti ti-settings"></i> Manage keys'; }
+    return;
+  }
+  var left = Math.max(0, limit - used);
+  pips.innerHTML = Array.from({length:limit},function(_,i){
+    return '<div class="byok-pip'+(i<used?' used':'')+'"></div>';
+  }).join('');
+  stat.innerHTML = '<strong>'+left+'</strong> free AI write'+(left!==1?'s':'')+' today';
+  if(btn){ btn.innerHTML='<i class="ti ti-key"></i> Use own key →'; }
+}
+
+function bToggleDrawer(){
+  var d = document.getElementById('bDrawer');
+  if(d) d.classList.toggle('show');
+}
+
+function bSaveKeys(){
+  var ak = document.getElementById('bAnthKey').value.trim();
+  var gk = document.getElementById('bGoogKey').value.trim();
+  if(!ak && !gk){ showToast('Enter at least one API key'); return; }
+  if(ak) localStorage.setItem(B_ANTH, ak);
+  if(gk) localStorage.setItem(B_GOOG, gk);
+  bByokActive = true;
+  document.getElementById('bDrawer').classList.remove('show');
+  bUpdateUI();
+  showToast('✅ Keys saved — unlimited AI writes active!');
+}
+
+function bClearKeys(){
+  localStorage.removeItem(B_ANTH);
+  localStorage.removeItem(B_GOOG);
+  bByokActive = false;
+  document.getElementById('bAnthKey').value = '';
+  document.getElementById('bGoogKey').value = '';
+  bUpdateUI();
+  showToast('Keys cleared');
+}
+
+function bCheckGate(){
+  if(bByokActive) return true;
+  if(bHasRuns()) return true;
+  showToast('Daily limit reached — add your own API key for unlimited writes');
+  document.getElementById('bDrawer').classList.add('show');
+  document.getElementById('bDrawer').scrollIntoView({behavior:'smooth',block:'nearest'});
+  return false;
+}
+
+// Init BYOK on load
+(function bInit(){
+  var ak = localStorage.getItem(B_ANTH);
+  var gk = localStorage.getItem(B_GOOG);
+  if(ak || gk){
+    bByokActive = true;
+    if(ak && document.getElementById('bAnthKey')) document.getElementById('bAnthKey').value = ak;
+    if(gk && document.getElementById('bGoogKey')) document.getElementById('bGoogKey').value = gk;
+  }
+  bUpdateUI();
+})();
+
+// ════════════════════════════════════════════════════
+//  AI HELPER — BYOK AWARE
+// ════════════════════════════════════════════════════
 async function runAiHelper(){
   var input = document.getElementById('aiHelperInput');
   var query = input ? input.value.trim() : '';
   if(!query){ showToast('Describe what you want to create'); return; }
+
+  // Gate check
+  if(!bCheckGate()) return;
 
   lastAiQuery = query;
 
@@ -1377,37 +1515,81 @@ async function runAiHelper(){
   if(icon)    icon.style.display    = 'none';
   if(result)  result.classList.remove('show');
 
-  // Get current framework name to tailor the prompt
-  var fwName = activeFw ? activeFw.name : 'CoSTAR';
-  var fwDesc = activeFw ? activeFw.desc : '';
+  var fwName   = activeFw ? activeFw.name : 'CoSTAR';
+  var fwDesc   = activeFw ? activeFw.desc : '';
+  var sysPrompt = 'You are an expert prompt engineer. The user will describe what they want to achieve with AI. You must write a complete, detailed, ready-to-use AI prompt using the ' + fwName + ' framework (' + fwDesc + '). Write ONLY the prompt itself — no explanation, no preamble, no markdown headers. Just the raw prompt text they can paste directly into ChatGPT, Claude, or any AI tool. Make it specific, detailed, and professional. Include role assignment, clear task, relevant context, desired format, and any constraints. Minimum 100 words.';
+  var userMsg  = 'Create a prompt for: ' + query;
+
+  var promptText = '';
 
   try {
-    // Use Cloudflare Worker — no API key in browser
-    var WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
-    var sysPrompt = 'You are an expert prompt engineer. The user will describe what they want to achieve with AI. You must write a complete, detailed, ready-to-use AI prompt using the ' + fwName + ' framework (' + fwDesc + '). Write ONLY the prompt itself — no explanation, no preamble, no markdown headers. Just the raw prompt text they can paste directly into ChatGPT, Claude, or any AI tool. Make it specific, detailed, and professional. Include role assignment, clear task, relevant context, desired format, and any constraints. Minimum 100 words.';
+    var anthKey = localStorage.getItem(B_ANTH);
+    var googKey = localStorage.getItem(B_GOOG);
 
-    var res = await fetch(WORKER_URL + '/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        intent: 'create',
-        max_tokens: 1024,
-        system: sysPrompt,
-        messages: [{ role: 'user', content: 'Create a prompt for: ' + query }]
-      })
-    });
+    if(bByokActive && anthKey){
+      // Direct Anthropic call
+      var res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key': anthKey,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body: JSON.stringify({
+          model:'claude-sonnet-4-6',
+          max_tokens:1024,
+          system: sysPrompt,
+          messages:[{role:'user',content: userMsg}]
+        })
+      });
+      if(!res.ok) throw new Error('Anthropic error ' + res.status);
+      var d = await res.json();
+      promptText = (d.content?.[0]?.text || '').trim();
 
-    if(!res.ok) throw new Error('Worker error ' + res.status);
-    var data = await res.json();
-    var promptText = (data.text || '').replace(/```[\s\S]*?```/g, '').trim();
+    } else if(bByokActive && googKey){
+      // Direct Gemini call
+      var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+googKey;
+      var res = await fetch(url, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          contents:[{parts:[{text: sysPrompt+'\n\n'+userMsg}]}],
+          generationConfig:{maxOutputTokens:1024,temperature:0.7}
+        })
+      });
+      if(!res.ok) throw new Error('Gemini error ' + res.status);
+      var d = await res.json();
+      promptText = (d.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+
+    } else {
+      // Cloudflare Worker
+      var WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
+      var res = await fetch(WORKER_URL + '/api/generate', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          intent:'create', max_tokens:1024,
+          system: sysPrompt,
+          messages:[{role:'user', content: userMsg}]
+        })
+      });
+      if(!res.ok) throw new Error('Worker error ' + res.status);
+      var d = await res.json();
+      promptText = (d.text || '').replace(/```[\s\S]*?```/g,'').trim();
+    }
+
     if(!promptText) throw new Error('No response');
+
+    // Increment usage if not BYOK
+    if(!bByokActive){ bIncUsed(); bUpdateUI(); }
 
     lastAiResult = promptText;
     if(text)   text.textContent = promptText;
     if(result) result.classList.add('show');
     showToast('✨ Prompt ready!');
 
-  } catch(e) {
+  } catch(e){
     showToast('AI unavailable — try again');
     console.error('AI Helper error:', e);
   }
