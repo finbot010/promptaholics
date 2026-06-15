@@ -105,11 +105,16 @@ async function main() {
 
   const newEntries = promptsToAdd.map(promptToJs).join(',\n');
 
-  // Inject before closing ];
-  const updatedContent = currentContent.replace(
-    /(\n?\];\s*)$/,
-    ',\n' + newEntries + '\n];\n'
-  );
+  // Inject before closing ]; — match only the TRUE end-of-file closing bracket
+  // Strategy: find the last }); or just }  followed by whitespace then ]; at end of file
+  const lastBracketPos = currentContent.lastIndexOf('\n];');
+  if(lastBracketPos === -1){
+    console.error('Could not find closing ]; in prompts.js — aborting');
+    process.exit(1);
+  }
+  const updatedContent = currentContent.slice(0, lastBracketPos)
+    + ',\n' + newEntries
+    + '\n];\n';
 
   fs.writeFileSync(filePath, updatedContent, 'utf8');
   console.log('prompts.js updated — added ' + newPrompts.length + ' prompts');
