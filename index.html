@@ -1315,21 +1315,21 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- Dynamic prompt count from prompts.js -->
 <script>
 (function(){
+  // prompts.js defines window.prompts array
+  // We load it and count the entries to keep the homepage in sync
   var s = document.createElement('script');
   s.src = 'prompts.js';
   s.onload = function(){
     try {
-      var count = (window.PROMPTS && window.PROMPTS.length)
-                ? window.PROMPTS.length
-                : (window.prompts && window.prompts.length ? window.prompts.length : null);
+      var count = (window.prompts && window.prompts.length) ? window.prompts.length : null;
       if(!count) return;
       var formatted = count.toLocaleString();
+      // Update eyebrow
       var eyebrow = document.getElementById('heroCount');
       if(eyebrow) eyebrow.textContent = formatted;
+      // Update hero stat
       var stat = document.getElementById('heroStatCount');
       if(stat) stat.innerHTML = formatted + '<span>+</span>';
-      var bc = document.getElementById('badgeCount');
-      if(bc) bc.textContent = formatted;
     } catch(e){}
   };
   document.body.appendChild(s);
