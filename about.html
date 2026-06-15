@@ -153,9 +153,9 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   s.src = 'prompts.js';
   s.onload = function(){
     try {
-      var count = window.prompts && window.prompts.length
-                ? window.prompts.length
-                : (window.PROMPTS && window.PROMPTS.length ? window.PROMPTS.length : null);
+      var count = window.PROMPTS && window.PROMPTS.length
+                ? window.PROMPTS.length
+                : (window.prompts && window.prompts.length ? window.prompts.length : null);
       if(!count) return;
       var formatted = count.toLocaleString();
       // Update stat card

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ARIA — Agent Hub | Promptaholics</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--bg2:#0d0d14;--bg3:#121218;
+  --ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);
+  --orange:#ff6224;--o2:#ff9f24;
+  --green:#22c55e;--blue:#3b82f6;--purple:#a78bfa;--red:#ef4444;--cyan:#06b6d4;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;}
+
+/* ── BACKGROUND ─────────────────────────────────── */
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(167,139,250,.08),transparent 70%);top:-100px;left:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,98,36,.06),transparent 70%);bottom:-80px;right:-80px;}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(6,182,212,.05),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* ── NAV ────────────────────────────────────────── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:rgba(7,7,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',serif;font-size:15px;font-weight:800;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:5px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);color:var(--purple);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-user{font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
+.btn-signout{font-size:11px;padding:5px 12px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
+.btn-signout:hover{color:var(--red);border-color:rgba(239,68,68,.3);}
+
+/* ── AUTH GATE ──────────────────────────────────── */
+.auth-gate{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:24px;}
+.auth-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;max-width:380px;width:100%;text-align:center;}
+.auth-icon{font-size:48px;margin-bottom:16px;}
+.auth-title{font-family:'Syne',serif;font-size:24px;font-weight:900;margin-bottom:8px;}
+.auth-sub{font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.6;}
+.btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;background:#fff;color:#1a1a2e;font-size:14px;font-weight:700;border-radius:12px;border:none;cursor:pointer;transition:all .15s;}
+.btn-google:hover{background:#f0f0f0;}
+
+/* ── MAIN LAYOUT ────────────────────────────────── */
+.hub{position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:32px 24px 80px;}
+
+/* ── ARIA CORE ──────────────────────────────────── */
+.aria-core{background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(6,182,212,.05),rgba(255,98,36,.04));border:1px solid rgba(167,139,250,.2);border-radius:24px;padding:32px;margin-bottom:28px;text-align:center;position:relative;overflow:hidden;}
+.aria-core::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(167,139,250,.06),transparent 60%);pointer-events:none;}
+.aria-status-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;}
+.aria-dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse-dot 2s ease infinite;}
+.aria-dot.listening{background:var(--red);box-shadow:0 0 12px var(--red);animation:pulse-dot .8s ease infinite;}
+.aria-dot.thinking{background:var(--purple);box-shadow:0 0 10px var(--purple);animation:pulse-dot .5s ease infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+.aria-status-text{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);}
+.aria-name{font-family:'Syne',serif;font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-2px;margin-bottom:6px;}
+.aria-name span{background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.aria-tagline{font-size:13px;color:var(--ink2);margin-bottom:28px;}
+
+/* Waveform visualizer */
+.waveform{display:flex;align-items:center;justify-content:center;gap:3px;height:48px;margin-bottom:24px;}
+.wave-bar{width:4px;border-radius:2px;background:var(--purple);opacity:.3;transition:all .1s;}
+.wave-bar.active{opacity:1;}
+
+/* Transcript */
+.aria-transcript{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:14px 18px;min-height:52px;margin-bottom:20px;font-size:14px;color:var(--ink2);line-height:1.6;text-align:left;font-style:italic;}
+.aria-transcript.user{color:var(--ink);font-style:normal;border-color:rgba(167,139,250,.2);}
+
+/* Voice controls */
+.voice-controls{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-mic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;transition:all .2s;box-shadow:0 4px 24px rgba(167,139,250,.3);}
+.btn-mic:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(167,139,250,.4);}
+.btn-mic.listening{animation:mic-pulse 1s ease infinite;background:linear-gradient(135deg,var(--red),#f97316);}
+@keyframes mic-pulse{0%,100%{box-shadow:0 4px 24px rgba(239,68,68,.3);}50%{box-shadow:0 4px 40px rgba(239,68,68,.6);}}
+.btn-text-input{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
+.btn-text-input:hover{border-color:rgba(167,139,250,.3);color:var(--purple);}
+.btn-stop-speech{display:none;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
+.btn-stop-speech.show{display:inline-flex;}
+
+/* Text input mode */
+.text-input-row{display:none;gap:8px;margin-top:12px;}
+.text-input-row.show{display:flex;}
+.aria-text-input{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:14px;outline:none;transition:border .15s;}
+.aria-text-input:focus{border-color:rgba(167,139,250,.4);}
+.btn-send{padding:10px 16px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff;border:none;cursor:pointer;font-size:14px;transition:all .15s;}
+.btn-send:hover{opacity:.85;}
+
+/* ── AGENT GRID ─────────────────────────────────── */
+.agents-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.agents-title{font-family:'Syne',serif;font-size:18px;font-weight:800;}
+.agents-subtitle{font-size:12px;color:var(--ink3);}
+.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+@media(max-width:768px){.agent-grid{grid-template-columns:1fr;}}
+@media(min-width:769px) and (max-width:1024px){.agent-grid{grid-template-columns:repeat(2,1fr);}}
+
+.agent-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
+.agent-card:hover{transform:translateY(-2px);border-color:var(--border2);}
+.agent-card:hover::before{opacity:1;}
+.agent-card.active{border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.04);}
+.agent-card.agent-1::before{background:linear-gradient(90deg,var(--orange),var(--o2));}
+.agent-card.agent-2::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
+.agent-card.agent-3::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.agent-card.empty{border-style:dashed;opacity:.5;cursor:pointer;}
+.agent-card.empty:hover{opacity:.8;border-color:rgba(167,139,250,.3);}
+
+.agent-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.agent-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.agent-1 .agent-icon{background:rgba(255,98,36,.1);color:var(--orange);}
+.agent-2 .agent-icon{background:rgba(59,130,246,.1);color:var(--blue);}
+.agent-3 .agent-icon{background:rgba(34,197,94,.1);color:var(--green);}
+.empty .agent-icon{background:var(--glass);color:var(--ink3);}
+.agent-status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.3px;}
+.agent-status-pill.ready{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.agent-status-pill.busy{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
+.agent-status-pill.idle{background:var(--glass);border:1px solid var(--border);color:var(--ink3);}
+.agent-status-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+.agent-name{font-family:'Syne',serif;font-size:15px;font-weight:800;margin-bottom:4px;}
+.agent-desc{font-size:11px;color:var(--ink3);line-height:1.5;margin-bottom:14px;}
+
+.agent-stats{display:flex;gap:12px;margin-bottom:14px;}
+.agent-stat{text-align:center;}
+.agent-stat-n{font-family:'Syne',serif;font-size:20px;font-weight:900;color:var(--orange);line-height:1;}
+.agent-stat-l{font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+
+.agent-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.agent-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;font-family:'Instrument Sans',sans-serif;text-decoration:none;}
+.agent-btn.primary{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.25);color:var(--orange);}
+.agent-btn.primary:hover{background:rgba(255,98,36,.16);}
+.agent-btn.secondary{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.agent-btn.secondary:hover{color:var(--ink);}
+
+/* Expand panel */
+.agent-expand{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.agent-expand.show{display:block;}
+.expand-cmd-list{display:flex;flex-direction:column;gap:6px;}
+.expand-cmd{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--glass);border:1px solid var(--border);font-size:11px;color:var(--ink2);cursor:pointer;transition:all .15s;}
+.expand-cmd:hover{border-color:rgba(167,139,250,.3);color:var(--purple);}
+.expand-cmd i{font-size:13px;color:var(--ink3);}
+.expand-cmd:hover i{color:var(--purple);}
+
+/* Add agent card */
+.add-agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+@media(max-width:768px){.add-agent-grid{grid-template-columns:1fr;}}
+@media(min-width:769px) and (max-width:1024px){.add-agent-grid{grid-template-columns:repeat(2,1fr);}}
+.add-agent-card{background:var(--glass);border:1px dashed var(--border2);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .2s;min-height:120px;}
+.add-agent-card:hover{border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.04);}
+.add-agent-card i{font-size:28px;color:var(--ink3);}
+.add-agent-card:hover i{color:var(--purple);}
+.add-agent-card span{font-size:11px;font-weight:700;color:var(--ink3);}
+.add-agent-card:hover span{color:var(--purple);}
+
+/* ── ACTIVITY LOG ───────────────────────────────── */
+.activity-section{margin-top:28px;}
+.section-title{font-family:'Syne',serif;font-size:16px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.activity-log{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;max-height:220px;overflow-y:auto;}
+.activity-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.activity-item:last-child{border-bottom:none;}
+.activity-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);white-space:nowrap;margin-top:1px;}
+.activity-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.activity-text{color:var(--ink2);line-height:1.5;}
+.activity-text strong{color:var(--ink);}
+
+/* ── ADD AGENT MODAL ────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;z-index:800;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(7,7,10,.85);backdrop-filter:blur(12px);display:none;}
+.modal-overlay.show{display:flex;}
+.modal-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:32px;max-width:480px;width:100%;}
+.modal-title{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:6px;}
+.modal-sub{font-size:12px;color:var(--ink2);margin-bottom:24px;}
+.modal-field{margin-bottom:16px;}
+.modal-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;}
+.modal-field input,.modal-field textarea,.modal-field select{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:9px;padding:10px 12px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border .15s;}
+.modal-field input:focus,.modal-field textarea:focus{border-color:rgba(167,139,250,.4);}
+.modal-field textarea{resize:vertical;min-height:70px;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.btn-modal-save{padding:10px 20px;border-radius:9px;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:700;font-family:'Instrument Sans',sans-serif;}
+.btn-modal-cancel{padding:10px 16px;border-radius:9px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:13px;font-family:'Instrument Sans',sans-serif;}
+
+/* ── TOAST ──────────────────────────────────────── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(13,13,20,.97);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;backdrop-filter:blur(16px);z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    Prompt<span>aholics</span>
+  </a>
+  <span class="nav-badge">⚡ ARIA HUB</span>
+  <div class="nav-right">
+    <span class="nav-user" id="navUser"></span>
+    <button class="btn-signout" onclick="signOut()" id="signOutBtn" style="display:none;">Sign Out</button>
+  </div>
+</nav>
+
+<!-- AUTH GATE -->
+<div id="authGate" class="auth-gate">
+  <div class="auth-card">
+    <div class="auth-icon">🤖</div>
+    <h2 class="auth-title">ARIA Access</h2>
+    <p class="auth-sub">Sign in with your admin account to access the Agent Hub.</p>
+    <button class="btn-google" onclick="adminSignIn()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Sign In with Google
+    </button>
+  </div>
+</div>
+
+<!-- MAIN HUB -->
+<div id="hubMain" style="display:none;">
+<div class="hub">
+
+  <!-- ARIA CORE -->
+  <div class="aria-core">
+    <div class="aria-status-row">
+      <div class="aria-dot" id="ariaDot"></div>
+      <span class="aria-status-text" id="ariaStatus">Online · Ready</span>
+    </div>
+    <h1 class="aria-name">Hey, I'm <span>ARIA</span></h1>
+    <p class="aria-tagline">Adaptive Response & Intelligence Agent — managing your Promptaholics operations</p>
+
+    <!-- Waveform -->
+    <div class="waveform" id="waveform"></div>
+
+    <!-- Transcript -->
+    <div class="aria-transcript" id="ariaTranscript">Say "Hey ARIA" or tap the mic to start. I'm listening...</div>
+
+    <!-- Voice controls -->
+    <div class="voice-controls">
+      <button class="btn-mic" id="micBtn" onclick="toggleListening()" title="Hold to speak">
+        <i class="ti ti-microphone" id="micIcon"></i>
+      </button>
+      <button class="btn-text-input" onclick="toggleTextInput()">
+        <i class="ti ti-keyboard"></i> Type instead
+      </button>
+      <button class="btn-stop-speech" id="stopSpeechBtn" onclick="stopSpeaking()">
+        <i class="ti ti-player-stop"></i> Stop
+      </button>
+    </div>
+    <div class="text-input-row" id="textInputRow">
+      <input class="aria-text-input" id="ariaTextInput" placeholder="Type your command..." onkeydown="if(event.key==='Enter') sendTextCommand()"/>
+      <button class="btn-send" onclick="sendTextCommand()"><i class="ti ti-send"></i></button>
+    </div>
+  </div>
+
+  <!-- AGENT GRID -->
+  <div class="agents-header">
+    <div>
+      <div class="agents-title">Active Agents</div>
+      <div class="agents-subtitle">Click any agent to expand quick actions</div>
+    </div>
+    <span id="agentCountBadge" style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;">3 / 6 active</span>
+  </div>
+
+  <div class="agent-grid">
+
+    <!-- AGENT 1 — VAULT & APPROVALS -->
+    <div class="agent-card agent-1" onclick="toggleAgent(1)">
+      <div class="agent-card-header">
+        <div class="agent-icon"><i class="ti ti-check-circle"></i></div>
+        <span class="agent-status-pill ready" id="a1pill"><span class="agent-status-dot"></span> Ready</span>
+      </div>
+      <div class="agent-name">Vault & Approvals</div>
+      <div class="agent-desc">Manages prompt submissions and image vault approvals from Firebase.</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><div class="agent-stat-n" id="a1pending">—</div><div class="agent-stat-l">Prompts</div></div>
+        <div class="agent-stat"><div class="agent-stat-n" id="a1images">—</div><div class="agent-stat-l">Images</div></div>
+      </div>
+      <div class="agent-actions">
+        <a href="admin-prompts.html" target="_blank" class="agent-btn primary"><i class="ti ti-external-link"></i> Prompt Queue</a>
+        <a href="vault-admin.html" target="_blank" class="agent-btn secondary"><i class="ti ti-photo"></i> Vault Queue</a>
+      </div>
+      <div class="agent-expand" id="expand1">
+        <div class="expand-cmd-list">
+          <div class="expand-cmd" onclick="ariaCommand('How many prompts are pending approval?')"><i class="ti ti-message"></i> "How many prompts pending?"</div>
+          <div class="expand-cmd" onclick="ariaCommand('What images are waiting in the vault queue?')"><i class="ti ti-message"></i> "What images are waiting?"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Open the prompt approval queue')"><i class="ti ti-message"></i> "Open prompt queue"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Run the GitHub Action to export approved prompts')"><i class="ti ti-message"></i> "Export approved prompts"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENT 2 — SOCIAL MEDIA -->
+    <div class="agent-card agent-2" onclick="toggleAgent(2)">
+      <div class="agent-card-header">
+        <div class="agent-icon"><i class="ti ti-brand-tiktok"></i></div>
+        <span class="agent-status-pill ready" id="a2pill"><span class="agent-status-dot"></span> Ready</span>
+      </div>
+      <div class="agent-name">Social Media</div>
+      <div class="agent-desc">Creates platform-specific posts, threads, hooks, and content for all channels.</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><div class="agent-stat-n">6</div><div class="agent-stat-l">Platforms</div></div>
+        <div class="agent-stat"><div class="agent-stat-n" id="a2queue">0</div><div class="agent-stat-l">Queued</div></div>
+      </div>
+      <div class="agent-actions">
+        <button class="agent-btn primary" onclick="ariaCommand('Write a TikTok hook about the PA Agent feature');event.stopPropagation()"><i class="ti ti-pencil"></i> Write Post</button>
+        <button class="agent-btn secondary" onclick="ariaCommand('Give me a 7-day social media content calendar for Promptaholics');event.stopPropagation()"><i class="ti ti-calendar"></i> Calendar</button>
+      </div>
+      <div class="agent-expand" id="expand2">
+        <div class="expand-cmd-list">
+          <div class="expand-cmd" onclick="ariaCommand('Write a viral TikTok hook about the free AI prompt library')"><i class="ti ti-message"></i> "Write TikTok hook"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Write a LinkedIn post about Promptaholics launching on Product Hunt')"><i class="ti ti-message"></i> "LinkedIn launch post"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Write a Twitter thread about prompt engineering frameworks')"><i class="ti ti-message"></i> "Twitter thread"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Give me 5 Instagram caption ideas for the image vault feature')"><i class="ti ti-message"></i> "Instagram captions"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Write a Reddit post for r/PromptEngineering about the prompt builder')"><i class="ti ti-message"></i> "Reddit post"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENT 3 — TECH & SITE -->
+    <div class="agent-card agent-3" onclick="toggleAgent(3)">
+      <div class="agent-card-header">
+        <div class="agent-icon"><i class="ti ti-code"></i></div>
+        <span class="agent-status-pill ready" id="a3pill"><span class="agent-status-dot"></span> Ready</span>
+      </div>
+      <div class="agent-name">Tech & Site Ops</div>
+      <div class="agent-desc">Tracks the build queue, feature upgrades, deployments, and GitHub Actions.</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><div class="agent-stat-n">7</div><div class="agent-stat-l">In Queue</div></div>
+        <div class="agent-stat"><div class="agent-stat-n" id="a3deploy">✓</div><div class="agent-stat-l">Deployed</div></div>
+      </div>
+      <div class="agent-actions">
+        <button class="agent-btn primary" onclick="ariaCommand('What is the current build queue and what should I work on next?');event.stopPropagation()"><i class="ti ti-list"></i> Build Queue</button>
+        <button class="agent-btn secondary" onclick="ariaCommand('What GitHub Actions ran this week and what is scheduled next?');event.stopPropagation()"><i class="ti ti-git-branch"></i> GitHub</button>
+      </div>
+      <div class="agent-expand" id="expand3">
+        <div class="expand-cmd-list">
+          <div class="expand-cmd" onclick="ariaCommand('What is the full build queue in priority order?')"><i class="ti ti-message"></i> "Full build queue"</div>
+          <div class="expand-cmd" onclick="ariaCommand('When does the GitHub Action run next and what will it do?')"><i class="ti ti-message"></i> "Next GitHub Action"</div>
+          <div class="expand-cmd" onclick="ariaCommand('What features should I add to Promptaholics next month?')"><i class="ti ti-message"></i> "Feature suggestions"</div>
+          <div class="expand-cmd" onclick="ariaCommand('What is the status of the AdSense application and what do I need to do?')"><i class="ti ti-message"></i> "AdSense status"</div>
+          <div class="expand-cmd" onclick="ariaCommand('Give me a product hunt launch checklist for this Thursday')"><i class="ti ti-message"></i> "Product Hunt checklist"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EMPTY AGENT SLOTS -->
+  <div class="add-agent-grid">
+    <div class="add-agent-card" onclick="showAddAgentModal(4)">
+      <i class="ti ti-plus"></i>
+      <span>Add Agent 4</span>
+    </div>
+    <div class="add-agent-card" onclick="showAddAgentModal(5)">
+      <i class="ti ti-plus"></i>
+      <span>Add Agent 5</span>
+    </div>
+    <div class="add-agent-card" onclick="showAddAgentModal(6)">
+      <i class="ti ti-plus"></i>
+      <span>Add Agent 6</span>
+    </div>
+  </div>
+
+  <!-- ACTIVITY LOG -->
+  <div class="activity-section">
+    <div class="section-title"><i class="ti ti-activity" style="color:var(--purple)"></i> Session Log</div>
+    <div class="activity-log" id="activityLog">
+      <div class="activity-item">
+        <span class="activity-time" id="initTime">--:--</span>
+        <span class="activity-icon" style="color:var(--green);">✓</span>
+        <span class="activity-text"><strong>ARIA initialized</strong> — All 3 agents online. Firebase connected.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ADD AGENT MODAL -->
+<div class="modal-overlay" id="addAgentModal">
+  <div class="modal-card">
+    <div class="modal-title">Add New Agent</div>
+    <div class="modal-sub">Define what this agent does and how ARIA should route tasks to it.</div>
+    <div class="modal-field">
+      <label>Agent Name</label>
+      <input id="newAgentName" placeholder="e.g. SEO & Analytics Agent"/>
+    </div>
+    <div class="modal-field">
+      <label>Trigger Phrases (comma separated)</label>
+      <input id="newAgentTriggers" placeholder="e.g. SEO, analytics, traffic, ranking"/>
+    </div>
+    <div class="modal-field">
+      <label>Responsibilities</label>
+      <textarea id="newAgentResponsibilities" placeholder="What does this agent do? What data does it access?"></textarea>
+    </div>
+    <div class="modal-field">
+      <label>Icon (Tabler icon name)</label>
+      <input id="newAgentIcon" placeholder="e.g. chart-bar, robot, mail"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-modal-save" onclick="saveNewAgent()">Add Agent</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, getDocs, query, where }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+const app = initializeApp({
+  apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+  authDomain:"promptaholics-534d3.firebaseapp.com",
+  projectId:"promptaholics-534d3",
+  appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
+});
+const db       = getFirestore(app);
+const auth     = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window._ariaSignIn  = () => signInWithPopup(auth, provider);
+window._ariaSignOut = () => signOut(auth);
+
+onAuthStateChanged(auth, async user => {
+  if(user && user.email === 'promptaholics1@gmail.com'){
+    document.getElementById('authGate').style.display  = 'none';
+    document.getElementById('hubMain').style.display   = 'block';
+    document.getElementById('navUser').textContent     = user.email;
+    document.getElementById('signOutBtn').style.display = 'inline-block';
+    document.getElementById('initTime').textContent    = new Date().toLocaleTimeString();
+    await loadAgentStats(db, collection, getDocs, query, where);
+  } else if(user){
+    alert('Access denied. Admin only.');
+    signOut(auth);
+  }
+});
+
+async function loadAgentStats(db, collection, getDocs, query, where){
+  try {
+    // Agent 1 — pending prompts
+    const pSnap = await getDocs(query(collection(db,'pending-prompts'), where('status','==','pending')));
+    document.getElementById('a1pending').textContent = pSnap.size;
+
+    // Agent 1 — pending vault images
+    const vSnap = await getDocs(query(collection(db,'vault-submissions'), where('status','==','pending')));
+    document.getElementById('a1images').textContent = vSnap.size;
+
+    addLog('✓', 'Firebase stats loaded — ' + pSnap.size + ' prompts, ' + vSnap.size + ' images pending', 'var(--green)');
+  } catch(e){
+    console.error('Stats load error:', e);
+    document.getElementById('a1pending').textContent = '?';
+    document.getElementById('a1images').textContent  = '?';
+  }
+}
+</script>
+
+<script>
+const WORKER_URL    = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
+const ADMIN_EMAIL   = 'promptaholics1@gmail.com';
+const ARIA_SYSTEM   = `You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate three sub-agents: Vault & Approvals (Firebase prompt/image queue), Social Media (content creation for TikTok, LinkedIn, Twitter, Instagram, Reddit), and Tech & Site Ops (build queue, GitHub Actions, deployments). 
+
+SITE CONTEXT:
+- Site: Promptaholics.com on Netlify, repo github.com/finbot010/promptaholics
+- Firebase: promptaholics-534d3, collections: prompts, pending-prompts, vault-submissions
+- Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev
+- GitHub Action: export-prompts.cjs, runs Monday 2PM UTC
+- Build queue: JSON drop import, Gemini re-enable, prompt builder Puter→Worker, AI directories, SEO pages, Brevo email capture
+- Library: 1487+ prompts, prompts.js flat file
+- Admin: promptaholics1@gmail.com
+- Product Hunt launch: Thursday this week
+- Monetization: AdSense (pending approval), affiliate links on Creation Station
+
+VOICE RULES:
+- Respond in natural spoken English only — no markdown, no bullets, no special characters
+- Keep responses to 2-4 sentences max
+- Always end with a follow-up question or next action suggestion
+- Confirm before acting: say what you are about to do
+- Be direct, confident, and friendly`;
+
+// ── Waveform init ─────────────────────────────────
+const waveform = document.getElementById('waveform');
+for(let i=0;i<24;i++){
+  const bar = document.createElement('div');
+  bar.className = 'wave-bar';
+  bar.style.height = (Math.random()*20+8)+'px';
+  waveform.appendChild(bar);
+}
+
+let waveInterval = null;
+function animateWave(active){
+  clearInterval(waveInterval);
+  if(!active){ document.querySelectorAll('.wave-bar').forEach(b=>{ b.classList.remove('active'); b.style.height=(Math.random()*20+8)+'px'; }); return; }
+  waveInterval = setInterval(()=>{
+    document.querySelectorAll('.wave-bar').forEach(b=>{
+      b.classList.add('active');
+      b.style.height=(Math.random()*36+6)+'px';
+      b.style.background=`hsl(${260+Math.random()*40},70%,${60+Math.random()*20}%)`;
+    });
+  }, 80);
+}
+
+// ── Speech ────────────────────────────────────────
+let recognition  = null;
+let synthesis    = window.speechSynthesis;
+let isListening  = false;
+let isSpeaking   = false;
+
+function setAriaState(state){
+  const dot    = document.getElementById('ariaDot');
+  const status = document.getElementById('ariaStatus');
+  dot.className = 'aria-dot';
+  if(state==='listening'){ dot.classList.add('listening'); status.textContent='Listening...'; animateWave(true); }
+  else if(state==='thinking'){ dot.classList.add('thinking'); status.textContent='Thinking...'; animateWave(true); }
+  else if(state==='speaking'){ status.textContent='Speaking...'; animateWave(true); }
+  else { status.textContent='Online · Ready'; animateWave(false); }
+}
+
+function toggleListening(){
+  if(isSpeaking){ stopSpeaking(); return; }
+  if(isListening){ stopListening(); return; }
+  startListening();
+}
+
+function startListening(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ showToast('Speech recognition not supported — use text input'); return; }
+  recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    isListening = true;
+    setAriaState('listening');
+    document.getElementById('micIcon').className = 'ti ti-microphone-off';
+    document.getElementById('micBtn').classList.add('listening');
+    setTranscript('Listening...', false);
+  };
+
+  recognition.onresult = e => {
+    const t = Array.from(e.results).map(r=>r[0].transcript).join('');
+    setTranscript(t, true);
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    document.getElementById('micIcon').className = 'ti ti-microphone';
+    document.getElementById('micBtn').classList.remove('listening');
+    const text = document.getElementById('ariaTranscript').textContent;
+    if(text && text !== 'Listening...') processCommand(text);
+    else setAriaState('idle');
+  };
+
+  recognition.onerror = e => {
+    isListening = false;
+    document.getElementById('micBtn').classList.remove('listening');
+    setAriaState('idle');
+    if(e.error !== 'no-speech') showToast('Mic error: ' + e.error);
+  };
+
+  recognition.start();
+}
+
+function stopListening(){
+  if(recognition) recognition.stop();
+  isListening = false;
+}
+
+function setTranscript(text, isUser){
+  const el = document.getElementById('ariaTranscript');
+  el.textContent = text;
+  el.className = 'aria-transcript' + (isUser ? ' user' : '');
+}
+
+function speak(text){
+  if(!synthesis) return;
+  synthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate  = 1.05;
+  utt.pitch = 1.0;
+  utt.volume= 1.0;
+
+  // Pick a good voice
+  const voices = synthesis.getVoices();
+  const preferred = voices.find(v=>v.name.includes('Samantha')||v.name.includes('Karen')||v.name.includes('Google US English')||v.lang==='en-US');
+  if(preferred) utt.voice = preferred;
+
+  utt.onstart = () => { isSpeaking=true; setAriaState('speaking'); document.getElementById('stopSpeechBtn').classList.add('show'); };
+  utt.onend   = () => { isSpeaking=false; setAriaState('idle'); document.getElementById('stopSpeechBtn').classList.remove('show'); };
+  synthesis.speak(utt);
+}
+
+function stopSpeaking(){
+  if(synthesis) synthesis.cancel();
+  isSpeaking = false;
+  setAriaState('idle');
+  document.getElementById('stopSpeechBtn').classList.remove('show');
+}
+
+// ── Commands ──────────────────────────────────────
+function toggleTextInput(){
+  document.getElementById('textInputRow').classList.toggle('show');
+  document.getElementById('ariaTextInput').focus();
+}
+
+function sendTextCommand(){
+  const input = document.getElementById('ariaTextInput');
+  const text  = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  setTranscript(text, true);
+  processCommand(text);
+}
+
+function ariaCommand(cmd){
+  setTranscript(cmd, true);
+  processCommand(cmd);
+}
+
+async function processCommand(text){
+  setAriaState('thinking');
+  addLog('🎙', 'Command: ' + text.slice(0,60), 'var(--purple)');
+
+  try {
+    const res = await fetch(WORKER_URL + '/api/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        intent: 'create',
+        max_tokens: 300,
+        system: ARIA_SYSTEM,
+        messages: [{ role:'user', content: text }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Worker error ' + res.status);
+    const data = await res.json();
+    const reply = (data.text || 'I could not process that request. Please try again.').trim();
+
+    setTranscript(reply, false);
+    setAriaState('speaking');
+    speak(reply);
+    addLog('🤖', 'ARIA: ' + reply.slice(0,80) + (reply.length>80?'...':''), 'var(--cyan)');
+
+  } catch(e){
+    const err = 'I had trouble connecting. Check your internet and try again.';
+    setTranscript(err, false);
+    speak(err);
+    setAriaState('idle');
+    console.error('ARIA error:', e);
+  }
+}
+
+// ── Agent expand ──────────────────────────────────
+function toggleAgent(n){
+  const el = document.getElementById('expand'+n);
+  el.classList.toggle('show');
+}
+
+// ── Add agent modal ───────────────────────────────
+let newAgentSlot = null;
+const customAgents = JSON.parse(localStorage.getItem('aria_custom_agents')||'{}');
+
+function showAddAgentModal(slot){
+  newAgentSlot = slot;
+  document.getElementById('addAgentModal').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('addAgentModal').classList.remove('show');
+  newAgentSlot = null;
+}
+function saveNewAgent(){
+  const name    = document.getElementById('newAgentName').value.trim();
+  const triggers= document.getElementById('newAgentTriggers').value.trim();
+  const resp    = document.getElementById('newAgentResponsibilities').value.trim();
+  const icon    = document.getElementById('newAgentIcon').value.trim() || 'robot';
+  if(!name||!triggers){ showToast('Enter agent name and triggers'); return; }
+  customAgents[newAgentSlot] = { name, triggers, responsibilities: resp, icon };
+  localStorage.setItem('aria_custom_agents', JSON.stringify(customAgents));
+  addLog('➕', 'Agent ' + newAgentSlot + ' added: ' + name, 'var(--green)');
+  showToast('✅ Agent ' + newAgentSlot + ' — ' + name + ' added!');
+  closeModal();
+}
+
+// ── Activity log ──────────────────────────────────
+function addLog(icon, text, color){
+  const log  = document.getElementById('activityLog');
+  const item = document.createElement('div');
+  item.className = 'activity-item';
+  item.innerHTML = `<span class="activity-time">${new Date().toLocaleTimeString()}</span><span class="activity-icon" style="color:${color}">${icon}</span><span class="activity-text">${text}</span>`;
+  log.appendChild(item);
+  log.scrollTop = log.scrollHeight;
+}
+
+// ── Auth ──────────────────────────────────────────
+function adminSignIn(){ if(window._ariaSignIn) window._ariaSignIn().catch(e=>{ if(e.code!=='auth/popup-closed-by-user') showToast('Sign in failed'); }); }
+function signOut(){ if(window._ariaSignOut) window._ariaSignOut().then(()=>{ document.getElementById('authGate').style.display='flex'; document.getElementById('hubMain').style.display='none'; }); }
+
+// ── Toast ─────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── Init greeting ─────────────────────────────────
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    if(document.getElementById('hubMain').style.display !== 'none'){
+      const greeting = 'Hey, ARIA online. I am managing your vault approvals, content, and site operations. What do you need?';
+      setTranscript(greeting, false);
+      speak(greeting);
+    }
+  }, 1500);
+});
+</script>
+</body>
+</html>
