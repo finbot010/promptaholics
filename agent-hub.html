@@ -247,6 +247,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="btn-stop-speech" id="stopSpeechBtn" onclick="stopSpeaking()">
         <i class="ti ti-player-stop"></i> Stop
       </button>
+      <button class="btn-text-input" onclick="resetConversation()" title="Start fresh conversation">
+        <i class="ti ti-refresh"></i> Reset
+      </button>
     </div>
     <div class="text-input-row" id="textInputRow">
       <input class="aria-text-input" id="ariaTextInput" placeholder="Type your command..." onkeydown="if(event.key==='Enter') sendTextCommand()"/>
@@ -465,6 +468,11 @@ async function loadAgentStats(db, collection, getDocs, query, where){
 <script>
 const WORKER_URL    = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
 const ADMIN_EMAIL   = 'promptaholics1@gmail.com';
+
+// ── Conversation history — keeps full context across turns ────
+let conversationHistory = [];
+const MAX_HISTORY = 20; // keep last 20 exchanges
+
 const ARIA_SYSTEM   = `You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate three sub-agents: Vault & Approvals (Firebase prompt/image queue), Social Media (content creation for TikTok, LinkedIn, Twitter, Instagram, Reddit), and Tech & Site Ops (build queue, GitHub Actions, deployments). 
 
 SITE CONTEXT:
@@ -473,9 +481,9 @@ SITE CONTEXT:
 - Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev
 - GitHub Action: export-prompts.cjs, runs Monday 2PM UTC
 - Build queue: JSON drop import, Gemini re-enable, prompt builder Puter→Worker, AI directories, SEO pages, Brevo email capture
-- Library: 1487+ prompts, prompts.js flat file
+- Library: 1642 prompts, prompts.js flat file
 - Admin: promptaholics1@gmail.com
-- Product Hunt launch: Thursday this week
+- Product Hunt launch: next Thursday
 - Monetization: AdSense (pending approval), affiliate links on Creation Station
 
 VOICE RULES:
@@ -483,7 +491,9 @@ VOICE RULES:
 - Keep responses to 2-4 sentences max
 - Always end with a follow-up question or next action suggestion
 - Confirm before acting: say what you are about to do
-- Be direct, confident, and friendly`;
+- Be direct, confident, and friendly
+- You remember everything said earlier in this conversation — reference it naturally
+- For current events or news, say you can search the web and offer to look it up`;
 
 // ── Waveform init ─────────────────────────────────
 const waveform = document.getElementById('waveform');
@@ -594,7 +604,15 @@ function speak(text){
   if(preferred) utt.voice = preferred;
 
   utt.onstart = () => { isSpeaking=true; setAriaState('speaking'); document.getElementById('stopSpeechBtn').classList.add('show'); };
-  utt.onend   = () => { isSpeaking=false; setAriaState('idle'); document.getElementById('stopSpeechBtn').classList.remove('show'); };
+  utt.onend   = () => {
+    isSpeaking=false;
+    setAriaState('idle');
+    document.getElementById('stopSpeechBtn').classList.remove('show');
+    // Auto-restart listening after ARIA finishes speaking
+    setTimeout(()=>{
+      if(!isListening && !isSpeaking) startListening();
+    }, 600);
+  };
   synthesis.speak(utt);
 }
 
@@ -606,6 +624,15 @@ function stopSpeaking(){
 }
 
 // ── Commands ──────────────────────────────────────
+function resetConversation(){
+  conversationHistory = [];
+  setTranscript('Conversation reset. Say "Hey ARIA" or tap the mic to start fresh.', false);
+  setAriaState('idle');
+  stopSpeaking();
+  addLog('🔄', 'Conversation history cleared', 'var(--ink3)');
+  showToast('Conversation reset');
+}
+
 function toggleTextInput(){
   document.getElementById('textInputRow').classList.toggle('show');
   document.getElementById('ariaTextInput').focus();
@@ -629,21 +656,58 @@ async function processCommand(text){
   setAriaState('thinking');
   addLog('🎙', 'Command: ' + text.slice(0,60), 'var(--purple)');
 
-  try {
-    const res = await fetch(WORKER_URL + '/api/generate', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        intent: 'create',
-        max_tokens: 300,
-        system: ARIA_SYSTEM,
-        messages: [{ role:'user', content: text }]
-      })
-    });
+  // Add user message to history
+  conversationHistory.push({ role: 'user', content: text });
 
-    if(!res.ok) throw new Error('Worker error ' + res.status);
-    const data = await res.json();
-    const reply = (data.text || 'I could not process that request. Please try again.').trim();
+  // Trim history if too long
+  if(conversationHistory.length > MAX_HISTORY){
+    conversationHistory = conversationHistory.slice(-MAX_HISTORY);
+  }
+
+  // Detect if asking about current events / news / web
+  const webKeywords = ['latest','news','today','current','trending','what happened','search','look up','find out','recent','right now','price of','weather','stock'];
+  const needsWeb = webKeywords.some(k => text.toLowerCase().includes(k));
+
+  try {
+    let reply = '';
+
+    if(needsWeb){
+      // Use Gemini with Google Search grounding via Worker
+      const res = await fetch(WORKER_URL + '/api/generate', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          intent: 'find',  // routes to Gemini with search grounding
+          max_tokens: 300,
+          system: ARIA_SYSTEM,
+          messages: conversationHistory
+        })
+      });
+      if(!res.ok) throw new Error('Worker error ' + res.status);
+      const data = await res.json();
+      reply = (data.text || '').trim();
+      addLog('🔍', 'Web search used for: ' + text.slice(0,40), 'var(--cyan)');
+    } else {
+      // Use Claude via Worker with full conversation history
+      const res = await fetch(WORKER_URL + '/api/generate', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          intent: 'create',
+          max_tokens: 300,
+          system: ARIA_SYSTEM,
+          messages: conversationHistory
+        })
+      });
+      if(!res.ok) throw new Error('Worker error ' + res.status);
+      const data = await res.json();
+      reply = (data.text || '').trim();
+    }
+
+    if(!reply) throw new Error('Empty response');
+
+    // Add ARIA response to history
+    conversationHistory.push({ role: 'assistant', content: reply });
 
     setTranscript(reply, false);
     setAriaState('speaking');
