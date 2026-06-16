@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-08T17:21:52.537Z",
-  "week": 24,
+  "generated_at": "2026-06-16T00:22:42.759Z",
+  "week": 25,
   "slot-1": {
-    "name": "Cyberpunk Neon Noir",
-    "prompt": "Ultra-detailed cyberpunk city at night. Heavy rain with neon reflections pooling on wet streets. Flying cars weaving between massive skyscrapers. Dramatic pink and teal volumetric lighting. Blade Runner 2049 aesthetic. Atmospheric fog and light rays through tall buildings. Cinematic masterpiece photorealistic 8K."
+    "name": "Surreal Dreamscape",
+    "prompt": "Breathtaking surreal dreamscape where a vast ocean floats in the sky above an endless desert. Giant clocks melt over impossible architectural structures. Mysterious glowing orbs. Beksinski meets Dali meets Stalenhag. Ethereal impossible light sources. Dreamy mysterious slightly unsettling. Muted palette with vivid purple accents. Ultra-detailed painterly."
   },
   "slot-2": {
-    "name": "Epic Fantasy Landscape",
-    "prompt": "Epic fantasy landscape with ancient stone ruins on dramatic clifftop overlooking magical valley. Volumetric god rays breaking through storm clouds. Glowing magical elements in environment. Rich warm and cool color contrast. Sweeping cinematic composition. Tolkien meets Studio Ghibli aesthetic. Ultra-detailed painterly realism 8K."
+    "name": "Steampunk Workshop",
+    "prompt": "Epic steampunk mechanical workshop filled with ornate brass and copper machinery. Massive turning gears interconnected with leather belts. Steam venting dramatically from polished pipes. Victorian architectural details with intricate mechanical beauty. Dramatic amber and golden lighting. Highly detailed cinematic composition."
   },
   "slot-3": {
-    "name": "Luxury Perfume Shot",
-    "prompt": "Hyper-realistic commercial studio product photography of a luxury perfume bottle. Soft dramatic key light with subtle rim lighting. Pure white background. Intricate glass detail catching the light beautifully. High-end magazine advertisement quality. Apple and Chanel level product photography. 4K ultra-sharp professional lighting."
+    "name": "Studio Ghibli Landscape",
+    "prompt": "Beautiful anime landscape in the style of Studio Ghibli mixed with Makoto Shinkai. Young person on hilltop looking at magical floating castle in the distance. Lush green fields with wildflowers. Soft warm afternoon lighting with dramatic cloud formations. Incredibly detailed background art. Whimsical deeply emotional atmosphere masterpiece quality."
   },
   "slot-4": {
-    "name": "Cinematic Portrait",
-    "prompt": "Ultra-cinematic portrait with dramatic Hollywood-style lighting. ARRI Alexa camera aesthetic, anamorphic lens flares, volumetric light rays. Deep shadow contrast with warm key light. Film grain texture. Teal and orange color grade. Subject looks directly into camera with intense powerful expression. 8K cinematic quality."
+    "name": "National Geographic Portrait",
+    "prompt": "Hyper-realistic portrait photograph. National Geographic level photography. Subject with incredibly detailed facial features, realistic eyes with natural depth and catchlight. Perfect skin texture. Dramatic Rembrandt lighting from one side. Shot on Hasselblad medium format camera 80mm lens at f/2.8. Natural authentic expression. 8K resolution masterpiece."
   }
 }
