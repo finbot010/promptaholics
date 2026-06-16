@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-16T00:22:42.759Z",
+  "generated_at": "2026-06-16T00:44:05.185Z",
   "week": 25,
   "slot-1": {
-    "name": "Surreal Dreamscape",
-    "prompt": "Breathtaking surreal dreamscape where a vast ocean floats in the sky above an endless desert. Giant clocks melt over impossible architectural structures. Mysterious glowing orbs. Beksinski meets Dali meets Stalenhag. Ethereal impossible light sources. Dreamy mysterious slightly unsettling. Muted palette with vivid purple accents. Ultra-detailed painterly."
+    "name": "Bioluminescent Ocean Night",
+    "prompt": "Night photography of Maldives beach where every wave crashing on shore glows vivid electric blue bioluminescence from dinoflagellates. Long exposure 30 seconds. The glowing waves trail across the black sand. Stars and Milky Way overhead. Coconut palms silhouetted. The horizon glows faintly. No other light source except nature. Like walking on another planet. National Geographic photograph of the year."
   },
   "slot-2": {
-    "name": "Steampunk Workshop",
-    "prompt": "Epic steampunk mechanical workshop filled with ornate brass and copper machinery. Massive turning gears interconnected with leather belts. Steam venting dramatically from polished pipes. Victorian architectural details with intricate mechanical beauty. Dramatic amber and golden lighting. Highly detailed cinematic composition."
+    "name": "Solarpunk Urban Farm",
+    "prompt": "Vibrant solarpunk neighborhood in 2075. Every rooftop is a lush food forest. Solar canopies shade market streets where neighbors trade produce. Mosaic murals cover building sides. Children play in clean rivers running through the city. Wind sculptures generate power while spinning beautifully. Diverse community gathering. Feels joyful and real. Painterly illustration meets photorealism. Warm golden afternoon light."
   },
   "slot-3": {
-    "name": "Studio Ghibli Landscape",
-    "prompt": "Beautiful anime landscape in the style of Studio Ghibli mixed with Makoto Shinkai. Young person on hilltop looking at magical floating castle in the distance. Lush green fields with wildflowers. Soft warm afternoon lighting with dramatic cloud formations. Incredibly detailed background art. Whimsical deeply emotional atmosphere masterpiece quality."
+    "name": "Storm Front Meeting Sunshine",
+    "prompt": "The exact moment a violent supercell storm meets the brilliant sunshine on the other side of the weather front. Shot from a storm chaser plane at 30,000 feet. Left half of frame: inky black tornadic rotation, lightning inside the cloud wall. Right half: blinding golden sunset. The boundary between them is a razor-sharp line of chaos and peace. Nikon Z9 aerial photography."
   },
   "slot-4": {
-    "name": "National Geographic Portrait",
-    "prompt": "Hyper-realistic portrait photograph. National Geographic level photography. Subject with incredibly detailed facial features, realistic eyes with natural depth and catchlight. Perfect skin texture. Dramatic Rembrandt lighting from one side. Shot on Hasselblad medium format camera 80mm lens at f/2.8. Natural authentic expression. 8K resolution masterpiece."
+    "name": "Deep Ocean Creature",
+    "prompt": "Deep sea photography at 3,000 meters using submersible lights revealing an undiscovered species. Translucent gelatinous creature the size of a car with thousands of bioluminescent blue-green dots arranged in perfect geometric patterns across its body. Multiple articulated fins. Scientists have not named it yet. National Oceanic and Atmospheric Administration style documentation photo. Real but alien."
   }
 }
