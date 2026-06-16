@@ -1,10 +1,8 @@
 name: Weekly Image Generator
-
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 14 * * 1'
-
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -15,9 +13,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: node generate-images.js
+      - run: node generate-images.cjs
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
       - run: |
           git config user.email "bot@github.com"
           git config user.name "Promptaholics Bot"
