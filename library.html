@@ -173,6 +173,30 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
   }
 }
 .lib-main{max-width:1400px;margin:0 auto;padding:0 24px 120px;}
+/* ── AI PREVIEW MODAL ──────────────────────────── */
+.ai-preview-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:900;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.ai-preview-overlay.open{display:flex;}
+.ai-preview-modal{width:100%;max-width:680px;max-height:90dvh;overflow-y:auto;background:rgba(12,12,18,.97);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.7);}
+.ai-preview-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.ai-preview-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:6px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
+.ai-preview-title{font-family:'Syne',serif;font-size:16px;font-weight:800;flex:1;}
+.ai-preview-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0;}
+.ai-preview-close:hover{border-color:var(--orange);color:var(--orange);}
+.ai-preview-prompt{margin:16px 22px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);line-height:1.6;max-height:100px;overflow-y:auto;}
+.ai-preview-body{padding:0 22px 22px;}
+.ai-preview-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.ai-preview-output{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:16px;font-size:14px;color:var(--ink2);line-height:1.75;min-height:80px;white-space:pre-wrap;word-break:break-word;}
+.ai-preview-loading{display:flex;align-items:center;gap:10px;color:var(--ink3);font-size:13px;padding:20px 0;}
+.ai-preview-spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--orange);border-radius:50%;animation:aiSpin .7s linear infinite;flex-shrink:0;}
+@keyframes aiSpin{to{transform:rotate(360deg);}}
+.ai-preview-foot{display:flex;gap:8px;padding:0 22px 18px;flex-wrap:wrap;}
+.ai-preview-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;border:1px solid;}
+.ai-preview-btn.primary{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.25);color:var(--orange);}
+.ai-preview-btn.primary:hover{background:rgba(255,98,36,.16);}
+.ai-preview-btn.sec{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.ai-preview-btn.sec:hover{color:var(--ink);}
+.ai-preview-note{font-size:10px;color:var(--ink3);padding:0 22px 16px;}
+
 .prompt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
 @media(max-width:640px){.prompt-grid{grid-template-columns:1fr;}}
 
@@ -549,6 +573,34 @@ img,video,iframe{max-width:100%;}
       <button class="pcard-btn" onclick="modalSave()"><i class="ti ti-bookmark"></i> Save</button>
       <a class="modal-permalink" id="modalLink" href="#"><i class="ph ph-link"></i> Direct Link</a>
     </div>
+  </div>
+</div>
+
+<!-- AI PREVIEW MODAL -->
+<div class="ai-preview-overlay" id="aiPreviewOverlay" onclick="closeAiPreview(event)">
+  <div class="ai-preview-modal" onclick="event.stopPropagation()">
+    <div class="ai-preview-head">
+      <span class="ai-preview-badge"><i class="ti ti-sparkles"></i> Claude AI Preview</span>
+      <div class="ai-preview-title" id="aiPreviewTitle"></div>
+      <button class="ai-preview-close" onclick="closeAiPreview()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="ai-preview-prompt" id="aiPreviewPromptText"></div>
+    <div class="ai-preview-body">
+      <div class="ai-preview-label"><i class="ti ti-robot"></i> Claude's Response</div>
+      <div class="ai-preview-output" id="aiPreviewOutput">
+        <div class="ai-preview-loading" id="aiPreviewLoading">
+          <div class="ai-preview-spinner"></div>
+          <span>Claude is generating a preview...</span>
+        </div>
+      </div>
+    </div>
+    <div class="ai-preview-foot">
+      <button class="ai-preview-btn primary" onclick="copyAiPreviewOutput()"><i class="ti ti-copy"></i> Copy Output</button>
+      <button class="ai-preview-btn sec" onclick="copyAiPreviewPrompt()"><i class="ti ti-code"></i> Copy Prompt</button>
+      <button class="ai-preview-btn sec" onclick="regenerateAiPreview()"><i class="ti ti-refresh"></i> Regenerate</button>
+      <a href="agent.html" class="ai-preview-btn sec"><i class="ti ti-bolt"></i> Open PA Agent</a>
+    </div>
+    <div class="ai-preview-note">⚡ Preview powered by Claude Sonnet via Promptaholics · Uses your free daily runs</div>
   </div>
 </div>
 
@@ -948,7 +1000,8 @@ function makeCard(p,i){
     +'</div>'
     +'<div class="pcard-foot">'
     +'<button class="pcard-btn primary" data-id="'+p.id+'" onclick="copyPrompt(event,this)"><i class="ti ti-copy" style="font-size:13px;"></i><span class="btn-label"> Copy</span></button>'
-    +'<button class="pcard-btn" data-id="'+p.id+'" onclick="openModal(\''+p.id+'\')"><i class="ti ti-eye" style="font-size:13px;"></i><span class="btn-label"> Preview</span></button>'
+    +'<button class="pcard-btn" data-id="'+p.id+'" onclick="openModal(\''+p.id+'\')"><i class="ti ti-eye" style="font-size:13px;"></i><span class="btn-label"> View</span></button>'
+    +'<button class="pcard-btn" data-id="'+p.id+'" onclick="openAiPreview(\''+p.id+'\')" style="background:rgba(255,98,36,.06);border-color:rgba(255,98,36,.2);color:var(--orange);" title="See Claude\'s response to this prompt"><i class="ti ti-sparkles" style="font-size:13px;"></i><span class="btn-label"> Preview</span></button>'
     +'<button class="pcard-icon-btn" data-id="'+p.id+'" onclick="sharePrompt(event,this)" title="Share"><i class="ti ti-share" style="font-size:13px;"></i></button>'
     +'<button class="pcard-icon-btn" data-id="'+p.id+'" onclick="toggleFav(event,this)" title="Save"><i class="ti ti-bookmark" style="font-size:13px;"></i></button>'
     +oaBtn
@@ -957,7 +1010,80 @@ function makeCard(p,i){
 }
 
 
-// COPY
+// ── AI PREVIEW ────────────────────────────────────────────────
+var WORKER_URL = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
+var currentPreviewPrompt = '';
+var currentPreviewOutput = '';
+
+function openAiPreview(id){
+  var p = PROMPTS.find(function(x){ return x.id===id; });
+  if(!p) return;
+  currentPreviewPrompt = p.text;
+  currentPreviewOutput = '';
+
+  document.getElementById('aiPreviewTitle').textContent = p.name;
+  document.getElementById('aiPreviewPromptText').textContent = p.text.slice(0,300) + (p.text.length>300?'...':'');
+  document.getElementById('aiPreviewOutput').innerHTML = '<div class="ai-preview-loading"><div class="ai-preview-spinner"></div><span>Claude is generating a preview...</span></div>';
+  document.getElementById('aiPreviewOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  runAiPreview(p);
+}
+
+async function runAiPreview(p){
+  var sys = 'You are a helpful AI assistant demonstrating what a well-crafted prompt can do. The user will give you a prompt template. Fill in any [PLACEHOLDER] values with realistic, specific examples and respond as if you are actually completing the task. Keep your response focused and practical — show the prompt working at its best. Maximum 300 words.';
+  var msg = 'Here is the prompt to demonstrate:\n\n' + p.text;
+
+  try {
+    var res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        intent: 'create',
+        max_tokens: 500,
+        system: sys,
+        messages: [{ role: 'user', content: msg }]
+      })
+    });
+    if(!res.ok) throw new Error('Worker error ' + res.status);
+    var data = await res.json();
+    var output = (data.text || '').trim();
+    if(!output) throw new Error('Empty response');
+
+    currentPreviewOutput = output;
+    document.getElementById('aiPreviewOutput').textContent = output;
+
+  } catch(e){
+    document.getElementById('aiPreviewOutput').textContent = 'Could not generate preview — try again or check your connection.';
+    console.error('AI Preview error:', e);
+  }
+}
+
+function regenerateAiPreview(){
+  var title = document.getElementById('aiPreviewTitle').textContent;
+  var p = PROMPTS.find(function(x){ return x.name===title; });
+  if(!p) return;
+  document.getElementById('aiPreviewOutput').innerHTML = '<div class="ai-preview-loading"><div class="ai-preview-spinner"></div><span>Regenerating...</span></div>';
+  runAiPreview(p);
+}
+
+function copyAiPreviewOutput(){
+  if(!currentPreviewOutput){ showToast('Nothing to copy yet'); return; }
+  navigator.clipboard.writeText(currentPreviewOutput).then(function(){ showToast('✅ Output copied!'); }).catch(function(){ fbCopy(currentPreviewOutput); showToast('✅ Output copied!'); });
+}
+
+function copyAiPreviewPrompt(){
+  if(!currentPreviewPrompt){ return; }
+  navigator.clipboard.writeText(currentPreviewPrompt).then(function(){ showToast('✅ Prompt copied!'); }).catch(function(){ fbCopy(currentPreviewPrompt); showToast('✅ Prompt copied!'); });
+}
+
+function closeAiPreview(e){
+  if(e && e.target !== document.getElementById('aiPreviewOverlay')) return;
+  document.getElementById('aiPreviewOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── COPY ─────────────────────────────────────────────────────
 function copyPrompt(e,btn){
   e.stopPropagation();
   var id=btn.getAttribute('data-id');
