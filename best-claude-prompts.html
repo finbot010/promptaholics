@@ -432,16 +432,28 @@ strong{color:var(--ink);font-weight:700;}
   <h3>1. Give Claude a role and a reason</h3>
   <p>Claude responds significantly better when you assign it a specific expert role. Instead of "write a business plan," say "You are a startup advisor with 15 years of experience helping early-stage founders. Write a business plan for..." The role gives Claude a frame of reference for tone, depth, and what to prioritize.</p>
 
-  <h3>2. Use long context windows strategically</h3>
+  <h3>2. Add "assume I already know the basics, skip the fluff"</h3>
+  <p>One of the most underused Claude tricks. Adding this phrase to any prompt tells Claude to skip the introductory paragraph, the definitions, the caveats — and get straight to the useful content. Cuts response length in half while doubling the signal-to-noise ratio. Works especially well for technical explanations and how-to guides.</p>
+
+  <h3>3. Force hidden chain-of-thought reasoning</h3>
+  <p>Instead of asking Claude to "think step by step" (which fills your response with reasoning you don't need), try: <strong>"Do all your reasoning silently, then give me only the final answer."</strong> Claude processes the problem with full depth but delivers a clean, direct output. Dramatically improves accuracy on analytical tasks without the noise.</p>
+
+  <h3>4. Show a style example instead of describing the tone</h3>
+  <p>Describing tone in words almost never works as well as showing it. Instead of "write in a conversational but professional tone," paste 2-3 sentences written exactly the way you want and say "match this style exactly." Claude pattern-matches on examples far better than it follows abstract style descriptions. This is one of the highest-leverage prompting techniques available.</p>
+
+  <h3>5. Narrow the scope with explicit exclusions</h3>
+  <p>Claude is thorough by nature — which can mean covering things you don't need. Add a constraint like <strong>"only focus on X, ignore Y and Z unless I specifically ask"</strong> to keep responses targeted. This is especially useful for research tasks, code reviews, and analysis where you need depth on one thing, not breadth across many things.</p>
+
+  <h3>6. Use long context windows strategically</h3>
   <p>Claude can handle extremely long inputs — paste entire documents, codebases, or research papers and ask Claude to work with them. Most people underuse this capability. If you're asking Claude to analyze, summarize, or critique something, give it the full source material rather than trying to summarize it yourself first.</p>
 
-  <h3>3. Tell Claude what format you want</h3>
+  <h3>7. Tell Claude what format you want</h3>
   <p>Claude will match whatever format you specify. If you want bullet points, say so. If you want a table, ask for a table. If you want flowing prose with no headers, specify that. Without format guidance Claude will choose a reasonable default — but your specific needs are almost always better served by specifying the format explicitly.</p>
 
-  <h3>4. Ask Claude to push back</h3>
+  <h3>8. Ask Claude to push back</h3>
   <p>Unlike some AI models that try to validate everything you say, Claude will challenge you if you ask it to. Phrases like "don't just validate my thinking — tell me what I'm missing" or "steelman the counterargument" will get you more intellectually honest responses that actually improve your thinking.</p>
 
-  <h3>5. Iterate with follow-ups</h3>
+  <h3>9. Iterate with follow-ups</h3>
   <p>Claude maintains context exceptionally well across a conversation. Instead of trying to write one massive perfect prompt, start with a solid prompt and refine with follow-ups. "Make it shorter," "change the tone to be more direct," "add more specific examples" — Claude will apply these changes accurately without losing the work already done.</p>
 
   <div class="cta-box">

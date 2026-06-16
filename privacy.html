@@ -160,7 +160,7 @@ footer{
   <path d="M56 61 L38 92 L62 67 L46 67 L68 36 Z" fill="white"/>
 </svg>
     <h1>Privacy <span>Policy</span></h1>
-    <div class="updated">Last updated: January 2025 &nbsp;·&nbsp; Effective immediately</div>
+    <div class="updated">Last updated: June 2026 &nbsp;·&nbsp; Effective immediately</div>
   </div>
 
   <div class="summary-box">
@@ -201,25 +201,30 @@ footer{
   <p>We use Google Analytics to understand how visitors use our site. Google Analytics collects anonymized data about your session including pages visited, time spent, and general location (country level). Google's privacy policy is available at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
   <p>Google Analytics on our site is configured with IP anonymization enabled. We do not share Analytics data with third parties.</p>
 
-  <h2>6. Buy Me a Coffee</h2>
-  <p>We use Buy Me a Coffee to accept voluntary support from visitors who find the library useful. If you choose to make a payment, that transaction is handled entirely by Buy Me a Coffee's platform. We receive your support but do not receive or store your payment card details. Buy Me a Coffee's privacy policy is available at <a href="https://www.buymeacoffee.com/privacy-policy" target="_blank" rel="noopener">buymeacoffee.com/privacy-policy</a>.</p>
+  <h2>6. AdSense & Advertising</h2>
+  <p>We use Google AdSense to display advertisements on our site. Google AdSense may use cookies and web beacons to serve ads based on your prior visits to our website and other sites on the internet. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">google.com/settings/ads</a>. For more information, visit <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
 
-  <h2>7. Prompt Submissions</h2>
-  <p>If you submit a prompt through our submission form, we collect:</p>
+  <h2>7. Prompt & Image Submissions</h2>
+  <p>If you submit a prompt through the PA Agent or submission form, or submit an image to the Image Vault, we collect:</p>
   <ul>
     <li>The prompt text, category, tags, and description you provide</li>
     <li>Your optional name or handle if you choose to include it</li>
+    <li>Image files uploaded to the Vault (stored via Cloudinary and Firebase)</li>
+    <li>Your Google account display name and email if you sign in via Google to submit</li>
   </ul>
-  <p>Submissions are sent to our Netlify Forms dashboard for review before being added to the library. By submitting, you grant us a non-exclusive, royalty-free license to display your prompt on the site. We will credit you by name or handle if provided.</p>
-  <p>Do not include personal, confidential, or sensitive information in prompt submissions.</p>
+  <p>Submissions are reviewed by the admin before being published. By submitting, you grant us a non-exclusive, royalty-free license to display your content on the site. Do not include personal, confidential, or sensitive information in submissions.</p>
 
   <h2>8. Third-Party Services</h2>
   <p>We use the following third-party services:</p>
   <ul>
     <li><strong>Google Analytics</strong> — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
-    <li><strong>Buy Me a Coffee</strong> — <a href="https://www.buymeacoffee.com/privacy-policy" target="_blank" rel="noopener">buymeacoffee.com/privacy-policy</a></li>
-    <li><strong>Netlify</strong> (hosting and forms) — <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">netlify.com/privacy</a></li>
+    <li><strong>Google AdSense</strong> — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    <li><strong>Firebase (Google)</strong> — Authentication and database for PA Agent and Image Vault — <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a></li>
+    <li><strong>Cloudinary</strong> — Image hosting for the Image Vault — <a href="https://cloudinary.com/privacy" target="_blank" rel="noopener">cloudinary.com/privacy</a></li>
+    <li><strong>Netlify</strong> (hosting) — <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">netlify.com/privacy</a></li>
+    <li><strong>Cloudflare</strong> — AI API routing and Workers — <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a></li>
     <li><strong>Google Fonts</strong> — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+    <li><strong>Brevo</strong> — Email capture (when enabled) — <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">brevo.com/legal/privacypolicy</a></li>
   </ul>
 
   <h2>9. Data Retention</h2>
@@ -261,20 +266,6 @@ footer{
     <a href="privacy.html">Privacy Policy</a>
   </div>
 </footer>
-
-<!-- ✦ BUY ME A COFFEE WIDGET ✦ -->
-<script
-  data-name="BMC-Widget"
-  data-cfasync="false"
-  src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-  data-id="promptaholics.com"
-  data-description="Support me on Buy me a coffee!"
-  data-message="Help me reach $50/month to keep the library free"
-  data-color="#FF813F"
-  data-position="Right"
-  data-x_margin="18"
-  data-y_margin="18">
-</script>
 
 <script>
   let theme = localStorage.getItem('pa_theme') || 'dark';
