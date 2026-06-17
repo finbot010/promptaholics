@@ -472,7 +472,7 @@ SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase
 VOICE RULES: Natural spoken English only. No markdown, no bullets. 2-4 sentences max. End with a follow-up or next action. Reference conversation history naturally.`;
 
 // ─── State ────────────────────────────────────────────────────────
-var history=[];
+var chatHistory=[];
 var synth=window.speechSynthesis;
 var recog=null;
 var listening=false;
@@ -593,14 +593,14 @@ function toggleAuto(){
   showToast(autoMode?'🔄 Auto-listen ON':'Auto-listen OFF');
 }
 function sendCmd(cmd){ setTranscript(cmd,true); runCmd(cmd); }
-function resetChat(){ history=[]; stopTalking(); setTranscript('Conversation reset. Ready for your next command.',false); addLog('🔄','Conversation reset','var(--ink3)'); showToast('Reset'); }
+function resetChat(){ chatHistory=[]; stopTalking(); setTranscript('Conversation reset. Ready for your next command.',false); addLog('🔄','Conversation reset','var(--ink3)'); showToast('Reset'); }
 
 // ─── Command router ───────────────────────────────────────────────
 async function runCmd(text){
   setState('thinking');
   addLog('🎙','Command: '+text.slice(0,60),'var(--purple)');
-  history.push({role:'user',content:text});
-  if(history.length>MAX_HIST) history=history.slice(-MAX_HIST);
+  chatHistory.push({role:'user',content:text});
+  if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
 
   var memBlock=window.__memBlock||'';
   var sys=ARIA_SYS+memBlock;
@@ -608,8 +608,9 @@ async function runCmd(text){
   var newsKw=['news','headlines','what happened','trending','latest','breaking','top stories','current events'];
   var webKw=['weather','price of','stock','search for','look up','right now'];
   var isNews=newsKw.some(function(k){ return text.toLowerCase().includes(k); });
-  var isWeb=!isNews && webKw.some(function(k){ return text.toLowerCase().includes(k); });
-  var intent=isNews?'news':isWeb?'find':'create';
+  var isWeb=webKw.some(function(k){ return text.toLowerCase().includes(k); });
+  // Route news through find (Gemini search grounding) — NewsAPI blocked on CF free tier
+  var intent=(isNews||isWeb)?'find':'create';
 
   var thinkT=setTimeout(function(){ setTranscript('Still thinking... 🧠',false); },4000);
 
@@ -619,7 +620,7 @@ async function runCmd(text){
     var res=await fetch(WORKER+'/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({intent:intent,max_tokens:300,system:sys,messages:history}),
+      body:JSON.stringify({intent:intent,max_tokens:300,system:sys,messages:chatHistory}),
       signal:ctrl.signal
     });
     clearTimeout(tId);
@@ -628,7 +629,7 @@ async function runCmd(text){
     var data=await res.json();
     var reply=(data.text||'').trim();
     if(!reply) throw new Error('Empty');
-    history.push({role:'assistant',content:reply});
+    chatHistory.push({role:'assistant',content:reply});
     lastResp=reply;
     document.getElementById('dlBtn').style.display='inline-flex';
     setTranscript(reply,false);
