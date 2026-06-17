@@ -573,18 +573,24 @@ const ADMIN_EMAIL   = 'promptaholics1@gmail.com';
 let conversationHistory = [];
 const MAX_HISTORY = 20; // keep last 20 exchanges
 
-const ARIA_SYSTEM   = `You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate three sub-agents: Vault & Approvals (Firebase prompt/image queue), Social Media (content creation for TikTok, LinkedIn, Twitter, Instagram, Reddit), and Tech & Site Ops (build queue, GitHub Actions, deployments). 
+const ARIA_SYSTEM = `You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate three sub-agents: Vault & Approvals (Firebase prompt/image queue), Social Media (content creation for TikTok, LinkedIn, Twitter, Instagram, Reddit), and Tech & Site Ops (build queue, GitHub Actions, deployments). 
+
+CAPABILITIES:
+- Real-time news via NewsAPI — you can fetch current headlines on any topic
+- Web search via Google Search grounding — you can look up current information
+- Firebase memory — you remember facts across all sessions and devices
+- File analysis — users can upload files for you to read and analyze
 
 SITE CONTEXT:
 - Site: Promptaholics.com on Netlify, repo github.com/finbot010/promptaholics
-- Firebase: promptaholics-534d3, collections: prompts, pending-prompts, vault-submissions
+- Firebase: promptaholics-534d3, collections: prompts, pending-prompts, vault-submissions, aria-memory
 - Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev
 - GitHub Action: export-prompts.cjs, runs Monday 2PM UTC
-- Build queue: JSON drop import, Gemini re-enable, prompt builder Puter→Worker, AI directories, SEO pages, Brevo email capture
 - Library: 1642 prompts, prompts.js flat file
 - Admin: promptaholics1@gmail.com
 - Product Hunt launch: next Thursday
 - Monetization: AdSense (pending approval), affiliate links on Creation Station
+- Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs
 
 VOICE RULES:
 - Respond in natural spoken English only — no markdown, no bullets, no special characters
@@ -593,7 +599,7 @@ VOICE RULES:
 - Confirm before acting: say what you are about to do
 - Be direct, confident, and friendly
 - You remember everything said earlier in this conversation — reference it naturally
-- For current events or news, say you can search the web and offer to look it up`;
+- For news questions, you have real-time access via NewsAPI — use it confidently`;
 
 // ── Waveform init ─────────────────────────────────
 const waveform = document.getElementById('waveform');
@@ -806,50 +812,76 @@ async function processCommand(text){
   setAriaState('thinking');
   addLog('🎙', 'Command: ' + text.slice(0,60), 'var(--purple)');
 
-  // Add user message to history
   conversationHistory.push({ role: 'user', content: text });
   if(conversationHistory.length > MAX_HISTORY){
     conversationHistory = conversationHistory.slice(-MAX_HISTORY);
   }
 
-  // Build system prompt with memory injected
   const memoryBlock = window._ariaMemoryBlock || '';
   const fullSystem  = ARIA_SYSTEM + memoryBlock;
-
-  // Detect web search keywords
   const webKeywords = ['latest','news','today','current','trending','what happened','search','look up','find out','recent','right now','price of','weather','stock'];
-  const needsWeb = webKeywords.some(k => text.toLowerCase().includes(k));
+  const needsWeb    = webKeywords.some(k => text.toLowerCase().includes(k));
+
+  // Detect news keywords
+  const newsKeywords = ['news','headlines','what happened','trending','latest','breaking','top stories','what\'s going on','current events'];
+  const webKeywords  = ['weather','price of','stock','search','look up','find out','right now'];
+  const needsNews    = newsKeywords.some(k => text.toLowerCase().includes(k));
+  const needsWeb     = !needsNews && webKeywords.some(k => text.toLowerCase().includes(k));
+
+  // Show "still thinking" after 4 seconds
+  const thinkingTimer = setTimeout(()=>{
+    setTranscript('Still thinking... give me a moment 🧠', false);
+  }, 4000);
+
+  async function fetchWithRetry(body, retries=2){
+    for(let i=0; i<=retries; i++){
+      try {
+        const controller = new AbortController();
+        const timeoutId  = setTimeout(()=>controller.abort(), 25000);
+        const res = await fetch(WORKER_URL + '/api/generate', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(body),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        return res;
+      } catch(e){
+        if(i === retries) throw e;
+        await new Promise(r=>setTimeout(r, 1500));
+      }
+    }
+  }
 
   try {
-    let reply = '';
+    const intent    = needsNews ? 'news' : needsWeb ? 'find' : 'create';
+    const newsQuery = needsNews ? text.replace(/news|headlines|what happened|trending|latest|breaking|top stories|what's going on|current events/gi,'').trim() : '';
 
-    const res = await fetch(WORKER_URL + '/api/generate', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        intent: needsWeb ? 'find' : 'create',
-        max_tokens: 300,
-        system: fullSystem,
-        messages: conversationHistory
-      })
+    if(needsNews) addLog('📰', 'NewsAPI query: ' + (newsQuery||'AI technology'), 'var(--cyan)');
+
+    const res = await fetchWithRetry({
+      intent,
+      newsQuery,
+      max_tokens: 300,
+      system: fullSystem,
+      messages: conversationHistory
     });
 
+    clearTimeout(thinkingTimer);
     if(!res.ok) throw new Error('Worker error ' + res.status);
-    const data = await res.json();
-    reply = (data.text || '').trim();
+    const data  = await res.json();
+    const reply = (data.text || '').trim();
     if(!reply) throw new Error('Empty response');
 
     if(needsWeb && data.searchQueries && data.searchQueries.length){
       addLog('🔍', 'Web search: ' + data.searchQueries.join(', '), 'var(--cyan)');
     }
 
-    // Save to history and last response
     conversationHistory.push({ role: 'assistant', content: reply });
     lastAriaResponse = reply;
 
-    // Show download button
-    document.getElementById('downloadBtn').style.display = 'inline-flex';
-    document.getElementById('clearFileBtn').style.display = 'inline-flex';
+    document.getElementById('downloadBtn').style.display   = 'inline-flex';
+    document.getElementById('clearFileBtn').style.display  = 'inline-flex';
 
     setTranscript(reply, false);
     setAriaState('speaking');
@@ -857,7 +889,11 @@ async function processCommand(text){
     addLog('🤖', 'ARIA: ' + reply.slice(0,80) + (reply.length>80?'...':''), 'var(--cyan)');
 
   } catch(e){
-    const err = 'I had trouble connecting. Check your internet and try again.';
+    clearTimeout(thinkingTimer);
+    const isTimeout = e.name === 'AbortError';
+    const err = isTimeout
+      ? 'That took too long. Try a shorter question or try again in a moment.'
+      : 'Something went wrong. Give me a second and try again.';
     setTranscript(err, false);
     speak(err);
     setAriaState('idle');
