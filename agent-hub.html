@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ARIA — Agent Hub | Promptaholics</title>
 <meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
@@ -604,19 +606,17 @@ VOICE RULES:
 - You remember everything said earlier in this conversation — reference it naturally
 - For news questions, you have real-time access via NewsAPI — use it confidently`;
 
-// ── Safe global wrappers — defined before everything else ─────────
-// These prevent "not defined" errors when HTML buttons fire before
-// the rest of the script has parsed
-window.toggleListening   = function(){ if(typeof _toggleListening==='function') _toggleListening(); };
-window.toggleTextInput   = function(){ if(typeof _toggleTextInput==='function') _toggleTextInput(); };
-window.toggleContinuous  = function(){ if(typeof _toggleContinuous==='function') _toggleContinuous(); };
-window.stopSpeaking      = function(){ if(typeof _stopSpeaking==='function') _stopSpeaking(); };
-window.resetConversation = function(){ if(typeof _resetConversation==='function') _resetConversation(); };
-window.sendTextCommand   = function(){ if(typeof _sendTextCommand==='function') _sendTextCommand(); };
-window.ariaCommand       = function(cmd){ if(typeof _ariaCommand==='function') _ariaCommand(cmd); };
-window.toggleAgent       = function(n){ if(typeof _toggleAgent==='function') _toggleAgent(n); };
-window.adminSignIn       = function(){ if(typeof _adminSignIn==='function') _adminSignIn(); };
-window.signOut           = function(){ if(typeof _signOut==='function') _signOut(); };
+// ── Safe global wrappers — prevent "not defined" errors ───────────
+window.toggleListening   = function(){ /* wired up below */ };
+window.toggleTextInput   = function(){ /* wired up below */ };
+window.toggleContinuous  = function(){ /* wired up below */ };
+window.stopSpeaking      = function(){ /* wired up below */ };
+window.resetConversation = function(){ /* wired up below */ };
+window.sendTextCommand   = function(){ /* wired up below */ };
+window.ariaCommand       = function(){ /* wired up below */ };
+window.toggleAgent       = function(){ /* wired up below */ };
+window.adminSignIn       = function(){ /* wired up below */ };
+window.signOut           = function(){ /* wired up below */ };
 
 // ── Listen for memory loaded from Firebase module ─────────────────
 window.addEventListener('aria-memory-loaded', function(e){
@@ -1143,17 +1143,17 @@ function showToast(msg){
   clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ── Wire real functions to global wrappers after they're defined ──
-window._toggleListening   = toggleListening;
-window._toggleTextInput   = toggleTextInput;
-window._toggleContinuous  = toggleContinuous;
-window._stopSpeaking      = stopSpeaking;
-window._resetConversation = resetConversation;
-window._sendTextCommand   = sendTextCommand;
-window._ariaCommand       = ariaCommand;
-window._toggleAgent       = toggleAgent;
-window._adminSignIn       = adminSignIn;
-window._signOut           = signOut;
+// ── Wire real functions to window after they're defined ──────────
+window.toggleListening   = toggleListening;
+window.toggleTextInput   = toggleTextInput;
+window.toggleContinuous  = toggleContinuous;
+window.stopSpeaking      = stopSpeaking;
+window.resetConversation = resetConversation;
+window.sendTextCommand   = sendTextCommand;
+window.ariaCommand       = ariaCommand;
+window.toggleAgent       = toggleAgent;
+window.adminSignIn       = adminSignIn;
+window.signOut           = signOut;
 
 // ── Init greeting ─────────────────────────────────
 window.addEventListener('load', ()=>{
