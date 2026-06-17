@@ -274,11 +274,14 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
     <!-- Voice controls -->
     <div class="voice-controls">
-      <button class="btn-mic" id="micBtn" onclick="toggleListening()" title="Hold to speak">
+      <button class="btn-mic" id="micBtn" onclick="toggleListening()" title="Tap to speak">
         <i class="ti ti-microphone" id="micIcon"></i>
       </button>
       <button class="btn-text-input" onclick="toggleTextInput()">
-        <i class="ti ti-keyboard"></i> Type instead
+        <i class="ti ti-keyboard"></i> Type
+      </button>
+      <button class="btn-text-input" id="continuousBtn" onclick="toggleContinuous()" title="Auto-listen after each response">
+        <i class="ti ti-repeat"></i> Auto
       </button>
       <button class="btn-stop-speech" id="stopSpeechBtn" onclick="stopSpeaking()">
         <i class="ti ti-player-stop"></i> Stop
@@ -628,6 +631,7 @@ let recognition  = null;
 let synthesis    = window.speechSynthesis;
 let isListening  = false;
 let isSpeaking   = false;
+let continuousMode = false; // off by default so typing works
 
 function setAriaState(state){
   const dot    = document.getElementById('ariaDot');
@@ -758,10 +762,11 @@ function speak(text){
     isSpeaking=false;
     setAriaState('idle');
     document.getElementById('stopSpeechBtn').classList.remove('show');
-    // Auto-restart listening after ARIA finishes speaking
-    setTimeout(()=>{
-      if(!isListening && !isSpeaking) startListening();
-    }, 600);
+    // Only auto-restart if continuous mode is on AND text input is not open
+    const textOpen = document.getElementById('textInputRow').classList.contains('show');
+    if(continuousMode && !isListening && !isSpeaking && !textOpen){
+      setTimeout(()=>startListening(), 600);
+    }
   };
   synthesis.speak(utt);
 }
@@ -787,6 +792,22 @@ function resetConversation(){
   stopSpeaking();
   addLog('🔄', 'Conversation history cleared', 'var(--ink3)');
   showToast('Conversation reset');
+}
+
+function toggleContinuous(){
+  continuousMode = !continuousMode;
+  const btn = document.getElementById('continuousBtn');
+  if(continuousMode){
+    btn.style.background = 'rgba(167,139,250,.15)';
+    btn.style.borderColor = 'rgba(167,139,250,.4)';
+    btn.style.color = 'var(--purple)';
+    showToast('🔄 Auto-listen ON — ARIA will keep listening after each response');
+  } else {
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+    showToast('Auto-listen OFF — tap mic to speak');
+  }
 }
 
 function toggleTextInput(){
