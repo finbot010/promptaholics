@@ -542,8 +542,8 @@ onAuthStateChanged(auth, async user => {
     // Load memory from Firebase on sign-in
     const facts = await window._ariaLoadMemory();
     window._ariaMemoryFacts = facts || [];
-    renderMemory(window._ariaMemoryFacts);
-    updateMemorySystemPrompt(window._ariaMemoryFacts);
+    // Dispatch event so main script can render memory after it loads
+    window.dispatchEvent(new CustomEvent('aria-memory-loaded', { detail: facts || [] }));
     addLog('🧠', 'Memory loaded — ' + (facts.length) + ' facts synced from Firebase', 'var(--purple)');
 
     await loadAgentStats(db, collection, getDocs, query, where);
@@ -603,6 +603,28 @@ VOICE RULES:
 - Be direct, confident, and friendly
 - You remember everything said earlier in this conversation — reference it naturally
 - For news questions, you have real-time access via NewsAPI — use it confidently`;
+
+// ── Safe global wrappers — defined before everything else ─────────
+// These prevent "not defined" errors when HTML buttons fire before
+// the rest of the script has parsed
+window.toggleListening   = function(){ if(typeof _toggleListening==='function') _toggleListening(); };
+window.toggleTextInput   = function(){ if(typeof _toggleTextInput==='function') _toggleTextInput(); };
+window.toggleContinuous  = function(){ if(typeof _toggleContinuous==='function') _toggleContinuous(); };
+window.stopSpeaking      = function(){ if(typeof _stopSpeaking==='function') _stopSpeaking(); };
+window.resetConversation = function(){ if(typeof _resetConversation==='function') _resetConversation(); };
+window.sendTextCommand   = function(){ if(typeof _sendTextCommand==='function') _sendTextCommand(); };
+window.ariaCommand       = function(cmd){ if(typeof _ariaCommand==='function') _ariaCommand(cmd); };
+window.toggleAgent       = function(n){ if(typeof _toggleAgent==='function') _toggleAgent(n); };
+window.adminSignIn       = function(){ if(typeof _adminSignIn==='function') _adminSignIn(); };
+window.signOut           = function(){ if(typeof _signOut==='function') _signOut(); };
+
+// ── Listen for memory loaded from Firebase module ─────────────────
+window.addEventListener('aria-memory-loaded', function(e){
+  var facts = e.detail || [];
+  window._ariaMemoryFacts = facts;
+  renderMemory(facts);
+  updateMemorySystemPrompt(facts);
+});
 
 // ── Waveform init ─────────────────────────────────
 const waveform = document.getElementById('waveform');
@@ -838,12 +860,10 @@ async function processCommand(text){
     conversationHistory = conversationHistory.slice(-MAX_HISTORY);
   }
 
-  const memoryBlock = window._ariaMemoryBlock || '';
-  const fullSystem  = ARIA_SYSTEM + memoryBlock;
-  const webKeywords = ['latest','news','today','current','trending','what happened','search','look up','find out','recent','right now','price of','weather','stock'];
-  const needsWeb    = webKeywords.some(k => text.toLowerCase().includes(k));
+  const memoryBlock  = window._ariaMemoryBlock || '';
+  const fullSystem   = ARIA_SYSTEM + memoryBlock;
 
-  // Detect news keywords
+  // Detect intent keywords
   const newsKeywords = ['news','headlines','what happened','trending','latest','breaking','top stories','what\'s going on','current events'];
   const webKeywords  = ['weather','price of','stock','search','look up','find out','right now'];
   const needsNews    = newsKeywords.some(k => text.toLowerCase().includes(k));
@@ -1122,6 +1142,18 @@ function showToast(msg){
   t.textContent=msg; t.classList.add('show');
   clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
 }
+
+// ── Wire real functions to global wrappers after they're defined ──
+window._toggleListening   = toggleListening;
+window._toggleTextInput   = toggleTextInput;
+window._toggleContinuous  = toggleContinuous;
+window._stopSpeaking      = stopSpeaking;
+window._resetConversation = resetConversation;
+window._sendTextCommand   = sendTextCommand;
+window._ariaCommand       = ariaCommand;
+window._toggleAgent       = toggleAgent;
+window._adminSignIn       = adminSignIn;
+window._signOut           = signOut;
 
 // ── Init greeting ─────────────────────────────────
 window.addEventListener('load', ()=>{
