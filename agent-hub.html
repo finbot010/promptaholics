@@ -155,7 +155,43 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .add-agent-card span{font-size:11px;font-weight:700;color:var(--ink3);}
 .add-agent-card:hover span{color:var(--purple);}
 
-/* ── ACTIVITY LOG ───────────────────────────────── */
+/* ── MEMORY PANEL ───────────────────────────────── */
+.memory-panel{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;}
+.memory-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.memory-title{font-family:'Syne',serif;font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.memory-title i{color:var(--purple);}
+.memory-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;}
+.memory-status.synced{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.memory-status.saving{background:rgba(255,159,36,.08);border:1px solid rgba(255,159,36,.2);color:var(--o2);}
+.memory-list{display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;margin-bottom:12px;}
+.memory-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--glass);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--ink2);}
+.memory-item i{color:var(--purple);font-size:13px;flex-shrink:0;margin-top:1px;}
+.memory-item-text{flex:1;line-height:1.5;}
+.memory-item-del{background:none;border:none;color:var(--ink3);cursor:pointer;font-size:12px;padding:0 2px;flex-shrink:0;}
+.memory-item-del:hover{color:var(--red);}
+.memory-empty{font-size:12px;color:var(--ink3);text-align:center;padding:16px;font-style:italic;}
+.memory-input-row{display:flex;gap:6px;}
+.memory-input{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:12px;outline:none;}
+.memory-input:focus{border-color:rgba(167,139,250,.4);}
+.memory-add-btn{padding:8px 14px;border-radius:8px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);color:var(--purple);font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap;}
+.memory-add-btn:hover{background:rgba(167,139,250,.2);}
+
+/* ── FILE UPLOAD/DOWNLOAD ───────────────────────── */
+.file-panel{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;}
+.file-drop-zone{border:2px dashed var(--border2);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:12px;}
+.file-drop-zone:hover,.file-drop-zone.dragover{border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.04);}
+.file-drop-zone i{font-size:28px;color:var(--ink3);display:block;margin-bottom:8px;}
+.file-drop-zone p{font-size:12px;color:var(--ink3);margin-bottom:4px;}
+.file-drop-zone span{font-size:10px;color:var(--ink3);opacity:.6;}
+.file-input{display:none;}
+.file-result{background:var(--glass);border:1px solid var(--border2);border-radius:10px;padding:12px;font-size:12px;color:var(--ink2);line-height:1.6;max-height:120px;overflow-y:auto;margin-bottom:10px;display:none;font-family:'JetBrains Mono',monospace;}
+.file-result.show{display:block;}
+.file-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.file-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;border:1px solid;}
+.file-btn.primary{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple);}
+.file-btn.primary:hover{background:rgba(167,139,250,.16);}
+.file-btn.sec{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.file-btn.sec:hover{color:var(--ink);}
 .activity-section{margin-top:28px;}
 .section-title{font-family:'Syne',serif;font-size:16px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .activity-log{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;max-height:220px;overflow-y:auto;}
@@ -366,6 +402,43 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     </div>
   </div>
 
+  <!-- MEMORY PANEL -->
+  <div class="memory-panel" id="memoryPanel">
+    <div class="memory-header">
+      <div class="memory-title"><i class="ti ti-brain"></i> ARIA Memory <span style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;font-weight:400;">syncs across all devices</span></div>
+      <span class="memory-status synced" id="memoryStatus"><i class="ti ti-cloud-check"></i> Synced</span>
+    </div>
+    <div class="memory-list" id="memoryList">
+      <div class="memory-empty" id="memoryEmpty">No memories yet — tell ARIA something to remember</div>
+    </div>
+    <div class="memory-input-row">
+      <input class="memory-input" id="memoryInput" placeholder='e.g. "Post on TikTok every Tuesday at 6PM"' onkeydown="if(event.key==='Enter') addMemory()"/>
+      <button class="memory-add-btn" onclick="addMemory()"><i class="ti ti-plus"></i> Remember</button>
+    </div>
+  </div>
+
+  <!-- FILE UPLOAD/DOWNLOAD -->
+  <div class="file-panel">
+    <div class="memory-header">
+      <div class="memory-title"><i class="ti ti-files"></i> Files</div>
+      <div style="display:flex;gap:6px;">
+        <button class="file-btn sec" onclick="downloadLastResponse()" id="downloadBtn" style="display:none;"><i class="ti ti-download"></i> Download</button>
+        <button class="file-btn sec" onclick="clearFile()" id="clearFileBtn" style="display:none;"><i class="ti ti-x"></i> Clear</button>
+      </div>
+    </div>
+    <div class="file-drop-zone" id="fileDropZone" onclick="document.getElementById('fileInput').click()" ondragover="fileDragOver(event)" ondragleave="fileDragLeave(event)" ondrop="fileDrop(event)">
+      <i class="ti ti-cloud-upload"></i>
+      <p>Drop a file here or click to upload</p>
+      <span>TXT · MD · JSON · CSV · JS · HTML (max 2MB)</span>
+    </div>
+    <input type="file" id="fileInput" class="file-input" accept=".txt,.md,.json,.csv,.js,.html,.cjs" onchange="fileSelected(event)"/>
+    <div class="file-result" id="fileResult"></div>
+    <div class="file-actions" id="fileActions" style="display:none;">
+      <button class="file-btn primary" onclick="sendFileToARIA()"><i class="ti ti-sparkles"></i> Send to ARIA</button>
+      <button class="file-btn sec" onclick="copyFileContent()"><i class="ti ti-copy"></i> Copy Content</button>
+    </div>
+  </div>
+
   <!-- ACTIVITY LOG -->
   <div class="activity-section">
     <div class="section-title"><i class="ti ti-activity" style="color:var(--purple)"></i> Session Log</div>
@@ -414,7 +487,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 <!-- Firebase -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, getDocs, query, where }
+import { getFirestore, collection, getDocs, query, where, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -432,6 +505,29 @@ const provider = new GoogleAuthProvider();
 window._ariaSignIn  = () => signInWithPopup(auth, provider);
 window._ariaSignOut = () => signOut(auth);
 
+// ── Memory helpers via Firestore ──────────────────
+window._ariaLoadMemory = async () => {
+  try {
+    const ref  = doc(db, 'aria-memory', 'promptaholics1@gmail.com');
+    const snap = await getDoc(ref);
+    return snap.exists() ? (snap.data().facts || []) : [];
+  } catch(e){ console.error('Memory load:', e); return []; }
+};
+window._ariaAddMemory = async (fact) => {
+  try {
+    const ref = doc(db, 'aria-memory', 'promptaholics1@gmail.com');
+    await setDoc(ref, { facts: arrayUnion(fact), updatedAt: new Date() }, { merge: true });
+    return true;
+  } catch(e){ console.error('Memory add:', e); return false; }
+};
+window._ariaDeleteMemory = async (fact) => {
+  try {
+    const ref = doc(db, 'aria-memory', 'promptaholics1@gmail.com');
+    await updateDoc(ref, { facts: arrayRemove(fact) });
+    return true;
+  } catch(e){ console.error('Memory delete:', e); return false; }
+};
+
 onAuthStateChanged(auth, async user => {
   if(user && user.email === 'promptaholics1@gmail.com'){
     document.getElementById('authGate').style.display  = 'none';
@@ -439,6 +535,14 @@ onAuthStateChanged(auth, async user => {
     document.getElementById('navUser').textContent     = user.email;
     document.getElementById('signOutBtn').style.display = 'inline-block';
     document.getElementById('initTime').textContent    = new Date().toLocaleTimeString();
+
+    // Load memory from Firebase on sign-in
+    const facts = await window._ariaLoadMemory();
+    window._ariaMemoryFacts = facts || [];
+    renderMemory(window._ariaMemoryFacts);
+    updateMemorySystemPrompt(window._ariaMemoryFacts);
+    addLog('🧠', 'Memory loaded — ' + (facts.length) + ' facts synced from Firebase', 'var(--purple)');
+
     await loadAgentStats(db, collection, getDocs, query, where);
   } else if(user){
     alert('Access denied. Admin only.');
@@ -448,14 +552,10 @@ onAuthStateChanged(auth, async user => {
 
 async function loadAgentStats(db, collection, getDocs, query, where){
   try {
-    // Agent 1 — pending prompts
     const pSnap = await getDocs(query(collection(db,'pending-prompts'), where('status','==','pending')));
     document.getElementById('a1pending').textContent = pSnap.size;
-
-    // Agent 1 — pending vault images
     const vSnap = await getDocs(query(collection(db,'vault-submissions'), where('status','==','pending')));
     document.getElementById('a1images').textContent = vSnap.size;
-
     addLog('✓', 'Firebase stats loaded — ' + pSnap.size + ' prompts, ' + vSnap.size + ' images pending', 'var(--green)');
   } catch(e){
     console.error('Stats load error:', e);
@@ -590,18 +690,62 @@ function setTranscript(text, isUser){
   el.className = 'aria-transcript' + (isUser ? ' user' : '');
 }
 
+function getBestVoice(){
+  const voices = synthesis.getVoices();
+  if(!voices.length) return null;
+
+  // Priority list — female voices across all platforms
+  const femaleNames = [
+    'Samantha',       // macOS/iOS default female
+    'Karen',          // macOS Australian female
+    'Moira',          // macOS Irish female
+    'Tessa',          // macOS South African female
+    'Veena',          // macOS Indian female
+    'Fiona',          // macOS Scottish female
+    'Victoria',       // macOS female
+    'Allison',        // macOS female
+    'Susan',          // macOS female
+    'Zoe',            // macOS female
+    'Google US English Female',
+    'Microsoft Zira', // Windows female
+    'Microsoft Eva',  // Windows female
+    'Microsoft Jenny',// Windows female
+    'Microsoft Aria', // Windows female — perfect for ARIA!
+    'Google UK English Female',
+    'en-US-Neural2-F',// Chrome neural female
+    'en-US-Wavenet-F',// Chrome wavenet female
+    'en-GB-Neural2-A',
+  ];
+
+  // Try exact name match first
+  for(const name of femaleNames){
+    const v = voices.find(v => v.name.includes(name));
+    if(v) return v;
+  }
+
+  // Fallback — any English female voice
+  const enFemale = voices.find(v =>
+    v.lang.startsWith('en') &&
+    (v.name.toLowerCase().includes('female') ||
+     v.name.toLowerCase().includes('woman') ||
+     v.name.toLowerCase().includes('girl'))
+  );
+  if(enFemale) return enFemale;
+
+  // Last resort — any English voice
+  return voices.find(v => v.lang.startsWith('en')) || voices[0];
+}
+
 function speak(text){
   if(!synthesis) return;
   synthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text);
-  utt.rate  = 1.05;
-  utt.pitch = 1.0;
-  utt.volume= 1.0;
+  utt.rate   = 1.05;
+  utt.pitch  = 1.05;
+  utt.volume = 1.0;
 
-  // Pick a good voice
-  const voices = synthesis.getVoices();
-  const preferred = voices.find(v=>v.name.includes('Samantha')||v.name.includes('Karen')||v.name.includes('Google US English')||v.lang==='en-US');
-  if(preferred) utt.voice = preferred;
+  const voice = getBestVoice();
+  if(voice) utt.voice = voice;
 
   utt.onstart = () => { isSpeaking=true; setAriaState('speaking'); document.getElementById('stopSpeechBtn').classList.add('show'); };
   utt.onend   = () => {
@@ -614,6 +758,12 @@ function speak(text){
     }, 600);
   };
   synthesis.speak(utt);
+}
+
+// Voices load async on some browsers — preload them
+if(synthesis){
+  synthesis.getVoices();
+  synthesis.onvoiceschanged = () => synthesis.getVoices();
 }
 
 function stopSpeaking(){
@@ -658,56 +808,48 @@ async function processCommand(text){
 
   // Add user message to history
   conversationHistory.push({ role: 'user', content: text });
-
-  // Trim history if too long
   if(conversationHistory.length > MAX_HISTORY){
     conversationHistory = conversationHistory.slice(-MAX_HISTORY);
   }
 
-  // Detect if asking about current events / news / web
+  // Build system prompt with memory injected
+  const memoryBlock = window._ariaMemoryBlock || '';
+  const fullSystem  = ARIA_SYSTEM + memoryBlock;
+
+  // Detect web search keywords
   const webKeywords = ['latest','news','today','current','trending','what happened','search','look up','find out','recent','right now','price of','weather','stock'];
   const needsWeb = webKeywords.some(k => text.toLowerCase().includes(k));
 
   try {
     let reply = '';
 
-    if(needsWeb){
-      // Use Gemini with Google Search grounding via Worker
-      const res = await fetch(WORKER_URL + '/api/generate', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          intent: 'find',  // routes to Gemini with search grounding
-          max_tokens: 300,
-          system: ARIA_SYSTEM,
-          messages: conversationHistory
-        })
-      });
-      if(!res.ok) throw new Error('Worker error ' + res.status);
-      const data = await res.json();
-      reply = (data.text || '').trim();
-      addLog('🔍', 'Web search used for: ' + text.slice(0,40), 'var(--cyan)');
-    } else {
-      // Use Claude via Worker with full conversation history
-      const res = await fetch(WORKER_URL + '/api/generate', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          intent: 'create',
-          max_tokens: 300,
-          system: ARIA_SYSTEM,
-          messages: conversationHistory
-        })
-      });
-      if(!res.ok) throw new Error('Worker error ' + res.status);
-      const data = await res.json();
-      reply = (data.text || '').trim();
-    }
+    const res = await fetch(WORKER_URL + '/api/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        intent: needsWeb ? 'find' : 'create',
+        max_tokens: 300,
+        system: fullSystem,
+        messages: conversationHistory
+      })
+    });
 
+    if(!res.ok) throw new Error('Worker error ' + res.status);
+    const data = await res.json();
+    reply = (data.text || '').trim();
     if(!reply) throw new Error('Empty response');
 
-    // Add ARIA response to history
+    if(needsWeb && data.searchQueries && data.searchQueries.length){
+      addLog('🔍', 'Web search: ' + data.searchQueries.join(', '), 'var(--cyan)');
+    }
+
+    // Save to history and last response
     conversationHistory.push({ role: 'assistant', content: reply });
+    lastAriaResponse = reply;
+
+    // Show download button
+    document.getElementById('downloadBtn').style.display = 'inline-flex';
+    document.getElementById('clearFileBtn').style.display = 'inline-flex';
 
     setTranscript(reply, false);
     setAriaState('speaking');
@@ -768,6 +910,155 @@ function addLog(icon, text, color){
 function adminSignIn(){ if(window._ariaSignIn) window._ariaSignIn().catch(e=>{ if(e.code!=='auth/popup-closed-by-user') showToast('Sign in failed'); }); }
 function signOut(){ if(window._ariaSignOut) window._ariaSignOut().then(()=>{ document.getElementById('authGate').style.display='flex'; document.getElementById('hubMain').style.display='none'; }); }
 
+// ── MEMORY ────────────────────────────────────────
+function renderMemory(facts){
+  const list  = document.getElementById('memoryList');
+  const empty = document.getElementById('memoryEmpty');
+  if(!facts || !facts.length){
+    if(empty) empty.style.display = 'block';
+    const items = list.querySelectorAll('.memory-item');
+    items.forEach(i=>i.remove());
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+  // Clear existing items
+  list.querySelectorAll('.memory-item').forEach(i=>i.remove());
+  facts.forEach(fact=>{
+    const div = document.createElement('div');
+    div.className = 'memory-item';
+    div.innerHTML = '<i class="ti ti-brain"></i><span class="memory-item-text">'+escHtml(fact)+'</span><button class="memory-item-del" onclick="deleteMemory(this,\''+escAttr(fact)+'\')" title="Forget this"><i class="ti ti-x"></i></button>';
+    list.appendChild(div);
+  });
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s){ return String(s).replace(/'/g,'&#39;').replace(/"/g,'&quot;'); }
+
+function updateMemorySystemPrompt(facts){
+  if(!facts || !facts.length) return;
+  window._ariaMemoryBlock = '\n\nPERSISTENT MEMORY (remembered across all sessions):\n' + facts.map((f,i)=>(i+1)+'. '+f).join('\n') + '\n\nAlways reference these facts naturally when relevant.';
+}
+
+async function addMemory(){
+  const input = document.getElementById('memoryInput');
+  const fact  = input.value.trim();
+  if(!fact){ showToast('Enter something to remember'); return; }
+
+  setMemoryStatus('saving');
+  const ok = await window._ariaAddMemory(fact);
+  if(ok){
+    window._ariaMemoryFacts = window._ariaMemoryFacts || [];
+    window._ariaMemoryFacts.push(fact);
+    renderMemory(window._ariaMemoryFacts);
+    updateMemorySystemPrompt(window._ariaMemoryFacts);
+    input.value = '';
+    setMemoryStatus('synced');
+    showToast('✅ ARIA will remember that');
+    addLog('🧠', 'Memory saved: ' + fact.slice(0,50), 'var(--purple)');
+  } else {
+    setMemoryStatus('synced');
+    showToast('Could not save — try again');
+  }
+}
+
+async function deleteMemory(btn, fact){
+  setMemoryStatus('saving');
+  const ok = await window._ariaDeleteMemory(fact);
+  if(ok){
+    window._ariaMemoryFacts = (window._ariaMemoryFacts||[]).filter(f=>f!==fact);
+    renderMemory(window._ariaMemoryFacts);
+    updateMemorySystemPrompt(window._ariaMemoryFacts);
+    setMemoryStatus('synced');
+    showToast('Memory removed');
+  } else {
+    setMemoryStatus('synced');
+    showToast('Could not remove — try again');
+  }
+}
+
+function setMemoryStatus(state){
+  const el = document.getElementById('memoryStatus');
+  if(!el) return;
+  if(state==='saving'){
+    el.className='memory-status saving';
+    el.innerHTML='<i class="ti ti-loader-2"></i> Saving...';
+  } else {
+    el.className='memory-status synced';
+    el.innerHTML='<i class="ti ti-cloud-check"></i> Synced';
+  }
+}
+
+// ── FILE UPLOAD / DOWNLOAD ────────────────────────
+var currentFileContent = '';
+var lastAriaResponse   = '';
+
+function fileDragOver(e){
+  e.preventDefault();
+  document.getElementById('fileDropZone').classList.add('dragover');
+}
+function fileDragLeave(e){
+  document.getElementById('fileDropZone').classList.remove('dragover');
+}
+function fileDrop(e){
+  e.preventDefault();
+  document.getElementById('fileDropZone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if(file) readFile(file);
+}
+function fileSelected(e){
+  const file = e.target.files[0];
+  if(file) readFile(file);
+}
+function readFile(file){
+  if(file.size > 2*1024*1024){ showToast('File too large — max 2MB'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e){
+    currentFileContent = e.target.result;
+    const preview = currentFileContent.slice(0,500) + (currentFileContent.length>500?'\n... ('+currentFileContent.length+' chars total)':'');
+    const resultEl = document.getElementById('fileResult');
+    resultEl.textContent = preview;
+    resultEl.classList.add('show');
+    document.getElementById('fileActions').style.display = 'flex';
+    addLog('📄', 'File loaded: ' + file.name + ' (' + file.size + ' bytes)', 'var(--cyan)');
+    showToast('✅ ' + file.name + ' loaded — click "Send to ARIA"');
+  };
+  reader.readAsText(file);
+}
+
+function sendFileToARIA(){
+  if(!currentFileContent){ showToast('No file loaded'); return; }
+  const msg = 'I\'ve uploaded a file for you to analyze. Here is the content:\n\n' + currentFileContent;
+  setTranscript(msg.slice(0,200)+'...', true);
+  processCommand(msg);
+}
+
+function copyFileContent(){
+  if(!currentFileContent){ return; }
+  navigator.clipboard.writeText(currentFileContent).then(()=>showToast('✅ File content copied'));
+}
+
+function clearFile(){
+  currentFileContent = '';
+  document.getElementById('fileResult').classList.remove('show');
+  document.getElementById('fileResult').textContent = '';
+  document.getElementById('fileActions').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('downloadBtn').style.display = 'none';
+  document.getElementById('clearFileBtn').style.display = 'none';
+}
+
+function downloadLastResponse(){
+  if(!lastAriaResponse){ showToast('No response to download yet'); return; }
+  const blob = new Blob([lastAriaResponse], { type: 'text/plain' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'aria-response-' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Downloaded');
+}
+
 // ── Toast ─────────────────────────────────────────
 function showToast(msg){
   const t=document.getElementById('toast');
@@ -779,7 +1070,10 @@ function showToast(msg){
 window.addEventListener('load', ()=>{
   setTimeout(()=>{
     if(document.getElementById('hubMain').style.display !== 'none'){
-      const greeting = 'Hey, ARIA online. I am managing your vault approvals, content, and site operations. What do you need?';
+      const memCount = (window._ariaMemoryFacts || []).length;
+      const greeting = memCount > 0
+        ? `Hey, ARIA online. I have ${memCount} things in memory and I'm ready to help. What do you need?`
+        : 'Hey, ARIA online. I am managing your vault approvals, content, and site operations. What do you need?';
       setTranscript(greeting, false);
       speak(greeting);
     }
