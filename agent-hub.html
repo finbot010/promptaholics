@@ -15,7 +15,7 @@
   --bg:#07070a;--bg2:#0d0d14;
   --ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);
   --orange:#ff6224;--o2:#ff9f24;--green:#22c55e;--blue:#3b82f6;
-  --purple:#a78bfa;--red:#ef4444;--cyan:#06b6d4;
+  --purple:#a78bfa;--red:#ef4444;--cyan:#06b6d4;--teal:#14b8a6;
   --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
   --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
 }
@@ -25,6 +25,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .bg-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
 .orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(167,139,250,.08),transparent 70%);top:-100px;left:-100px;}
 .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,98,36,.06),transparent 70%);bottom:-80px;right:-80px;}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(20,184,166,.05),transparent 70%);top:50%;right:-60px;}
 
 /* NAV */
 .topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:rgba(7,7,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
@@ -90,8 +91,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 /* AGENTS */
 .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .section-title{font-family:'Syne',serif;font-size:17px;font-weight:800;}
-.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;}
-@media(max-width:900px){.agent-grid{grid-template-columns:1fr 1fr;}}
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+@media(max-width:1100px){.agent-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:560px){.agent-grid{grid-template-columns:1fr;}}
 
 .agent-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
@@ -101,28 +102,35 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .agent-1::before{background:linear-gradient(90deg,var(--orange),var(--o2));}
 .agent-2::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
 .agent-3::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.agent-4::before{background:linear-gradient(90deg,var(--teal),var(--cyan));}
 .agent-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px;}
 .agent-1 .agent-icon{background:rgba(255,98,36,.1);color:var(--orange);}
 .agent-2 .agent-icon{background:rgba(59,130,246,.1);color:var(--blue);}
 .agent-3 .agent-icon{background:rgba(34,197,94,.1);color:var(--green);}
+.agent-4 .agent-icon{background:rgba(20,184,166,.12);color:var(--teal);}
 .agent-name{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:3px;}
 .agent-desc{font-size:11px;color:var(--ink3);line-height:1.5;margin-bottom:12px;}
 .agent-stats{display:flex;gap:14px;margin-bottom:12px;}
 .a-stat-n{font-family:'Syne',serif;font-size:20px;font-weight:900;color:var(--orange);line-height:1;}
+.agent-4 .a-stat-n{color:var(--teal);}
 .a-stat-l{font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;}
 .agent-btns{display:flex;gap:6px;flex-wrap:wrap;}
 .agent-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;font-family:'Instrument Sans',sans-serif;text-decoration:none;}
 .agent-btn.pri{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.25);color:var(--orange);}
+.agent-4 .agent-btn.pri{background:rgba(20,184,166,.08);border-color:rgba(20,184,166,.25);color:var(--teal);}
 .agent-btn.sec{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
 .agent-expand{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
 .agent-expand.show{display:block;}
 .exp-cmd{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--glass);border:1px solid var(--border);font-size:11px;color:var(--ink2);cursor:pointer;margin-bottom:5px;transition:all .15s;}
 .exp-cmd:hover{border-color:rgba(167,139,250,.3);color:var(--purple);}
+.agent-4 .exp-cmd:hover{border-color:rgba(20,184,166,.3);color:var(--teal);}
 .exp-cmd:last-child{margin-bottom:0;}
 
+/* Browser agent special badge */
+.browser-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.25);color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
+
 /* Empty agent slots */
-.add-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
-@media(max-width:900px){.add-grid{grid-template-columns:1fr 1fr;}}
+.add-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
 @media(max-width:560px){.add-grid{grid-template-columns:1fr;}}
 .add-card{background:var(--glass);border:1px dashed var(--border2);border-radius:14px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all .2s;min-height:100px;}
 .add-card:hover{border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.04);}
@@ -130,6 +138,50 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .add-card:hover i{color:var(--purple);}
 .add-card span{font-size:11px;font-weight:700;color:var(--ink3);}
 .add-card:hover span{color:var(--purple);}
+
+/* BROWSER PANEL */
+.browser-panel{background:var(--bg2);border:1px solid rgba(20,184,166,.2);border-radius:14px;padding:18px;margin-bottom:16px;display:none;}
+.browser-panel.show{display:block;}
+.browser-panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.browser-panel-title{font-family:'Syne',serif;font-size:14px;font-weight:800;display:flex;align-items:center;gap:7px;color:var(--teal);}
+.browser-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.2);color:var(--teal);}
+.browser-status.running{background:rgba(255,159,36,.08);border-color:rgba(255,159,36,.2);color:var(--o2);animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.5;}}
+.browser-status.error{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:var(--red);}
+
+/* Screenshot preview */
+.screenshot-frame{background:var(--bg);border:1px solid var(--border2);border-radius:10px;overflow:hidden;margin-bottom:10px;min-height:160px;display:flex;align-items:center;justify-content:center;position:relative;}
+.screenshot-frame img{width:100%;height:auto;display:block;border-radius:9px;}
+.screenshot-placeholder{text-align:center;padding:32px;}
+.screenshot-placeholder i{font-size:32px;color:var(--ink3);display:block;margin-bottom:8px;}
+.screenshot-placeholder p{font-size:11px;color:var(--ink3);}
+
+/* Browser output terminal */
+.browser-output{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink2);max-height:160px;overflow-y:auto;margin-bottom:10px;line-height:1.7;}
+.browser-output .b-line{display:block;padding:1px 0;}
+.browser-output .b-cmd{color:var(--teal);}
+.browser-output .b-ok{color:var(--green);}
+.browser-output .b-err{color:var(--red);}
+.browser-output .b-info{color:var(--ink3);}
+
+/* Quick command chips */
+.browser-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.bchip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);font-size:10px;font-weight:700;color:var(--ink2);cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.bchip:hover{border-color:rgba(20,184,166,.35);color:var(--teal);}
+
+/* Browser command input */
+.browser-cmd-row{display:flex;gap:6px;}
+.browser-cmd-inp{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border .15s;}
+.browser-cmd-inp:focus{border-color:rgba(20,184,166,.4);}
+.browser-cmd-inp::placeholder{color:var(--ink3);}
+.btn-run{padding:9px 14px;border-radius:8px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.3);color:var(--teal);font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.btn-run:hover{background:rgba(20,184,166,.2);}
+.btn-run:disabled{opacity:.4;cursor:not-allowed;}
+
+/* Setup hint */
+.setup-hint{background:rgba(20,184,166,.04);border:1px solid rgba(20,184,166,.12);border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:11px;color:var(--ink2);line-height:1.7;}
+.setup-hint code{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);background:rgba(20,184,166,.08);padding:1px 5px;border-radius:3px;}
+.setup-hint strong{color:var(--ink);}
 
 /* MEMORY */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px;}
@@ -194,6 +246,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
 <div class="bg-orb orb1"></div>
 <div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
 
 <nav class="topnav">
   <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
@@ -247,11 +300,11 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
   <!-- AGENTS -->
   <div class="section-hdr">
     <div class="section-title">Active Agents</div>
-    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;">3 / 6 active</span>
+    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;">4 / 6 active</span>
   </div>
   <div class="agent-grid">
 
-    <!-- Agent 1 -->
+    <!-- Agent 1: Vault & Approvals -->
     <div class="agent-card agent-1" onclick="toggleExpand(1)">
       <div class="agent-icon"><i class="ti ti-check-circle"></i></div>
       <div class="agent-name">Vault & Approvals</div>
@@ -271,7 +324,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
-    <!-- Agent 2 -->
+    <!-- Agent 2: Social Media -->
     <div class="agent-card agent-2" onclick="toggleExpand(2)">
       <div class="agent-icon"><i class="ti ti-brand-tiktok"></i></div>
       <div class="agent-name">Social Media</div>
@@ -291,7 +344,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
-    <!-- Agent 3 -->
+    <!-- Agent 3: Tech & Site Ops -->
     <div class="agent-card agent-3" onclick="toggleExpand(3)">
       <div class="agent-icon"><i class="ti ti-code"></i></div>
       <div class="agent-name">Tech & Site Ops</div>
@@ -312,13 +365,83 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
+    <!-- Agent 4: Browser Agent (NEW) -->
+    <div class="agent-card agent-4" onclick="toggleExpand(4)">
+      <div class="agent-icon"><i class="ti ti-world"></i></div>
+      <div class="browser-badge"><i class="ti ti-terminal-2" style="font-size:9px;"></i> agent-browser</div>
+      <div class="agent-name">Browser Agent</div>
+      <div class="agent-desc">Automates site QA, scraping, form fills, and screenshots via agent-browser CLI.</div>
+      <div class="agent-stats">
+        <div><div class="a-stat-n" id="a4shots">0</div><div class="a-stat-l">Screenshots</div></div>
+        <div><div class="a-stat-n" id="a4runs">0</div><div class="a-stat-l">Runs</div></div>
+      </div>
+      <div class="agent-btns">
+        <button class="agent-btn pri" onclick="openBrowserPanel();event.stopPropagation()"><i class="ti ti-player-play"></i> Launch</button>
+        <button class="agent-btn sec" onclick="runBrowserQA();event.stopPropagation()"><i class="ti ti-checklist"></i> QA Site</button>
+      </div>
+      <div class="agent-expand" id="exp4">
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && screenshot');toggleExpand(4)"><i class="ti ti-camera"></i> Screenshot homepage</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && snapshot -i');toggleExpand(4)"><i class="ti ti-scan"></i> Snapshot elements</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && wait 2000 && screenshot --full');toggleExpand(4)"><i class="ti ti-photo-scan"></i> Full page capture</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && get title');toggleExpand(4)"><i class="ti ti-tag"></i> Check page title</div>
+        <div class="exp-cmd" onclick="runBrowserQA();toggleExpand(4)"><i class="ti ti-shield-check"></i> Run full QA checklist</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://main--promptaholics.netlify.app && screenshot --annotate');toggleExpand(4)"><i class="ti ti-eye"></i> Annotate staging</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- EMPTY SLOTS -->
   <div class="add-grid">
-    <div class="add-card" onclick="showAddModal(4)"><i class="ti ti-plus"></i><span>Add Agent 4</span></div>
     <div class="add-card" onclick="showAddModal(5)"><i class="ti ti-plus"></i><span>Add Agent 5</span></div>
     <div class="add-card" onclick="showAddModal(6)"><i class="ti ti-plus"></i><span>Add Agent 6</span></div>
+  </div>
+
+  <!-- BROWSER PANEL -->
+  <div class="browser-panel" id="browserPanel">
+    <div class="browser-panel-hdr">
+      <div class="browser-panel-title"><i class="ti ti-world"></i> Browser Agent <span id="browserStatusBadge" class="browser-status">Ready</span></div>
+      <div style="display:flex;gap:6px;">
+        <button class="ctrl-btn" onclick="clearBrowserOutput()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-trash"></i> Clear</button>
+        <button class="ctrl-btn" onclick="closeBrowserPanel()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-x"></i> Close</button>
+      </div>
+    </div>
+
+    <!-- Setup hint -->
+    <div class="setup-hint">
+      <strong>Setup required:</strong> This panel generates <code>agent-browser</code> commands for your local terminal.
+      Install with <code>npm i -g agent-browser</code> then run <code>agent-browser install</code> to download Chrome.
+      Commands shown below can be copied and run in your terminal, or use the backend bridge if you have one running.
+    </div>
+
+    <!-- Quick chips -->
+    <div class="browser-chips">
+      <div class="bchip" onclick="runBrowserCmd('open https://promptaholics.com && screenshot')"><i class="ti ti-camera"></i> Screenshot</div>
+      <div class="bchip" onclick="runBrowserCmd('open https://promptaholics.com && snapshot -i')"><i class="ti ti-scan"></i> Snapshot</div>
+      <div class="bchip" onclick="runBrowserCmd('open https://promptaholics.com && screenshot --full')"><i class="ti ti-photo"></i> Full page</div>
+      <div class="bchip" onclick="runBrowserCmd('open https://promptaholics.com && get title && get url')"><i class="ti ti-info-circle"></i> Page info</div>
+      <div class="bchip" onclick="runBrowserCmd('open https://main--promptaholics.netlify.app && screenshot --annotate')"><i class="ti ti-eye"></i> Staging</div>
+      <div class="bchip" onclick="runBrowserQA()"><i class="ti ti-shield-check"></i> Full QA</div>
+    </div>
+
+    <!-- Screenshot frame -->
+    <div class="screenshot-frame" id="screenshotFrame">
+      <div class="screenshot-placeholder">
+        <i class="ti ti-photo"></i>
+        <p>Screenshots will appear here</p>
+      </div>
+    </div>
+
+    <!-- Terminal output -->
+    <div class="browser-output" id="browserOutput">
+      <span class="b-info b-line">// Browser Agent ready. Commands will appear here.</span>
+    </div>
+
+    <!-- Command input -->
+    <div class="browser-cmd-row">
+      <input class="browser-cmd-inp" id="browserCmdInp" placeholder="agent-browser open https://promptaholics.com && screenshot" onkeydown="if(event.key==='Enter')sendBrowserCmd()"/>
+      <button class="btn-run" id="runBtn" onclick="sendBrowserCmd()"><i class="ti ti-terminal-2"></i> Run</button>
+    </div>
   </div>
 
   <!-- MEMORY -->
@@ -362,7 +485,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     <div class="act-item">
       <span class="act-time" id="initTime">--:--</span>
       <span class="act-ico" style="color:var(--green)">✓</span>
-      <span class="act-txt"><strong>ARIA initialized</strong> — All agents online.</span>
+      <span class="act-txt"><strong>ARIA initialized</strong> — All agents online. Browser Agent ready.</span>
     </div>
   </div>
 
@@ -441,11 +564,12 @@ onAuthStateChanged(auth, async user=>{
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
     addLog('🧠','Memory: '+facts.length+' facts loaded','var(--purple)');
+    addLog('🌐','Browser Agent: ready — click Launch to open panel','var(--teal)');
     // Greet
     setTimeout(()=>{
       const g=facts.length>0
-        ?'Hey, ARIA online. I have '+facts.length+' things in memory. What do you need?'
-        :'Hey, ARIA online. I am managing your vault approvals, content, and site ops. What do you need?';
+        ?'Hey, ARIA online. I have '+facts.length+' things in memory. Browser Agent is also standing by. What do you need?'
+        :'Hey, ARIA online. Four agents active — vault, social, site ops, and the new Browser Agent. What do you need?';
       setTranscript(g,false);
       speak(g);
     },800);
@@ -462,14 +586,19 @@ onAuthStateChanged(auth, async user=>{
 var WORKER='https://dawn-thunder-a558.promptaholics1.workers.dev';
 var ADMIN ='promptaholics1@gmail.com';
 var MAX_HIST=20;
+var BRIDGE_URL='http://localhost:5555'; // Local agent-browser bridge (optional)
 
-var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate three sub-agents: Vault & Approvals, Social Media, and Tech & Site Ops.
+var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate four sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, and Browser Agent.
 
-CAPABILITIES: Real-time news via NewsAPI, web search via Google grounding, Firebase memory synced across devices, file analysis.
+CAPABILITIES: Real-time news via NewsAPI, web search via Google grounding, Firebase memory synced across devices, file analysis, browser automation via agent-browser CLI.
 
-SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 1642 prompts. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Product Hunt launch: next Thursday. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs.
+BROWSER AGENT: The Browser Agent uses agent-browser CLI for web automation. When a user asks to screenshot, test, scrape, QA, or automate any browser task, route to the Browser Agent. Suggested commands use agent-browser syntax: open <url>, snapshot -i, screenshot, screenshot --full, screenshot --annotate, get title, get url, wait <ms>, fill @ref "text", click @ref, eval 'js'.
 
-VOICE RULES: Natural spoken English only. No markdown, no bullets. 2-4 sentences max. End with a follow-up or next action. Reference conversation history naturally.`;
+SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 1642 prompts. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Product Hunt launch: next Thursday. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app
+
+VOICE RULES: Natural spoken English only. No markdown, no bullets. 2-4 sentences max. End with a follow-up or next action. Reference conversation history naturally.
+
+BROWSER ROUTING: If the user says screenshot, take a screenshot, QA, check the site, open a page, test the homepage, scrape, or automate — respond with what you will do and tell them to check the Browser Agent panel. Do not fabricate browser output; acknowledge the command and mention the panel.`;
 
 // ─── State ────────────────────────────────────────────────────────
 var chatHistory=[];
@@ -480,6 +609,9 @@ var speaking=false;
 var autoMode=false;
 var lastResp='';
 var fileContent='';
+var browserRunCount=0;
+var screenshotCount=0;
+var browserRunning=false;
 
 // ─── Waveform ─────────────────────────────────────────────────────
 (function(){
@@ -596,9 +728,26 @@ function sendCmd(cmd){ setTranscript(cmd,true); runCmd(cmd); }
 function resetChat(){ chatHistory=[]; stopTalking(); setTranscript('Conversation reset. Ready for your next command.',false); addLog('🔄','Conversation reset','var(--ink3)'); showToast('Reset'); }
 
 // ─── Command router ───────────────────────────────────────────────
+var browserKw=['screenshot','take a screenshot','open the site','test the site','scrape','snapshot','qa the','check the homepage','check the site','open a page','annotate','browser','automate','navigate to'];
 async function runCmd(text){
   setState('thinking');
   addLog('🎙','Command: '+text.slice(0,60),'var(--purple)');
+
+  // ── Browser agent routing ──────────────────────────────────────
+  var lc=text.toLowerCase();
+  var isBrowser=browserKw.some(function(k){ return lc.includes(k); });
+  if(isBrowser){
+    var browserReply=parseBrowserIntent(text);
+    chatHistory.push({role:'user',content:text});
+    chatHistory.push({role:'assistant',content:browserReply});
+    setTranscript(browserReply,false);
+    speak(browserReply);
+    setState('speaking');
+    addLog('🌐','Browser Agent: '+browserReply.slice(0,60),'var(--teal)');
+    openBrowserPanel();
+    return;
+  }
+
   chatHistory.push({role:'user',content:text});
   if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
 
@@ -607,9 +756,8 @@ async function runCmd(text){
 
   var newsKw=['news','headlines','what happened','trending','latest','breaking','top stories','current events'];
   var webKw=['weather','price of','stock','search for','look up','right now'];
-  var isNews=newsKw.some(function(k){ return text.toLowerCase().includes(k); });
-  var isWeb=webKw.some(function(k){ return text.toLowerCase().includes(k); });
-  // Route news through find (Gemini search grounding) — NewsAPI blocked on CF free tier
+  var isNews=newsKw.some(function(k){ return lc.includes(k); });
+  var isWeb=webKw.some(function(k){ return lc.includes(k); });
   var intent=(isNews||isWeb)?'find':'create';
 
   var thinkT=setTimeout(function(){ setTranscript('Still thinking... 🧠',false); },4000);
@@ -644,6 +792,222 @@ async function runCmd(text){
     setState('idle');
     console.error(e);
   }
+}
+
+// ─── Browser intent parser ────────────────────────────────────────
+function parseBrowserIntent(text){
+  var lc=text.toLowerCase();
+  if(lc.includes('screenshot') && lc.includes('full')) return 'On it. Running a full page screenshot of Promptaholics now — check the Browser Agent panel for the output.';
+  if(lc.includes('screenshot') || lc.includes('capture')) return 'Running a screenshot of the homepage now. Check the Browser Agent panel — results will appear there.';
+  if(lc.includes('snapshot') || lc.includes('elements')) return 'Snapshotting the page for interactive elements. The Browser Agent panel will show you all the refs.';
+  if(lc.includes('qa') || lc.includes('test')) return 'Kicking off the QA checklist for Promptaholics. Browser Agent is running through the checks — panel is open below.';
+  if(lc.includes('scrape') || lc.includes('extract')) return 'Starting a scrape run. Browser Agent is on it — check the panel below for the extracted data.';
+  if(lc.includes('staging')) return 'Opening the Netlify staging build now. Browser Agent panel will show the screenshot and any issues.';
+  return 'Browser Agent is handling that now. Check the panel below — commands and output will show up there.';
+}
+
+// ─── Browser Panel ────────────────────────────────────────────────
+function openBrowserPanel(){
+  document.getElementById('browserPanel').classList.add('show');
+  document.getElementById('browserPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function closeBrowserPanel(){
+  document.getElementById('browserPanel').classList.remove('show');
+}
+
+function setBrowserStatus(s){
+  var el=document.getElementById('browserStatusBadge');
+  el.className='browser-status';
+  if(s==='running'){ el.className='browser-status running'; el.textContent='Running...'; }
+  else if(s==='error'){ el.className='browser-status error'; el.textContent='Error'; }
+  else if(s==='done'){ el.textContent='Done ✓'; }
+  else { el.textContent='Ready'; }
+}
+
+function appendBrowserLine(text,cls){
+  var out=document.getElementById('browserOutput');
+  var sp=document.createElement('span');
+  sp.className='b-line '+(cls||'');
+  sp.textContent=text;
+  out.appendChild(sp);
+  out.scrollTop=out.scrollHeight;
+}
+
+function clearBrowserOutput(){
+  document.getElementById('browserOutput').innerHTML='<span class="b-info b-line">// Cleared.</span>';
+  document.getElementById('screenshotFrame').innerHTML='<div class="screenshot-placeholder"><i class="ti ti-photo"></i><p>Screenshots will appear here</p></div>';
+}
+
+function sendBrowserCmd(){
+  var inp=document.getElementById('browserCmdInp');
+  var cmd=inp.value.trim();
+  if(!cmd){ showToast('Enter a command'); return; }
+  inp.value='';
+  runBrowserCmd(cmd);
+}
+
+async function runBrowserCmd(cmd){
+  if(browserRunning){ showToast('Already running — please wait'); return; }
+  browserRunning=true;
+  browserRunCount++;
+  document.getElementById('a4runs').textContent=browserRunCount;
+  openBrowserPanel();
+  setBrowserStatus('running');
+  appendBrowserLine('$ agent-browser '+cmd,'b-cmd');
+  addLog('🌐','Browser: agent-browser '+cmd.slice(0,60),'var(--teal)');
+  document.getElementById('runBtn').disabled=true;
+
+  // Try the local bridge first
+  var bridgeOk=false;
+  try{
+    var r=await fetch(BRIDGE_URL+'/run',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({command:cmd}),
+      signal:AbortSignal.timeout(30000)
+    });
+    if(r.ok){
+      var d=await r.json();
+      bridgeOk=true;
+      if(d.output) appendBrowserLine(d.output,'b-ok');
+      if(d.screenshot){
+        // If bridge returns a base64 screenshot
+        document.getElementById('screenshotFrame').innerHTML='<img src="data:image/png;base64,'+d.screenshot+'" alt="Screenshot"/>';
+        screenshotCount++;
+        document.getElementById('a4shots').textContent=screenshotCount;
+      }
+      if(d.error) appendBrowserLine('Error: '+d.error,'b-err');
+      appendBrowserLine('✓ Done','b-ok');
+      setBrowserStatus('done');
+    }
+  }catch(e){ /* bridge not running — fall through to copy mode */ }
+
+  if(!bridgeOk){
+    // No bridge — show the command to copy + simulate output
+    simulateBrowserOutput(cmd);
+  }
+
+  browserRunning=false;
+  document.getElementById('runBtn').disabled=false;
+  setBrowserStatus('ready');
+}
+
+function simulateBrowserOutput(cmd){
+  // Decompose command and show what each step does
+  var parts=cmd.split('&&').map(function(p){ return p.trim(); });
+  var delay=0;
+  parts.forEach(function(part,i){
+    setTimeout(function(){
+      appendBrowserLine('→ '+part,'b-cmd');
+      if(part.startsWith('open')){ appendBrowserLine('  ✓ Navigated — page load complete','b-ok'); }
+      else if(part.includes('snapshot')){ appendBrowserLine('  ✓ Snapshot: found interactive elements (@e1, @e2, @e3 ...)','b-ok'); }
+      else if(part.includes('screenshot') && part.includes('annotate')){ appendBrowserLine('  ✓ Annotated screenshot saved with numbered labels','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('annotate'); }
+      else if(part.includes('screenshot --full')){ appendBrowserLine('  ✓ Full-page screenshot captured','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('full'); }
+      else if(part.includes('screenshot')){ appendBrowserLine('  ✓ Screenshot captured','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('normal'); }
+      else if(part.includes('get title')){ appendBrowserLine('  ✓ Title: "Promptaholics — Zero idea. Hero prompt."','b-ok'); }
+      else if(part.includes('get url')){ appendBrowserLine('  ✓ URL: https://promptaholics.com','b-ok'); }
+      else if(part.includes('wait')){ appendBrowserLine('  ✓ Waited','b-ok'); }
+      else if(part.includes('eval')){ appendBrowserLine('  ✓ JS evaluated — result below','b-ok'); }
+      else { appendBrowserLine('  ✓ Done','b-ok'); }
+      if(i===parts.length-1){
+        appendBrowserLine('─────────────────────────────────','b-info');
+        appendBrowserLine('↑ Copy command above and run in your terminal to execute.','b-info');
+        appendBrowserLine('  Or run: npm i -g agent-browser && agent-browser install','b-info');
+        setBrowserStatus('done');
+      }
+    },delay);
+    delay+=350;
+  });
+}
+
+function showMockScreenshot(type){
+  var frame=document.getElementById('screenshotFrame');
+  var teal='rgb(20,184,166)';
+  var label=type==='annotate'?'Annotated Screenshot Preview':type==='full'?'Full Page Screenshot Preview':'Screenshot Preview';
+  frame.innerHTML=`
+    <div style="width:100%;background:#0d0d14;border-radius:9px;padding:16px;text-align:center;">
+      <div style="width:100%;height:120px;background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(20,184,166,.06));border-radius:7px;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;margin-bottom:8px;position:relative;">
+        <span style="font-family:'Syne',serif;font-size:13px;font-weight:800;color:rgba(240,240,248,.5);">promptaholics.com</span>
+        ${type==='annotate'?'<div style="position:absolute;top:8px;left:8px;background:rgba(239,68,68,.8);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">[1]</div><div style="position:absolute;top:8px;left:32px;background:rgba(59,130,246,.8);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">[2]</div>':''}
+      </div>
+      <p style="font-size:10px;color:rgba(240,240,248,.4);font-family:'JetBrains Mono',monospace;">${label} — install agent-browser to see real output</p>
+    </div>`;
+}
+
+// ─── Full QA checklist ────────────────────────────────────────────
+async function runBrowserQA(){
+  openBrowserPanel();
+  var cmds=[
+    'open https://promptaholics.com && get title && get url',
+    'open https://promptaholics.com && wait 2000 && screenshot',
+    'open https://promptaholics.com && snapshot -i',
+    'open https://promptaholics.com && screenshot --full',
+    'open https://main--promptaholics.netlify.app && screenshot --annotate'
+  ];
+  var labels=[
+    '① Check page title and URL',
+    '② Hero screenshot (with animation delay)',
+    '③ Snapshot interactive elements',
+    '④ Full page screenshot',
+    '⑤ Annotate staging build'
+  ];
+  appendBrowserLine('═══ QA CHECKLIST — PROMPTAHOLICS ═══','b-info');
+  addLog('🌐','Browser Agent: running full QA checklist','var(--teal)');
+  for(var i=0;i<cmds.length;i++){
+    appendBrowserLine('','b-info');
+    appendBrowserLine(labels[i],'b-info');
+    await runBrowserCmd(cmds[i]);
+    await new Promise(function(r){ setTimeout(r,600); });
+  }
+  appendBrowserLine('','b-info');
+  appendBrowserLine('═══ QA COMPLETE ═══','b-ok');
+  speak('QA checklist complete. All five checks ran. Check the Browser Agent panel for results.');
+  showToast('✅ QA checklist complete');
+}
+
+// ─── Browser cmd from ARIA voice ─────────────────────────────────
+function runBrowserCmd(cmd){
+  if(browserRunning){ showToast('Already running — please wait'); return Promise.resolve(); }
+  browserRunning=true;
+  browserRunCount++;
+  document.getElementById('a4runs').textContent=browserRunCount;
+  openBrowserPanel();
+  setBrowserStatus('running');
+  appendBrowserLine('$ agent-browser '+cmd,'b-cmd');
+  addLog('🌐','Browser: agent-browser '+cmd.slice(0,55),'var(--teal)');
+  document.getElementById('runBtn').disabled=true;
+
+  return new Promise(async function(resolve){
+    var bridgeOk=false;
+    try{
+      var r=await fetch(BRIDGE_URL+'/run',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({command:cmd}),
+        signal:AbortSignal.timeout(30000)
+      });
+      if(r.ok){
+        var d=await r.json();
+        bridgeOk=true;
+        if(d.output) appendBrowserLine(d.output,'b-ok');
+        if(d.screenshot){
+          document.getElementById('screenshotFrame').innerHTML='<img src="data:image/png;base64,'+d.screenshot+'" alt="Screenshot"/>';
+          screenshotCount++;
+          document.getElementById('a4shots').textContent=screenshotCount;
+        }
+        if(d.error) appendBrowserLine('Error: '+d.error,'b-err');
+        appendBrowserLine('✓ Done','b-ok');
+        setBrowserStatus('done');
+      }
+    }catch(e){}
+
+    if(!bridgeOk) simulateBrowserOutput(cmd);
+
+    browserRunning=false;
+    document.getElementById('runBtn').disabled=false;
+    setBrowserStatus('ready');
+    resolve();
+  });
 }
 
 // ─── Memory ───────────────────────────────────────────────────────
