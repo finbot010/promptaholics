@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-16T00:44:05.185Z",
-  "week": 25,
+  "generated_at": "2026-06-22T18:13:16.491Z",
+  "week": 26,
   "slot-1": {
-    "name": "Bioluminescent Ocean Night",
-    "prompt": "Night photography of Maldives beach where every wave crashing on shore glows vivid electric blue bioluminescence from dinoflagellates. Long exposure 30 seconds. The glowing waves trail across the black sand. Stars and Milky Way overhead. Coconut palms silhouetted. The horizon glows faintly. No other light source except nature. Like walking on another planet. National Geographic photograph of the year."
+    "name": "Abandoned Soviet Space Station",
+    "prompt": "Interior of an abandoned 1970s Soviet space station now drifting in deep space. Deteriorating cosmonaut equipment, faded Cyrillic labels, floating dust particles caught in a single beam of sunlight from a cracked porthole showing infinite stars. A chess set mid-game floating in zero gravity. Everything covered in a thin layer of frost. Shot with an anamorphic lens. Haunting and beautiful and lonely."
   },
   "slot-2": {
-    "name": "Solarpunk Urban Farm",
-    "prompt": "Vibrant solarpunk neighborhood in 2075. Every rooftop is a lush food forest. Solar canopies shade market streets where neighbors trade produce. Mosaic murals cover building sides. Children play in clean rivers running through the city. Wind sculptures generate power while spinning beautifully. Diverse community gathering. Feels joyful and real. Painterly illustration meets photorealism. Warm golden afternoon light."
+    "name": "Silk Fabric Explosion",
+    "prompt": "High-speed photography of dozens of silk scarves in every jewel tone simultaneously thrown into the air and photographed at 1/50,000th of a second. The silks form impossible organic shapes — some look like wings, some like flowers, some like ocean waves. Shot against pure white infinity backdrop. Each fabric thread individually visible. Issey Miyake meets physics experiment. The colors are electric."
   },
   "slot-3": {
-    "name": "Storm Front Meeting Sunshine",
-    "prompt": "The exact moment a violent supercell storm meets the brilliant sunshine on the other side of the weather front. Shot from a storm chaser plane at 30,000 feet. Left half of frame: inky black tornadic rotation, lightning inside the cloud wall. Right half: blinding golden sunset. The boundary between them is a razor-sharp line of chaos and peace. Nikon Z9 aerial photography."
+    "name": "Redwood Forest Cathedral",
+    "prompt": "Inside an ancient California redwood grove at dawn. Trees 115 meters tall and 3,000 years old form a natural cathedral. Shafts of golden morning light cut through morning fog between the massive trunks. Ferns and moss carpet the forest floor in vivid emerald. Complete silence implied. A single person standing at the base of one tree for scale — they are the size of a pinecone. Sony A1 16mm. Sacred."
   },
   "slot-4": {
-    "name": "Deep Ocean Creature",
-    "prompt": "Deep sea photography at 3,000 meters using submersible lights revealing an undiscovered species. Translucent gelatinous creature the size of a car with thousands of bioluminescent blue-green dots arranged in perfect geometric patterns across its body. Multiple articulated fins. Scientists have not named it yet. National Oceanic and Atmospheric Administration style documentation photo. Real but alien."
+    "name": "Cybernetic Botanist",
+    "prompt": "Character portrait: a botanist in a post-climate-change 2087 who has integrated plants directly into her cybernetic implants. Vines growing through chrome arms, moss on her shoulder plates, a real blooming orchid growing from her temple. Her eyes are biosynthetic and glow amber. She tends to a rooftop garden in rain. Warm amber and deep green palette. Feels like a real person you want to know."
   }
 }
