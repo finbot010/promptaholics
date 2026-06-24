@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Loop Engineering — The Next Evolution of AI Prompting — Promptaholics</title>
+<meta name="description" content="Boris Cherny of Anthropic says the era of writing individual prompts is over. The new skill is loop engineering — building automated systems that prompt AI on your behalf. Here's what that means and how to start."/>
+<meta name="keywords" content="loop engineering, AI agents, prompt loops, Boris Cherny, Claude Code, AI automation, agent prompts"/>
+<link rel="canonical" href="https://promptaholics.com/blog-loop-engineering.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.65);--ink3:rgba(240,240,248,.35);--orange:#ff6224;--o2:#ff9f24;--purple:#a78bfa;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--glass:rgba(255,255,255,.04);--card:#13131c;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;line-height:1.7;}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(167,139,250,.07),transparent 70%);top:-100px;right:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,98,36,.04),transparent 70%);bottom:-80px;left:-80px;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;background:rgba(7,7,10,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:20px;}
+.nav-link{font-size:13px;color:var(--ink2);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-cta{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;text-decoration:none;}
+@media(max-width:600px){.nav-links{display:none;}.nav{padding:0 16px;}}
+.article-wrap{position:relative;z-index:10;max-width:720px;margin:0 auto;padding:52px 24px 80px;}
+.article-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:16px;padding:4px 12px;border-radius:16px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);}
+.article-title{font-family:'Syne',serif;font-size:clamp(26px,5vw,46px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:16px;}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink3);margin-bottom:32px;flex-wrap:wrap;}
+.article-intro{font-size:17px;color:var(--ink2);line-height:1.8;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.article-body h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin:40px 0 14px;color:var(--ink);}
+.article-body h3{font-family:'Syne',serif;font-size:17px;font-weight:700;margin:28px 0 10px;color:var(--ink);}
+.article-body p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:18px;}
+.article-body strong{color:var(--ink);font-weight:700;}
+.article-body ul,.article-body ol{margin:0 0 18px 24px;color:var(--ink2);font-size:15px;line-height:1.85;}
+.article-body li{margin-bottom:8px;}
+.callout{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-left:3px solid var(--purple);border-radius:10px;padding:18px 20px;margin:28px 0;}
+.callout p{margin:0;color:var(--ink2);font-size:14px;line-height:1.7;}
+.callout strong{color:var(--purple);}
+.callout-orange{background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.2);border-left:3px solid var(--orange);border-radius:10px;padding:18px 20px;margin:28px 0;}
+.callout-orange p{margin:0;color:var(--ink2);font-size:14px;line-height:1.7;}
+.callout-orange strong{color:var(--orange);}
+.code-block{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:18px 20px;margin:24px 0;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink2);line-height:1.7;overflow-x:auto;white-space:pre-wrap;}
+.code-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:block;}
+.loop-diagram{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:24px;margin:24px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink2);line-height:2;text-align:center;}
+.loop-diagram .arrow{color:var(--purple);}
+.loop-diagram .box{color:var(--orange);}
+.five-parts{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+.part-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;gap:14px;align-items:flex-start;}
+.part-num{font-family:'Syne',serif;font-size:18px;font-weight:900;color:var(--purple);flex-shrink:0;line-height:1;margin-top:2px;}
+.part-content{}
+.part-title{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:4px;color:var(--ink);}
+.part-desc{font-size:13px;color:var(--ink2);line-height:1.6;}
+.article-cta{background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(255,98,36,.04));border:1px solid rgba(167,139,250,.2);border-radius:16px;padding:32px;text-align:center;margin-top:48px;}
+.article-cta h3{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:8px;}
+.article-cta p{font-size:13px;color:var(--ink2);margin-bottom:20px;}
+.btn-cta{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;font-size:13px;font-weight:700;text-decoration:none;}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.related-title{font-family:'Syne',serif;font-size:12px;font-weight:800;margin-bottom:16px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.related-grid{grid-template-columns:1fr;}}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:border-color .15s;display:block;}
+.related-card:hover{border-color:rgba(255,98,36,.3);}
+.related-card-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;display:block;}
+.related-card-title{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--ink);line-height:1.4;}
+.footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:24px;text-align:center;}
+.footer-logo{font-family:'Syne',serif;font-size:14px;font-weight:900;color:var(--ink);text-decoration:none;}
+.footer-logo span{color:var(--orange);}
+.footer-copy{font-size:11px;color:var(--ink3);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="prompt-builder.html" class="nav-link">Builder</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+  </div>
+  <a href="library.html" class="nav-cta"><i class="ti ti-sparkles"></i> Browse Prompts</a>
+</nav>
+<div class="article-wrap">
+  <div class="article-eyebrow"><i class="ti ti-refresh"></i> Advanced</div>
+  <h1 class="article-title">Loop Engineering — The Next Evolution of AI Prompting</h1>
+  <div class="article-meta">
+    <span><i class="ti ti-calendar"></i> June 2026</span>
+    <span><i class="ti ti-clock"></i> 7 min read</span>
+    <span><i class="ti ti-bolt"></i> Advanced technique</span>
+  </div>
+  <p class="article-intro">Boris Cherny, who leads Claude Code at Anthropic, made a statement that stopped the developer world mid-scroll: "I don't prompt Claude anymore. I have loops running that prompt Claude and figure out what to do. My job is to write the loops." Here's what that means, why it matters, and how to start thinking this way — even if you're not a developer.</p>
+
+  <div class="article-body">
+
+    <h2>What Did Boris Cherny Actually Say?</h2>
+    <p>During a fireside chat at Fortune's Brainstorm Tech conference in June 2026, Cherny described how his relationship with AI has evolved through three stages:</p>
+    <ol>
+      <li><strong>Writing code by hand</strong> — the traditional way</li>
+      <li><strong>Prompting Claude to write code</strong> — the first AI shift</li>
+      <li><strong>Writing loops that prompt Claude automatically</strong> — where he is now</li>
+    </ol>
+    <p>He also revealed he hasn't written a single line of code by hand in eight months. Claude Code — Anthropic's flagship coding agent — is itself 100% written by Claude Code. The system is writing itself.</p>
+
+    <div class="callout">
+      <p><strong>The exact quote:</strong> "My coding was prompting Claude to write code. Now it's leveled up again to the next abstraction where I don't prompt Claude anymore. I have loops that are running. They're the ones prompting Claude and figuring out what to do. My job is to write the loops."</p>
+    </div>
+
+    <h2>What Is a Loop?</h2>
+    <p>A loop is an automated system that runs repeatedly — it prompts an AI, evaluates the output, decides what to do next, and prompts again. The human doesn't participate in each cycle. They design the system and let it run.</p>
+
+    <div class="loop-diagram">
+      <span class="box">Human writes the loop</span>
+      <div class="arrow">↓</div>
+      <span class="box">Loop sets the goal</span>
+      <div class="arrow">↓</div>
+      <span class="box">Loop prompts the AI</span>
+      <div class="arrow">↓</div>
+      <span class="box">AI responds</span>
+      <div class="arrow">↓</div>
+      <span class="box">Loop evaluates the output</span>
+      <div class="arrow">↓</div>
+      <span class="box">Loop decides next step</span>
+      <div class="arrow">↑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙</div>
+      <span style="color:var(--ink3);font-size:11px;">(repeats until goal is met)</span>
+    </div>
+
+    <p>Instead of a human saying "write this email" and then reviewing and editing it, a loop says "monitor our inbox, identify messages that need a response, draft replies in our brand voice, flag anything unusual for human review" — and runs continuously without the human being in each cycle.</p>
+
+    <h2>Why This Matters for Prompts</h2>
+    <p>Here's the thing that the "prompts are dead" headline gets wrong: loops are full of prompts. They're just prompts that run automatically, not prompts that a human types each time.</p>
+    <p>The skill of prompt engineering doesn't disappear in a loop-engineered world — it moves up a level. Instead of writing a prompt for a task, you write prompts for a system. The prompts need to be more precise, more robust, and more self-contained because no human is there to clarify or correct.</p>
+
+    <div class="callout-orange">
+      <p><strong>What this means for the Promptaholics library:</strong> Prompts aren't becoming less valuable — they're becoming building blocks for automation. A well-structured CoSTAR prompt doesn't just work when you type it. It works when a loop runs it 500 times a day. That's the next frontier we're building toward.</p>
+    </div>
+
+    <h2>The Five Parts of a Loop</h2>
+    <p>Engineer Addy Osmani's influential post on loop engineering identified five components that most production loops share:</p>
+
+    <div class="five-parts">
+      <div class="part-card">
+        <div class="part-num">1</div>
+        <div class="part-content">
+          <div class="part-title">Discovery</div>
+          <div class="part-desc">The loop monitors for new inputs — emails arriving, files being uploaded, data changing, events happening. It knows when to wake up and act.</div>
+        </div>
+      </div>
+      <div class="part-card">
+        <div class="part-num">2</div>
+        <div class="part-content">
+          <div class="part-title">Task Decomposition</div>
+          <div class="part-desc">The loop breaks a large goal into smaller, manageable sub-tasks. Instead of "write a report," it becomes "collect data," then "analyze data," then "write section 1," then "write section 2."</div>
+        </div>
+      </div>
+      <div class="part-card">
+        <div class="part-num">3</div>
+        <div class="part-content">
+          <div class="part-title">Orchestration</div>
+          <div class="part-desc">The loop manages which AI agent handles which sub-task, in what order, with what context. It's the project manager of the system.</div>
+        </div>
+      </div>
+      <div class="part-card">
+        <div class="part-num">4</div>
+        <div class="part-content">
+          <div class="part-title">Verification</div>
+          <div class="part-desc">The loop checks the output before passing it to the next step. Did the AI follow the format? Is the content accurate? Does it meet the criteria? Loops without verification produce cascading errors.</div>
+        </div>
+      </div>
+      <div class="part-card">
+        <div class="part-num">5</div>
+        <div class="part-content">
+          <div class="part-title">Persistent Memory</div>
+          <div class="part-desc">The loop remembers what it's learned across runs — which approaches worked, which failed, what context it needs to carry forward. This is what makes loops get better over time.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>A Real-World Loop Example</h2>
+    <p>Here's a loop that a content marketer might build — no code required, using tools like Zapier or Make:</p>
+
+    <div class="code-block"><span class="code-label">Content research loop — Zapier/Make workflow</span>Trigger: New article published on [competitor blog] (RSS feed)
+
+Step 1 — Discovery
+Claude prompt: "Read this article and identify the main claim, the target audience, 
+and the gap they didn't address: [ARTICLE TEXT]"
+
+Step 2 — Task decomposition  
+Claude prompt: "Based on this gap: [GAP FROM STEP 1], generate 3 article angles 
+we could take that would outperform this piece for our audience: [OUR AUDIENCE]"
+
+Step 3 — Verification
+Claude prompt: "Score each of these 3 angles 1-10 for: originality, search potential, 
+and alignment with our brand voice. Only keep angles scoring 7+ on all three."
+
+Step 4 — Output
+Send passing angles to Notion content calendar with source article linked.
+
+Runs automatically whenever a competitor publishes.</div>
+
+    <h2>How to Start Thinking in Loops</h2>
+    <p>You don't need to be a developer to apply loop engineering principles. The mindset shift is simpler than the technical implementation:</p>
+    <ul>
+      <li><strong>Identify repetitive AI tasks.</strong> Any task you do with AI more than once a week is a candidate for a loop.</li>
+      <li><strong>Define the trigger.</strong> What event starts the process? A new email, a new file, a scheduled time, a data change?</li>
+      <li><strong>Write the prompts first.</strong> Before building any automation, write the prompts that would do each step manually. Get them working perfectly by hand before you automate them.</li>
+      <li><strong>Add verification steps.</strong> What does "good output" look like? Define it explicitly so the loop can check its own work.</li>
+      <li><strong>Start with one loop, one task.</strong> Don't try to automate everything at once. Pick the highest-value repetitive task and build one loop for it.</li>
+    </ul>
+
+    <h2>The Skill That Doesn't Change</h2>
+    <p>The thing Cherny's statement actually reveals is that the skill of precise, structured prompting is more important than ever — not less. When a human reviews every AI output, a mediocre prompt is just an annoyance. When a loop runs that prompt 10,000 times without human review, a mediocre prompt is a disaster.</p>
+    <p>Loop engineering doesn't make prompt engineering obsolete. It makes prompt engineering critical infrastructure.</p>
+
+  </div>
+
+  <div class="article-cta">
+    <h3>Agent & Loop Prompts — coming soon</h3>
+    <p>We're building a dedicated category of prompts designed specifically for use inside automated AI loops and agent workflows. In the meantime, browse our full library of 1,671 structured prompts.</p>
+    <a href="library.html" class="btn-cta"><i class="ti ti-sparkles"></i> Browse the Library</a>
+  </div>
+
+  <div class="related">
+    <div class="related-title">Keep reading</div>
+    <div class="related-grid">
+      <a href="blog-costar-framework.html" class="related-card">
+        <span class="related-card-tag">Framework</span>
+        <div class="related-card-title">How to Use the CoSTAR Prompt Framework</div>
+      </a>
+      <a href="blog-chatgpt-vs-claude.html" class="related-card">
+        <span class="related-card-tag">Comparison</span>
+        <div class="related-card-title">ChatGPT vs Claude — Which Prompts Work Better?</div>
+      </a>
+      <a href="blog-what-is-prompt-engineering.html" class="related-card">
+        <span class="related-card-tag">Beginner</span>
+        <div class="related-card-title">What Is Prompt Engineering?</div>
+      </a>
+      <a href="blog-best-marketing-prompts.html" class="related-card">
+        <span class="related-card-tag">Marketing</span>
+        <div class="related-card-title">Best AI Prompts for Marketing in 2026</div>
+      </a>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <a href="index.html" class="footer-logo">Prompt<span>aholics</span></a>
+  <p class="footer-copy">© 2026 Promptaholics. Free AI prompt library.</p>
+</footer>
+</body>
+</html>
