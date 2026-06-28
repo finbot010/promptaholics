@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PA Agent — Your AI Prompt Agent | Promptaholics</title>
+<meta name="description" content="Tell PA what you want to achieve. It searches 1,485 prompts, builds your content, and creates your visuals."/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--bg2:#0d0d14;--bg3:#121218;
+  --ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);
+  --orange:#ff6224;--o2:#ff9f24;--o3:rgba(255,98,36,.08);
+  --green:#22c55e;--blue:#3b82f6;--purple:#a78bfa;--red:#ef4444;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --blur:blur(16px);
+}
+html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;}
+#bgCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;animation:grain .4s steps(1) infinite;}
+@keyframes grain{0%{background-position:0 0;}25%{background-position:-4px 2px;}50%{background-position:3px -3px;}75%{background-position:2px 4px;}}
+
+/* NAV */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',serif;font-weight:900;font-size:17px;color:var(--ink);text-decoration:none;}
+.nav-logo svg{width:20px;height:22px;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-link{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--ink2);text-decoration:none;transition:all .15s;}
+.nav-link:hover{color:var(--ink);background:var(--glass);}
+.nav-link.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;text-decoration:none;transition:all .15s;border:none;cursor:pointer;}
+.nav-signin:hover{background:var(--o2);}
+@media(max-width:480px){.nav-signin{display:none!important;}}
+@media(max-width:600px){.nav-links{display:none;}}
+
+/* LAYOUT */
+.main{position:relative;z-index:10;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:80px 20px 140px;}
+
+/* HERO */
+.hero{text-align:center;max-width:700px;margin:0 auto 40px;padding-top:20px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;animation:fadeUp .5s ease both;}
+.hero-title{font-family:'Syne',serif;font-weight:900;font-size:clamp(36px,6vw,72px);line-height:1.0;letter-spacing:-2px;margin-bottom:16px;animation:fadeUp .5s .05s ease both;}
+.hero-title .hl{background:linear-gradient(135deg,var(--orange),var(--o2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:16px;color:var(--ink2);line-height:1.7;max-width:480px;margin:0 auto;animation:fadeUp .5s .1s ease both;}
+
+/* INPUT STAGE */
+.input-stage{width:100%;max-width:760px;animation:fadeUp .5s .15s ease both;}
+
+/* Mode buttons */
+.mode-row{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+.mode-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;cursor:pointer;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);transition:all .2s;font-family:'Instrument Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
+.mode-btn:hover{background:var(--glass2);color:var(--ink);}
+.mode-btn.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--orange);}
+.mode-btn i{font-size:14px;}
+
+/* Input box */
+.input-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:6px 6px 6px 20px;display:flex;align-items:flex-end;gap:8px;transition:border-color .2s;position:relative;}
+.input-box:focus-within{border-color:rgba(255,98,36,.4);box-shadow:0 0 0 3px rgba(255,98,36,.06);}
+.input-field{flex:1;background:none;border:none;outline:none;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:16px;line-height:1.5;resize:none;min-height:52px;max-height:140px;padding:12px 0;overflow-y:auto;}
+.input-field::placeholder{color:var(--ink3);}
+.input-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;padding-bottom:6px;}
+
+/* Clear button — trash icon, soft red hover */
+.btn-clear{display:none;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-size:14px;transition:all .18s;flex-shrink:0;}
+.btn-clear:hover{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:#f87171;}
+.btn-clear.visible{display:flex;}
+
+/* Mic button */
+.btn-mic{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0;font-size:15px;}
+.btn-mic:hover{background:var(--glass2);color:var(--ink);}
+.btn-mic.listening{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#f87171;animation:pulse-mic 1s ease infinite;}
+.btn-mic.unsupported{opacity:.3;cursor:not-allowed;}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.3);}50%{box-shadow:0 0 0 6px rgba(239,68,68,0);}}
+
+/* Run button */
+.btn-run{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;background:var(--orange);color:#fff;font-family:'Instrument Sans',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-run:hover{background:var(--o2);transform:translateY(-1px);}
+.btn-run:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-run i{font-size:16px;}
+.btn-run.running i{animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.char-count{font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+
+/* Suggestion chips */
+.suggestions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+.sug-chip{padding:6px 12px;border-radius:20px;background:var(--glass);border:1px solid var(--border);font-size:11px;color:var(--ink2);cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.sug-chip:hover{background:var(--glass2);color:var(--ink);border-color:var(--border2);}
+
+/* Mobile fixed Run PA bar */
+.mobile-run-bar{display:none;position:fixed;bottom:56px;left:0;right:0;z-index:550;padding:10px 16px;background:rgba(7,7,10,.97);border-top:1px solid var(--border);backdrop-filter:var(--blur);}
+.mobile-run-bar .btn-run{width:100%;justify-content:center;padding:14px;font-size:15px;border-radius:14px;}
+
+@media(max-width:768px){
+  .mode-row{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px;scrollbar-width:none;-ms-overflow-style:none;}
+  .mode-row::-webkit-scrollbar{display:none;}
+  .input-actions .btn-run{display:none;}
+  .mobile-run-bar{display:block;}
+  .sug-chip:nth-child(n+5){display:none;}
+  .pa-toast{bottom:120px;}
+}
+
+/* AGENT STEPS */
+.agent-steps{width:100%;max-width:760px;margin-top:32px;display:none;}
+.agent-steps.active{display:block;}
+.steps-header{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.step-item{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:10px;background:var(--glass);border:1px solid var(--border);margin-bottom:6px;font-size:13px;color:var(--ink2);transition:all .3s;}
+.step-item.done{border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.04);color:var(--ink);}
+.step-item.active{border-color:rgba(255,98,36,.25);background:rgba(255,98,36,.05);color:var(--ink);}
+.step-item.waiting{opacity:.4;}
+.step-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.step-item.done .step-icon{background:rgba(34,197,94,.15);color:var(--green);}
+.step-item.active .step-icon{background:rgba(255,98,36,.15);color:var(--orange);}
+.step-item.waiting .step-icon{background:var(--glass2);color:var(--ink3);}
+.step-item.active .step-spin{animation:spin .7s linear infinite;}
+
+/* RESULTS */
+.results{width:100%;max-width:760px;margin-top:24px;display:none;}
+.results.active{display:block;animation:fadeUp .4s ease both;}
+.result-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.result-title{font-family:'Syne',serif;font-weight:900;font-size:22px;letter-spacing:-.3px;}
+.result-meta{display:flex;align-items:center;gap:8px;}
+.result-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.result-badge.prompts{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
+.result-badge.content{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);}
+.result-badge.images{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);color:var(--purple);}
+.result-tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);}
+.rtab{padding:10px 16px;font-size:12px;font-weight:700;color:var(--ink3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;gap:6px;}
+.rtab:hover{color:var(--ink2);}
+.rtab.active{color:var(--orange);border-bottom-color:var(--orange);}
+.rtab i{font-size:14px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeUp .3s ease both;}
+
+/* Prompt cards */
+.prompt-result-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden;transition:all .2s;}
+.prompt-result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:0;transition:opacity .2s;}
+.prompt-result-card:hover{border-color:rgba(255,98,36,.25);transform:translateY(-2px);}
+.prompt-result-card:hover::before{opacity:1;}
+.prc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.prc-name{font-size:14px;font-weight:700;color:var(--ink);}
+.prc-relevance{font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
+.prc-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.prc-badge{padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.prc-badge.cat{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.15);color:var(--orange);}
+.prc-badge.fw{background:rgba(255,159,36,.08);border:1px solid rgba(255,159,36,.15);color:var(--o2);}
+.prc-badge.match{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);color:var(--green);}
+.prc-text{font-size:12px;color:var(--ink2);line-height:1.65;font-family:'JetBrains Mono',monospace;}
+.prc-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.prc-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
+.prc-btn.copy{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.2);color:var(--orange);}
+.prc-btn.copy:hover{background:rgba(255,98,36,.15);}
+.prc-btn.build{background:rgba(255,159,36,.06);border-color:rgba(255,159,36,.18);color:var(--o2);}
+.prc-btn.build:hover{background:rgba(255,159,36,.12);}
+.prc-btn.save{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
+.prc-btn.save:hover{background:var(--glass2);color:var(--ink);}
+.prc-btn.add-lib{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);color:var(--green);}
+.prc-btn.add-lib:hover{background:rgba(34,197,94,.14);}
+.prc-btn.add-lib:disabled{opacity:.5;cursor:not-allowed;}
+
+/* Content cards */
+.content-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;transition:all .2s;}
+.content-card:hover{border-color:rgba(59,130,246,.25);}
+.cc-platform{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;margin-bottom:12px;}
+.cc-platform.linkedin{background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.2);color:#0a66c2;}
+.cc-platform.twitter{background:rgba(29,161,242,.1);border:1px solid rgba(29,161,242,.2);color:#1da1f2;}
+.cc-platform.instagram{background:rgba(225,48,108,.1);border:1px solid rgba(225,48,108,.2);color:#e1306c;}
+.cc-platform.email{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
+.cc-platform.blog{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);color:var(--purple);}
+.cc-text{font-size:13px;color:var(--ink2);line-height:1.75;white-space:pre-wrap;}
+.cc-actions{display:flex;gap:6px;margin-top:12px;}
+
+/* Image grid */
+.img-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.img-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all .2s;}
+.img-card:hover{border-color:rgba(167,139,250,.25);}
+.img-card-tool{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);color:var(--purple);margin-bottom:10px;}
+.img-card-text{font-size:11px;color:var(--ink2);line-height:1.65;font-family:'JetBrains Mono',monospace;}
+.img-card-actions{display:flex;gap:5px;margin-top:10px;}
+@media(max-width:540px){.img-grid{grid-template-columns:1fr;}}
+
+/* New session btn */
+.btn-new{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;margin-top:24px;}
+.btn-new:hover{background:var(--glass2);color:var(--ink);}
+
+/* Error card */
+.error-card{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:20px;margin-top:16px;}
+.error-card-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.error-card-title{font-weight:700;font-size:15px;color:#f87171;}
+.error-card-body{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:16px;}
+.error-card-ctas{display:flex;gap:8px;flex-wrap:wrap;}
+.error-card-debug{margin-top:10px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ink3);background:var(--glass);border-radius:6px;padding:6px 10px;word-break:break-all;}
+.btn-cta-primary{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;text-decoration:none;transition:background .15s;}
+.btn-cta-primary:hover{background:var(--o2);}
+.btn-cta-secondary{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:var(--glass2);color:var(--ink2);font-weight:600;font-size:13px;border:1px solid var(--border2);cursor:pointer;font-family:'Instrument Sans',sans-serif;text-decoration:none;transition:all .15s;}
+.btn-cta-secondary:hover{border-color:rgba(255,98,36,.3);color:var(--orange);}
+
+/* Empty/error states */
+.empty-state{text-align:center;padding:48px 24px;color:var(--ink3);}
+.empty-state i{font-size:48px;margin-bottom:16px;display:block;}
+.empty-state p{font-size:14px;line-height:1.7;}
+
+/* Toast */
+.pa-toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(13,13,20,.96);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;backdrop-filter:var(--blur);z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
+.pa-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* DAY / NIGHT MODE */
+body.light{
+  --bg:#f5f5f7;--bg2:#ffffff;--bg3:#eeeeee;
+  --ink:#1a1a2e;--ink2:rgba(26,26,46,.65);--ink3:rgba(26,26,46,.35);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --glass:rgba(0,0,0,.03);--glass2:rgba(0,0,0,.06);
+}
+body.light .topnav{background:rgba(245,245,247,.95);}
+body.light .mobile-nav{background:rgba(245,245,247,.97);}
+body.light .input-box{background:var(--bg2);}
+body.light .pa-toast{background:rgba(245,245,247,.97);color:var(--ink);}
+body.light .grain{opacity:.015;}
+.theme-btn{width:32px;height:32px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s;flex-shrink:0;}
+.theme-btn:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:600;background:rgba(7,7,10,.97);border-top:1px solid var(--border);padding:6px 0 env(safe-area-inset-bottom,0);}
+.mobile-nav-inner{display:flex;justify-content:space-around;}
+.mn-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;color:var(--ink3);text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.3px;background:none;border:none;cursor:pointer;transition:color .15s;}
+.mn-btn i{font-size:20px;}
+.mn-btn.active,.mn-btn:hover{color:var(--orange);}
+@media(max-width:768px){.mobile-nav{display:block;}body{padding-bottom:64px;}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+/* ── USAGE BAR ─────────────────────────────────────── */
+.usage-bar{width:100%;max-width:760px;margin-bottom:12px;animation:fadeUp .4s ease both;}
+.usage-inner{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:10px;background:var(--glass);border:1px solid var(--border);font-size:11px;}
+.usage-pips{display:flex;gap:4px;flex:1;}
+.usage-pip{width:20px;height:6px;border-radius:3px;background:var(--border2);transition:background .3s;}
+.usage-pip.used{background:var(--orange);}
+.usage-pip.empty{background:var(--glass2);}
+.usage-label{color:var(--ink3);white-space:nowrap;}
+.usage-label strong{color:var(--ink2);}
+.usage-upgrade{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--orange);cursor:pointer;white-space:nowrap;background:none;border:none;font-family:'Instrument Sans',sans-serif;padding:0;}
+.usage-upgrade:hover{text-decoration:underline;}
+.usage-byok-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--green);padding:2px 8px;border-radius:5px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);}
+
+/* ── SIGN-IN GATE ──────────────────────────────────── */
+.signin-gate{position:fixed;inset:0;z-index:800;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(7,7,10,.85);backdrop-filter:blur(12px);animation:fadeUp .3s ease both;}
+.signin-gate.hidden{display:none;}
+.gate-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:36px 32px;max-width:400px;width:100%;text-align:center;}
+.gate-icon{font-size:40px;margin-bottom:16px;}
+.gate-title{font-family:'Syne',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+.gate-sub{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:24px;}
+.gate-perks{display:flex;flex-direction:column;gap:6px;margin-bottom:24px;text-align:left;}
+.gate-perk{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);}
+.gate-perk i{color:var(--green);font-size:14px;}
+.btn-google-signin{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border-radius:12px;background:#fff;color:#1a1a2e;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.btn-google-signin:hover{background:#f0f0f0;}
+.btn-google-signin svg{flex-shrink:0;}
+.gate-skip{font-size:11px;color:var(--ink3);cursor:pointer;background:none;border:none;font-family:'Instrument Sans',sans-serif;}
+.gate-skip:hover{color:var(--ink2);}
+
+/* ── BYOK PANEL ────────────────────────────────────── */
+.byok-panel{width:100%;max-width:760px;margin-bottom:16px;animation:fadeUp .4s ease both;}
+.byok-toggle-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--glass);border:1px solid var(--border);cursor:pointer;transition:border .2s;}
+.byok-toggle-row:hover{border-color:var(--border2);}
+.byok-toggle-label{font-size:12px;font-weight:700;flex:1;}
+.byok-toggle-sub{font-size:10px;color:var(--ink3);}
+.byok-switch{width:36px;height:20px;border-radius:10px;background:var(--glass2);border:1px solid var(--border2);position:relative;transition:all .2s;flex-shrink:0;}
+.byok-switch.on{background:rgba(34,197,94,.2);border-color:rgba(34,197,94,.4);}
+.byok-switch::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--ink3);transition:all .2s;}
+.byok-switch.on::after{left:18px;background:var(--green);}
+.byok-fields{padding:14px;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:var(--glass);display:none;}
+.byok-fields.show{display:block;}
+.byok-field-row{margin-bottom:10px;}
+.byok-field-label{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+.byok-field-label span{font-size:9px;padding:1px 6px;border-radius:4px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:var(--green);text-transform:none;letter-spacing:0;}
+.byok-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border .15s;}
+.byok-input:focus{border-color:rgba(34,197,94,.4);}
+.byok-save-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;margin-top:4px;}
+.byok-save-btn:hover{background:rgba(34,197,94,.18);}
+.byok-clear-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;margin-top:4px;margin-left:6px;}
+.byok-clear-btn:hover{color:var(--red);border-color:rgba(239,68,68,.3);}
+.byok-note{font-size:11px;line-height:1.6;margin-top:10px;padding:10px 12px;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:rgba(34,197,94,.9);}
+.byok-note i{color:var(--green);margin-right:4px;}
+.byok-note strong{color:var(--green);}
+</style>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, addDoc, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getAuth, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+const app = initializeApp({
+  apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+  authDomain:"promptaholics.com",
+  projectId:"promptaholics-534d3",
+  storageBucket:"promptaholics-534d3.firebasestorage.app",
+  messagingSenderId:"426595742101",
+  appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
+});
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, user => {
+  window._paUser = user || null;
+  window.dispatchEvent(new CustomEvent('pa-auth-ready'));
+});
+
+// ── Save prompt to pending-prompts ──────────────────────────────
+window.savePromptToFirestore = async function(promptData){
+  const docRef = await addDoc(collection(db,'pending-prompts'),{
+    name:        promptData.name        || 'PA Prompt',
+    text:        promptData.text        || '',
+    category:    promptData.category    || 'General',
+    framework:   promptData.framework   || 'RTF',
+    tags:        ['ai-generated','pa-agent'],
+    source:      'pa-agent',
+    status:      'pending',
+    relevance:   promptData.relevance   || 0,
+    goal:        promptData.goal        || '',
+    submittedAt: serverTimestamp(),
+    submittedBy: window._paUser ? window._paUser.uid  : 'anonymous',
+    submitterEmail: window._paUser ? window._paUser.email : 'anonymous',
+  });
+  return docRef.id;
+};
+</script>
+</head>
+<body>
+<div class="grain"></div>
+<canvas id="bgCanvas"></canvas>
+
+<nav class="topnav">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
+    Prompt<span>aholics</span>
+  </a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="prompt-builder.html" class="nav-link">Builder</a>
+    <a href="prompt-of-the-day.html" class="nav-link">Daily Prompt</a>
+    <a href="agent.html" class="nav-link active">PA Agent</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle day/night">
+      <i class="ti ti-moon" id="themeIcon"></i>
+    </button>
+    <a href="login.html" class="nav-signin">Sign In</a>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="hero">
+    <div class="hero-eyebrow"><i class="ti ti-sparkles"></i> Powered by Claude + Gemini</div>
+    <h1 class="hero-title">Meet <span class="hl">PA</span><br>Your Prompt Agent</h1>
+    <p class="hero-sub">Tell PA what you want to achieve. It finds the right prompts, builds your content, and creates your visuals — all in one shot.</p>
+  </div>
+
+  <!-- USAGE BAR -->
+  <div class="usage-bar" id="usageBar">
+    <div class="usage-inner">
+      <div class="usage-pips" id="usagePips"></div>
+      <span class="usage-label" id="usageLabel"><strong>3</strong> free runs today</span>
+      <button class="usage-upgrade" onclick="showByok()" id="usageUpgradeBtn">
+        <i class="ti ti-key"></i> Use own key →
+      </button>
+    </div>
+  </div>
+
+  <!-- BYOK PANEL -->
+  <div class="byok-panel" id="byokPanel" style="display:none;">
+    <div class="byok-toggle-row" onclick="toggleByokFields()">
+      <div>
+        <div class="byok-toggle-label"><i class="ti ti-key" style="color:var(--green)"></i> Bring Your Own API Key</div>
+        <div class="byok-toggle-sub">Unlimited runs · Your key stays in your browser</div>
+      </div>
+      <div class="byok-switch" id="byokSwitch"></div>
+    </div>
+    <div class="byok-fields" id="byokFields">
+      <div class="byok-field-row">
+        <div class="byok-field-label">Anthropic API Key <span>Claude Sonnet</span></div>
+        <input class="byok-input" type="password" id="byokAnthropicKey" placeholder="sk-ant-api03-..." autocomplete="off"/>
+      </div>
+      <div class="byok-field-row">
+        <div class="byok-field-label">Google AI Key <span>Gemini Flash</span></div>
+        <input class="byok-input" type="password" id="byokGoogleKey" placeholder="AIza..." autocomplete="off"/>
+      </div>
+      <button class="byok-save-btn" onclick="saveByokKeys()"><i class="ti ti-check"></i> Save Keys</button>
+      <button class="byok-clear-btn" onclick="clearByokKeys()"><i class="ti ti-trash"></i> Clear</button>
+      <div class="byok-note"><i class="ti ti-shield-check"></i> <strong>Your keys are stored only in your browser's localStorage</strong> — never sent to our servers. We route your requests <strong>directly to Anthropic/Google</strong> using your key.</div>
+    </div>
+  </div>
+
+  <div class="input-stage">
+    <!-- Mode buttons -->
+    <div class="mode-row" id="modeRow">
+      <button class="mode-btn active" data-mode="prompts" onclick="setMode('prompts',this)"><i class="ti ti-search"></i> Find Prompts</button>
+      <button class="mode-btn" data-mode="content" onclick="setMode('content',this)"><i class="ti ti-pencil"></i> Create Content</button>
+      <button class="mode-btn" data-mode="images" onclick="setMode('images',this)"><i class="ti ti-photo"></i> Image Prompts</button>
+      <button class="mode-btn" data-mode="campaign" onclick="setMode('campaign',this)"><i class="ti ti-rocket"></i> Full Campaign</button>
+      <button class="mode-btn" data-mode="custom" onclick="setMode('custom',this)"><i class="ti ti-wand"></i> Write Me a Prompt</button>
+    </div>
+
+    <!-- Input box -->
+    <div class="input-box">
+      <textarea class="input-field" id="goalInput" placeholder="I want to grow my fitness coaching business on Instagram..." maxlength="500" rows="2" oninput="onInput()" onkeydown="handleKey(event)"></textarea>
+      <div class="input-actions">
+        <!-- Clear — trash icon, soft red hover -->
+        <button class="btn-clear" id="clearBtn" onclick="clearInput()" title="Clear input">
+          <i class="ti ti-trash"></i>
+        </button>
+        <!-- Mic -->
+        <button class="btn-mic" id="micBtn" onclick="toggleDictation()" title="Speak your goal">
+          <i class="ti ti-microphone" id="micIcon"></i>
+        </button>
+        <span class="char-count" id="charCount">0/500</span>
+        <button class="btn-run" id="runBtn" onclick="runAgent()">
+          <i class="ti ti-sparkles" id="runIcon"></i>
+          <span id="runLabel">Run PA</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Suggestion chips -->
+    <div class="suggestions" id="suggestions">
+      <div class="sug-chip" data-full="Write 5 Instagram captions for a fitness coach" onclick="useSuggestion(this)">IG Fitness Captions</div>
+      <div class="sug-chip" data-full="Create a cold email sequence for a SaaS product" onclick="useSuggestion(this)">SaaS Cold Emails</div>
+      <div class="sug-chip" data-full="Write marketing prompts for a real estate agent" onclick="useSuggestion(this)">Real Estate Prompts</div>
+      <div class="sug-chip" data-full="Build a content strategy for a life coach" onclick="useSuggestion(this)">Life Coach Content</div>
+      <div class="sug-chip" data-full="Write me a prompt for responding to negative reviews" onclick="useSuggestion(this)">Negative Reviews</div>
+      <div class="sug-chip" data-full="Write me a prompt for creating viral TikTok hooks" onclick="useSuggestion(this)">TikTok Hooks</div>
+      <div class="sug-chip" data-full="Write me a prompt for writing my business bio" onclick="useSuggestion(this)">Business Bio</div>
+    </div>
+  </div>
+
+  <!-- Agent steps -->
+  <div class="agent-steps" id="agentSteps">
+    <div class="steps-header">PA is working...</div>
+    <div class="step-item waiting" id="step1"><div class="step-icon"><i class="ti ti-brain step-spin"></i></div><span>Understanding your goal</span></div>
+    <div class="step-item waiting" id="step2"><div class="step-icon"><i class="ti ti-search step-spin"></i></div><span>Searching prompt library</span></div>
+    <div class="step-item waiting" id="step3"><div class="step-icon"><i class="ti ti-wand step-spin"></i></div><span>Crafting results</span></div>
+    <div class="step-item waiting" id="step4"><div class="step-icon"><i class="ti ti-check step-spin"></i></div><span>Finalising output</span></div>
+    <div id="errorContainer"></div>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+    <div class="result-header">
+      <h2 class="result-title" id="resultTitle">Results</h2>
+      <div class="result-meta" id="resultMeta"></div>
+    </div>
+    <div class="result-tabs" id="resultTabs"></div>
+    <div id="resultPanels"></div>
+    <button class="btn-new" onclick="resetAgent()"><i class="ti ti-refresh"></i> New Session</button>
+  </div>
+</main>
+
+<!-- SIGN-IN GATE -->
+<div class="signin-gate hidden" id="signinGate">
+  <div class="gate-card">
+    <div class="gate-icon">⚡</div>
+    <h2 class="gate-title">You've used your 3 free runs</h2>
+    <p class="gate-sub">Sign in with Google to get <strong>10 free runs per day</strong> — free forever.</p>
+    <div class="gate-perks">
+      <div class="gate-perk"><i class="ti ti-check"></i> 10 PA Agent runs per day</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Save prompts to your library</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Access prompt history</div>
+      <div class="gate-perk"><i class="ti ti-check"></i> Or bring your own API key for unlimited</div>
+    </div>
+    <button class="btn-google-signin" onclick="signInWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Continue with Google — It's Free
+    </button>
+    <button class="gate-skip" onclick="showByok()">Or use your own API key →</button>
+  </div>
+</div>
+
+<!-- Mobile fixed Run PA -->
+<div class="mobile-run-bar">
+  <button class="btn-run" id="runBtnM" onclick="runAgent()">
+    <i class="ti ti-sparkles" id="runIconM"></i>
+    <span id="runLabelM">Run PA</span>
+  </button>
+</div>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mn-btn"><i class="ti ti-home"></i>Home</a>
+    <a href="library.html" class="mn-btn"><i class="ti ti-book"></i>Library</a>
+    <a href="agent.html" class="mn-btn active"><i class="ti ti-sparkles"></i>PA</a>
+    <a href="prompt-builder.html" class="mn-btn"><i class="ti ti-tool"></i>Builder</a>
+    <a href="login.html" class="mn-btn"><i class="ti ti-user"></i>Account</a>
+  </div>
+</nav>
+
+<div class="pa-toast" id="paToast"></div>
+
+<canvas id="bgCanvas" style="display:none"></canvas>
+
+<script>
+// ════════════════════════════════════════════════════
+//  DAY / NIGHT THEME
+// ════════════════════════════════════════════════════
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  localStorage.setItem('pa_theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeIcon').className = isLight ? 'ti ti-sun' : 'ti ti-moon';
+}
+// Init theme from localStorage
+(function(){
+  if(localStorage.getItem('pa_theme') === 'light'){
+    document.body.classList.add('light');
+    document.addEventListener('DOMContentLoaded', () => {
+      const ic = document.getElementById('themeIcon');
+      if(ic) ic.className = 'ti ti-sun';
+    });
+  }
+})();
+
+// ════════════════════════════════════════════════════
+//  USAGE LIMITS + BYOK SYSTEM
+// ════════════════════════════════════════════════════
+const FREE_ANON_LIMIT   = 3;
+const FREE_SIGNIN_LIMIT = 10;
+const USAGE_KEY = 'pa_usage_' + new Date().toDateString();
+const BYOK_ANTH = 'pa_byok_anthropic';
+const BYOK_GOOG = 'pa_byok_google';
+
+let paUser     = null;
+let byokActive = false;
+
+// ── Firebase auth init ────────────────────────────────
+(function initFirebaseAuth(){
+  const s = document.createElement('script');
+  s.type = 'module';
+  s.textContent = `
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    const app  = initializeApp({
+      apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+      authDomain:"promptaholics.com",
+      projectId:"promptaholics-534d3",
+      appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
+    });
+    const auth = getAuth(app);
+    window._paAuth = auth;
+    window._paProvider = new GoogleAuthProvider();
+    window._paSignIn   = () => signInWithPopup(auth, window._paProvider);
+    onAuthStateChanged(auth, user => {
+      window._paUser = user || null;
+      window.dispatchEvent(new CustomEvent('pa-auth', { detail: user }));
+    });
+  `;
+  document.head.appendChild(s);
+})();
+
+window.addEventListener('pa-auth', e => {
+  paUser = e.detail;
+  updateUsageBar();
+  if(paUser){
+    // Close gate if open
+    document.getElementById('signinGate').classList.add('hidden');
+    showToast('✅ Signed in as ' + paUser.email);
+  }
+});
+
+// ── Usage helpers ─────────────────────────────────────
+function getUsedRuns(){ return parseInt(localStorage.getItem(USAGE_KEY)||'0',10); }
+function incUsedRuns(){ localStorage.setItem(USAGE_KEY, getUsedRuns()+1); }
+function getRunLimit(){ return paUser ? FREE_SIGNIN_LIMIT : FREE_ANON_LIMIT; }
+function hasRunsLeft(){ return byokActive || getUsedRuns() < getRunLimit(); }
+
+function updateUsageBar(){
+  if(byokActive){
+    document.getElementById('usagePips').innerHTML = '';
+    document.getElementById('usageLabel').innerHTML = '<span class="usage-byok-badge"><i class="ti ti-key"></i> BYOK Active — Unlimited</span>';
+    document.getElementById('usageUpgradeBtn').style.display = 'none';
+    return;
+  }
+  const used  = getUsedRuns();
+  const limit = getRunLimit();
+  const pips  = Array.from({length:limit},(_,i) =>
+    `<div class="usage-pip ${i < used ? 'used' : 'empty'}"></div>`
+  ).join('');
+  document.getElementById('usagePips').innerHTML = pips;
+  const left = Math.max(0, limit - used);
+  document.getElementById('usageLabel').innerHTML =
+    `<strong>${left}</strong> free run${left!==1?'s':''} today${paUser?' (signed in)':''}`;
+  document.getElementById('usageUpgradeBtn').style.display = left === 0 ? 'inline-flex' : 'inline-flex';
+}
+
+// ── BYOK ─────────────────────────────────────────────
+function checkByokOnLoad(){
+  const ak = localStorage.getItem(BYOK_ANTH);
+  const gk = localStorage.getItem(BYOK_GOOG);
+  if(ak || gk){
+    byokActive = true;
+    document.getElementById('byokPanel').style.display = 'block';
+    document.getElementById('byokSwitch').classList.add('on');
+    document.getElementById('byokFields').classList.add('show');
+    if(ak) document.getElementById('byokAnthropicKey').value = ak;
+    if(gk) document.getElementById('byokGoogleKey').value    = gk;
+    updateUsageBar();
+  }
+}
+
+function showByok(){
+  document.getElementById('signinGate').classList.add('hidden');
+  document.getElementById('byokPanel').style.display = 'block';
+  document.getElementById('byokSwitch').classList.add('on');
+  document.getElementById('byokFields').classList.add('show');
+  document.getElementById('byokPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function toggleByokFields(){
+  const fields = document.getElementById('byokFields');
+  const sw     = document.getElementById('byokSwitch');
+  const show   = !fields.classList.contains('show');
+  fields.classList.toggle('show', show);
+  sw.classList.toggle('on', show);
+}
+
+function saveByokKeys(){
+  const ak = document.getElementById('byokAnthropicKey').value.trim();
+  const gk = document.getElementById('byokGoogleKey').value.trim();
+  if(!ak && !gk){ showToast('Enter at least one API key'); return; }
+  if(ak) localStorage.setItem(BYOK_ANTH, ak);
+  if(gk) localStorage.setItem(BYOK_GOOG, gk);
+  byokActive = true;
+  updateUsageBar();
+  showToast('✅ Keys saved — unlimited runs active!');
+}
+
+function clearByokKeys(){
+  localStorage.removeItem(BYOK_ANTH);
+  localStorage.removeItem(BYOK_GOOG);
+  byokActive = false;
+  document.getElementById('byokAnthropicKey').value = '';
+  document.getElementById('byokGoogleKey').value    = '';
+  document.getElementById('byokSwitch').classList.remove('on');
+  document.getElementById('byokFields').classList.remove('show');
+  updateUsageBar();
+  showToast('Keys cleared');
+}
+
+function signInWithGoogle(){
+  if(window._paSignIn){
+    window._paSignIn().catch(e => {
+      if(e.code !== 'auth/popup-closed-by-user') showToast('Sign in failed — try again');
+    });
+  }
+}
+
+// ── Gate check before each run ────────────────────────
+function checkGate(){
+  if(byokActive) return true;
+  if(hasRunsLeft()) return true;
+  // Show gate
+  document.getElementById('signinGate').classList.remove('hidden');
+  return false;
+}
+
+// Init on load
+checkByokOnLoad();
+updateUsageBar();
+
+// ════════════════════════════════════════════════════
+//  CONFIG
+// ════════════════════════════════════════════════════
+const WORKER_URL    = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
+const ADMIN_EMAIL   = 'promptaholics1@gmail.com';
+
+// ════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════
+let activeMode  = 'prompts';
+let isRunning   = false;
+let recognition = null;
+let isListening = false;
+const promptStore = new Map();
+
+// ════════════════════════════════════════════════════
+//  MODE
+// ════════════════════════════════════════════════════
+function setMode(mode, btn){
+  activeMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const ph = {
+    prompts:  'I want to grow my fitness coaching business on Instagram...',
+    content:  'I run a local bakery and want to grow on social media...',
+    images:   'Create a set of images for a luxury travel brand...',
+    campaign: 'Launch a new SaaS productivity app targeting freelancers...',
+    custom:   'Write me a prompt that helps me respond to negative reviews...'
+  };
+  document.getElementById('goalInput').placeholder = ph[mode] || ph.prompts;
+}
+
+// ════════════════════════════════════════════════════
+//  INPUT HELPERS
+// ════════════════════════════════════════════════════
+function onInput(){
+  const len = document.getElementById('goalInput').value.length;
+  document.getElementById('charCount').textContent = len + '/500';
+  const cb = document.getElementById('clearBtn');
+  len > 0 ? cb.classList.add('visible') : cb.classList.remove('visible');
+}
+
+function clearInput(){
+  document.getElementById('goalInput').value = '';
+  onInput();
+  document.getElementById('goalInput').focus();
+}
+
+function useSuggestion(el){
+  document.getElementById('goalInput').value = el.dataset.full || el.textContent.trim();
+  onInput();
+  document.getElementById('goalInput').focus();
+}
+
+function handleKey(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); runAgent(); }
+}
+
+// ════════════════════════════════════════════════════
+//  DICTATION
+// ════════════════════════════════════════════════════
+function toggleDictation(){
+  const micBtn = document.getElementById('micBtn');
+  if(micBtn.classList.contains('unsupported')) return;
+  if(!recognition){
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SR){ micBtn.classList.add('unsupported'); micBtn.title = 'Not supported on this browser'; return; }
+    recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+    recognition.onstart = () => {
+      isListening = true;
+      micBtn.classList.add('listening');
+      document.getElementById('micIcon').className = 'ti ti-microphone-off';
+      showToast('🎙 Listening…');
+    };
+    recognition.onresult = e => {
+      const t = Array.from(e.results).map(r => r[0].transcript).join('');
+      document.getElementById('goalInput').value = t;
+      onInput();
+    };
+    recognition.onend = () => {
+      isListening = false;
+      micBtn.classList.remove('listening');
+      document.getElementById('micIcon').className = 'ti ti-microphone';
+    };
+    recognition.onerror = e => {
+      isListening = false;
+      micBtn.classList.remove('listening');
+      document.getElementById('micIcon').className = 'ti ti-microphone';
+      if(e.error !== 'no-speech') showToast('Mic error: ' + e.error);
+    };
+  }
+  if(isListening){ recognition.stop(); }
+  else{ document.getElementById('goalInput').value = ''; onInput(); recognition.start(); }
+}
+
+// ════════════════════════════════════════════════════
+//  RUN AGENT
+// ════════════════════════════════════════════════════
+async function runAgent(){
+  if(isRunning) return;
+  const goal = document.getElementById('goalInput').value.trim();
+  if(!goal){ showToast('Enter a goal first'); return; }
+
+  // ── Gate check ──────────────────────────────────────
+  if(!checkGate()) return;
+
+  isRunning = true;
+  setRunBtn(true);
+  document.getElementById('errorContainer').innerHTML = '';
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('suggestions').style.display = 'none';
+  document.getElementById('agentSteps').classList.add('active');
+
+  // Reset steps
+  ['step1','step2','step3','step4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.className = 'step-item waiting';
+  });
+
+  try {
+    await stepDo('step1', 'Understanding your goal', 600);
+    await stepDo('step2', 'Searching prompt library', 900);
+    await stepDo('step3', 'Crafting results', 0);
+
+    const result = await callWorker(goal, activeMode);
+
+    // ── Increment usage ────────────────────────────────
+    if(!byokActive){ incUsedRuns(); updateUsageBar(); }
+
+    await stepDone('step3');
+    await stepDo('step4', 'Finalising output', 400);
+    await stepDone('step4');
+
+    showResults(result, goal);
+
+    // ── Auto-grade & submit high-quality prompts ───────────────
+    // Runs silently in background — user never sees this
+    if((activeMode === 'prompts' || activeMode === 'custom') && Array.isArray(result.prompts)){
+      autoGradeAndSubmit(result.prompts, goal).catch(e => console.warn('Auto-grade silent fail:', e));
+    }
+
+  } catch(err){
+    console.error('PA error:', err);
+    if(err.message !== '__handled__') showErrorCard(0, err.message);
+  } finally {
+    isRunning = false;
+    setRunBtn(false);
+  }
+}
+
+// ════════════════════════════════════════════════════
+//  AUTO-GRADE & SUBMIT PIPELINE
+//  Silently grades every generated prompt.
+//  Score 8-10 → auto-save to Firebase pending-prompts
+//  Score 1-7  → discard silently
+// ════════════════════════════════════════════════════
+async function autoGradeAndSubmit(prompts, goal){
+  if(!prompts || !prompts.length) return;
+  if(typeof window.savePromptToFirestore !== 'function') return;
+
+  const GRADE_SYSTEM = `You are a prompt quality grader for a prompt library. Grade each prompt strictly on:
+1. Specificity — is it detailed and precise, not vague?
+2. Structure — does it use clear instructions, placeholders, or a framework?
+3. Uniqueness — is it meaningfully different from generic AI prompts?
+4. Usefulness — would real users get value from copying this?
+
+Return ONLY a JSON array. One object per prompt. No markdown, no explanation.
+Format: [{"score":8,"name":"short title under 40 chars","cat":"Writing|Business|Code & Tech|Marketing|Education|Health & Wellness|Fun & Games|Image Generation","tags":["tag1","tag2","tag3"],"desc":"one sentence description under 100 chars"}]
+Scores: 10=exceptional, 9=excellent, 8=very good, 7=good (discard), 6 and below=discard.`;
+
+  const promptTexts = prompts.map((p,i) =>
+    `Prompt ${i+1}: "${(p.text||'').slice(0,300)}"`
+  ).join('\n\n');
+
+  const userMsg = `Grade these ${prompts.length} prompts. Goal context: "${goal.slice(0,100)}"\n\n${promptTexts}`;
+
+  let gradeResult;
+  try {
+    const res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        intent: 'create',
+        max_tokens: 1024,
+        system: GRADE_SYSTEM,
+        messages: [{ role:'user', content: userMsg }]
+      })
+    });
+    if(!res.ok) return;
+    const data = await res.json();
+    const text = (data.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('['), la = text.lastIndexOf(']');
+    if(fi === -1 || la === -1) return;
+    gradeResult = JSON.parse(text.slice(fi, la+1));
+  } catch(e){
+    console.warn('Auto-grade request failed:', e);
+    return;
+  }
+
+  if(!Array.isArray(gradeResult)) return;
+
+  let submitted = 0;
+  for(let i = 0; i < gradeResult.length; i++){
+    const grade = gradeResult[i];
+    const prompt = prompts[i];
+    if(!grade || !prompt) continue;
+
+    const score = parseInt(grade.score) || 0;
+    if(score < 8) continue; // Discard — not good enough
+
+    try {
+      await window.savePromptToFirestore({
+        name:      grade.name     || prompt.name     || 'PA Prompt',
+        text:      prompt.text    || '',
+        category:  grade.cat      || prompt.category || 'General',
+        framework: prompt.framework || 'RTF',
+        relevance: prompt.relevance || 0,
+        goal:      goal,
+        autoGrade: score,           // store the score for reference
+        source:    'pa-agent-auto'  // flag as auto-submitted
+      });
+      submitted++;
+      console.log(`✅ Auto-submitted prompt "${grade.name}" (score: ${score})`);
+    } catch(e){
+      console.warn('Auto-submit failed for prompt:', e);
+    }
+  }
+
+  if(submitted > 0){
+    console.log(`🎯 Auto-grade complete: ${submitted}/${prompts.length} prompts submitted to pending queue`);
+    // Subtle toast — doesn't interrupt the user
+    setTimeout(() => showToast(`🎯 ${submitted} high-quality prompt${submitted>1?'s':''} auto-saved to library`), 2000);
+  }
+}
+
+function setRunBtn(loading){
+  ['runBtn','runBtnM'].forEach(id => {
+    const btn = document.getElementById(id);
+    if(!btn) return;
+    btn.disabled = loading;
+    btn.classList.toggle('running', loading);
+  });
+  document.getElementById('runIcon').className  = loading ? 'ti ti-loader-2' : 'ti ti-sparkles';
+  document.getElementById('runIconM').className = loading ? 'ti ti-loader-2' : 'ti ti-sparkles';
+  document.getElementById('runLabel').textContent  = loading ? 'Working…' : 'Run PA';
+  document.getElementById('runLabelM').textContent = loading ? 'Working…' : 'Run PA';
+}
+
+async function stepDo(id, label, ms){
+  const el = document.getElementById(id);
+  el.className = 'step-item active';
+  el.querySelector('span').textContent = label;
+  if(ms) await delay(ms);
+}
+
+async function stepDone(id){
+  const el = document.getElementById(id);
+  el.className = 'step-item done';
+  el.querySelector('.step-icon').innerHTML = '<i class="ti ti-check"></i>';
+  await delay(200);
+}
+
+// ════════════════════════════════════════════════════
+//  WORKER CALL
+// ════════════════════════════════════════════════════
+async function callWorker(goal, mode){
+  const sysByMode = {
+    prompts:  'You are PA, Promptaholics prompt agent. Return ONLY valid JSON: {"goalSummary":"str","categories":["str"],"prompts":[{"name":"str","category":"str","framework":"str","relevance":90,"why":"str","text":"str"}]}. Generate 5 prompts. Use [PLACEHOLDER] for variables.',
+    content:  'You are PA, Promptaholics content agent. Return ONLY valid JSON: {"goalSummary":"str","contentPieces":[{"platform":"LinkedIn","type":"Post","hook":"str","body":"str"},{"platform":"Twitter","type":"Thread","hook":"str","body":"str"},{"platform":"Email","type":"Newsletter","hook":"str","body":"str"},{"platform":"Instagram","type":"Caption","hook":"str","body":"str"}]}.',
+    custom:   'You are PA, expert prompt engineer. Write ONE exceptional prompt. Return ONLY valid JSON: {"goalSummary":"str","prompts":[{"name":"str","category":"str","framework":"RTF|CoSTAR|RISEN","relevance":99,"why":"str","text":"full prompt with [PLACEHOLDERS]"}]}.',
+    images:   'You are PA, image prompt specialist. Return ONLY valid JSON: {"goalSummary":"str","imagePrompts":[{"title":"str","tool":"Midjourney","style":"str","prompt":"str"},{"title":"str","tool":"DALL-E","style":"str","prompt":"str"},{"title":"str","tool":"Flux","style":"str","prompt":"str"},{"title":"str","tool":"Midjourney","style":"str","prompt":"str"}]}.',
+    campaign: 'You are PA, Promptaholics campaign agent. Return ONLY valid JSON: {"goalSummary":"str","campaignName":"str","prompts":[{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"},{"name":"str","category":"str","framework":"str","text":"str","why":"str"}],"content":[{"platform":"LinkedIn","type":"Post","hook":"str","body":"str"},{"platform":"Email","type":"Newsletter","hook":"str","body":"str"}],"imagePrompts":[{"title":"str","tool":"Midjourney","prompt":"str"},{"title":"str","tool":"DALL-E","prompt":"str"}]}.'
+  };
+  const userMsg = 'Goal: ' + goal + '. Return JSON only. No markdown, no explanation.';
+  const system  = sysByMode[mode] || sysByMode.prompts;
+
+  // ── BYOK — call APIs directly, key never touches our server ──
+  const anthKey = localStorage.getItem('pa_byok_anthropic');
+  const googKey = localStorage.getItem('pa_byok_google');
+
+  if(byokActive && anthKey && mode !== 'images'){
+    // Direct Anthropic call
+    let res;
+    try {
+      res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': anthKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 2048,
+          system: system,
+          messages: [{ role:'user', content: userMsg }]
+        })
+      });
+    } catch(e){ throw new Error('Could not reach Anthropic API — check your key.'); }
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      showErrorCard(res.status, err.error?.message || 'Anthropic API error ' + res.status);
+      throw new Error('__handled__');
+    }
+    const data = await res.json();
+    const text = (data.content?.[0]?.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('{'), la = text.lastIndexOf('}');
+    if(fi===-1||la===-1) throw new Error('No JSON in Anthropic response');
+    try { return JSON.parse(text.slice(fi,la+1)); }
+    catch(e){ throw new Error('JSON parse failed'); }
+  }
+
+  if(byokActive && googKey){
+    // Direct Google Gemini call
+    const model = 'gemini-2.0-flash';
+    const url   = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${googKey}`;
+    let res;
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents:[{ parts:[{ text: system + '\n\n' + userMsg }] }],
+          generationConfig:{ maxOutputTokens:2048, temperature:0.7 }
+        })
+      });
+    } catch(e){ throw new Error('Could not reach Gemini API — check your key.'); }
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      showErrorCard(res.status, err.error?.message || 'Gemini API error ' + res.status);
+      throw new Error('__handled__');
+    }
+    const data = await res.json();
+    const text = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('{'), la = text.lastIndexOf('}');
+    if(fi===-1||la===-1) throw new Error('No JSON in Gemini response');
+    try { return JSON.parse(text.slice(fi,la+1)); }
+    catch(e){ throw new Error('JSON parse failed'); }
+  }
+
+  // ── Default — route through Cloudflare Worker ────────────────
+  const intent = mode === 'images' ? 'image' : 'create';
+  let res;
+  try {
+    res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ intent, max_tokens: 2048, system, messages: [{ role:'user', content: userMsg }] })
+    });
+  } catch(e){ throw new Error('Network error — could not reach PA Worker.'); }
+
+  const data = await res.json();
+  if(!res.ok){
+    showErrorCard(res.status, data.error || 'HTTP ' + res.status);
+    throw new Error('__handled__');
+  }
+
+  console.log('PA Router:', data.router, '|', data.model);
+  let text = (data.text || '').replace(/```json|```/g,'').trim();
+  const fi = text.indexOf('{'), la = text.lastIndexOf('}');
+  if(fi === -1 || la === -1) throw new Error('No JSON in response');
+  try { return JSON.parse(text.slice(fi, la+1)); }
+  catch(e){ throw new Error('JSON parse failed: ' + text.slice(0,80)); }
+}
+
+// ════════════════════════════════════════════════════
+//  ERROR CARD
+// ════════════════════════════════════════════════════
+function showErrorCard(status, msg){
+  const m = (msg||'').toLowerCase();
+  let icon, title, body, ctas;
+
+  if(status === 429){
+    icon='⏱️'; title='Rate Limit';
+    body='Too many requests. Wait 30 seconds and try again.';
+    ctas=[{label:'🔄 Retry',fn:'runAgent()',primary:true}];
+  } else if(status===402||m.includes('credit')||m.includes('billing')){
+    icon='⚡'; title='Usage Limit Reached';
+    body='PA has hit its usage limit. Sign in for free credits or upgrade.';
+    ctas=[{label:'🚀 Sign In',href:'login.html',primary:true},{label:'💎 Upgrade',href:'pricing.html'}];
+  } else if(status===401||status===403||m.includes('api_key')||m.includes('auth')){
+    icon='🔑'; title='API Key Error';
+    body='Worker API key is missing or invalid. Check Cloudflare Worker secrets.';
+    ctas=[{label:'🔄 Retry',fn:'runAgent()',primary:true}];
+  } else if(status===502||status===503){
+    icon='📡'; title='Worker Unreachable';
+    body='Could not connect to PA Worker. Check your Cloudflare Worker is deployed.';
+    ctas=[{label:'🔄 Retry',fn:'runAgent()',primary:true}];
+  } else {
+    icon='❌'; title='Something Went Wrong';
+    body='An unexpected error occurred. Try again or check the console (F12).';
+    ctas=[{label:'🔄 Retry',fn:'runAgent()',primary:true}];
+  }
+
+  const ctaHtml = ctas.map((c,i) => {
+    const cls = i===0&&c.primary ? 'btn-cta-primary' : 'btn-cta-secondary';
+    if(c.href) return `<a href="${c.href}" class="${cls}">${c.label}</a>`;
+    return `<button onclick="${c.fn}" class="${cls}">${c.label}</button>`;
+  }).join('');
+
+  document.getElementById('errorContainer').innerHTML = `
+    <div class="error-card">
+      <div class="error-card-header"><span style="font-size:22px">${icon}</span><span class="error-card-title">${title}</span></div>
+      <div class="error-card-body">${body}</div>
+      <div class="error-card-ctas">${ctaHtml}</div>
+      ${msg?`<div class="error-card-debug">HTTP ${status}: ${msg}</div>`:''}
+    </div>`;
+}
+
+// ════════════════════════════════════════════════════
+//  SHOW RESULTS
+// ════════════════════════════════════════════════════
+function showResults(data, goal){
+  const resultsEl = document.getElementById('results');
+  resultsEl.style.display = 'block';
+  document.getElementById('resultTitle').textContent = data.goalSummary || 'Results for: ' + goal.slice(0,50);
+
+  const tabs=[], panels=[];
+
+  if(activeMode === 'prompts' || activeMode === 'custom'){
+    let prompts = [];
+    if(Array.isArray(data.prompts)&&data.prompts.length) prompts = data.prompts;
+    else { for(const k of Object.keys(data)){ if(Array.isArray(data[k])&&data[k].length){ prompts=data[k].map(it=>typeof it==='object'?{name:it.name||'Prompt',category:it.category||'General',framework:it.framework||'RTF',relevance:it.relevance||85,why:it.why||'',text:it.text||it.prompt||JSON.stringify(it)}:{name:'Prompt',text:String(it),category:'General',framework:'RTF',relevance:80,why:''}); break; } } }
+    tabs.push({id:'prompts',icon:'ti ti-search',label:'Prompts ('+prompts.length+')'});
+    panels.push({id:'prompts',html:buildPromptsPanel(prompts,goal)});
+    const cats = Array.isArray(data.categories)?data.categories:[];
+    document.getElementById('resultMeta').innerHTML = cats.map(c=>`<span class="result-badge prompts">${esc(c)}</span>`).join('');
+  }
+  else if(activeMode === 'content'){
+    const pieces = Array.isArray(data.contentPieces)?data.contentPieces:Array.isArray(data.content)?data.content:[];
+    tabs.push({id:'content',icon:'ti ti-pencil',label:'Content ('+pieces.length+')'});
+    panels.push({id:'content',html:buildContentPanel(pieces)});
+  }
+  else if(activeMode === 'images'){
+    const imgs = Array.isArray(data.imagePrompts)?data.imagePrompts:Array.isArray(data.images)?data.images:[];
+    tabs.push({id:'images',icon:'ti ti-photo',label:'Image Prompts ('+imgs.length+')'});
+    panels.push({id:'images',html:buildImagesPanel(imgs)});
+  }
+  else if(activeMode === 'campaign'){
+    const prompts = Array.isArray(data.prompts)?data.prompts:[];
+    const pieces  = Array.isArray(data.content)?data.content:[];
+    const imgs    = Array.isArray(data.imagePrompts)?data.imagePrompts:[];
+    tabs.push({id:'cp',icon:'ti ti-search',label:'Prompts ('+prompts.length+')'});
+    panels.push({id:'cp',html:buildPromptsPanel(prompts,goal)});
+    tabs.push({id:'cc',icon:'ti ti-pencil',label:'Content ('+pieces.length+')'});
+    panels.push({id:'cc',html:buildContentPanel(pieces)});
+    tabs.push({id:'ci',icon:'ti ti-photo',label:'Visuals ('+imgs.length+')'});
+    panels.push({id:'ci',html:buildImagesPanel(imgs)});
+    document.getElementById('resultMeta').innerHTML = `<span class="result-badge prompts">${esc(data.campaignName||'Campaign')}</span>`;
+  }
+
+  // Render tabs
+  document.getElementById('resultTabs').innerHTML = tabs.map((t,i)=>
+    `<button class="rtab${i===0?' active':''}" onclick="switchTab('${t.id}',this)"><i class="${t.icon}"></i>${t.label}</button>`
+  ).join('');
+  document.getElementById('resultPanels').innerHTML = panels.map((p,i)=>
+    `<div class="tab-panel${i===0?' active':''}" id="panel-${p.id}">${p.html}</div>`
+  ).join('');
+
+  setTimeout(()=>resultsEl.classList.add('active'),50);
+
+  // Wire add-to-library buttons
+  document.querySelectorAll('[data-action="add"]').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const idx = this.dataset.idx;
+      const p   = promptStore.get('p'+idx);
+      if(p) addToLibrary(p, this, goal);
+    });
+  });
+  document.querySelectorAll('[data-action="copy"]').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const p = promptStore.get('p'+this.dataset.idx);
+      if(p) copyText(p.text||'', this);
+    });
+  });
+  document.querySelectorAll('[data-action="build"]').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const p = promptStore.get('p'+this.dataset.idx);
+      if(p) window.location.href = 'prompt-builder.html?prompt=' + encodeURIComponent(p.text||'');
+    });
+  });
+}
+
+// ════════════════════════════════════════════════════
+//  PANEL BUILDERS
+// ════════════════════════════════════════════════════
+function buildPromptsPanel(prompts, goal){
+  if(!prompts||!prompts.length) return '<div class="empty-state"><i class="ti ti-search-off"></i><p>No prompts generated. Try a different goal.</p></div>';
+  prompts.forEach((p,i) => promptStore.set('p'+i, p));
+  return prompts.map((p,i)=>`
+    <div class="prompt-result-card" style="animation-delay:${i*.06}s">
+      <div class="prc-header">
+        <div class="prc-name">${esc(p.name||'Prompt '+(i+1))}</div>
+        <span class="prc-relevance">${p.relevance||'—'}% match</span>
+      </div>
+      <div class="prc-badges">
+        <span class="prc-badge cat">${esc(p.category||'')}</span>
+        <span class="prc-badge fw">${esc(p.framework||'')}</span>
+        ${p.relevance>=90?'<span class="prc-badge match">Top Pick</span>':''}
+      </div>
+      ${p.why?`<div style="font-size:11px;color:var(--ink3);margin-bottom:8px;font-style:italic;">${esc(p.why)}</div>`:''}
+      <div class="prc-text">${esc(p.text||'')}</div>
+      <div class="prc-actions">
+        <button class="prc-btn copy" data-action="copy" data-idx="${i}"><i class="ti ti-copy"></i> Copy</button>
+        <button class="prc-btn build" data-action="build" data-idx="${i}"><i class="ti ti-tool"></i> Build It</button>
+        <button class="prc-btn add-lib" data-action="add" data-idx="${i}"><i class="ti ti-library-plus"></i> Add to Library</button>
+      </div>
+    </div>`).join('');
+}
+
+function buildContentPanel(pieces){
+  if(!pieces||!pieces.length) return '<div class="empty-state"><i class="ti ti-pencil-off"></i><p>No content generated.</p></div>';
+  const pc = {LinkedIn:'linkedin',Twitter:'twitter',Instagram:'instagram',Email:'email',Blog:'blog'};
+  return pieces.map((p,i)=>`
+    <div class="content-card" style="animation-delay:${i*.06}s">
+      <span class="cc-platform ${pc[p.platform]||'email'}">
+        <i class="ti ti-brand-${p.platform==='Email'?'mail':((p.platform||'').toLowerCase())}"></i>
+        ${esc(p.platform||'')} · ${esc(p.type||'')}
+      </span>
+      ${p.hook?`<div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;">${esc(p.hook)}</div>`:''}
+      <div class="cc-text">${esc(p.body||'')}</div>
+      <div class="cc-actions">
+        <button class="prc-btn copy" onclick="copyText('${escAttr((p.hook?p.hook+'\n\n':'')+p.body||'')}',this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+    </div>`).join('');
+}
+
+function buildImagesPanel(prompts){
+  if(!prompts||!prompts.length) return '<div class="empty-state"><i class="ti ti-photo-off"></i><p>No image prompts generated.</p></div>';
+  return '<div class="img-grid">'+prompts.map((p,i)=>`
+    <div class="img-card" style="animation-delay:${i*.06}s">
+      <div class="img-card-tool"><i class="ti ti-photo"></i> ${esc(p.tool||'Midjourney')}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;">${esc(p.title||'Image '+(i+1))}</div>
+      ${p.style?`<div style="font-size:10px;color:var(--ink3);margin-bottom:8px;font-style:italic;">${esc(p.style)}</div>`:''}
+      <div class="img-card-text">${esc(p.prompt||'')}</div>
+      <div class="img-card-actions">
+        <button class="prc-btn copy" onclick="copyText('${escAttr(p.prompt||'')}',this)"><i class="ti ti-copy"></i> Copy</button>
+      </div>
+    </div>`).join('')+'</div>';
+}
+
+// ════════════════════════════════════════════════════
+//  ADD TO LIBRARY
+// ════════════════════════════════════════════════════
+async function addToLibrary(promptData, btn, goal){
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Saving…';
+
+  try {
+    if(typeof window.savePromptToFirestore !== 'function'){
+      throw new Error('Firebase not ready — try again in a moment');
+    }
+    const data = {
+      name:      promptData.name     || 'PA Prompt',
+      text:      promptData.text     || '',
+      category:  promptData.category || 'General',
+      framework: promptData.framework|| 'RTF',
+      relevance: promptData.relevance|| 0,
+      goal:      goal                || document.getElementById('goalInput').value.trim(),
+    };
+    const docId = await window.savePromptToFirestore(data);
+    console.log('Saved to pending-prompts:', docId);
+
+    btn.innerHTML = '<i class="ti ti-check"></i> Saved!';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'rgba(34,197,94,.4)';
+    showToast('✅ Prompt saved for review!');
+
+    // If admin — redirect to approval queue after 1.5s
+    setTimeout(() => {
+      if(window._paUser && window._paUser.email === ADMIN_EMAIL){
+        window.location.href = '/admin-prompts.html';
+      }
+    }, 1500);
+
+  } catch(e){
+    console.error('addToLibrary error:', e);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-library-plus"></i> Add to Library';
+    showToast('❌ Could not save: ' + e.message);
+  }
+}
+
+// ════════════════════════════════════════════════════
+//  UTILS
+// ════════════════════════════════════════════════════
+function switchTab(id, btn){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById('panel-'+id);
+  if(panel) panel.classList.add('active');
+}
+
+function copyText(text, btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
+    btn.style.color = 'var(--green)';
+    setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; }, 2000);
+  });
+}
+
+function resetAgent(){
+  document.getElementById('goalInput').value = '';
+  onInput();
+  document.getElementById('agentSteps').classList.remove('active');
+  document.getElementById('errorContainer').innerHTML = '';
+  const r = document.getElementById('results');
+  r.classList.remove('active'); r.style.display='none';
+  document.getElementById('suggestions').style.display = 'flex';
+  document.getElementById('goalInput').focus();
+  promptStore.clear();
+}
+
+function showToast(msg){
+  const t = document.getElementById('paToast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
+function esc(s){ const d=document.createElement('div');d.textContent=String(s||'');return d.innerHTML; }
+function escAttr(s){ return String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' '); }
+</script>
+</body>
+</html>
