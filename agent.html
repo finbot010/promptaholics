@@ -812,12 +812,104 @@ async function runAgent(){
     await stepDone('step4');
 
     showResults(result, goal);
+
+    // ── Auto-grade & submit high-quality prompts ───────────────
+    // Runs silently in background — user never sees this
+    if((activeMode === 'prompts' || activeMode === 'custom') && Array.isArray(result.prompts)){
+      autoGradeAndSubmit(result.prompts, goal).catch(e => console.warn('Auto-grade silent fail:', e));
+    }
+
   } catch(err){
     console.error('PA error:', err);
     if(err.message !== '__handled__') showErrorCard(0, err.message);
   } finally {
     isRunning = false;
     setRunBtn(false);
+  }
+}
+
+// ════════════════════════════════════════════════════
+//  AUTO-GRADE & SUBMIT PIPELINE
+//  Silently grades every generated prompt.
+//  Score 8-10 → auto-save to Firebase pending-prompts
+//  Score 1-7  → discard silently
+// ════════════════════════════════════════════════════
+async function autoGradeAndSubmit(prompts, goal){
+  if(!prompts || !prompts.length) return;
+  if(typeof window.savePromptToFirestore !== 'function') return;
+
+  const GRADE_SYSTEM = `You are a prompt quality grader for a prompt library. Grade each prompt strictly on:
+1. Specificity — is it detailed and precise, not vague?
+2. Structure — does it use clear instructions, placeholders, or a framework?
+3. Uniqueness — is it meaningfully different from generic AI prompts?
+4. Usefulness — would real users get value from copying this?
+
+Return ONLY a JSON array. One object per prompt. No markdown, no explanation.
+Format: [{"score":8,"name":"short title under 40 chars","cat":"Writing|Business|Code & Tech|Marketing|Education|Health & Wellness|Fun & Games|Image Generation","tags":["tag1","tag2","tag3"],"desc":"one sentence description under 100 chars"}]
+Scores: 10=exceptional, 9=excellent, 8=very good, 7=good (discard), 6 and below=discard.`;
+
+  const promptTexts = prompts.map((p,i) =>
+    `Prompt ${i+1}: "${(p.text||'').slice(0,300)}"`
+  ).join('\n\n');
+
+  const userMsg = `Grade these ${prompts.length} prompts. Goal context: "${goal.slice(0,100)}"\n\n${promptTexts}`;
+
+  let gradeResult;
+  try {
+    const res = await fetch(WORKER_URL + '/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        intent: 'create',
+        max_tokens: 1024,
+        system: GRADE_SYSTEM,
+        messages: [{ role:'user', content: userMsg }]
+      })
+    });
+    if(!res.ok) return;
+    const data = await res.json();
+    const text = (data.text || '').replace(/```json|```/g,'').trim();
+    const fi = text.indexOf('['), la = text.lastIndexOf(']');
+    if(fi === -1 || la === -1) return;
+    gradeResult = JSON.parse(text.slice(fi, la+1));
+  } catch(e){
+    console.warn('Auto-grade request failed:', e);
+    return;
+  }
+
+  if(!Array.isArray(gradeResult)) return;
+
+  let submitted = 0;
+  for(let i = 0; i < gradeResult.length; i++){
+    const grade = gradeResult[i];
+    const prompt = prompts[i];
+    if(!grade || !prompt) continue;
+
+    const score = parseInt(grade.score) || 0;
+    if(score < 8) continue; // Discard — not good enough
+
+    try {
+      await window.savePromptToFirestore({
+        name:      grade.name     || prompt.name     || 'PA Prompt',
+        text:      prompt.text    || '',
+        category:  grade.cat      || prompt.category || 'General',
+        framework: prompt.framework || 'RTF',
+        relevance: prompt.relevance || 0,
+        goal:      goal,
+        autoGrade: score,           // store the score for reference
+        source:    'pa-agent-auto'  // flag as auto-submitted
+      });
+      submitted++;
+      console.log(`✅ Auto-submitted prompt "${grade.name}" (score: ${score})`);
+    } catch(e){
+      console.warn('Auto-submit failed for prompt:', e);
+    }
+  }
+
+  if(submitted > 0){
+    console.log(`🎯 Auto-grade complete: ${submitted}/${prompts.length} prompts submitted to pending queue`);
+    // Subtle toast — doesn't interrupt the user
+    setTimeout(() => showToast(`🎯 ${submitted} high-quality prompt${submitted>1?'s':''} auto-saved to library`), 2000);
   }
 }
 
