@@ -163,6 +163,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .prc-btn.save{background:var(--glass);border-color:var(--border2);color:var(--ink2);}
 .prc-btn.save:hover{background:var(--glass2);color:var(--ink);}
 .prc-btn.add-lib{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2);color:var(--green);}
+.prc-btn.share{background:var(--glass);border-color:var(--border2);color:var(--ink2);padding:6px 9px;}
+.prc-btn.share:hover{background:rgba(255,255,255,.08);color:var(--ink);}
 .prc-btn.add-lib:hover{background:rgba(34,197,94,.14);}
 .prc-btn.add-lib:disabled{opacity:.5;cursor:not-allowed;}
 
@@ -1182,6 +1184,12 @@ function showResults(data, goal){
       if(p) window.location.href = 'prompt-builder.html?prompt=' + encodeURIComponent(p.text||'');
     });
   });
+  document.querySelectorAll('[data-action="share"]').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const p = promptStore.get('p'+this.dataset.idx);
+      if(p) sharePrompt(p, this);
+    });
+  });
 }
 
 // ════════════════════════════════════════════════════
@@ -1207,6 +1215,7 @@ function buildPromptsPanel(prompts, goal){
         <button class="prc-btn copy" data-action="copy" data-idx="${i}"><i class="ti ti-copy"></i> Copy</button>
         <button class="prc-btn build" data-action="build" data-idx="${i}"><i class="ti ti-tool"></i> Build It</button>
         <button class="prc-btn add-lib" data-action="add" data-idx="${i}"><i class="ti ti-library-plus"></i> Add to Library</button>
+        <button class="prc-btn share" data-action="share" data-idx="${i}" title="Share"><i class="ti ti-share-2"></i></button>
       </div>
     </div>`).join('');
 }
@@ -1240,6 +1249,43 @@ function buildImagesPanel(prompts){
         <button class="prc-btn copy" onclick="copyText('${escAttr(p.prompt||'')}',this)"><i class="ti ti-copy"></i> Copy</button>
       </div>
     </div>`).join('')+'</div>';
+}
+
+// ════════════════════════════════════════════════════
+//  SHARE PROMPT
+// ════════════════════════════════════════════════════
+async function sharePrompt(promptData, btn){
+  const name = promptData.name || 'AI Prompt';
+  const text = promptData.text || '';
+  const shareText = `${name}\n\n${text}\n\n— via Promptaholics (promptaholics.com)`;
+
+  // Native share (mobile) — opens iOS/Android share sheet
+  if(navigator.share){
+    try {
+      await navigator.share({
+        title: name + ' — Promptaholics',
+        text: shareText,
+        url: 'https://promptaholics.com/library.html'
+      });
+      if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'native'});
+      return;
+    } catch(e){
+      // User cancelled the share sheet — do nothing
+      if(e.name === 'AbortError') return;
+    }
+  }
+
+  // Fallback — copy to clipboard (desktop / unsupported browsers)
+  try {
+    await navigator.clipboard.writeText(shareText);
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="ti ti-check"></i>';
+    btn.style.color = '#22c55e';
+    if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'clipboard'});
+    setTimeout(()=>{ btn.innerHTML = orig; btn.style.color=''; }, 1800);
+  } catch(e){
+    console.warn('Share failed:', e);
+  }
 }
 
 // ════════════════════════════════════════════════════
