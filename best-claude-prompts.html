@@ -86,6 +86,28 @@ strong{color:var(--ink);font-weight:700;}
 .footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--ink3);font-size:12px;margin-top:60px;}
 .footer a{color:var(--ink3);}
 .footer a:hover{color:var(--orange);}
+
+/* ── Brevo Email Capture ── */
+.brevo-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.brevo-modal-overlay.open{display:flex;}
+.brevo-modal{background:#0d0d14;border:1px solid rgba(255,98,36,.25);border-radius:20px;padding:32px 28px;max-width:400px;width:100%;position:relative;box-shadow:0 0 80px rgba(255,98,36,.12),0 24px 48px rgba(0,0,0,.5);animation:bmoIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes bmoIn{from{opacity:0;transform:scale(.9) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.bmo-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(240,240,248,.5);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.bmo-close:hover{color:#fff;background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);}
+.bmo-icon{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.08));border:1px solid rgba(255,98,36,.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px;}
+.bmo-title{font-family:'Syne',serif;font-size:22px;font-weight:900;letter-spacing:-.5px;color:#f0f0f8;text-align:center;margin-bottom:8px;}
+.bmo-sub{font-size:13px;color:rgba(240,240,248,.55);text-align:center;line-height:1.65;margin-bottom:22px;}
+.bmo-sub strong{color:#ff9f24;}
+.bmo-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:13px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;color:#f0f0f8;outline:none;transition:border .2s;margin-bottom:10px;box-sizing:border-box;}
+.bmo-input::placeholder{color:rgba(240,240,248,.3);}
+.bmo-input:focus{border-color:rgba(255,98,36,.4);box-shadow:0 0 0 3px rgba(255,98,36,.07);}
+.bmo-btn{width:100%;background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:11px;padding:14px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.bmo-btn:hover{opacity:.88;}
+.bmo-btn:disabled{opacity:.5;cursor:not-allowed;}
+.bmo-privacy{font-size:10px;color:rgba(240,240,248,.25);text-align:center;margin-top:10px;}
+.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.3);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
+.bmo-skip:hover{color:rgba(240,240,248,.5);}
+
 </style>
 </head>
 <body>
@@ -467,6 +489,21 @@ strong{color:var(--ink);font-weight:700;}
 
 </article>
 
+
+<!-- Brevo Footer Strip -->
+<div id="brevoFooterStrip" style="background:linear-gradient(90deg,rgba(255,98,36,.05),rgba(255,159,36,.04),rgba(255,98,36,.05));border-top:1px solid rgba(255,98,36,.15);padding:18px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <div style="font-size:13px;color:rgba(240,240,248,.7);">⚡ <strong style="color:#f0f0f8;">10 new prompts every Monday.</strong> Free forever.</div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <input id="brevoFooterEmail" type="email" placeholder="your@email.com" autocomplete="email"
+      style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:8px;padding:9px 14px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:#f0f0f8;outline:none;width:200px;transition:border .2s;"
+      onfocus="this.style.borderColor='rgba(255,98,36,.4)'" onblur="this.style.borderColor='rgba(255,255,255,.13)'"/>
+    <button onclick="submitBrevoFooter()" id="brevoFooterBtn"
+      style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:8px;padding:9px 16px;font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">
+      Subscribe →
+    </button>
+  </div>
+</div>
+
 <footer class="footer">
   <p style="margin-bottom:8px;">
     <a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="prompt-builder.html">Builder</a> · <a href="agent.html">PA Agent</a> · <a href="blog.html">Blog</a>
@@ -489,6 +526,165 @@ function copyPrompt(btn){
     t.classList.add('show');
     clearTimeout(t._t);
     t._t = setTimeout(()=>t.classList.remove('show'), 2500);
+  });
+}
+</script>
+
+<!-- Brevo Exit Intent Modal -->
+<div class="brevo-modal-overlay" id="brevoModal">
+  <div class="brevo-modal">
+    <button class="bmo-close" onclick="closeBrevoModal()" aria-label="Close"><i class="ti ti-x"></i></button>
+    <div class="bmo-icon">⚡</div>
+    <div class="bmo-title">Get 10 New Prompts Weekly</div>
+    <div class="bmo-sub">Join <strong>prompt engineers, creators and founders</strong> getting the best AI prompts delivered every Monday. Free forever.</div>
+    <input class="bmo-input" type="email" id="brevoModalEmail" placeholder="your@email.com" autocomplete="email"/>
+    <button class="bmo-btn" id="brevoModalBtn" onclick="submitBrevoModal()">
+      <i class="ti ti-mail"></i> Get Free Weekly Prompts
+    </button>
+    <div class="bmo-privacy">No spam. Unsubscribe anytime.</div>
+    <button class="bmo-skip" onclick="closeBrevoModal()">No thanks, I'll miss out</button>
+  </div>
+</div>
+
+<script>
+/* ── Brevo Email Capture ── */
+var BREVO_URL='https://57fb05d6.sibforms.com/serve/MUIFAK___eN7RW93kcURKW5Y5A6iUVxF9nEFdYiRY0h438mZonyStuDdOjj4CCaSQvVE9IwGVe3nnxAaTu8aUG-p-UYSI48D6mUyTMrLG2ifgGRuPrF0AZSNhQXrlxNS4US8mWgIYksPm57jKocslUOx_F2AeRQmlRpB960ex-M1bABow3EynSQ_0TdBeJOD4HQg0TXsqFhcbfmchw==';
+var BREVO_KEY='brevo_subscribed';
+var brevoModalShown=false;
+
+function brevoSubscribed(){return!!localStorage.getItem(BREVO_KEY);}
+function brevoMarkDone(){localStorage.setItem(BREVO_KEY,'1');}
+
+function brevoSend(email,onDone){
+  var iframe=document.createElement('iframe');
+  iframe.style.display='none';
+  iframe.name='brevo_'+Date.now();
+  document.body.appendChild(iframe);
+  var form=document.createElement('form');
+  form.method='GET';form.action=BREVO_URL;
+  form.target=iframe.name;form.style.display='none';
+  var ei=document.createElement('input');
+  ei.name='EMAIL';ei.value=email;
+  form.appendChild(ei);
+  document.body.appendChild(form);
+  form.submit();
+  if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'brevo'});
+  setTimeout(function(){brevoMarkDone();onDone&&onDone();},1500);
+}
+
+// ── EXIT INTENT MODAL ──
+function openBrevoModal(){
+  if(brevoModalShown||brevoSubscribed()) return;
+  brevoModalShown=true;
+  var m=document.getElementById('brevoModal');
+  if(m){m.classList.add('open');setTimeout(function(){var i=document.getElementById('brevoModalEmail');if(i)i.focus();},300);}
+}
+function closeBrevoModal(){
+  var m=document.getElementById('brevoModal');
+  if(m) m.classList.remove('open');
+  sessionStorage.setItem('brevo_dismissed','1');
+}
+function submitBrevoModal(){
+  var email=(document.getElementById('brevoModalEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoModalBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.style.background='#ef4444';btn.textContent='Enter a valid email';
+    setTimeout(function(){btn.style.background='';btn.innerHTML='<i class="ti ti-mail"></i> Get Free Weekly Prompts';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Subscribing…';}
+  brevoSend(email,function(){
+    if(btn){btn.innerHTML='✅ You're in! Check your inbox.';btn.style.background='#22c55e';}
+    setTimeout(closeBrevoModal,2500);
+  });
+}
+
+// Desktop exit intent
+document.addEventListener('mouseleave',function(e){
+  if(e.clientY<=0&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+});
+// Mobile: fast scroll up
+var _bLastY=0;
+window.addEventListener('scroll',function(){
+  var y=window.scrollY;
+  if(_bLastY-y>60&&y>400&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+  _bLastY=y;
+},{passive:true});
+// Time fallback: 90s
+setTimeout(function(){
+  if(!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+},90000);
+// Close on overlay click
+document.addEventListener('click',function(e){
+  var m=document.getElementById('brevoModal');
+  if(m&&e.target===m) closeBrevoModal();
+});
+
+// ── FOOTER STRIP ──
+(function(){
+  var s=document.getElementById('brevoFooterStrip');
+  if(s&&brevoSubscribed()) s.style.display='none';
+})();
+function submitBrevoFooter(){
+  var email=(document.getElementById('brevoFooterEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoFooterBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Invalid email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Subscribe →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
+  brevoSend(email,function(){
+    var s=document.getElementById('brevoFooterStrip');
+    if(s) s.innerHTML='<div style="font-size:13px;color:#22c55e;font-weight:700;text-align:center;">✅ Subscribed! First email arrives Monday.</div>';
+  });
+}
+
+// ── POST-GENERATION HOOK (prompt-builder only) ──
+function brevoShowGenHook(){
+  if(brevoSubscribed()) return;
+  var h=document.getElementById('brevoGenHook');
+  if(h) h.style.display='block';
+}
+function submitBrevoGen(){
+  var email=(document.getElementById('brevoGenEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoGenBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Bad email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Yes →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='…';}
+  brevoSend(email,function(){
+    var h=document.getElementById('brevoGenHook');
+    if(h) h.innerHTML='<div style="font-size:12px;color:#22c55e;font-weight:700;text-align:center;padding:12px;">✅ Subscribed! First email arrives Monday.</div>';
+  });
+}
+
+// ── INLINE LIBRARY CARD ──
+function brevoInlineCard(){
+  return '<div style="background:linear-gradient(135deg,rgba(255,98,36,.07),rgba(255,159,36,.04));border:1px solid rgba(255,98,36,.2);border-radius:16px;padding:24px;grid-column:1/-1;">'
+    +'<div style="font-size:22px;margin-bottom:8px;">⚡</div>'
+    +'<div style="font-family:Syne,serif;font-size:16px;font-weight:900;color:#f0f0f8;margin-bottom:6px;">Get 10 New Prompts Every Monday</div>'
+    +'<div style="font-size:12px;color:rgba(240,240,248,.55);line-height:1.6;margin-bottom:14px;">Join <strong style="color:#ff9f24;">prompt engineers and creators</strong> getting the best curated AI prompts delivered free every week.</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+    +'<input id="brevoInlineEmail" type="email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 14px;font-family:Instrument Sans,sans-serif;font-size:13px;color:#f0f0f8;outline:none;"/>'
+    +'<button onclick="submitBrevoInline()" id="brevoInlineBtn" style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:9px;padding:10px 18px;font-family:Instrument Sans,sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Get Weekly Prompts →</button>'
+    +'</div>'
+    +'<div style="font-size:10px;color:rgba(240,240,248,.25);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
+    +'</div>';
+}
+function submitBrevoInline(){
+  var email=(document.getElementById('brevoInlineEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoInlineBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Enter valid email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Get Weekly Prompts →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
+  brevoSend(email,function(){
+    if(btn){btn.textContent='✅ You're in!';btn.style.background='#22c55e';}
   });
 }
 </script>
