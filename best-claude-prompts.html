@@ -594,7 +594,7 @@ function submitBrevoModal(){
   }
   if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Subscribing…';}
   brevoSend(email,function(){
-    if(btn){btn.innerHTML='✅ You're in! Check your inbox.';btn.style.background='#22c55e';}
+    if(btn){btn.innerHTML='✅ You\u2019re in! Check your inbox.';btn.style.background='#22c55e';}
     setTimeout(closeBrevoModal,2500);
   });
 }
@@ -684,7 +684,7 @@ function submitBrevoInline(){
   }
   if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
   brevoSend(email,function(){
-    if(btn){btn.textContent='✅ You're in!';btn.style.background='#22c55e';}
+    if(btn){btn.textContent='✅ You\u2019re in!';btn.style.background='#22c55e';}
   });
 }
 </script>
