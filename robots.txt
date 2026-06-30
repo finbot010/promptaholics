@@ -1,10 +1,64 @@
 # ═══════════════════════════════════════
 #  PROMPTAHOLICS — robots.txt
-#  Tells search engines how to crawl the site
+#  promptaholics.com
+#  Updated: June 2026
 # ═══════════════════════════════════════
 
+# ── All crawlers (default) ────────────
 User-agent: *
 Allow: /
+Disallow: /admin-prompts.html
 
-# Point crawlers to the sitemap
+# ── Google ────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+# Google AI (Gemini training + AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# ── OpenAI / ChatGPT ──────────────────
+# Training data crawler
+User-agent: GPTBot
+Allow: /
+
+# ChatGPT real-time search (citations)
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT browsing agent
+User-agent: ChatGPT-User
+Allow: /
+
+# ── Anthropic / Claude ────────────────
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# ── Perplexity ────────────────────────
+User-agent: PerplexityBot
+Allow: /
+
+# ── Common Crawl (trains many AI models) ──
+User-agent: CCBot
+Allow: /
+
+# ── Microsoft / Bing / Copilot ────────
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# ── Meta AI ───────────────────────────
+User-agent: FacebookBot
+Allow: /
+
+# ── Apple ─────────────────────────────
+User-agent: Applebot
+Allow: /
+
+# ── Sitemap ───────────────────────────
 Sitemap: https://promptaholics.com/sitemap.xml
