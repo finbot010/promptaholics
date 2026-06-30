@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Claude Prompts for Business: 30 Copy-Paste Templates (2026) — Promptaholics</title>
+<meta name="description" content="30 free Claude AI prompts for business — strategy, operations, finance, hiring, competitor analysis, and meetings. Copy-paste templates that work with Claude Sonnet."/>
+<meta name="keywords" content="Claude prompts for business, Claude AI business prompts, Claude prompts strategy, Claude AI for business, business prompts ChatGPT alternative"/>
+<link rel="canonical" href="https://promptaholics.com/blog-claude-prompts-business.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.65);--ink3:rgba(240,240,248,.35);--orange:#ff6224;--o2:#ff9f24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--glass:rgba(255,255,255,.04);--card:#13131c;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;line-height:1.7;}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,98,36,.06),transparent 70%);top:-100px;right:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,159,36,.04),transparent 70%);bottom:-80px;left:-80px;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;background:rgba(7,7,10,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:20px;}
+.nav-link{font-size:13px;color:var(--ink2);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-cta{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;text-decoration:none;}
+@media(max-width:600px){.nav-links{display:none;}.nav{padding:0 16px;}}
+.article-wrap{position:relative;z-index:10;max-width:720px;margin:0 auto;padding:52px 24px 80px;}
+.article-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;padding:4px 12px;border-radius:16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.18);}
+.article-title{font-family:'Syne',serif;font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:16px;}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink3);margin-bottom:32px;flex-wrap:wrap;}
+.article-intro{font-size:17px;color:var(--ink2);line-height:1.8;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.article-body h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin:40px 0 14px;color:var(--ink);}
+.article-body h3{font-family:'Syne',serif;font-size:16px;font-weight:700;margin:24px 0 8px;color:var(--ink);}
+.article-body p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:18px;}
+.article-body strong{color:var(--ink);font-weight:700;}
+.article-body ul{margin:0 0 18px 24px;color:var(--ink2);font-size:15px;line-height:1.85;}
+.article-body li{margin-bottom:8px;}
+.callout{background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.2);border-left:3px solid var(--orange);border-radius:10px;padding:18px 20px;margin:28px 0;}
+.callout p{margin:0;color:var(--ink2);font-size:14px;line-height:1.7;}
+.callout strong{color:var(--orange);}
+.prompt-card{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:18px;margin:16px 0;}
+.prompt-card-num{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;display:block;}
+.prompt-card-name{font-family:'Syne',serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+.prompt-card-text{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink2);line-height:1.7;white-space:pre-wrap;}
+.cat-divider{display:flex;align-items:center;gap:12px;margin:36px 0 18px;}
+.cat-divider-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);white-space:nowrap;}
+.cat-divider-line{flex:1;height:1px;background:var(--border2);}
+.article-cta{background:linear-gradient(135deg,rgba(255,98,36,.08),rgba(255,159,36,.04));border:1px solid rgba(255,98,36,.2);border-radius:16px;padding:32px;text-align:center;margin-top:48px;}
+.article-cta h3{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:8px;}
+.article-cta p{font-size:13px;color:var(--ink2);margin-bottom:20px;}
+.btn-cta{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;font-size:13px;font-weight:700;text-decoration:none;}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.related-title{font-family:'Syne',serif;font-size:12px;font-weight:800;margin-bottom:16px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.related-grid{grid-template-columns:1fr;}}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:border-color .15s;display:block;}
+.related-card:hover{border-color:rgba(255,98,36,.3);}
+.related-card-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;display:block;}
+.related-card-title{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--ink);line-height:1.4;}
+.footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:24px;text-align:center;}
+.footer-logo{font-family:'Syne',serif;font-size:14px;font-weight:900;color:var(--ink);text-decoration:none;}
+.footer-logo span{color:var(--orange);}
+.footer-copy{font-size:11px;color:var(--ink3);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="prompt-builder.html" class="nav-link">Builder</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+  </div>
+  <a href="library.html" class="nav-cta"><i class="ti ti-sparkles"></i> Browse Prompts</a>
+</nav>
+
+<div class="article-wrap">
+  <div class="article-eyebrow"><i class="ti ti-briefcase"></i> Claude · Business</div>
+  <h1 class="article-title">Claude Prompts for Business: 30 Copy-Paste Templates</h1>
+  <div class="article-meta">
+    <span><i class="ti ti-calendar"></i> June 2026</span>
+    <span><i class="ti ti-clock"></i> 9 min read</span>
+    <span><i class="ti ti-copy"></i> 30 ready prompts</span>
+  </div>
+  <p class="article-intro">Claude's careful reasoning and long-context handling make it especially strong for business tasks — strategy documents, competitor analysis, financial summaries, and anything requiring nuance over speed. Here are 30 tested prompts organized by department, ready to copy into Claude right now.</p>
+
+  <div class="article-body">
+
+    <h2>Why Claude for Business Specifically</h2>
+    <p>Claude tends to outperform other models on tasks that require holding a lot of context at once — a 40-page contract, a quarter's worth of financial data, or a long meeting transcript. It also tracks multiple constraints more reliably across longer outputs, which matters when a prompt needs to follow several business rules simultaneously.</p>
+
+    <div class="cat-divider"><span class="cat-divider-label">Strategy & Planning</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">1 / Strategy</span>
+      <div class="prompt-card-name">SWOT Analysis</div>
+      <div class="prompt-card-text">Conduct a SWOT analysis for [COMPANY/PRODUCT] in the [INDUSTRY] market. For each quadrant (Strengths, Weaknesses, Opportunities, Threats), provide 3-4 specific points with brief reasoning. Base this on [PASTE RELEVANT CONTEXT/DATA]. End with one strategic recommendation derived from the analysis.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">2 / Strategy</span>
+      <div class="prompt-card-name">Quarterly OKRs</div>
+      <div class="prompt-card-text">Help me draft OKRs (Objectives and Key Results) for [TEAM/DEPARTMENT] for Q[X]. Our overall company goal is: [GOAL]. Current state: [WHERE WE ARE NOW]. Generate 3 objectives, each with 2-3 measurable key results. Keep objectives qualitative and inspiring; keep key results quantitative and specific.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">3 / Strategy</span>
+      <div class="prompt-card-name">Risk Assessment</div>
+      <div class="prompt-card-text">Identify the top 5 risks to [PROJECT/INITIATIVE/DECISION]. For each risk: describe it, rate likelihood (Low/Medium/High), rate impact (Low/Medium/High), and suggest one mitigation step. Present as a table. Context: [DESCRIBE THE SITUATION]</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">4 / Strategy</span>
+      <div class="prompt-card-name">Pricing Strategy Review</div>
+      <div class="prompt-card-text">Review this pricing structure and suggest improvements: [PASTE CURRENT PRICING]. Consider: competitor positioning, perceived value, psychological pricing principles, and potential for tiered upsells. Give 3 specific recommendations with reasoning for each.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">5 / Strategy</span>
+      <div class="prompt-card-name">Go-to-Market Plan Outline</div>
+      <div class="prompt-card-text">Create a go-to-market plan outline for [PRODUCT/SERVICE] launching in [TIMEFRAME]. Target audience: [DESCRIBE]. Include: positioning statement, key messaging pillars (3), primary channels with rationale, launch timeline (high-level), and success metrics. Keep it actionable, not theoretical.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Competitor Analysis</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">6 / Competitive</span>
+      <div class="prompt-card-name">Competitor Comparison Table</div>
+      <div class="prompt-card-text">Compare [YOUR COMPANY] against [COMPETITOR 1] and [COMPETITOR 2] across: pricing, core features, target audience, brand positioning, and apparent weaknesses. Present as a table. Based on this: [PASTE ANY RESEARCH/NOTES YOU HAVE]. End with 2 specific opportunities our company could exploit.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">7 / Competitive</span>
+      <div class="prompt-card-name">Competitive Positioning Statement</div>
+      <div class="prompt-card-text">Write a positioning statement for [PRODUCT] using this format: "For [target audience] who [need/problem], [product] is a [category] that [key benefit], unlike [main competitor] which [competitor weakness]." Context: [DESCRIBE YOUR PRODUCT AND MAIN COMPETITOR]</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">8 / Competitive</span>
+      <div class="prompt-card-name">Win/Loss Pattern Analysis</div>
+      <div class="prompt-card-text">I'm pasting notes from recent sales wins and losses. Identify patterns: what do we win on? What do we lose on? What objections come up most? Notes: [PASTE WIN/LOSS NOTES]. Summarize in 3 sections: Win patterns, Loss patterns, Recommended sales talk track adjustments.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Finance & Operations</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">9 / Finance</span>
+      <div class="prompt-card-name">Monthly Financial Summary</div>
+      <div class="prompt-card-text">Turn these raw financial numbers into a clear executive summary: [PASTE NUMBERS — revenue, expenses, key metrics]. Lead with the headline result, explain the key drivers behind it, flag any concerning trends, and end with one forward-looking note. Keep it under 200 words, no jargon.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">10 / Finance</span>
+      <div class="prompt-card-name">Budget Variance Explanation</div>
+      <div class="prompt-card-text">Explain the variance between budgeted and actual spend for [DEPARTMENT/PROJECT]: Budgeted: [AMOUNT]. Actual: [AMOUNT]. Context on what happened: [PASTE CONTEXT]. Write a 3-sentence explanation suitable for a leadership update — clear, accountable, no excessive hedging.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">11 / Finance</span>
+      <div class="prompt-card-name">Vendor Cost Comparison</div>
+      <div class="prompt-card-text">Compare these vendor quotes for [SERVICE/PRODUCT]: [PASTE QUOTES WITH DETAILS]. Create a comparison table covering: price, contract terms, what's included, and any red flags. End with a recommendation and the top 2 reasons for it.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">12 / Operations</span>
+      <div class="prompt-card-name">Process Documentation (SOP)</div>
+      <div class="prompt-card-text">Turn this messy process description into a clear standard operating procedure: [PASTE ROUGH NOTES/DESCRIPTION]. Format: numbered steps, one action per step, note any tools/systems used, flag any decision points where judgment is needed. Title it clearly.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">13 / Operations</span>
+      <div class="prompt-card-name">Process Bottleneck Identification</div>
+      <div class="prompt-card-text">Here's our current workflow for [PROCESS]: [DESCRIBE EACH STEP]. Identify the likely bottleneck(s) — where time or quality probably gets lost. For each bottleneck, suggest one specific fix. Be direct about what's not working.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Hiring & Team</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">14 / Hiring</span>
+      <div class="prompt-card-name">Job Description Writer</div>
+      <div class="prompt-card-text">Write a job description for a [ROLE TITLE] at [COMPANY TYPE/SIZE]. Key responsibilities: [LIST 3-5]. Must-have qualifications: [LIST]. Nice-to-have: [LIST]. Tone: professional but not corporate-stiff — make it sound like a place real people would want to work. Include a one-line company hook at the top.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">15 / Hiring</span>
+      <div class="prompt-card-name">Interview Question Set</div>
+      <div class="prompt-card-text">Generate 8 interview questions for a [ROLE] candidate, focused on assessing [KEY SKILL/TRAIT, e.g. "problem-solving under ambiguity"]. Mix behavioral and situational questions. For each question, note what a strong answer would demonstrate.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">16 / Hiring</span>
+      <div class="prompt-card-name">Candidate Scorecard Summary</div>
+      <div class="prompt-card-text">Summarize this candidate's interview feedback into a structured scorecard: [PASTE RAW NOTES FROM INTERVIEWERS]. Format: Strengths (3 bullets), Concerns (3 bullets), Overall recommendation (Strong Yes / Yes / No / Strong No) with one-sentence justification.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">17 / Team</span>
+      <div class="prompt-card-name">Performance Review Draft</div>
+      <div class="prompt-card-text">Help me draft a performance review for [EMPLOYEE NAME/ROLE]. Their key accomplishments this period: [LIST]. Areas for growth: [LIST]. Write a balanced, specific review — concrete examples over generic praise, constructive framing for growth areas. Length: 300-400 words.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">18 / Team</span>
+      <div class="prompt-card-name">Difficult Conversation Prep</div>
+      <div class="prompt-card-text">I need to have a difficult conversation with [DESCRIBE SITUATION — e.g. underperformance, scope creep, missed deadline]. Help me prepare: 3 key points I need to make, anticipated pushback and how to respond, and a calm opening line. Keep the tone direct but respectful.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Meetings & Communication</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">19 / Meetings</span>
+      <div class="prompt-card-name">Meeting Agenda Builder</div>
+      <div class="prompt-card-text">Create a 30-minute meeting agenda for: [MEETING PURPOSE]. Attendees: [LIST ROLES]. Include: time allocations per item, the specific decision or outcome needed from each item, and a note on who should come prepared with what.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">20 / Meetings</span>
+      <div class="prompt-card-name">Meeting Notes to Action Items</div>
+      <div class="prompt-card-text">Turn these raw meeting notes into clear action items: [PASTE NOTES]. Format: Action item, Owner, Due date (estimate if not stated), Priority (High/Med/Low). Flag anything that's ambiguous or needs follow-up clarification.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">21 / Communication</span>
+      <div class="prompt-card-name">Stakeholder Update Email</div>
+      <div class="prompt-card-text">Write a stakeholder update email about [PROJECT/INITIATIVE]. Status: [ON TRACK / AT RISK / DELAYED]. Key progress: [LIST]. Blockers (if any): [LIST]. Tone: confident and transparent, not overly apologetic if there are issues. Under 200 words.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">22 / Communication</span>
+      <div class="prompt-card-name">Bad News Delivery</div>
+      <div class="prompt-card-text">Help me write a message delivering this difficult news: [DESCRIBE THE SITUATION — delay, budget cut, change in plan]. Audience: [WHO RECEIVES THIS]. Be direct and honest without being cold. Acknowledge the impact, explain the reasoning briefly, and end with what happens next.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Decision Support</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">23 / Decisions</span>
+      <div class="prompt-card-name">Build vs Buy Analysis</div>
+      <div class="prompt-card-text">Help me think through a build vs buy decision for [CAPABILITY/TOOL]. Build option details: [DESCRIBE]. Buy option details: [DESCRIBE]. Compare on: cost, time to value, control, maintenance burden, and risk. End with a recommendation and the key assumption it depends on.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">24 / Decisions</span>
+      <div class="prompt-card-name">Decision Pre-Mortem</div>
+      <div class="prompt-card-text">Imagine it's 6 months from now and [DECISION/PROJECT] has failed. Working backward, identify the 5 most likely reasons why. Decision context: [DESCRIBE]. For each potential failure reason, suggest one preventive action we could take now.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">25 / Decisions</span>
+      <div class="prompt-card-name">Pros/Cons Weighted Analysis</div>
+      <div class="prompt-card-text">Help me decide between [OPTION A] and [OPTION B] for [DECISION CONTEXT]. List pros and cons for each, then weight them by importance to our actual priorities: [LIST YOUR PRIORITIES, e.g. speed, cost, quality]. End with a clear recommendation.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Documents & Reports</span><div class="cat-divider-line"></div></div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">26 / Documents</span>
+      <div class="prompt-card-name">Executive Summary Generator</div>
+      <div class="prompt-card-text">Write an executive summary for this document: [PASTE FULL DOCUMENT OR LONG REPORT]. Maximum 150 words. Lead with the key conclusion or recommendation, then the 2-3 supporting points, then any required action from the reader.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">27 / Documents</span>
+      <div class="prompt-card-name">Contract Clause Plain-English Summary</div>
+      <div class="prompt-card-text">Explain this contract clause in plain English, as if explaining to a non-lawyer business owner: [PASTE CLAUSE]. What does it actually obligate us to do? What's the practical risk if we don't comply? Flag if this seems like a standard clause or something unusual worth negotiating.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">28 / Documents</span>
+      <div class="prompt-card-name">Investor Update Draft</div>
+      <div class="prompt-card-text">Draft an investor update for [TIME PERIOD]. Key metrics: [LIST WITH NUMBERS]. Wins: [LIST]. Challenges: [LIST honestly]. Asks (if any): [LIST]. Tone: confident, data-driven, transparent about challenges without sounding alarmed. Standard investor update format.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">29 / Documents</span>
+      <div class="prompt-card-name">RFP Response Outline</div>
+      <div class="prompt-card-text">Create an outline for responding to this RFP: [PASTE RFP REQUIREMENTS OR SUMMARY]. Structure the response to directly address each requirement they listed, in their order. Note where we have a strong answer vs where we'll need to develop one.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">30 / Documents</span>
+      <div class="prompt-card-name">Internal FAQ Generator</div>
+      <div class="prompt-card-text">Generate an internal FAQ for [POLICY/CHANGE/TOOL] rollout. Anticipate the 8 most likely questions employees will ask. Write clear, direct answers — no corporate-speak. Context: [DESCRIBE THE CHANGE]</div>
+    </div>
+
+    <h2>How to Get the Most From These Prompts</h2>
+    <p>Replace every bracketed placeholder with your actual specifics — the more context you provide, the better Claude's output. If a result is close but not quite right, ask Claude to revise rather than starting over: "make this more direct" or "cut this to 150 words" works well as a follow-up.</p>
+
+    <div class="callout">
+      <p><strong>Pro tip:</strong> For recurring tasks like financial summaries or status updates, save your favorite version of a prompt and reuse it weekly. Consistency in the prompt produces consistency in the output format, which makes your reports easier to compare over time.</p>
+    </div>
+
+  </div>
+
+  <div class="article-cta">
+    <h3>200+ Claude prompts in the library</h3>
+    <p>Browse the full Claude collection — business, coding, writing, analysis and more. Free to copy, no account needed.</p>
+    <a href="library.html" class="btn-cta"><i class="ti ti-sparkles"></i> Browse Claude Prompts</a>
+  </div>
+
+  <div class="related">
+    <div class="related-title">Keep reading</div>
+    <div class="related-grid">
+      <a href="blog-costar-framework.html" class="related-card">
+        <span class="related-card-tag">Framework</span>
+        <div class="related-card-title">How to Use the CoSTAR Prompt Framework</div>
+      </a>
+      <a href="blog-chatgpt-vs-claude.html" class="related-card">
+        <span class="related-card-tag">Comparison</span>
+        <div class="related-card-title">ChatGPT vs Claude — Which Prompts Work Better?</div>
+      </a>
+      <a href="blog-best-marketing-prompts.html" class="related-card">
+        <span class="related-card-tag">Marketing</span>
+        <div class="related-card-title">Best AI Prompts for Marketing in 2026</div>
+      </a>
+      <a href="blog-loop-engineering.html" class="related-card">
+        <span class="related-card-tag">Advanced</span>
+        <div class="related-card-title">Loop Engineering — The Next Evolution</div>
+      </a>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <a href="index.html" class="footer-logo">Prompt<span>aholics</span></a>
+  <p class="footer-copy">© 2026 Promptaholics. Free AI prompt library.</p>
+</footer>
+</body>
+</html>
