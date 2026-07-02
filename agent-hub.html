@@ -246,7 +246,26 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(13,13,20,.97);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-
+/* ── Brevo Email Capture ── */
+.brevo-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
+.brevo-modal-overlay.open{display:flex;}
+.brevo-modal{background:#0d0d14;border:1px solid rgba(255,98,36,.25);border-radius:20px;padding:32px 28px;max-width:400px;width:100%;position:relative;box-shadow:0 0 80px rgba(255,98,36,.12),0 24px 48px rgba(0,0,0,.5);animation:bmoIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes bmoIn{from{opacity:0;transform:scale(.9) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.bmo-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(240,240,248,.5);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.bmo-close:hover{color:#fff;background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);}
+.bmo-icon{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.08));border:1px solid rgba(255,98,36,.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px;}
+.bmo-title{font-family:'Syne',serif;font-size:22px;font-weight:900;letter-spacing:-.5px;color:#f0f0f8;text-align:center;margin-bottom:8px;}
+.bmo-sub{font-size:13px;color:rgba(240,240,248,.55);text-align:center;line-height:1.65;margin-bottom:22px;}
+.bmo-sub strong{color:#ff9f24;}
+.bmo-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:13px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;color:#f0f0f8;outline:none;transition:border .2s;margin-bottom:10px;box-sizing:border-box;}
+.bmo-input::placeholder{color:rgba(240,240,248,.3);}
+.bmo-input:focus{border-color:rgba(255,98,36,.4);box-shadow:0 0 0 3px rgba(255,98,36,.07);}
+.bmo-btn{width:100%;background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:11px;padding:14px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.bmo-btn:hover{opacity:.88;}
+.bmo-btn:disabled{opacity:.5;cursor:not-allowed;}
+.bmo-privacy{font-size:10px;color:rgba(240,240,248,.25);text-align:center;margin-top:10px;}
+.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.3);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
+.bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
 </head>
@@ -328,8 +347,10 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
       <div class="agent-expand" id="exp1">
         <div class="exp-cmd" onclick="sendCmd('How many prompts and images are pending approval?')"><i class="ti ti-message"></i> How many pending?</div>
+        <div class="exp-cmd" onclick="sendCmd('How many auto-graded prompts scored 8 or above this week?')"><i class="ti ti-message"></i> Auto-grade stats</div>
         <div class="exp-cmd" onclick="sendCmd('What images are waiting in the vault queue?')"><i class="ti ti-message"></i> Check vault queue</div>
-        <div class="exp-cmd" onclick="sendCmd('When does the GitHub Action run next?')"><i class="ti ti-message"></i> Next GitHub Action</div>
+        <div class="exp-cmd" onclick="sendCmd('When does the GitHub Action run next and what will it export?')"><i class="ti ti-message"></i> Next GitHub Action</div>
+        <div class="exp-cmd" onclick="sendCmd('What is the current total prompt count in the library?')"><i class="ti ti-message"></i> Live prompt count</div>
       </div>
     </div>
 
@@ -337,7 +358,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     <div class="agent-card agent-2" onclick="toggleExpand(2)">
       <div class="agent-icon"><i class="ti ti-brand-tiktok"></i></div>
       <div class="agent-name">Social Media</div>
-      <div class="agent-desc">Creates posts for TikTok, LinkedIn, Twitter, Instagram, Reddit.</div>
+      <div class="agent-desc">Creates posts, weekly emails, and Substack drafts for all platforms.</div>
       <div class="agent-stats">
         <div><div class="a-stat-n">6</div><div class="a-stat-l">Platforms</div></div>
         <div><div class="a-stat-n" id="a2emails">0</div><div class="a-stat-l">Emails sent</div></div>
@@ -350,7 +371,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
         <div class="exp-cmd" onclick="generateWeeklyEmail()"><i class="ti ti-mail"></i> Generate weekly email draft</div>
         <div class="exp-cmd" onclick="generateSubstack()"><i class="ti ti-pencil"></i> Write Substack post</div>
         <div class="exp-cmd" onclick="sendCmd('Write a viral TikTok hook about the free AI prompt library')"><i class="ti ti-message"></i> TikTok hook</div>
-        <div class="exp-cmd" onclick="sendCmd('Write a LinkedIn post about Promptaholics Product Hunt launch')"><i class="ti ti-message"></i> LinkedIn post</div>
+        <div class="exp-cmd" onclick="sendCmd('Write a LinkedIn post about Promptaholics growth and features')"><i class="ti ti-message"></i> LinkedIn post</div>
         <div class="exp-cmd" onclick="sendCmd('Write a Twitter thread about prompt engineering frameworks')"><i class="ti ti-message"></i> Twitter thread</div>
         <div class="exp-cmd" onclick="sendCmd('Write a Reddit post for r/PromptEngineering about the prompt builder')"><i class="ti ti-message"></i> Reddit post</div>
       </div>
@@ -401,26 +422,24 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
-  </div>
-
     <!-- Agent 5: Analytics -->
     <div class="agent-card agent-5" onclick="toggleExpand(5)">
       <div class="agent-icon"><i class="ti ti-chart-bar"></i></div>
       <div class="agent-name">Analytics</div>
-      <div class="agent-desc">Tracks site performance, SEO, email growth and revenue metrics.</div>
+      <div class="agent-desc">Tracks site performance, SEO rankings, email growth and revenue metrics.</div>
       <div class="agent-stats">
         <div><div class="a-stat-n" id="a5subs">—</div><div class="a-stat-l">Subscribers</div></div>
         <div><div class="a-stat-n" id="a5pages">—</div><div class="a-stat-l">Indexed</div></div>
       </div>
       <div class="agent-btns">
-        <button class="agent-btn pri" onclick="sendCmd('Give me a full site performance summary for this week');event.stopPropagation()"><i class="ti ti-chart-line"></i> Weekly Report</button>
+        <button class="agent-btn pri" onclick="sendCmd('Give me a full site performance summary for this week — traffic, top pages, email subscribers, and prompt library growth');event.stopPropagation()"><i class="ti ti-chart-line"></i> Weekly Report</button>
         <button class="agent-btn sec" onclick="sendCmd('What should I focus on this week to grow Promptaholics traffic?');event.stopPropagation()"><i class="ti ti-bulb"></i> Growth Tips</button>
       </div>
       <div class="agent-expand" id="exp5">
         <div class="exp-cmd" onclick="sendCmd('What are the top performing pages on Promptaholics this week?')"><i class="ti ti-message"></i> Top pages</div>
-        <div class="exp-cmd" onclick="sendCmd('How is the Brevo email list growing and what is the current subscriber count?')"><i class="ti ti-message"></i> Email growth</div>
-        <div class="exp-cmd" onclick="sendCmd('Which blog articles are getting the most SEO traction?')"><i class="ti ti-message"></i> SEO traction</div>
-        <div class="exp-cmd" onclick="sendCmd('What is the AdSense review status?')"><i class="ti ti-message"></i> AdSense status</div>
+        <div class="exp-cmd" onclick="sendCmd('How is the Brevo email list growing and what is our current subscriber count?')"><i class="ti ti-message"></i> Email growth</div>
+        <div class="exp-cmd" onclick="sendCmd('Which blog articles are getting the most SEO traction and should I write more like them?')"><i class="ti ti-message"></i> SEO traction</div>
+        <div class="exp-cmd" onclick="sendCmd('What is the AdSense review status and what do I need to do to get approved?')"><i class="ti ti-message"></i> AdSense status</div>
         <div class="exp-cmd" onclick="sendCmd('Give me 5 new blog article ideas based on what is ranking in the AI prompt niche right now')"><i class="ti ti-message"></i> Blog ideas</div>
         <div class="exp-cmd" onclick="sendCmd('What keywords should Promptaholics be targeting that we are not covering yet?')"><i class="ti ti-message"></i> Keyword gaps</div>
       </div>
@@ -428,6 +447,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
   </div>
 
+  <!-- EMPTY SLOT -->
   <div class="add-grid">
     <div class="add-card" onclick="showAddModal(6)"><i class="ti ti-plus"></i><span>Add Agent 6</span></div>
   </div>
@@ -435,17 +455,17 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
   <!-- EMAIL OUTPUT PANEL -->
   <div class="browser-panel" id="emailPanel" style="display:none;">
     <div class="browser-panel-hdr">
-      <div class="browser-panel-title"><i class="ti ti-mail" style="color:var(--blue)"></i> Email / Substack Draft <span id="emailStatus" class="browser-status">Ready</span></div>
+      <div class="browser-panel-title"><i class="ti ti-mail" style="color:var(--blue)"></i> Weekly Email Draft <span id="emailStatus" class="browser-status">Ready</span></div>
       <div style="display:flex;gap:6px;">
-        <button class="ctrl-btn" onclick="copyEmailDraft()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-copy"></i> Copy</button>
+        <button class="ctrl-btn" onclick="copyEmailDraft()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-copy"></i> Copy for Brevo</button>
         <button class="ctrl-btn" onclick="document.getElementById('emailPanel').style.display='none'" style="font-size:10px;padding:5px 10px;"><i class="ti ti-x"></i> Close</button>
       </div>
     </div>
-    <div id="emailOutput" style="background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;min-height:200px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:rgba(240,240,248,.8);line-height:1.8;white-space:pre-wrap;margin-bottom:10px;">Draft will appear here...</div>
+    <div id="emailOutput" style="background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;min-height:200px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:rgba(240,240,248,.8);line-height:1.8;white-space:pre-wrap;margin-bottom:10px;">Generating email draft...</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button onclick="copyEmailDraft()" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;"><i class="ti ti-copy"></i> Copy to Clipboard</button>
-      <a href="https://app.brevo.com" target="_blank" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#3b82f6;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:5px;"><i class="ti ti-external-link"></i> Open Brevo</button>
-      <button onclick="generateWeeklyEmail()" style="background:var(--glass);border:1px solid var(--border2);color:var(--ink2);padding:8px 12px;border-radius:8px;font-size:10px;cursor:pointer;"><i class="ti ti-refresh"></i> Regenerate</button>
+      <button class="ctrl-btn" onclick="copyEmailDraft()" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;"><i class="ti ti-copy"></i> Copy to Clipboard</button>
+      <a href="https://app.brevo.com" target="_blank" class="ctrl-btn" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;"><i class="ti ti-external-link"></i> Open Brevo</button>
+      <button class="ctrl-btn" onclick="generateWeeklyEmail()" style="font-size:10px;padding:8px 12px;"><i class="ti ti-refresh"></i> Regenerate</button>
     </div>
   </div>
 
@@ -582,22 +602,34 @@ const prov= new GoogleAuthProvider();
 window.__fbSignIn  = ()=>signInWithPopup(auth,prov);
 window.__fbSignOut = ()=>signOut(auth);
 
+// Get top auto-graded prompts from this week
 window.__fbGetTopPrompts = async(limit=10)=>{
   try{
-    const q=query(collection(db,'pending-prompts'),where('source','==','pa-agent-auto'));
-    const snap=await getDocs(q);
-    const arr=[];
-    snap.forEach(doc=>{const d=doc.data();if((d.autoGrade||0)>=8)arr.push({...d,id:doc.id});});
-    return arr.sort((a,b)=>(b.autoGrade||0)-(a.autoGrade||0)).slice(0,limit);
-  }catch(e){return[];}
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate()-7);
+    const q = query(
+      collection(db,'pending-prompts'),
+      where('source','==','pa-agent-auto')
+    );
+    const snap = await getDocs(q);
+    const prompts = [];
+    snap.forEach(doc=>{
+      const d = doc.data();
+      const score = d.autoGrade||0;
+      if(score>=8) prompts.push({...d, id:doc.id});
+    });
+    // Sort by score descending, return top N
+    return prompts.sort((a,b)=>(b.autoGrade||0)-(a.autoGrade||0)).slice(0,limit);
+  } catch(e){ console.warn('fbGetTopPrompts error:',e); return []; }
 };
 
+// Count auto-graded prompts this week
 window.__fbGetAutoCount = async()=>{
   try{
-    const q=query(collection(db,'pending-prompts'),where('source','==','pa-agent-auto'));
-    const snap=await getDocs(q);
+    const q = query(collection(db,'pending-prompts'),where('source','==','pa-agent-auto'));
+    const snap = await getDocs(q);
     return snap.size;
-  }catch(e){return 0;}
+  } catch(e){ return 0; }
 };
 
 window.__fbLoadMem = async()=>{
@@ -628,7 +660,7 @@ onAuthStateChanged(auth, async user=>{
       document.getElementById('a1i').textContent=vs.size;
       const autoCount=await window.__fbGetAutoCount();
       document.getElementById('a1auto').textContent=autoCount;
-      addLog('✓','Stats: '+ps.size+' prompts, '+vs.size+' images, '+autoCount+' auto-graded','var(--green)');
+      addLog('✓','Stats: '+ps.size+' prompts, '+vs.size+' images pending, '+autoCount+' auto-graded','var(--green)');
     }catch(e){ addLog('⚠','Could not load stats','var(--red)'); }
     // Load memory
     const facts=await window.__fbLoadMem();
@@ -636,13 +668,14 @@ onAuthStateChanged(auth, async user=>{
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
     addLog('🧠','Memory: '+facts.length+' facts loaded','var(--purple)');
-    addLog('🌐','Browser Agent: ready','var(--teal)');
+    addLog('🌐','Browser Agent: ready — click Launch to open panel','var(--teal)');
     addLog('📊','Analytics Agent: online','var(--purple)');
+    // Load Brevo + Netlify stats for Analytics Agent
     loadLiveStats();
     // Greet
     setTimeout(()=>{
       const g=facts.length>0
-        ?'Hey, ARIA online. Five agents active. I have '+facts.length+' things in memory. What do you need?'
+        ?'Hey, ARIA online. Five agents active — vault, social, tech ops, browser, and analytics. I have '+facts.length+' things in memory. What do you need?'
         :'Hey, ARIA online. Five agents active — vault, social, tech ops, browser, and the new analytics agent. What do you need?';
       setTranscript(g,false);
       speak(g);
@@ -662,24 +695,26 @@ var ADMIN ='promptaholics1@gmail.com';
 var MAX_HIST=20;
 var BRIDGE_URL='http://localhost:5555'; // Local agent-browser bridge (optional)
 
-var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate five sub-agents: Vault and Approvals, Social Media, Tech and Site Ops, Browser Agent, and Analytics.
+var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate five sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, Browser Agent, and Analytics.
+
+CAPABILITIES: Real-time news via Gemini search grounding, Firebase memory synced across devices, file analysis, browser automation via agent-browser CLI, weekly email generation, Substack drafting, analytics reporting.
 
 AGENTS:
-1. VAULT AND APPROVALS: manages Firebase pending-prompts and vault-submissions. Auto-grade pipeline scores every PA Agent prompt; scores 8-10 tagged source:pa-agent-auto. Monday 2PM UTC GitHub Action exports approved prompts.
-2. SOCIAL MEDIA: TikTok hooks, LinkedIn posts, Twitter threads, Reddit posts, weekly email drafts, Substack posts, 7-day content calendars.
-3. TECH AND SITE OPS: build queue, deployments, GitHub Actions, Cloudflare Worker status.
-4. BROWSER AGENT: site QA, scraping, screenshots via agent-browser CLI.
-5. ANALYTICS: site performance, SEO, AdSense status, Brevo subscriber count, prompt library growth.
+1. VAULT & APPROVALS — manages pending-prompts and vault-submissions in Firebase. Auto-grade pipeline scores every PA Agent prompt; scores 8-10 go to pending-prompts tagged source:pa-agent-auto. Monday 2PM UTC GitHub Action exports approved prompts to prompts.js.
+2. SOCIAL MEDIA — creates TikTok hooks, LinkedIn posts, Twitter threads, Reddit posts, 7-day content calendars, weekly email drafts, and Substack posts.
+3. TECH & SITE OPS — tracks build queue, feature upgrades, deployments, GitHub Actions, Cloudflare Worker status.
+4. BROWSER AGENT — automates site QA, scraping, screenshots, form fills via agent-browser CLI.
+5. ANALYTICS — tracks site performance, SEO rankings, AdSense status, email list growth, and prompt library metrics. Suggests content strategy based on what is working.
 
-SITE: Promptaholics.com on Netlify (github.com/finbot010/promptaholics). Firebase: promptaholics-534d3. Worker: https://dawn-thunder-a558.promptaholics1.workers.dev v3.7, Gemini 2.5 Flash Lite and Claude Sonnet 4-6. Library: 1671 prompts, 18 categories. Brevo list ID: 3. AdSense review submitted. Search Console verified July 2026. Product Hunt launched June 26 2026.
+SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev (v3.3, Gemini 2.5 Flash Lite for find/fast, Claude Sonnet 4-6 for create). Library: 1,671 prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs (paused). Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026, sitemap submitted. Brevo email capture: live on all 10 pages.
 
-BUILD QUEUE: 1) PA Agent nav link 2) JSON file drop admin 3) Prompt Builder swap Puter to Worker plus add Kling 4) GitHub awesome-lists and Hacker News submissions 5) Merge 50 prompts 6) Inline preview 7) Agent Loop category 8) Store resume 9) Read-only API 10) Agent 6.
+BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume post-PH 9) Read-only Prompt Library API 10) ARIA Agent 6.
 
-WEEKLY EMAIL FORMAT: Subject, greeting, 8-10 prompts with name and text, one tip, what is new, CTA. Conversational. Under 500 words.
+WEEKLY EMAIL FORMAT: Subject line, greeting, 8-10 curated prompts with names and text, one tip or technique, what is new on the site this week, simple CTA to visit the library. Conversational tone, not corporate. Under 500 words.
 
-VOICE RULES: Natural spoken English. No markdown. 2-4 sentences. End with follow-up.
+VOICE RULES: Natural spoken English only. No markdown, no bullets. 2-4 sentences max. End with a follow-up or next action. Reference conversation history naturally.
 
-BROWSER ROUTING: screenshot, QA, scrape, automate means check the Browser Agent panel.\`;
+BROWSER ROUTING: If the user says screenshot, take a screenshot, QA, check the site, open a page, test the homepage, scrape, or automate — respond with what you will do and tell them to check the Browser Agent panel.`;
 
 // ─── State ────────────────────────────────────────────────────────
 var chatHistory=[];
@@ -833,9 +868,19 @@ async function runCmd(text){
   if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
 
   var memBlock=window.__memBlock||'';
+
+  // Inject live stats into context
   var liveBlock='';
-  if(window.__brevoStats){var b=window.__brevoStats;liveBlock+='\n\nLIVE BREVO: Active subscribers: '+(b.subscribers?.active||0)+'.';}
-  if(window.__netlifyStats){var n=window.__netlifyStats;liveBlock+='\n\nLIVE NETLIFY: Deploy '+(n.deploy?.state||'unknown')+'.';
+  if(window.__brevoStats){
+    var b=window.__brevoStats;
+    liveBlock+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
+    if(b.lastCampaign) liveBlock+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
+  }
+  if(window.__netlifyStats){
+    var n=window.__netlifyStats;
+    liveBlock+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
+  }
+
   var sys=ARIA_SYS+memBlock+liveBlock;
 
   var newsKw=['news','headlines','what happened','trending','latest','breaking','top stories','current events'];
@@ -888,6 +933,184 @@ function parseBrowserIntent(text){
   if(lc.includes('scrape') || lc.includes('extract')) return 'Starting a scrape run. Browser Agent is on it — check the panel below for the extracted data.';
   if(lc.includes('staging')) return 'Opening the Netlify staging build now. Browser Agent panel will show the screenshot and any issues.';
   return 'Browser Agent is handling that now. Check the panel below — commands and output will show up there.';
+}
+
+// ─── Weekly Email Generator ───────────────────────────────────────
+async function generateWeeklyEmail(){
+  // Show email panel
+  var panel = document.getElementById('emailPanel');
+  panel.style.display='block';
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+  var output = document.getElementById('emailOutput');
+  var status = document.getElementById('emailStatus');
+  output.textContent='Fetching top prompts from Firebase...';
+  status.className='browser-status running';
+  status.textContent='Generating...';
+  addLog('📧','Generating weekly email draft','var(--blue)');
+
+  // Pull top prompts from Firebase
+  var topPrompts=[];
+  if(typeof window.__fbGetTopPrompts==='function'){
+    topPrompts = await window.__fbGetTopPrompts(10);
+  }
+
+  var promptBlock='';
+  if(topPrompts.length>0){
+    promptBlock='This week\'s top auto-graded prompts from the PA Agent (use these in the email):\n';
+    topPrompts.forEach((p,i)=>{
+      promptBlock+=`${i+1}. ${p.name||'Untitled'} (score: ${p.autoGrade||'?'})\n"${(p.text||'').slice(0,200)}..."\n\n`;
+    });
+  } else {
+    promptBlock='No auto-graded prompts this week yet. Use your best judgment to pick 8 great prompts from the Promptaholics library across different categories.';
+  }
+
+  var emailSys=`You are the email copywriter for Promptaholics.com, a free AI prompt library with 1,671 structured prompts. Write a weekly email newsletter.
+
+FORMAT:
+Subject: [compelling subject line about the prompts theme]
+
+Hey [First name] 👋
+
+[1-2 sentence intro about this week's theme — keep it conversational, not corporate]
+
+This week's top prompts:
+
+[List 8-10 prompts with their name as a bold header and the full prompt text below each]
+
+This week's tip:
+[One actionable prompt engineering tip — specific and practical]
+
+New on Promptaholics:
+[One thing new or notable on the site this week]
+
+Happy prompting,
+The Promptaholics Team
+
+P.S. [Fun one-liner or teaser for next week]
+
+---
+RULES: Conversational tone. Under 500 words. No excessive exclamation marks. Prompts should be copy-paste ready. Subject line should be specific not generic.`;
+
+  var userMsg=`Write this week's Promptaholics email newsletter.\n\n${promptBlock}\n\nNew this week: 5 new SEO blog articles just published, Google Search Console verified, Brevo email capture live on all pages, share button added to PA Agent.`;
+
+  try{
+    output.textContent='Writing email with Claude...';
+    var res=await fetch(WORKER+'/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        intent:'create',
+        max_tokens:1500,
+        system:emailSys,
+        messages:[{role:'user',content:userMsg}]
+      })
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    var data=await res.json();
+    var email=(data.text||'').trim();
+    if(!email) throw new Error('Empty response');
+    output.textContent=email;
+    status.className='browser-status';
+    status.textContent='Done ✓';
+    // Track email count
+    var count=parseInt(document.getElementById('a2emails').textContent)||0;
+    document.getElementById('a2emails').textContent=count+1;
+    addLog('📧','Weekly email draft ready — '+email.length+' chars','var(--blue)');
+    showToast('✅ Email draft ready — copy to Brevo');
+    speak('Your weekly email draft is ready. Check the email panel below and copy it into Brevo when you are happy with it.');
+  }catch(e){
+    output.textContent='Error generating email: '+e.message+'\n\nTry refreshing and signing in again.';
+    status.className='browser-status error';
+    status.textContent='Error';
+    addLog('⚠','Email generation failed: '+e.message,'var(--red)');
+  }
+}
+
+// ─── Substack Generator ───────────────────────────────────────────
+async function generateSubstack(){
+  setTranscript('Writing your Substack post now...',false);
+  setState('thinking');
+  addLog('✏️','Generating Substack post draft','var(--blue)');
+
+  var substackSys=`You are the Substack writer for Promptaholics.com. Write an engaging Substack post about AI prompts and prompt engineering.
+
+FORMAT: Title, subtitle, opening hook (2-3 sentences), main body (3-4 sections with headers), practical section with 3-5 example prompts, closing thought, simple CTA.
+
+TONE: Conversational, opinionated, practical. Like a knowledgeable friend sharing what actually works. Not corporate. No fluff.
+
+LENGTH: 600-900 words.`;
+
+  var userMsg='Write a Substack post for the Promptaholics newsletter. Topics to choose from this week: the auto-grade PA Agent pipeline, how structured prompts outperform vague ones, loop engineering and what it means for prompt libraries, or why free prompt libraries beat paid ones for most users. Pick the most interesting angle.';
+
+  try{
+    var res=await fetch(WORKER+'/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({intent:'create',max_tokens:1500,system:substackSys,messages:[{role:'user',content:userMsg}]})
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    var data=await res.json();
+    var post=(data.text||'').trim();
+    if(!post) throw new Error('Empty');
+
+    // Show in email panel reusing it
+    var panel=document.getElementById('emailPanel');
+    panel.style.display='block';
+    document.getElementById('emailStatus').textContent='Substack ✓';
+    document.getElementById('emailOutput').textContent=post;
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
+
+    setTranscript('Substack post is ready in the panel below. Copy it and paste into your Substack editor.',false);
+    speak('Your Substack post is ready. Check the panel below and copy it into your Substack editor.');
+    addLog('✏️','Substack post ready — '+post.length+' chars','var(--blue)');
+    showToast('✅ Substack post ready');
+  }catch(e){
+    setTranscript('Could not generate Substack post — try again.',false);
+    speak('Something went wrong generating the Substack post. Try again.');
+    setState('idle');
+  }
+}
+
+// ─── Copy email/substack draft ────────────────────────────────────
+async function copyEmailDraft(){
+  var text=document.getElementById('emailOutput').textContent;
+  if(!text||text==='Generating email draft...') return;
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast('✅ Copied to clipboard — paste into Brevo');
+    addLog('📋','Email draft copied to clipboard','var(--blue)');
+  }catch(e){
+    showToast('Could not copy — try selecting and copying manually');
+  }
+}
+
+// ─── Live Stats (Brevo + Netlify) ────────────────────────────────
+async function loadLiveStats(){
+  try{
+    // Brevo subscriber count
+    var brevoRes = await fetch(WORKER+'/api/brevo-stats');
+    if(brevoRes.ok){
+      var brevoData = await brevoRes.json();
+      var subs = brevoData.subscribers?.active || brevoData.subscribers?.total || 0;
+      document.getElementById('a5subs').textContent = subs.toLocaleString();
+      addLog('📧','Brevo: '+subs+' active subscribers','var(--blue)');
+      // Store in ARIA context
+      window.__brevoStats = brevoData;
+    }
+  }catch(e){ console.warn('Brevo stats failed:',e); }
+
+  try{
+    // Netlify deploy status
+    var netlifyRes = await fetch(WORKER+'/api/netlify-status');
+    if(netlifyRes.ok){
+      var netlifyData = await netlifyRes.json();
+      var deployState = netlifyData.deploy?.state || 'unknown';
+      var deployTime  = netlifyData.deploy?.deployTime ? netlifyData.deploy.deployTime+'s' : '--';
+      var stateIcon   = deployState==='ready' ? '✓' : deployState==='error' ? '✗' : '~';
+      addLog('🚀','Netlify: deploy '+deployState+' ('+deployTime+')','var(--green)');
+      window.__netlifyStats = netlifyData;
+    }
+  }catch(e){ console.warn('Netlify stats failed:',e); }
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
@@ -1223,69 +1446,163 @@ function showToast(msg){
 }
 </script>
 
+<!-- Brevo Exit Intent Modal -->
+<div class="brevo-modal-overlay" id="brevoModal">
+  <div class="brevo-modal">
+    <button class="bmo-close" onclick="closeBrevoModal()" aria-label="Close"><i class="ti ti-x"></i></button>
+    <div class="bmo-icon">⚡</div>
+    <div class="bmo-title">Get 10 New Prompts Weekly</div>
+    <div class="bmo-sub">Join <strong>prompt engineers, creators and founders</strong> getting the best AI prompts delivered every Monday. Free forever.</div>
+    <input class="bmo-input" type="email" id="brevoModalEmail" placeholder="your@email.com" autocomplete="email"/>
+    <button class="bmo-btn" id="brevoModalBtn" onclick="submitBrevoModal()">
+      <i class="ti ti-mail"></i> Get Free Weekly Prompts
+    </button>
+    <div class="bmo-privacy">No spam. Unsubscribe anytime.</div>
+    <button class="bmo-skip" onclick="closeBrevoModal()">No thanks, I'll miss out</button>
+  </div>
+</div>
 
-// Live stats
-async function loadLiveStats(){
-  try{
-    var r=await fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-stats');
-    if(r.ok){var b=await r.json();var s=b.subscribers?.active||b.subscribers?.total||0;document.getElementById('a5subs').textContent=s;window.__brevoStats=b;addLog('📧','Brevo: '+s+' subscribers','var(--blue)');}
-  }catch(e){}
-  try{
-    var r2=await fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/netlify-status');
-    if(r2.ok){var n=await r2.json();window.__netlifyStats=n;addLog('🚀','Netlify: '+(n.deploy?.state||'unknown'),'var(--green)');}
-  }catch(e){}
+<script>
+/* ── Brevo Email Capture ── */
+var BREVO_URL='https://57fb05d6.sibforms.com/serve/MUIFAK___eN7RW93kcURKW5Y5A6iUVxF9nEFdYiRY0h438mZonyStuDdOjj4CCaSQvVE9IwGVe3nnxAaTu8aUG-p-UYSI48D6mUyTMrLG2ifgGRuPrF0AZSNhQXrlxNS4US8mWgIYksPm57jKocslUOx_F2AeRQmlRpB960ex-M1bABow3EynSQ_0TdBeJOD4HQg0TXsqFhcbfmchw==';
+var BREVO_KEY='brevo_subscribed';
+var brevoModalShown=false;
+
+function brevoSubscribed(){return!!localStorage.getItem(BREVO_KEY);}
+function brevoMarkDone(){localStorage.setItem(BREVO_KEY,'1');}
+
+function brevoSend(email,onDone){
+  var iframe=document.createElement('iframe');
+  iframe.style.display='none';
+  iframe.name='brevo_'+Date.now();
+  document.body.appendChild(iframe);
+  var form=document.createElement('form');
+  form.method='GET';form.action=BREVO_URL;
+  form.target=iframe.name;form.style.display='none';
+  var ei=document.createElement('input');
+  ei.name='EMAIL';ei.value=email;
+  form.appendChild(ei);
+  document.body.appendChild(form);
+  form.submit();
+  if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'brevo'});
+  setTimeout(function(){brevoMarkDone();onDone&&onDone();},1500);
 }
 
-// Weekly email
-async function generateWeeklyEmail(){
-  var panel=document.getElementById('emailPanel');
-  panel.style.display='block';panel.scrollIntoView({behavior:'smooth',block:'start'});
-  var out=document.getElementById('emailOutput');var st=document.getElementById('emailStatus');
-  out.textContent='Fetching top prompts...';st.className='browser-status running';st.textContent='Generating...';
-  addLog('📧','Generating weekly email','var(--blue)');
-  var prompts=typeof window.__fbGetTopPrompts==='function'?await window.__fbGetTopPrompts(10):[];
-  var pb=prompts.length>0?'Top prompts this week:\n'+prompts.map((p,i)=>i+1+'. '+p.name+' ('+p.autoGrade+')\n'+(p.text||'').slice(0,150)+'...').join('\n\n'):'Pick 8 great prompts from the library across different categories.';
-  var sys='You are the email writer for Promptaholics.com. Write a weekly newsletter. FORMAT: Subject line, greeting, 8-10 prompts with name and full text, one tip, new this week, CTA. TONE: Conversational, under 500 words.';
-  try{
-    var res=await fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({intent:'create',max_tokens:1500,system:sys,messages:[{role:'user',content:'Write this week’s email.\n\n'+pb+'\n\nNew: 5 SEO blog articles, Search Console verified, Brevo API email capture live, Analytics Agent added to ARIA.'}]})});
-    var d=await res.json();var email=(d.text||'').trim();
-    if(!email)throw new Error('Empty');
-    out.textContent=email;st.className='browser-status';st.textContent='Done ✓';
-    var c=parseInt(document.getElementById('a2emails').textContent)||0;
-    document.getElementById('a2emails').textContent=c+1;
-    showToast('✅ Email ready — copy to Brevo');
-    speak('Your weekly email draft is ready. Check the panel and copy it into Brevo.');
-    addLog('📧','Email draft ready','var(--blue)');
-  }catch(e){out.textContent='Error: '+e.message;st.className='browser-status error';st.textContent='Error';}
+// ── EXIT INTENT MODAL ──
+function openBrevoModal(){
+  if(brevoModalShown||brevoSubscribed()) return;
+  brevoModalShown=true;
+  var m=document.getElementById('brevoModal');
+  if(m){m.classList.add('open');setTimeout(function(){var i=document.getElementById('brevoModalEmail');if(i)i.focus();},300);}
+}
+function closeBrevoModal(){
+  var m=document.getElementById('brevoModal');
+  if(m) m.classList.remove('open');
+  sessionStorage.setItem('brevo_dismissed','1');
+}
+function submitBrevoModal(){
+  var email=(document.getElementById('brevoModalEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoModalBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.style.background='#ef4444';btn.textContent='Enter a valid email';
+    setTimeout(function(){btn.style.background='';btn.innerHTML='<i class="ti ti-mail"></i> Get Free Weekly Prompts';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Subscribing…';}
+  brevoSend(email,function(){
+    if(btn){btn.innerHTML='✅ You\u2019re in! Check your inbox.';btn.style.background='#22c55e';}
+    setTimeout(closeBrevoModal,2500);
+  });
 }
 
-// Substack
-async function generateSubstack(){
-  setTranscript('Writing your Substack post now...',false);setState('thinking');
-  addLog('✏️','Generating Substack post','var(--blue)');
-  var sys='Write an engaging Substack post about AI prompts for Promptaholics.com. FORMAT: Title, subtitle, hook, 3-4 sections, 3-5 example prompts, CTA. TONE: Conversational, opinionated. 600-900 words.';
-  try{
-    var res=await fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({intent:'create',max_tokens:1500,system:sys,messages:[{role:'user',content:'Write a Substack post. Best angle: how structured prompts outperform vague ones, with real examples from the auto-grade pipeline.'}]})});
-    var d=await res.json();var post=(d.text||'').trim();
-    var panel=document.getElementById('emailPanel');panel.style.display='block';
-    document.getElementById('emailStatus').textContent='Substack ✓';
-    document.getElementById('emailOutput').textContent=post;
-    panel.scrollIntoView({behavior:'smooth',block:'start'});
-    setTranscript('Substack post ready in the panel. Copy it into your Substack editor.',false);
-    speak('Your Substack post is ready. Check the panel below.');
-    addLog('✏️','Substack post ready','var(--blue)');
-    showToast('✅ Substack post ready');setState('idle');
-  }catch(e){setTranscript('Could not generate Substack post. Try again.',false);setState('idle');}
+// Desktop exit intent
+document.addEventListener('mouseleave',function(e){
+  if(e.clientY<=0&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+});
+// Mobile: fast scroll up
+var _bLastY=0;
+window.addEventListener('scroll',function(){
+  var y=window.scrollY;
+  if(_bLastY-y>60&&y>400&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+  _bLastY=y;
+},{passive:true});
+// Time fallback: 90s
+setTimeout(function(){
+  if(!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+},90000);
+// Close on overlay click
+document.addEventListener('click',function(e){
+  var m=document.getElementById('brevoModal');
+  if(m&&e.target===m) closeBrevoModal();
+});
+
+// ── FOOTER STRIP ──
+(function(){
+  var s=document.getElementById('brevoFooterStrip');
+  if(s&&brevoSubscribed()) s.style.display='none';
+})();
+function submitBrevoFooter(){
+  var email=(document.getElementById('brevoFooterEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoFooterBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Invalid email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Subscribe →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
+  brevoSend(email,function(){
+    var s=document.getElementById('brevoFooterStrip');
+    if(s) s.innerHTML='<div style="font-size:13px;color:#22c55e;font-weight:700;text-align:center;">✅ Subscribed! First email arrives Monday.</div>';
+  });
 }
 
-// Copy draft
-async function copyEmailDraft(){
-  var text=document.getElementById('emailOutput').textContent;
-  if(!text||text==='Draft will appear here...') return;
-  try{await navigator.clipboard.writeText(text);showToast('✅ Copied — paste into Brevo');}
-  catch(e){showToast('Select and copy manually');}
+// ── POST-GENERATION HOOK (prompt-builder only) ──
+function brevoShowGenHook(){
+  if(brevoSubscribed()) return;
+  var h=document.getElementById('brevoGenHook');
+  if(h) h.style.display='block';
+}
+function submitBrevoGen(){
+  var email=(document.getElementById('brevoGenEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoGenBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Bad email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Yes →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='…';}
+  brevoSend(email,function(){
+    var h=document.getElementById('brevoGenHook');
+    if(h) h.innerHTML='<div style="font-size:12px;color:#22c55e;font-weight:700;text-align:center;padding:12px;">✅ Subscribed! First email arrives Monday.</div>';
+  });
 }
 
+// ── INLINE LIBRARY CARD ──
+function brevoInlineCard(){
+  return '<div style="background:linear-gradient(135deg,rgba(255,98,36,.07),rgba(255,159,36,.04));border:1px solid rgba(255,98,36,.2);border-radius:16px;padding:24px;grid-column:1/-1;">'
+    +'<div style="font-size:22px;margin-bottom:8px;">⚡</div>'
+    +'<div style="font-family:Syne,serif;font-size:16px;font-weight:900;color:#f0f0f8;margin-bottom:6px;">Get 10 New Prompts Every Monday</div>'
+    +'<div style="font-size:12px;color:rgba(240,240,248,.55);line-height:1.6;margin-bottom:14px;">Join <strong style="color:#ff9f24;">prompt engineers and creators</strong> getting the best curated AI prompts delivered free every week.</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+    +'<input id="brevoInlineEmail" type="email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 14px;font-family:Instrument Sans,sans-serif;font-size:13px;color:#f0f0f8;outline:none;"/>'
+    +'<button onclick="submitBrevoInline()" id="brevoInlineBtn" style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:9px;padding:10px 18px;font-family:Instrument Sans,sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Get Weekly Prompts →</button>'
+    +'</div>'
+    +'<div style="font-size:10px;color:rgba(240,240,248,.25);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
+    +'</div>';
+}
+function submitBrevoInline(){
+  var email=(document.getElementById('brevoInlineEmail')||{}).value.trim();
+  var btn=document.getElementById('brevoInlineBtn');
+  if(!email||!email.includes('@')){
+    if(btn){btn.textContent='Enter valid email';btn.style.background='#ef4444';
+    setTimeout(function(){btn.textContent='Get Weekly Prompts →';btn.style.background='';btn.disabled=false;},2000);}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
+  brevoSend(email,function(){
+    if(btn){btn.textContent='✅ You\u2019re in!';btn.style.background='#22c55e';}
+  });
+}
 </script>
 </body>
 </html>
