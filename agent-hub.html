@@ -670,6 +670,8 @@ onAuthStateChanged(auth, async user=>{
     addLog('🧠','Memory: '+facts.length+' facts loaded','var(--purple)');
     addLog('🌐','Browser Agent: ready — click Launch to open panel','var(--teal)');
     addLog('📊','Analytics Agent: online','var(--purple)');
+    // Load Brevo + Netlify stats for Analytics Agent
+    loadLiveStats();
     // Greet
     setTimeout(()=>{
       const g=facts.length>0
@@ -866,7 +868,20 @@ async function runCmd(text){
   if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
 
   var memBlock=window.__memBlock||'';
-  var sys=ARIA_SYS+memBlock;
+
+  // Inject live stats into context
+  var liveBlock='';
+  if(window.__brevoStats){
+    var b=window.__brevoStats;
+    liveBlock+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
+    if(b.lastCampaign) liveBlock+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
+  }
+  if(window.__netlifyStats){
+    var n=window.__netlifyStats;
+    liveBlock+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
+  }
+
+  var sys=ARIA_SYS+memBlock+liveBlock;
 
   var newsKw=['news','headlines','what happened','trending','latest','breaking','top stories','current events'];
   var webKw=['weather','price of','stock','search for','look up','right now'];
@@ -1067,6 +1082,35 @@ async function copyEmailDraft(){
   }catch(e){
     showToast('Could not copy — try selecting and copying manually');
   }
+}
+
+// ─── Live Stats (Brevo + Netlify) ────────────────────────────────
+async function loadLiveStats(){
+  try{
+    // Brevo subscriber count
+    var brevoRes = await fetch(WORKER+'/api/brevo-stats');
+    if(brevoRes.ok){
+      var brevoData = await brevoRes.json();
+      var subs = brevoData.subscribers?.active || brevoData.subscribers?.total || 0;
+      document.getElementById('a5subs').textContent = subs.toLocaleString();
+      addLog('📧','Brevo: '+subs+' active subscribers','var(--blue)');
+      // Store in ARIA context
+      window.__brevoStats = brevoData;
+    }
+  }catch(e){ console.warn('Brevo stats failed:',e); }
+
+  try{
+    // Netlify deploy status
+    var netlifyRes = await fetch(WORKER+'/api/netlify-status');
+    if(netlifyRes.ok){
+      var netlifyData = await netlifyRes.json();
+      var deployState = netlifyData.deploy?.state || 'unknown';
+      var deployTime  = netlifyData.deploy?.deployTime ? netlifyData.deploy.deployTime+'s' : '--';
+      var stateIcon   = deployState==='ready' ? '✓' : deployState==='error' ? '✗' : '~';
+      addLog('🚀','Netlify: deploy '+deployState+' ('+deployTime+')','var(--green)');
+      window.__netlifyStats = netlifyData;
+    }
+  }catch(e){ console.warn('Netlify stats failed:',e); }
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
