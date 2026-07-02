@@ -1019,7 +1019,6 @@ setTimeout(()=>doGenerate(activeCat),300);
 
 <script>
 /* ── Brevo Email Capture ── */
-var BREVO_URL='https://57fb05d6.sibforms.com/serve/MUIFAK___eN7RW93kcURKW5Y5A6iUVxF9nEFdYiRY0h438mZonyStuDdOjj4CCaSQvVE9IwGVe3nnxAaTu8aUG-p-UYSI48D6mUyTMrLG2ifgGRuPrF0AZSNhQXrlxNS4US8mWgIYksPm57jKocslUOx_F2AeRQmlRpB960ex-M1bABow3EynSQ_0TdBeJOD4HQg0TXsqFhcbfmchw==';
 var BREVO_KEY='brevo_subscribed';
 var brevoModalShown=false;
 
@@ -1027,20 +1026,28 @@ function brevoSubscribed(){return!!localStorage.getItem(BREVO_KEY);}
 function brevoMarkDone(){localStorage.setItem(BREVO_KEY,'1');}
 
 function brevoSend(email,onDone){
-  var iframe=document.createElement('iframe');
-  iframe.style.display='none';
-  iframe.name='brevo_'+Date.now();
-  document.body.appendChild(iframe);
-  var form=document.createElement('form');
-  form.method='GET';form.action=BREVO_URL;
-  form.target=iframe.name;form.style.display='none';
-  var ei=document.createElement('input');
-  ei.name='EMAIL';ei.value=email;
-  form.appendChild(ei);
-  document.body.appendChild(form);
-  form.submit();
-  if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'brevo'});
-  setTimeout(function(){brevoMarkDone();onDone&&onDone();},1500);
+  fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email.trim(),source:window.location.pathname})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.success){
+      localStorage.setItem(BREVO_KEY,'1');
+      if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'api',page:location.pathname});
+      onDone&&onDone();
+    } else {
+      console.warn('Brevo subscribe error:',d.error||d.message);
+      // Still mark as done to avoid repeated prompts
+      localStorage.setItem(BREVO_KEY,'1');
+      onDone&&onDone();
+    }
+  })
+  .catch(function(e){
+    console.warn('Brevo API error:',e);
+    onDone&&onDone();
+  });
 }
 
 // ── EXIT INTENT MODAL ──
