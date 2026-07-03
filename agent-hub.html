@@ -586,7 +586,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getFirestore, collection, getDocs, query, where, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 const fbApp = initializeApp({
@@ -599,8 +599,13 @@ const db  = getFirestore(fbApp);
 const auth= getAuth(fbApp);
 const prov= new GoogleAuthProvider();
 
-window.__fbSignIn  = ()=>signInWithPopup(auth,prov);
+window.__fbSignIn  = ()=>signInWithRedirect(auth,prov);
 window.__fbSignOut = ()=>signOut(auth);
+
+// Handle redirect result on page load (desktop fix)
+getRedirectResult(auth).then(result=>{
+  if(result?.user) addLog('✓','Signed in via redirect: '+result.user.email,'var(--green)');
+}).catch(e=>{ if(e.code!=='auth/no-current-user') console.warn('Redirect result:',e); });
 
 // Get top auto-graded prompts from this week
 window.__fbGetTopPrompts = async(limit=10)=>{
