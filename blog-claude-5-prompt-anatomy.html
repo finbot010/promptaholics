@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Anatomy of a Claude Prompt: 11 Elements of a Perfect System Prompt (2026) — Promptaholics</title>
+<meta name="description" content="Learn the 11 elements that make Claude prompts exceptional — Task, Context, Skill, Effort, Act, Scope, Delegate, Evidence, Memory, Checkpoint, Report. With 15 copy-paste examples."/>
+<meta name="keywords" content="Claude prompt anatomy, Claude 5 prompt, perfect Claude prompt, Claude system prompt, Claude Projects prompts, Claude prompt framework 2026"/>
+<link rel="canonical" href="https://promptaholics.com/blog-claude-5-prompt-anatomy.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.65);--ink3:rgba(240,240,248,.35);--orange:#ff6224;--o2:#ff9f24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--card:#13131c;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;line-height:1.7;}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,98,36,.06),transparent 70%);top:-100px;right:-100px;}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,159,36,.04),transparent 70%);bottom:-80px;left:-80px;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;background:rgba(7,7,10,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;align-items:center;gap:20px;}
+.nav-link{font-size:13px;color:var(--ink2);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-cta{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;text-decoration:none;}
+@media(max-width:600px){.nav-links{display:none;}.nav{padding:0 16px;}}
+.article-wrap{position:relative;z-index:10;max-width:720px;margin:0 auto;padding:52px 24px 80px;}
+.article-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;padding:4px 12px;border-radius:16px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.18);}
+.article-title{font-family:'Syne',serif;font-size:clamp(26px,5vw,44px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:16px;}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink3);margin-bottom:32px;flex-wrap:wrap;}
+.article-intro{font-size:17px;color:var(--ink2);line-height:1.8;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.article-body h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin:40px 0 14px;color:var(--ink);}
+.article-body h3{font-family:'Syne',serif;font-size:16px;font-weight:700;margin:24px 0 8px;color:var(--ink);}
+.article-body p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:18px;}
+.article-body strong{color:var(--ink);font-weight:700;}
+.article-body ul{margin:0 0 18px 24px;color:var(--ink2);font-size:15px;line-height:1.85;}
+.article-body li{margin-bottom:8px;}
+.callout{background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.2);border-left:3px solid var(--orange);border-radius:10px;padding:18px 20px;margin:28px 0;}
+.callout p{margin:0;color:var(--ink2);font-size:14px;line-height:1.7;}
+.callout strong{color:var(--orange);}
+.element-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:20px;margin:16px 0;border-left:3px solid;}
+.element-card .el-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:block;}
+.element-card .el-name{font-family:'Syne',serif;font-size:18px;font-weight:900;margin-bottom:4px;}
+.element-card .el-sub{font-size:11px;margin-bottom:12px;opacity:.6;}
+.element-card .el-desc{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:12px;}
+.element-card .el-example{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink2);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px;line-height:1.7;white-space:pre-wrap;}
+.prompt-card{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:18px;margin:16px 0;}
+.prompt-card-num{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;display:block;}
+.prompt-card-name{font-family:'Syne',serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+.prompt-card-text{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink2);line-height:1.7;white-space:pre-wrap;}
+.cat-divider{display:flex;align-items:center;gap:12px;margin:36px 0 18px;}
+.cat-divider-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);white-space:nowrap;}
+.cat-divider-line{flex:1;height:1px;background:var(--border2);}
+.framework-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:24px 0;}
+.fw-item{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center;}
+.fw-item-num{font-family:'Syne',serif;font-size:22px;font-weight:900;margin-bottom:4px;}
+.fw-item-name{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.fw-item-sub{font-size:10px;color:var(--ink3);}
+.article-cta{background:linear-gradient(135deg,rgba(255,98,36,.08),rgba(255,159,36,.04));border:1px solid rgba(255,98,36,.2);border-radius:16px;padding:32px;text-align:center;margin-top:48px;}
+.article-cta h3{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:8px;}
+.article-cta p{font-size:13px;color:var(--ink2);margin-bottom:20px;}
+.btn-cta{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;font-size:13px;font-weight:700;text-decoration:none;}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+.related-title{font-family:'Syne',serif;font-size:12px;font-weight:800;margin-bottom:16px;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.related-grid{grid-template-columns:1fr;}}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:border-color .15s;display:block;}
+.related-card:hover{border-color:rgba(255,98,36,.3);}
+.related-card-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;display:block;}
+.related-card-title{font-family:'Syne',serif;font-size:13px;font-weight:800;color:var(--ink);line-height:1.4;}
+.footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:24px;text-align:center;}
+.footer-logo{font-family:'Syne',serif;font-size:14px;font-weight:900;color:var(--ink);text-decoration:none;}
+.footer-logo span{color:var(--orange);}
+.footer-copy{font-size:11px;color:var(--ink3);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="prompt-builder.html" class="nav-link">Builder</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+  </div>
+  <a href="library.html" class="nav-cta"><i class="ti ti-sparkles"></i> Browse Prompts</a>
+</nav>
+
+<div class="article-wrap">
+  <div class="article-eyebrow"><i class="ti ti-brain"></i> Claude · Framework</div>
+  <h1 class="article-title">The Anatomy of a Perfect Claude Prompt: 11 Elements That Actually Work</h1>
+  <div class="article-meta">
+    <span><i class="ti ti-calendar"></i> July 2026</span>
+    <span><i class="ti ti-clock"></i> 10 min read</span>
+    <span><i class="ti ti-copy"></i> 15 ready prompts</span>
+  </div>
+  <p class="article-intro">Most people write Claude prompts the same way they write Google searches — a quick sentence and hope for the best. The difference between a mediocre Claude response and an exceptional one isn't the model version. It's the structure of what you put in. Here are the 11 elements that separate prompts that get results from prompts that get ignored.</p>
+
+  <div class="article-body">
+
+    <h2>Why Prompt Structure Matters More Than You Think</h2>
+    <p>Claude is a reasoning model. Unlike a search engine that pattern-matches keywords, Claude actually thinks through what you're asking. That means the more context, constraints, and clarity you give it, the better it can reason toward the answer you actually need — not just the answer your words technically asked for.</p>
+    <p>The 11 elements below aren't rules to follow mechanically. They're lenses for thinking about what information Claude needs to do its best work. Use the ones that apply to your task.</p>
+
+    <h2>The 11 Elements</h2>
+
+    <div class="framework-grid">
+      <div class="fw-item"><div class="fw-item-num" style="color:#ef4444;">1</div><div class="fw-item-name">Task</div><div class="fw-item-sub">the goal + why</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#3b82f6;">2</div><div class="fw-item-name">Context</div><div class="fw-item-sub">what it knows</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#22c55e;">3</div><div class="fw-item-name">Skill</div><div class="fw-item-sub">apply a framework</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#f59e0b;">4</div><div class="fw-item-name">Effort</div><div class="fw-item-sub">scope it high</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#ec4899;">5</div><div class="fw-item-name">Act</div><div class="fw-item-sub">stop overplanning</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#8b5cf6;">6</div><div class="fw-item-name">Scope</div><div class="fw-item-sub">simplest thing</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#06b6d4;">7</div><div class="fw-item-name">Delegate</div><div class="fw-item-sub">use subagents</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#10b981;">8</div><div class="fw-item-name">Evidence</div><div class="fw-item-sub">audit before reporting</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#a78bfa;">9</div><div class="fw-item-name">Memory</div><div class="fw-item-sub">promote lessons</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#fbbf24;">10</div><div class="fw-item-name">Checkpoint</div><div class="fw-item-sub">pause when needed</div></div>
+      <div class="fw-item"><div class="fw-item-num" style="color:#f87171;">11</div><div class="fw-item-name">Report</div><div class="fw-item-sub">TLDR first</div></div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 1 — Task</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#ef4444;">
+      <span class="el-label" style="color:#ef4444;">Element 1</span>
+      <div class="el-name">Task</div>
+      <div class="el-sub">The goal + the why, not the steps</div>
+      <div class="el-desc">Tell Claude the outcome you need and why it matters — not the steps to get there. Claude reasons better when it understands the destination than when it's following a recipe. Include who the output is for, what it enables, and then the actual task.</div>
+      <div class="el-example">I'm working on [LARGER GOAL] for [WHO IT'S FOR].
+They need [WHAT THE OUTPUT ENABLES].
+With that in mind: [YOUR ACTUAL TASK].</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 1 / Task</span>
+      <div class="prompt-card-name">Goal-First Task Frame</div>
+      <div class="prompt-card-text">I'm building a content strategy for a bootstrapped SaaS targeting solo developers. They need messaging that makes them feel understood — not sold to. With that in mind: write a landing page headline and three supporting sub-headlines that lead with the problem, not the product.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 2 — Context</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#3b82f6;">
+      <span class="el-label" style="color:#3b82f6;">Element 2</span>
+      <div class="el-name">Context</div>
+      <div class="el-sub">The project knows, the chat forgets</div>
+      <div class="el-desc">Claude has no memory between conversations. Every session starts blank unless you feed it context. In Claude Projects, your system prompt carries persistent context. In regular chat, you need to paste the relevant background. Don't make Claude guess what it needs to know — tell it.</div>
+      <div class="el-example">Use everything in this context first: [PASTE RELEVANT BACKGROUND].
+If something is missing, ask me before proceeding — don't guess.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 2 / Context</span>
+      <div class="prompt-card-name">Context-First Brief</div>
+      <div class="prompt-card-text">Here is the relevant context for this task:
+- Company: [COMPANY NAME], a [BRIEF DESCRIPTION]
+- Target audience: [WHO THEY ARE]
+- Brand voice: [2-3 adjectives]
+- What we've already tried: [LIST]
+- What didn't work and why: [EXPLAIN]
+
+With all of that in mind: [YOUR TASK].</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 3 — Skill</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#22c55e;">
+      <span class="el-label" style="color:#22c55e;">Element 3</span>
+      <div class="el-name">Skill</div>
+      <div class="el-sub">Saved once, loaded in one word</div>
+      <div class="el-desc">Reference a specific framework, methodology, or approach you want Claude to apply. This is the equivalent of calling a specialist rather than a generalist. Name the framework explicitly — CoSTAR, RISEN, STAR, Jobs-to-be-Done, first principles — and Claude applies it rigorously.</div>
+      <div class="el-example">Apply the [FRAMEWORK NAME] framework to this task.
+If no standard framework fits, here is what good output looks like: [EXAMPLE].</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 3 / Skill</span>
+      <div class="prompt-card-name">Framework Invocation</div>
+      <div class="prompt-card-text">Apply the Jobs-to-be-Done framework to analyze why customers choose [PRODUCT/SERVICE]. For each job, identify: the functional job, the emotional job, and the social job. Then suggest one product improvement that addresses the most underserved job. Context: [PASTE CUSTOMER FEEDBACK OR PRODUCT INFO].</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 4 — Effort</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#f59e0b;">
+      <span class="el-label" style="color:#f59e0b;">Element 4</span>
+      <div class="el-name">Effort</div>
+      <div class="el-sub">Don't let Claude undersell itself</div>
+      <div class="el-desc">Claude will calibrate its effort to what it thinks you expect. If you write a casual two-sentence prompt, you get a casual response. Tell Claude explicitly how hard to work on this — whether it's a quick draft or your most important deliverable of the week.</div>
+      <div class="el-example">This is a [routine / important / critical] task.
+Treat it as if it's at the top of your capability range.
+Don't undersell yourself — I need your best thinking here.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 4 / Effort</span>
+      <div class="prompt-card-name">High-Effort Signal</div>
+      <div class="prompt-card-text">This is one of the most important pieces of writing I will publish this quarter. Treat it as a hard, high-stakes task — not a routine content request. Apply your best judgment on structure, argument, and clarity. Push back if my brief has gaps that would produce a weak result. Task: [YOUR WRITING TASK].</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 5 — Act</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#ec4899;">
+      <span class="el-label" style="color:#ec4899;">Element 5</span>
+      <div class="el-name">Act</div>
+      <div class="el-sub">Stop it from overplanning</div>
+      <div class="el-desc">Claude loves to plan, outline, and discuss options before actually doing the work. Sometimes that's useful. Often it just delays getting to the output. When you have enough context to act, tell Claude to act — not deliberate. Kill the preamble.</div>
+      <div class="el-example">When you have enough information to act, act.
+Don't re-derive my decisions or survey options I won't pursue.
+If you need to weigh a choice, give me a recommendation — don't list pros and cons.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 5 / Act</span>
+      <div class="prompt-card-name">Action-First Instruction</div>
+      <div class="prompt-card-text">Do not start with an outline, summary of what you're about to do, or list of options. Go directly to the output. If there are choices to make, make them and note your reasoning briefly at the end. If something is genuinely ambiguous and matters, ask — otherwise proceed. Task: [YOUR TASK].</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 6 — Scope</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#8b5cf6;">
+      <span class="el-label" style="color:#8b5cf6;">Element 6</span>
+      <div class="el-name">Scope</div>
+      <div class="el-sub">The simplest thing that works</div>
+      <div class="el-desc">Claude will often over-engineer a solution — adding features, edge cases, and abstractions you didn't ask for. Constraining scope explicitly keeps output focused and usable. Tell Claude what to exclude as clearly as what to include.</div>
+      <div class="el-example">Do the simplest thing that works well.
+No extra features, edge cases, or abstractions I didn't ask for.
+No error handling for scenarios that can't happen.
+If I describe a problem, the deliverable is your assessment — not a solution I didn't request.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 6 / Scope</span>
+      <div class="prompt-card-name">Scope Constraint</div>
+      <div class="prompt-card-text">Keep the scope tight. I need [SPECIFIC DELIVERABLE] — nothing more. Do not add: [LIST WHAT TO EXCLUDE — extra sections, alternative versions, caveats, lengthy explanations]. If you finish early, stop rather than padding. Length target: [WORD COUNT OR FORMAT]. Task: [YOUR TASK].</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 7 — Delegate</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#06b6d4;">
+      <span class="el-label" style="color:#06b6d4;">Element 7</span>
+      <div class="el-name">Delegate</div>
+      <div class="el-sub">Subagents do the boring work</div>
+      <div class="el-desc">For complex tasks with multiple independent parts, tell Claude to split the work across subagents and keep working rather than stopping to check in after each step. This is especially powerful in Claude Projects where you can chain tasks.</div>
+      <div class="el-example">Split independent subtasks across subagents and keep working.
+Verify with a fresh-context subagent against the spec every [interval].
+Don't stop to check in unless something is genuinely blocked.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 7 / Delegate</span>
+      <div class="prompt-card-name">Multi-Part Task Delegation</div>
+      <div class="prompt-card-text">This task has three independent parts that can be worked on separately:
+1. [PART ONE]
+2. [PART TWO]
+3. [PART THREE]
+
+Work through all three without stopping between them. For each part, complete it fully before moving to the next. If any part is blocked, note it and continue with the others. Deliver all three parts in a single response.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 8 — Evidence</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#10b981;">
+      <span class="el-label" style="color:#10b981;">Element 8</span>
+      <div class="el-name">Evidence</div>
+      <div class="el-sub">Audit before reporting</div>
+      <div class="el-desc">Claude can hallucinate confidently. For anything factual — statistics, quotes, citations, specific claims — tell Claude to verify every claim against a real source before reporting it. If it cannot verify something, it should say so rather than invent a plausible-sounding answer.</div>
+      <div class="el-example">Before reporting, audit every factual claim against a real source from this session.
+Unverified? Say so explicitly rather than stating it as fact.
+Do not fabricate citations, statistics, or quotes.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 8 / Evidence</span>
+      <div class="prompt-card-name">Verified Fact-Check Request</div>
+      <div class="prompt-card-text">Research [TOPIC] and give me the 5 most important facts or statistics I should know. For each fact: state the claim, cite the source (name, publication, year), and note your confidence level (High / Medium / Low). If your confidence is Low or you cannot verify something, say so — do not present uncertain information as established fact.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 9 — Memory</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#a78bfa;">
+      <span class="el-label" style="color:#a78bfa;">Element 9</span>
+      <div class="el-name">Memory</div>
+      <div class="el-sub">Promote lessons into the project</div>
+      <div class="el-desc">Claude forgets everything between sessions. The Memory element tells Claude to surface important things it learned during the conversation so you can store them in your Project instructions. This is how you build a Claude that gets smarter about your work over time.</div>
+      <div class="el-example">When you learn something about me, my work, or my preferences that will matter next time, tell me at the end of your response so I can add it to my Project instructions.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 9 / Memory</span>
+      <div class="prompt-card-name">Session Memory Capture</div>
+      <div class="prompt-card-text">At the end of your response, add a section called "Remember for next time:" and list any preferences, constraints, or context about me or my work that you learned during this conversation that would improve your responses in future sessions. Keep each item to one concise sentence.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 10 — Checkpoint</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#fbbf24;">
+      <span class="el-label" style="color:#fbbf24;">Element 10</span>
+      <div class="el-name">Checkpoint</div>
+      <div class="el-sub">Pause only when it actually matters</div>
+      <div class="el-desc">Tell Claude exactly when to pause and check with you — and when not to. The default behaviour of asking for permission at every step kills workflow. Reserve checkpoints for genuinely destructive actions, real scope changes, or decisions that only you can make.</div>
+      <div class="el-example">Pause only for: destructive actions, real scope changes, or input only I can provide.
+Otherwise, proceed end to end.
+Never end your turn on a promise — complete it or explain what's blocking you.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 10 / Checkpoint</span>
+      <div class="prompt-card-name">Checkpoint Definition</div>
+      <div class="prompt-card-text">Work through this task end to end without stopping to check in. The only exceptions are:
+1. You need information that only I can provide (a specific number, a decision, a preference)
+2. You encounter something that would change the scope significantly
+3. You are about to do something that cannot be undone
+
+For anything else — make a reasonable assumption, note it, and continue.</div>
+    </div>
+
+    <div class="cat-divider"><span class="cat-divider-label">Element 11 — Report</span><div class="cat-divider-line"></div></div>
+
+    <div class="element-card" style="border-left-color:#f87171;">
+      <span class="el-label" style="color:#f87171;">Element 11</span>
+      <div class="el-name">Report</div>
+      <div class="el-sub">The TLDR comes first</div>
+      <div class="el-desc">Tell Claude how to structure the output. Lead with the conclusion, not the reasoning that got there. Most people skim — so the most important information should be in the first sentence, not buried after three paragraphs of context. Clear beats short.</div>
+      <div class="el-example">Open with the outcome — the TLDR I would ask for.
+Complete sentences only. No arrow chains or shorthand I never taught you.
+Clear beats short.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 11 / Report</span>
+      <div class="prompt-card-name">Conclusion-First Output</div>
+      <div class="prompt-card-text">Structure your response as follows:
+Line 1: The single most important thing I need to know — one sentence.
+Then: Supporting detail in order of importance.
+End with: Any caveats, limitations, or follow-up questions.
+
+Do not start with background, context, or "Great question." Lead with the answer.</div>
+    </div>
+
+    <h2>Putting It All Together</h2>
+    <p>You don't need all 11 elements in every prompt. For a quick task, Task + Act + Scope covers most cases. For a complex research or writing project, adding Context + Evidence + Memory + Report will dramatically improve the output.</p>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 12 / Full Framework</span>
+      <div class="prompt-card-name">Complete 11-Element Prompt</div>
+      <div class="prompt-card-text">TASK: I'm writing a launch email for [PRODUCT] targeting [AUDIENCE]. They need to feel understood and compelled to click. Write a launch email subject line and body copy.
+
+CONTEXT: [PASTE PRODUCT DESCRIPTION, AUDIENCE PAIN POINTS, ANY PREVIOUS EMAILS]
+
+SKILL: Apply the Problem-Agitate-Solve framework.
+
+EFFORT: This is the most important email of this launch — treat it as your hardest task.
+
+ACT: Go straight to the email — no outline, no options, no preamble.
+
+SCOPE: One subject line, one email body under 200 words, one CTA.
+
+EVIDENCE: Don't invent statistics or social proof — use only what I give you.
+
+REPORT: Lead with the subject line, then the body. Note your reasoning for the hook choice at the end in one sentence.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 13 / Quick Version</span>
+      <div class="prompt-card-name">Minimal 3-Element Prompt</div>
+      <div class="prompt-card-text">TASK: [YOUR GOAL — what you need and why it matters]
+ACT: Go straight to the output — no outline, no preamble, no options.
+REPORT: Lead with the most important thing first. Clear beats short.
+
+[YOUR SPECIFIC REQUEST]</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 14 / Claude Projects</span>
+      <div class="prompt-card-name">Project System Prompt Template</div>
+      <div class="prompt-card-text">You are working on [PROJECT NAME] for [WHO IT'S FOR].
+
+CONTEXT: [PASTE BACKGROUND — what you're building, who it's for, what matters]
+
+SKILL: When relevant, apply [YOUR PREFERRED FRAMEWORK].
+
+EFFORT: Treat every task as important. Don't undersell yourself.
+
+ACT: When you have enough to act, act. Don't deliberate or present options I won't use.
+
+SCOPE: Do the simplest thing that works. No extras I didn't ask for.
+
+CHECKPOINT: Pause only for destructive actions, scope changes, or decisions only I can make.
+
+MEMORY: At the end of any session where you learn something about my preferences or this project, tell me so I can update these instructions.
+
+REPORT: Lead with the conclusion. Complete sentences. Clear beats short.</div>
+    </div>
+
+    <div class="prompt-card">
+      <span class="prompt-card-num">Prompt 15 / Anti-Pattern</span>
+      <div class="prompt-card-name">What NOT to Do (Common Mistakes)</div>
+      <div class="prompt-card-text">AVOID these patterns that weaken Claude prompts:
+
+❌ "Write me a blog post about AI" — no task context, no audience, no outcome
+❌ "Can you help me with..." — hedging language signals low-stakes output
+❌ "What do you think about..." — invites opinion when you want analysis
+❌ Starting with "As an AI..." — Claude already knows
+❌ Saying "be creative" without constraints — creativity needs boundaries to be useful
+
+INSTEAD:
+✅ State the goal and who it serves
+✅ Give the constraint before the task
+✅ Ask for a recommendation not a discussion
+✅ Tell Claude what format to use
+✅ Say what to exclude as clearly as what to include</div>
+    </div>
+
+    <h2>The One-Line Version of All 11 Elements</h2>
+    <p>If you had to summarize this entire framework in one sentence it would be: <strong>Tell Claude the destination, give it the map, tell it how hard to drive, and get out of its way.</strong></p>
+
+    <div class="callout">
+      <p><strong>Try this today:</strong> Take any prompt you use regularly and add just two elements — Effort and Act. Tell Claude this is an important task and tell it to go straight to the output without preamble. The difference in quality and speed is immediate.</p>
+    </div>
+
+  </div>
+
+  <div class="article-cta">
+    <h3>1,671 prompts built using these principles</h3>
+    <p>Every prompt in the Promptaholics library is structured, tested and ready to use. Free, no account needed.</p>
+    <a href="library.html" class="btn-cta"><i class="ti ti-sparkles"></i> Browse the Library</a>
+  </div>
+
+  <div class="related">
+    <div class="related-title">Keep reading</div>
+    <div class="related-grid">
+      <a href="blog-costar-framework.html" class="related-card">
+        <span class="related-card-tag">Framework</span>
+        <div class="related-card-title">How to Use the CoSTAR Prompt Framework</div>
+      </a>
+      <a href="blog-loop-engineering.html" class="related-card">
+        <span class="related-card-tag">Advanced</span>
+        <div class="related-card-title">Loop Engineering — The Next Evolution</div>
+      </a>
+      <a href="blog-claude-prompts-business.html" class="related-card">
+        <span class="related-card-tag">Business</span>
+        <div class="related-card-title">Claude Prompts for Business — 30 Templates</div>
+      </a>
+      <a href="blog-chatgpt-vs-claude.html" class="related-card">
+        <span class="related-card-tag">Comparison</span>
+        <div class="related-card-title">ChatGPT vs Claude — Which Prompts Work Better?</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <a href="index.html" class="footer-logo">Prompt<span>aholics</span></a>
+  <p class="footer-copy">© 2026 Promptaholics. Free AI prompt library.</p>
+</footer>
+</body>
+</html>
