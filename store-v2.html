@@ -601,7 +601,7 @@ async function startCheckout(){
       price:      Math.round(selectedPrice * 100),
       imageLabel: imageLabel,
       successUrl: window.location.origin + '/order-success.html?session_id={CHECKOUT_SESSION_ID}',
-      cancelUrl:  window.location.href
+      cancelUrl:  window.location.origin + '/store-v2.html'
     };
 
     if(imageData) payload.imageData = imageData;
