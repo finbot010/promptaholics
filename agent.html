@@ -885,7 +885,7 @@ Scores: 10=exceptional, 9=excellent, 8=very good, 7=good (discard), 6 and below=
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         intent: 'create',
-        max_tokens: 1024,
+        max_tokens: 2048,
         system: GRADE_SYSTEM,
         messages: [{ role:'user', content: userMsg }]
       })
@@ -1017,7 +1017,7 @@ async function callWorker(goal, mode){
 
   if(byokActive && googKey){
     // Direct Google Gemini call
-    const model = 'gemini-2.0-flash';
+    const model = 'gemini-2.5-flash-lite';
     const url   = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${googKey}`;
     let res;
     try {
@@ -1050,7 +1050,7 @@ async function callWorker(goal, mode){
     res = await fetch(WORKER_URL + '/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ intent, max_tokens: 2048, system, messages: [{ role:'user', content: userMsg }] })
+      body: JSON.stringify({ intent, max_tokens: 4096, system, messages: [{ role:'user', content: userMsg }] })
     });
   } catch(e){ throw new Error('Network error — could not reach PA Worker.'); }
 
@@ -1064,8 +1064,30 @@ async function callWorker(goal, mode){
   let text = (data.text || '').replace(/```json|```/g,'').trim();
   const fi = text.indexOf('{'), la = text.lastIndexOf('}');
   if(fi === -1 || la === -1) throw new Error('No JSON in response');
-  try { return JSON.parse(text.slice(fi, la+1)); }
-  catch(e){ throw new Error('JSON parse failed: ' + text.slice(0,80)); }
+
+  // Try normal parse first
+  let parsed;
+  try {
+    parsed = JSON.parse(text.slice(fi, la+1));
+    return parsed;
+  } catch(e) {
+    // Response may be truncated — try to recover by finding last complete prompt object
+    const truncated = text.slice(fi);
+    // Find last complete object by looking for last properly closed prompt
+    const lastComplete = truncated.lastIndexOf('"}');
+    if(lastComplete > 0) {
+      try {
+        // Try to close the JSON structure and parse what we have
+        const recovered = truncated.slice(0, lastComplete+2) + ']}';
+        const r = JSON.parse(recovered);
+        if(r.prompts && r.prompts.length > 0) {
+          console.warn('PA: recovered truncated response with', r.prompts.length, 'prompts');
+          return r;
+        }
+      } catch(e2) { /* fall through */ }
+    }
+    throw new Error('JSON parse failed — try a simpler goal or fewer prompts');
+  }
 }
 
 // ════════════════════════════════════════════════════
