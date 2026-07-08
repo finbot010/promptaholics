@@ -1285,6 +1285,19 @@ img,video,iframe{max-width:100%;}
     <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
       <i class="ti ti-refresh" aria-hidden="true"></i> Regenerate
     </button>
+    <button id="polStoreBtn" onclick="sendToStore()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#ff6224,#ff9f24);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;">
+      <i class="ti ti-shirt" aria-hidden="true"></i> Print on Hoodie
+    </button>
+  </div>
+
+  <!-- Vault share prompt (shown after generation) -->
+  <div id="vaultSharePrompt" style="display:none;margin-top:12px;background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.15);border-radius:12px;padding:14px 16px;">
+    <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:6px;"><i class="ti ti-photo-up" style="color:var(--orange);"></i> Add to the community vault?</div>
+    <div style="font-size:11px;color:var(--ink3);margin-bottom:12px;">Share your image so others can use it and print it on apparel.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button onclick="shareToVault()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-check"></i> Yes, share it</button>
+      <button onclick="document.getElementById('vaultSharePrompt').style.display='none'" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-x"></i> Keep private</button>
+    </div>
   </div>
 
   <div style="margin-top:10px;font-size:10px;color:var(--ink3);text-align:center;">
@@ -2253,14 +2266,22 @@ async function polSubmitToVault(){
     return;
   }
 
-  // Check sign-in
-  if(!fb.auth || !fb.auth.currentUser){
-    showToast('Sign in first to submit to the Vault');
-    if(typeof openGate === 'function') openGate();
-    return;
+  // Use signed-in user or guest
+  var user;
+  if(fb.auth && fb.auth.currentUser){
+    user = fb.auth.currentUser;
+  } else {
+    // Guest submission — prompt for email
+    var guestEmail = localStorage.getItem('pa_guest_email');
+    if(!guestEmail){
+      guestEmail = prompt('Enter your email to submit to the Vault:');
+      if(!guestEmail || !guestEmail.includes('@')){ showToast('Valid email required'); if(btn){ btn.disabled=false; btn.innerHTML=orig; } return; }
+      localStorage.setItem('pa_guest_email', guestEmail);
+      // Subscribe to Brevo
+      fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:guestEmail,source:'creation-station-vault'})}).catch(function(){});
+    }
+    user = { email: guestEmail, displayName: guestEmail.split('@')[0], uid: 'guest_'+Date.now(), isGuest: true };
   }
-
-  var user = fb.auth.currentUser;
 
   // Show spinner
   if(btn){
@@ -2290,6 +2311,8 @@ async function polSubmitToVault(){
       creatorName:  user.displayName || 'Anonymous',
       creatorEmail: user.email       || '',
       creatorUid:   user.uid,
+      isGuest:      user.isGuest || false,
+      source:       'creation-station',
       likes:        0,
       status:       'pending',
       createdAt:    fb.serverTimestamp()
@@ -2418,6 +2441,7 @@ async function polGenerate(){
       var dlBtn = document.getElementById('polDownloadBtn');
       if(dlBtn) dlBtn.href = imgElement.src;
       showToast('Image ready!');
+      setTimeout(showVaultSharePrompt, 1500);
       var remaining = getLimit() - newCount;
       if(remaining === 1 && !isUnlocked()){
         setTimeout(function(){ showToast('1 generation left today — sign up for more!'); }, 2000);
@@ -2750,6 +2774,28 @@ function submitBrevoInline(){
     if(btn){btn.textContent='✅ You\u2019re in!';btn.style.background='#22c55e';}
   });
 }
+
+// ── Send to Store ─────────────────────────────────────────────
+function sendToStore(){
+  if(!lastPolImageUrl){ showToast('Generate an image first'); return; }
+  var label = (document.getElementById('polPrompt') ? document.getElementById('polPrompt').value.trim().slice(0,60) : '') || 'Custom AI Art';
+  localStorage.setItem('pa_store_image', lastPolImageUrl);
+  localStorage.setItem('pa_store_image_label', label);
+  window.location.href = 'store-v2.html';
+}
+
+// ── Share to Vault (from vault share prompt) ──────────────────
+function shareToVault(){
+  document.getElementById('vaultSharePrompt').style.display = 'none';
+  polSubmitToVault();
+}
+
+// ── Show vault share prompt after generation ──────────────────
+function showVaultSharePrompt(){
+  var el = document.getElementById('vaultSharePrompt');
+  if(el) el.style.display = 'block';
+}
+
 </script>
 </body>
 </html>

@@ -1031,6 +1031,22 @@ function renderGallery(){
     actions.appendChild(copyBtn);
     actions.appendChild(likeBtn);
 
+    // Send to Store button
+    var storeBtn = document.createElement('button');
+    storeBtn.className = 'vcard-btn';
+    storeBtn.style.cssText = 'background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border-color:rgba(255,98,36,.3);color:var(--orange);';
+    storeBtn.innerHTML = '<i class="ti ti-shirt"></i> Print';
+    storeBtn.title = 'Print on hoodie';
+    storeBtn.onclick = (function(imageUrl, imageTitle){
+      return function(e){
+        e.stopPropagation();
+        localStorage.setItem('pa_store_image', imageUrl);
+        localStorage.setItem('pa_store_image_label', imageTitle || 'Vault Image');
+        window.location.href = 'store-v2.html';
+      };
+    })(img.imageUrl, img.title);
+    actions.appendChild(storeBtn);
+
     if(isAdmin){
       var delBtn = document.createElement('button');
       delBtn.className = 'vcard-btn';
