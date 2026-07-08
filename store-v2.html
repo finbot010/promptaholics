@@ -191,7 +191,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <!-- Hoodie -->
     <div class="pc" onclick="openModal('hoodie')">
       <div class="pc-img">
-        <img src="https://files.cdn.printful.com/files/5dc/5dcd45d237cc1933487bba43b1d1c30e_preview.png" alt="Unisex Hoodie" onerror="this.src='https://via.placeholder.com/400x400/0d0d14/ff6224?text=Hoodie'"/>
+        <img src="https://files.cdn.printful.com/files/f53/f535971380af5307b857006b32132c6e_preview.png" alt="Unisex Hoodie" onerror="this.src='https://via.placeholder.com/400x400/0d0d14/ff6224?text=Hoodie'"/>
         <div class="pc-badge">Bestseller</div>
       </div>
       <div class="pc-info">
@@ -525,8 +525,10 @@ async function generateMockup(p, imageData){
       }
     }
 
-    // Get first catalog variant ID for mockup
-    var firstVariantId = Object.values(p.sizes)[0].catalogId;
+    // Get first catalog variant ID for mockup using active color
+    var colorIdx = activeColor[currentProduct] || 0;
+    var colorSizes = p.colors[colorIdx].sizes;
+    var firstVariantId = Object.values(colorSizes)[0].catalogId;
 
     var res = await fetch(WORKER+'/api/generate-mockup',{
       method:'POST',
