@@ -494,21 +494,22 @@ function applyCustomArt(imageData, label){
     art.src = imageData;
   };
   hoodie.onerror = function(){
-    // Fallback — just show the art on a plain background
-    canvas.width = 400;
-    canvas.height = 400;
+    // Fallback — just show art on dark background
+    canvas.width = 400; canvas.height = 400;
     ctx.fillStyle = '#0d0d14';
-    ctx.fillRect(0, 0, 400, 400);
-    var art = new Image();
-    art.onload = function(){
-      ctx.drawImage(art, 60, 80, 280, 280);
-      canvas.style.display = 'block';
-      mainImg.style.display = 'none';
-      badge.style.display = 'flex';
+    ctx.fillRect(0,0,400,400);
+    var art2 = new Image();
+    art2.onload = function(){
+      ctx.drawImage(art2,60,80,280,280);
+      canvas.style.display='block';
+      mainImg.style.display='none';
+      badge.style.display='flex';
     };
-    art.src = imageData;
+    art2.src = imageData;
   };
-  hoodie.src = 'https://files.cdn.printful.com/files/208/208280ce8f190dabc5df8fd9f6627b9c_preview.png';
+  var HOODIE_CDN = 'https://files.cdn.printful.com/files/208/208280ce8f190dabc5df8fd9f6627b9c_preview.png';
+  var HOODIE_PROXY = WORKER + '/api/img-proxy?url=' + encodeURIComponent(HOODIE_CDN);
+  hoodie.src = HOODIE_PROXY;
 }
 
 function clearArt(){
