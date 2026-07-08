@@ -279,6 +279,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         </div>
       </div>
 
+      <!-- Color -->
+      <div id="colorSection" style="display:none;">
+        <span class="cfg-lbl">Color</span>
+        <div id="colorGrid" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;"></div>
+        <div id="colorName" style="font-size:10px;color:var(--ink3);"></div>
+      </div>
+
       <!-- Size -->
       <div>
         <span class="cfg-lbl">Select Size</span>
@@ -325,71 +332,69 @@ const PRODUCTS = {
     sub: 'Gildan 18500 · Premium fleece · Unisex fit',
     fit: 'Unisex fit — size up for oversized look',
     printfulProductId: 146,
-    thumbnail: 'https://files.cdn.printful.com/files/208/208280ce8f190dabc5df8fd9f6627b9c_preview.png',
     badges: ['100% Cotton','Fleece lined','DTG printed','3–7 day ship'],
-    sizes: {
-      S:{syncId:'5385447397',catalogId:5522,price:29.00},
-      M:{syncId:'5385447398',catalogId:5523,price:29.00},
-      L:{syncId:'5385447399',catalogId:5524,price:29.00},
-      XL:{syncId:'5385447400',catalogId:5525,price:29.00},
-      '2XL':{syncId:'5385447401',catalogId:5526,price:31.50},
-      '3XL':{syncId:'5385447402',catalogId:5527,price:34.50},
-      '4XL':{syncId:'5385447403',catalogId:5528,price:37.00},
-      '5XL':{syncId:'5385447404',catalogId:5529,price:39.50},
-    }
+    colors: [
+      {name:'White',hex:'#f5f5f5',
+       thumbnail:'https://files.cdn.printful.com/files/f53/f535971380af5307b857006b32132c6e_preview.png',
+       sizes:{S:{syncId:'5385447397',catalogId:5522},M:{syncId:'5385447398',catalogId:5523},L:{syncId:'5385447399',catalogId:5524},XL:{syncId:'5385447400',catalogId:5525},'2XL':{syncId:'5385447401',catalogId:5526},'3XL':{syncId:'5385447402',catalogId:5527},'4XL':{syncId:'5385447403',catalogId:5528},'5XL':{syncId:'5385447404',catalogId:5529}}},
+      {name:'Black',hex:'#1a1a1a',
+       thumbnail:'https://files.cdn.printful.com/files/ecf/ecfd7b08e45f6ff9dbc350dfa90a4310_preview.png',
+       sizes:{S:{syncId:'5385917101',catalogId:5530},M:{syncId:'5385917102',catalogId:5531},L:{syncId:'5385917103',catalogId:5532},XL:{syncId:'5385917104',catalogId:5533},'2XL':{syncId:'5385917105',catalogId:5534},'3XL':{syncId:'5385917106',catalogId:5535},'4XL':{syncId:'5385917107',catalogId:5536}}},
+    ],
+    prices:{S:29,M:29,L:29,XL:29,'2XL':31.50,'3XL':34.50,'4XL':37,'5XL':39.50},
   },
   tee: {
     name: 'Unisex T-Shirt',
     sub: 'Gildan 64000 · Softstyle · Classic fit',
     fit: 'Classic unisex fit — true to size',
     printfulProductId: 12,
-    thumbnail: 'https://files.cdn.printful.com/files/d63/d63062964598481e3f2b8f163b787c18_preview.png',
     badges: ['100% Cotton','Softstyle','DTG printed','3–7 day ship'],
-    sizes: {
-      S:{syncId:'5385348229',catalogId:473,price:12.50},
-      M:{syncId:'5385348230',catalogId:504,price:12.50},
-      L:{syncId:'5385348231',catalogId:535,price:12.50},
-      XL:{syncId:'5385348232',catalogId:566,price:12.50},
-      '2XL':{syncId:'5385348233',catalogId:597,price:15.00},
-      '3XL':{syncId:'5385348234',catalogId:628,price:17.50},
-    }
+    colors: [
+      {name:'White',hex:'#f5f5f5',
+       thumbnail:'https://files.cdn.printful.com/files/d63/d63062964598481e3f2b8f163b787c18_preview.png',
+       sizes:{S:{syncId:'5385348229',catalogId:473},M:{syncId:'5385348230',catalogId:504},L:{syncId:'5385348231',catalogId:535},XL:{syncId:'5385348232',catalogId:566},'2XL':{syncId:'5385348233',catalogId:597},'3XL':{syncId:'5385348234',catalogId:628}}},
+      {name:'Black',hex:'#1a1a1a',
+       thumbnail:'https://files.cdn.printful.com/files/753/753c605b86556eeeccbeda0f38863f63_preview.png',
+       sizes:{S:{syncId:'5385908043',catalogId:474},M:{syncId:'5385908044',catalogId:505},L:{syncId:'5385908045',catalogId:536},XL:{syncId:'5385908046',catalogId:567},'2XL':{syncId:'5385908047',catalogId:598},'3XL':{syncId:'5385908048',catalogId:629}}},
+    ],
+    prices:{S:12.50,M:12.50,L:12.50,XL:12.50,'2XL':15,'3XL':17.50},
   },
   sweatshirt: {
     name: 'Unisex Sweatshirt',
     sub: 'Gildan 18000 · Heavy blend crewneck',
     fit: 'Relaxed unisex fit — size down for fitted look',
     printfulProductId: 145,
-    thumbnail: 'https://files.cdn.printful.com/files/c55/c5554ab289b6ae82c64982e741872be6_preview.png',
     badges: ['Cotton blend','Heavy weight','DTG printed','3–7 day ship'],
-    sizes: {
-      S:{syncId:'5385352310',catalogId:5426,price:24.50},
-      M:{syncId:'5385352311',catalogId:5427,price:24.50},
-      L:{syncId:'5385352312',catalogId:5428,price:24.50},
-      XL:{syncId:'5385352313',catalogId:5429,price:24.50},
-      '2XL':{syncId:'5385352314',catalogId:5430,price:27.50},
-      '3XL':{syncId:'5385352316',catalogId:5431,price:30.00},
-      '4XL':{syncId:'5385352317',catalogId:5432,price:32.50},
-      '5XL':{syncId:'5385352318',catalogId:5433,price:35.00},
-    }
+    colors: [
+      {name:'White',hex:'#f5f5f5',
+       thumbnail:'https://files.cdn.printful.com/files/c55/c5554ab289b6ae82c64982e741872be6_preview.png',
+       sizes:{S:{syncId:'5385352310',catalogId:5426},M:{syncId:'5385352311',catalogId:5427},L:{syncId:'5385352312',catalogId:5428},XL:{syncId:'5385352313',catalogId:5429},'2XL':{syncId:'5385352314',catalogId:5430},'3XL':{syncId:'5385352316',catalogId:5431},'4XL':{syncId:'5385352317',catalogId:5432},'5XL':{syncId:'5385352318',catalogId:5433}}},
+      {name:'Black',hex:'#1a1a1a',
+       thumbnail:'https://files.cdn.printful.com/files/616/6160cb8ce7f91966d01aa97f8f4f2e68_preview.png',
+       sizes:{S:{syncId:'5385913000',catalogId:5434},M:{syncId:'5385913001',catalogId:5435},L:{syncId:'5385913002',catalogId:5436},XL:{syncId:'5385913003',catalogId:5437},'2XL':{syncId:'5385913004',catalogId:5438},'3XL':{syncId:'5385913005',catalogId:5439},'4XL':{syncId:'5385913006',catalogId:5440},'5XL':{syncId:'5385913007',catalogId:5441}}},
+    ],
+    prices:{S:24.50,M:24.50,L:24.50,XL:24.50,'2XL':27.50,'3XL':30,'4XL':32.50,'5XL':35},
   },
   boxtee: {
     name: "Men's Box Tee",
     sub: 'Cotton Heritage MC1087 · Premium boxy fit',
     fit: 'Boxy oversized fit — size down if unsure',
     printfulProductId: 917,
-    thumbnail: 'https://files.cdn.printful.com/files/5dc/5dcd45d237cc1933487bba43b1d1c30e_preview.png',
     badges: ['Premium cotton','Boxy fit','DTG printed','3–7 day ship'],
-    sizes: {
-      S:{syncId:'5385353550',catalogId:23605,price:23.00},
-      M:{syncId:'5385353551',catalogId:23606,price:23.00},
-      L:{syncId:'5385353552',catalogId:23607,price:23.00},
-      XL:{syncId:'5385353553',catalogId:23608,price:23.00},
-      '2XL':{syncId:'5385353554',catalogId:23609,price:25.50},
-      '3XL':{syncId:'5385353555',catalogId:23610,price:28.00},
-      '4XL':{syncId:'5385353556',catalogId:23611,price:30.50},
-    }
+    colors: [
+      {name:'White',hex:'#f5f5f5',
+       thumbnail:'https://files.cdn.printful.com/files/5dc/5dcd45d237cc1933487bba43b1d1c30e_preview.png',
+       sizes:{S:{syncId:'5385353550',catalogId:23605},M:{syncId:'5385353551',catalogId:23606},L:{syncId:'5385353552',catalogId:23607},XL:{syncId:'5385353553',catalogId:23608},'2XL':{syncId:'5385353554',catalogId:23609},'3XL':{syncId:'5385353555',catalogId:23610},'4XL':{syncId:'5385353556',catalogId:23611}}},
+      {name:'Black',hex:'#1a1a1a',
+       thumbnail:'https://files.cdn.printful.com/files/065/065045692ace3315d0f105f61d3664af_preview.png',
+       sizes:{S:{syncId:'5385915268',catalogId:23577},M:{syncId:'5385915269',catalogId:23578},L:{syncId:'5385915270',catalogId:23579},XL:{syncId:'5385915271',catalogId:23580},'2XL':{syncId:'5385915272',catalogId:23581},'3XL':{syncId:'5385915273',catalogId:23582},'4XL':{syncId:'5385915274',catalogId:23583}}},
+    ],
+    prices:{S:23,M:23,L:23,XL:23,'2XL':25.50,'3XL':28,'4XL':30.50},
   }
 };
+
+// Active color selection per product
+var activeColor = {};
 
 // ── State ──────────────────────────────────────────────────────
 var currentProduct = null;
@@ -431,25 +436,20 @@ function openModal(productKey){
   if(!p) return;
   currentProduct = productKey;
   selectedSize = null; selectedCatalogId = null; selectedPrice = null;
+  if(!activeColor[productKey]) activeColor[productKey] = 0;
 
   // Set product info
   document.getElementById('cfgName').textContent = p.name;
   document.getElementById('cfgSub').textContent = p.sub;
   document.getElementById('fitNote').textContent = p.fit;
-  var basePrice = Object.values(p.sizes)[0].price;
+  var basePrice = Object.values(p.prices)[0];
   document.getElementById('cfgPrice').innerHTML = '$'+basePrice.toFixed(0)+'<small> and up</small>';
 
-  // Build size buttons
-  var grid = document.getElementById('sizeGrid');
-  grid.innerHTML = '';
-  Object.entries(p.sizes).forEach(function(entry){
-    var size=entry[0], data=entry[1];
-    var btn=document.createElement('button');
-    btn.className='size-btn';
-    btn.textContent=size;
-    btn.onclick=function(){ selectSize(btn,size,data.catalogId,data.price); };
-    grid.appendChild(btn);
-  });
+  // Build color swatches
+  buildColorSwatches(productKey);
+
+  // Build size buttons for active color
+  buildSizeButtons(productKey);
 
   // Build quality badges
   var qb=document.getElementById('qualityBadges');
@@ -495,7 +495,9 @@ function showDefaultMockup(p){
   var img=document.getElementById('mockupImg');
   spinner.style.display='none';
   img.style.display='block';
-  img.src=p.thumbnail;
+  var colorIdx = activeColor[currentProduct] || 0;
+  var thumb = p.colors ? p.colors[colorIdx].thumbnail : (p.thumbnail||'');
+  img.src = thumb;
   img.onerror=function(){ this.src='https://via.placeholder.com/400x400/0d0d14/ff6224?text='+encodeURIComponent(p.name); };
   document.getElementById('customBadge').style.display='none';
 }
@@ -640,6 +642,60 @@ async function startCheckout(){
 // ── Also update CATALOG_VARIANT_MAP in webhook handler ─────────
 // Inline map used by Worker for Stripe webhook → Printful order
 // Synced to real catalog IDs above
+
+// ── Build Color Swatches ──────────────────────────────────────
+function buildColorSwatches(productKey){
+  var p = PRODUCTS[productKey];
+  var colorSection = document.getElementById('colorSection');
+  var colorGrid = document.getElementById('colorGrid');
+  colorGrid.innerHTML = '';
+  colorSection.style.display = p.colors.length > 1 ? 'block' : 'none';
+  p.colors.forEach(function(c, idx){
+    var btn = document.createElement('button');
+    var isActive = idx === (activeColor[productKey]||0);
+    btn.style.cssText = 'width:28px;height:28px;border-radius:50%;background:'+c.hex+';border:2px solid rgba(0,0,0,.15);cursor:pointer;transition:all .15s;flex-shrink:0;';
+    if(isActive){ btn.style.outline='2px solid var(--orange)';btn.style.outlineOffset='2px'; }
+    btn.title = c.name;
+    btn.onclick = function(){
+      activeColor[productKey] = idx;
+      document.querySelectorAll('#colorGrid button').forEach(function(b){b.style.outline='none';});
+      btn.style.outline = '2px solid var(--orange)';
+      btn.style.outlineOffset = '2px';
+      document.getElementById('colorName').textContent = c.name;
+      // Update thumbnail
+      var img = document.getElementById('mockupImg');
+      if(img && !customImageData) img.src = c.thumbnail;
+      // Rebuild size buttons
+      buildSizeButtons(productKey);
+      // Reset size selection
+      selectedSize=null;selectedCatalogId=null;selectedPrice=null;
+      document.getElementById('orderBtn').disabled=true;
+      document.getElementById('orderBtnText').textContent='Select a size to continue';
+      // Regenerate mockup if custom art
+      if(customImageData) generateMockup(p, customImageData);
+    };
+    colorGrid.appendChild(btn);
+  });
+  document.getElementById('colorName').textContent = p.colors[activeColor[productKey]||0].name;
+}
+
+// ── Build Size Buttons ────────────────────────────────────────
+function buildSizeButtons(productKey){
+  var p = PRODUCTS[productKey];
+  var colorIdx = activeColor[productKey] || 0;
+  var colorData = p.colors[colorIdx];
+  var grid = document.getElementById('sizeGrid');
+  grid.innerHTML = '';
+  Object.entries(colorData.sizes).forEach(function(entry){
+    var size=entry[0], data=entry[1];
+    var price = p.prices[size] || Object.values(p.prices)[0];
+    var btn = document.createElement('button');
+    btn.className = 'size-btn';
+    btn.textContent = size;
+    btn.onclick = function(){ selectSize(btn, size, data.catalogId, price); };
+    grid.appendChild(btn);
+  });
+}
 
 // ── Toast ──────────────────────────────────────────────────────
 function showToast(msg){
