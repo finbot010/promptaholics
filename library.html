@@ -228,6 +228,8 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard:hover::before{opacity:1;}
 .pcard.feat{border-color:rgba(255,98,36,.28);background:linear-gradient(160deg,rgba(255,98,36,.05),rgba(10,10,14,.98) 40%);}
 .pcard.feat::before{opacity:.5;}
+.staff-pick-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(245,158,11,.08));border:1px solid rgba(251,191,36,.3);color:#fbbf24;vertical-align:middle;margin-left:5px;}
+.trending-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;}
 .pcard-inner{padding:18px 18px 12px;display:flex;flex-direction:column;flex:1;gap:10px;}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .pcard-name{font-size:14px;font-weight:700;color:#f0f0f8;line-height:1.35;letter-spacing:-.2px;flex:1;}
@@ -560,7 +562,7 @@ img,video,iframe{max-width:100%;}
   <div class="lib-count" id="libCountBar">Loading...</div>
   <div class="lib-toolbar-right">
     <button class="pcard-btn" onclick="openSavedPanel()" style="font-size:11px;"><i class="ti ti-bookmark"></i> Saved <span id="savedBadge" style="display:none;background:var(--orange);color:#fff;border-radius:3px;padding:0 4px;font-size:9px;margin-left:2px;"></span></button>
-    <div class="lib-sort">Sort: <select id="sortSelect" onchange="onSort(this.value)"><option value="default">Default</option><option value="alpha">A to Z</option><option value="feat">Featured first</option></select></div>
+    <div class="lib-sort">Sort: <select id="sortSelect" onchange="onSort(this.value)"><option value="default">Default</option><option value="alpha">A to Z</option><option value="feat">Featured first</option><option value="trending">Trending</option><option value="newest">Newest first</option></select></div>
   </div>
 </div>
 
@@ -919,6 +921,10 @@ function clearSearch(){
 }
 function onSort(v){ sortMode=v; renderCards(); }
 
+// Copy count tracking
+function getCopyCount(id){ return parseInt(localStorage.getItem('cc_'+id)||0); }
+function incCopyCount(id){ localStorage.setItem('cc_'+id, getCopyCount(id)+1); }
+
 // FILTER LIST
 function getFilteredList(){
   var list=PROMPTS.slice();
@@ -930,6 +936,8 @@ function getFilteredList(){
   });
   if(sortMode==='alpha') list.sort(function(a,b){ return a.name.localeCompare(b.name); });
   if(sortMode==='feat') list.sort(function(a,b){ return (b.feat?1:0)-(a.feat?1:0); });
+  if(sortMode==='trending') list.sort(function(a,b){ return getCopyCount(b.id)-getCopyCount(a.id); });
+  if(sortMode==='newest') list.sort(function(a,b){ return parseInt(b.id||0)-parseInt(a.id||0); });
   return list;
 }
 
@@ -1027,7 +1035,10 @@ function makeCard(p,i){
   return '<div class="pcard'+(p.feat?' feat':'')+(p.isNew?' new':'')+'" style="animation-delay:'+Math.min(i*.025,.3)+'s">'
     +'<div class="pcard-inner">'
     +'<div class="pcard-top">'
-    +'<div class="pcard-name">'+escHtml(p.name)+'</div>'
+    +'<div class="pcard-name">'+escHtml(p.name)
+    +(p.feat?'<span class="staff-pick-badge"><i class="ti ti-star-filled"></i> Staff Pick</span>':'')
+    +(getCopyCount(p.id)>5?'<span class="trending-badge"><i class="ti ti-trending-up"></i> Trending</span>':'')
+    +'</div>'
     +'<button class="pcard-fav'+(fav?' on':'')+'\" data-id="'+p.id+'" onclick="toggleFav(event,this)" title="Save">'+favIcon+'</button>'
     +'</div>'
     +'<div class="pcard-meta">'

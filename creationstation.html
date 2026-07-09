@@ -2776,11 +2776,30 @@ function submitBrevoInline(){
 }
 
 // ── Send to Store ─────────────────────────────────────────────
-function sendToStore(){
+async function sendToStore(){
   if(!lastPolImageUrl){ showToast('Generate an image first'); return; }
   var label = (document.getElementById('polPrompt') ? document.getElementById('polPrompt').value.trim().slice(0,60) : '') || 'Custom AI Art';
-  localStorage.setItem('pa_store_image', lastPolImageUrl);
+
+  var btn = document.getElementById('polStoreBtn');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Preparing...'; }
+
+  var imageUrl = lastPolImageUrl;
+
+  // If it's a base64 or blob — upload to Cloudinary first to get a public URL
+  if(imageUrl.startsWith('data:') || imageUrl.startsWith('blob:')){
+    try{
+      showToast('Uploading image...');
+      imageUrl = await uploadToCloudinary(imageUrl);
+    }catch(e){
+      console.warn('Cloudinary upload failed, using original:', e);
+      // Still pass it — store will handle fallback
+    }
+  }
+
+  localStorage.setItem('pa_store_image', imageUrl);
   localStorage.setItem('pa_store_image_label', label);
+
+  if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-shirt"></i> Print on Hoodie'; }
   window.location.href = 'store-v2.html';
 }
 

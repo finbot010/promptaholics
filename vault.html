@@ -595,8 +595,8 @@ img,video,iframe{max-width:100%;}
   <button class="model-pill" onclick="filterModel('ideogram',this)">
     <img class="model-logo" src="https://www.google.com/s2/favicons?domain=ideogram.ai&sz=32" alt=""/> Ideogram
   </button>
-  <button class="model-pill" onclick="filterModel('sora',this)">
-    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=sora.com&sz=32" alt=""/> Sora
+  <button class="model-pill" onclick="filterModel('kling',this)">
+    <img class="model-logo" src="https://www.google.com/s2/favicons?domain=klingai.com&sz=32" alt=""/> Kling
   </button>
   <button class="model-pill" onclick="filterModel('runway',this)">
     <img class="model-logo" src="https://www.google.com/s2/favicons?domain=runwayml.com&sz=32" alt=""/> Runway
@@ -657,7 +657,7 @@ img,video,iframe{max-width:100%;}
           <option value="flux">Flux</option>
           <option value="firefly">Adobe Firefly</option>
           <option value="ideogram">Ideogram</option>
-          <option value="sora">Sora</option>
+          <option value="kling">Kling</option>
           <option value="runway">Runway</option>
           <option value="grok">Grok</option>
           <option value="nana">Nana</option>
@@ -1078,7 +1078,7 @@ function filterModel(model, btn){
 // ── MODEL LABEL ───────────────────────────────────────────────
 var MODEL_LABELS = {
   midjourney:'Midjourney', dalle:'DALL·E', flux:'Flux', firefly:'Firefly',
-  ideogram:'Ideogram', sora:'Sora', runway:'Runway', grok:'Grok',
+  ideogram:'Ideogram', kling:'Kling', runway:'Runway', grok:'Grok',
   nana:'Nana', gluade:'Gluade', chatgpt:'ChatGPT', other:'Other'
 };
 function getModelLabel(m){ return MODEL_LABELS[m] || m || 'AI'; }
@@ -1114,7 +1114,7 @@ function closeDetailOutside(e){ if(e.target===document.getElementById('detailOve
 
 var MODEL_DOMAINS = {
   midjourney:'midjourney.com', dalle:'openai.com', flux:'blackforestlabs.ai',
-  firefly:'adobe.com', ideogram:'ideogram.ai', sora:'sora.com',
+  firefly:'adobe.com', ideogram:'ideogram.ai', kling:'klingai.com',
   runway:'runwayml.com', grok:'x.ai', chatgpt:'openai.com'
 };
 function getModelDomain(m){ return MODEL_DOMAINS[m] || 'promptaholics.com'; }
@@ -1433,6 +1433,31 @@ function submitBrevoFooter(){
     var s=document.getElementById('brevoFooterStrip');
     if(s) s.innerHTML='<div style="font-size:13px;color:#22c55e;font-weight:700;text-align:center;">✅ Subscribed! First email arrives Monday.</div>';
   });
+}
+
+// Share Vault Image
+async function shareVaultImage(imageUrl, title, prompt){
+  var shareTitle = title || 'AI Art on Promptaholics';
+  var shareText = prompt ? prompt.slice(0,120)+'...' : 'Check out this AI-generated image on Promptaholics!';
+  // Build vault-image.html URL with all params for OG tags
+  var fullUrl = 'https://promptaholics.com/vault-image.html'
+    + '?img=' + encodeURIComponent(imageUrl)
+    + '&title=' + encodeURIComponent(shareTitle)
+    + '&prompt=' + encodeURIComponent(prompt ? prompt.slice(0,200) : '');
+
+  if(navigator.share){
+    try{
+      await navigator.share({ title: shareTitle, text: shareText + ' Free AI art at Promptaholics!', url: fullUrl });
+      showToast('Shared!');
+      return;
+    }catch(e){ if(e.name==='AbortError') return; }
+  }
+  try{
+    await navigator.clipboard.writeText(fullUrl);
+    showToast('Link copied — paste to share!');
+  }catch(e){
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + ' -> ' + fullUrl + ' #AIArt #Promptaholics'), '_blank');
+  }
 }
 </script>
 </body>
