@@ -446,18 +446,19 @@ img,video,iframe{max-width:100%;}
   }
   .vcard-creator{font-size:9px;}
 
-  /* 44px minimum tap target on action buttons */
+  /* Mobile action buttons */
   .vcard-btn{
-    min-height:36px;
-    min-width:36px;
-    padding:6px 10px;
-    font-size:10px;
-    justify-content:center;
-    align-items:center;
+    min-height:34px;
+    padding:5px 8px;
+    font-size:9px;
+    gap:2px;
   }
+  .vcard-btn .btn-label{ display:none; }
+  .vcard-btn i{ font-size:14px; }
   .vcard-actions{
     gap:4px;
     margin-top:6px;
+    flex-wrap:wrap;
   }
 
   /* Model badge always visible */
@@ -470,11 +471,7 @@ img,video,iframe{max-width:100%;}
 /* Mobile extra small — 2 col compact */
 @media(max-width:420px){
   .vcard-title{font-size:10px;}
-  .vcard-btn{
-    font-size:9px;
-    padding:5px 7px;
-    min-height:32px;
-  }
+  .vcard-btn{ min-height:32px; padding:5px 7px; }
   .vcard-overlay{padding:20px 8px 8px;}
 }
 
@@ -1016,7 +1013,7 @@ function renderGallery(){
 
     var copyBtn = document.createElement('button');
     copyBtn.className = 'vcard-btn';
-    copyBtn.innerHTML = '<i class="ti ti-copy"></i> Copy Prompt';
+    copyBtn.innerHTML = '<i class="ti ti-copy"></i><span class="btn-label"> Copy</span>';
     copyBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); copyPromptById(id); }; })(img._id);
 
     var liked = [];
@@ -1034,8 +1031,8 @@ function renderGallery(){
     // Send to Store button
     var storeBtn = document.createElement('button');
     storeBtn.className = 'vcard-btn';
-    storeBtn.style.cssText = 'background:linear-gradient(135deg,#ff6224,#ff9f24);border-color:transparent;color:#fff;font-weight:800;letter-spacing:.3px;box-shadow:0 2px 8px rgba(255,98,36,.35);';
-    storeBtn.innerHTML = '<i class="ti ti-shirt"></i> Wear it!';
+    storeBtn.style.cssText = 'background:linear-gradient(135deg,#ff6224,#ff9f24);border-color:transparent;color:#fff;font-weight:800;';
+    storeBtn.innerHTML = '<i class="ti ti-shirt"></i> Print';
     storeBtn.title = 'Print on hoodie';
     storeBtn.onclick = (function(imageUrl, imageTitle){
       return function(e){
@@ -1047,18 +1044,18 @@ function renderGallery(){
     })(img.imageUrl, img.title);
     actions.appendChild(storeBtn);
 
-    // Share button → vault-image.html with OG support
+    // Share button — saves to Firebase for short clean URL
     var shareBtn = document.createElement('button');
     shareBtn.className = 'vcard-btn';
     shareBtn.style.cssText = 'background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.3);color:#818cf8;';
-    shareBtn.innerHTML = '<i class="ti ti-share-2"></i> Share';
+    shareBtn.innerHTML = '<i class="ti ti-share-2"></i><span class="btn-label"> Share</span>';
     shareBtn.title = 'Share this image';
-    shareBtn.onclick = (function(iu, it, ip){
+    shareBtn.onclick = (function(iu,it,ip,im,id){
       return function(e){
         e.stopPropagation();
-        shareVaultImage(iu, it, ip);
+        shareVaultImage({imageUrl:iu,title:it,prompt:ip,tool:im,_id:id});
       };
-    })(img.imageUrl, img.title, img.prompt);
+    })(img.imageUrl, img.title, img.prompt, img.model||'AI', img._id||null);
     actions.appendChild(shareBtn);
 
     if(isAdmin){
@@ -1449,30 +1446,49 @@ function submitBrevoFooter(){
   });
 }
 
-// Share Vault Image
-async function shareVaultImage(imageUrl, title, prompt){
-  var shareTitle = title || 'AI Art on Promptaholics';
-  var shareText = prompt ? prompt.slice(0,120)+'...' : 'Check out this AI-generated image on Promptaholics!';
-  // Build /share/vault URL — served by Netlify edge function with server-rendered OG tags
-  var fullUrl = 'https://promptaholics.com/share/vault'
-    + '?img=' + encodeURIComponent(imageUrl)
-    + '&title=' + encodeURIComponent(shareTitle)
-    + '&prompt=' + encodeURIComponent(prompt ? prompt.slice(0,200) : '');
+// Share Vault Image — saves to Firebase, shares short clean URL
+async function shareVaultImage(imgData){
+  var shareTitle = (imgData.title||imgData||'AI Art on Promptaholics');
+  var shortUrl;
+
+  showToast('Preparing share link...');
+
+  try{
+    // Save to vault-shares collection to get a short Firestore ID
+    var ref = await fb.addDoc(fb.collection(fb.db,'vault-shares'),{
+      imageUrl: imgData.imageUrl||'',
+      title:    imgData.title||'AI Art',
+      prompt:   (imgData.prompt||'').slice(0,300),
+      tool:     imgData.tool||'AI',
+      createdAt: fb.serverTimestamp()
+    });
+    shortUrl = 'https://promptaholics.com/share/vault?id=' + ref.id;
+  }catch(e){
+    // Fallback — use doc ID if we have it
+    var docId = imgData._id || null;
+    shortUrl = docId
+      ? 'https://promptaholics.com/share/vault?id=' + docId
+      : 'https://promptaholics.com/vault.html';
+  }
 
   if(navigator.share){
     try{
-      await navigator.share({ title: shareTitle, text: shareText + ' Free AI art at Promptaholics!', url: fullUrl });
-      showToast('Shared!');
+      await navigator.share({
+        title: shareTitle + ' \u2014 Promptaholics',
+        text: 'Check out this AI art \u2014 free prompts & image vault!',
+        url: shortUrl
+      });
       return;
     }catch(e){ if(e.name==='AbortError') return; }
   }
   try{
-    await navigator.clipboard.writeText(fullUrl);
-    showToast('Link copied — paste to share!');
+    await navigator.clipboard.writeText(shortUrl);
+    showToast('Link copied!');
   }catch(e){
-    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText + ' -> ' + fullUrl + ' #AIArt #Promptaholics'), '_blank');
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareTitle + ' ' + shortUrl + ' #AIArt #Promptaholics'), '_blank');
   }
 }
+
 </script>
 </body>
 </html>

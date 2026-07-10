@@ -151,15 +151,31 @@ body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-se
 <div class="toast" id="toast"></div>
 
 <script>
-const WORKER = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
+const WORKER = 'https://dawn-thunder-a558.promptaholics.workers.dev';
 var params   = new URLSearchParams(window.location.search);
+var shareId  = params.get('id')     || '';
 var imgUrl   = params.get('img')    || '';
 var title    = params.get('title')  || 'AI Art';
 var prompt   = params.get('prompt') || '';
 var tool     = params.get('tool')   || 'AI Generated';
 
-function init(){
-  // Content
+async function init(){
+  // If we have a Firebase share ID, load from Firebase
+  if(shareId && !imgUrl){
+    try{
+      var FB_PROJECT = 'promptaholics-534d3';
+      var res = await fetch('https://firestore.googleapis.com/v1/projects/' + FB_PROJECT + '/databases/(default)/documents/vault-shares/' + shareId);
+      var data = await res.json();
+      if(data.fields){
+        imgUrl = data.fields.imageUrl?.stringValue || '';
+        title  = data.fields.title?.stringValue    || 'AI Art';
+        prompt = data.fields.prompt?.stringValue   || '';
+        tool   = data.fields.tool?.stringValue     || 'AI Generated';
+      }
+    }catch(e){ console.warn('Could not load share data:', e); }
+  }
+
+  // Set content
   document.getElementById('cardTitle').textContent  = title;
   document.getElementById('cardPrompt').textContent = prompt || 'Created with AI on Promptaholics.';
   document.getElementById('toolBadge').innerHTML    = '<i class="ti ti-sparkles"></i> ' + tool;
@@ -173,8 +189,8 @@ function init(){
     img.src = imgUrl;
   }
 
-  // OG tags (for crawlers that do run JS)
-  var ogImg = WORKER + '/api/og?img=' + encodeURIComponent(imgUrl) + '&title=' + encodeURIComponent(title);
+  // OG tags
+  var ogImg = 'https://dawn-thunder-a558.promptaholics1.workers.dev/api/og?img=' + encodeURIComponent(imgUrl) + '&title=' + encodeURIComponent(title);
   setMeta('ogTitle',  title + ' \u2014 Promptaholics');
   setMeta('ogDesc',   prompt ? prompt.slice(0,150) : 'AI-generated artwork on Promptaholics.');
   setMeta('ogImage',  ogImg);
