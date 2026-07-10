@@ -29,9 +29,15 @@ export default async (request, context) => {
   }
 
   const WORKER = 'https://dawn-thunder-a558.promptaholics1.workers.dev';
-  const ogImg  = imgUrl
-    ? `${WORKER}/api/og?img=${encodeURIComponent(imgUrl)}&title=${encodeURIComponent(title)}`
-    : 'https://promptaholics.com/og-default.png';
+  // Use the actual image directly as OG image — Twitter needs JPG/PNG not SVG
+  // Cloudinary can resize to OG dimensions via URL transform
+  let ogImg = 'https://promptaholics.com/og-default.png';
+  if(imgUrl && imgUrl.includes('res.cloudinary.com')) {
+    // Transform Cloudinary image to 1200x630 OG format
+    ogImg = imgUrl.replace('/upload/', '/upload/w_1200,h_630,c_fill,g_center/');
+  } else if(imgUrl) {
+    ogImg = imgUrl;
+  }
 
   const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 
