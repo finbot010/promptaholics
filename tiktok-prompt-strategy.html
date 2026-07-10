@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TikTok Prompt Strategy: How to Use AI to Create Viral Content in 2026</title>
+<meta name="description" content="The complete guide to using ChatGPT, Claude, and AI tools to create viral TikTok scripts, hooks, captions, and content strategies. Includes 20 copy-ready prompts."/>
+<link rel="canonical" href="https://promptaholics.com/tiktok-prompt-strategy.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.7);--ink3:rgba(240,240,248,.4);--orange:#ff6224;--o2:#ff9f24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--green:#22c55e;--purple:#a855f7;}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:rgba(7,7,10,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;gap:20px;}
+.nav-link{font-size:12px;color:var(--ink2);text-decoration:none;}
+.nav-link:hover{color:var(--ink);}
+@media(max-width:520px){.nav-links{display:none;}.nav{padding:0 16px;}}
+.article-wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px;position:relative;z-index:10;}
+.article-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:16px;padding:4px 12px;border-radius:20px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);}
+h1{font-family:'Syne',serif;font-size:clamp(28px,5vw,46px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:16px;}
+h1 em{font-style:normal;color:var(--orange);}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink3);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.article-meta strong{color:var(--ink2);}
+.article-intro{font-size:17px;color:var(--ink2);line-height:1.75;margin-bottom:36px;padding:20px 24px;background:rgba(168,85,247,.04);border-left:3px solid var(--purple);border-radius:0 12px 12px 0;}
+h2{font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-.5px;margin:40px 0 16px;color:var(--ink);}
+h3{font-family:'Syne',serif;font-size:18px;font-weight:800;margin:28px 0 10px;color:var(--ink);}
+p{font-size:15px;color:var(--ink2);margin-bottom:16px;line-height:1.8;}
+ul,ol{margin:12px 0 20px 20px;}
+li{font-size:15px;color:var(--ink2);margin-bottom:8px;line-height:1.7;}
+li strong{color:var(--ink);}
+.prompt-card{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:20px;margin:20px 0;}
+.prompt-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.prompt-number{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);}
+.prompt-use{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.15);color:var(--orange);}
+.prompt-text{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink2);line-height:1.65;background:rgba(255,255,255,.03);border-radius:8px;padding:14px 16px;border:1px solid var(--border);}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:24px 0;}
+.stat-card{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:18px;text-align:center;}
+.stat-number{font-family:'Syne',serif;font-size:28px;font-weight:900;color:var(--orange);display:block;}
+.stat-label{font-size:11px;color:var(--ink3);margin-top:4px;}
+.tip-box{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:18px 20px;margin:20px 0;}
+.tip-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.warning-box{background:rgba(234,179,8,.05);border:1px solid rgba(234,179,8,.2);border-radius:12px;padding:18px 20px;margin:20px 0;}
+.warning-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#facc15;margin-bottom:8px;}
+.hook-formula{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:20px 24px;margin:20px 0;}
+.hook-type{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.hook-example{font-size:15px;color:var(--ink);font-weight:600;margin-bottom:4px;}
+.hook-why{font-size:12px;color:var(--ink3);}
+.cta-strip{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px;text-align:center;margin:48px 0 0;}
+.cta-strip h3{font-family:'Syne',serif;font-size:22px;font-weight:900;margin-bottom:8px;}
+.cta-strip p{font-size:14px;color:var(--ink3);margin-bottom:20px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all .15s;}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;}
+.btn-secondary{background:var(--bg);border:1px solid var(--border2);color:var(--ink2);margin-left:8px;}
+.breadcrumb{font-size:12px;color:var(--ink3);margin-bottom:24px;}
+.breadcrumb a{color:var(--ink3);text-decoration:none;}
+.breadcrumb a:hover{color:var(--orange);}
+.footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;position:relative;z-index:10;}
+.footer a{color:var(--orange);text-decoration:none;font-size:12px;}
+.footer p{font-size:11px;color:var(--ink3);margin-top:6px;}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <div class="nav-links">
+    <a href="library.html" class="nav-link">Library</a>
+    <a href="vault.html" class="nav-link">Image Vault</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="agent.html" class="nav-link">PA Agent</a>
+  </div>
+</nav>
+
+<article class="article-wrap">
+  <div class="breadcrumb"><a href="index.html">Home</a> › <a href="blog.html">Blog</a> › TikTok Prompt Strategy</div>
+  <div class="article-tag"><i class="ti ti-brand-tiktok"></i> Social Media</div>
+  <h1>TikTok Prompt Strategy</h1>
+  <h1 style="margin-top:-8px;">How to Use <em>AI</em> to Create Viral Content in 2026</h1>
+
+  <div class="article-meta">
+    <span>By <strong>Promptaholics</strong></span>
+    <span>·</span>
+    <span>July 2026</span>
+    <span>·</span>
+    <span>14 min read</span>
+  </div>
+
+  <div class="article-intro">
+    TikTok's algorithm rewards one thing above all else: watch time. The videos that hold attention longest get pushed to millions of feeds. AI tools like ChatGPT and Claude can help you write hooks, scripts, and content strategies that keep people watching — but only if you know exactly how to prompt them. This guide shows you how.
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><span class="stat-number">3s</span><div class="stat-label">Time before viewers scroll away</div></div>
+    <div class="stat-card"><span class="stat-number">70%</span><div class="stat-label">TikTok videos watched with sound off</div></div>
+    <div class="stat-card"><span class="stat-number">1B+</span><div class="stat-label">Monthly active TikTok users globally</div></div>
+    <div class="stat-card"><span class="stat-number">15x</span><div class="stat-label">Higher engagement vs. other platforms</div></div>
+  </div>
+
+  <h2>Why AI Is Perfect for TikTok Content</h2>
+  <p>TikTok content is formulaic in the best possible way. The platform has established clear patterns for what works: strong hooks, fast pacing, pattern interrupts, storytelling arcs, and calls to action. These patterns are consistent enough that AI tools can learn them — and generate content that follows them reliably.</p>
+  <p>This doesn't mean AI writes your content for you. The best TikTok creators use AI as a starting point — for brainstorming, structuring, and drafting — then add their own personality, delivery, and original insights. AI handles the formula; you handle the magic.</p>
+  <p>The areas where AI adds the most value for TikTok:</p>
+  <ul>
+    <li><strong>Hook writing</strong> — the first 3 seconds that determine everything</li>
+    <li><strong>Script structure</strong> — keeping viewers engaged through the full video</li>
+    <li><strong>Caption optimization</strong> — text overlays, hashtags, and descriptions</li>
+    <li><strong>Content ideation</strong> — generating 30 video ideas from a single topic</li>
+    <li><strong>Series planning</strong> — multi-part content that builds followers</li>
+    <li><strong>Trend analysis</strong> — adapting trending formats to your niche</li>
+  </ul>
+
+  <h2>The TikTok Hook: The Only Thing That Actually Matters</h2>
+  <p>Every successful TikTok creator knows one truth: if the first 3 seconds don't hook the viewer, nothing else matters. The algorithm measures watch time from the very first frame. A video with a weak opening that gets scrolled past in 2 seconds is dead — no matter how good the content is after that.</p>
+  <p>There are six proven hook formulas that stop the scroll consistently:</p>
+
+  <div class="hook-formula">
+    <div class="hook-type">Hook 1 — The Contrarian</div>
+    <div class="hook-example">"Everything you've been told about [topic] is wrong."</div>
+    <div class="hook-why">Works because it triggers cognitive dissonance — people need to know why their belief is wrong.</div>
+  </div>
+  <div class="hook-formula">
+    <div class="hook-type">Hook 2 — The Curiosity Gap</div>
+    <div class="hook-example">"The reason successful people never [do X] — and what they do instead."</div>
+    <div class="hook-why">Creates an information gap the brain feels compelled to close.</div>
+  </div>
+  <div class="hook-formula">
+    <div class="hook-type">Hook 3 — The Transformation Promise</div>
+    <div class="hook-example">"I went from [bad state] to [good state] in [timeframe]. Here's exactly how."</div>
+    <div class="hook-why">Aspirational and specific — viewers see themselves in the journey.</div>
+  </div>
+  <div class="hook-formula">
+    <div class="hook-type">Hook 4 — The Hot Take</div>
+    <div class="hook-example">"Unpopular opinion: [controversial but defensible statement]."</div>
+    <div class="hook-why">Generates comments from both sides — the algorithm loves comment velocity.</div>
+  </div>
+  <div class="hook-formula">
+    <div class="hook-type">Hook 5 — The Specific Number</div>
+    <div class="hook-example">"7 things millionaires never say about money."</div>
+    <div class="hook-why">Specificity signals credibility and sets an expectation that creates commitment.</div>
+  </div>
+  <div class="hook-formula">
+    <div class="hook-type">Hook 6 — The Relatable Scenario</div>
+    <div class="hook-example">"If you've ever [specific frustrating experience], watch this."</div>
+    <div class="hook-why">Immediate self-identification — the viewer feels seen before the content even starts.</div>
+  </div>
+
+  <h2>20 Proven TikTok AI Prompts</h2>
+  <p>These prompts are structured to get AI tools to produce TikTok-optimized content — not generic marketing copy. Copy any of them directly into ChatGPT, Claude, or your AI tool of choice.</p>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 01</span>
+      <span class="prompt-use">Hook Generation</span>
+    </div>
+    <div class="prompt-text">Write 10 TikTok hooks for a video about [YOUR TOPIC]. Each hook must stop someone mid-scroll in the first 3 seconds. Use these formats: 1 contrarian statement, 2 curiosity gaps, 2 specific numbers, 2 transformation promises, 1 hot take, 2 relatable scenarios. Keep each hook under 12 words. No filler words, no passive voice.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 02</span>
+      <span class="prompt-use">Full Script</span>
+    </div>
+    <div class="prompt-text">Write a 60-second TikTok script about [TOPIC] for [YOUR NICHE/AUDIENCE]. Structure: Hook (3s) → Problem agitation (10s) → Insight or story (35s) → Actionable takeaway (8s) → CTA (4s). Write the script word-for-word as spoken. Include [PAUSE] markers and [TEXT OVERLAY: X] suggestions throughout. Pacing must feel urgent but natural.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 03</span>
+      <span class="prompt-use">Content Series</span>
+    </div>
+    <div class="prompt-text">Create a 10-part TikTok series on [TOPIC] designed to convert casual viewers into followers. For each video: a title, a 1-sentence hook, the core insight, why it keeps people watching to the next video, and a cliffhanger or teaser line at the end. The series should build on itself — watching all 10 should feel like completing a course.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 04</span>
+      <span class="prompt-use">Trend Adaptation</span>
+    </div>
+    <div class="prompt-text">Take the trending TikTok format "[DESCRIBE THE FORMAT — e.g., 'things nobody tells you about X']" and adapt it for the [YOUR NICHE] niche. Give me 8 specific video ideas using this exact format, with a hook for each. Make the content feel native to the trend — not forced.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 05</span>
+      <span class="prompt-use">Caption + Hashtags</span>
+    </div>
+    <div class="prompt-text">Write a TikTok caption and hashtag set for a video about [TOPIC]. Caption must: start with a pattern-interrupt first line, include a clear CTA (comment, follow, or share), be under 150 characters before the hashtags. Hashtags: include 3 large (10M+ views), 3 medium (1M-10M), 3 niche (under 500K). Explain why each hashtag was chosen.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 06</span>
+      <span class="prompt-use">Storytelling Script</span>
+    </div>
+    <div class="prompt-text">Write a 90-second TikTok story about [TOPIC OR EXPERIENCE] using the "story loop" structure: start at the most dramatic moment, then flashback to the beginning, build to the climax you already revealed, then deliver the resolution and lesson. Write it as spoken word — short sentences, present tense where possible, punchy line breaks.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 07</span>
+      <span class="prompt-use">Content Calendar</span>
+    </div>
+    <div class="prompt-text">Create a 30-day TikTok content calendar for a [NICHE] creator posting 1 video per day. Mix these formats: educational (40%), storytelling (25%), trending/cultural (15%), controversial opinion (10%), community/engagement (10%). For each day: content type, hook, and 1-sentence description. Design the calendar to build follower momentum — each week should escalate in value.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 08</span>
+      <span class="prompt-use">Comment Response</span>
+    </div>
+    <div class="prompt-text">I received this comment on my TikTok: "[PASTE COMMENT]". Write a reply that: thanks them without being sycophantic, adds new value beyond what was in the original video, asks a follow-up question to extend engagement, and positions me as an expert. Under 100 words. Match a [casual/professional/humorous] tone.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 09</span>
+      <span class="prompt-use">Viral Idea Generation</span>
+    </div>
+    <div class="prompt-text">Generate 20 TikTok video ideas for a [NICHE] creator. For each idea, rate it on: virality potential (1-10), effort to produce (low/medium/high), and whether it builds authority or just entertains. Flag the top 5 as "priority." Ideas must feel specific and original — no generic "10 tips" content.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-card-header">
+      <span class="prompt-number">Prompt 10</span>
+      <span class="prompt-use">Text Overlay Script</span>
+    </div>
+    <div class="prompt-text">Write the text overlay script for a silent TikTok video about [TOPIC]. The video will have no voiceover — only text on screen and background music. Structure: Hook text (3s, max 5 words, huge font), 6-8 screens of supporting points (max 8 words each, 3-4 seconds per screen), CTA screen (max 6 words). Make it punchy enough to work with no sound.</div>
+  </div>
+
+  <h2>The Algorithm Secrets Most Creators Don't Use</h2>
+  <p>Beyond hooks and scripts, there are structural choices that consistently improve TikTok algorithm performance. AI can help you implement these systematically:</p>
+
+  <h3>Pattern Interrupts Every 7-10 Seconds</h3>
+  <p>The TikTok algorithm measures second-by-second retention. If viewers start dropping off at a specific moment, the video gets suppressed. The fix is to insert a pattern interrupt — a change in pace, angle, visual, or topic — every 7-10 seconds. When prompting AI for scripts, specifically ask for pattern interrupt markers.</p>
+
+  <h3>The Loop Play Technique</h3>
+  <p>Videos that get rewatched multiple times get a massive algorithmic boost. The best way to encourage rewatch: end the video on the same visual or line you started it with, creating a satisfying loop. Ask AI to write scripts that "loop back to the opening hook at the end."</p>
+
+  <h3>Comment Bait (Intentional)</h3>
+  <p>Comments are the highest-value engagement signal on TikTok. Creators who deliberately prompt comments — by leaving something out, asking a polarizing question, or making a statement people want to respond to — consistently outperform those who don't. When prompting AI, ask it to "include a comment-bait moment" in the script.</p>
+
+  <div class="tip-box">
+    <div class="tip-label"><i class="ti ti-bulb"></i> Pro Tip</div>
+    <p style="margin:0;font-size:14px;color:var(--ink2);">The single best use of AI for TikTok is hook testing. Generate 20 different hooks for the same video concept, post the same video with different hooks on different days, and see which performs best. After 10-15 tests, you'll have a personalized hook formula that consistently works for your audience.</p>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ What Not to Do</div>
+    <p style="margin:0;font-size:14px;color:var(--ink2);">Don't post AI-generated scripts word-for-word without adding your own voice. TikTok audiences are extremely good at detecting generic, unauthentic content. Use AI output as a first draft — then rewrite in your own voice, add personal anecdotes, and cut anything that doesn't sound like you.</p>
+  </div>
+
+  <h2>Building a Sustainable TikTok System with AI</h2>
+  <p>The creators who win on TikTok long-term aren't the ones who go viral once — they're the ones who build a repeatable content system. AI is the backbone of that system.</p>
+  <p>Here's a weekly workflow that consistently produces high-performing content:</p>
+  <ol>
+    <li><strong>Monday:</strong> Use AI to generate 20 video ideas for the week based on your niche and any trending topics</li>
+    <li><strong>Tuesday:</strong> Select the 5 best ideas, generate 10 hooks for each, pick the best hook per video</li>
+    <li><strong>Wednesday:</strong> Write full scripts for all 5 videos using AI, then rewrite in your voice</li>
+    <li><strong>Thursday:</strong> Film all 5 videos in a single filming session</li>
+    <li><strong>Friday:</strong> Edit, add text overlays (use AI for overlay copy), write captions and hashtags</li>
+    <li><strong>Weekend:</strong> Schedule for optimal posting times, respond to comments with AI assistance</li>
+  </ol>
+  <p>This system produces 5 videos per week — a consistent posting schedule — in about 6-8 hours of total work. Without AI, the scripting and ideation alone would take twice as long.</p>
+
+  <div class="cta-strip">
+    <h3>Get 200+ TikTok Prompts Free</h3>
+    <p>Hooks, scripts, captions, content calendars — all structured and ready to use. No signup required.</p>
+    <a href="library.html?cat=Social+Media" class="btn btn-primary"><i class="ti ti-brand-tiktok"></i> Browse TikTok Prompts</a>
+    <a href="agent.html" class="btn btn-secondary"><i class="ti ti-sparkles"></i> Try PA Agent</a>
+  </div>
+</article>
+
+<footer class="footer">
+  <a href="index.html">Promptaholics</a> — Free AI Prompt Library
+  <p>© 2026 Promptaholics · <a href="privacy.html">Privacy</a> · <a href="blog.html">Blog</a></p>
+</footer>
+</body>
+</html>
