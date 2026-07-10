@@ -1034,8 +1034,8 @@ function renderGallery(){
     // Send to Store button
     var storeBtn = document.createElement('button');
     storeBtn.className = 'vcard-btn';
-    storeBtn.style.cssText = 'background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border-color:rgba(255,98,36,.3);color:var(--orange);';
-    storeBtn.innerHTML = '<i class="ti ti-shirt"></i> Print';
+    storeBtn.style.cssText = 'background:linear-gradient(135deg,#ff6224,#ff9f24);border-color:transparent;color:#fff;font-weight:800;letter-spacing:.3px;box-shadow:0 2px 8px rgba(255,98,36,.35);';
+    storeBtn.innerHTML = '<i class="ti ti-shirt"></i> Wear it!';
     storeBtn.title = 'Print on hoodie';
     storeBtn.onclick = (function(imageUrl, imageTitle){
       return function(e){
@@ -1046,6 +1046,20 @@ function renderGallery(){
       };
     })(img.imageUrl, img.title);
     actions.appendChild(storeBtn);
+
+    // Share button → vault-image.html with OG support
+    var shareBtn = document.createElement('button');
+    shareBtn.className = 'vcard-btn';
+    shareBtn.style.cssText = 'background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.3);color:#818cf8;';
+    shareBtn.innerHTML = '<i class="ti ti-share-2"></i> Share';
+    shareBtn.title = 'Share this image';
+    shareBtn.onclick = (function(iu, it, ip){
+      return function(e){
+        e.stopPropagation();
+        shareVaultImage(iu, it, ip);
+      };
+    })(img.imageUrl, img.title, img.prompt);
+    actions.appendChild(shareBtn);
 
     if(isAdmin){
       var delBtn = document.createElement('button');
