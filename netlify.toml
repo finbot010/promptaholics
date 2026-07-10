@@ -1,3 +1,6 @@
 [[edge_functions]]
   path = "/share/vault"
   function = "vault-image"
+
+[build.environment]
+  SECRETS_SCAN_SMART_DETECTION_GOOGLE_API_KEY = "false"
