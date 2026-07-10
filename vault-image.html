@@ -160,17 +160,16 @@ var prompt   = params.get('prompt') || '';
 var tool     = params.get('tool')   || 'AI Generated';
 
 async function init(){
-  // If we have a Firebase share ID, load from Firebase
+  // If we have a Firebase share ID, load via Worker
   if(shareId && !imgUrl){
     try{
-      var FB_PROJECT = 'promptaholics-534d3';
-      var res = await fetch('https://firestore.googleapis.com/v1/projects/' + FB_PROJECT + '/databases/(default)/documents/vault-shares/' + shareId);
+      var res = await fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/vault-share?id=' + encodeURIComponent(shareId));
       var data = await res.json();
-      if(data.fields){
-        imgUrl = data.fields.imageUrl?.stringValue || '';
-        title  = data.fields.title?.stringValue    || 'AI Art';
-        prompt = data.fields.prompt?.stringValue   || '';
-        tool   = data.fields.tool?.stringValue     || 'AI Generated';
+      if(data.imageUrl){
+        imgUrl = data.imageUrl;
+        title  = data.title  || 'AI Art';
+        prompt = data.prompt || '';
+        tool   = data.tool   || 'AI Generated';
       }
     }catch(e){ console.warn('Could not load share data:', e); }
   }
