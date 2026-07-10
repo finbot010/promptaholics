@@ -1453,8 +1453,8 @@ function submitBrevoFooter(){
 async function shareVaultImage(imageUrl, title, prompt){
   var shareTitle = title || 'AI Art on Promptaholics';
   var shareText = prompt ? prompt.slice(0,120)+'...' : 'Check out this AI-generated image on Promptaholics!';
-  // Build vault-image.html URL with all params for OG tags
-  var fullUrl = 'https://promptaholics.com/vault-image.html'
+  // Build /share/vault URL — served by Netlify edge function with server-rendered OG tags
+  var fullUrl = 'https://promptaholics.com/share/vault'
     + '?img=' + encodeURIComponent(imageUrl)
     + '&title=' + encodeURIComponent(shareTitle)
     + '&prompt=' + encodeURIComponent(prompt ? prompt.slice(0,200) : '');
