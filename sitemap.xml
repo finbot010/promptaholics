@@ -1,100 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core pages -->
+  <url><loc>https://promptaholics.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://promptaholics.com/library.html</loc><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://promptaholics.com/vault.html</loc><priority>0.9</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://promptaholics.com/creationstation.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://promptaholics.com/agent.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://promptaholics.com/prompt-builder.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://promptaholics.com/learn.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/store-v2.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
 
-  <!-- ✦ HOMEPAGE -->
-  <url>
-    <loc>https://promptaholics.com/</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <!-- Blog / Content pages -->
+  <url><loc>https://promptaholics.com/blog.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://promptaholics.com/best-claude-prompts.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/best-chatgpt-prompts.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/ai-prompt-library.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/blog-claude-5-prompt-anatomy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/chatgpt-prompts-for-business.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/dalle-vs-midjourney-vs-flux.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/tiktok-prompt-strategy.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/free-prompt-engineering-course.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/free-chatgpt-prompts.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/best-chatgpt-prompts.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/best-midjourney-prompts.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://promptaholics.com/ai-prompt-library.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
 
-  <!-- ✦ PROMPT LIBRARY -->
-  <url>
-    <loc>https://promptaholics.com/library.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ✦ FREE COURSE -->
-  <url>
-    <loc>https://promptaholics.com/learn.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ✦ PROMPT BUILDER -->
-  <url>
-    <loc>https://promptaholics.com/prompt-builder.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ✦ CREATION STATION -->
-  <url>
-    <loc>https://promptaholics.com/creationstation.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ IMAGE VAULT -->
-  <url>
-    <loc>https://promptaholics.com/vault.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ SEO — Free Prompt Engineering Course -->
-  <url>
-    <loc>https://promptaholics.com/free-prompt-engineering-course.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- ✦ SEO — Best ChatGPT Prompts -->
-  <url>
-    <loc>https://promptaholics.com/best-chatgpt-prompts.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ SEO — Free ChatGPT Prompts -->
-  <url>
-    <loc>https://promptaholics.com/free-chatgpt-prompts.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ SEO — Best Midjourney Prompts -->
-  <url>
-    <loc>https://promptaholics.com/best-midjourney-prompts.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ SEO — AI Prompt Library -->
-  <url>
-    <loc>https://promptaholics.com/ai-prompt-library.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ✦ PRIVACY POLICY -->
-  <url>
-    <loc>https://promptaholics.com/privacy.html</loc>
-    <lastmod>2026-05-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
+  <!-- Legal -->
+  <url><loc>https://promptaholics.com/privacy.html</loc><priority>0.4</priority><changefreq>yearly</changefreq></url>
 </urlset>
