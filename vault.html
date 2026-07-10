@@ -428,8 +428,8 @@ img,video,iframe{max-width:100%;}
   .vcard-overlay{
     opacity:1 !important;
     transform:none !important;
-    padding:24px 10px 10px;
-    background:linear-gradient(transparent 0%,rgba(0,0,0,.7) 40%,rgba(0,0,0,.92) 100%);
+    padding:40px 8px 8px;
+    background:linear-gradient(transparent 0%,rgba(0,0,0,.75) 35%,rgba(0,0,0,.95) 100%);
   }
   /* No hover zoom on touch */
   .vcard:hover .vcard-img{transform:none;}
@@ -446,19 +446,24 @@ img,video,iframe{max-width:100%;}
   }
   .vcard-creator{font-size:9px;}
 
-  /* Mobile action buttons */
+  /* Mobile action buttons — icon only, 44px tap targets */
   .vcard-btn{
-    min-height:34px;
-    padding:5px 8px;
-    font-size:9px;
-    gap:2px;
+    min-height:40px;
+    min-width:40px;
+    padding:0;
+    font-size:0;
+    gap:0;
+    justify-content:center;
+    flex:1;
+    border-radius:10px;
   }
   .vcard-btn .btn-label{ display:none; }
-  .vcard-btn i{ font-size:14px; }
+  .vcard-btn i{ font-size:18px; }
   .vcard-actions{
-    gap:4px;
-    margin-top:6px;
-    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+    flex-wrap:nowrap;
+    width:100%;
   }
 
   /* Model badge always visible */
@@ -506,18 +511,18 @@ img,video,iframe{max-width:100%;}
 
 <!-- TOP NAV -->
 <header class="topnav">
-  <a class="nav-logo" href="index.html">
+  <a class='nav-logo' href='/'>
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a href="library.html" class="nav-lnk">Library</a>
-      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
-      <a href="agent.html" class="nav-lnk">PA Agent</a>
-      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
-      <a href="vault.html" class="nav-lnk active">Image Vault</a>
-      <a href="learn.html" class="nav-lnk">Learn</a>
+      <a class='nav-lnk' href='/library'>Library</a>
+      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
+      <a class='nav-lnk' href='/agent'>PA Agent</a>
+      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
+      <a class='nav-lnk active' href='/vault'>Image Vault</a>
+      <a class='nav-lnk' href='/learn'>Learn</a>
     </nav>
     <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
@@ -534,21 +539,21 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item" href="index.html"><i class="ti ti-home"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
-    <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
-    <a class="sm-item" href="agent.html"><i class="ti ti-sparkles"></i> PA Agent</a>
-    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
-    <a class="sm-item active" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
-    <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='/'><i class="ti ti-home"></i> Home</a>
+    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='/agent'><i class="ti ti-sparkles"></i> PA Agent</a>
+    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item active' href='/vault'><i class="ti ti-photo"></i> Image Vault</a>
+    <a class='sm-item' href='/learn'><i class="ti ti-school"></i> Learn</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ti ti-info-circle"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ti ti-news"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ti ti-mail"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ti ti-lock"></i> Privacy</a>
-    <a class="sm-item" href="terms.html"><i class="ti ti-clipboard-list"></i> Terms</a>
+    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy</a>
+    <a class='sm-item' href='/terms'><i class="ti ti-clipboard-list"></i> Terms</a>
   </div>
   <div class="sm-foot">
     <button class="sm-signin-btn" onclick="handleAuthClick();toggleMenu();" id="smAuthBtn">
@@ -752,13 +757,13 @@ img,video,iframe{max-width:100%;}
   <div class="footer-inner">
     <div class="footer-logo-text">Prompt<span>aholics</span> — Image Vault</div>
     <div class="footer-links">
-      <a href="library.html" class="footer-lnk">Library</a>
-      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
-      <a href="vault.html" class="footer-lnk">Image Vault</a>
-      <a href="learn.html" class="footer-lnk">Learn</a>
+      <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
+      <a class='footer-lnk' href='/vault'>Image Vault</a>
+      <a class='footer-lnk' href='/learn'>Learn</a>
       <span class="footer-sep">|</span>
-      <a href="privacy.html" class="footer-lnk">Privacy</a>
-      <a href="terms.html" class="footer-lnk">Terms</a>
+      <a class='footer-lnk' href='/privacy'>Privacy</a>
+      <a class='footer-lnk' href='/terms'>Terms</a>
     </div>
     <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery</div>
   </div>
@@ -766,11 +771,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="index.html"><i class="ti ti-home"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ti ti-books"></i>Library</a>
-  <a class="bn-item" href="creationstation.html"><i class="ti ti-bolt"></i>AI Tools</a>
-  <a class="bn-item" href="prompt-builder.html"><i class="ti ti-tool"></i>Builder</a>
-  <a class="bn-item" href="learn.html"><i class="ti ti-school"></i>Learn</a>
+  <a class='bn-item' href='/'><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='/creationstation'><i class="ti ti-bolt"></i>AI Tools</a>
+  <a class='bn-item' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item' href='/learn'><i class="ti ti-school"></i>Learn</a>
 </nav>
 
 <script>
