@@ -72,13 +72,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .prodigi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;margin-bottom:20px;}
 .prodigi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;}
 .prodigi-card:hover{border-color:rgba(255,98,36,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.prodigi-img{aspect-ratio:1;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:42px;}
+.prodigi-img{aspect-ratio:1;overflow:hidden;background:var(--bg2);position:relative;}.prodigi-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}.prodigi-card:hover .prodigi-img img{transform:scale(1.05);}
 .prodigi-badge{position:absolute;top:8px;right:8px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#c084fc;}
 .prodigi-info{padding:8px 10px;}
 .prodigi-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:4px;}
 .prodigi-desc{font-size:10px;color:var(--ink3);margin-bottom:8px;line-height:1.4;}
 .prodigi-row{display:flex;align-items:center;justify-content:space-between;}
-.prodigi-price{font-family:'Syne',serif;font-size:16px;font-weight:900;color:var(--orange);}
+.prodigi-price{font-family:'Syne',serif;font-size:14px;font-weight:900;color:var(--orange);}.prodigi-price small{font-size:10px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;}
 .prodigi-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;}
 .prodigi-btn:hover{background:var(--orange);color:#fff;}
 
@@ -397,85 +397,99 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   <div class="prodigi-grid">
 
-    <div class="prodigi-card" onclick="openProdigiModal('aluminum-print')" style="border-color:rgba(255,159,36,.25);position:relative;">
-      <div style="position:absolute;top:8px;left:8px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:rgba(255,159,36,.12);border:1px solid rgba(255,159,36,.3);color:var(--o2);">Best margin</div>
-      <div class="prodigi-img" style="background:linear-gradient(135deg,#1a1a24,#0d0d14);">
-        <span style="font-size:40px;filter:drop-shadow(0 0 8px rgba(255,159,36,.4));">⬡</span>
-        <div class="prodigi-badge" style="background:rgba(255,159,36,.12);border-color:rgba(255,159,36,.3);color:var(--o2);">Exclusive</div>
+    <div class="prodigi-card" onclick="openProdigiModal('aluminum-print')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80&fit=crop" alt="Aluminum Print"/>
+        <div class="prodigi-badge" style="background:rgba(255,159,36,.2);border-color:rgba(255,159,36,.5);color:var(--o2);">⭐ Best</div>
       </div>
       <div class="prodigi-info">
-        <div class="prodigi-name">Aluminum Print</div>
-        <div class="prodigi-desc">HD metallic surface. AI art looks stunning on metal. Ships worldwide.</div>
+        <div class="prodigi-name" style="color:var(--o2);">Aluminum Print</div>
+        <div class="prodigi-desc">HD metallic surface. Stunning wall art.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price" style="color:var(--o2);">$29<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn" style="border-color:rgba(255,159,36,.3);color:var(--o2);"><i class="ti ti-sparkles"></i> Order</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="prodigi-card" onclick="openProdigiModal('foil-print')">
-      <div class="prodigi-img">🌟<div class="prodigi-badge">Premium</div></div>
-      <div class="prodigi-info">
-        <div class="prodigi-name">Foil Art Print</div>
-        <div class="prodigi-desc">Gold or silver metallic foil. Stunning wall art that catches the light.</div>
-        <div class="prodigi-row">
-          <div class="prodigi-price">$34<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn"><i class="ti ti-sparkles"></i> Order</button>
+          <div class="prodigi-price" style="color:var(--o2);">from $29<small>.99</small></div>
+          <button class="prodigi-btn" style="border-color:rgba(255,159,36,.3);color:var(--o2);">Order</button>
         </div>
       </div>
     </div>
 
     <div class="prodigi-card" onclick="openProdigiModal('canvas')">
-      <div class="prodigi-img">🖼️</div>
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1582201942988-13e60e4556ee?w=400&q=80&fit=crop" alt="Canvas Print"/>
+        <div class="prodigi-badge">Gallery</div>
+      </div>
       <div class="prodigi-info">
         <div class="prodigi-name">Canvas Print</div>
-        <div class="prodigi-desc">Gallery-wrapped canvas. Ready to hang. Museum quality.</div>
+        <div class="prodigi-desc">Gallery-wrapped. Ready to hang.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">$49<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn"><i class="ti ti-sparkles"></i> Order</button>
+          <div class="prodigi-price">from $49<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
         </div>
       </div>
     </div>
 
-    <div class="prodigi-card" onclick="openProdigiModal('desk-mat')">
-      <div class="prodigi-img">🖱️</div>
-      <div class="prodigi-info">
-        <div class="prodigi-name">Desk Mat</div>
-        <div class="prodigi-desc">Extra-large gaming desk mat with your AI art. 36×17".</div>
-        <div class="prodigi-row">
-          <div class="prodigi-price">$29<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn"><i class="ti ti-sparkles"></i> Order</button>
-        </div>
+    <div class="prodigi-card" onclick="openProdigiModal('foil-print')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=80&fit=crop" alt="Foil Art Print"/>
+        <div class="prodigi-badge">Foil</div>
       </div>
-    </div>
-
-    <div class="prodigi-card" onclick="openProdigiModal('mug')">
-      <div class="prodigi-img">☕<div class="prodigi-badge">Magic</div></div>
       <div class="prodigi-info">
-        <div class="prodigi-name">Magic Morphing Mug</div>
-        <div class="prodigi-desc">Design appears when you add hot liquid. Heat-sensitive magic.</div>
+        <div class="prodigi-name">Foil Art Print</div>
+        <div class="prodigi-desc">Gold or silver metallic finish.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">$19<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn"><i class="ti ti-sparkles"></i> Order</button>
+          <div class="prodigi-price">from $34<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
         </div>
       </div>
     </div>
 
     <div class="prodigi-card" onclick="openProdigiModal('art-print')">
-      <div class="prodigi-img">🎨</div>
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80&fit=crop" alt="Art Print"/>
+        <div class="prodigi-badge">Print</div>
+      </div>
       <div class="prodigi-info">
         <div class="prodigi-name">Art Print</div>
-        <div class="prodigi-desc">Premium photo paper. Available in matte, gloss, or lustre.</div>
+        <div class="prodigi-desc">Premium photo paper. Matte/Gloss.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">$14<small style="font-size:11px;color:var(--ink3);font-family:'Instrument Sans',sans-serif;">.99</small></div>
-          <button class="prodigi-btn"><i class="ti ti-sparkles"></i> Order</button>
+          <div class="prodigi-price">from $14<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prodigi-card" onclick="openProdigiModal('desk-mat')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80&fit=crop" alt="Desk Mat"/>
+        <div class="prodigi-badge">XL Mat</div>
+      </div>
+      <div class="prodigi-info">
+        <div class="prodigi-name">Desk Mat</div>
+        <div class="prodigi-desc">Extra-large gaming desk mat. 36×17".</div>
+        <div class="prodigi-row">
+          <div class="prodigi-price">from $29<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prodigi-card" onclick="openProdigiModal('mug')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&q=80&fit=crop" alt="Magic Mug"/>
+        <div class="prodigi-badge" style="background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.4);color:#c084fc;">Magic</div>
+      </div>
+      <div class="prodigi-info">
+        <div class="prodigi-name">Magic Mug</div>
+        <div class="prodigi-desc">Design appears with hot liquid.</div>
+        <div class="prodigi-row">
+          <div class="prodigi-price">from $19<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
         </div>
       </div>
     </div>
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select any design from "Ready to Wear" above first, or create your own in <a href='/creationstation' style='color:var(--orange);'>Creation Station</a></p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href="creationstation.html" style="color:var(--orange);">create your own</a> — then click any product to order</p>
 </div>
 
 <!-- Prodigi Modal -->
@@ -492,6 +506,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <span>No design selected</span>
         <button onclick="closeProdigiModal();setTimeout(function(){document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'});},300);" style="margin-top:4px;padding:6px 14px;border-radius:8px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;">Pick a design above</button>
       </div>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:12px;">
+      <button onclick="toggleVaultPicker()" style="flex:1;padding:7px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border2);color:var(--ink3);font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;">
+        <i class="ti ti-photo"></i> Change Image
+      </button>
+      <button onclick="upscaleImage()" id="upscaleBtn" style="flex:1;padding:7px;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:#22c55e;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;">
+        <i class="ti ti-zoom-scan"></i> Upscale for Print
+      </button>
+    </div>
+    <div id="vaultPicker" style="display:none;margin-bottom:14px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Your Vault Images</div>
+      <div id="vaultPickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:160px;overflow-y:auto;"></div>
     </div>
 
     <div id="pmSizeSection">
@@ -1066,6 +1092,102 @@ function updateProdigiBtn(){
   }
 }
 
+// ── Upscale Image for Print Quality ─────────────────────────────
+async function upscaleImage(){
+  if(!customImageData){
+    showToast('Select an image first');
+    return;
+  }
+  var btn = document.getElementById('upscaleBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2 spin"></i> Upscaling... (~30s)';
+  try{
+    var res = await fetch(WORKER + '/api/upscale', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ imageUrl: customImageData, scale: 4 })
+    });
+    var data = await res.json();
+    if(data.upscaled){
+      customImageData = data.upscaled;
+      document.getElementById('pmPreview').src = data.upscaled;
+      btn.innerHTML = '<i class="ti ti-check"></i> Upscaled 4x!';
+      btn.style.background = 'rgba(34,197,94,.15)';
+      btn.style.borderColor = 'rgba(34,197,94,.4)';
+      showToast('✅ Image upscaled 4x — print quality ready!');
+    } else {
+      throw new Error(data.error || 'Upscale failed');
+    }
+  } catch(e){
+    showToast('Upscale failed: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-zoom-scan"></i> Upscale for Print';
+  }
+}
+
+// ── Vault Picker ─────────────────────────────────────────────────
+var vaultImages = [
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1783315110/vault/ox7tuvrj8hr7y6cvujxi.jpg', title:'Cyber Ninja'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782921489/vault/ejfahqbdrzmqfniztfzv.jpg', title:'Norse Warrior'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782877429/vault/hu0g4kqb9nims8gufuem.jpg', title:'Within Passage'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1780454294/vault/aeuuupa4as05p0upebbp.jpg', title:'Cyberpunk Neon'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782096463/vault/pefpdsmcixq6c8xhmikk.jpg', title:'Noir Lady in Red'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782751898/vault/weekly-slot-3-1782751898.png', title:'Horse and Lightning'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1780587219/vault/weekly-slot-1-1780587218.png', title:'Golden Hour Portrait'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1781319146/vault/mxuiubey9tbj5u3zg2pe.jpg', title:'Chromatic Serenity'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1783748208/vault/t5wycwjrplszw1c4tpsh.png', title:'Cyberpunk Samurai'},
+  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1781448434/vault/g7lrbzgigyssorqmpddc.png', title:'Surreal Landscape'},
+];
+
+var vaultPickerOpen = false;
+
+function toggleVaultPicker(){
+  var picker = document.getElementById('vaultPicker');
+  var grid = document.getElementById('vaultPickerGrid');
+  vaultPickerOpen = !vaultPickerOpen;
+  picker.style.display = vaultPickerOpen ? 'block' : 'none';
+  if(vaultPickerOpen && grid.children.length === 0){
+    // Build grid
+    vaultImages.forEach(function(img){
+      var div = document.createElement('div');
+      div.style.cssText = 'aspect-ratio:1;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s;';
+      div.onclick = function(){
+        selectVaultImage(img.url, img.title);
+        document.querySelectorAll('#vaultPickerGrid div').forEach(function(d){ d.style.borderColor='transparent'; });
+        div.style.borderColor = 'var(--orange)';
+      };
+      var imgEl = document.createElement('img');
+      imgEl.src = img.url.replace('/upload/', '/upload/w_120,h_120,c_fill/');
+      imgEl.alt = img.title;
+      imgEl.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+      div.appendChild(imgEl);
+      grid.appendChild(div);
+    });
+  }
+}
+
+function selectVaultImage(url, title){
+  customImageData = url;
+  customImageLabel = title;
+  var preview = document.getElementById('pmPreview');
+  preview.src = url;
+  preview.style.display = 'block';
+  document.getElementById('pmNoDesign').style.display = 'none';
+  // Close picker
+  vaultPickerOpen = false;
+  document.getElementById('vaultPicker').style.display = 'none';
+  showToast('✅ ' + title + ' selected!');
+}
+
+// ── Cloudinary AI Upscale for Print Quality ───────────────────────
+function getHighResUrl(imageUrl){
+  // For Cloudinary images — use e_upscale as fallback
+  if(imageUrl && imageUrl.includes('res.cloudinary.com') && !imageUrl.includes('vault-hires')){
+    return imageUrl.replace('/upload/', '/upload/e_upscale/');
+  }
+  return imageUrl;
+}
+
 async function startProdigiCheckout(){
   if(!customImageData){
     showToast('Please select a design first');
@@ -1085,6 +1207,8 @@ async function startProdigiCheckout(){
     if(imageUrl && imageUrl.startsWith('data:')){
       try{ imageUrl = await uploadToCloudinary(imageUrl); }catch(e){ console.warn('Upload failed'); }
     }
+    // Apply AI upscaling for better print quality
+    imageUrl = getHighResUrl(imageUrl);
 
     var price = p.prices[selectedProdigiSize] || 1999;
     var res = await fetch(WORKER + '/api/prodigi-checkout', {
