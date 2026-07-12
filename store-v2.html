@@ -511,9 +511,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <button onclick="toggleVaultPicker()" style="flex:1;padding:7px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border2);color:var(--ink3);font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;">
         <i class="ti ti-photo"></i> Change Image
       </button>
-      <button onclick="upscaleImage()" id="upscaleBtn" style="flex:1;padding:7px;border-radius:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:#22c55e;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;">
-        <i class="ti ti-zoom-scan"></i> Upscale for Print
-      </button>
+      <div id="upscaleStatus" style="flex:1;padding:7px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border);color:var(--ink3);font-size:10px;display:flex;align-items:center;justify-content:center;gap:4px;display:none;">
+        <i class="ti ti-zoom-scan"></i> <span id="upscaleStatusText">Optimizing for print...</span>
+      </div>
     </div>
     <div id="vaultPicker" style="display:none;margin-bottom:14px;">
       <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Your Vault Images</div>
@@ -1092,62 +1092,46 @@ function updateProdigiBtn(){
   }
 }
 
-// ── Upscale Image for Print Quality ─────────────────────────────
-async function upscaleImage(){
-  if(!customImageData){
-    showToast('Select an image first');
-    return;
-  }
-  var btn = document.getElementById('upscaleBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader-2 spin"></i> Upscaling... (~30s)';
+// ── Vault Picker ─────────────────────────────────────────────────
+var vaultImages = [];
+var vaultImagesLoaded = false;
+
+// Products that need upscaling (larger than 8x10)
+var NEEDS_UPSCALE = ['aluminum-print','canvas','foil-print','desk-mat'];
+
+async function loadVaultImages(){
+  if(vaultImagesLoaded) return;
   try{
-    var res = await fetch(WORKER + '/api/upscale', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ imageUrl: customImageData, scale: 4 })
-    });
+    var FB = 'https://firestore.googleapis.com/v1/projects/promptaholics-534d3/databases/(default)/documents/vault-submissions?pageSize=50';
+    var res = await fetch(FB);
     var data = await res.json();
-    if(data.upscaled){
-      customImageData = data.upscaled;
-      document.getElementById('pmPreview').src = data.upscaled;
-      btn.innerHTML = '<i class="ti ti-check"></i> Upscaled 4x!';
-      btn.style.background = 'rgba(34,197,94,.15)';
-      btn.style.borderColor = 'rgba(34,197,94,.4)';
-      showToast('✅ Image upscaled 4x — print quality ready!');
-    } else {
-      throw new Error(data.error || 'Upscale failed');
-    }
-  } catch(e){
-    showToast('Upscale failed: ' + e.message);
-    btn.disabled = false;
-    btn.innerHTML = '<i class="ti ti-zoom-scan"></i> Upscale for Print';
+    vaultImages = [];
+    (data.documents||[]).forEach(function(doc){
+      var f = doc.fields||{};
+      if(f.status&&f.status.stringValue==='approved'&&f.imageUrl&&f.imageUrl.stringValue){
+        vaultImages.push({
+          url: f.imageUrl.stringValue,
+          title: (f.title&&f.title.stringValue)||'AI Art'
+        });
+      }
+    });
+    vaultImagesLoaded = true;
+  }catch(e){
+    console.warn('Could not load vault images:', e);
   }
 }
 
-// ── Vault Picker ─────────────────────────────────────────────────
-var vaultImages = [
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1783315110/vault/ox7tuvrj8hr7y6cvujxi.jpg', title:'Cyber Ninja'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782921489/vault/ejfahqbdrzmqfniztfzv.jpg', title:'Norse Warrior'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782877429/vault/hu0g4kqb9nims8gufuem.jpg', title:'Within Passage'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1780454294/vault/aeuuupa4as05p0upebbp.jpg', title:'Cyberpunk Neon'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782096463/vault/pefpdsmcixq6c8xhmikk.jpg', title:'Noir Lady in Red'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1782751898/vault/weekly-slot-3-1782751898.png', title:'Horse and Lightning'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1780587219/vault/weekly-slot-1-1780587218.png', title:'Golden Hour Portrait'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1781319146/vault/mxuiubey9tbj5u3zg2pe.jpg', title:'Chromatic Serenity'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1783748208/vault/t5wycwjrplszw1c4tpsh.png', title:'Cyberpunk Samurai'},
-  {url:'https://res.cloudinary.com/dgqbzarfw/image/upload/v1781448434/vault/g7lrbzgigyssorqmpddc.png', title:'Surreal Landscape'},
-];
-
 var vaultPickerOpen = false;
 
-function toggleVaultPicker(){
+async function toggleVaultPicker(){
   var picker = document.getElementById('vaultPicker');
   var grid = document.getElementById('vaultPickerGrid');
   vaultPickerOpen = !vaultPickerOpen;
   picker.style.display = vaultPickerOpen ? 'block' : 'none';
-  if(vaultPickerOpen && grid.children.length === 0){
-    // Build grid
+  if(vaultPickerOpen){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-size:11px;color:var(--ink3);padding:8px;">Loading vault...</div>';
+    await loadVaultImages();
+    grid.innerHTML = '';
     vaultImages.forEach(function(img){
       var div = document.createElement('div');
       div.style.cssText = 'aspect-ratio:1;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s;';
@@ -1207,8 +1191,31 @@ async function startProdigiCheckout(){
     if(imageUrl && imageUrl.startsWith('data:')){
       try{ imageUrl = await uploadToCloudinary(imageUrl); }catch(e){ console.warn('Upload failed'); }
     }
-    // Apply AI upscaling for better print quality
-    imageUrl = getHighResUrl(imageUrl);
+    // Auto upscale for large format products
+    if(NEEDS_UPSCALE.includes(currentProdigiProduct)){
+      try{
+        // Show upscale status
+        var upscaleEl = document.getElementById('upscaleStatus');
+        if(upscaleEl) upscaleEl.style.display = 'flex';
+        document.getElementById('upscaleStatusText').textContent = 'Optimizing for print quality...';
+        var upRes = await fetch(WORKER + '/api/upscale', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ imageUrl: imageUrl, scale: 4 })
+        });
+        var upData = await upRes.json();
+        if(upData.upscaled){
+          imageUrl = upData.upscaled;
+          document.getElementById('upscaleStatusText').textContent = '✅ Optimized 4x!';
+        }
+      }catch(e){
+        console.warn('Upscale failed, using original:', e);
+        // Continue with original — don't block checkout
+      }
+    } else {
+      // Small products — just apply Cloudinary upscale
+      imageUrl = getHighResUrl(imageUrl);
+    }
 
     var price = p.prices[selectedProdigiSize] || 1999;
     var res = await fetch(WORKER + '/api/prodigi-checkout', {
