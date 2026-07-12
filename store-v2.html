@@ -32,6 +32,75 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .theme-toggle:hover{border-color:rgba(255,98,36,.3);}
 @media(max-width:500px){.nav-link span{display:none;}.nav{padding:0 14px;}}
 
+/* ── Mobile Responsive ── */
+@media(max-width:640px){
+  /* Orb */
+  .orb1{width:320px;height:320px;}
+  .orb2{width:240px;height:240px;}
+
+  /* Hero */
+  .hero{padding:32px 16px 28px;}
+  .hero h1{letter-spacing:-2px;}
+  .hero-sub{font-size:13px;}
+  .hero-trust{gap:10px;}
+
+  /* Features strip */
+  .features-strip{padding:14px 16px;margin-bottom:32px;}
+  .features-inner{grid-template-columns:repeat(2,1fr);gap:10px;}
+
+  /* Sections */
+  .section{padding:0 14px 48px;}
+  .section-hdr{margin-bottom:16px;}
+
+  /* Pre-made design grid — 2 columns */
+  .section > div[style*="grid"]{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:8px !important;
+  }
+
+  /* Prodigi grid — 2 columns */
+  .prodigi-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .prodigi-name{font-size:11px;}
+  .prodigi-desc{display:none;}
+  .prodigi-price{font-size:13px;}
+  .prodigi-btn{padding:4px 8px;font-size:9px;}
+
+  /* Product grid — 1 column */
+  .product-grid{grid-template-columns:1fr;gap:12px;}
+
+  /* Product card */
+  .pc-img{aspect-ratio:16/9;}
+  .pc-info{padding:12px;}
+
+  /* Apparel modal — full screen */
+  .modal{grid-template-columns:1fr;max-height:96dvh;border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;margin:0;max-width:100%;}
+  .modal-left{border-radius:16px 16px 0 0;min-height:220px;}
+  .modal-right{padding:14px;}
+  .modal-thumbs{padding:8px 12px;}
+
+  /* Prodigi modal */
+  .pm-inner{border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;padding:20px 16px;}
+  .prodigi-modal{align-items:flex-end;padding:0;}
+  .pm-preview{aspect-ratio:16/9;}
+  .pm-options{gap:5px;}
+  .pm-opt{padding:6px 10px;font-size:11px;}
+
+  /* Order button */
+  .btn-order{padding:13px;font-size:14px;}
+
+  /* Custom art section */
+  .custom-art-section{padding:16px;}
+}
+
+@media(max-width:420px){
+  /* Extra small — tightest layout */
+  .hero h1{font-size:32px;}
+  .prodigi-grid{grid-template-columns:repeat(2,1fr);gap:6px;}
+  .product-grid{grid-template-columns:1fr;}
+  .features-inner{grid-template-columns:1fr;}
+  .section{padding:0 12px 40px;}
+}
+
 /* Hero */
 .hero{position:relative;z-index:10;text-align:center;padding:60px 24px 44px;}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px;padding:5px 14px;border-radius:20px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.18);}
@@ -489,7 +558,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href="creationstation.html" style="color:var(--orange);">create your own</a> — then click any product to order</p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='/creationstation' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
 </div>
 
 <!-- Prodigi Modal -->
@@ -1102,20 +1171,29 @@ var NEEDS_UPSCALE = ['aluminum-print','canvas','foil-print','desk-mat'];
 async function loadVaultImages(){
   if(vaultImagesLoaded) return;
   try{
-    var FB = 'https://firestore.googleapis.com/v1/projects/promptaholics-534d3/databases/(default)/documents/vault-submissions?pageSize=50';
-    var res = await fetch(FB);
-    var data = await res.json();
+    var FB_BASE = 'https://firestore.googleapis.com/v1/projects/promptaholics-534d3/databases/(default)/documents/vault-submissions?pageSize=50';
     vaultImages = [];
-    (data.documents||[]).forEach(function(doc){
-      var f = doc.fields||{};
-      if(f.status&&f.status.stringValue==='approved'&&f.imageUrl&&f.imageUrl.stringValue){
-        vaultImages.push({
-          url: f.imageUrl.stringValue,
-          title: (f.title&&f.title.stringValue)||'AI Art'
-        });
-      }
-    });
+    var pageToken = null;
+    var pages = 0;
+    // Paginate through all approved images (handles 82+ images)
+    do {
+      var url = FB_BASE + (pageToken ? '&pageToken=' + pageToken : '');
+      var res = await fetch(url);
+      var data = await res.json();
+      (data.documents||[]).forEach(function(doc){
+        var f = doc.fields||{};
+        if(f.status&&f.status.stringValue==='approved'&&f.imageUrl&&f.imageUrl.stringValue){
+          vaultImages.push({
+            url: f.imageUrl.stringValue,
+            title: (f.title&&f.title.stringValue)||'AI Art'
+          });
+        }
+      });
+      pageToken = data.nextPageToken || null;
+      pages++;
+    } while(pageToken && pages < 10); // Max 10 pages = 500 images
     vaultImagesLoaded = true;
+    console.log('Vault images loaded:', vaultImages.length);
   }catch(e){
     console.warn('Could not load vault images:', e);
   }
