@@ -68,6 +68,34 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pm-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:2px;}
 .pm-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.2;}
 
+/* Prodigi Print Cards — match premade grid style */
+.prodigi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;margin-bottom:20px;}
+.prodigi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;}
+.prodigi-card:hover{border-color:rgba(255,98,36,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.prodigi-img{aspect-ratio:1;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:42px;}
+.prodigi-badge{position:absolute;top:8px;right:8px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#c084fc;}
+.prodigi-info{padding:8px 10px;}
+.prodigi-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:4px;}
+.prodigi-desc{font-size:10px;color:var(--ink3);margin-bottom:8px;line-height:1.4;}
+.prodigi-row{display:flex;align-items:center;justify-content:space-between;}
+.prodigi-price{font-family:'Syne',serif;font-size:16px;font-weight:900;color:var(--orange);}
+.prodigi-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;}
+.prodigi-btn:hover{background:var(--orange);color:#fff;}
+
+/* Prodigi Modal */
+.prodigi-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:16px;}
+.prodigi-modal.open{display:flex;}
+.pm-inner{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:28px;position:relative;max-height:90dvh;overflow-y:auto;}
+.pm-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.pm-close:hover{color:var(--orange);}
+.pm-title{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:4px;}
+.pm-sub{font-size:12px;color:var(--ink3);margin-bottom:16px;}
+.pm-preview{width:100%;aspect-ratio:16/9;background:var(--bg);border-radius:10px;margin-bottom:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2);}
+.pm-preview img{max-width:100%;max-height:100%;object-fit:contain;}
+.pm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:block;}
+.pm-options{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.pm-opt{padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:rgba(255,255,255,.03);color:var(--ink2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.pm-opt.active,.pm-opt:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.08);}
 
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
 
@@ -166,10 +194,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="orb orb2"></div>
 
 <nav class="nav">
-  <a href="index.html" class="nav-logo">Prompt<span>aholics</span> <span class="store-tag">Store</span></a>
+  <a class='nav-logo' href='/'>Prompt<span>aholics</span> <span class="store-tag">Store</span></a>
   <div class="nav-right">
-    <a href="vault.html" class="nav-link"><i class="ti ti-photo"></i> <span>Vault</span></a>
-    <a href="creationstation.html" class="nav-link"><i class="ti ti-sparkles"></i> <span>Create</span></a>
+    <a class='nav-link' href='/vault'><i class="ti ti-photo"></i> <span>Vault</span></a>
+    <a class='nav-link' href='/creationstation'><i class="ti ti-sparkles"></i> <span>Create</span></a>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </nav>
@@ -320,8 +348,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="art-title"><i class="ti ti-palette"></i> Your Custom Art</div>
         <div class="art-desc" id="artDesc">Add your AI image to this product. Create one or pick from the Vault.</div>
         <div class="art-btns">
-          <a href="vault.html?sendToStore=1" class="art-btn pri"><i class="ti ti-photo"></i> Pick from Vault</a>
-          <a href="creationstation.html?sendToStore=1" class="art-btn"><i class="ti ti-sparkles"></i> Create New</a>
+          <a class='art-btn pri' href='/vault?sendToStore=1'><i class="ti ti-photo"></i> Pick from Vault</a>
+          <a class='art-btn' href='/creationstation?sendToStore=1'><i class="ti ti-sparkles"></i> Create New</a>
           <button class="art-btn" onclick="clearArt()" id="clearArtBtn" style="display:none;"><i class="ti ti-x"></i> Remove</button>
         </div>
       </div>
@@ -447,7 +475,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select any design from "Ready to Wear" above first, or create your own in <a href="creationstation.html" style="color:var(--orange);">Creation Station</a></p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select any design from "Ready to Wear" above first, or create your own in <a href='/creationstation' style='color:var(--orange);'>Creation Station</a></p>
 </div>
 
 <!-- Prodigi Modal -->
@@ -458,7 +486,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="pm-sub" id="pmSub">Gold or silver metallic foil print</div>
 
     <div class="pm-preview">
-      <img id="pmPreview" src="" alt="Preview"/>
+      <img id="pmPreview" src="" alt="Preview" style="display:none;"/>
+      <div id="pmNoDesign" style="display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);font-size:12px;text-align:center;padding:16px;">
+        <i class="ti ti-photo-off" style="font-size:28px;"></i>
+        <span>No design selected</span>
+        <button onclick="closeProdigiModal();setTimeout(function(){document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'});},300);" style="margin-top:4px;padding:6px 14px;border-radius:8px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);font-size:11px;font-weight:700;cursor:pointer;">Pick a design above</button>
+      </div>
     </div>
 
     <div id="pmSizeSection">
@@ -489,11 +522,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="toast" id="toast"></div>
 
 <footer class="footer">
-  <a href="index.html" class="footer-logo">Prompt<span>aholics</span></a>
+  <a class='footer-logo' href='/'>Prompt<span>aholics</span></a>
   <p class="footer-copy">© 2026 Promptaholics · Print-on-demand fulfilled by Printful</p>
   <div class="footer-links">
-    <a href="index.html" class="footer-link">Home</a>
-    <a href="library.html" class="footer-link">Free Prompts</a>
+    <a class='footer-link' href='/'>Home</a>
+    <a class='footer-link' href='/library'>Free Prompts</a>
   </div>
 </footer>
 
@@ -950,11 +983,6 @@ var selectedProdigiSize = null;
 var selectedProdigiFinish = null;
 
 function openProdigiModal(productKey){
-  if(!customImageData){
-    showToast('Select a design first — pick from Ready to Wear above or Create Your Own');
-    document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'});
-    return;
-  }
   var p = PRODIGI_CATALOG[productKey];
   if(!p) return;
   currentProdigiProduct = productKey;
@@ -964,9 +992,16 @@ function openProdigiModal(productKey){
   document.getElementById('pmTitle').textContent = p.name;
   document.getElementById('pmSub').textContent = p.sub;
 
-  // Set preview image
+  // Set preview image — show placeholder if no design selected
   var preview = document.getElementById('pmPreview');
-  preview.src = customImageData;
+  if(customImageData){
+    preview.src = customImageData;
+    preview.style.display = 'block';
+    document.getElementById('pmNoDesign').style.display = 'none';
+  } else {
+    preview.style.display = 'none';
+    document.getElementById('pmNoDesign').style.display = 'flex';
+  }
 
   // Build size options
   var sizesEl = document.getElementById('pmSizes');
@@ -1032,6 +1067,12 @@ function updateProdigiBtn(){
 }
 
 async function startProdigiCheckout(){
+  if(!customImageData){
+    showToast('Please select a design first');
+    closeProdigiModal();
+    setTimeout(function(){ document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'}); }, 300);
+    return;
+  }
   var p = PRODIGI_CATALOG[currentProdigiProduct];
   if(!p || !selectedProdigiSize) return;
   var btn = document.getElementById('pmOrderBtn');
