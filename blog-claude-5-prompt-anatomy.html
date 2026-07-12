@@ -75,18 +75,100 @@ body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-se
 .footer-logo span{color:var(--orange);}
 .footer-copy{font-size:11px;color:var(--ink3);margin-top:6px;}
 </style>
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
+    "description": "Exactly what makes a great Claude prompt \u2014 role, context, constraints, format, and 7 more elements that consistently produce better results.",
+    "url": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html",
+    "datePublished": "2026-05-20",
+    "dateModified": "2026-07-12",
+    "author": {
+      "@type": "Organization",
+      "name": "Promptaholics",
+      "url": "https://promptaholics.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Promptaholics",
+      "url": "https://promptaholics.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://promptaholics.com/og-default.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://promptaholics.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://promptaholics.com/blog.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
+          "item": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
+        }
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the key elements of a good Claude prompt?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 11 elements of an effective Claude prompt are: role, context, task, format, constraints, tone, examples, chain-of-thought instruction, output length, audience, and success criteria. Not every prompt needs all 11 \u2014 use what's relevant to your task."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is prompting Claude different from prompting ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Claude responds better to explicit format instructions, appreciates nuanced role definitions, and handles very long documents well. Claude also tends to ask clarifying questions when instructions are ambiguous \u2014 this is a feature, not a bug."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is chain-of-thought prompting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chain-of-thought prompting instructs the AI to show its reasoning step by step before giving a final answer. Add 'Think through this step by step' or 'Show your reasoning' to your prompt. This significantly improves accuracy on complex tasks."
+        }
+      }
+    ]
+  }
+]</script>
 </head>
 <body>
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <nav class="nav">
-  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <a class='nav-logo' href='/'>Prompt<span>aholics</span></a>
   <div class="nav-links">
-    <a href="library.html" class="nav-link">Library</a>
-    <a href="prompt-builder.html" class="nav-link">Builder</a>
-    <a href="blog.html" class="nav-link">Blog</a>
+    <a class='nav-link' href='/library'>Library</a>
+    <a class='nav-link' href='/prompt-builder'>Builder</a>
+    <a class='nav-link' href='/blog'>Blog</a>
   </div>
-  <a href="library.html" class="nav-cta"><i class="ti ti-sparkles"></i> Browse Prompts</a>
+  <a class='nav-cta' href='/library'><i class="ti ti-sparkles"></i> Browse Prompts</a>
 </nav>
 
 <div class="article-wrap">
@@ -424,25 +506,25 @@ INSTEAD:
   <div class="article-cta">
     <h3>1,671 prompts built using these principles</h3>
     <p>Every prompt in the Promptaholics library is structured, tested and ready to use. Free, no account needed.</p>
-    <a href="library.html" class="btn-cta"><i class="ti ti-sparkles"></i> Browse the Library</a>
+    <a class='btn-cta' href='/library'><i class="ti ti-sparkles"></i> Browse the Library</a>
   </div>
 
   <div class="related">
     <div class="related-title">Keep reading</div>
     <div class="related-grid">
-      <a href="blog-costar-framework.html" class="related-card">
+      <a class='related-card' href='/blog-costar-framework'>
         <span class="related-card-tag">Framework</span>
         <div class="related-card-title">How to Use the CoSTAR Prompt Framework</div>
       </a>
-      <a href="blog-loop-engineering.html" class="related-card">
+      <a class='related-card' href='/blog-loop-engineering'>
         <span class="related-card-tag">Advanced</span>
         <div class="related-card-title">Loop Engineering — The Next Evolution</div>
       </a>
-      <a href="blog-claude-prompts-business.html" class="related-card">
+      <a class='related-card' href='/blog-claude-prompts-business'>
         <span class="related-card-tag">Business</span>
         <div class="related-card-title">Claude Prompts for Business — 30 Templates</div>
       </a>
-      <a href="blog-chatgpt-vs-claude.html" class="related-card">
+      <a class='related-card' href='/blog-chatgpt-vs-claude'>
         <span class="related-card-tag">Comparison</span>
         <div class="related-card-title">ChatGPT vs Claude — Which Prompts Work Better?</div>
       </a>
@@ -451,7 +533,7 @@ INSTEAD:
 </div>
 
 <footer class="footer">
-  <a href="index.html" class="footer-logo">Prompt<span>aholics</span></a>
+  <a class='footer-logo' href='/'>Prompt<span>aholics</span></a>
   <p class="footer-copy">© 2026 Promptaholics. Free AI prompt library.</p>
 </footer>
 </body>

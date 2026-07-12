@@ -109,21 +109,103 @@ strong{color:var(--ink);font-weight:700;}
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Best Claude Prompts of 2026 (Tested & Ranked)",
+    "description": "50+ Claude-specific prompts for writing, coding, analysis, and creative work \u2014 with explanations of why each works.",
+    "url": "https://promptaholics.com/best-claude-prompts.html",
+    "datePublished": "2026-06-01",
+    "dateModified": "2026-07-12",
+    "author": {
+      "@type": "Organization",
+      "name": "Promptaholics",
+      "url": "https://promptaholics.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Promptaholics",
+      "url": "https://promptaholics.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://promptaholics.com/og-default.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptaholics.com/best-claude-prompts.html"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://promptaholics.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://promptaholics.com/blog.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "The Best Claude Prompts of 2026 (Tested & Ranked)",
+          "item": "https://promptaholics.com/best-claude-prompts.html"
+        }
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What makes Claude prompts different from ChatGPT prompts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Claude responds better to detailed role instructions, explicit format requests, and chain-of-thought prompting. Claude also handles very long documents and complex reasoning tasks better than most models."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do these prompts work with Claude Sonnet and Claude Opus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 all prompts in this guide work with Claude Sonnet 4, Claude Opus 4, and all Claude models. Some advanced prompts perform better on Opus due to its stronger reasoning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are Claude prompts free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 all prompts on Promptaholics are completely free. Copy and paste directly into Claude.ai or the API."
+        }
+      }
+    ]
+  }
+]</script>
 </head>
 <body>
 
 <nav class="topnav">
-  <a href="index.html" class="nav-logo">
+  <a class='nav-logo' href='/'>
     <div class="logo-mark">⚡</div>
     Prompt<span style="color:var(--orange)">aholics</span>
   </a>
   <div class="nav-links">
-    <a href="library.html" class="nav-lnk">Library</a>
-    <a href="prompt-builder.html" class="nav-lnk">Builder</a>
-    <a href="agent.html" class="nav-lnk">PA Agent</a>
-    <a href="creationstation.html" class="nav-lnk">AI Tools</a>
+    <a class='nav-lnk' href='/library'>Library</a>
+    <a class='nav-lnk' href='/prompt-builder'>Builder</a>
+    <a class='nav-lnk' href='/agent'>PA Agent</a>
+    <a class='nav-lnk' href='/creationstation'>AI Tools</a>
   </div>
-  <a href="library.html" class="nav-cta">Browse Prompts</a>
+  <a class='nav-cta' href='/library'>Browse Prompts</a>
 </nav>
 
 <article class="article-wrap">
@@ -161,7 +243,7 @@ strong{color:var(--ink);font-weight:700;}
   <div class="cta-box">
     <h3>Find More Claude Prompts</h3>
     <p>Browse 200+ Claude-specific prompts in our free library — organized by category, use case, and framework.</p>
-    <a href="library.html?tool=claude">Browse Claude Prompts →</a>
+    <a href='/library?tool=claude'>Browse Claude Prompts →</a>
   </div>
 
   <h2 id="writing">✍️ Writing & Content Prompts</h2>
@@ -176,7 +258,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">You are an expert journalist and content strategist. Write a comprehensive, well-researched article about [TOPIC] for [TARGET AUDIENCE]. The article should be approximately [WORD COUNT] words. Structure it with a compelling headline, an opening hook that establishes why this matters right now, 4-6 main sections with subheadings, specific examples and data points in each section, a counterargument you address directly, and a conclusion with a clear takeaway. Write in a [TONE: authoritative/conversational/storytelling] tone. Avoid filler phrases, passive voice, and generic statements. Every paragraph should advance the reader's understanding.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -186,7 +268,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Analyze the writing style in these samples and then write new content in that exact voice: [PASTE 3-5 PARAGRAPHS OF WRITING SAMPLES]. Identify: sentence length patterns, vocabulary level, rhythm and cadence, use of humor or irony, relationship with the reader, and any unique quirks. Then write [NEW CONTENT TOPIC] in 300-500 words that perfectly matches the voice. After writing, add a brief note explaining the stylistic choices you made to match the voice.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -196,7 +278,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write an email newsletter for [BRAND/CREATOR] going to [AUDIENCE DESCRIPTION]. Topic: [TOPIC]. Structure: Subject line (5 options, under 45 characters each), preview text (under 90 characters), opening that feels personal not broadcast, main content section (3 key points, each with a specific takeaway), one story or example that illustrates the main point, and a CTA that feels natural not salesy. Tone: [TONE]. Length: 400-500 words. Make it feel like it came from a real person, not a marketing team.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -206,7 +288,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">I am writing a non-fiction book about [TOPIC] for [TARGET READER]. Here is my working thesis: [THESIS]. Create a detailed chapter outline for Chapter [NUMBER]: [CHAPTER TITLE]. Include: the chapter's core argument (one sentence), an opening scene or hook, 4-6 main sections with titles, 2-3 sub-points per section, specific examples, stories, or data to include in each section, a transition strategy to the next chapter, and an estimated word count per section. Make the outline detailed enough that I could hand it to a writer and they'd know exactly what to write.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -216,7 +298,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">You are an SEO content strategist and writer. Write an SEO-optimized blog post targeting the keyword: [TARGET KEYWORD]. Secondary keywords to include naturally: [LIST 3-5]. Target word count: [WORD COUNT]. Include: an H1 title that includes the main keyword, a meta description under 155 characters, an opening paragraph that addresses search intent directly, H2 and H3 subheadings that include keyword variations, internal linking suggestions marked as [INTERNAL LINK: topic], a FAQ section with 3-5 questions people also ask about this topic, and a conclusion with a clear CTA. Write for humans first, search engines second.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
   </div>
@@ -233,7 +315,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Analyze this document and provide: [PASTE DOCUMENT]. 1) Executive summary (3-5 sentences capturing the most important points), 2) Key findings or arguments (bullet points, prioritized by importance), 3) What's notable or surprising, 4) What's missing or not addressed, 5) Potential implications or next steps, 6) Any red flags or concerns. Format your response clearly with these sections labeled. Be direct and specific — avoid vague generalizations.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -243,7 +325,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">You are a competitive intelligence analyst. Analyze [COMPETITOR NAME] based on this information: [PASTE ANY AVAILABLE DATA: website copy, reviews, pricing, job listings, social media]. Identify: their core value proposition, target customer segments, pricing strategy and positioning, key strengths (based on evidence), key weaknesses or gaps, what their customers love and hate (from reviews), and 3 opportunities for a competitor to differentiate. Be analytical, not speculative — flag anything that's an inference vs established fact.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -253,7 +335,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">I'm preparing to [defend a position / write an essay / pitch an idea] about: [YOUR POSITION]. First, steelman my position — present the strongest possible version of my argument, making it more compelling than I stated it. Then present the strongest counterarguments someone would make against my position (not strawmen, but the best objections a smart skeptic would raise). Finally, suggest how I should respond to the top 3 objections to make my argument bulletproof. Be intellectually honest throughout.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -263,7 +345,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Synthesize the following research sources into a coherent analysis: [PASTE MULTIPLE SOURCES OR EXCERPTS]. Your synthesis should: identify the main themes across sources, note where sources agree and where they conflict, highlight the most important findings, identify gaps in the current research, and give me your assessment of what the evidence most strongly supports. Write it as a well-structured analysis, not a summary of each source. Cite sources by number when referencing specific points.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -273,7 +355,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Review this contract and identify risks and issues (educational purposes only — not legal advice): [PASTE CONTRACT SECTION]. Flag: unusual or one-sided clauses, missing standard protections, vague language that could be interpreted multiple ways, indemnification or liability concerns, termination clauses and their implications, auto-renewal traps, and any clause that significantly favors one party. Rate each flag: Minor / Moderate / Major. Suggest what questions to ask a lawyer about before signing. Plain language only.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
   </div>
@@ -290,7 +372,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Review this code and provide a comprehensive analysis: [PASTE CODE]. Evaluate: correctness (does it do what it's supposed to do?), edge cases not handled, security vulnerabilities, performance considerations, readability and maintainability, naming conventions, error handling quality, and test coverage gaps. For each issue found: describe the problem, explain why it matters, and show the corrected code. Prioritize issues by severity: Critical / High / Medium / Low. End with an overall assessment and the top 3 improvements to make first.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -300,7 +382,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Explain this code to me as if I'm a [LEVEL: beginner/intermediate/senior] developer who hasn't seen this codebase before: [PASTE CODE]. Cover: what this code does overall, how it works step by step, why it's written this way (design decisions), any patterns or conventions used, potential gotchas or non-obvious behavior, and how I would modify it to [SPECIFIC CHANGE]. Use comments in the code to highlight important parts, then explain in plain language below.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -310,7 +392,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Help me debug this issue. Here's what's happening: [DESCRIBE BUG]. Here's the relevant code: [PASTE CODE]. Here's the error message (if any): [PASTE ERROR]. Here's what I've already tried: [LIST ATTEMPTS]. Please: identify the most likely cause of the bug, explain why this causes the observed behavior, provide a fix with explanation, suggest how to test the fix, and mention any related issues this bug might indicate. If you need more context to diagnose accurately, ask specific questions.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -320,7 +402,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">I need to make an architecture decision for [PROJECT/SYSTEM]. Here are the options I'm considering: Option A: [DESCRIBE], Option B: [DESCRIBE], Option C: [DESCRIBE]. My constraints are: [TEAM SIZE, SCALE REQUIREMENTS, BUDGET, TIMELINE, EXISTING STACK]. Evaluate each option on: performance at scale, development complexity, maintenance burden, cost, team learning curve, and long-term flexibility. Give me a recommendation with clear reasoning, and flag the assumptions you're making. Include what questions I should answer before finalizing the decision.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -330,7 +412,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write comprehensive technical documentation for: [SYSTEM/FEATURE/API]. Audience: [DEVELOPERS/END USERS/BOTH]. Include: overview (what it is and why it exists), prerequisites, quick start guide (get it working in under 5 minutes), detailed reference (all parameters, options, return values), code examples for the 5 most common use cases, error messages and troubleshooting, and a changelog placeholder. Format in clean Markdown. Write for clarity — assume the reader is smart but unfamiliar with this specific system.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
   </div>
@@ -347,7 +429,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write the [SECTION: Executive Summary / Market Analysis / Business Model / Financial Projections / Competitive Analysis] section of a business plan for: [BUSINESS DESCRIPTION]. Target reader: [INVESTORS / BANK / INTERNAL]. Include: specific data and market sizing where relevant, realistic projections with clear assumptions stated, honest assessment of risks alongside opportunities, and language that is professional but not filled with jargon. Flag any section where I need to fill in specific numbers or research you don't have access to. Length: [WORD COUNT].</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -357,7 +439,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">I need to make this strategic decision: [DECISION]. The context is: [BACKGROUND]. The options are: [LIST OPTIONS]. Help me think through this by: identifying the key variables that should drive this decision, mapping the likely outcomes of each option (best case, realistic case, worst case), identifying what assumptions each option depends on, flagging what I might be missing or not considering, and recommending how to gather more information before deciding. Don't just validate my existing thinking — push back where you see gaps.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -367,7 +449,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Help me build the narrative arc for a [SEED/SERIES A/CORPORATE] pitch deck about: [BUSINESS DESCRIPTION]. The story should take investors through: the undeniable problem (make them feel it), why existing solutions fall short, our unique insight or approach, why we're the right team, the market opportunity (with realistic sizing), our traction and proof points, business model and unit economics, what we're raising and what we'll do with it. Write the narrative arc as flowing prose I can adapt into slides, not bullet points. Keep it honest — investors can smell spin.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -377,7 +459,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Analyze and recommend a pricing strategy for: [PRODUCT/SERVICE DESCRIPTION]. Current or proposed price: [PRICE]. Competitors and their pricing: [LIST]. Target customer: [DESCRIPTION]. Evaluate: cost-plus vs value-based vs competitive pricing approaches, psychological pricing opportunities, tiering or packaging options, price anchoring tactics, how price affects perceived quality in this market, and optimal price point with reasoning. Include a price increase communication template if recommending a higher price than current. Note assumptions made.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -387,7 +469,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Create a complete preparation package for this meeting: [MEETING TYPE AND CONTEXT]. Attendees: [LIST WITH ROLES]. Meeting goal: [DESIRED OUTCOME]. Include: agenda with time allocations, key talking points for each agenda item, data or materials to prepare in advance, questions to ask each stakeholder, likely objections or pushback with response strategies, decision framework for any choices to be made, and a follow-up email template for after the meeting. Format it as a one-page briefing document I can review the morning of the meeting.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
   </div>
@@ -404,7 +486,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write a short story (800-1200 words) in the [GENRE] genre. Core premise: [IDEA]. Requirements: a main character with a specific, concrete want (not abstract), a scene that establishes the world and stakes in the first paragraph, rising tension that changes direction at least once, dialogue that reveals character rather than explains it, a twist or revelation in the final third, and a last line that resonates emotionally. Avoid: clichés, adverb overload, on-the-nose dialogue, and neat tidy endings unless they're earned. Make it the kind of story someone would want to share.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -414,7 +496,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Craft the brand story for [COMPANY/PRODUCT]. Background: [PASTE ANY RELEVANT INFO]. The story should cover: the origin (the real reason this was built — the frustration, the gap, the 'why'), the villain (the problem or old way of doing things), the hero (the customer and their transformation), the guide (the brand's role), and the stakes (what's possible now vs before). Write 3 versions: a 2-sentence tagline story, a 150-word about section for the website, and a 5-minute founder story for speaking engagements. Each should be emotionally true, not corporate.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -424,7 +506,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write a screenplay scene in proper format. Setup: Characters: [NAMES AND BRIEF DESCRIPTION]. Location: [SETTING]. What needs to happen dramatically in this scene: [DRAMATIC PURPOSE]. What each character wants in this scene: [WANTS]. What they're hiding or not saying: [SUBTEXT]. Write the scene so the subtext is always present but never stated explicitly. Use action lines sparingly — only what we'd see on screen. End the scene differently emotionally than it began. Length: 1-2 pages of screenplay format.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -434,7 +516,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Help me write a personal essay about: [EXPERIENCE OR TOPIC]. My angle or insight: [WHAT I WANT TO SAY]. Key memory or scene I want to include: [SCENE]. The essay should: open with a specific sensory scene (not a statement of theme), move between present reflection and past memory fluidly, avoid explaining the meaning — let the story show it, include at least one moment of genuine uncertainty or self-questioning, and end with an image or moment that leaves the reader with something to think about. Length: [500-800 / 800-1200 / 1200-2000] words. My writing voice is: [DESCRIBE YOUR VOICE].</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
 
@@ -444,7 +526,7 @@ strong{color:var(--ink);font-weight:700;}
       <div class="prompt-text">Write a dialogue scene between these characters: [CHARACTER A: name, personality, what they want right now], [CHARACTER B: name, personality, what they want right now]. The scene takes place at: [LOCATION AND CIRCUMSTANCES]. The underlying tension is: [WHAT'S REALLY AT STAKE BETWEEN THEM]. Rules: neither character should say exactly what they mean, every line should advance the conflict or reveal character, use silences and action beats as part of the dialogue, and end the scene at a point of change — something is different after this conversation than before. About 400-600 words.</div>
       <div class="prompt-actions">
         <button class="btn-copy" onclick="copyPrompt(this)"><i class="ti ti-copy"></i> Copy</button>
-        <a href="agent.html" class="btn-try"><i class="ti ti-sparkles"></i> Try with PA Agent</a>
+        <a class='btn-try' href='/agent'><i class="ti ti-sparkles"></i> Try with PA Agent</a>
       </div>
     </div>
   </div>
@@ -482,8 +564,8 @@ strong{color:var(--ink);font-weight:700;}
     <h3>Want More Expert Prompts?</h3>
     <p>Promptaholics has 1,642+ free prompts for Claude, ChatGPT, Midjourney and every major AI tool. No signup. No paywall.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-      <a href="library.html">Browse the Free Library →</a>
-      <a href="learn.html" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;">📚 Free Prompting Course</a>
+      <a href='/library'>Browse the Free Library →</a>
+      <a href='/learn' style='display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;'>📚 Free Prompting Course</a>
     </div>
   </div>
 
@@ -506,7 +588,7 @@ strong{color:var(--ink);font-weight:700;}
 
 <footer class="footer">
   <p style="margin-bottom:8px;">
-    <a href="index.html">Home</a> · <a href="library.html">Library</a> · <a href="prompt-builder.html">Builder</a> · <a href="agent.html">PA Agent</a> · <a href="blog.html">Blog</a>
+    <a href='/'>Home</a> · <a href='/library'>Library</a> · <a href='/prompt-builder'>Builder</a> · <a href='/agent'>PA Agent</a> · <a href='/blog'>Blog</a>
   </p>
   <p>© 2026 Promptaholics · Free AI Prompt Library · Forever free.</p>
 </footer>

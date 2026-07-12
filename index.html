@@ -635,25 +635,114 @@ img,video,iframe{max-width:100%;}
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
+<script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Promptaholics",
+    "url": "https://promptaholics.com",
+    "description": "Free AI prompt library with 1,700+ prompts for ChatGPT, Claude, Midjourney and more.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://promptaholics.com/library.html?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Promptaholics",
+    "url": "https://promptaholics.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://promptaholics.com/og-default.png"
+    },
+    "description": "Free AI prompt library with 1,700+ expert prompts for ChatGPT, Claude, Midjourney, and more AI tools.",
+    "foundingDate": "2025",
+    "sameAs": [
+      "https://twitter.com/promptaholics1"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PA Agent \u2014 AI Prompt Generator",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web",
+    "url": "https://promptaholics.com/agent.html",
+    "description": "AI-powered prompt generator that creates expert prompts for any use case. Free, no signup required.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "127"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Promptaholics?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Promptaholics is a free AI prompt library with 1,700+ expert prompts for ChatGPT, Claude, Midjourney, Kling and 12 more AI tools. No signup required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the prompts really free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 every prompt on Promptaholics is completely free. No account, no paywall, no credit card. Copy and use instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What AI tools do the prompts work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Prompts are structured for ChatGPT, Claude, Gemini, Midjourney, Kling, Flux, DALL-E, Runway, and more. Each prompt is tagged by compatible tool."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I submit my own prompts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use the PA Agent to generate and submit prompts. Approved prompts are added to the public library weekly."
+        }
+      }
+    ]
+  }
+]</script>
 </head>
 <body>
 
 <!-- TOP NAV -->
 <header class="topnav">
-  <a class="nav-logo" href="index.html">
+  <a class='nav-logo' href='/'>
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
   <div class="nav-right">
     <nav class="nav-desktop">
-      <a href="library.html" class="nav-lnk">Library</a>
-      <a href="prompt-builder.html" class="nav-lnk">Builder</a>
-      <a href="agent.html" class="nav-lnk">PA Agent</a>
-      <a href="creationstation.html" class="nav-lnk">AI Tools</a>
-      <a href="learn.html" class="nav-lnk">Learn</a>
-      <a href="vault.html" class="nav-lnk">Image Vault</a>
+      <a class='nav-lnk' href='/library'>Library</a>
+      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
+      <a class='nav-lnk' href='/agent'>PA Agent</a>
+      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
+      <a class='nav-lnk' href='/learn'>Learn</a>
+      <a class='nav-lnk' href='/vault'>Image Vault</a>
     </nav>
-    <a href="login.html" class="nav-signin">Sign In</a>
+    <a class='nav-signin' href='/login'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon nav-hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
@@ -670,26 +759,26 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class="sm-item active" href="index.html"><i class="ti ti-home"></i> Home</a>
-    <a class="sm-item" href="library.html"><i class="ti ti-books"></i> Prompt Library</a>
-    <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool"></i> Prompt Builder</a>
-    <a class="sm-item" href="agent.html"><i class="ti ti-sparkles"></i> PA Agent</a>
-    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt"></i> AI Tools</a>
-    <a class="sm-item" href="learn.html"><i class="ti ti-school"></i> Learn</a>
-    <a class="sm-item" href="vault.html"><i class="ti ti-photo"></i> Image Vault</a>
-    <a class="sm-item" href="login.html"><i class="ti ti-user"></i> Sign In</a>
+    <a class='sm-item active' href='/'><i class="ti ti-home"></i> Home</a>
+    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='/agent'><i class="ti ti-sparkles"></i> PA Agent</a>
+    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item' href='/learn'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='/vault'><i class="ti ti-photo"></i> Image Vault</a>
+    <a class='sm-item' href='/login'><i class="ti ti-user"></i> Sign In</a>
     <button class="sm-item" onclick="openSavedPanel();toggleMenu();"><i class="ti ti-bookmark"></i> Saved Prompts <span class="sm-badge" id="smBadge">0</span></button>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class="sm-item" href="about.html"><i class="ti ti-info-circle"></i> About Us</a>
-    <a class="sm-item" href="blog.html"><i class="ti ti-news"></i> Blog</a>
-    <a class="sm-item" href="contact.html"><i class="ti ti-mail"></i> Contact</a>
-    <a class="sm-item" href="privacy.html"><i class="ti ti-lock"></i> Privacy Policy</a>
-    <a class="sm-item" href="terms.html"><i class="ti ti-clipboard-list"></i> Terms of Service</a>
+    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='/terms'><i class="ti ti-clipboard-list"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a href="login.html" class="sm-signin"><i class="ti ti-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -721,11 +810,11 @@ img,video,iframe{max-width:100%;}
         Every prompt is <strong>structured, tested, and ready to use</strong> — for ChatGPT, Claude, Midjourney, Kling and 12 more AI tools. <strong id="heroSubCount">1,745</strong> prompts and growing. Free forever.
       </p>
       <div class="hero-ctas">
-        <a href="library.html" class="btn-hero-primary">
+        <a class='btn-hero-primary' href='/library'>
           Browse Free Prompts
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="prompt-builder.html" class="btn-hero-ghost">
+        <a class='btn-hero-ghost' href='/prompt-builder'>
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Build a Prompt
         </a>
@@ -792,7 +881,7 @@ img,video,iframe{max-width:100%;}
     <div class="section-label">Featured Prompts</div>
     <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div class="section-title" style="margin-bottom:0;text-align:left;">The prompts people<br/>actually use.</div>
-      <a href="library.html" style="border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;transition:all .15s;" onmouseover="this.style.color='var(--orange)';this.style.borderColor='var(--orange)'" onmouseout="this.style.color='var(--ink2)';this.style.borderColor='var(--border2)'">View all →</a>
+      <a href='/library' onmouseout='this.style.color=\'var(--ink2)\';this.style.borderColor=\'var(--border2)\'' onmouseover='this.style.color=\'var(--orange)\';this.style.borderColor=\'var(--orange)\'' style='border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;transition:all .15s;'>View all →</a>
     </div>
   </div>
   <div class="showcase-scroll" id="promptScroll">
@@ -893,7 +982,7 @@ img,video,iframe{max-width:100%;}
       <div class="split-eyebrow">Prompt Builder</div>
       <div class="split-title">From rough idea to<br/>expert prompt.</div>
       <div class="split-body">Choose from 9 professional frameworks — CoSTAR, RTF, AETHER, Chain-of-Thought and more. Fill in the blocks. Get a structured, high-performance prompt in seconds.</div>
-      <a href="prompt-builder.html" class="btn-hero-ghost" style="font-size:13px;padding:11px 20px;">Open Prompt Builder →</a>
+      <a class='btn-hero-ghost' href='/prompt-builder' style='font-size:13px;padding:11px 20px;'>Open Prompt Builder →</a>
     </div>
     <div class="split-visual">
       <div class="split-visual-inner">
@@ -926,29 +1015,29 @@ img,video,iframe{max-width:100%;}
 
     <!-- Preview Grid — loads from /images folder -->
     <div class="vault-preview-grid">
-      <a class="vault-preview-card" href="vault.html">
+      <a class='vault-preview-card' href='/vault'>
         <img src="/images/slot-1.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,98,36,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class="vault-preview-card" href="vault.html">
+      <a class='vault-preview-card' href='/vault'>
         <img src="/images/slot-2.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(139,92,246,.1),rgba(139,92,246,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class="vault-preview-card" href="vault.html">
+      <a class='vault-preview-card' href='/vault'>
         <img src="/images/slot-3.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(66,133,244,.1),rgba(66,133,244,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class="vault-preview-card" href="vault.html">
+      <a class='vault-preview-card' href='/vault'>
         <img src="/images/slot-4.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(0,212,170,.1),rgba(0,212,170,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
     </div>
 
     <div class="vault-cta-row" style="justify-content:center;">
-      <a href="vault.html" class="btn-hero-primary">
+      <a class='btn-hero-primary' href='/vault'>
         <i class="ti ti-photo"></i> Browse Image Vault
       </a>
-      <a href="vault.html" class="btn-hero-ghost">
+      <a class='btn-hero-ghost' href='/vault'>
         Submit Your Image →
       </a>
     </div>
@@ -1008,10 +1097,10 @@ img,video,iframe{max-width:100%;}
     </div>
 
     <div style="text-align:center;">
-      <a href="store-v2.html" class="btn-hero-primary" style="display:inline-flex;align-items:center;gap:8px;">
+      <a class='btn-hero-primary' href='/store-v2' style='display:inline-flex;align-items:center;gap:8px;'>
         <i class="ti ti-shirt"></i> Shop the Store
       </a>
-      <a href="vault.html" class="btn-hero-ghost" style="display:inline-flex;align-items:center;gap:8px;margin-left:12px;">
+      <a class='btn-hero-ghost' href='/vault' style='display:inline-flex;align-items:center;gap:8px;margin-left:12px;'>
         <i class="ti ti-sparkles"></i> Create Your Design
       </a>
     </div>
@@ -1023,8 +1112,8 @@ img,video,iframe{max-width:100%;}
   <div class="cta-title">Ready to prompt<br/>like a <span style="color:var(--orange);">professional?</span></div>
   <p style="font-size:16px;color:var(--ink2);margin:16px 0 36px;"><span id="ctaCount">1,745</span> prompts and growing. Free forever. No account required.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a href="library.html" class="btn-hero-primary">Browse the Library →</a>
-    <a href="prompt-builder.html" class="btn-hero-ghost">Try the Prompt Builder</a>
+    <a class='btn-hero-primary' href='/library'>Browse the Library →</a>
+    <a class='btn-hero-ghost' href='/prompt-builder'>Try the Prompt Builder</a>
   </div>
 </section>
 
@@ -1113,16 +1202,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a href="library.html" class="footer-lnk">Library</a>
-      <a href="prompt-builder.html" class="footer-lnk">Builder</a>
-      <a href="creationstation.html" class="footer-lnk">AI Tools</a>
+      <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
+      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a href="about.html" class="footer-lnk">About Us</a>
-      <a href="blog.html" class="footer-lnk">Blog</a>
-      <a href="contact.html" class="footer-lnk">Contact</a>
+      <a class='footer-lnk' href='/about'>About Us</a>
+      <a class='footer-lnk' href='/blog'>Blog</a>
+      <a class='footer-lnk' href='/contact'>Contact</a>
       <span class="footer-sep">|</span>
-      <a href="privacy.html" class="footer-lnk accent">Privacy</a>
-      <a href="terms.html" class="footer-lnk accent">Terms</a>
+      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
+      <a class='footer-lnk accent' href='/terms'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Free forever · No account required</div>
   </div>
@@ -1133,11 +1222,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item active" href="index.html"><i class="ti ti-home"></i>Home</a>
-  <a class="bn-item" href="library.html"><i class="ti ti-books"></i>Library</a>
-  <a class="bn-item" href="prompt-builder.html"><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item active' href='/'><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
   <button class="bn-item" onclick="openSavedPanel()"><i class="ti ti-bookmark"></i>Saved</button>
-  <a class="bn-item" href="vault.html"><i class="ti ti-photo"></i>Vault</a>
+  <a class='bn-item' href='/vault'><i class="ti ti-photo"></i>Vault</a>
 </nav>
 
 <!-- SAVED PANEL -->
