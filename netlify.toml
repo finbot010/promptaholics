@@ -2,5 +2,15 @@
   path = "/share/vault"
   function = "vault-image"
 
-[build.environment]
-  SECRETS_SCAN_SMART_DETECTION_GOOGLE_API_KEY = "false"
+# Firebase Auth handler — required for Google Sign-In popup/redirect
+[[redirects]]
+  from = "/__/auth/*"
+  to = "https://promptaholics-534d3.firebaseapp.com/__/auth/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/__/firebase/*"
+  to = "https://promptaholics-534d3.firebaseapp.com/__/firebase/:splat"
+  status = 200
+  force = true
