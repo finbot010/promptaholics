@@ -532,8 +532,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="prodigi-badge">XL Mat</div>
       </div>
       <div class="prodigi-info">
-        <div class="prodigi-name">Desk Mat</div>
-        <div class="prodigi-desc">Extra-large gaming desk mat. 36×17".</div>
+        <div class="prodigi-name">Gaming Mat</div>
+        <div class="prodigi-desc">Anti-slip gaming mat. Small, Med, Large.</div>
         <div class="prodigi-row">
           <div class="prodigi-price">from $29<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
@@ -541,16 +541,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <div class="prodigi-card" onclick="openProdigiModal('mug')">
+    <div class="prodigi-card" onclick="openMugModal()">
       <div class="prodigi-img">
-        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&q=80&fit=crop" alt="Magic Mug"/>
-        <div class="prodigi-badge" style="background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.4);color:#c084fc;">Magic</div>
+        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&q=80&fit=crop" alt="Custom Mug"/>
+        <div class="prodigi-badge" style="background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3);color:#22c55e;">US Ship</div>
       </div>
       <div class="prodigi-info">
-        <div class="prodigi-name">Magic Mug</div>
-        <div class="prodigi-desc">Design appears with hot liquid.</div>
+        <div class="prodigi-name">Custom Mug</div>
+        <div class="prodigi-desc">Glossy ceramic. Ships from US.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">from $19<small>.99</small></div>
+          <div class="prodigi-price">from $13<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
         </div>
       </div>
@@ -559,6 +559,35 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   </div>
 
   <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='/creationstation' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
+</div>
+
+
+<!-- Printful Mug Modal -->
+<div class="prodigi-modal" id="mugModal">
+  <div class="pm-inner">
+    <button class="pm-close" onclick="closeMugModal()"><i class="ti ti-x"></i></button>
+    <div class="pm-title">Custom Mug</div>
+    <div class="pm-sub">White glossy ceramic — ships from US, EU &amp; more</div>
+    <div class="pm-preview">
+      <img id="mugModalImg" src="" alt="Mug preview"/>
+    </div>
+    <span class="pm-lbl">Size</span>
+    <div class="pm-options">
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('11oz')">11oz — $13.99</button>
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('15oz')">15oz — $16.99</button>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-order" id="mugOrderBtn" onclick="startMugCheckout()" disabled>
+        <i class="ti ti-shopping-cart"></i>
+        <span id="mugOrderText">Select a size to continue</span>
+      </button>
+      <div class="secure-row" style="margin-top:12px;">
+        <div class="secure-item"><i class="ti ti-lock"></i> Stripe secured</div>
+        <div class="secure-item"><i class="ti ti-truck"></i> Ships from US</div>
+        <div class="secure-item"><i class="ti ti-refresh"></i> 30-day returns</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Prodigi Modal -->
@@ -1034,39 +1063,43 @@ const PRODIGI_CATALOG = {
   'canvas': {
     name: 'Canvas Print',
     sub: 'Gallery-wrapped, ready to hang',
-    productId: 'GLOBAL-CFPM-18X24',
+    productId: 'GLOBAL-CAN-18X24',
     sizes: ['8×10"', '12×16"', '18×24"', '24×36"'],
     finishes: ['Matte', 'Gloss'],
     prices: {'8×10"': 2999, '12×16"': 3999, '18×24"': 4999, '24×36"': 6999},
   },
   'desk-mat': {
-    name: 'Desk Mat',
-    sub: 'Extra-large gaming desk mat',
-    productId: 'GLOBAL-DRM-36X17',
-    sizes: ['36×17"', '31×14"'],
+    name: 'Gaming Mat',
+    sub: 'Anti-slip gaming mat with your AI art',
+    productId: 'DESK-MAT-MED',
+    sizes: ['Small 12×18"', 'Medium 12×22"', 'Large 16×32"'],
     finishes: ['Standard'],
-    prices: {'36×17"': 2999, '31×14"': 2499},
-  },
-  'mug': {
-    name: 'Magic Morphing Mug',
-    sub: 'Heat-sensitive design reveal',
-    productId: 'GLOBAL-MUG-11OZ',
-    sizes: ['11oz', '15oz'],
-    finishes: ['Color-Changing'],
-    prices: {'11oz': 1999, '15oz': 2499},
+    skuMap: {
+      'Small 12×18"':  'DESK-MAT-SML',
+      'Medium 12×22"': 'DESK-MAT-MED',
+      'Large 16×32"':  'DESK-MAT-LRG',
+    },
+    prices: {'Small 12×18"': 1999, 'Medium 12×22"': 2499, 'Large 16×32"': 2999},
   },
   'art-print': {
     name: 'Art Print',
-    sub: 'Premium photo paper',
-    productId: 'GLOBAL-PHPM-8X10',
-    sizes: ['5×7"', '8×10"', '11×14"', '16×20"'],
-    finishes: ['Matte', 'Gloss', 'Lustre'],
-    prices: {'5×7"': 999, '8×10"': 1499, '11×14"': 1999, '16×20"': 2999},
+    sub: 'Enhanced matte art paper, 200gsm',
+    productId: 'GLOBAL-FAP-8X10',
+    sizes: ['5×7"', '8×10"', '11×14"', 'A3', 'A2'],
+    finishes: ['Matte'],
+    skuMap: {
+      '5×7"': 'GLOBAL-FAP-5X7',
+      '8×10"': 'GLOBAL-FAP-8X10',
+      '11×14"': 'GLOBAL-FAP-11X14',
+      'A3': 'GLOBAL-FAP-A3',
+      'A2': 'GLOBAL-FAP-A2',
+    },
+    prices: {'5×7"': 999, '8×10"': 1499, '11×14"': 1999, 'A3': 2499, 'A2': 3499},
   },
   'aluminum-print': {
     name: 'Aluminum Print',
     sub: 'HD metallic surface — stunning wall art',
-    productId: 'GLOBAL-ALU-8X10',
+    productId: 'GLOBAL-MET-8X10',
     sizes: ['8×10"', '11×14"', '16×20"', '20×30"'],
     finishes: ['Gloss', 'Satin'],
     prices: {'8×10"': 2999, '11×14"': 3999, '16×20"': 6499, '20×30"': 8999},
@@ -1160,6 +1193,83 @@ function updateProdigiBtn(){
     document.getElementById('pmOrderText').textContent = 'Select all options to continue';
   }
 }
+
+// ── Printful Mug ─────────────────────────────────────────────────
+// Printful White Glossy Mug — catalog product 19
+// Variant 1320 = 11oz, Variant 1321 = 15oz
+var MUG_VARIANTS = {
+  '11oz': { variantId: '1320', price: 1399, label: '11oz White Glossy Mug' },
+  '15oz': { variantId: '1321', price: 1699, label: '15oz White Glossy Mug' },
+};
+var selectedMugSize = null;
+
+function openMugModal(){
+  if(!customImageData){
+    showToast('Select a design first — pick from Ready to Wear above!');
+    document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  selectedMugSize = null;
+  document.getElementById('mugModalImg').src = customImageData;
+  document.getElementById('mugOrderBtn').disabled = true;
+  document.getElementById('mugOrderText').textContent = 'Select a size to continue';
+  document.querySelectorAll('.mug-size-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('mugModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMugModal(){
+  document.getElementById('mugModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectMugSize(size){
+  selectedMugSize = size;
+  document.querySelectorAll('.mug-size-btn').forEach(function(b){ b.classList.remove('active'); });
+  event.target.classList.add('active');
+  var v = MUG_VARIANTS[size];
+  var btn = document.getElementById('mugOrderBtn');
+  btn.disabled = false;
+  document.getElementById('mugOrderText').textContent = 'Order Now — $' + (v.price/100).toFixed(2);
+}
+
+async function startMugCheckout(){
+  if(!selectedMugSize || !customImageData){ showToast('Select size and design first'); return; }
+  var btn = document.getElementById('mugOrderBtn');
+  btn.disabled = true;
+  document.getElementById('mugOrderText').innerHTML = '<i class="ti ti-loader-2 spin"></i> Opening checkout...';
+
+  try{
+    var imageUrl = customImageData;
+    if(imageUrl && imageUrl.startsWith('data:')){
+      try{ imageUrl = await uploadToCloudinary(imageUrl); }catch(e){}
+    }
+    var v = MUG_VARIANTS[selectedMugSize];
+    var res = await fetch(WORKER + '/api/create-checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        variantId: v.variantId,
+        price: v.price,
+        title: v.label,
+        description: 'Custom AI art mug — ' + (customImageLabel || 'Your Design'),
+        imageUrl: imageUrl,
+        side: 'Front',
+      })
+    });
+    var data = await res.json();
+    if(data.url){ window.location.href = data.url; }
+    else throw new Error(data.error || 'Checkout failed');
+  }catch(e){
+    showToast('Error: ' + e.message);
+    btn.disabled = false;
+    document.getElementById('mugOrderText').textContent = 'Try Again';
+  }
+}
+
+document.getElementById('mugModal').addEventListener('click', function(e){
+  if(e.target === this) closeMugModal();
+});
 
 // ── Vault Picker ─────────────────────────────────────────────────
 var vaultImages = [];
