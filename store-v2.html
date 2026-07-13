@@ -616,11 +616,33 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="pm-inner">
     <button class="pm-close" onclick="closeMugModal()"><i class="ti ti-x"></i></button>
     <div class="pm-title">Custom Mug</div>
-    <div class="pm-sub">White glossy ceramic — ships from US, EU &amp; more</div>
-    <div class="pm-preview">
-      <img id="mugModalImg" src="" alt="Mug preview"/>
+    <div class="pm-sub">White or black glossy ceramic — ships from US, EU & more</div>
+
+    <!-- Mockup preview -->
+    <div class="pm-preview" style="background:#111118;position:relative;overflow:hidden;">
+      <img id="mugMockupImg" src="" alt="Mug mockup" style="width:100%;height:100%;object-fit:contain;display:none;"/>
+      <div id="mugSpinner" style="display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink3);font-size:12px;">
+        <div style="width:28px;height:28px;border:3px solid var(--border2);border-top-color:var(--orange);border-radius:50%;animation:spin .7s linear infinite;"></div>
+        <span>Generating mockup...</span>
+      </div>
+      <div id="mugNoDesign" style="display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);font-size:12px;text-align:center;padding:16px;position:absolute;inset:0;justify-content:center;">
+        <i class="ti ti-photo-off" style="font-size:28px;"></i>
+        <span>No design selected — pick one below</span>
+      </div>
     </div>
-    <span class="pm-lbl">Size</span>
+
+    <!-- Change image / vault picker -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;margin-top:12px;">
+      <button onclick="toggleMugVaultPicker()" style="flex:1;padding:7px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border2);color:var(--ink3);font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;">
+        <i class="ti ti-photo"></i> Change Image
+      </button>
+    </div>
+    <div id="mugVaultPicker" style="display:none;margin-bottom:14px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Your Vault Images</div>
+      <div id="mugVaultPickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:140px;overflow-y:auto;"></div>
+    </div>
+
+    <span class="pm-lbl">Color & Size</span>
     <div class="pm-options">
       <button class="pm-opt mug-size-btn" onclick="selectMugSize('White 11oz')">⬜ White 11oz — $19.99</button>
       <button class="pm-opt mug-size-btn" onclick="selectMugSize('White 15oz')">⬜ White 15oz — $24.99</button>
@@ -1250,14 +1272,117 @@ var MUG_VARIANTS = {
 var selectedMugSize = null;
 
 function openMugModal(){
-  // Open modal even without design — user can pick from vault inside modal
   selectedMugSize = null;
-  document.getElementById('mugModalImg').src = customImageData;
+  document.querySelectorAll('.mug-size-btn').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('mugOrderBtn').disabled = true;
   document.getElementById('mugOrderText').textContent = 'Select a size to continue';
-  document.querySelectorAll('.mug-size-btn').forEach(function(b){ b.classList.remove('active'); });
+
+  // Reset vault picker
+  mugVaultPickerOpen = false;
+  document.getElementById('mugVaultPicker').style.display = 'none';
+
+  // Generate mockup with default white 11oz
+  updateMugPreview('White 11oz');
+
   document.getElementById('mugModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+// Mug catalog IDs for mockup generation
+var MUG_MOCKUP_IDS = {
+  'White 11oz': { productId: 19,  variantId: 1320 },
+  'White 15oz': { productId: 19,  variantId: 4830 },
+  'Black 11oz': { productId: 300, variantId: 9323 },
+  'Black 15oz': { productId: 300, variantId: 9324 },
+};
+
+async function updateMugPreview(size){
+  var mockup  = document.getElementById('mugMockupImg');
+  var spinner = document.getElementById('mugSpinner');
+  var noDesign = document.getElementById('mugNoDesign');
+
+  if(!customImageData){
+    mockup.style.display = 'none';
+    spinner.style.display = 'none';
+    noDesign.style.display = 'flex';
+    return;
+  }
+
+  // Show spinner
+  mockup.style.display   = 'none';
+  noDesign.style.display = 'none';
+  spinner.style.display  = 'flex';
+
+  try{
+    var imageUrl = customImageData;
+    if(imageUrl.startsWith('data:') || imageUrl.startsWith('blob:')){
+      imageUrl = await uploadToCloudinary(imageUrl);
+    }
+
+    // Use selected size for mockup, default to White 11oz
+    var ids = MUG_MOCKUP_IDS[size || 'White 11oz'];
+
+    var res = await fetch(WORKER + '/api/generate-mockup', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        imageUrl:   imageUrl,
+        productId:  ids.productId,
+        variantIds: [ids.variantId],
+        placement:  'front'
+      })
+    });
+
+    var data = await res.json();
+    if(data.success && data.mockups && data.mockups.length > 0){
+      spinner.style.display = 'none';
+      mockup.src = data.mockups[0].url;
+      mockup.style.display = 'block';
+    } else {
+      throw new Error(data.error || 'No mockup');
+    }
+  } catch(e){
+    // Fallback — show flat design
+    spinner.style.display = 'none';
+    mockup.src = customImageData;
+    mockup.style.display = 'block';
+    console.warn('Mug mockup failed, showing flat design:', e);
+  }
+}
+
+// Mug vault picker
+var mugVaultPickerOpen = false;
+
+async function toggleMugVaultPicker(){
+  var picker = document.getElementById('mugVaultPicker');
+  var grid   = document.getElementById('mugVaultPickerGrid');
+  mugVaultPickerOpen = !mugVaultPickerOpen;
+  picker.style.display = mugVaultPickerOpen ? 'block' : 'none';
+  if(mugVaultPickerOpen){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-size:11px;color:var(--ink3);padding:8px;">Loading...</div>';
+    await loadVaultImages();
+    grid.innerHTML = '';
+    vaultImages.forEach(function(img){
+      var div = document.createElement('div');
+      div.style.cssText = 'aspect-ratio:1;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color .15s;';
+      div.onclick = function(){
+        customImageData  = img.url;
+        customImageLabel = img.title;
+        updateMugPreview(selectedMugSize || 'White 11oz');
+        document.querySelectorAll('#mugVaultPickerGrid div').forEach(function(d){ d.style.borderColor='transparent'; });
+        div.style.borderColor = 'var(--orange)';
+        mugVaultPickerOpen = false;
+        picker.style.display = 'none';
+        showToast('\u2705 ' + img.title + ' selected!');
+      };
+      var imgEl = document.createElement('img');
+      imgEl.src = img.url.replace('/upload/', '/upload/w_120,h_120,c_fill/');
+      imgEl.alt = img.title;
+      imgEl.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+      div.appendChild(imgEl);
+      grid.appendChild(div);
+    });
+  }
 }
 
 function closeMugModal(){
@@ -1273,6 +1398,8 @@ function selectMugSize(size){
   var btn = document.getElementById('mugOrderBtn');
   btn.disabled = false;
   document.getElementById('mugOrderText').textContent = 'Order Now — $' + (v.price/100).toFixed(2);
+  // Regenerate mockup for selected color/size
+  updateMugPreview(size);
 }
 
 async function startMugCheckout(){
