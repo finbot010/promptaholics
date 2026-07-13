@@ -82,7 +82,7 @@ body.light .topnav{background:rgba(245,245,247,.92);}
 .nav-lnk:hover{color:var(--ink);background:var(--glass2);}
 .nav-lnk.active{color:var(--orange);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;border:none;}
-@media(max-width:480px){.nav-signin{display:none !important;}}
+@media(max-width:480px){.nav-signin{display:none !important;}.nav-lnk:not(.nav-store){display:none !important;}}
 @media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-signin:hover{background:#e84e0e;}
 .nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
@@ -522,7 +522,7 @@ img,video,iframe{max-width:100%;}
       <a class='nav-lnk' href='creationstation.html'>AI Tools</a>
       <a class='nav-lnk active' href='vault.html'>Image Vault</a>
       <a class='nav-lnk' href='learn.html'>Learn</a>
-      <a class='nav-lnk' href='store-v2.html'><i class="ti ti-shirt"></i> Store</a>
+      <a class='nav-lnk nav-store' href='store-v2.html' style="background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.25);padding:6px 12px;border-radius:8px;color:var(--orange);font-weight:700;"><i class="ti ti-shirt"></i> Store</a>
     </nav>
     <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
