@@ -15,7 +15,7 @@
   import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
-    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc }
+    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
   // Storage handled by Cloudinary (free, no upgrade needed)
 
@@ -40,7 +40,7 @@
   window._fb = { auth, db, provider,
     signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
     collection, addDoc, getDocs, query, orderBy, where,
-    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc };
+    updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc };
 
   window.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -989,6 +989,7 @@ function renderGallery(){
   list.forEach(function(img, i){
     var card = document.createElement('div');
     card.className = 'vcard';
+    card.dataset.id = img._id;
     card.style.animationDelay = Math.min(i * 0.04, 0.5) + 's';
     card.onclick = function(){ openDetail(img._id); };
 
@@ -1028,6 +1029,7 @@ function renderGallery(){
     likeBtn.className = 'vcard-btn';
     likeBtn.style.cssText = alreadyLiked ? 'color:#ef4444;border-color:rgba(239,68,68,.3);' : '';
     likeBtn.innerHTML = (alreadyLiked ? '<i class="ti ti-heart-fill"></i>' : '<i class="ti ti-heart"></i>') + ' <span class="vcard-like-count">' + (img.likes||0) + '</span>';
+    likeBtn.setAttribute('data-like','1');
     likeBtn.onclick = (function(id){ return function(e){ e.stopPropagation(); likeImage(id); }; })(img._id);
 
     actions.appendChild(copyBtn);
@@ -1152,44 +1154,63 @@ function likeFromDetail(){
 }
 async function likeImage(id){
   if(!currentUser){ openAuthGate(); return; }
-  // Prevent duplicate likes using localStorage
-  var likedKey = 'pa_vault_liked';
-  var liked = [];
-  try{ liked = JSON.parse(localStorage.getItem(likedKey)||'[]'); }catch(e){}
-  if(liked.includes(id)){
-    showToast('Already liked!');
-    return;
-  }
+
+  var userId  = currentUser.uid;
+  var likeRef = fb.doc(fb.db,'vault-likes', userId+'_'+id);
+  var imgRef  = fb.doc(fb.db,'vault-submissions',id);
+
   try{
-    var ref = fb.doc(fb.db,'vault-submissions',id);
-    await fb.updateDoc(ref, { likes: fb.increment(1) });
-    // Save to localStorage so user can't like again
-    liked.push(id);
-    localStorage.setItem(likedKey, JSON.stringify(liked));
-    // Update local array
+    var likeSnap = await fb.getDoc(likeRef);
     var img = allImages.find(function(i){ return i._id===id; });
-    if(img){ img.likes=(img.likes||0)+1; }
-    // Update live count on card
-    var cards = document.querySelectorAll('.vcard');
-    cards.forEach(function(card){
-      var likeBtn = card.querySelector('.vcard-like-count');
-      if(likeBtn && img){
-        likeBtn.textContent = img.likes;
-      }
-    });
-    // Update detail modal if open
-    if(currentDetail && currentDetail._id===id){
-      currentDetail.likes=(currentDetail.likes||0)+1;
-      var lc = document.getElementById('detailLikeCount');
-      if(lc) lc.textContent=currentDetail.likes;
+
+    if(likeSnap.exists()){
+      // Toggle off — unlike
+      await fb.deleteDoc(likeRef);
+      await fb.updateDoc(imgRef,{likes:fb.increment(-1)});
+      if(img) img.likes = Math.max(0,(img.likes||1)-1);
+      updateLikeUI(id, false, img?img.likes:0);
+      showToast('Unliked');
+    } else {
+      // New like
+      await fb.setDoc(likeRef,{userId:userId,imageId:id,createdAt:fb.serverTimestamp()});
+      await fb.updateDoc(imgRef,{likes:fb.increment(1)});
+      if(img) img.likes = (img.likes||0)+1;
+      updateLikeUI(id, true, img?img.likes:1);
+      showToast('❤️ Added to community favorites!');
     }
-    // Turn heart red to show liked
-    var allHearts = document.querySelectorAll('.vcard-btn');
-    showToast('❤️ Liked!');
   }catch(e){
     console.error('Like error:',e);
     showToast('Could not like — try again');
   }
+}
+
+function updateLikeUI(id, isLiked, count){
+  document.querySelectorAll('.vcard[data-id="'+id+'"]').forEach(function(card){
+    var btn = card.querySelector('[data-like]');
+    if(btn){
+      btn.style.cssText = isLiked ? 'background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#ef4444;font-weight:800;' : '';
+      btn.innerHTML = (isLiked?'<i class="ti ti-heart-filled"></i>':'<i class="ti ti-heart"></i>')+
+        '<span class="btn-label"> '+(isLiked?'Liked':'Like')+'</span> <span class="vcard-like-count">'+count+'</span>';
+    }
+  });
+  if(currentDetail && currentDetail._id===id){
+    currentDetail.likes=count;
+    var lc=document.getElementById('detailLikeCount');
+    if(lc) lc.textContent=count;
+  }
+}
+
+async function loadUserLikes(){
+  if(!currentUser) return;
+  try{
+    var q = fb.query(fb.collection(fb.db,'vault-likes'),fb.where('userId','==',currentUser.uid));
+    var snap = await fb.getDocs(q);
+    snap.forEach(function(doc){
+      var imgId = doc.data().imageId;
+      var img = allImages.find(function(i){ return i._id===imgId; });
+      updateLikeUI(imgId, true, img?img.likes:0);
+    });
+  }catch(e){ console.warn('Could not load user likes:',e); }
 }
 
 // ── SUBMIT ────────────────────────────────────────────────────
