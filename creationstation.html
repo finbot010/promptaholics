@@ -385,6 +385,106 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 .ratio-btn.active .ratio-label{color:#a78bfa;}
 @media(max-width:480px){.ratio-btn{min-width:60px;padding:6px 8px;font-size:10px;}}
 
+/* ── Generator Hero ─────────────────────────────────────────────── */
+.generator-hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,
+    rgba(17,12,36,1) 0%,
+    rgba(26,12,46,1) 40%,
+    rgba(20,12,32,1) 100%) !important;
+  border:1px solid rgba(139,92,246,.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(139,92,246,.1),
+    0 20px 60px rgba(124,58,237,.15),
+    inset 0 1px 0 rgba(167,139,250,.1) !important;
+  margin-bottom:0 !important;
+}
+.generator-hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.015'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.gen-orb{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+  filter:blur(60px);
+}
+.gen-orb-1{
+  width:380px;height:380px;
+  background:radial-gradient(circle,rgba(124,58,237,.18),transparent 70%);
+  top:-120px;right:-80px;
+  animation:orbFloat1 8s ease-in-out infinite;
+}
+.gen-orb-2{
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(255,98,36,.1),transparent 70%);
+  bottom:-60px;left:-40px;
+  animation:orbFloat2 10s ease-in-out infinite;
+}
+.gen-orb-3{
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(168,85,247,.12),transparent 70%);
+  top:40%;left:40%;
+  animation:orbFloat1 12s ease-in-out infinite reverse;
+}
+@keyframes orbFloat1{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(-20px,15px);}
+}
+@keyframes orbFloat2{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(15px,-20px);}
+}
+.generator-hero .tool-sec-hdr{position:relative;z-index:2;}
+.generator-hero textarea,
+.generator-hero select{
+  position:relative;z-index:2;
+  background:rgba(255,255,255,.06) !important;
+  border-color:rgba(139,92,246,.3) !important;
+}
+.generator-hero textarea:focus{
+  border-color:rgba(139,92,246,.6) !important;
+  box-shadow:0 0 0 3px rgba(124,58,237,.12) !important;
+}
+.generator-hero .pol-preset{
+  position:relative;z-index:2;
+}
+#polGenBtn{
+  background:linear-gradient(135deg,#7c3aed,#a855f7) !important;
+  color:#fff !important;
+  box-shadow:0 4px 20px rgba(124,58,237,.4) !important;
+  font-size:14px !important;
+}
+#polGenBtn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 28px rgba(124,58,237,.5) !important;
+}
+#polOutputWrap{
+  position:relative;
+  z-index:2;
+  background:rgba(0,0,0,.4) !important;
+  border-color:rgba(139,92,246,.2) !important;
+  min-height:300px !important;
+}
+.generator-hero > *:not(.gen-orb):not(.generator-hero::after){
+  position:relative;
+  z-index:2;
+}
+/* Star border top accent */
+.generator-hero::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#7c3aed,#a855f7,#7c3aed,transparent);
+  z-index:3;
+}
+
 .tool-sec{max-width:1200px;margin:0 auto;padding:0 24px 64px;}
 .tool-sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .tool-sec-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
@@ -1158,10 +1258,26 @@ img,video,iframe{max-width:100%;}
 <!-- ══════════════════════════════════════════
      TOOL 4 — 🎨 AI IMAGE GENERATOR (Puter.js)
 ══════════════════════════════════════════ -->
-<div class="tool-sec always-visible" style="background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(255,98,36,.04),rgba(0,212,170,.03));border-color:rgba(139,92,246,.2);">
-  <div class="tool-sec-hdr">
-    <h2><i class="ti ti-brush" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Free AI Image Generator</h2>
-    <span class="tool-built-badge" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3);color:#7c3aed;">Free · GPT Image · No Key Needed</span>
+<div class="tool-sec always-visible generator-hero">
+  <!-- Ambient glow orbs -->
+  <div class="gen-orb gen-orb-1"></div>
+  <div class="gen-orb gen-orb-2"></div>
+  <div class="gen-orb gen-orb-3"></div>
+
+  <div class="tool-sec-hdr" style="position:relative;z-index:2;">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:8px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);">
+        <i class="ti ti-sparkles"></i> Free Forever · No Account Needed · No API Key
+      </div>
+      <h2 style="font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;color:var(--ink);margin:0;">
+        <span style="background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Free AI</span> Image Generator
+      </h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#a78bfa;background:rgba(139,92,246,.1);padding:5px 11px;border-radius:20px;border:1px solid rgba(139,92,246,.2);">
+        <i class="ti ti-zap" style="font-size:13px;"></i> Powered by GPT Image
+      </div>
+    </div>
   </div>
 
   <!-- PROMPT INPUT -->
