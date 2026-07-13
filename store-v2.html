@@ -597,9 +597,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div class="prodigi-info">
         <div class="prodigi-name">Custom Mug</div>
-        <div class="prodigi-desc">Glossy ceramic. Ships from US.</div>
+        <div class="prodigi-desc">White or black glossy. 11oz &amp; 15oz.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">from $13<small>.99</small></div>
+          <div class="prodigi-price">from $19<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
         </div>
       </div>
@@ -622,8 +622,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     </div>
     <span class="pm-lbl">Size</span>
     <div class="pm-options">
-      <button class="pm-opt mug-size-btn" onclick="selectMugSize('11oz')">11oz — $13.99</button>
-      <button class="pm-opt mug-size-btn" onclick="selectMugSize('15oz')">15oz — $16.99</button>
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('White 11oz')">⬜ White 11oz — $19.99</button>
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('White 15oz')">⬜ White 15oz — $24.99</button>
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('Black 11oz')">⬛ Black 11oz — $21.99</button>
+      <button class="pm-opt mug-size-btn" onclick="selectMugSize('Black 15oz')">⬛ Black 15oz — $26.99</button>
     </div>
     <div style="margin-top:16px;">
       <button class="btn-order" id="mugOrderBtn" onclick="startMugCheckout()" disabled>
@@ -1245,8 +1247,10 @@ function updateProdigiBtn(){
 // Printful White Glossy Mug — catalog product 19
 // Variant 1320 = 11oz, Variant 1321 = 15oz
 var MUG_VARIANTS = {
-  '11oz': { variantId: '1320', price: 1399, label: '11oz White Glossy Mug' },
-  '15oz': { variantId: '1321', price: 1699, label: '15oz White Glossy Mug' },
+  'White 11oz': { variantId: '5392115502', price: 1999, label: 'White Glossy Mug 11oz' },
+  'White 15oz': { variantId: '5392115503', price: 2499, label: 'White Glossy Mug 15oz' },
+  'Black 11oz': { variantId: '5392112128', price: 2199, label: 'Black Glossy Mug 11oz' },
+  'Black 15oz': { variantId: '5392112129', price: 2699, label: 'Black Glossy Mug 15oz' },
 };
 var selectedMugSize = null;
 
