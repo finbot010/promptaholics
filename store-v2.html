@@ -789,12 +789,7 @@ function selectPremade(imageUrl, title){
   // Highlight selected card
   document.querySelectorAll('.premade-card').forEach(function(c){ c.classList.remove('selected'); });
   if(event && event.currentTarget) event.currentTarget.classList.add('selected');
-  showToast('\u2705 ' + title + ' selected \u2014 now pick a product below!');
-  // Smooth scroll to products grid
-  setTimeout(function(){
-    var grid = document.querySelector('.product-grid');
-    if(grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
-  }, 400);
+  showToast('\u2705 ' + title + ' selected \u2014 now pick a product!');
 }
 
 // ── Theme ──────────────────────────────────────────────────────
@@ -1255,11 +1250,7 @@ var MUG_VARIANTS = {
 var selectedMugSize = null;
 
 function openMugModal(){
-  if(!customImageData){
-    showToast('Select a design first — pick from Ready to Wear above!');
-    document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'});
-    return;
-  }
+  // Open modal even without design — user can pick from vault inside modal
   selectedMugSize = null;
   document.getElementById('mugModalImg').src = customImageData;
   document.getElementById('mugOrderBtn').disabled = true;
@@ -1413,9 +1404,7 @@ function getHighResUrl(imageUrl){
 
 async function startProdigiCheckout(){
   if(!customImageData){
-    showToast('Please select a design first');
-    closeProdigiModal();
-    setTimeout(function(){ document.querySelector('.premade-card').scrollIntoView({behavior:'smooth'}); }, 300);
+    showToast('No design selected \u2014 use Change Image to pick one');
     return;
   }
   var p = PRODIGI_CATALOG[currentProdigiProduct];
