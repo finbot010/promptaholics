@@ -567,9 +567,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
       <div class="prodigi-info">
         <div class="prodigi-name">Art Print</div>
-        <div class="prodigi-desc">Premium photo paper. Matte/Gloss.</div>
+        <div class="prodigi-desc">Large format only. 11×14" and up.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price">from $14<small>.99</small></div>
+          <div class="prodigi-price">from $34<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
         </div>
       </div>
@@ -1132,18 +1132,16 @@ const PRODIGI_CATALOG = {
   },
   'art-print': {
     name: 'Art Print',
-    sub: 'Enhanced matte art paper, 200gsm',
-    productId: 'GLOBAL-FAP-8X10',
-    sizes: ['5×7"', '8×10"', '11×14"', 'A3', 'A2'],
+    sub: 'Enhanced matte art paper, 200gsm — large format only',
+    productId: 'GLOBAL-FAP-11X14',
+    sizes: ['11×14"', 'A3 (11.7×16.5")', 'A2 (16.5×23.4")'],
     finishes: ['Matte'],
     skuMap: {
-      '5×7"': 'GLOBAL-FAP-5X7',
-      '8×10"': 'GLOBAL-FAP-8X10',
-      '11×14"': 'GLOBAL-FAP-11X14',
-      'A3': 'GLOBAL-FAP-A3',
-      'A2': 'GLOBAL-FAP-A2',
+      '11×14"':          'GLOBAL-FAP-11X14',
+      'A3 (11.7×16.5")': 'GLOBAL-FAP-A3',
+      'A2 (16.5×23.4")': 'GLOBAL-FAP-A2',
     },
-    prices: {'5×7"': 999, '8×10"': 1499, '11×14"': 1999, 'A3': 2499, 'A2': 3499},
+    prices: {'11×14"': 3499, 'A3 (11.7×16.5")': 3999, 'A2 (16.5×23.4")': 4999},
   },
   'aluminum-print': {
     name: 'Aluminum Print',
