@@ -30,7 +30,56 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .nav-link:hover{color:var(--ink);border-color:rgba(255,98,36,.3);}
 .theme-toggle{width:36px;height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--glass);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink2);transition:all .15s;}
 .theme-toggle:hover{border-color:rgba(255,98,36,.3);}
-@media(max-width:500px){.nav-link span{display:none;}.nav{padding:0 14px;}}
+/* ── Nav mobile — matches index.html ── */
+.nav-links{display:flex;align-items:center;gap:6px;}
+@media(max-width:680px){.nav-links{display:none;}}
+.nav-hamburger{display:none;}
+@media(max-width:1024px){.nav-hamburger{display:flex;width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;align-items:center;justify-content:center;}}
+
+/* ── Slide Menu ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;}
+.slide-menu.open{transform:translateX(0);}
+.sm-head{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:8px 8px 4px;display:block;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--ink2);transition:all .15s;margin-bottom:1px;text-decoration:none;width:100%;}
+.sm-item:hover{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);}
+
+/* ── Bottom Nav ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;cursor:pointer;background:none;text-decoration:none;border-left:none;border-right:none;border-bottom:none;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
+
+/* ── Mobile layout ── */
+@media(max-width:640px){
+  body{padding-bottom:60px;}
+  .hero{padding:32px 16px 28px;}
+  .section{padding:0 14px 40px;}
+  .section-hdr{margin-bottom:16px;}
+  .section > div[style*="grid"]{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;}
+  .prodigi-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .prodigi-desc{display:none;}
+  .product-grid{grid-template-columns:1fr;gap:12px;}
+  .pc-img{aspect-ratio:16/9;}
+  .modal{grid-template-columns:1fr;max-height:96dvh;border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;margin:0;max-width:100%;}
+  .modal-left{border-radius:16px 16px 0 0;min-height:220px;}
+  .modal-right{padding:14px;}
+  .pm-inner{border-radius:16px 16px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;padding:20px 16px;}
+  .prodigi-modal{align-items:flex-end;padding:0;}
+  .btn-order{padding:13px;font-size:14px;}
+  .features-inner{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:420px){
+  .prodigi-grid{grid-template-columns:repeat(2,1fr);gap:6px;}
+  .product-grid{grid-template-columns:1fr;}
+  .section{padding:0 12px 36px;}
+}
 
 /* ── Mobile Responsive ── */
 @media(max-width:640px){
@@ -1436,6 +1485,14 @@ document.getElementById('prodigiModal').addEventListener('click', function(e){
 
 // ── Init ───────────────────────────────────────────────────────
 loadIncomingImage();
+</script>
+
+<script>
+function toggleMenu(){
+  document.getElementById('slideMenu').classList.toggle('open');
+  document.getElementById('menuOverlay').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('slideMenu').classList.contains('open') ? 'hidden' : '';
+}
 </script>
 </body>
 </html>
