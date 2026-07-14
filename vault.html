@@ -514,9 +514,8 @@ img,video,iframe{max-width:100%;}
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
-  <!-- Store button — always visible between logo and theme toggle -->
-  <a href='store-v2.html' style="margin-left:auto;display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:8px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.3);color:var(--orange);font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;"><i class="ti ti-shirt" style="font-size:14px;"></i> Store</a>
-  <div class="nav-right" style="margin-left:8px;">
+  <div class="nav-right">
+    <!-- Desktop only links -->
     <nav class="nav-desktop">
       <a class='nav-lnk' href='library.html'>Library</a>
       <a class='nav-lnk' href='prompt-builder.html'>Builder</a>
@@ -524,10 +523,13 @@ img,video,iframe{max-width:100%;}
       <a class='nav-lnk' href='creationstation.html'>AI Tools</a>
       <a class='nav-lnk active' href='vault.html'>Image Vault</a>
       <a class='nav-lnk' href='learn.html'>Learn</a>
+      <a class='nav-lnk' href='store-v2.html' style="background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.3);color:var(--orange);font-weight:700;padding:5px 11px;border-radius:8px;"><i class="ti ti-shirt"></i> Store</a>
     </nav>
+    <!-- Desktop only: Sign In -->
     <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
+    <!-- Always visible: theme + hamburger -->
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-list"></i></button>
+    <button class="nav-icon" onclick="toggleMenu()" style="color:var(--orange);border-color:rgba(255,98,36,.3);background:rgba(255,98,36,.08);"><i class="ti ti-menu-2"></i></button>
   </div>
 </header>
 
@@ -547,14 +549,12 @@ img,video,iframe{max-width:100%;}
     <a class='sm-item' href='creationstation.html'><i class="ti ti-bolt"></i> AI Tools</a>
     <a class='sm-item active' href='vault.html'><i class="ti ti-photo"></i> Image Vault</a>
     <a class='sm-item' href='learn.html'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='store-v2.html' style="color:var(--orange);font-weight:700;"><i class="ti ti-shirt"></i> Store</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
-    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
-    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
-    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy</a>
-    <a class='sm-item' href='/terms'><i class="ti ti-clipboard-list"></i> Terms</a>
+    <a class='sm-item' href='blog.html'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-lock"></i> Privacy</a>
   </div>
   <div class="sm-foot">
     <button class="sm-signin-btn" onclick="handleAuthClick();toggleMenu();" id="smAuthBtn">
