@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shared Prompt — Promptaholics</title>
+<link rel="icon" href="favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;900&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+:root{--bg:#07070a;--bg2:#0d0d14;--ink:#f0f0f8;--ink2:rgba(240,240,248,.6);--ink3:rgba(240,240,248,.28);--orange:#ff6224;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100dvh;background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;-webkit-text-size-adjust:100%;max-width:100%;overflow-x:hidden;}
+body{display:flex;flex-direction:column;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:54px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);width:100%;box-sizing:border-box;}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;flex-shrink:0;}
+.nav-logo span{color:var(--orange);}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:var(--orange);border:none;color:#fff;font-size:12px;font-weight:700;text-decoration:none;flex-shrink:0;}
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px;flex:1;width:100%;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);margin-bottom:16px;}
+h1{font-family:'Syne',serif;font-size:clamp(18px,4vw,26px);font-weight:900;letter-spacing:-1px;margin-bottom:6px;line-height:1.2;}
+.meta{font-size:13px;color:var(--ink3);margin-bottom:24px;}
+.prompt-card{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:20px;margin-bottom:20px;position:relative;}
+.prompt-text{font-size:14px;line-height:1.75;color:var(--ink2);white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:hidden;}
+.prompt-text.expanded{max-height:9999px;}
+.prompt-fade{position:absolute;bottom:20px;left:0;right:0;height:70px;background:linear-gradient(transparent,var(--bg2));pointer-events:none;border-radius:0 0 14px 14px;}
+.show-more{background:none;border:none;color:var(--orange);font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;padding:0;display:block;}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid;text-decoration:none;}
+.btn-primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.btn-secondary{background:rgba(255,255,255,.04);border-color:var(--border2);color:var(--ink2);}
+.share-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.share-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;}
+.s-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;border:1px solid;}
+.divider{border:none;border-top:1px solid var(--border);margin:8px 0 28px;}
+.cta-box{background:rgba(255,98,36,.05);border:1px solid rgba(255,98,36,.15);border-radius:14px;padding:24px;text-align:center;}
+.cta-box h2{font-family:'Syne',serif;font-size:18px;font-weight:900;margin-bottom:6px;}
+.cta-box p{font-size:13px;color:var(--ink2);margin-bottom:16px;}
+.cta-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.loading,.error-state{text-align:center;padding:80px 20px;color:var(--ink3);}
+.loading i{font-size:32px;display:block;margin-bottom:12px;animation:spin .7s linear infinite;}
+.error-state i{font-size:40px;display:block;margin-bottom:12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Prompt<span>aholics</span></a>
+  <a href="agent.html" class="nav-btn"><i class="ti ti-sparkles"></i> Try PA Agent</a>
+</nav>
+<div class="wrap">
+  <div id="loading" class="loading"><i class="ti ti-loader-2"></i><p>Loading prompt...</p></div>
+  <div id="content" style="display:none;">
+    <div class="badge"><i class="ti ti-sparkles"></i> PA Agent Prompt</div>
+    <h1 id="promptName"></h1>
+    <div class="meta" id="promptMeta"></div>
+    <div class="prompt-card">
+      <div class="prompt-text" id="promptText"></div>
+      <div class="prompt-fade" id="promptFade"></div>
+      <button class="show-more" id="showMoreBtn" onclick="toggleExpand()">Show full prompt &#8595;</button>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="copyPrompt()"><i class="ti ti-copy"></i> Copy Prompt</button>
+      <a href="agent.html" class="btn btn-secondary"><i class="ti ti-sparkles"></i> Try PA Agent</a>
+      <button class="btn btn-secondary" onclick="submitToLibrary()"><i class="ti ti-library-plus"></i> Submit to Library</button>
+    </div>
+    <div class="share-label">Share this prompt</div>
+    <div class="share-row" id="shareRow"></div>
+    <div class="divider"></div>
+    <div class="cta-box">
+      <h2>Generate your own AI prompts &mdash; free</h2>
+      <p>PA Agent builds expert prompts for ChatGPT, Claude, Midjourney and more in seconds. No signup needed.</p>
+      <div class="cta-row">
+        <a href="agent.html" class="btn btn-primary"><i class="ti ti-sparkles"></i> Try PA Agent</a>
+        <a href="library.html" class="btn btn-secondary"><i class="ti ti-books"></i> Browse 1,700+ Prompts</a>
+      </div>
+    </div>
+  </div>
+  <div id="errorState" class="error-state" style="display:none;">
+    <i class="ti ti-mood-sad"></i>
+    <h2 style="font-family:'Syne',serif;margin-bottom:8px;">Prompt not found</h2>
+    <p style="color:var(--ink2);margin-bottom:20px;">This link may be invalid or the prompt was removed.</p>
+    <a href="agent.html" class="btn btn-primary"><i class="ti ti-sparkles"></i> Generate a new prompt</a>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+const db = getFirestore(initializeApp({
+  apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
+  authDomain:"promptaholics.com",
+  projectId:"promptaholics-534d3",
+  storageBucket:"promptaholics-534d3.firebasestorage.app",
+  messagingSenderId:"426595742101",
+  appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
+}));
+const id = new URLSearchParams(location.search).get('id');
+let pData = null;
+async function init(){
+  if(!id){ showErr(); return; }
+  try{
+    const snap = await getDoc(doc(db,'prompt-shares',id));
+    if(!snap.exists()){ showErr(); return; }
+    pData = snap.data();
+    render(pData);
+  }catch(e){ console.error(e); showErr(); }
+}
+function render(d){
+  document.title = (d.name||'AI Prompt') + ' - Promptaholics';
+  document.getElementById('promptName').textContent = d.name||'AI Prompt';
+  document.getElementById('promptMeta').textContent = [d.category,d.tool,'Generated by PA Agent'].filter(Boolean).join(' · ');
+  const textEl = document.getElementById('promptText');
+  textEl.textContent = d.text||'';
+  if((d.text||'').length < 400){
+    textEl.style.maxHeight='none';
+    document.getElementById('promptFade').style.display='none';
+    document.getElementById('showMoreBtn').style.display='none';
+  }
+  const url = location.href;
+  const t = encodeURIComponent((d.name||'AI Prompt')+' - free AI prompt via Promptaholics');
+  document.getElementById('shareRow').innerHTML =
+    '<a href="https://twitter.com/intent/tweet?text='+t+'&url='+encodeURIComponent(url)+'" target="_blank" class="s-btn" style="background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.15);color:#f0f0f8;"><i class="ti ti-brand-x"></i> X</a>'+
+    '<a href="https://www.reddit.com/submit?url='+encodeURIComponent(url)+'&title='+t+'" target="_blank" class="s-btn" style="background:rgba(255,69,0,.1);border-color:rgba(255,69,0,.25);color:#ff4500;"><i class="ti ti-brand-reddit"></i> Reddit</a>'+
+    '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)+'" target="_blank" class="s-btn" style="background:rgba(0,119,181,.1);border-color:rgba(0,119,181,.25);color:#0077b5;"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>'+
+    '<a href="https://api.whatsapp.com/send?text='+t+'%20'+encodeURIComponent(url)+'" target="_blank" class="s-btn" style="background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.25);color:#25d366;"><i class="ti ti-brand-whatsapp"></i> WhatsApp</a>';
+  document.getElementById('loading').style.display='none';
+  document.getElementById('content').style.display='block';
+}
+function showErr(){
+  document.getElementById('loading').style.display='none';
+  document.getElementById('errorState').style.display='block';
+}
+window.toggleExpand = function(){
+  const el=document.getElementById('promptText');
+  const fade=document.getElementById('promptFade');
+  const btn=document.getElementById('showMoreBtn');
+  const expanded=el.classList.toggle('expanded');
+  fade.style.display=expanded?'none':'block';
+  btn.textContent=expanded?'Show less':'Show full prompt';
+};
+window.copyPrompt = async function(){
+  if(!pData) return;
+  try{ await navigator.clipboard.writeText(pData.text||''); showToast('Copied!'); }
+  catch(e){ showToast('Select and copy manually'); }
+};
+window.submitToLibrary = function(){
+  location.href='agent.html?submit='+encodeURIComponent(id);
+};
+function showToast(msg){
+  const t=document.createElement('div');
+  t.textContent=msg;
+  t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0d0d14;border:1px solid rgba(255,255,255,.13);color:#f0f0f8;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;white-space:nowrap;';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+init();
+</script>
+</body>
+</html>

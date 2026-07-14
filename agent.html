@@ -317,7 +317,7 @@ body.light .grain{opacity:.015;}
 <!-- Firebase -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, addDoc, serverTimestamp }
+import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { getAuth, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -1279,35 +1279,96 @@ function buildImagesPanel(prompts){
 async function sharePrompt(promptData, btn){
   const name = promptData.name || 'AI Prompt';
   const text = promptData.text || '';
-  const shareText = `${name}\n\n${text}\n\n— via Promptaholics (promptaholics.com)`;
+  const category = promptData.category || 'General';
+  const tool = promptData.tool || 'ChatGPT';
 
-  // Native share (mobile) — opens iOS/Android share sheet
-  if(navigator.share){
-    try {
-      await navigator.share({
-        title: name + ' — Promptaholics',
-        text: shareText,
-        url: 'https://promptaholics.com/library.html'
-      });
-      if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'native'});
-      return;
-    } catch(e){
-      // User cancelled the share sheet — do nothing
-      if(e.name === 'AbortError') return;
-    }
-  }
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i>';
+  btn.disabled = true;
 
-  // Fallback — copy to clipboard (desktop / unsupported browsers)
   try {
-    await navigator.clipboard.writeText(shareText);
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="ti ti-check"></i>';
-    btn.style.color = '#22c55e';
-    if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'clipboard'});
-    setTimeout(()=>{ btn.innerHTML = orig; btn.style.color=''; }, 1800);
+    // Save to Firebase prompt-shares collection
+    const db  = window._promptShareDb;
+    const col = window._promptShareCollection;
+    const add = window._promptShareAddDoc;
+    const ts  = window._promptShareServerTimestamp;
+
+    let shareUrl = 'https://promptaholics.com/library.html';
+
+    if(db && col && add){
+      const docRef = await add(col(db,'prompt-shares'),{
+        name,
+        text,
+        category,
+        tool,
+        createdAt: ts(),
+        source: 'pa-agent'
+      });
+      shareUrl = `https://promptaholics.com/share/prompt?id=${docRef.id}`;
+    }
+
+    btn.innerHTML = orig;
+    btn.disabled = false;
+
+    // Try native share sheet first (mobile)
+    if(navigator.share){
+      try {
+        await navigator.share({
+          title: name + ' — Promptaholics',
+          text: text.slice(0,100) + '...',
+          url: shareUrl
+        });
+        if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'native'});
+        return;
+      } catch(e){
+        if(e.name === 'AbortError') return;
+      }
+    }
+
+    // Desktop fallback — show share popover with link + platform buttons
+    showSharePopover(shareUrl, name, btn);
+    if(typeof gtag !== 'undefined') gtag('event','share_prompt',{method:'link'});
+
   } catch(e){
     console.warn('Share failed:', e);
+    btn.innerHTML = orig;
+    btn.disabled = false;
+    showToast('Share failed — try again');
   }
+}
+
+function showSharePopover(url, title, anchorBtn){
+  // Remove any existing popover
+  document.querySelectorAll('.share-popover').forEach(p => p.remove());
+
+  const pop = document.createElement('div');
+  pop.className = 'share-popover';
+  pop.innerHTML = `
+    <div style="font-size:11px;font-weight:700;color:rgba(240,240,248,.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Share Prompt</div>
+    <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 10px;margin-bottom:10px;">
+      <span style="font-size:11px;color:rgba(240,240,248,.5);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${url.replace('https://','')}</span>
+      <button onclick="navigator.clipboard.writeText('${url}');this.innerHTML='<i class=\'ti ti-check\'></i>';this.style.color='#22c55e';setTimeout(()=>{this.innerHTML='<i class=\'ti ti-copy\'></i>';this.style.color='';},1500);" style="background:none;border:none;color:rgba(240,240,248,.5);cursor:pointer;font-size:14px;flex-shrink:0;"><i class="ti ti-copy"></i></button>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title+' — free AI prompt')}&url=${encodeURIComponent(url)}" target="_blank" style="flex:1;padding:7px;border-radius:8px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);color:#f0f0f8;font-size:11px;font-weight:700;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="ti ti-brand-x"></i> X</a>
+      <a href="https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}" target="_blank" style="flex:1;padding:7px;border-radius:8px;background:rgba(255,69,0,.1);border:1px solid rgba(255,69,0,.2);color:#ff4500;font-size:11px;font-weight:700;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="ti ti-brand-reddit"></i> Reddit</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}" target="_blank" style="flex:1;padding:7px;border-radius:8px;background:rgba(0,119,181,.1);border:1px solid rgba(0,119,181,.2);color:#0077b5;font-size:11px;font-weight:700;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="ti ti-brand-linkedin"></i> LinkedIn</a>
+      <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(title+' '+url)}" target="_blank" style="flex:1;padding:7px;border-radius:8px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);color:#25d366;font-size:11px;font-weight:700;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="ti ti-brand-whatsapp"></i> WA</a>
+    </div>
+    <button onclick="this.closest('.share-popover').remove()" style="position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(240,240,248,.4);cursor:pointer;font-size:16px;"><i class="ti ti-x"></i></button>
+  `;
+  pop.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);width:min(340px,90vw);background:#0d0d14;border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:16px;z-index:9999;box-shadow:0 20px 60px rgba(0,0,0,.6);';
+  document.body.appendChild(pop);
+
+  // Close on outside click
+  setTimeout(()=>{
+    document.addEventListener('click', function close(e){
+      if(!pop.contains(e.target) && e.target !== anchorBtn){
+        pop.remove();
+        document.removeEventListener('click', close);
+      }
+    });
+  }, 100);
 }
 
 // ════════════════════════════════════════════════════
