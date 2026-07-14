@@ -68,7 +68,7 @@ a{text-decoration:none;color:inherit;}
 button{font-family:'Instrument Sans',sans-serif;cursor:pointer;}
 
 /* ── TOP NAV ── */
-.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);}
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);overflow:hidden;}
 body.light .topnav{background:rgba(245,245,247,.92);}
 .nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
 .logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
@@ -523,7 +523,7 @@ img,video,iframe{max-width:100%;}
       <a class='nav-lnk' href='creationstation.html'>AI Tools</a>
       <a class='nav-lnk active' href='vault.html'>Image Vault</a>
       <a class='nav-lnk' href='learn.html'>Learn</a>
-      <a class='nav-lnk' href='store-v2.html' style="background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.3);color:var(--orange);font-weight:700;padding:5px 11px;border-radius:8px;"><i class="ti ti-shirt"></i> Store</a>
+      <a class='nav-lnk' href='store-v2.html' style='background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.3);color:var(--orange);font-weight:700;padding:5px 11px;border-radius:8px;'><i class="ti ti-shirt"></i> Store</a>
     </nav>
     <!-- Desktop only: Sign In -->
     <button class="nav-signin" id="navAuthBtn" onclick="handleAuthClick()">Sign In</button>
@@ -549,7 +549,7 @@ img,video,iframe{max-width:100%;}
     <a class='sm-item' href='creationstation.html'><i class="ti ti-bolt"></i> AI Tools</a>
     <a class='sm-item active' href='vault.html'><i class="ti ti-photo"></i> Image Vault</a>
     <a class='sm-item' href='learn.html'><i class="ti ti-school"></i> Learn</a>
-    <a class='sm-item' href='store-v2.html' style="color:var(--orange);font-weight:700;"><i class="ti ti-shirt"></i> Store</a>
+    <a class='sm-item' href='store-v2.html' style='color:var(--orange);font-weight:700;'><i class="ti ti-shirt"></i> Store</a>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
@@ -763,8 +763,8 @@ img,video,iframe{max-width:100%;}
       <a class='footer-lnk' href='vault.html'>Image Vault</a>
       <a class='footer-lnk' href='learn.html'>Learn</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk' href='/privacy'>Privacy</a>
-      <a class='footer-lnk' href='/terms'>Terms</a>
+      <a class='footer-lnk' href='privacy.html'>Privacy</a>
+      <a class='footer-lnk' href='privacy.html'>Terms</a>
     </div>
     <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery</div>
   </div>
