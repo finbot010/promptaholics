@@ -315,16 +315,38 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="orb orb2"></div>
 
 <nav class="nav">
-  <a class='nav-logo' href='index.html'>Prompt<span>aholics</span></a>
+  <a class='nav-logo' href='/'>Prompt<span>aholics</span></a>
   <div class="nav-right">
-    <a class='nav-link nav-desktop-only' href='vault.html'><i class="ti ti-photo"></i> <span>Vault</span></a>
-    <a class='nav-link nav-desktop-only' href='creationstation.html'><i class="ti ti-sparkles"></i> <span>Create</span></a>
+    <a class='nav-link nav-desktop-only' href='/vault'><i class="ti ti-photo"></i> <span>Vault</span></a>
+    <a class='nav-link nav-desktop-only' href='/creationstation'><i class="ti ti-sparkles"></i> <span>Create</span></a>
     <button class="nav-hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </nav>
 
-<div class="hero">
+<!-- Menu Overlay -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- Slide Menu -->
+<nav class="slide-menu" id="slideMenu">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid rgba(255,255,255,.07);">
+    <span style="font-family:'Syne',serif;font-size:15px;font-weight:900;color:#f0f0f8;">Prompt<span style="color:#ff6224;">aholics</span></span>
+    <button onclick="toggleMenu()" style="background:none;border:none;color:rgba(240,240,248,.6);cursor:pointer;font-size:20px;line-height:1;"><i class="ti ti-x"></i></button>
+  </div>
+  <div style="padding:8px;">
+    <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(240,240,248,.35);padding:8px 10px 4px;">Navigate</div>
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-home" style="font-size:16px;width:18px;"></i> Home</a>
+    <a href="library.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-books" style="font-size:16px;width:18px;"></i> Prompt Library</a>
+    <a href="vault.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-photo" style="font-size:16px;width:18px;"></i> Image Vault</a>
+    <a href="creationstation.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-sparkles" style="font-size:16px;width:18px;"></i> Creation Station</a>
+    <a href="agent.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-robot" style="font-size:16px;width:18px;"></i> PA Agent</a>
+    <a href="learn.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:rgba(240,240,248,.7);text-decoration:none;margin-bottom:1px;" onmouseenter="this.style.background='rgba(255,98,36,.08)'" onmouseleave="this.style.background=''"><i class="ti ti-school" style="font-size:16px;width:18px;"></i> Learn</a>
+    <a href="store-v2.html" style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13px;color:#ff6224;font-weight:700;text-decoration:none;margin-bottom:1px;background:rgba(255,98,36,.06);"><i class="ti ti-shirt" style="font-size:16px;width:18px;"></i> Store</a>
+  </div>
+  <div style="margin-top:auto;padding:12px;border-top:1px solid rgba(255,255,255,.07);">
+    <button onclick="toggleTheme()" style="width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(240,240,248,.6);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+  </div>
+</nav>
   <div class="hero-badge"><i class="ti ti-shirt"></i> Official Merch Drop</div>
   <h1>Wear Your<br/><em>Prompts.</em></h1>
   <p class="hero-sub">Create AI art in the Vault or Creation Station — then print it on premium apparel. Your image. Your style.</p>
@@ -611,7 +633,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='creationstation.html' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='/creationstation' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
 </div>
 
 
@@ -723,11 +745,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="toast" id="toast"></div>
 
 <footer class="footer">
-  <a class='footer-logo' href='index.html'>Prompt<span>aholics</span></a>
+  <a class='footer-logo' href='/'>Prompt<span>aholics</span></a>
   <p class="footer-copy">© 2026 Promptaholics · Print-on-demand fulfilled by Printful</p>
   <div class="footer-links">
-    <a class='footer-link' href='index.html'>Home</a>
-    <a class='footer-link' href='library.html'>Free Prompts</a>
+    <a class='footer-link' href='/'>Home</a>
+    <a class='footer-link' href='/library'>Free Prompts</a>
   </div>
 </footer>
 
