@@ -2,6 +2,10 @@
   path = "/share/vault"
   function = "vault-image"
 
+[[edge_functions]]
+  path = "/share/prompt"
+  function = "vault-image"
+
 # Firebase Auth handler — required for Google Sign-In popup/redirect
 [[redirects]]
   from = "/__/auth/*"
