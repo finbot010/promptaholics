@@ -14,18 +14,19 @@
 [data-theme="light"]{--bg:#f8f8fc;--bg2:#ffffff;--card:#ffffff;--ink:#0a0a12;--ink2:rgba(10,10,18,.65);--ink3:rgba(10,10,18,.4);--border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.13);--glass:rgba(0,0,0,.03);--shadow:rgba(0,0,0,.12);}
 :root{--orange:#ff6224;--o2:#ff9f24;--green:#22c55e;--radius:16px;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;min-height:100dvh;overflow-x:hidden;line-height:1.6;transition:background .3s,color .3s;}
+html,body{max-width:100%;overflow-x:hidden;}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%;min-height:100dvh;overflow-x:hidden;line-height:1.6;transition:background .3s,color .3s;}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
 .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;}
 .orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(255,98,36,.05),transparent 70%);top:-200px;right:-100px;}
 .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,159,36,.03),transparent 70%);bottom:-100px;left:-100px;}
 
 /* Nav */
-.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:56px;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);width:100%;box-sizing:border-box;}
+.nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .nav-logo span{color:var(--orange);}
 .store-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
-.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
 .nav-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:8px;border:1px solid var(--border2);transition:all .15s;}
 .nav-link:hover{color:var(--ink);border-color:rgba(255,98,36,.3);}
 .theme-toggle{width:36px;height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--glass);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink2);transition:all .15s;}
@@ -33,8 +34,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── Nav mobile — matches index.html ── */
 .nav-links{display:flex;align-items:center;gap:6px;}
 @media(max-width:680px){.nav-links{display:none;}}
+.nav-desktop-only{display:flex;align-items:center;gap:6px;}
+@media(max-width:680px){.nav-desktop-only{display:none !important;}}
 .nav-hamburger{display:none;}
-@media(max-width:1024px){.nav-hamburger{display:flex;width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;align-items:center;justify-content:center;}}
+@media(max-width:680px){.nav-hamburger{display:flex;width:34px;height:34px;min-width:34px;border-radius:8px;background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.3);color:var(--orange);cursor:pointer;font-size:15px;align-items:center;justify-content:center;flex-shrink:0;}}
 
 /* ── Slide Menu ── */
 .menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
@@ -312,10 +315,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="orb orb2"></div>
 
 <nav class="nav">
-  <a class='nav-logo' href='/'>Prompt<span>aholics</span> <span class="store-tag">Store</span></a>
+  <a class='nav-logo' href='index.html'>Prompt<span>aholics</span></a>
   <div class="nav-right">
-    <a class='nav-link' href='/vault'><i class="ti ti-photo"></i> <span>Vault</span></a>
-    <a class='nav-link' href='/creationstation'><i class="ti ti-sparkles"></i> <span>Create</span></a>
+    <a class='nav-link nav-desktop-only' href='vault.html'><i class="ti ti-photo"></i> <span>Vault</span></a>
+    <a class='nav-link nav-desktop-only' href='creationstation.html'><i class="ti ti-sparkles"></i> <span>Create</span></a>
+    <button class="nav-hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 </nav>
@@ -607,7 +611,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='/creationstation' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='creationstation.html' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
 </div>
 
 
@@ -719,11 +723,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="toast" id="toast"></div>
 
 <footer class="footer">
-  <a class='footer-logo' href='/'>Prompt<span>aholics</span></a>
+  <a class='footer-logo' href='index.html'>Prompt<span>aholics</span></a>
   <p class="footer-copy">© 2026 Promptaholics · Print-on-demand fulfilled by Printful</p>
   <div class="footer-links">
-    <a class='footer-link' href='/'>Home</a>
-    <a class='footer-link' href='/library'>Free Prompts</a>
+    <a class='footer-link' href='index.html'>Home</a>
+    <a class='footer-link' href='library.html'>Free Prompts</a>
   </div>
 </footer>
 
