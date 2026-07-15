@@ -4,7 +4,7 @@
 
 [[edge_functions]]
   path = "/share/prompt"
-  function = "vault-image"
+  function = "prompt-share"
 
 # Firebase Auth handler — required for Google Sign-In popup/redirect
 [[redirects]]
