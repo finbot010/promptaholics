@@ -356,6 +356,19 @@ window.savePromptToFirestore = async function(promptData){
   });
   return docRef.id;
 };
+
+// ── Save shared prompt to prompt-shares ──────────────────────────
+window.savePromptShareToFirestore = async function(promptData){
+  const docRef = await addDoc(collection(db,'prompt-shares'),{
+    name:      promptData.name     || 'AI Prompt',
+    text:      promptData.text     || '',
+    category:  promptData.category || 'General',
+    tool:      promptData.tool     || 'ChatGPT',
+    createdAt: serverTimestamp(),
+    source:    'pa-agent'
+  });
+  return docRef.id;
+};
 </script>
 </head>
 <body>
@@ -1302,23 +1315,11 @@ async function sharePrompt(promptData, btn){
 
   try {
     // Save to Firebase prompt-shares collection
-    const db  = window._promptShareDb;
-    const col = window._promptShareCollection;
-    const add = window._promptShareAddDoc;
-    const ts  = window._promptShareServerTimestamp;
-
     let shareUrl = 'https://promptaholics.com/library.html';
 
-    if(db && col && add){
-      const docRef = await add(col(db,'prompt-shares'),{
-        name,
-        text,
-        category,
-        tool,
-        createdAt: ts(),
-        source: 'pa-agent'
-      });
-      shareUrl = `https://promptaholics.com/share/prompt?id=${docRef.id}`;
+    if(typeof window.savePromptShareToFirestore === 'function'){
+      const docId = await window.savePromptShareToFirestore({ name, text, category, tool });
+      shareUrl = `https://promptaholics.com/share/prompt?id=${docId}`;
     }
 
     btn.innerHTML = orig;
