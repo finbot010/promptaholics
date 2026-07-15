@@ -1261,6 +1261,18 @@ function buildContentPanel(pieces){
 
 function buildImagesPanel(prompts){
   if(!prompts||!prompts.length) return '<div class="empty-state"><i class="ti ti-photo-off"></i><p>No image prompts generated.</p></div>';
+
+  // Normalize image-prompt shape into the same shape addToLibrary()/sharePrompt() expect,
+  // and register in promptStore so the existing generic data-action listeners in showResults() work unchanged.
+  prompts.forEach((p,i) => promptStore.set('p'+i, {
+    name:      p.title || 'Image Prompt '+(i+1),
+    text:      p.prompt || '',
+    category:  'Image Generation',
+    tool:      p.tool || 'Midjourney',
+    framework: 'Image Prompt',
+    relevance: 0
+  }));
+
   return '<div class="img-grid">'+prompts.map((p,i)=>`
     <div class="img-card" style="animation-delay:${i*.06}s">
       <div class="img-card-tool"><i class="ti ti-photo"></i> ${esc(p.tool||'Midjourney')}</div>
@@ -1269,6 +1281,8 @@ function buildImagesPanel(prompts){
       <div class="img-card-text">${esc(p.prompt||'')}</div>
       <div class="img-card-actions">
         <button class="prc-btn copy" onclick="copyText('${escAttr(p.prompt||'')}',this)"><i class="ti ti-copy"></i> Copy</button>
+        <button class="prc-btn add-lib" data-action="add" data-idx="${i}"><i class="ti ti-library-plus"></i> Add to Library</button>
+        <button class="prc-btn share" data-action="share" data-idx="${i}" title="Share"><i class="ti ti-share-2"></i></button>
       </div>
     </div>`).join('')+'</div>';
 }
