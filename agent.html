@@ -316,13 +316,13 @@ body.light .grain{opacity:.015;}
 
 <!-- Firebase -->
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { getAuth, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-const app = initializeApp({
+const app = getApps().length ? getApp() : initializeApp({
   apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
   authDomain:"promptaholics.com",
   projectId:"promptaholics-534d3",
@@ -580,13 +580,15 @@ let byokActive = false;
   const s = document.createElement('script');
   s.type = 'module';
   s.textContent = `
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    const app  = initializeApp({
+    const app  = getApps().length ? getApp() : initializeApp({
       apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
       authDomain:"promptaholics.com",
       projectId:"promptaholics-534d3",
+      storageBucket:"promptaholics-534d3.firebasestorage.app",
+      messagingSenderId:"426595742101",
       appId:"1:426595742101:web:1eb95579695bc6b1a5869c"
     });
     const auth = getAuth(app);
