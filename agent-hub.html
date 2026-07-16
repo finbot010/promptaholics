@@ -327,7 +327,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
   <!-- AGENTS -->
   <div class="section-hdr">
     <div class="section-title">Active Agents</div>
-    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;">4 / 6 active</span>
+    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;" id="agentCountLabel">7 / 8 active</span>
   </div>
   <div class="agent-grid">
 
@@ -383,7 +383,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div class="agent-name">Tech & Site Ops</div>
       <div class="agent-desc">Tracks build queue, feature upgrades, deployments, GitHub Actions.</div>
       <div class="agent-stats">
-        <div><div class="a-stat-n">7</div><div class="a-stat-l">In Queue</div></div>
+        <div><div class="a-stat-n">5</div><div class="a-stat-l">In Queue</div></div>
         <div><div class="a-stat-n" style="color:var(--green)">✓</div><div class="a-stat-l">Live</div></div>
       </div>
       <div class="agent-btns">
@@ -429,7 +429,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div class="agent-desc">Tracks site performance, SEO rankings, email growth and revenue metrics.</div>
       <div class="agent-stats">
         <div><div class="a-stat-n" id="a5subs">—</div><div class="a-stat-l">Subscribers</div></div>
-        <div><div class="a-stat-n" id="a5pages">—</div><div class="a-stat-l">Indexed</div></div>
+        <div><div class="a-stat-n" id="a5deploy">—</div><div class="a-stat-l">Deploy</div></div>
+        <div><div class="a-stat-n" id="a5rev">—</div><div class="a-stat-l">30d Revenue</div></div>
       </div>
       <div class="agent-btns">
         <button class="agent-btn pri" onclick="sendCmd('Give me a full site performance summary for this week — traffic, top pages, email subscribers, and prompt library growth');event.stopPropagation()"><i class="ti ti-chart-line"></i> Weekly Report</button>
@@ -442,6 +443,55 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
         <div class="exp-cmd" onclick="sendCmd('What is the AdSense review status and what do I need to do to get approved?')"><i class="ti ti-message"></i> AdSense status</div>
         <div class="exp-cmd" onclick="sendCmd('Give me 5 new blog article ideas based on what is ranking in the AI prompt niche right now')"><i class="ti ti-message"></i> Blog ideas</div>
         <div class="exp-cmd" onclick="sendCmd('What keywords should Promptaholics be targeting that we are not covering yet?')"><i class="ti ti-message"></i> Keyword gaps</div>
+        <div class="exp-cmd" onclick="sendCmd('In GA4, check the run_pa_agent event and tell me which PA Agent mode (prompts, images, content, campaign, custom) gets used most')"><i class="ti ti-message"></i> Most-used PA Agent mode</div>
+        <div class="exp-cmd" onclick="sendCmd('In GA4, compare copy_prompt events from source=library vs source=pa_agent — which surface drives more copies?')"><i class="ti ti-message"></i> Library vs PA Agent copies</div>
+        <div class="exp-cmd" onclick="sendCmd('In GA4, check the favorite_prompt and view_prompt events — what is the view-to-save conversion rate on library.html?')"><i class="ti ti-message"></i> View-to-save rate</div>
+        <div class="exp-cmd" onclick="sendCmd('In GA4, check begin_checkout vs guide_download_success events — what is the guide checkout completion rate?')"><i class="ti ti-message"></i> Guide checkout funnel</div>
+      </div>
+    </div>
+
+    <!-- Agent 6: Security -->
+    <div class="agent-card agent-6" onclick="toggleExpand(6)">
+      <div class="agent-icon"><i class="ti ti-shield-lock"></i></div>
+      <div class="agent-name">Security</div>
+      <div class="agent-desc">Monitors exposed secrets, CORS config, Firebase rules, and dependency risk.</div>
+      <div class="agent-stats">
+        <div><div class="a-stat-n">6</div><div class="a-stat-l">Check Types</div></div>
+        <div><div class="a-stat-n" style="color:var(--o2)">On-Demand</div><div class="a-stat-l">Mode</div></div>
+      </div>
+      <div class="agent-btns">
+        <button class="agent-btn pri" onclick="sendCmd('Do a full security review of Promptaholics: check for exposed API keys in HTML/JS files, verify CORS_HEADERS is applied to every Worker response, review Firebase rules for over-permissive read/write access, and flag anything that looks risky.');event.stopPropagation()"><i class="ti ti-shield-check"></i> Full Scan</button>
+        <button class="agent-btn sec" onclick="sendCmd('Check my Firebase security rules for prompts, prompt-shares, vault-shares, and pending-prompts collections — are any of them writable by anyone without auth in a way that could be abused?');event.stopPropagation()"><i class="ti ti-lock"></i> Firebase Rules</button>
+      </div>
+      <div class="agent-expand" id="exp6">
+        <div class="exp-cmd" onclick="sendCmd('Scan the last files I have shared with you for any hardcoded API keys, secrets, or credentials that should never be committed to GitHub')"><i class="ti ti-key"></i> Scan for exposed keys</div>
+        <div class="exp-cmd" onclick="sendCmd('Review my Cloudflare Worker CORS_HEADERS — confirm they are spread into every single response, including error responses, not just the successful ones')"><i class="ti ti-shield"></i> CORS audit</div>
+        <div class="exp-cmd" onclick="sendCmd('Review my Stripe webhook handler — does it properly verify the Stripe signature before processing events, and could a forged webhook request cause fake orders?')"><i class="ti ti-webhook"></i> Webhook signature check</div>
+        <div class="exp-cmd" onclick="sendCmd('Check whether any of my admin-only pages (admin-prompts.html, vault-admin.html) rely on client-side checks only, which could be bypassed by someone reading the page source')"><i class="ti ti-user-shield"></i> Admin page access check</div>
+        <div class="exp-cmd" onclick="sendCmd('Using github.com/mukul975/Anthropic-Cybersecurity-Skills as a reference, what security practices should I adopt for Promptaholics that I am currently missing?')"><i class="ti ti-book"></i> Cybersecurity skills reference</div>
+        <div class="exp-cmd" onclick="sendCmd('Review the Prodigi and Printful webhook order flow for any validation gaps that could let someone trigger a free order or duplicate fulfillment')"><i class="ti ti-truck"></i> Order flow abuse check</div>
+      </div>
+    </div>
+
+    <!-- Agent 7: Revenue -->
+    <div class="agent-card agent-7" onclick="toggleExpand(7)">
+      <div class="agent-icon"><i class="ti ti-currency-dollar"></i></div>
+      <div class="agent-name">Revenue</div>
+      <div class="agent-desc">Tracks Stripe sales, Printful affiliate clicks, and guide conversion.</div>
+      <div class="agent-stats">
+        <div><div class="a-stat-n" id="a7rev">—</div><div class="a-stat-l">30d Revenue</div></div>
+        <div><div class="a-stat-n" id="a7orders">—</div><div class="a-stat-l">Orders</div></div>
+      </div>
+      <div class="agent-btns">
+        <button class="agent-btn pri" onclick="sendCmd('Give me a full revenue summary for the last 30 days — total Stripe revenue, breakdown by guide sales vs merch orders, and Printful affiliate click count from GA4');event.stopPropagation()"><i class="ti ti-report-money"></i> Revenue Report</button>
+        <button class="agent-btn sec" onclick="sendCmd('What should I do this week to increase guide sales and Printful affiliate conversions?');event.stopPropagation()"><i class="ti ti-trending-up"></i> Growth Ideas</button>
+      </div>
+      <div class="agent-expand" id="exp7">
+        <div class="exp-cmd" onclick="sendCmd('How many guide purchases happened in the last 7 days, based on Stripe checkout sessions for the guide price ID?')"><i class="ti ti-message"></i> Guide sales (7d)</div>
+        <div class="exp-cmd" onclick="sendCmd('In GA4, check the affiliate_click event on guide-download.html — how many people clicked through to Printful after downloading the guide?')"><i class="ti ti-message"></i> Affiliate click-through</div>
+        <div class="exp-cmd" onclick="sendCmd('Compare merch order revenue (Printful + Prodigi) vs guide revenue over the last 30 days — which is growing faster?')"><i class="ti ti-message"></i> Revenue mix</div>
+        <div class="exp-cmd" onclick="sendCmd('What is a realistic revenue projection for the next 3 months if guide sales continue at the current rate?')"><i class="ti ti-message"></i> 3-month projection</div>
+        <div class="exp-cmd" onclick="sendCmd('Should I raise the guide price above $4.99, and what would that do to conversion vs revenue per sale?')"><i class="ti ti-message"></i> Pricing analysis</div>
       </div>
     </div>
 
@@ -449,7 +499,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
   <!-- EMPTY SLOT -->
   <div class="add-grid">
-    <div class="add-card" onclick="showAddModal(6)"><i class="ti ti-plus"></i><span>Add Agent 6</span></div>
+    <div class="add-card" onclick="showAddModal(8)"><i class="ti ti-plus"></i><span>Add Agent 8</span></div>
   </div>
 
   <!-- EMAIL OUTPUT PANEL -->
@@ -1112,10 +1162,25 @@ async function loadLiveStats(){
       var deployState = netlifyData.deploy?.state || 'unknown';
       var deployTime  = netlifyData.deploy?.deployTime ? netlifyData.deploy.deployTime+'s' : '--';
       var stateIcon   = deployState==='ready' ? '✓' : deployState==='error' ? '✗' : '~';
+      document.getElementById('a5deploy').textContent = stateIcon;
       addLog('🚀','Netlify: deploy '+deployState+' ('+deployTime+')','var(--green)');
       window.__netlifyStats = netlifyData;
     }
   }catch(e){ console.warn('Netlify stats failed:',e); }
+
+  try{
+    // Revenue summary (Stripe, last 30 days)
+    var revRes = await fetch(WORKER+'/api/revenue-summary');
+    if(revRes.ok){
+      var revData = await revRes.json();
+      var revDisplay = '$'+(revData.totalRevenue/100).toLocaleString(undefined,{maximumFractionDigits:0});
+      document.getElementById('a5rev').textContent = revDisplay;
+      document.getElementById('a7rev').textContent = revDisplay;
+      document.getElementById('a7orders').textContent = revData.chargeCount ?? '—';
+      addLog('💰','Revenue (30d): '+revDisplay+' across '+(revData.chargeCount||0)+' orders','var(--orange)');
+      window.__revenueStats = revData;
+    }
+  }catch(e){ console.warn('Revenue stats failed:',e); }
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
