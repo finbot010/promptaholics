@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Free AI Prompt Library — 1,485 Expert Prompts | Promptaholics</title>
-<meta name="description" content="Browse 1,485 free expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
+<title>Free AI Prompt Library | Promptaholics</title>
+<meta name="description" content="Browse a free, growing library of expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
 <link rel="canonical" href="https://promptaholics.com/library.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
@@ -466,8 +466,8 @@ img,video,iframe{max-width:100%;}
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Free AI Prompt Library \u2014 1,700+ Expert Prompts",
-    "description": "Browse 1,700+ free AI prompts for ChatGPT, Claude, Midjourney, Kling and more. Filter by category, tool, and use case. No signup required.",
+    "name": "Free AI Prompt Library — Promptaholics",
+    "description": "Browse a free, growing library of AI prompts for ChatGPT, Claude, Midjourney, Kling and more. Filter by category, tool, and use case. No signup required.",
     "url": "https://promptaholics.com/library.html",
     "publisher": {
       "@type": "Organization",
@@ -496,7 +496,7 @@ img,video,iframe{max-width:100%;}
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Web",
     "url": "https://promptaholics.com/library.html",
-    "description": "Free searchable AI prompt library with 1,700+ prompts for ChatGPT, Claude, Midjourney and more.",
+    "description": "Free searchable AI prompt library with a growing collection of prompts for ChatGPT, Claude, Midjourney and more.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -722,7 +722,7 @@ img,video,iframe{max-width:100%;}
       <a class='footer-lnk accent' href='/privacy'>Privacy</a>
       <a class='footer-lnk accent' href='/terms'>Terms</a>
     </div>
-    <div class="footer-copy">2026 Promptaholics · 1,485 free AI prompts · No signup required</div>
+    <div class="footer-copy">2026 Promptaholics · <span id="footerCount">1,485</span> free AI prompts · No signup required</div>
   </div>
 </footer>
 
@@ -1278,7 +1278,7 @@ function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow=''; curModal=null;
   history.pushState({},'','/library.html');
-  document.title='Free AI Prompt Library - 1,485 Expert Prompts | Promptaholics';
+  document.title='Free AI Prompt Library | Promptaholics';
 }
 function closeModalOutside(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); }
 function modalCopy(){ if(!curModal) return; copyToClipboard(curModal.text); showToast('Copied!'); autoSave(curModal); }
@@ -1389,6 +1389,7 @@ function handleUrlParams(){
 function init(){
   if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)||!PROMPTS.length){ setTimeout(init,50); return; }
   var lc=document.getElementById('libCount'); if(lc) lc.textContent=PROMPTS.length.toLocaleString();
+  var fc=document.getElementById('footerCount'); if(fc) fc.textContent=PROMPTS.length.toLocaleString();
   handleUrlParams();
   initPotw();
   renderCatPills();
