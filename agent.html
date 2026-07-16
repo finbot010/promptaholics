@@ -32,7 +32,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .topnav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:rgba(7,7,10,.92);backdrop-filter:var(--blur);border-bottom:1px solid var(--border);}
 .nav-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',serif;font-weight:900;font-size:17px;color:var(--ink);text-decoration:none;}
 .nav-logo svg{width:20px;height:22px;}
-.nav-logo span{color:var(--orange);}
+.nav-wordmark span{color:var(--orange);}
 .nav-links{display:flex;align-items:center;gap:6px;}
 .nav-link{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--ink2);text-decoration:none;transition:all .15s;}
 .nav-link:hover{color:var(--ink);background:var(--glass);}
@@ -378,7 +378,7 @@ window.savePromptShareToFirestore = async function(promptData){
 <nav class="topnav">
   <a href="index.html" class="nav-logo">
     <svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg>
-    Prompt<span>aholics</span>
+    <span class="nav-wordmark">Prompt<span>aholics</span></span>
   </a>
   <div class="nav-links">
     <a href="library.html" class="nav-link">Library</a>
