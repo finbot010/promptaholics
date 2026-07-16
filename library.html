@@ -756,15 +756,22 @@ var CAT_CONFIG={
 };
 
 var TOOL_CONFIG={
-  chatgpt:{label:'ChatGPT',cls:'badge-chatgpt',domain:'openai.com'},
+  chatgpt:{label:'ChatGPT',cls:'badge-chatgpt',domain:'chatgpt.com'},
   claude:{label:'Claude',cls:'badge-claude',domain:'claude.ai'},
   midjourney:{label:'Midjourney',cls:'badge-midjourney',domain:'midjourney.com'},
   gemini:{label:'Gemini',cls:'badge-gemini',domain:'gemini.google.com'},
   runway:{label:'Runway',cls:'badge-runway',domain:'runwayml.com'},
   kling:{label:'Kling AI',cls:'badge-other',domain:'klingai.com'},
+  flux:{label:'Flux',cls:'badge-other',domain:'bfl.ai'},
+  dalle:{label:'DALL-E',cls:'badge-other',domain:'chatgpt.com'},
   other:{label:'AI Tool',cls:'badge-other',domain:'openai.com'}
 };
-function getTC(tool){ return TOOL_CONFIG[tool]||{label:tool||'AI',cls:'badge-other',domain:'openai.com'}; }
+// Normalize before lookup: "ChatGPT" / "Chat-GPT" / "chatgpt" all resolve to the same entry.
+// This fixes badge styling for every prompt already imported with mismatched casing, without touching Firestore.
+function getTC(tool){
+  var key=(tool||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  return TOOL_CONFIG[key]||{label:tool||'AI',cls:'badge-other',domain:'openai.com'};
+}
 
 var activeCat='All', activeTag='', searchQ='', sortMode='default';
 var favs=[]; try{ favs=JSON.parse(localStorage.getItem('pa_favs')||'[]'); }catch(e){}
@@ -1192,7 +1199,14 @@ function copyPrompt(e,btn){
   btn.innerHTML='<i class="ti ti-check"></i> Copied!';
   btn.style.cssText='background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);color:#22c55e;';
   setTimeout(function(){ btn.innerHTML=orig; btn.style.cssText=''; },2000);
-  showToast('Copied!');
+  var tc=getTC(p.tool);
+  if(tc.domain){
+    showToast('Copied! Opening '+tc.label+'\u2026');
+    setTimeout(function(){ window.open('https://'+tc.domain+'/','_blank','noopener'); },400);
+    if(typeof gtag !== 'undefined') gtag('event','tool_redirect',{tool:tc.label});
+  } else {
+    showToast('Copied!');
+  }
   autoSave(p);
 }
 function copyToClipboard(text){
