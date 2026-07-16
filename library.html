@@ -131,16 +131,16 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 
 /* CATEGORIES */
 .cat-wrap{max-width:1400px;margin:0 auto;padding:0 24px 16px;display:flex;gap:6px;flex-wrap:wrap;}
-.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:rgba(255,255,255,.72);cursor:pointer;transition:all .15s;white-space:nowrap;}
 .cat-pill:hover{background:var(--glass2);color:var(--ink);}
 .cat-pill.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
 .cat-pill-icon{font-size:14px;line-height:1;}
-.cat-pill-count{font-size:10px;color:var(--ink3);background:var(--glass2);padding:1px 5px;border-radius:4px;}
+.cat-pill-count{font-size:10px;color:rgba(255,255,255,.55);background:var(--glass2);padding:1px 5px;border-radius:4px;}
 .cat-pill.active .cat-pill-count{background:rgba(255,98,36,.15);color:var(--orange);}
 
 /* TAGS */
 .tag-strip{max-width:1400px;margin:0 auto;padding:0 24px 20px;display:flex;gap:5px;flex-wrap:wrap;}
-.tag-chip{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--glass);color:var(--ink3);cursor:pointer;transition:all .12s;}
+.tag-chip{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--glass);color:rgba(255,255,255,.55);cursor:pointer;transition:all .12s;}
 .tag-chip:hover,.tag-chip.active{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.3);color:var(--orange);}
 
 /* TOOLBAR */
@@ -1201,9 +1201,13 @@ function copyPrompt(e,btn){
   setTimeout(function(){ btn.innerHTML=orig; btn.style.cssText=''; },2000);
   var tc=getTC(p.tool);
   if(tc.domain){
-    showToast('Copied! Opening '+tc.label+'\u2026');
-    setTimeout(function(){ window.open('https://'+tc.domain+'/','_blank','noopener'); },400);
-    if(typeof gtag !== 'undefined') gtag('event','tool_redirect',{tool:tc.label});
+    var isGemini = tc.domain.indexOf('gemini.google.com')>-1;
+    var url = isGemini
+      ? 'https://'+tc.domain+'/app?q='+encodeURIComponent(p.text)   // Gemini supports auto-fill via ?q=
+      : 'https://'+tc.domain+'/';                                   // ChatGPT/Claude/others: no such param exists
+    showToast(isGemini ? 'Copied! Opening '+tc.label+'\u2026' : 'Copied! Paste it in '+tc.label+' \u2318V');
+    setTimeout(function(){ window.open(url,'_blank','noopener'); },400);
+    if(typeof gtag !== 'undefined') gtag('event','tool_redirect',{tool:tc.label, autofill:isGemini});
   } else {
     showToast('Copied!');
   }
