@@ -268,6 +268,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -316,6 +317,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="ctrl-btn" onclick="toggleType()"><i class="ti ti-keyboard"></i> Type</button>
       <button class="ctrl-btn" id="autoBtn" onclick="toggleAuto()"><i class="ti ti-repeat"></i> Auto</button>
       <button class="ctrl-btn stop" id="stopBtn" style="display:none" onclick="stopTalking()"><i class="ti ti-player-stop"></i> Stop</button>
+      <button class="ctrl-btn" onclick="downloadResponsePDF()"><i class="ti ti-file-download"></i> PDF</button>
       <button class="ctrl-btn" onclick="resetChat()"><i class="ti ti-refresh"></i> Reset</button>
     </div>
     <div class="text-input-row" id="typeRow">
@@ -761,7 +763,7 @@ AGENTS:
 4. BROWSER AGENT — automates site QA, scraping, screenshots, form fills via agent-browser CLI.
 5. ANALYTICS — tracks site performance, SEO rankings, AdSense status, email list growth, and prompt library metrics. Suggests content strategy based on what is working.
 
-SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev (v3.3, Gemini 2.5 Flash Lite for find/fast, Claude Sonnet 4-6 for create). Library: 1,671 prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs (paused). Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026, sitemap submitted. Brevo email capture: live on all 10 pages.
+SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev (v5.4, Gemini 2.5 Flash Lite for find/fast, Claude Sonnet 4-6 for create). Library: 1,896+ prompts and growing toward 2,000, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs (paused). Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026, sitemap submitted. Brevo email capture: live on all 10 pages. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. IMPORTANT: facts in this paragraph are a static snapshot from whenever this prompt was last edited — they will drift out of date. For subscriber counts, revenue, or deploy status, always prefer the LIVE DATA blocks below over anything stated here, and if a LIVE DATA block says unavailable, say so plainly instead of relying on this paragraph.
 
 BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume post-PH 9) Read-only Prompt Library API 10) ARIA Agent 6.
 
@@ -828,6 +830,49 @@ function setTranscript(t,isUser){
   var el=document.getElementById('ariaTranscript');
   el.textContent=t;
   el.className='aria-transcript'+(isUser?' user-msg':'');
+}
+
+// ─── PDF Export ───────────────────────────────────────────────────
+function downloadResponsePDF(){
+  if(!lastResp){ showToast('No response yet to export — ask ARIA something first'); return; }
+  if(typeof window.jspdf === 'undefined'){ showToast('PDF library did not load — check your connection and try again'); return; }
+
+  var doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
+  var pageW = doc.internal.pageSize.getWidth();
+  var margin = 56;
+  var maxW = pageW - margin*2;
+  var y = 64;
+
+  // Header
+  doc.setFont('helvetica','bold'); doc.setFontSize(18);
+  doc.text('ARIA Report', margin, y);
+  y += 22;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120);
+  doc.text('Promptaholics.com  \u2014  ' + new Date().toLocaleString(), margin, y);
+  y += 8;
+  doc.setDrawColor(230); doc.line(margin, y, pageW-margin, y);
+  y += 24;
+
+  // Body — word-wrapped, paginated
+  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(20);
+  var lines = doc.splitTextToSize(lastResp, maxW);
+  var lineHeight = 16;
+  var pageH = doc.internal.pageSize.getHeight();
+
+  for(var i=0; i<lines.length; i++){
+    if(y > pageH - margin){
+      doc.addPage();
+      y = margin;
+    }
+    doc.text(lines[i], margin, y);
+    y += lineHeight;
+  }
+
+  var filename = 'aria-report-' + new Date().toISOString().slice(0,10) + '.pdf';
+  doc.save(filename);
+  showToast('\ud83d\udcc4 PDF downloaded');
+  addLog('\ud83d\udcc4','Exported response to PDF','var(--blue)');
+  if(typeof gtag !== 'undefined') gtag('event','aria_pdf_export');
 }
 
 // ─── Voice ────────────────────────────────────────────────────────
@@ -930,10 +975,20 @@ async function runCmd(text){
     var b=window.__brevoStats;
     liveBlock+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
     if(b.lastCampaign) liveBlock+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
+  } else {
+    liveBlock+='\n\nBREVO DATA: Unavailable this session (fetch failed or BREVO_API_KEY may be missing on the Worker). Do not state a subscriber number — tell the user the live connection failed and to check the Worker secret.';
   }
   if(window.__netlifyStats){
     var n=window.__netlifyStats;
     liveBlock+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
+  } else {
+    liveBlock+='\n\nNETLIFY DATA: Unavailable this session — do not guess deploy status.';
+  }
+  if(window.__revenueStats){
+    var r=window.__revenueStats;
+    liveBlock+='\n\nLIVE REVENUE DATA (Stripe, last 30 days): Total revenue: $'+(r.totalRevenue/100).toFixed(2)+'. Orders: '+r.chargeCount+' ('+r.guideSales+' guide sales, '+r.merchOrders+' merch/print orders).';
+  } else {
+    liveBlock+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
   }
 
   var sys=ARIA_SYS+memBlock+liveBlock;
