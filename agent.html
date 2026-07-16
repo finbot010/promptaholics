@@ -820,6 +820,8 @@ async function runAgent(){
   // ── Gate check ──────────────────────────────────────
   if(!checkGate()) return;
 
+  if(typeof gtag !== 'undefined') gtag('event','run_pa_agent',{mode: activeMode, goal_length: goal.length});
+
   isRunning = true;
   setRunBtn(true);
   document.getElementById('errorContainer').innerHTML = '';
@@ -1392,6 +1394,7 @@ function showSharePopover(url, title, anchorBtn){
 async function addToLibrary(promptData, btn, goal){
   btn.disabled = true;
   btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Saving…';
+  if(typeof gtag !== 'undefined') gtag('event','add_to_library',{source:'pa_agent', mode: activeMode});
 
   try {
     if(typeof window.savePromptToFirestore !== 'function'){
@@ -1441,6 +1444,7 @@ function switchTab(id, btn){
 
 function copyText(text, btn){
   navigator.clipboard.writeText(text).then(()=>{
+    if(typeof gtag !== 'undefined') gtag('event','copy_prompt',{source:'pa_agent', mode: activeMode});
     const orig = btn.innerHTML;
     btn.innerHTML = '<i class="ti ti-check"></i> Copied!';
     btn.style.color = 'var(--green)';

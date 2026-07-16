@@ -1187,6 +1187,7 @@ function copyPrompt(e,btn){
   var id=btn.getAttribute('data-id');
   var p=PROMPTS.find(function(x){ return x.id===id; }); if(!p) return;
   copyToClipboard(p.text);
+  if(typeof gtag !== 'undefined') gtag('event','copy_prompt',{source:'library', category:p.cat, tool:p.tool});
   var orig=btn.innerHTML;
   btn.innerHTML='<i class="ti ti-check"></i> Copied!';
   btn.style.cssText='background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);color:#22c55e;';
@@ -1221,8 +1222,8 @@ function toggleFav(e,btn){
   e.stopPropagation();
   var id=btn.getAttribute('data-id');
   var idx=favs.indexOf(id);
-  if(idx===-1){ favs.push(id); btn.classList.add('on'); btn.innerHTML='<i class="ti ti-heart-fill"></i>'; showToast('Saved!'); }
-  else{ favs.splice(idx,1); btn.classList.remove('on'); btn.innerHTML='<i class="ti ti-heart"></i>'; }
+  if(idx===-1){ favs.push(id); btn.classList.add('on'); btn.innerHTML='<i class="ti ti-heart-fill"></i>'; showToast('Saved!'); if(typeof gtag!=='undefined') gtag('event','favorite_prompt',{action:'add'}); }
+  else{ favs.splice(idx,1); btn.classList.remove('on'); btn.innerHTML='<i class="ti ti-heart"></i>'; if(typeof gtag!=='undefined') gtag('event','favorite_prompt',{action:'remove'}); }
   localStorage.setItem('pa_favs',JSON.stringify(favs));
   var p=PROMPTS.find(function(x){ return x.id===id; }); if(p) autoSave(p);
 }
@@ -1261,6 +1262,7 @@ function doShare(p){
 function openModal(id){
   var p=PROMPTS.find(function(x){ return x.id===id; }); if(!p) return;
   curModal=p;
+  if(typeof gtag !== 'undefined') gtag('event','view_prompt',{category:p.cat, tool:p.tool});
   var tc=getTC(p.tool); var cfg=CAT_CONFIG[p.cat]||{icon:'✨'};
   document.getElementById('modalTitle').textContent=p.name;
   document.getElementById('modalMeta').innerHTML='<span class="pcard-badge '+tc.cls+'">'+tc.label+'</span><span class="pcard-badge badge-other">'+cfg.icon+' '+escHtml(p.cat)+'</span>';
