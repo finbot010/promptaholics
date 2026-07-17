@@ -24,7 +24,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* Nav */
 .nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:56px;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);width:100%;box-sizing:border-box;}
 .nav-logo{font-family:'Syne',serif;font-size:15px;font-weight:900;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.nav-logo span{color:var(--orange);}
+.nav-wordmark span{color:var(--orange);}
 .store-tag{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.2);color:var(--orange);}
 .nav-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
 .nav-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:8px;border:1px solid var(--border2);transition:all .15s;}
@@ -306,6 +306,25 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .footer-links{display:flex;justify-content:center;gap:16px;margin-top:10px;}
 .footer-link{font-size:10px;color:var(--ink3);text-decoration:none;}
 
+/* Start Your Own Store promo */
+.sos-section{position:relative;z-index:10;max-width:1060px;margin:0 auto 56px;padding:0 20px;}
+.sos-card{background:linear-gradient(135deg,rgba(255,98,36,.06),rgba(255,159,36,.02));border:1px solid rgba(255,98,36,.18);border-radius:20px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
+.sos-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.sos-title{font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;line-height:1.15;margin-bottom:10px;}
+.sos-sub{font-size:13.5px;color:var(--ink2);max-width:420px;line-height:1.65;margin-bottom:20px;}
+.sos-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:10px;background:var(--orange);border:none;color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .15s;}
+.sos-btn:hover{background:#e8570f;}
+.sos-price{font-size:11px;color:var(--ink3);margin-top:10px;}
+.sos-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.sos-qr-card{background:#fff;border-radius:14px;padding:14px;width:120px;height:120px;display:flex;align-items:center;justify-content:center;}
+.sos-qr-card img{width:100%;height:100%;object-fit:contain;}
+.sos-qr-label{font-size:9.5px;color:var(--ink3);text-align:center;max-width:130px;line-height:1.4;}
+@media(max-width:680px){
+  .sos-card{grid-template-columns:1fr;text-align:center;padding:28px 22px;}
+  .sos-sub{max-width:100%;margin-left:auto;margin-right:auto;}
+  .sos-qr-wrap{order:-1;}
+}
+
 @keyframes spin{to{transform:rotate(360deg);}}
 .spin{animation:spin .7s linear infinite;}
 </style>
@@ -315,10 +334,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 <div class="orb orb2"></div>
 
 <nav class="nav">
-  <a class='nav-logo' href='/'>Prompt<span>aholics</span></a>
+  <a class='nav-logo' href='index.html'><span class="nav-wordmark">Prompt<span>aholics</span></span></a>
   <div class="nav-right">
-    <a class='nav-link nav-desktop-only' href='/vault'><i class="ti ti-photo"></i> <span>Vault</span></a>
-    <a class='nav-link nav-desktop-only' href='/creationstation'><i class="ti ti-sparkles"></i> <span>Create</span></a>
+    <a class='nav-link nav-desktop-only' href='vault.html'><i class="ti ti-photo"></i> <span>Vault</span></a>
+    <a class='nav-link nav-desktop-only' href='creationstation.html'><i class="ti ti-sparkles"></i> <span>Create</span></a>
     <button class="nav-hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
@@ -347,6 +366,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <button onclick="toggleTheme()" style="width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(240,240,248,.6);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
+
+<div class="hero">
   <div class="hero-badge"><i class="ti ti-shirt"></i> Official Merch Drop</div>
   <h1>Wear Your<br/><em>Prompts.</em></h1>
   <p class="hero-sub">Create AI art in the Vault or Creation Station — then print it on premium apparel. Your image. Your style.</p>
@@ -492,8 +513,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="art-title"><i class="ti ti-palette"></i> Your Custom Art</div>
         <div class="art-desc" id="artDesc">Add your AI image to this product. Create one or pick from the Vault.</div>
         <div class="art-btns">
-          <a class='art-btn pri' href='/vault?sendToStore=1'><i class="ti ti-photo"></i> Pick from Vault</a>
-          <a class='art-btn' href='/creationstation?sendToStore=1'><i class="ti ti-sparkles"></i> Create New</a>
+          <a class='art-btn pri' href='vault.html?sendToStore=1'><i class="ti ti-photo"></i> Pick from Vault</a>
+          <a class='art-btn' href='creationstation.html?sendToStore=1'><i class="ti ti-sparkles"></i> Create New</a>
           <button class="art-btn" onclick="clearArt()" id="clearArtBtn" style="display:none;"><i class="ti ti-x"></i> Remove</button>
         </div>
       </div>
@@ -633,7 +654,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='/creationstation' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
+  <p style="font-size:11px;color:var(--ink3);text-align:center;"><i class="ti ti-info-circle"></i> Select a design above or <a href='creationstation.html' style='color:var(--orange);'>create your own</a> — then click any product to order</p>
 </div>
 
 
@@ -744,12 +765,32 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 <div class="toast" id="toast"></div>
 
+<div class="sos-section">
+  <div class="sos-card">
+    <div>
+      <div class="sos-eyebrow"><i class="ti ti-rocket"></i> For Creators</div>
+      <div class="sos-title">Like what you see? Sell it yourself.</div>
+      <div class="sos-sub">Our step-by-step guide shows you exactly how we built this store — picking a niche, writing AI art prompts that actually sell, and connecting to Printful to print and ship for you. No experience needed.</div>
+      <button class="sos-btn" onclick="buyGuide(this)" id="sosGuideBtn">
+        <i class="ti ti-shopping-cart"></i> Get the Guide — $4.99
+      </button>
+      <div class="sos-price">One-time purchase · Instant download · <a href="https://www.printful.com/a/15173083:f614578b7dffb7962b9e5b47e6ff77be" target="_blank" rel="noopener" style="color:var(--orange);">or start with Printful directly →</a></div>
+    </div>
+    <div class="sos-qr-wrap">
+      <div class="sos-qr-card">
+        <img src="data:image/png;base64,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" alt="QR code to Printful"/>
+      </div>
+      <div class="sos-qr-label">Scan to start your free Printful store</div>
+    </div>
+  </div>
+</div>
+
 <footer class="footer">
-  <a class='footer-logo' href='/'>Prompt<span>aholics</span></a>
+  <a class='footer-logo' href='index.html'>Prompt<span>aholics</span></a>
   <p class="footer-copy">© 2026 Promptaholics · Print-on-demand fulfilled by Printful</p>
   <div class="footer-links">
-    <a class='footer-link' href='/'>Home</a>
-    <a class='footer-link' href='/library'>Free Prompts</a>
+    <a class='footer-link' href='index.html'>Home</a>
+    <a class='footer-link' href='library.html'>Free Prompts</a>
   </div>
 </footer>
 
@@ -1620,6 +1661,27 @@ async function startProdigiCheckout(){
     showToast('Error: ' + e.message);
     btn.disabled = false;
     document.getElementById('pmOrderText').textContent = 'Try Again';
+  }
+}
+
+// ── Start Your Own Store guide checkout ───────────────────────────
+async function buyGuide(btn){
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-loader-2 spin"></i> Redirecting…';
+  btn.disabled = true;
+  try {
+    var res = await fetch(WORKER + '/api/create-guide-checkout', { method: 'POST' });
+    var data = await res.json();
+    if (data.url) {
+      if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { item: 'guide' });
+      window.location.href = data.url;
+    } else {
+      throw new Error('No checkout URL returned');
+    }
+  } catch (e) {
+    btn.innerHTML = orig;
+    btn.disabled = false;
+    showToast('Could not start checkout — please try again');
   }
 }
 
