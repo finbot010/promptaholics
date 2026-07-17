@@ -17,7 +17,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#54547d;
   --orange:#ff6224;--o2:#ff9f24;
   --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
   --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
@@ -25,7 +25,7 @@
   --radius:14px;
 }
 body.light{
-  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#7a7a9e;
   --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);
   --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
   --surface:rgba(0,0,0,.04);
@@ -544,8 +544,8 @@ img,video,iframe{max-width:100%;}
 .bmo-btn{width:100%;background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:11px;padding:14px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .bmo-btn:hover{opacity:.88;}
 .bmo-btn:disabled{opacity:.5;cursor:not-allowed;}
-.bmo-privacy{font-size:10px;color:rgba(240,240,248,.25);text-align:center;margin-top:10px;}
-.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.3);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
+.bmo-privacy{font-size:10px;color:rgba(240,240,248,.55);text-align:center;margin-top:10px;}
+.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.5);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
@@ -555,7 +555,7 @@ img,video,iframe{max-width:100%;}
 
 <!-- TOP NAV -->
 <header class="topnav">
-  <a class="nav-logo" href="/">
+  <a class="nav-logo" href="index.html">
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
@@ -568,7 +568,7 @@ img,video,iframe{max-width:100%;}
       <a class='nav-lnk' href='learn.html'>Learn</a>
       <a class='nav-lnk' href='vault.html'>Image Vault</a>
     </nav>
-    <a class='nav-signin' href='/login'>Sign In</a>
+    <a class='nav-signin' href='login.html'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
@@ -596,14 +596,14 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
-    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
-    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
-    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
-    <a class='sm-item' href='/terms'><i class="ti ti-clipboard"></i> Terms of Service</a>
+    <a class='sm-item' href='about.html'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='blog.html'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='contact.html'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='terms.html'><i class="ti ti-clipboard"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='login.html'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -785,16 +785,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a class='footer-lnk' href='/library'>Library</a>
-      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
-      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
+      <a class='footer-lnk' href='library.html'>Library</a>
+      <a class='footer-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='footer-lnk' href='creationstation.html'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk' href='/about'>About Us</a>
-      <a class='footer-lnk' href='/blog'>Blog</a>
-      <a class='footer-lnk' href='/contact'>Contact</a>
+      <a class='footer-lnk' href='about.html'>About Us</a>
+      <a class='footer-lnk' href='blog.html'>Blog</a>
+      <a class='footer-lnk' href='contact.html'>Contact</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
-      <a class='footer-lnk accent' href='/terms'>Terms</a>
+      <a class='footer-lnk accent' href='privacy.html'>Privacy</a>
+      <a class='footer-lnk accent' href='terms.html'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Free forever</div>
   </div>
@@ -802,11 +802,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class="bn-item" href="/"><i class="ti ti-home"></i>Home</a>
-  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
-  <a class='bn-item active' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
-  <a class='bn-item' href='/creationstation'><i class="ti ti-bolt"></i>Tools</a>
-  <a class='bn-item' href='/login'><i class="ti ti-user"></i>Sign In</a>
+  <a class="bn-item" href="index.html"><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='library.html'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item active' href='prompt-builder.html'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item' href='creationstation.html'><i class="ti ti-bolt"></i>Tools</a>
+  <a class='bn-item' href='login.html'><i class="ti ti-user"></i>Sign In</a>
 </nav>
 
 <script>
@@ -1730,7 +1730,7 @@ function clearAiResult(){
       Yes →
     </button>
   </div>
-  <button onclick="this.parentElement.style.display='none'" style="display:block;font-size:10px;color:rgba(240,240,248,.3);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;margin-top:8px;">No thanks</button>
+  <button onclick="this.parentElement.style.display='none'" style="display:block;font-size:10px;color:rgba(240,240,248,.5);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;margin-top:8px;">No thanks</button>
 </div>
 
 <script>
@@ -1865,7 +1865,7 @@ function brevoInlineCard(){
     +'<input id="brevoInlineEmail" type="email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 14px;font-family:Instrument Sans,sans-serif;font-size:13px;color:#f0f0f8;outline:none;"/>'
     +'<button onclick="submitBrevoInline()" id="brevoInlineBtn" style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:9px;padding:10px 18px;font-family:Instrument Sans,sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Get Weekly Prompts →</button>'
     +'</div>'
-    +'<div style="font-size:10px;color:rgba(240,240,248,.25);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
+    +'<div style="font-size:10px;color:rgba(240,240,248,.55);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
     +'</div>';
 }
 function submitBrevoInline(){
