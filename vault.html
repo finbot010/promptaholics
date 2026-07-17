@@ -12,7 +12,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut }
+  import { getAuth, onAuthStateChanged, signOut }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc }
@@ -33,12 +33,11 @@
   const auth = getAuth(app);
   const db   = getFirestore(app);
   // No Firebase storage needed
-  const provider = new GoogleAuthProvider();
-  provider.addScope('email');
+  // Google sign-in removed — guest email flow (continueAsGuest) is the only sign-in path now
 
   // Expose to global scope
-  window._fb = { auth, db, provider,
-    signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,
+  window._fb = { auth, db,
+    onAuthStateChanged, signOut,
     collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc };
 
@@ -561,7 +560,7 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-foot">
     <button class="sm-signin-btn" onclick="handleAuthClick();toggleMenu();" id="smAuthBtn">
-      <i class="ti ti-brand-google"></i> Sign In with Google
+      <i class="ti ti-mail"></i> Sign In
     </button>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
@@ -728,15 +727,6 @@ img,video,iframe{max-width:100%;}
       <i class="ti ti-arrow-right" style="font-size:18px;"></i>
       Continue &amp; Submit
     </button>
-    <div style="display:flex;align-items:center;gap:8px;margin:4px 0;width:100%;">
-      <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
-      <div style="font-size:10px;color:rgba(240,240,248,.3);">or</div>
-      <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
-    </div>
-    <button class="google-btn" onclick="signInGoogle()">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-      Sign in with Google instead
-    </button>
     <button class="auth-cancel" onclick="closeAuthGate()">Cancel</button>
   </div>
 </div>
@@ -860,7 +850,7 @@ function updateAuthUI(){
     if(smBtn) smBtn.onclick = function(){ fb.signOut(fb.auth); };
   } else {
     if(btn){ btn.textContent = 'Sign In'; btn.onclick = handleAuthClick; }
-    if(smBtn){ smBtn.innerHTML = '<i class="ti ti-brand-google"></i> Sign In with Google'; smBtn.onclick = signInGoogle; }
+    if(smBtn){ smBtn.innerHTML = '<i class="ti ti-mail"></i> Sign In'; smBtn.onclick = handleAuthClick; }
   }
 }
 
@@ -896,32 +886,6 @@ function continueAsGuest(){
   // Proceed to submit
   openSubmit();
 }
-function signInGoogle(){
-  fb.signInWithPopup(fb.auth, fb.provider).then(function(result){
-    var user = result.user;
-    currentUser = user;
-    closeAuthGate();
-    showToast('Welcome, '+(user.displayName||'Creator')+'!');
-    updateAuthUI();
-    // Save user email to Firestore for email list
-    saveUserEmail(user);
-  }).catch(function(err){
-    showToast('Sign in failed — try again');
-  });
-}
-function saveUserEmail(user){
-  try{
-    var usersRef = fb.collection(fb.db, 'vault-users');
-    fb.addDoc(usersRef, {
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      uid: user.uid,
-      joinedAt: fb.serverTimestamp()
-    }).catch(function(){});
-  }catch(e){}
-}
-
 // ── LOAD IMAGES ───────────────────────────────────────────────
 async function loadImages(){
   var grid = document.getElementById('masonryGrid');
