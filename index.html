@@ -49,24 +49,24 @@ button{font-family:'Instrument Sans',sans-serif;}
   transition:background .3s;
 }
 body.light .topnav{background:rgba(245,245,247,.95);}
-.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);justify-self:start;}
-.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);justify-self:start;flex-shrink:0;}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .logo-mark svg{width:11px;height:13px;}
 .logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
 .logo-text span{color:var(--orange);}
-.nav-right{display:flex;align-items:center;gap:6px;justify-self:end;}
+.nav-right{display:flex;align-items:center;gap:6px;justify-self:end;flex-shrink:0;}
 .nav-desktop{display:flex;align-items:center;gap:2px;justify-self:center;}
-@media(max-width:680px){.nav-desktop{display:none;}}
+@media(max-width:1024px){.nav-desktop{display:none;}}
 .nav-lnk{font-size:12px;color:var(--ink2);padding:5px 10px;border-radius:7px;transition:all .15s;}
 .nav-lnk:hover{color:var(--ink);background:var(--glass2);}
 .nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;white-space:nowrap;}
 @media(max-width:480px){.nav-signin{display:none !important;}}
 @media(max-width:680px) and (min-width:481px){.nav-signin{font-size:11px;padding:5px 10px;}}
 .nav-signin:hover{background:#e84e0e;}
-.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
 .nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
-/* Fix 2 — Hide hamburger on desktop */
-.nav-hamburger{display:none;}
+/* Hamburger shows exactly where nav-desktop hides — same 1024px breakpoint on both, no overlap, no gap */
+.nav-hamburger{display:none;flex-shrink:0;min-width:34px;}
 @media(max-width:1024px){.nav-hamburger{display:flex;}}
 
 /* ── SLIDE MENU ── */
@@ -729,20 +729,20 @@ img,video,iframe{max-width:100%;}
 
 <!-- TOP NAV -->
 <header class="topnav">
-  <a class='nav-logo' href='/'>
+  <a class='nav-logo' href='index.html'>
     <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="logo-text">Prompt<span>aholics</span></div>
   </a>
+  <nav class="nav-desktop">
+    <a class='nav-lnk' href='library.html'>Library</a>
+    <a class='nav-lnk' href='prompt-builder.html'>Builder</a>
+    <a class='nav-lnk' href='agent.html'>PA Agent</a>
+    <a class='nav-lnk' href='creationstation.html'>AI Tools</a>
+    <a class='nav-lnk' href='learn.html'>Learn</a>
+    <a class='nav-lnk' href='vault.html'>Image Vault</a>
+  </nav>
   <div class="nav-right">
-    <nav class="nav-desktop">
-      <a class='nav-lnk' href='/library'>Library</a>
-      <a class='nav-lnk' href='/prompt-builder'>Builder</a>
-      <a class='nav-lnk' href='/agent'>PA Agent</a>
-      <a class='nav-lnk' href='/creationstation'>AI Tools</a>
-      <a class='nav-lnk' href='/learn'>Learn</a>
-      <a class='nav-lnk' href='/vault'>Image Vault</a>
-    </nav>
-    <a class='nav-signin' href='/login'>Sign In</a>
+    <a class='nav-signin' href='login.html'>Sign In</a>
     <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
     <button class="nav-icon nav-hamburger" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
@@ -759,26 +759,26 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Navigate</div>
-    <a class='sm-item active' href='/'><i class="ti ti-home"></i> Home</a>
-    <a class='sm-item' href='/library'><i class="ti ti-books"></i> Prompt Library</a>
-    <a class='sm-item' href='/prompt-builder'><i class="ti ti-tool"></i> Prompt Builder</a>
-    <a class='sm-item' href='/agent'><i class="ti ti-sparkles"></i> PA Agent</a>
-    <a class='sm-item' href='/creationstation'><i class="ti ti-bolt"></i> AI Tools</a>
-    <a class='sm-item' href='/learn'><i class="ti ti-school"></i> Learn</a>
-    <a class='sm-item' href='/vault'><i class="ti ti-photo"></i> Image Vault</a>
-    <a class='sm-item' href='/login'><i class="ti ti-user"></i> Sign In</a>
+    <a class='sm-item active' href='index.html'><i class="ti ti-home"></i> Home</a>
+    <a class='sm-item' href='library.html'><i class="ti ti-books"></i> Prompt Library</a>
+    <a class='sm-item' href='prompt-builder.html'><i class="ti ti-tool"></i> Prompt Builder</a>
+    <a class='sm-item' href='agent.html'><i class="ti ti-sparkles"></i> PA Agent</a>
+    <a class='sm-item' href='creationstation.html'><i class="ti ti-bolt"></i> AI Tools</a>
+    <a class='sm-item' href='learn.html'><i class="ti ti-school"></i> Learn</a>
+    <a class='sm-item' href='vault.html'><i class="ti ti-photo"></i> Image Vault</a>
+    <a class='sm-item' href='login.html'><i class="ti ti-user"></i> Sign In</a>
     <button class="sm-item" onclick="openSavedPanel();toggleMenu();"><i class="ti ti-bookmark"></i> Saved Prompts <span class="sm-badge" id="smBadge">0</span></button>
   </div>
   <div class="sm-sec">
     <div class="sm-lbl">Company</div>
-    <a class='sm-item' href='/about'><i class="ti ti-info-circle"></i> About Us</a>
-    <a class='sm-item' href='/blog'><i class="ti ti-news"></i> Blog</a>
-    <a class='sm-item' href='/contact'><i class="ti ti-mail"></i> Contact</a>
-    <a class='sm-item' href='/privacy'><i class="ti ti-lock"></i> Privacy Policy</a>
-    <a class='sm-item' href='/terms'><i class="ti ti-clipboard-list"></i> Terms of Service</a>
+    <a class='sm-item' href='about.html'><i class="ti ti-info-circle"></i> About Us</a>
+    <a class='sm-item' href='blog.html'><i class="ti ti-news"></i> Blog</a>
+    <a class='sm-item' href='contact.html'><i class="ti ti-mail"></i> Contact</a>
+    <a class='sm-item' href='privacy.html'><i class="ti ti-lock"></i> Privacy Policy</a>
+    <a class='sm-item' href='terms.html'><i class="ti ti-clipboard-list"></i> Terms of Service</a>
   </div>
   <div class="sm-foot">
-    <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
+    <a class='sm-signin' href='login.html'><i class="ti ti-user"></i> Sign In / Register</a>
     <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
   </div>
 </nav>
@@ -810,11 +810,11 @@ img,video,iframe{max-width:100%;}
         Every prompt is <strong>structured, tested, and ready to use</strong> — for ChatGPT, Claude, Midjourney, Kling and 12 more AI tools. <strong id="heroSubCount">1,745</strong> prompts and growing. Free forever.
       </p>
       <div class="hero-ctas">
-        <a class='btn-hero-primary' href='/library'>
+        <a class='btn-hero-primary' href='library.html'>
           Browse Free Prompts
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a class='btn-hero-ghost' href='/prompt-builder'>
+        <a class='btn-hero-ghost' href='prompt-builder.html'>
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Build a Prompt
         </a>
@@ -881,7 +881,7 @@ img,video,iframe{max-width:100%;}
     <div class="section-label">Featured Prompts</div>
     <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;">
       <div class="section-title" style="margin-bottom:0;text-align:left;">The prompts people<br/>actually use.</div>
-      <a href='/library' onmouseout='this.style.color=\'var(--ink2)\';this.style.borderColor=\'var(--border2)\'' onmouseover='this.style.color=\'var(--orange)\';this.style.borderColor=\'var(--orange)\'' style='border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;transition:all .15s;'>View all →</a>
+      <a href='library.html' onmouseout='this.style.color=\'var(--ink2)\';this.style.borderColor=\'var(--border2)\'' onmouseover='this.style.color=\'var(--orange)\';this.style.borderColor=\'var(--orange)\'' style='border:1px solid var(--border2);color:var(--ink2);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;transition:all .15s;'>View all →</a>
     </div>
   </div>
   <div class="showcase-scroll" id="promptScroll">
@@ -982,7 +982,7 @@ img,video,iframe{max-width:100%;}
       <div class="split-eyebrow">Prompt Builder</div>
       <div class="split-title">From rough idea to<br/>expert prompt.</div>
       <div class="split-body">Choose from 9 professional frameworks — CoSTAR, RTF, AETHER, Chain-of-Thought and more. Fill in the blocks. Get a structured, high-performance prompt in seconds.</div>
-      <a class='btn-hero-ghost' href='/prompt-builder' style='font-size:13px;padding:11px 20px;'>Open Prompt Builder →</a>
+      <a class='btn-hero-ghost' href='prompt-builder.html' style='font-size:13px;padding:11px 20px;'>Open Prompt Builder →</a>
     </div>
     <div class="split-visual">
       <div class="split-visual-inner">
@@ -1015,29 +1015,29 @@ img,video,iframe{max-width:100%;}
 
     <!-- Preview Grid — loads from /images folder -->
     <div class="vault-preview-grid">
-      <a class='vault-preview-card' href='/vault'>
+      <a class='vault-preview-card' href='vault.html'>
         <img src="/images/slot-1.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,98,36,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class='vault-preview-card' href='/vault'>
+      <a class='vault-preview-card' href='vault.html'>
         <img src="/images/slot-2.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(139,92,246,.1),rgba(139,92,246,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class='vault-preview-card' href='/vault'>
+      <a class='vault-preview-card' href='vault.html'>
         <img src="/images/slot-3.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(66,133,244,.1),rgba(66,133,244,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
-      <a class='vault-preview-card' href='/vault'>
+      <a class='vault-preview-card' href='vault.html'>
         <img src="/images/slot-4.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(0,212,170,.1),rgba(0,212,170,.04))'"/>
         <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
       </a>
     </div>
 
     <div class="vault-cta-row" style="justify-content:center;">
-      <a class='btn-hero-primary' href='/vault'>
+      <a class='btn-hero-primary' href='vault.html'>
         <i class="ti ti-photo"></i> Browse Image Vault
       </a>
-      <a class='btn-hero-ghost' href='/vault'>
+      <a class='btn-hero-ghost' href='vault.html'>
         Submit Your Image →
       </a>
     </div>
@@ -1097,10 +1097,10 @@ img,video,iframe{max-width:100%;}
     </div>
 
     <div style="text-align:center;">
-      <a class='btn-hero-primary' href='/store-v2' style='display:inline-flex;align-items:center;gap:8px;'>
+      <a class='btn-hero-primary' href='store-v2.html' style='display:inline-flex;align-items:center;gap:8px;'>
         <i class="ti ti-shirt"></i> Shop the Store
       </a>
-      <a class='btn-hero-ghost' href='/vault' style='display:inline-flex;align-items:center;gap:8px;margin-left:12px;'>
+      <a class='btn-hero-ghost' href='vault.html' style='display:inline-flex;align-items:center;gap:8px;margin-left:12px;'>
         <i class="ti ti-sparkles"></i> Create Your Design
       </a>
     </div>
@@ -1112,8 +1112,8 @@ img,video,iframe{max-width:100%;}
   <div class="cta-title">Ready to prompt<br/>like a <span style="color:var(--orange);">professional?</span></div>
   <p style="font-size:16px;color:var(--ink2);margin:16px 0 36px;"><span id="ctaCount">1,745</span> prompts and growing. Free forever. No account required.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a class='btn-hero-primary' href='/library'>Browse the Library →</a>
-    <a class='btn-hero-ghost' href='/prompt-builder'>Try the Prompt Builder</a>
+    <a class='btn-hero-primary' href='library.html'>Browse the Library →</a>
+    <a class='btn-hero-ghost' href='prompt-builder.html'>Try the Prompt Builder</a>
   </div>
 </section>
 
@@ -1202,16 +1202,16 @@ img,video,iframe{max-width:100%;}
       <div class="footer-logo-text">Prompt<span>aholics</span></div>
     </div>
     <div class="footer-links">
-      <a class='footer-lnk' href='/library'>Library</a>
-      <a class='footer-lnk' href='/prompt-builder'>Builder</a>
-      <a class='footer-lnk' href='/creationstation'>AI Tools</a>
+      <a class='footer-lnk' href='library.html'>Library</a>
+      <a class='footer-lnk' href='prompt-builder.html'>Builder</a>
+      <a class='footer-lnk' href='creationstation.html'>AI Tools</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk' href='/about'>About Us</a>
-      <a class='footer-lnk' href='/blog'>Blog</a>
-      <a class='footer-lnk' href='/contact'>Contact</a>
+      <a class='footer-lnk' href='about.html'>About Us</a>
+      <a class='footer-lnk' href='blog.html'>Blog</a>
+      <a class='footer-lnk' href='contact.html'>Contact</a>
       <span class="footer-sep">|</span>
-      <a class='footer-lnk accent' href='/privacy'>Privacy</a>
-      <a class='footer-lnk accent' href='/terms'>Terms</a>
+      <a class='footer-lnk accent' href='privacy.html'>Privacy</a>
+      <a class='footer-lnk accent' href='terms.html'>Terms</a>
     </div>
     <div class="footer-copy">© 2026 Promptaholics · Free forever · No account required</div>
   </div>
@@ -1222,11 +1222,11 @@ img,video,iframe{max-width:100%;}
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a class='bn-item active' href='/'><i class="ti ti-home"></i>Home</a>
-  <a class='bn-item' href='/library'><i class="ti ti-books"></i>Library</a>
-  <a class='bn-item' href='/prompt-builder'><i class="ti ti-tool"></i>Builder</a>
+  <a class='bn-item active' href='index.html'><i class="ti ti-home"></i>Home</a>
+  <a class='bn-item' href='library.html'><i class="ti ti-books"></i>Library</a>
+  <a class='bn-item' href='prompt-builder.html'><i class="ti ti-tool"></i>Builder</a>
   <button class="bn-item" onclick="openSavedPanel()"><i class="ti ti-bookmark"></i>Saved</button>
-  <a class='bn-item' href='/vault'><i class="ti ti-photo"></i>Vault</a>
+  <a class='bn-item' href='vault.html'><i class="ti ti-photo"></i>Vault</a>
 </nav>
 
 <!-- SAVED PANEL -->
@@ -1523,44 +1523,27 @@ if(sc){
 document.addEventListener('DOMContentLoaded', function(){
   updateThemeBtn();
   updateBadges();
-  // Update count from prompts.js
+  // Update count from prompts.js — PROMPTS is already loaded by the single <script src="prompts.js"> tag above.
+  // Do NOT re-inject prompts.js here; that's what was causing the duplicate-declaration console errors.
   var tries = 0;
   var poll = setInterval(function(){
     if(typeof PROMPTS !== 'undefined' && PROMPTS.length > 0){
       clearInterval(poll);
+      var fmt = PROMPTS.length.toLocaleString();
       var hc = document.getElementById('heroCount');
-      if(hc) hc.textContent = PROMPTS.length.toLocaleString();
+      if(hc) hc.textContent = fmt;
       var hs = document.getElementById('heroStatCount');
-      if(hs) hs.innerHTML = PROMPTS.length.toLocaleString() + '<span>+</span>';
+      if(hs) hs.innerHTML = fmt + '<span>+</span>';
       var bc = document.getElementById('badgeCount');
-      if(bc) bc.textContent = PROMPTS.length.toLocaleString();
+      if(bc) bc.textContent = fmt;
+      var hsc = document.getElementById('heroSubCount');
+      if(hsc) hsc.textContent = fmt;
+      var cc = document.getElementById('ctaCount');
+      if(cc) cc.textContent = fmt;
     }
     if(++tries > 60) clearInterval(poll);
   }, 50);
 });
-</script>
-<!-- Dynamic prompt count from prompts.js -->
-<script>
-(function(){
-  var s = document.createElement('script');
-  s.src = 'prompts.js';
-  s.onload = function(){
-    try {
-      var count = (window.PROMPTS && window.PROMPTS.length)
-                ? window.PROMPTS.length
-                : (window.prompts && window.prompts.length ? window.prompts.length : null);
-      if(!count) return;
-      var formatted = count.toLocaleString();
-      var eyebrow = document.getElementById('heroCount');
-      if(eyebrow) eyebrow.textContent = formatted;
-      var stat = document.getElementById('heroStatCount');
-      if(stat) stat.innerHTML = formatted + '<span>+</span>';
-      var bc = document.getElementById('badgeCount');
-      if(bc) bc.textContent = formatted;
-    } catch(e){}
-  };
-  document.body.appendChild(s);
-})();
 </script>
 
 <!-- Brevo Exit Intent Modal -->
@@ -1727,27 +1710,6 @@ function submitBrevoInline(){
     if(btn){btn.textContent='✅ You\u2019re in!';btn.style.background='#22c55e';}
   });
 }
-</script>
-
-<script>
-// Dynamic prompt count from prompts.js
-(function(){
-  var s = document.createElement('script');
-  s.src = 'prompts.js';
-  s.onload = function(){
-    if(typeof PROMPTS !== 'undefined'){
-      var count = PROMPTS.length;
-      var fmt = count.toLocaleString();
-      var el1 = document.getElementById('heroStatCount');
-      var el2 = document.getElementById('heroSubCount');
-      var el3 = document.getElementById('ctaCount');
-      if(el1) el1.innerHTML = fmt + '<span>+</span>';
-      if(el2) el2.textContent = fmt;
-      if(el3) el3.textContent = fmt;
-    }
-  };
-  document.head.appendChild(s);
-})();
 </script>
 
 </body>
