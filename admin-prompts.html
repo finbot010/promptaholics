@@ -194,6 +194,19 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
+    <!-- FIX CATEGORIES TOOL -->
+    <div class="drop-section" id="fixCatSection">
+      <h2><i class="ti ti-tags" style="color:var(--orange)"></i> Fix Legacy Categories</h2>
+      <p style="font-size:13px;color:var(--ink2,#999);margin-bottom:12px;">
+        Some earlier imports used lowercase category names (e.g. "code", "business") that don't match the site's real category list, which fragments the filter pills on library.html.
+        This scans the live <code>prompts</code> collection and remaps them to the correct canonical categories.
+      </p>
+      <button class="btn-import" id="fixCatBtn" onclick="fixLegacyCategories()">
+        <i class="ti ti-wand"></i> Scan &amp; Fix Categories
+      </button>
+      <div id="fixCatResults" style="margin-top:14px;"></div>
+    </div>
+
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setFilter('pending',this)">🟠 Pending</button>
       <button class="filter-btn" onclick="setFilter('live',this)">🟢 Live</button>
@@ -577,6 +590,82 @@ function showToast(msg){
   t.textContent=msg; t.classList.add('show');
   clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
 }
+
+// ── FIX LEGACY CATEGORIES ────────────────────────────────────────
+// Maps the old lowercase category strings (used in earlier CC0 import batches)
+// to the real canonical categories defined in library.html's CAT_CONFIG.
+// NOTE: this is a bulk string-match rename, not content-aware — a few edge-case
+// prompts under 'lifestyle' or 'productivity' won't get a perfect category, since
+// those old buckets covered genuinely different kinds of content. Good enough to
+// stop the pill-fragmentation; not a substitute for reviewing each one by hand.
+const LEGACY_CAT_MAP = {
+  'code':         'Code & Tech',
+  'business':     'Business & Marketing',
+  'writing':      'Writing & Content',
+  'education':    'Education & Learning',
+  'marketing':    'Marketing & Psychology',
+  'productivity': 'Productivity Systems & Agents',
+  'image':        'Image Generation',
+  'lifestyle':    'Wellness'
+};
+
+window.fixLegacyCategories = async function(){
+  const btn = document.getElementById('fixCatBtn');
+  const resultsEl = document.getElementById('fixCatResults');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Scanning prompts collection…';
+  resultsEl.innerHTML = '';
+
+  try {
+    const snap = await getDocs(collection(db, 'prompts'));
+    const toFix = [];
+    snap.forEach(docSnap => {
+      const data = docSnap.data();
+      if (LEGACY_CAT_MAP.hasOwnProperty(data.cat)) {
+        toFix.push({ id: docSnap.id, oldCat: data.cat, newCat: LEGACY_CAT_MAP[data.cat] });
+      }
+    });
+
+    if (toFix.length === 0) {
+      resultsEl.innerHTML = '<p style="color:#22c55e;">✅ No legacy categories found — nothing to fix.</p>';
+      btn.innerHTML = '<i class="ti ti-wand"></i> Scan & Fix Categories';
+      btn.disabled = false;
+      return;
+    }
+
+    btn.innerHTML = `<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Updating ${toFix.length} prompts…`;
+
+    let done = 0, failed = 0;
+    for (const item of toFix) {
+      try {
+        await updateDoc(doc(db, 'prompts', item.id), { cat: item.newCat });
+        done++;
+      } catch (e) {
+        failed++;
+        console.error('Failed to update', item.id, e);
+      }
+    }
+
+    // Tally by old category for a clean summary
+    const tally = {};
+    toFix.forEach(item => { tally[item.oldCat] = (tally[item.oldCat] || 0) + 1; });
+    const tallyHtml = Object.entries(tally)
+      .map(([oldCat, count]) => `<li><code>${esc(oldCat)}</code> → <strong>${esc(LEGACY_CAT_MAP[oldCat])}</strong> — ${count} prompts</li>`)
+      .join('');
+
+    resultsEl.innerHTML = `
+      <p style="color:#22c55e;">✅ Fixed ${done} prompts${failed ? ` (${failed} failed — check console)` : ''}.</p>
+      <ul style="margin-top:8px;font-size:13px;line-height:1.8;">${tallyHtml}</ul>
+    `;
+    showToast(`Fixed ${done} categories`);
+  } catch (e) {
+    resultsEl.innerHTML = `<p style="color:#ef4444;">❌ Scan failed: ${esc(e.message)}</p>`;
+    console.error(e);
+  }
+
+  btn.innerHTML = '<i class="ti ti-wand"></i> Scan & Fix Categories';
+  btn.disabled = false;
+};
 </script>
 </body>
 </html>
