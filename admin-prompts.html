@@ -207,6 +207,24 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div id="fixCatResults" style="margin-top:14px;"></div>
     </div>
 
+    <!-- MANAGE / DELETE LIVE PROMPTS -->
+    <div class="drop-section" id="manageLiveSection">
+      <h2><i class="ti ti-search" style="color:var(--orange)"></i> Manage Live Prompts</h2>
+      <p style="font-size:13px;color:var(--ink2,#999);margin-bottom:12px;">
+        Search the live <code>prompts</code> collection by name or keyword, and delete anything that shouldn't be there.
+        This is permanent and removes it from the actual library — there's no undo, so double-check before confirming.
+      </p>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <input type="text" id="liveSearchInput" placeholder="Search by name or keyword…"
+          style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#333);background:var(--bg2,#111);color:var(--ink,#eee);font-size:14px;"
+          onkeydown="if(event.key==='Enter') searchLivePrompts()"/>
+        <button class="btn-import" id="liveSearchBtn" onclick="searchLivePrompts()">
+          <i class="ti ti-search"></i> Search
+        </button>
+      </div>
+      <div id="liveSearchResults"></div>
+    </div>
+
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setFilter('pending',this)">🟠 Pending</button>
       <button class="filter-btn" onclick="setFilter('live',this)">🟢 Live</button>
@@ -665,6 +683,82 @@ window.fixLegacyCategories = async function(){
 
   btn.innerHTML = '<i class="ti ti-wand"></i> Scan & Fix Categories';
   btn.disabled = false;
+};
+// ── MANAGE / DELETE LIVE PROMPTS ─────────────────────────────────
+let _livePromptsCache = null; // cached full collection fetch, refreshed each search
+
+window.searchLivePrompts = async function(){
+  const input = document.getElementById('liveSearchInput');
+  const term = input.value.trim().toLowerCase();
+  const resultsEl = document.getElementById('liveSearchResults');
+  const btn = document.getElementById('liveSearchBtn');
+
+  if (!term) {
+    resultsEl.innerHTML = '<p style="color:#f59e0b;">Type something to search for first.</p>';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Searching…';
+  resultsEl.innerHTML = '';
+
+  try {
+    // Fetch once per session, reuse for subsequent searches (2000+ small docs — cheap to hold in memory)
+    if (!_livePromptsCache) {
+      const snap = await getDocs(collection(db, 'prompts'));
+      _livePromptsCache = [];
+      snap.forEach(docSnap => _livePromptsCache.push({ id: docSnap.id, ...docSnap.data() }));
+    }
+
+    const matches = _livePromptsCache.filter(p => {
+      const haystack = ((p.name||'') + ' ' + (p.text||'') + ' ' + (p.desc||'')).toLowerCase();
+      return haystack.includes(term);
+    });
+
+    if (matches.length === 0) {
+      resultsEl.innerHTML = '<p>No matches found for "' + esc(term) + '".</p>';
+    } else {
+      resultsEl.innerHTML = `<p style="font-size:13px;color:var(--ink2,#999);margin-bottom:10px;">${matches.length} match${matches.length===1?'':'es'}:</p>` +
+        matches.map(p => `
+          <div class="prompt-card" id="live-card-${p.id}" style="margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+              <div style="flex:1;">
+                <strong>${esc(p.name||'Untitled')}</strong>
+                <div style="font-size:11px;color:var(--ink3,#777);margin:4px 0;">${esc(p.cat||'?')} · ${esc(p.tool||'?')}</div>
+                <div style="font-size:12px;color:var(--ink2,#999);max-height:60px;overflow:hidden;">${esc((p.text||'').slice(0,160))}${(p.text||'').length>160?'…':''}</div>
+              </div>
+              <button class="btn-delete" onclick="deleteLivePrompt('${p.id}','${escAttr(p.name||'this prompt')}')">
+                <i class="ti ti-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+        `).join('');
+    }
+  } catch (e) {
+    resultsEl.innerHTML = `<p style="color:#ef4444;">❌ Search failed: ${esc(e.message)}</p>`;
+    console.error(e);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-search"></i> Search';
+};
+
+window.deleteLivePrompt = async function(id, name){
+  if (!confirm(`Permanently delete "${name}" from the live library? This cannot be undone.`)) return;
+
+  const card = document.getElementById('live-card-' + id);
+  if (card) card.style.opacity = '0.4';
+
+  try {
+    await deleteDoc(doc(db, 'prompts', id));
+    if (_livePromptsCache) _livePromptsCache = _livePromptsCache.filter(p => p.id !== id);
+    if (card) card.remove();
+    showToast(`Deleted "${name}"`);
+  } catch (e) {
+    showToast('Delete failed — try again');
+    if (card) card.style.opacity = '1';
+    console.error(e);
+  }
 };
 </script>
 </body>
