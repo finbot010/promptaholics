@@ -1481,15 +1481,19 @@ async function startMugCheckout(){
       try{ imageUrl = await uploadToCloudinary(imageUrl); }catch(e){}
     }
     var v = MUG_VARIANTS[selectedMugSize];
+    var parts = selectedMugSize.split(' '); // e.g. "White 11oz" -> ["White","11oz"]
     var res = await fetch(WORKER + '/api/create-checkout', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
+        product: v.label,
+        color: parts[0] || '',
+        colorHex: parts[0] === 'Black' ? '#111' : '#fff',
+        size: parts[1] || '',
         variantId: v.variantId,
         price: v.price,
-        title: v.label,
-        description: 'Custom AI art mug — ' + (customImageLabel || 'Your Design'),
-        imageUrl: imageUrl,
+        imageLabel: customImageLabel || 'Your Design',
+        imageData: imageUrl,
         side: 'Front',
       })
     });
