@@ -564,14 +564,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     <div class="prodigi-card" onclick="openProdigiModal('aluminum-print')">
       <div class="prodigi-img">
-        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80&fit=crop" alt="Aluminum Print"/>
-        <div class="prodigi-badge" style="background:rgba(255,159,36,.2);border-color:rgba(255,159,36,.5);color:var(--o2);">⭐ Best</div>
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80&fit=crop" alt="Metal Print"/>
+        <div class="prodigi-badge" style="background:rgba(255,159,36,.2);border-color:rgba(255,159,36,.5);color:var(--o2);">⭐ Premium</div>
       </div>
       <div class="prodigi-info">
-        <div class="prodigi-name" style="color:var(--o2);">Aluminum Print</div>
-        <div class="prodigi-desc">HD metallic surface. Stunning wall art.</div>
+        <div class="prodigi-name" style="color:var(--o2);">Metal Print</div>
+        <div class="prodigi-desc">HD metallic surface. Large format only, 16×20" and up.</div>
         <div class="prodigi-row">
-          <div class="prodigi-price" style="color:var(--o2);">from $29<small>.99</small></div>
+          <div class="prodigi-price" style="color:var(--o2);">from $129<small>.99</small></div>
           <button class="prodigi-btn" style="border-color:rgba(255,159,36,.3);color:var(--o2);">Order</button>
         </div>
       </div>
@@ -587,6 +587,21 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="prodigi-desc">Gallery-wrapped. Ready to hang.</div>
         <div class="prodigi-row">
           <div class="prodigi-price">from $49<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prodigi-card" onclick="openProdigiModal('poster')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1579541591970-e5943e2f7bb1?w=400&q=80&fit=crop" alt="Poster"/>
+        <div class="prodigi-badge">New</div>
+      </div>
+      <div class="prodigi-info">
+        <div class="prodigi-name">Poster</div>
+        <div class="prodigi-desc">Enhanced matte paper. Ready to frame.</div>
+        <div class="prodigi-row">
+          <div class="prodigi-price">from $24<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
         </div>
       </div>
@@ -632,6 +647,21 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="prodigi-desc">Anti-slip gaming mat. Small, Med, Large.</div>
         <div class="prodigi-row">
           <div class="prodigi-price">from $29<small>.99</small></div>
+          <button class="prodigi-btn">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prodigi-card" onclick="openProdigiModal('gaming-pad')">
+      <div class="prodigi-img">
+        <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400&q=80&fit=crop" alt="Gaming Mouse Pad"/>
+        <div class="prodigi-badge">New</div>
+      </div>
+      <div class="prodigi-info">
+        <div class="prodigi-name">Gaming Mouse Pad</div>
+        <div class="prodigi-desc">Extended desk mat, 18×16" or 36×18".</div>
+        <div class="prodigi-row">
+          <div class="prodigi-price">from $32<small>.99</small></div>
           <button class="prodigi-btn">Order</button>
         </div>
       </div>
@@ -1195,13 +1225,19 @@ const PRODIGI_CATALOG = {
     finishes: ['Gold Foil', 'Silver Foil'],
     prices: {'8×10"': 1999, '11×14"': 2499, '16×20"': 3499, '18×24"': 4499},
   },
+  // Canvas — moved to Printful (confirmed cheaper landed cost than Prodigi at every size we checked)
   'canvas': {
     name: 'Canvas Print',
     sub: 'Gallery-wrapped, ready to hang',
-    productId: 'GLOBAL-CAN-18X24',
-    sizes: ['8×10"', '12×16"', '18×24"', '24×36"'],
-    finishes: ['Matte', 'Gloss'],
-    prices: {'8×10"': 2999, '12×16"': 3999, '18×24"': 4999, '24×36"': 6999},
+    provider: 'printful',
+    sizes: ['12×18"', '18×24"', '24×36"'],
+    finishes: ['Matte'],
+    variantMap: {
+      '12×18"': 5399154929,
+      '18×24"': 5399154930,
+      '24×36"': 5399154931,
+    },
+    prices: {'12×18"': 4999, '18×24"': 5999, '24×36"': 8499},
   },
   'desk-mat': {
     name: 'Gaming Mat',
@@ -1229,13 +1265,46 @@ const PRODIGI_CATALOG = {
     },
     prices: {'11×14"': 3499, 'A3 (11.7×16.5")': 3999, 'A2 (16.5×23.4")': 4999},
   },
+  // Aluminum/Metal Print — moved to Printful (confirmed cheaper landed cost than Prodigi at every size)
   'aluminum-print': {
-    name: 'Aluminum Print',
+    name: 'Metal Print',
     sub: 'HD metallic surface — stunning wall art',
-    productId: 'GLOBAL-MET-8X10',
-    sizes: ['8×10"', '11×14"', '16×20"', '20×30"'],
-    finishes: ['Gloss', 'Satin'],
-    prices: {'8×10"': 2999, '11×14"': 3999, '16×20"': 6499, '20×30"': 8999},
+    provider: 'printful',
+    sizes: ['16×20"', '20×30"', '24×36"'],
+    finishes: ['Gloss'],
+    variantMap: {
+      '16×20"': 5399149223,
+      '20×30"': 5399149224,
+      '24×36"': 5399149225,
+    },
+    prices: {'16×20"': 12999, '20×30"': 22999, '24×36"': 29999},
+  },
+  // Poster — new, Printful only, real cost-checked pricing
+  'poster': {
+    name: 'Poster',
+    sub: 'Enhanced matte paper — ready to frame',
+    provider: 'printful',
+    sizes: ['12×18"', '18×24"', '24×36"'],
+    finishes: ['Matte'],
+    variantMap: {
+      '12×18"': 5399158142,
+      '18×24"': 5399158143,
+      '24×36"': 5399158144,
+    },
+    prices: {'12×18"': 2499, '18×24"': 2999, '24×36"': 3999},
+  },
+  // Gaming Mouse Pad — new, Printful only, real cost-checked pricing
+  'gaming-pad': {
+    name: 'Gaming Mouse Pad',
+    sub: 'Anti-slip desk mat with your AI art',
+    provider: 'printful',
+    sizes: ['18×16"', '36×18"'],
+    finishes: ['Standard'],
+    variantMap: {
+      '18×16"': 5399172561,
+      '36×18"': 5399172562,
+    },
+    prices: {'18×16"': 3299, '36×18"': 4499},
   },
 };
 
@@ -1284,9 +1353,9 @@ function openProdigiModal(productKey){
   var finishesEl = document.getElementById('pmFinishes');
   finishesEl.innerHTML = '';
   var finishSection = document.getElementById('pmFinishSection');
-  if(p.finishes.length === 1 && p.finishes[0] === 'Standard'){
+  if(p.finishes.length === 1){
     finishSection.style.display = 'none';
-    selectedProdigiFinish = 'Standard';
+    selectedProdigiFinish = p.finishes[0];
   } else {
     finishSection.style.display = 'block';
     p.finishes.forEach(function(f){
@@ -1516,7 +1585,7 @@ var vaultImages = [];
 var vaultImagesLoaded = false;
 
 // Products that need upscaling (larger than 8x10)
-var NEEDS_UPSCALE = ['aluminum-print','canvas','foil-print','desk-mat'];
+var NEEDS_UPSCALE = ['aluminum-print','canvas','foil-print','desk-mat','poster','gaming-pad'];
 
 async function loadVaultImages(){
   if(vaultImagesLoaded) return;
@@ -1644,21 +1713,45 @@ async function startProdigiCheckout(){
     }
 
     var price = p.prices[selectedProdigiSize] || 1999;
-    var res = await fetch(WORKER + '/api/prodigi-checkout', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        productId: p.productId,
-        size: selectedProdigiSize,
-        finish: selectedProdigiFinish || p.finishes[0],
-        imageUrl: imageUrl,
-        title: p.name + ' — ' + (customImageLabel || 'AI Art'),
-        price: price,
-        successUrl: window.location.origin + '/order-success.html?session_id={CHECKOUT_SESSION_ID}',
-        cancelUrl: window.location.origin + '/store-v2.html#printsSection',
-      })
-    });
-    var data = await res.json();
+    var res, data;
+
+    if(p.provider === 'printful'){
+      // Real Printful sync product — same checkout path as mugs/apparel
+      var variantId = p.variantMap[selectedProdigiSize];
+      res = await fetch(WORKER + '/api/create-checkout', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          product: p.name + ' — ' + selectedProdigiSize,
+          color: selectedProdigiFinish || p.finishes[0] || '',
+          colorHex: '#fff',
+          size: selectedProdigiSize,
+          variantId: variantId,
+          price: price,
+          imageLabel: customImageLabel || 'AI Art',
+          imageData: imageUrl,
+          side: 'Front',
+        })
+      });
+    } else {
+      // Prodigi product — existing flow
+      res = await fetch(WORKER + '/api/prodigi-checkout', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          productId: p.productId,
+          size: selectedProdigiSize,
+          finish: selectedProdigiFinish || p.finishes[0],
+          imageUrl: imageUrl,
+          title: p.name + ' — ' + (customImageLabel || 'AI Art'),
+          price: price,
+          successUrl: window.location.origin + '/order-success.html?session_id={CHECKOUT_SESSION_ID}',
+          cancelUrl: window.location.origin + '/store-v2.html#printsSection',
+        })
+      });
+    }
+
+    data = await res.json();
     if(data.url){ window.location.href = data.url; }
     else throw new Error(data.error || 'Checkout failed');
   }catch(e){
