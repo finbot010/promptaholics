@@ -6,6 +6,14 @@
   path = "/share/prompt"
   function = "prompt-share"
 
+# Old store URL — replaces store.html's client-side meta-refresh redirect with a
+# real server-side 301 (Google Search Console was flagging the old JS-based one)
+[[redirects]]
+  from = "/store.html"
+  to = "/store-v2.html"
+  status = 301
+  force = true
+
 # Firebase Auth handler — required for Google Sign-In popup/redirect
 [[redirects]]
   from = "/__/auth/*"
