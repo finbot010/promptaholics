@@ -12,7 +12,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getAuth, onAuthStateChanged, signOut }
+  import { getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc }
@@ -32,12 +32,13 @@
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db   = getFirestore(app);
-  // No Firebase storage needed
-  // Google sign-in removed — guest email flow (continueAsGuest) is the only sign-in path now
+  const provider = new GoogleAuthProvider();
+  // Google Sign-In restored as an admin-only auth path (not shown in the public submit flow) —
+  // real authentication is required so adminDeleteImage can never be reached via the guest form.
 
   // Expose to global scope
-  window._fb = { auth, db,
-    onAuthStateChanged, signOut,
+  window._fb = { auth, db, provider,
+    onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider,
     collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc };
 
@@ -759,7 +760,7 @@ img,video,iframe{max-width:100%;}
       <a class='footer-lnk' href='privacy.html'>Privacy</a>
       <a class='footer-lnk' href='privacy.html'>Terms</a>
     </div>
-    <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery</div>
+    <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery · <a href="javascript:void(0)" onclick="signInAdminGoogle()" style="color:inherit;text-decoration:underline;opacity:.6;">Admin</a></div>
   </div>
 </footer>
 
@@ -815,7 +816,7 @@ var ADMIN_EMAIL = 'promptaholics1@gmail.com';
 
 // ── ADMIN DELETE FROM GALLERY ────────────────────────────────
 async function adminDeleteImage(id){
-  if(!currentUser || currentUser.email !== ADMIN_EMAIL) return;
+  if(!currentUser || currentUser.isGuest || currentUser.email !== ADMIN_EMAIL) return;
   if(!confirm('Delete this image from the vault?')) return;
   try{
     var docRef = fb.doc(fb.db,'vault-submissions',id);
@@ -866,6 +867,21 @@ function openAuthGate(){ document.getElementById('authGate').classList.add('open
 function closeAuthGate(){ document.getElementById('authGate').classList.remove('open'); document.body.style.overflow=''; }
 
 // ── Guest submission (email only) ──────────────────────────────
+// Admin-only Google sign-in — not part of the public submit flow.
+// Real Firebase authentication is required, so adminDeleteImage/isAdmin can never
+// be satisfied by the guest email form (see the isGuest check in both).
+function signInAdminGoogle(){
+  fb.signInWithPopup(fb.auth, fb.provider).then(function(result){
+    currentUser = result.user;
+    showToast('Signed in as admin');
+    updateAuthUI();
+    loadImages();
+  }).catch(function(err){
+    showToast('Admin sign in failed — try again');
+    console.error(err);
+  });
+}
+
 function continueAsGuest(){
   var email = (document.getElementById('guestEmail')||{}).value.trim();
   if(!email || !email.includes('@')){
@@ -952,7 +968,7 @@ function renderGallery(){
     grid.appendChild(empty);
     return;
   }
-  var isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+  var isAdmin = currentUser && !currentUser.isGuest && currentUser.email === ADMIN_EMAIL;
   grid.innerHTML = '';
   list.forEach(function(img, i){
     var card = document.createElement('div');
