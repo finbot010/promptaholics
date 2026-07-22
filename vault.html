@@ -891,7 +891,15 @@ function continueAsGuest(){
     return;
   }
   // Set as guest user
-  currentUser = { email: email, displayName: email.split('@')[0], uid: 'guest_'+Date.now(), isGuest: true };
+  // Stable guest ID — reused across visits on this browser so "liked" state
+  // actually persists, instead of a fresh random ID every session that could
+  // never match past likes on return visits.
+  var guestUid = localStorage.getItem('pa_guest_uid');
+  if(!guestUid){
+    guestUid = 'guest_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+    localStorage.setItem('pa_guest_uid', guestUid);
+  }
+  currentUser = { email: email, displayName: email.split('@')[0], uid: guestUid, isGuest: true };
   // Subscribe to Brevo silently
   fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe', {
     method:'POST', headers:{'Content-Type':'application/json'},
