@@ -183,7 +183,7 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
   opacity:0;
 }
 .vcard:hover .vcard-overlay{opacity:1;transform:translateY(0);}
-.vcard-title{font-family:'Syne',serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vcard-title{display:block;text-decoration:none;font-family:'Syne',serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .vcard-creator{font-size:10px;color:rgba(255,255,255,.6);}
 .vcard-actions{display:flex;gap:5px;margin-top:8px;}
 .vcard-btn{display:inline-flex;align-items:center;gap:3px;padding:4px 9px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;backdrop-filter:blur(4px);cursor:pointer;transition:all .15s;}
@@ -1004,9 +1004,13 @@ function renderGallery(){
     var overlay = document.createElement('div');
     overlay.className = 'vcard-overlay';
 
-    var title = document.createElement('div');
+    var title = document.createElement('a');
     title.className = 'vcard-title';
+    title.href = '/share/vault/' + img._id;
     title.textContent = img.title;
+    // Real, crawlable link for Google to discover and index this specific image's page —
+    // but for actual visitors, keep the nicer in-page modal instead of a full navigation.
+    title.onclick = function(e){ e.preventDefault(); e.stopPropagation(); openDetail(img._id); };
 
     var creator = document.createElement('div');
     creator.className = 'vcard-creator';
