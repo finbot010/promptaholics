@@ -395,7 +395,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <span style="font-size:11px;color:var(--ink3);white-space:nowrap;">Pick a design → pick a product</span>
   </div>
   <p style="font-size:13px;color:var(--ink3);margin-bottom:20px;">Don't want to create custom art? Choose from our curated AI designs — all ready to print on any product.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;">
+  <div id="readyToWearGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;">
     <div class="premade-card" onclick="selectPremade('https://res.cloudinary.com/dgqbzarfw/image/upload/v1783315110/vault/ox7tuvrj8hr7y6cvujxi.jpg','Cyber Ninja')">
       <div class="pm-img"><img src="https://res.cloudinary.com/dgqbzarfw/image/upload/w_300,h_300,c_fill/v1783315110/vault/ox7tuvrj8hr7y6cvujxi.jpg" alt="Cyber Ninja"/></div>
       <div class="pm-info"><div class="pm-tag">Hot</div><div class="pm-name">Cyber Ninja</div></div>
@@ -857,6 +857,70 @@ var customImageLabel = '';
 
 
 // ── Select Pre-made Design ─────────────────────────────────────
+// ── Ready to Wear — weekly rotation from real approved Vault images ────
+// No backend/GitHub Action needed: every visitor's browser computes the same
+// "current week" and shows the same 6 designs, which change automatically
+// every Monday (ISO week boundary) as the pool naturally grows with new
+// approved Vault submissions. Falls back to the hardcoded designs already
+// in the HTML if the fetch fails or the pool is still too small.
+function escHtml(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+async function loadReadyToWearRotation(){
+  var grid = document.getElementById('readyToWearGrid');
+  if(!grid) return;
+
+  try{
+    var res = await fetch('https://firestore.googleapis.com/v1/projects/promptaholics-534d3/databases/(default)/documents/vault-submissions?pageSize=250');
+    var data = await res.json();
+    var pool = [];
+    (data.documents || []).forEach(function(doc){
+      var f = doc.fields || {};
+      var status = f.status && f.status.stringValue;
+      var imageUrl = f.imageUrl && f.imageUrl.stringValue;
+      var title = f.title && f.title.stringValue;
+      if(status === 'approved' && imageUrl && title){
+        pool.push({ url: imageUrl, title: title });
+      }
+    });
+
+    if(pool.length < 6) return; // not enough real approved images yet — keep the hardcoded fallback already in the HTML
+
+    // Deterministic weekly rotation (ISO week number) — same 6 for every visitor this week
+    var now = new Date();
+    var d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    var dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    var isoWeek = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    var startIdx = (isoWeek + d.getUTCFullYear()) % pool.length;
+
+    var selected = [];
+    for(var i = 0; i < 6; i++){
+      selected.push(pool[(startIdx + i) % pool.length]);
+    }
+
+    var tags = ['Hot', 'Fan Fav', 'Popular', 'Trending', 'New', 'New'];
+    grid.innerHTML = selected.map(function(item, i){
+      var thumbUrl = item.url.indexOf('res.cloudinary.com') > -1
+        ? item.url.replace('/upload/', '/upload/w_300,h_300,c_fill/')
+        : item.url;
+      var safeName = escHtml(item.title);
+      var safeUrlAttr = item.url.replace(/'/g, "\\'");
+      var safeNameAttr = item.title.replace(/'/g, "\\'").replace(/"/g, '');
+      return '<div class="premade-card" onclick="selectPremade(\'' + safeUrlAttr + '\',\'' + safeNameAttr + '\')">' +
+        '<div class="pm-img"><img src="' + thumbUrl + '" alt="' + safeName + '"/></div>' +
+        '<div class="pm-info"><div class="pm-tag">' + tags[i] + '</div><div class="pm-name">' + safeName + '</div></div>' +
+      '</div>';
+    }).join('');
+  }catch(e){
+    console.warn('Ready to Wear rotation fetch failed, keeping default designs:', e);
+    // No action needed — the hardcoded fallback cards remain untouched in the HTML
+  }
+}
+document.addEventListener('DOMContentLoaded', loadReadyToWearRotation);
+
 function selectPremade(imageUrl, title){
   customImageData = imageUrl;
   customImageLabel = title;

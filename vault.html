@@ -12,7 +12,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider }
+  import { getAuth, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, signInAnonymously }
     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc }
@@ -38,7 +38,7 @@
 
   // Expose to global scope
   window._fb = { auth, db, provider,
-    onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider,
+    onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, signInAnonymously,
     collection, addDoc, getDocs, query, orderBy, where,
     updateDoc, doc, increment, serverTimestamp, getDoc, deleteDoc, setDoc };
 
@@ -882,7 +882,7 @@ function signInAdminGoogle(){
   });
 }
 
-function continueAsGuest(){
+async function continueAsGuest(){
   var email = (document.getElementById('guestEmail')||{}).value.trim();
   if(!email || !email.includes('@')){
     var inp = document.getElementById('guestEmail');
@@ -890,16 +890,22 @@ function continueAsGuest(){
     showToast('Please enter a valid email');
     return;
   }
-  // Set as guest user
-  // Stable guest ID — reused across visits on this browser so "liked" state
-  // actually persists, instead of a fresh random ID every session that could
-  // never match past likes on return visits.
-  var guestUid = localStorage.getItem('pa_guest_uid');
-  if(!guestUid){
-    guestUid = 'guest_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
-    localStorage.setItem('pa_guest_uid', guestUid);
+
+  // Real Firebase Anonymous Auth — gives guests a genuine request.auth so Firestore
+  // writes (likes, etc.) actually pass rules that require authentication. Firebase
+  // persists the same anonymous UID across visits on this browser automatically,
+  // so this also replaces the need for a separate custom localStorage ID scheme.
+  var uid;
+  try{
+    var result = await fb.signInAnonymously(fb.auth);
+    uid = result.user.uid;
+  }catch(e){
+    console.error('Anonymous sign-in failed:', e);
+    showToast('Could not start session — try again');
+    return;
   }
-  currentUser = { email: email, displayName: email.split('@')[0], uid: guestUid, isGuest: true };
+
+  currentUser = { email: email, displayName: email.split('@')[0], uid: uid, isGuest: true };
   // Subscribe to Brevo silently
   fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe', {
     method:'POST', headers:{'Content-Type':'application/json'},
