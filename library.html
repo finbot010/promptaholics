@@ -131,7 +131,9 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 
 /* CATEGORIES */
 .cat-wrap{max-width:1400px;margin:0 auto;padding:0 24px 16px;display:flex;gap:6px;flex-wrap:wrap;}
-.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:rgba(255,255,255,.72);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cat-intro{max-width:1400px;margin:0 auto;padding:0 24px 20px;font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
+.cat-intro strong{color:rgba(255,255,255,.85);}
+.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:rgba(255,255,255,.72);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;}
 .cat-pill:hover{background:var(--glass2);color:var(--ink);}
 .cat-pill.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
 .cat-pill-icon{font-size:14px;line-height:1;}
@@ -596,6 +598,7 @@ img,video,iframe{max-width:100%;}
 </div>
 
 <div class="cat-wrap" id="catWrap"></div>
+<div class="cat-intro" id="catIntro"></div>
 <button class="tag-drawer-toggle" id="tagDrawerToggle" onclick="toggleTagDrawer()">
   <i class="ti ti-adjustments-horizontal"></i>
   Filter by Tag
@@ -835,20 +838,53 @@ function renderCatPills(){
   cats.forEach(function(cat){
     var cfg=CAT_CONFIG[cat]||{icon:'✨'};
     var n=cat==='All'?PROMPTS.length:(counts[cat]||0);
-    var btn=document.createElement('button');
+    var btn=document.createElement('a');
+    btn.href = cat==='All' ? 'library.html' : 'library.html?cat='+encodeURIComponent(cat);
     btn.className='cat-pill'+(activeCat===cat?' active':'');
     btn.innerHTML='<span class="cat-pill-icon">'+cfg.icon+'</span>'+escHtml(cat)+'<span class="cat-pill-count">'+n+'</span>';
-    btn.onclick=(function(c){ return function(){ setCat(c); }; })(cat);
+    // Real, crawlable link for Google to discover each category page — but keep the
+    // fast in-page filtering for actual visitors instead of a full navigation.
+    btn.onclick=(function(c){ return function(e){ e.preventDefault(); setCat(c); }; })(cat);
     wrap.appendChild(btn);
   });
 }
+var CAT_INTROS={
+  'All':'Browse the full library — <strong>every prompt, every category, every AI tool</strong> we support. Filter by category below, or search for exactly what you need.',
+  'Business & Marketing':'Prompts for <strong>business plans, marketing strategy, brand positioning, and go-to-market copy</strong> — built for founders and marketers who need results, not filler.',
+  'Writing & Content':'From blog posts to video scripts to email newsletters — <strong>structured writing prompts</strong> for every format, using proven frameworks like CoSTAR and RTF instead of vague instructions.',
+  'Image Generation':'Ready-to-use prompts for <strong>Midjourney, Flux, DALL-E and other AI image tools</strong> — covering product photography, portraits, illustration, and abstract art styles.',
+  'Marketing & Psychology':'Prompts grounded in <strong>real persuasion and behavioral psychology principles</strong> — social proof, urgency, framing — for copy that actually converts instead of just sounding nice.',
+  'Business & Offers':'Prompts for the operational side of running a business — <strong>freelance scoping, pricing, client communication, and service packaging</strong>.',
+  'Creative & Art':'Prompts for <strong>illustration, character design, and concept art</strong> — built for artists and designers exploring AI as part of their creative process.',
+  'Code & Tech':'From full application specs to debugging and code review — <strong>developer-focused prompts</strong> covering real frameworks, languages, and architecture decisions.',
+  'AI Agents':'Prompts specifically for <strong>multi-step AI agent behavior and loop engineering</strong> — task decomposition, self-critique, and structured reasoning frameworks.',
+  'Productivity Systems & Agents':'Prompts to help you <strong>plan, prioritize, and manage your own workflow</strong> — task breakdowns, decision-making frameworks, and personal systems.',
+  'Email, Sales & Communication':'Cold outreach, follow-ups, negotiation scripts, and internal communication — <strong>prompts for every message you actually have to write at work</strong>.',
+  'Video & Film':'Prompts for <strong>YouTube scripts, video hooks, and shot planning</strong> — built for creators producing real video content, not just video ideas.',
+  'Education & Learning':'Prompts for <strong>students and self-learners</strong> — study schedules, essay outlines, flashcard generation, and breaking down complex topics.',
+  'Health':'General health and wellness-related prompts. <strong>Not a substitute for medical advice</strong> — always consult a real professional for anything health-specific.',
+  'Photography':'Prompts for <strong>photo composition, editing direction, and AI-assisted photography workflows</strong>.',
+  'Real Estate':'Prompts for <strong>listing descriptions, buyer/seller communication, and real estate marketing</strong> — built for agents and property professionals.',
+  'Legal':'General-purpose prompts touching legal topics like contract review checklists and plain-language summaries. <strong>Not legal advice</strong> — always consult a licensed attorney.',
+  'Wellness':'Prompts for <strong>habit-building, routines, and personal wellbeing</strong> — practical, not prescriptive.',
+  'Other':'Prompts that don\'t fit neatly into one category — a mix of useful, specific tools worth browsing.',
+  'Social Media':'Prompts for <strong>social content planning and platform-specific copy</strong> across the major networks.',
+  'E-commerce':'Prompts for <strong>product listings, store copy, and e-commerce marketing</strong>.',
+  'Finance & Investing':'General finance-related prompts — budgeting, analysis frameworks, planning tools. <strong>Not financial advice</strong> — always do your own research or consult a professional.'
+};
+function renderCatIntro(){
+  var el=document.getElementById('catIntro'); if(!el) return;
+  var text=CAT_INTROS[activeCat];
+  el.innerHTML = text ? text : '';
+}
+
 function setCat(cat){
   activeCat=cat; activeTag=''; searchQ='';
   _tagCache=null; // reset tag cache when category changes
   document.getElementById('searchInput').value='';
   document.getElementById('searchClear').classList.remove('show');
   document.getElementById('aiResultsBar').classList.remove('show');
-  renderCatPills(); renderCards(); renderTags();
+  renderCatPills(); renderCatIntro(); renderCards(); renderTags();
 }
 
 // TAGS
@@ -1411,6 +1447,7 @@ function init(){
   handleUrlParams();
   initPotw();
   renderCatPills();
+  renderCatIntro();
   renderCards();
   renderTags();
   updateSavedBadge();
