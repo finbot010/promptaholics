@@ -758,7 +758,7 @@ img,video,iframe{max-width:100%;}
       <a class='footer-lnk' href='learn.html'>Learn</a>
       <span class="footer-sep">|</span>
       <a class='footer-lnk' href='privacy.html'>Privacy</a>
-      <a class='footer-lnk' href='privacy.html'>Terms</a>
+      <a class='footer-lnk' href='terms.html'>Terms</a>
     </div>
     <div class="footer-copy">2026 Promptaholics · Community AI Image Gallery · <a href="javascript:void(0)" onclick="signInAdminGoogle()" style="color:inherit;text-decoration:underline;opacity:.6;">Admin</a></div>
   </div>
@@ -1486,12 +1486,12 @@ async function shareVaultImage(imgData){
       tool:     imgData.tool||'AI',
       createdAt: fb.serverTimestamp()
     });
-    shortUrl = 'https://promptaholics.com/share/vault?id=' + ref.id;
+    shortUrl = 'https://promptaholics.com/share/vault/' + ref.id;
   }catch(e){
     // Fallback — use doc ID if we have it
     var docId = imgData._id || null;
     shortUrl = docId
-      ? 'https://promptaholics.com/share/vault?id=' + docId
+      ? 'https://promptaholics.com/share/vault/' + docId
       : 'https://promptaholics.com/vault.html';
   }
 

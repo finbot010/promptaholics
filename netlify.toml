@@ -3,7 +3,15 @@
   function = "vault-image"
 
 [[edge_functions]]
+  path = "/share/vault/*"
+  function = "vault-image"
+
+[[edge_functions]]
   path = "/share/prompt"
+  function = "prompt-share"
+
+[[edge_functions]]
+  path = "/share/prompt/*"
   function = "prompt-share"
 
 # Old store URL — replaces store.html's client-side meta-refresh redirect with a
