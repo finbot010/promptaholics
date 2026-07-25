@@ -12,16 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
   <script type="module">
-    import { initializeApp }
+    import { initializeApp, getApps, getApp }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
     import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
     import { getFirestore, collection, addDoc, serverTimestamp, deleteDoc, doc }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-    const app = initializeApp({
+    const app = getApps().length ? getApp() : initializeApp({
       apiKey:            "AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
-      authDomain:        "promptaholics-534d3.firebaseapp.com",
+      authDomain:        "promptaholics.com",
       projectId:         "promptaholics-534d3",
       storageBucket:     "promptaholics-534d3.firebasestorage.app",
       messagingSenderId: "426595742101",
@@ -754,7 +754,7 @@ img,video,iframe{max-width:100%;}
 /* Divider */
 .gen-gate-divider{
   display:flex;align-items:center;gap:12px;
-  font-size:11px;color:rgba(255,255,255,.25);
+  font-size:11px;color:rgba(255,255,255,.5);
   text-transform:uppercase;letter-spacing:1px;
   margin-bottom:12px;
 }
@@ -783,7 +783,7 @@ img,video,iframe{max-width:100%;}
 
 /* Footer note */
 .gen-gate-note{
-  font-size:10px;color:rgba(255,255,255,.2);
+  font-size:10px;color:rgba(255,255,255,.5);
   text-align:center;line-height:1.6;
 }
 .gen-gate-note a{color:rgba(255,98,36,.5);text-decoration:none;}
@@ -944,7 +944,7 @@ img,video,iframe{max-width:100%;}
     content:'Tap to learn more';
     position:absolute;bottom:8px;left:0;right:0;
     text-align:center;font-size:9px;font-weight:700;
-    color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;
+    color:rgba(255,255,255,.55);letter-spacing:.5px;text-transform:uppercase;
   }
 
   /* When .flipped — show back via opacity instead of rotateY */
@@ -1061,8 +1061,8 @@ img,video,iframe{max-width:100%;}
 .bmo-btn{width:100%;background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:11px;padding:14px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .bmo-btn:hover{opacity:.88;}
 .bmo-btn:disabled{opacity:.5;cursor:not-allowed;}
-.bmo-privacy{font-size:10px;color:rgba(240,240,248,.25);text-align:center;margin-top:10px;}
-.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.3);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
+.bmo-privacy{font-size:10px;color:rgba(240,240,248,.55);text-align:center;margin-top:10px;}
+.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.5);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
@@ -1800,12 +1800,12 @@ img,video,iframe{max-width:100%;}
 
         <!-- Headline -->
         <div class="gen-gate-h">You've used your <em>3 free</em><br/>generations today</div>
-        <div class="gen-gate-sub">Enter your email to unlock 10 more — plus get<br/>10 expert prompts every Monday. Free forever.</div>
+        <div class="gen-gate-sub">Enter your email to unlock 10 more — plus get<br/>10 expert prompts weekly. Free forever.</div>
 
         <!-- Benefits -->
         <div class="gen-gate-benefits">
           <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> 10 more image generations today</div>
-          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> 10 expert prompts every Monday (Promptaholics Weekly)</div>
+          <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> 10 expert prompts weekly (Promptaholics Weekly)</div>
           <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> Submit your images to the Image Vault</div>
           <div class="gen-gate-benefit"><span class="gen-gate-check" style="width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,.12);border:0.5px solid rgba(34,197,94,.3);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-check" style="font-size:13px;color:#22c55e;" aria-hidden="true"></i></span> Early access to new features</div>
         </div>
@@ -1856,7 +1856,7 @@ img,video,iframe{max-width:100%;}
 
 <!-- Brevo Footer Strip -->
 <div id="brevoFooterStrip" style="background:linear-gradient(90deg,rgba(255,98,36,.05),rgba(255,159,36,.04),rgba(255,98,36,.05));border-top:1px solid rgba(255,98,36,.15);padding:18px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <div style="font-size:13px;color:rgba(240,240,248,.7);">⚡ <strong style="color:#f0f0f8;">10 new prompts every Monday.</strong> Free forever.</div>
+  <div style="font-size:13px;color:rgba(240,240,248,.7);">⚡ <strong style="color:#f0f0f8;">10 new prompts weekly.</strong> Free forever.</div>
   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
     <input id="brevoFooterEmail" type="email" placeholder="your@email.com" autocomplete="email"
       style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:8px;padding:9px 14px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:#f0f0f8;outline:none;width:200px;transition:border .2s;"
@@ -2724,7 +2724,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <button class="bmo-close" onclick="closeBrevoModal()" aria-label="Close"><i class="ti ti-x"></i></button>
     <div class="bmo-icon">⚡</div>
     <div class="bmo-title">Get 10 New Prompts Weekly</div>
-    <div class="bmo-sub">Join <strong>prompt engineers, creators and founders</strong> getting the best AI prompts delivered every Monday. Free forever.</div>
+    <div class="bmo-sub">Join <strong>prompt engineers, creators and founders</strong> getting the best AI prompts delivered weekly. Free forever.</div>
     <input class="bmo-input" type="email" id="brevoModalEmail" placeholder="your@email.com" autocomplete="email"/>
     <button class="bmo-btn" id="brevoModalBtn" onclick="submitBrevoModal()">
       <i class="ti ti-mail"></i> Get Free Weekly Prompts
@@ -2875,7 +2875,7 @@ function brevoInlineCard(){
     +'<input id="brevoInlineEmail" type="email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 14px;font-family:Instrument Sans,sans-serif;font-size:13px;color:#f0f0f8;outline:none;"/>'
     +'<button onclick="submitBrevoInline()" id="brevoInlineBtn" style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:9px;padding:10px 18px;font-family:Instrument Sans,sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Get Weekly Prompts →</button>'
     +'</div>'
-    +'<div style="font-size:10px;color:rgba(240,240,248,.25);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
+    +'<div style="font-size:10px;color:rgba(240,240,248,.55);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
     +'</div>';
 }
 function submitBrevoInline(){
