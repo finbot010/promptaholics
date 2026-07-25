@@ -66,12 +66,12 @@ footer a:hover{color:var(--orange);text-decoration:none;}
 <body>
 
 <nav class="nav">
-  <a class="nav-logo" href="/">
+  <a class="nav-logo" href="index.html">
     <div class="nav-logo-mark"><svg viewBox="0 0 22 24" fill="none"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
     <div class="nav-logo-text">Prompt<span>aholics</span></div>
   </a>
   <div class="nav-links">
-    <a href="/">Home</a>
+    <a href="index.html">Home</a>
     <a href="library.html">Library</a>
     <a href="agent.html">PA Agent</a>
     <a href="contact.html">Contact</a>
@@ -133,7 +133,7 @@ footer a:hover{color:var(--orange);text-decoration:none;}
 
 <footer>
   <div>
-    <a href="/">Home</a>
+    <a href="index.html">Home</a>
     <a href="library.html">Library</a>
     <a href="prompt-builder.html">Builder</a>
     <a href="creationstation.html">AI Tools</a>
@@ -153,9 +153,9 @@ footer a:hover{color:var(--orange);text-decoration:none;}
   s.src = 'prompts.js';
   s.onload = function(){
     try {
-      var count = window.PROMPTS && window.PROMPTS.length
-                ? window.PROMPTS.length
-                : (window.prompts && window.prompts.length ? window.prompts.length : null);
+      var count = (typeof PROMPTS !== 'undefined' && Array.isArray(PROMPTS) && PROMPTS.length)
+                ? PROMPTS.length
+                : null;
       if(!count) return;
       var formatted = count.toLocaleString();
       // Update stat card
