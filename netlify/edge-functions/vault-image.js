@@ -47,11 +47,17 @@ export default async (request, context) => {
 <meta name="twitter:title" content="${esc(name)}"/>
 <meta name="twitter:description" content="${esc(text)}"/>
 <meta name="twitter:image" content="${esc(ogImg)}"/>
-<style>body{margin:0;background:#07070a;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;color:rgba(240,240,248,.5);font-size:13px;}</style>
+<style>
+body{margin:0;background:#07070a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;color:#f0f0f8;padding:24px;text-align:center;}
+h1{font-size:18px;margin:0 0 8px;max-width:480px;}
+p{color:rgba(240,240,248,.6);font-size:13px;max-width:440px;margin:0 0 20px;}
+a.btn{background:#ff6224;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;}
+</style>
 </head>
 <body>
-<div>Loading...</div>
-<script>window.location.replace('/prompt-share.html?id=' + encodeURIComponent('${id}'));</script>
+<h1>${esc(name)}</h1>
+<p>${esc(text)}</p>
+<a class="btn" href="/prompt-share.html?id=${encodeURIComponent(id)}">View this prompt →</a>
 </body>
 </html>`;
 
@@ -109,11 +115,19 @@ export default async (request, context) => {
 <meta name="twitter:title" content="${esc(title)}"/>
 <meta name="twitter:description" content="${esc(desc)}"/>
 <meta name="twitter:image" content="${esc(ogImg)}"/>
-<style>body{margin:0;background:#07070a;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;color:rgba(240,240,248,.5);font-size:13px;}</style>
+<style>
+body{margin:0;background:#07070a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif;color:#f0f0f8;padding:24px;text-align:center;}
+img{max-width:min(500px,90vw);border-radius:12px;margin-bottom:20px;}
+h1{font-size:18px;margin:0 0 8px;}
+p{color:rgba(240,240,248,.6);font-size:13px;max-width:440px;margin:0 0 20px;}
+a.btn{background:#ff6224;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;}
+</style>
 </head>
 <body>
-<div>Loading...</div>
-<script>window.location.replace('/vault-image.html?id=' + encodeURIComponent('${id}'));</script>
+${imgUrl ? `<img src="${esc(ogImg)}" alt="${esc(title)}"/>` : ''}
+<h1>${esc(title)}</h1>
+<p>${esc(desc)}</p>
+<a class="btn" href="/vault-image.html?id=${encodeURIComponent(id)}">View in the Vault →</a>
 </body>
 </html>`;
 
