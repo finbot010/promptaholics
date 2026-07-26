@@ -619,9 +619,75 @@ img,video,iframe{max-width:100%;}
 <!-- GALLERY -->
 <div class="vault-main" id="gallerySection">
   <div class="masonry" id="masonryGrid">
-    <div class="vault-loading">
-      <span class="spin">⚙️</span>
-      Loading the vault...
+    <!-- STATIC FALLBACK — real, indexable vault content for crawlers and no-JS visitors.
+         loadImages() (below) immediately overwrites this with live Firestore data via
+         renderGallery(), which unconditionally clears #masonryGrid before rendering
+         (see renderGallery(): grid.innerHTML='' runs in both the empty and populated
+         branches). So real visitors see live data almost instantly; this static block
+         only matters when JS never executes (crawlers / prerender capture window). -->
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1782921489/vault/ejfahqbdrzmqfniztfzv.jpg" alt="Norse Warrior" loading="lazy"/>
+      <div class="vcard-model-badge">Grok</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/0Ppa1r9NNpCIjXAAmm0P">Norse Warrior</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1783748208/vault/t5wycwjrplszw1c4tpsh.png" alt="cyberpunk samurai" loading="lazy"/>
+      <div class="vcard-model-badge">ChatGPT</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/1LNVnQUzEcEkBavKO4nP">cyberpunk samurai</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1781319146/vault/mxuiubey9tbj5u3zg2pe.jpg" alt="Chromatic Serenity" loading="lazy"/>
+      <div class="vcard-model-badge">Grok</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/4pIzrG8kEYRdQdgXCG4m">Chromatic Serenity</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1784878751/vault/xgt8dszyiwigyenf6v14.jpg" alt="Anime foxy" loading="lazy"/>
+      <div class="vcard-model-badge">Grok</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/52xllMNxG73j484sYi71">Anime foxy</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1784611587/vault-submissions/si72r1t33u6evmuqsqg1.png" alt="Anime breeze" loading="lazy"/>
+      <div class="vcard-model-badge">ChatGPT</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/16oCWIWci0QS7ZHzjs9Y">Anime breeze</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1783315110/vault/ox7tuvrj8hr7y6cvujxi.jpg" alt="cyber ninja" loading="lazy"/>
+      <div class="vcard-model-badge">Grok</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/4fNACdRlM4SB5B0USOyl">cyber ninja</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1780587219/vault/weekly-slot-1-1780587218.png" alt="Golden Hour Portrait" loading="lazy"/>
+      <div class="vcard-model-badge">ChatGPT</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/2oyRt7kQGjnQRaAIjoqt">Golden Hour Portrait</a>
+        <div class="vcard-creator">by Promptaholics Bot</div>
+      </div>
+    </div>
+    <div class="vcard">
+      <img class="vcard-img" src="https://res.cloudinary.com/dgqbzarfw/image/upload/v1781579973/vault/bel03dl6hevv7easifya.jpg" alt="painting river" loading="lazy"/>
+      <div class="vcard-model-badge">ChatGPT</div>
+      <div class="vcard-overlay">
+        <a class="vcard-title" href="/share/vault/2WRLyIyBzCpHHyWWjkam">painting river</a>
+        <div class="vcard-creator">by promptaholics</div>
+      </div>
     </div>
   </div>
 </div>
