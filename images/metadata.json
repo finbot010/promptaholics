@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-20T15:49:24.687Z",
-  "week": 30,
+  "generated_at": "2026-07-27T16:11:33.581Z",
+  "week": 31,
   "slot-1": {
-    "name": "Coral Reef Recovery",
-    "prompt": "Underwater photography of a coral reef 10 years into recovery — the colors more vivid than any reef in living memory. Staghorn corals in fluorescent orange, brain corals glowing purple, sea fans electric blue. A school of 10,000 fish moving as one organism through the frame. A marine biologist in the background planting a new coral fragment. Natural light at 12 meters. The ocean healing itself. National Geographic cover quality."
+    "name": "Midnight Bakers",
+    "prompt": "Documentary photography inside a Parisian boulangerie at 3AM. Baker in flour-dusted whites pulling perfect baguettes from a 100-year-old wood-fired oven. The oven light is the only illumination. Every wrinkle on the baker face visible. Steam rising from perfect crust. 40 years of practice in his hands. Shot on Leica Q3 at ISO 6400. Black and white with orange firelight. The smell of bread implied."
   },
   "slot-2": {
-    "name": "Brutalist Cathedral Light",
-    "prompt": "Interior of Le Corbusier-era brutalist church at noon on a summer day. Concrete walls 30 meters high pierced by precisely calculated narrow slits. The resulting light beams are so defined they look solid. The beams move across the floor at 15mm per minute. A single visitor stands in one beam, completely illuminated, the rest of the space in dramatic shadow. God rays as architecture. Leica M11 available light only."
+    "name": "Saturn from Titan",
+    "prompt": "Photorealistic visualization of Saturn viewed from the surface of Titan, its largest moon. Saturn fills 45 degrees of sky — its rings tilted at 26 degrees, individual ring bands visible, the shadow of the planet cutting across the rings. Titan atmosphere tints everything amber. Methane lakes in the foreground reflecting Saturn. No artistic license — NASA JPL scientific visualization standards. More surreal than any fantasy."
   },
   "slot-3": {
-    "name": "Market Spice Explosion",
-    "prompt": "A Moroccan spice market vendor opening 12 sacks of different spices simultaneously — the colors exploding outward in a perfect composition. Saffron yellow, paprika red, turmeric orange, cumin brown, cardamom green, indigo blue. The vendor laughing at the chaos. Shot at 1/8000th of a second. Every particle of spice dust in sharp focus. The color combinations are painterly. Smells through the screen."
+    "name": "Protest As Art",
+    "prompt": "Documentary photography of 50,000 people holding candles in a perfect circle in a dark city plaza seen from a helicopter directly above at 200 meters. The formation is so precise it looks designed. Each person a dot of warm light. The geometry they create together is mathematical. Total darkness outside the circle. Shot at 1/4 second, enough motion blur to make the candles glow. Human coordination as fine art."
   },
   "slot-4": {
-    "name": "Glacier Calving Portrait",
-    "prompt": "The exact moment a 400-meter section of Perito Moreno glacier calves into Lago Argentino. The wall of ice mid-fall, the ocean spray not yet settled from the previous chunk. Ice the color of ancient blue — a shade of blue that does not exist anywhere else on Earth. Small tourist boats in the distance for scale showing the true size. Shot with 600mm telephoto from the safety railing. Both beautiful and heartbreaking."
+    "name": "Iridescent Soap Bubble",
+    "prompt": "Extreme macro photography of a single soap bubble 10cm in diameter showing the entire electromagnetic spectrum visible in its surface — Newton rings of color, galaxies of interference patterns, the thin film creating colors that shift as you look at it. Shot against a pure black background. The bubble surface is 100nm thick. Individual water molecules implied. A physics textbook and a painting simultaneously. Ultra sharp."
   }
 }
