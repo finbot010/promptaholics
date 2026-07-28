@@ -34,3 +34,84 @@
   to = "https://promptaholics-534d3.firebaseapp.com/__/firebase/:splat"
   status = 200
   force = true
+
+# Extensionless blog/tool URLs — force = true so these 301s override Netlify's
+# default "pretty URL" behavior, which otherwise silently serves the .html file
+# at BOTH the extensionless AND .html paths with a 200 (no redirect at all).
+# That was causing Google Search Console's "Alternate page with proper canonical
+# tag" validation to keep failing — canonical tags are a soft/advisory signal,
+# and Google kept re-crawling both live 200 URLs instead of settling on one.
+# A real 301 is an authoritative signal that resolves it outright, and also
+# catches any future stray extensionless internal link before it becomes a
+# repeat of this same issue.
+[[redirects]]
+  from = "/blog-best-marketing-prompts"
+  to = "/blog-best-marketing-prompts.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-chatgpt-prompts-students"
+  to = "/blog-chatgpt-prompts-students.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-chatgpt-vs-claude"
+  to = "/blog-chatgpt-vs-claude.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-claude-prompts-business"
+  to = "/blog-claude-prompts-business.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-costar-framework"
+  to = "/blog-costar-framework.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-loop-engineering"
+  to = "/blog-loop-engineering.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-resume-writing-prompts"
+  to = "/blog-resume-writing-prompts.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-sales-email-prompts"
+  to = "/blog-sales-email-prompts.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-sora-alternatives"
+  to = "/blog-sora-alternatives.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-what-is-prompt-engineering"
+  to = "/blog-what-is-prompt-engineering.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog-youtube-script-prompts"
+  to = "/blog-youtube-script-prompts.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ai-prompt-generator"
+  to = "/ai-prompt-generator.html"
+  status = 301
+  force = true
