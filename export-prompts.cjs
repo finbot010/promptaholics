@@ -27,26 +27,35 @@ initializeApp({
 const db = getFirestore();
 
 // ── Helpers ───────────────────────────────────────────────────────
+// FIXED: prompts.js uses single-quoted string values as its established
+// convention (id:'1', name:'...', etc.). This function previously escaped
+// double quotes only, which was correct for the double-quote template that
+// used to be below — but that template is what introduced the inconsistency
+// in the first place (ids 1486-2038 all got double-quoted while the
+// original 1485 entries used single quotes). Now that the template below
+// uses single quotes throughout, this must escape SINGLE quotes instead,
+// or any prompt text containing an apostrophe ("don't", "it's") would break
+// the array syntax.
 function sanitize(str) {
   return String(str || '')
     .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"')
+    .replace(/'/g, "\\'")
     .replace(/\n/g, '\\n')
     .replace(/\r/g, '');
 }
 
 function promptToJs(p) {
   const tags = Array.isArray(p.tags)
-    ? '[' + p.tags.map(function(t){ return '"' + sanitize(t) + '"'; }).join(',') + ']'
+    ? '[' + p.tags.map(function(t){ return "'" + sanitize(t) + "'"; }).join(',') + ']'
     : '[]';
-  return '  {id:"' + sanitize(p.id) +
-    '",name:"'  + sanitize(p.name) +
-    '",tool:"'  + sanitize(p.tool || 'chatgpt') +
-    '",cat:"'   + sanitize(p.cat || p.category || 'General') +
-    '",tags:'   + tags +
+  return "  {id:'" + sanitize(p.id) +
+    "',name:'"  + sanitize(p.name) +
+    "',tool:'"  + sanitize(p.tool || 'chatgpt') +
+    "',cat:'"   + sanitize(p.cat || p.category || 'General') +
+    "',tags:"   + tags +
     ',feat:'    + (p.feat === true) +
-    ',text:"'   + sanitize(p.text || '') +
-    '",desc:"'  + sanitize(p.desc || (p.text || '').slice(0, 80)) + '"}';
+    ",text:'"   + sanitize(p.text || '') +
+    "',desc:'"  + sanitize(p.desc || (p.text || '').slice(0, 80)) + "'}";
 }
 
 // ── Main ─────────────────────────────────────────────────────────
