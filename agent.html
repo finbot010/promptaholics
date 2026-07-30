@@ -244,7 +244,7 @@ body.light .grain{opacity:.015;}
 .usage-pip{width:20px;height:6px;border-radius:3px;background:var(--border2);transition:background .3s;}
 .usage-pip.used{background:var(--orange);}
 .usage-pip.empty{background:var(--glass2);}
-.usage-label{color:var(--ink3);white-space:nowrap;}
+.usage-label{color:var(--ink2);white-space:nowrap;}
 .usage-label strong{color:var(--ink2);}
 .usage-upgrade{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--orange);cursor:pointer;white-space:nowrap;background:none;border:none;font-family:'Instrument Sans',sans-serif;padding:0;}
 .usage-upgrade:hover{text-decoration:underline;}
@@ -581,7 +581,7 @@ let byokActive = false;
   s.type = 'module';
   s.textContent = `
     import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged }
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
     const app  = getApps().length ? getApp() : initializeApp({
       apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
@@ -594,7 +594,30 @@ let byokActive = false;
     const auth = getAuth(app);
     window._paAuth = auth;
     window._paProvider = new GoogleAuthProvider();
-    window._paSignIn   = () => signInWithPopup(auth, window._paProvider);
+
+    // signInWithPopup is unreliable on mobile: in-app browsers (Instagram,
+    // TikTok, Facebook) block Google OAuth popups outright, and iOS Safari's
+    // popup + tracking-prevention handling frequently fails silently.
+    // signInWithRedirect works reliably everywhere, at the cost of a full
+    // page reload — so it's used only where popup is known to be unsafe.
+    const _isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    window._paSignIn = () => {
+      if (_isMobile) {
+        // Preserve the user's typed prompt across the redirect/reload
+        const goalEl = document.getElementById('goalInput');
+        if (goalEl && goalEl.value.trim()) {
+          sessionStorage.setItem('pa_pending_goal', goalEl.value);
+        }
+        return signInWithRedirect(auth, window._paProvider);
+      }
+      return signInWithPopup(auth, window._paProvider);
+    };
+
+    // Completes sign-in after returning from a mobile redirect
+    getRedirectResult(auth).catch(e => {
+      console.error('Redirect sign-in error:', e);
+    });
+
     onAuthStateChanged(auth, user => {
       window._paUser = user || null;
       window.dispatchEvent(new CustomEvent('pa-auth', { detail: user }));
@@ -610,6 +633,13 @@ window.addEventListener('pa-auth', e => {
     // Close gate if open
     document.getElementById('signinGate').classList.add('hidden');
     showToast('✅ Signed in as ' + paUser.email);
+    // Restore prompt text saved before a mobile sign-in redirect
+    const pending = sessionStorage.getItem('pa_pending_goal');
+    if(pending){
+      const goalEl = document.getElementById('goalInput');
+      if(goalEl){ goalEl.value = pending; onInput(); }
+      sessionStorage.removeItem('pa_pending_goal');
+    }
   }
 });
 
