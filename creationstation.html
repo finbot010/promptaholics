@@ -163,6 +163,37 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
   .cs-hero-grid{grid-template-columns:1fr;text-align:center;}
   .cs-hero-text{max-width:100%;margin:0 auto;}
   .cs-hero-ctas,.cs-hero-stats{justify-content:center;}
+  /* Inline text-align:left on the headline/subtitle otherwise beats this
+     block's centering (inline style specificity always wins over a class
+     rule), leaving them stuck left while everything around them centers.
+     !important forces the override here specifically for mobile. */
+  .cs-hero-text .cs-h1,
+  .cs-hero-text .cs-sub{text-align:center !important;}
+  /* Search bar + category tabs were built to sit left-aligned/full-width
+     inside the desktop two-column layout; on the single-column mobile
+     stack they need to center and wrap like the rest of the column. */
+  .cs-hero-text .cs-search-wrap{margin-left:auto !important;margin-right:auto !important;}
+  .cs-hero-text .cs-cats{justify-content:center !important;}
+  .cs-hero-text .sugg-box{text-align:left;} /* form fields stay left-aligned internally, box itself is centered by parent */
+  /* Generator panel now lives in a full-width single column below the
+     text instead of a side-by-side grid column — give it room to breathe */
+  .gen-panel-shell{margin-top:8px;}
+}
+@media(max-width:600px){
+  .chero-title{font-size:22px;}
+  .chero-sub{font-size:12.5px;}
+  .sugg-ribbon{font-size:10.5px;padding:5px 13px;}
+  .sugg-sub{font-size:11.5px;}
+  .tc-head h3{font-size:18px;}
+  .tc-total-amount{font-size:26px;}
+}
+@media(max-width:480px){
+  .cs-hero-stats{gap:18px;}
+  .chs-n{font-size:19px;}
+  .cs-hero-ctas{flex-direction:column;width:100%;}
+  .cs-hero-ctas .btn-primary,.cs-hero-ctas .btn-secondary{width:100%;justify-content:center;}
+  .sugg-box{padding:22px 16px 16px;}
+  .community-hero{padding-top:24px !important;padding-bottom:24px !important;}
 }
 .cs-cat:hover,.cs-cat.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
 
