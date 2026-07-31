@@ -16,7 +16,7 @@
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
     import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, collection, addDoc, serverTimestamp, deleteDoc, doc }
+    import { getFirestore, collection, addDoc, serverTimestamp, deleteDoc, doc, getDocs, query, where, orderBy, limit }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
     const app = getApps().length ? getApp() : initializeApp({
@@ -36,7 +36,8 @@
     window._fb = {
       auth, db, provider,
       signInWithPopup, onAuthStateChanged, signOut,
-      collection, addDoc, serverTimestamp, deleteDoc, doc
+      collection, addDoc, serverTimestamp, deleteDoc, doc,
+      getDocs, query, where, orderBy, limit
     };
     window._fbReady = true;
 
@@ -144,6 +145,25 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 /* ── CATEGORY PILLS ── */
 .cs-cats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;padding:0 24px;}
 .cs-cat{padding:7px 16px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;}
+
+/* ── NEW: two-column hero with real generator ── */
+.cs-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:flex-start;text-align:left;max-width:1180px;margin:0 auto 40px;position:relative;z-index:1;}
+.cs-hero-text{max-width:480px;}
+.cs-hero-text .cs-h1{margin-bottom:16px;}
+.cs-hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;}
+.btn-primary{background:var(--orange);color:#fff !important;padding:14px 26px;border-radius:11px;font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,98,36,.28);transition:transform .15s;text-decoration:none;}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-secondary{background:var(--glass);border:1px solid var(--border2);color:var(--ink) !important;padding:14px 26px;border-radius:11px;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+.cs-hero-stats{display:flex;gap:28px;flex-wrap:wrap;}
+.chs-n{font-family:'Syne',serif;font-weight:800;font-size:22px;color:var(--orange);}
+.chs-l{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px;}
+.gen-panel-shell{border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45);}
+.gen-panel-shell .generator-hero{margin:0;border-radius:20px;}
+@media(max-width:900px){
+  .cs-hero-grid{grid-template-columns:1fr;text-align:center;}
+  .cs-hero-text{max-width:100%;margin:0 auto;}
+  .cs-hero-ctas,.cs-hero-stats{justify-content:center;}
+}
 .cs-cat:hover,.cs-cat.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
 
 /* ── SECTION ── */
@@ -378,11 +398,11 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 /* Aspect ratio toggle buttons */
 .ratio-btn{display:inline-flex;flex-direction:column;align-items:center;gap:5px;padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;min-width:72px;}
 .ratio-btn:hover{border-color:var(--border2);color:var(--ink2);}
-.ratio-btn.active{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.4);color:#a78bfa;}
+.ratio-btn.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--o2);}
 .ratio-preview{background:var(--ink3);border-radius:2px;opacity:.5;transition:all .15s;}
-.ratio-btn.active .ratio-preview{background:#a78bfa;opacity:1;}
+.ratio-btn.active .ratio-preview{background:var(--o2);opacity:1;}
 .ratio-label{font-size:9px;font-weight:600;letter-spacing:.3px;color:var(--ink3);white-space:nowrap;}
-.ratio-btn.active .ratio-label{color:#a78bfa;}
+.ratio-btn.active .ratio-label{color:var(--o2);}
 @media(max-width:480px){.ratio-btn{min-width:60px;padding:6px 8px;font-size:10px;}}
 
 /* ── Generator Hero ─────────────────────────────────────────────── */
@@ -393,10 +413,10 @@ body.light .std-output{background:rgba(0,0,0,.04);}
     rgba(17,12,36,1) 0%,
     rgba(26,12,46,1) 40%,
     rgba(20,12,32,1) 100%) !important;
-  border:1px solid rgba(139,92,246,.35) !important;
+  border:1px solid rgba(255,98,36,.35) !important;
   box-shadow:
-    0 0 0 1px rgba(139,92,246,.1),
-    0 20px 60px rgba(124,58,237,.15),
+    0 0 0 1px rgba(255,98,36,.1),
+    0 20px 60px rgba(255,98,36,.15),
     inset 0 1px 0 rgba(167,139,250,.1) !important;
   margin-bottom:0 !important;
 }
@@ -416,7 +436,7 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 }
 .gen-orb-1{
   width:380px;height:380px;
-  background:radial-gradient(circle,rgba(124,58,237,.18),transparent 70%);
+  background:radial-gradient(circle,rgba(255,98,36,.18),transparent 70%);
   top:-120px;right:-80px;
   animation:orbFloat1 8s ease-in-out infinite;
 }
@@ -428,7 +448,7 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 }
 .gen-orb-3{
   width:200px;height:200px;
-  background:radial-gradient(circle,rgba(168,85,247,.12),transparent 70%);
+  background:radial-gradient(circle,rgba(255,159,36,.12),transparent 70%);
   top:40%;left:40%;
   animation:orbFloat1 12s ease-in-out infinite reverse;
 }
@@ -445,30 +465,30 @@ body.light .std-output{background:rgba(0,0,0,.04);}
 .generator-hero select{
   position:relative;z-index:2;
   background:rgba(255,255,255,.06) !important;
-  border-color:rgba(139,92,246,.3) !important;
+  border-color:rgba(255,98,36,.3) !important;
 }
 .generator-hero textarea:focus{
-  border-color:rgba(139,92,246,.6) !important;
-  box-shadow:0 0 0 3px rgba(124,58,237,.12) !important;
+  border-color:rgba(255,98,36,.6) !important;
+  box-shadow:0 0 0 3px rgba(255,98,36,.12) !important;
 }
 .generator-hero .pol-preset{
   position:relative;z-index:2;
 }
 #polGenBtn{
-  background:linear-gradient(135deg,#7c3aed,#a855f7) !important;
+  background:linear-gradient(135deg,var(--orange),var(--o2)) !important;
   color:#fff !important;
-  box-shadow:0 4px 20px rgba(124,58,237,.4) !important;
+  box-shadow:0 4px 20px rgba(255,98,36,.4) !important;
   font-size:14px !important;
 }
 #polGenBtn:hover{
   transform:translateY(-1px);
-  box-shadow:0 6px 28px rgba(124,58,237,.5) !important;
+  box-shadow:0 6px 28px rgba(255,98,36,.5) !important;
 }
 #polOutputWrap{
   position:relative;
   z-index:2;
   background:rgba(0,0,0,.4) !important;
-  border-color:rgba(139,92,246,.2) !important;
+  border-color:rgba(255,98,36,.2) !important;
   min-height:300px !important;
 }
 .generator-hero > *:not(.gen-orb):not(.generator-hero::after){
@@ -481,7 +501,7 @@ body.light .std-output{background:rgba(0,0,0,.04);}
   position:absolute;
   top:0;left:0;right:0;
   height:2px;
-  background:linear-gradient(90deg,transparent,#7c3aed,#a855f7,#7c3aed,transparent);
+  background:linear-gradient(90deg,transparent,var(--orange),var(--o2),var(--orange),transparent);
   z-index:3;
 }
 
@@ -541,8 +561,8 @@ img,video,iframe{max-width:100%;}
   font-family:'Instrument Sans',sans-serif;
 }
 .pol-preset:hover,.pol-preset.active{
-  background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.3);
-  color:#a855f7;
+  background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);
+  color:var(--o2);
 }
 
 /* ══ IMAGE GENERATION GATE ══════════════════════════════════ */
@@ -568,7 +588,7 @@ img,video,iframe{max-width:100%;}
   position:absolute;inset:0;
   background:
     radial-gradient(ellipse 60% 40% at 20% 50%,rgba(255,98,36,.12) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 30%,rgba(139,92,246,.10) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%,rgba(255,98,36,.10) 0%,transparent 60%),
     radial-gradient(ellipse 40% 50% at 50% 80%,rgba(16,163,127,.07) 0%,transparent 60%);
   animation:meshFloat 8s ease-in-out infinite alternate;
   pointer-events:none;
@@ -1065,6 +1085,131 @@ img,video,iframe{max-width:100%;}
 .bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.5);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
 .bmo-skip:hover{color:rgba(240,240,248,.5);}
 
+/* ── NEW TIER-BASED CALCULATOR (all price tiers, added to bottom of page) ── */
+.tc-wrap{background:linear-gradient(160deg,#0d0d14,var(--bg));border:1px solid var(--border2);border-radius:22px;padding:34px;position:relative;overflow:hidden;}
+.tc-wrap::before{content:'';position:absolute;top:-40%;right:-15%;width:60%;height:140%;background:radial-gradient(ellipse,rgba(255,98,36,.10),transparent 70%);pointer-events:none;}
+.tc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1;}
+.tc-head h3{font-family:'Syne',serif;font-weight:800;font-size:22px;margin-bottom:6px;color:var(--ink);}
+.tc-head p{color:var(--ink2);font-size:13.5px;max-width:440px;}
+.tc-total-box{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.28);border-radius:16px;padding:16px 26px;text-align:right;flex-shrink:0;}
+.tc-total-label{font-size:10.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+.tc-total-amount{font-family:'Syne',serif;font-weight:800;font-size:34px;color:var(--o2);line-height:1;}
+.tc-total-period{font-size:11px;color:var(--ink3);margin-top:2px;}
+.tc-tools{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1;}
+.tc-tool-row{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:14px 18px;}
+.tc-tool-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.tc-tool-logo{width:30px;height:30px;border-radius:8px;flex-shrink:0;}
+.tc-tool-name{font-size:14px;font-weight:700;flex:1;color:var(--ink);}
+.tc-tool-selected{font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
+.tc-tier-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.tc-tier-pill{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:9px 14px;cursor:pointer;transition:all .15s;text-align:left;min-width:88px;}
+.tc-tier-pill:hover{border-color:rgba(255,98,36,.4);}
+.tc-tier-pill.active{background:rgba(255,98,36,.14);border-color:var(--orange);}
+.tc-tier-pill-name{font-size:11px;font-weight:700;color:var(--ink2);display:block;}
+.tc-tier-pill.active .tc-tier-pill-name{color:var(--o2);}
+.tc-tier-pill-price{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;margin-top:2px;display:block;color:var(--ink);}
+.tc-footnote{margin-top:20px;font-size:11px;color:var(--ink3);text-align:center;position:relative;z-index:1;}
+
+/* ── NEW COMMUNITY SHOWCASE ── */
+/* ── Community Hero — matches .generator-hero aesthetic ─────────── */
+.community-hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,
+    rgba(17,12,36,1) 0%,
+    rgba(26,12,46,1) 40%,
+    rgba(20,12,32,1) 100%) !important;
+  border:1px solid rgba(255,98,36,.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(255,98,36,.1),
+    0 20px 60px rgba(255,98,36,.15),
+    inset 0 1px 0 rgba(255,159,36,.1) !important;
+  margin-top:36px !important;
+  margin-bottom:36px !important;
+  padding-top:32px !important;
+  padding-bottom:32px !important;
+  border-radius:16px;
+}
+.community-hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.015'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.community-hero::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--o2),var(--orange),transparent);
+  z-index:3;
+}
+.chero-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;filter:blur(60px);}
+.chero-orb-1{width:340px;height:340px;background:radial-gradient(circle,rgba(255,98,36,.16),transparent 70%);top:-100px;left:-60px;animation:orbFloat2 9s ease-in-out infinite;}
+.chero-orb-2{width:260px;height:260px;background:radial-gradient(circle,rgba(255,159,36,.12),transparent 70%);bottom:-80px;right:-40px;animation:orbFloat1 11s ease-in-out infinite;}
+.community-hero > *:not(.chero-orb){position:relative;z-index:2;}
+.chero-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--o2);margin-bottom:8px;padding:3px 10px;border-radius:20px;background:rgba(255,98,36,.12);border:1px solid rgba(255,98,36,.25);}
+.chero-title{font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;color:var(--ink);margin:0 0 8px;}
+.chero-title span{background:linear-gradient(135deg,var(--o2),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.chero-sub{font-size:13px;color:var(--ink2);margin-bottom:22px;max-width:520px;line-height:1.6;}
+.chero-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;grid-template-rows:repeat(2,1fr);margin-bottom:22px;}
+.chero-grid a{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(255,98,36,.2);display:block;transition:border-color .2s,transform .2s;}
+.chero-grid a:hover{border-color:rgba(255,98,36,.5);transform:translateY(-2px);}
+.chero-grid a:first-child{grid-row:span 2;}
+.chero-grid img{width:100%;height:100%;object-fit:cover;display:block;}
+.chero-grid a::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.55));opacity:0;transition:opacity .2s;}
+.chero-grid a:hover::after{opacity:1;}
+@media(max-width:800px){.chero-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.chero-grid a:first-child{grid-column:span 2;grid-row:auto;}}
+.chero-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;border-radius:10px;font-size:13px;font-weight:800;font-family:'Syne',serif;text-decoration:none;box-shadow:0 4px 20px rgba(255,98,36,.4);transition:all .2s;}
+
+/* ── Suggestion Box — ribbon-tab inspired, matches generator aesthetic ── */
+.sugg-box{
+  position:relative;
+  margin:24px 0 0;
+  padding:26px 20px 20px;
+  background:linear-gradient(135deg,rgba(17,12,36,1) 0%,rgba(26,12,46,1) 40%,rgba(20,12,32,1) 100%);
+  border:1px solid rgba(255,98,36,.35);
+  border-radius:14px;
+  box-shadow:0 0 0 1px rgba(255,98,36,.1),0 16px 40px rgba(255,98,36,.12);
+}
+.sugg-ribbon{
+  position:absolute;top:-13px;left:20px;
+  background:linear-gradient(135deg,var(--orange),var(--o2));
+  color:#fff;font-family:'Syne',serif;font-weight:800;font-size:11.5px;
+  letter-spacing:.3px;padding:6px 16px;border-radius:8px;
+  box-shadow:0 4px 14px rgba(255,98,36,.35);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.sugg-sub{font-size:12px;color:var(--ink3);margin:6px 0 14px;line-height:1.5;}
+.sugg-textarea{
+  width:100%;padding:11px 13px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,98,36,.25);border-radius:10px;
+  font-size:12.5px;color:var(--ink);font-family:'Instrument Sans',sans-serif;
+  resize:vertical;min-height:64px;margin-bottom:10px;transition:border .2s;
+}
+.sugg-textarea:focus{outline:none;border-color:rgba(255,98,36,.6);}
+.sugg-email{
+  width:100%;padding:10px 13px;background:rgba(255,255,255,.05);
+  border:1px solid var(--border2);border-radius:9px;
+  font-size:12.5px;color:var(--ink);font-family:'Instrument Sans',sans-serif;
+  margin-bottom:12px;
+}
+.sugg-email:focus{outline:none;border-color:rgba(255,98,36,.5);}
+.sugg-submit{
+  width:100%;padding:11px;background:linear-gradient(135deg,var(--orange),var(--o2));
+  color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'Syne',serif;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.sugg-submit:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,98,36,.4);}
+.sugg-thanks{display:none;text-align:center;padding:16px;font-size:13px;color:var(--o2);font-weight:700;}
+.chero-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(255,98,36,.5);}
+
+.cshow-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;grid-template-rows:repeat(2,1fr);max-width:1180px;margin:0 auto;}
+.cshow-grid img{width:100%;height:100%;object-fit:cover;border-radius:14px;border:1px solid var(--border2);display:block;}
+.cshow-grid a:first-child{grid-row:span 2;}
+@media(max-width:800px){.cshow-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.cshow-grid a:first-child{grid-column:span 2;grid-row:auto;}}
 </style>
 
 </head>
@@ -1127,30 +1272,238 @@ img,video,iframe{max-width:100%;}
 
 <!-- HERO -->
 <section class="cs-hero">
-  <div class="cs-eyebrow"><span class="cs-eyebrow-dot"></span> AI Tools Directory · Curated &amp; Tested</div>
-  <h1 class="cs-h1">Your <span>creation</span><br/>station.</h1>
-  <p class="cs-sub">Every AI tool worth using — in one place. No fluff, no clickbait. Just the best tools for creators.</p>
-  <div class="cs-search-wrap">
-    <i class="ti ti-magnifying-glass cs-search-icon"></i>
-    <input type="text" class="cs-search" id="toolSearch" placeholder="Search tools..." oninput="filterTools()" autocomplete="off"/>
+  <div class="cs-hero-grid">
+    <div class="cs-hero-text">
+      <div class="cs-eyebrow"><span class="cs-eyebrow-dot"></span> Welcome to Creation Station</div>
+      <h1 class="cs-h1" style="text-align:left;">Your <span>creation</span><br/>station.</h1>
+      <p class="cs-sub" style="text-align:left;margin:0 0 28px;">One workspace to generate, discover, and compare every AI tool worth using — plus the real cost of running your whole stack.</p>
+      <div class="cs-hero-ctas">
+        <a class="btn-primary" href="#calculator"><i class="ti ti-calculator"></i> See Your Real Cost</a>
+        <a class="btn-secondary" href="#tools"><i class="ti ti-apps"></i> Explore AI Tools</a>
+      </div>
+      <div class="cs-hero-stats">
+        <div><div class="chs-n">2,038+</div><div class="chs-l">Prompts in library</div></div>
+        <div><div class="chs-n">26</div><div class="chs-l">Tools tracked</div></div>
+        <div><div class="chs-n">Free</div><div class="chs-l">Forever, no paywall</div></div>
+      </div>
+      <div class="cs-search-wrap" style="margin:24px 0 0;max-width:100%;">
+        <i class="ti ti-magnifying-glass cs-search-icon"></i>
+        <input type="text" class="cs-search" id="toolSearch" placeholder="Search tools..." oninput="filterTools()" autocomplete="off"/>
+      </div>
+      <div class="cs-cats" style="justify-content:flex-start;margin:16px 0 0;padding:0;">
+        <button class="cs-cat active" onclick="filterCat('all',this)">All</button>
+        <button class="cs-cat" onclick="filterCat('featured',this)">⭐ Featured</button>
+        <button class="cs-cat" onclick="filterCat('chat',this)"><i class="ti ti-message-circle" aria-hidden="true"></i> Chat AI</button>
+        <button class="cs-cat" onclick="filterCat('image',this)"><i class="ti ti-photo" aria-hidden="true"></i> Image</button>
+        <button class="cs-cat" onclick="filterCat('video',this)"><i class="ti ti-video" aria-hidden="true"></i> Video</button>
+        <button class="cs-cat" onclick="filterCat('code',this)"><i class="ti ti-code" aria-hidden="true"></i> Code</button>
+        <button class="cs-cat" onclick="filterCat('audio',this)"><i class="ti ti-music" aria-hidden="true"></i> Audio</button>
+        <button class="cs-cat" onclick="filterCat('productivity',this)"><i class="ti ti-bolt" aria-hidden="true"></i> Productivity</button>
+      </div>
+      <div class="sugg-box">
+        <div class="sugg-ribbon"><i class="ti ti-bulb"></i> Suggestion Box</div>
+        <div class="sugg-sub">Missing a tool? Want a feature? Tell us — we actually read these.</div>
+        <form name="suggestions" method="POST" data-netlify="true" id="suggForm" onsubmit="return handleSuggSubmit(event)">
+          <input type="hidden" name="form-name" value="suggestions"/>
+          <textarea class="sugg-textarea" name="suggestion" placeholder="e.g. Add Sora 2 to the video tools list..." required></textarea>
+          <input class="sugg-email" type="email" name="email" placeholder="Your email (optional — only if you want a reply)"/>
+          <button class="sugg-submit" type="submit"><i class="ti ti-send"></i> Send Suggestion</button>
+        </form>
+        <div class="sugg-thanks" id="suggThanks"><i class="ti ti-check"></i> Thanks! We'll take a look.</div>
+      </div>
+    </div>
+    <div class="gen-panel-shell">
+<div class="tool-sec always-visible generator-hero">
+  <!-- Ambient glow orbs -->
+  <div class="gen-orb gen-orb-1"></div>
+  <div class="gen-orb gen-orb-2"></div>
+  <div class="gen-orb gen-orb-3"></div>
+
+  <div class="tool-sec-hdr" style="position:relative;z-index:2;">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--o2);margin-bottom:8px;padding:3px 10px;border-radius:20px;background:rgba(255,98,36,.12);border:1px solid rgba(255,98,36,.25);">
+        <i class="ti ti-sparkles"></i> Free Forever · No Account Needed · No API Key
+      </div>
+      <h2 style="font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;color:var(--ink);margin:0;">
+        <span style="background:linear-gradient(135deg,var(--o2),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Free AI</span> Image Generator
+      </h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--o2);background:rgba(255,98,36,.1);padding:5px 11px;border-radius:20px;border:1px solid rgba(255,98,36,.2);">
+        <i class="ti ti-zap" style="font-size:13px;"></i> Powered by GPT Image
+      </div>
+    </div>
   </div>
-  <div class="cs-cats">
-    <button class="cs-cat active" onclick="filterCat('all',this)">All</button>
-    <button class="cs-cat" onclick="filterCat('featured',this)">⭐ Featured</button>
-    <button class="cs-cat" onclick="filterCat('chat',this)"><i class="ti ti-message-circle" aria-hidden="true"></i> Chat AI</button>
-    <button class="cs-cat" onclick="filterCat('image',this)"><i class="ti ti-photo" aria-hidden="true"></i> Image</button>
-    <button class="cs-cat" onclick="filterCat('video',this)"><i class="ti ti-video" aria-hidden="true"></i> Video</button>
-    <button class="cs-cat" onclick="filterCat('code',this)"><i class="ti ti-code" aria-hidden="true"></i> Code</button>
-    <button class="cs-cat" onclick="filterCat('audio',this)"><i class="ti ti-music" aria-hidden="true"></i> Audio</button>
-    <button class="cs-cat" onclick="filterCat('productivity',this)"><i class="ti ti-bolt" aria-hidden="true"></i> Productivity</button>
+
+  <!-- PROMPT INPUT -->
+  <div style="margin-bottom:14px;">
+    <div style="position:relative;">
+      <textarea
+        id="polPrompt"
+        rows="3"
+        placeholder="Describe your image... e.g. a lone astronaut on Mars at golden hour, cinematic, hyperdetailed, 8K"
+        style="width:100%;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,98,36,.25);border-radius:12px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;min-height:80px;line-height:1.6;transition:border .2s;"
+        onfocus="this.style.borderColor='rgba(255,98,36,.5)'"
+        onblur="this.style.borderColor='rgba(255,98,36,.25)'"
+        onkeydown="if(event.key==='Enter'&&event.ctrlKey) polGenerate()"
+      ></textarea>
+      <div style="position:absolute;bottom:10px;right:12px;font-size:10px;color:var(--ink3);">Ctrl+Enter to generate</div>
+    </div>
   </div>
+
+  <!-- STYLE PRESETS -->
+  <div style="margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Quick Style</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;" id="stylePresets">
+      <button class="pol-preset active" onclick="setPreset(this,'')">None</button>
+      <button class="pol-preset" onclick="setPreset(this,'photorealistic, 8K, cinematic lighting, hyperdetailed')"><i class="ti ti-camera" aria-hidden="true"></i> Photo</button>
+      <button class="pol-preset" onclick="setPreset(this,'digital art, concept art, artstation, highly detailed, vibrant colors')"><i class="ti ti-vector" aria-hidden="true"></i> Digital Art</button>
+      <button class="pol-preset" onclick="setPreset(this,'anime style, Studio Ghibli aesthetic, soft colors, detailed background')"><i class="ti ti-star" aria-hidden="true"></i> Anime</button>
+      <button class="pol-preset" onclick="setPreset(this,'oil painting, impressionist, textured canvas, visible brushstrokes, museum quality')"><i class="ti ti-paint" aria-hidden="true"></i> Oil Paint</button>
+      <button class="pol-preset" onclick="setPreset(this,'cyberpunk aesthetic, neon lights, rain, dark city, volumetric lighting')"><i class="ti ti-building-skyscraper" aria-hidden="true"></i> Cyberpunk</button>
+      <button class="pol-preset" onclick="setPreset(this,'3D render, Blender, octane render, soft studio lighting, product visualization')"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i> 3D Render</button>
+      <button class="pol-preset" onclick="setPreset(this,'watercolor illustration, soft washes, delicate lines, pastel colors, artistic')"><i class="ti ti-droplet" aria-hidden="true"></i> Watercolor</button>
+    </div>
+  </div>
+
+  <!-- SIZE + GENERATE BUTTON -->
+  <div style="margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Aspect Ratio</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button onclick="setAspectRatio('1024x1024',this)" class="ratio-btn active" title="Square — Instagram posts, profile pics">
+        <div class="ratio-preview" style="width:22px;height:22px;"></div>
+        <span>1:1</span>
+        <span class="ratio-label">Square</span>
+      </button>
+      <button onclick="setAspectRatio('720x1280',this)" class="ratio-btn" title="Portrait — TikTok, Instagram Stories & Reels">
+        <div class="ratio-preview" style="width:14px;height:22px;"></div>
+        <span>9:16</span>
+        <span class="ratio-label">TikTok / Reels</span>
+      </button>
+      <button onclick="setAspectRatio('1280x720',this)" class="ratio-btn" title="Landscape — YouTube thumbnails, Twitter">
+        <div class="ratio-preview" style="width:28px;height:16px;"></div>
+        <span>16:9</span>
+        <span class="ratio-label">YouTube</span>
+      </button>
+      <button onclick="setAspectRatio('1024x768',this)" class="ratio-btn" title="Classic 4:3">
+        <div class="ratio-preview" style="width:24px;height:18px;"></div>
+        <span>4:3</span>
+        <span class="ratio-label">Classic</span>
+      </button>
+    </div>
+    <input type="hidden" id="polSize" value="1024x1024"/>
+  </div>
+
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+    <select id="polModel" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="AI Model">
+      <option value="openai" selected>GPT Image — Best Quality</option>
+      <option value="nano-banana">Gemini Flash — Fast & Free</option>
+      <option value="nano-banana-pro">Gemini Pro — Ultra Quality</option>
+    </select>
+    <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Syne',serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;letter-spacing:.2px;">
+      <i class="ti ti-sparkles" id="polBtnIcon" style="font-size:16px;" aria-hidden="true"></i>
+      <span id="polBtnText">Generate Image</span>
+      <span class="gen-counter-badge" id="genCountBadge">3/3 left</span>
+    </button>
+    <button onclick="polClear()" style="padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:9px;color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink3)'">Clear</button>
+  </div>
+  <div style="font-size:10px;color:var(--ink3);margin-top:6px;display:flex;align-items:center;gap:5px;">
+    <i class="ti ti-photo-up" style="color:var(--orange);font-size:12px;"></i>
+    Love your image? Use <strong style="color:var(--ink2);">Submit to Vault</strong> after generating to share it with the community.
+  </div>
+
+  <!-- IMAGE OUTPUT AREA -->
+  <div id="polOutputWrap" style="position:relative;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);min-height:280px;display:flex;align-items:center;justify-content:center;">
+
+    <!-- EMPTY STATE -->
+    <div id="polEmpty" style="text-align:center;padding:40px 20px;">
+      <i class="ti ti-brush" style="font-size:48px;opacity:.25;display:block;margin-bottom:12px;" aria-hidden="true"></i>
+      <div style="font-size:13px;color:var(--ink3);line-height:1.6;">Your generated image will appear here<br/>
+      <span style="font-size:11px;opacity:.6;">Powered by GPT Image — completely free</span></div>
+    </div>
+
+    <!-- SPINNER -->
+    <div id="polSpinner" style="display:none;flex-direction:column;align-items:center;gap:16px;padding:40px;">
+      <!-- Animated gradient ring -->
+      <div style="position:relative;width:80px;height:80px;">
+        <div id="polRing" style="width:80px;height:80px;border-radius:50%;border:3px solid transparent;border-top-color:var(--orange);border-right-color:var(--o2);animation:spinRing 1s linear infinite;"></div>
+        <div style="position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,159,36,.05));display:flex;align-items:center;justify-content:center;"><i class="ti ti-brush" style="font-size:24px;color:var(--orange);" aria-hidden="true"></i></div>
+      </div>
+      <div style="text-align:center;">
+        <div id="polStatus" style="font-size:13px;color:var(--ink2);font-weight:600;margin-bottom:4px;">Generating your image...</div>
+        <div style="font-size:11px;color:var(--ink3);">This takes 10-30 seconds</div>
+      </div>
+      <!-- Progress bar -->
+      <div style="width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;">
+        <div id="polProgress" style="height:100%;background:linear-gradient(90deg,var(--orange),var(--o2));border-radius:2px;width:0%;transition:width .5s;"></div>
+      </div>
+    </div>
+
+    <!-- GENERATED IMAGE -->
+    <img id="polImage" style="display:none;width:100%;height:auto;object-fit:contain;border-radius:14px;" alt="AI Generated Image"/>
+  </div>
+
+  <!-- ACTION BUTTONS (shown after generation) -->
+  <div id="polActions" style="display:none;margin-top:12px;display:none;gap:8px;flex-wrap:wrap;">
+    <a id="polDownloadBtn" href="#" download="promptaholics-ai-image.png" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;">
+      <i class="ti ti-download" aria-hidden="true"></i> Download
+    </a>
+    <button id="polCopyPromptBtn" onclick="polCopyPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+      <i class="ti ti-copy" aria-hidden="true"></i> Copy Prompt
+    </button>
+    <button id="polVaultBtn" onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.4);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;" onmouseover="this.style.background='linear-gradient(135deg,rgba(255,98,36,.25),rgba(255,159,36,.18))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1))'">
+      <i class="ti ti-photo-up" aria-hidden="true"></i> Submit to Vault ⚡
+    </button>
+    <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
+      <i class="ti ti-refresh" aria-hidden="true"></i> Regenerate
+    </button>
+    <button id="polStoreBtn" onclick="sendToStore()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#ff6224,#ff9f24);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;">
+      <i class="ti ti-shirt" aria-hidden="true"></i> Print on Hoodie
+    </button>
+  </div>
+
+  <!-- Vault share prompt (shown after generation) -->
+  <div id="vaultSharePrompt" style="display:none;margin-top:12px;background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.15);border-radius:12px;padding:14px 16px;">
+    <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:6px;"><i class="ti ti-photo-up" style="color:var(--orange);"></i> Add to the community vault?</div>
+    <div style="font-size:11px;color:var(--ink3);margin-bottom:12px;">Share your image so others can use it and print it on apparel.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button onclick="shareToVault()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-check"></i> Yes, share it</button>
+      <button onclick="document.getElementById('vaultSharePrompt').style.display='none'" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-x"></i> Keep private</button>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;font-size:10px;color:var(--ink3);text-align:center;">
+    Free · No account needed · Powered by <a href="https://puter.com" target="_blank" rel="noopener" style="color:var(--ink3);">Puter.js</a> + GPT Image
+  </div>
+</div>
+    </div>
+  </div>
+
 </section>
 
+<!-- ══════════════════════════════════════════
+     NEW — COMMUNITY SHOWCASE (below the builder)
+══════════════════════════════════════════ -->
+<div class="tool-sec always-visible community-hero">
+  <div class="chero-orb chero-orb-1"></div>
+  <div class="chero-orb chero-orb-2"></div>
 
+  <div class="chero-badge"><i class="ti ti-users"></i> Made With The Builder Above</div>
+  <h2 class="chero-title"><span>Community</span> Showcase</h2>
+  <p class="chero-sub">Real images generated by real people using the AI Image Generator above — no stock photos, no filler. Submit your own after generating.</p>
 
+  <div class="chero-grid">
+    <a href="vault.html"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EkPvONyu5YNe0WjEBpz4f7Eqbe/hf_20260730_033801_71556bc1-5a70-481e-b6e7-f619f456b002.png" alt=""/></a>
+    <a href="vault.html"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EkPvONyu5YNe0WjEBpz4f7Eqbe/hf_20260730_034016_062635e1-c26a-43ca-ac6d-ab3fa3a31ccb.png" alt=""/></a>
+    <a href="vault.html"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EkPvONyu5YNe0WjEBpz4f7Eqbe/hf_20260730_034021_cbee8638-07e0-4623-8292-87da8752fdfa.png" alt=""/></a>
+    <a href="vault.html"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EkPvONyu5YNe0WjEBpz4f7Eqbe/hf_20260730_034016_062635e1-c26a-43ca-ac6d-ab3fa3a31ccb.png" alt=""/></a>
+    <a href="vault.html"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EkPvONyu5YNe0WjEBpz4f7Eqbe/hf_20260730_034021_cbee8638-07e0-4623-8292-87da8752fdfa.png" alt=""/></a>
+  </div>
 
-<!-- ⭐ FEATURED & PARTNERS — FLIP CARDS -->
-<section class="cs-section" data-cat="featured">
+  <a class="chero-cta" href="vault.html"><i class="ti ti-photo-up"></i> Browse the Full Vault</a>
+</div>
+
+<section class="cs-section" id="tools" data-cat="featured">
   <div class="sec-hdr">
     <h2>⭐ Featured &amp; Partners</h2>
     <span class="sec-count">4 tools</span>
@@ -1256,216 +1609,29 @@ img,video,iframe{max-width:100%;}
 
 
 <!-- ══════════════════════════════════════════
-     TOOL 4 — 🎨 AI IMAGE GENERATOR (Puter.js)
+     NEW — AI STACK COST CALCULATOR (all tiers)
 ══════════════════════════════════════════ -->
-<div class="tool-sec always-visible generator-hero">
-  <!-- Ambient glow orbs -->
-  <div class="gen-orb gen-orb-1"></div>
-  <div class="gen-orb gen-orb-2"></div>
-  <div class="gen-orb gen-orb-3"></div>
-
-  <div class="tool-sec-hdr" style="position:relative;z-index:2;">
-    <div>
-      <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:8px;padding:3px 10px;border-radius:20px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);">
-        <i class="ti ti-sparkles"></i> Free Forever · No Account Needed · No API Key
-      </div>
-      <h2 style="font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;color:var(--ink);margin:0;">
-        <span style="background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Free AI</span> Image Generator
-      </h2>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#a78bfa;background:rgba(139,92,246,.1);padding:5px 11px;border-radius:20px;border:1px solid rgba(139,92,246,.2);">
-        <i class="ti ti-zap" style="font-size:13px;"></i> Powered by GPT Image
-      </div>
-    </div>
-  </div>
-
-  <!-- PROMPT INPUT -->
-  <div style="margin-bottom:14px;">
-    <div style="position:relative;">
-      <textarea
-        id="polPrompt"
-        rows="3"
-        placeholder="Describe your image... e.g. a lone astronaut on Mars at golden hour, cinematic, hyperdetailed, 8K"
-        style="width:100%;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(139,92,246,.25);border-radius:12px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;min-height:80px;line-height:1.6;transition:border .2s;"
-        onfocus="this.style.borderColor='rgba(139,92,246,.5)'"
-        onblur="this.style.borderColor='rgba(139,92,246,.25)'"
-        onkeydown="if(event.key==='Enter'&&event.ctrlKey) polGenerate()"
-      ></textarea>
-      <div style="position:absolute;bottom:10px;right:12px;font-size:10px;color:var(--ink3);">Ctrl+Enter to generate</div>
-    </div>
-  </div>
-
-  <!-- STYLE PRESETS -->
-  <div style="margin-bottom:14px;">
-    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Quick Style</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;" id="stylePresets">
-      <button class="pol-preset active" onclick="setPreset(this,'')">None</button>
-      <button class="pol-preset" onclick="setPreset(this,'photorealistic, 8K, cinematic lighting, hyperdetailed')"><i class="ti ti-camera" aria-hidden="true"></i> Photo</button>
-      <button class="pol-preset" onclick="setPreset(this,'digital art, concept art, artstation, highly detailed, vibrant colors')"><i class="ti ti-vector" aria-hidden="true"></i> Digital Art</button>
-      <button class="pol-preset" onclick="setPreset(this,'anime style, Studio Ghibli aesthetic, soft colors, detailed background')"><i class="ti ti-star" aria-hidden="true"></i> Anime</button>
-      <button class="pol-preset" onclick="setPreset(this,'oil painting, impressionist, textured canvas, visible brushstrokes, museum quality')"><i class="ti ti-paint" aria-hidden="true"></i> Oil Paint</button>
-      <button class="pol-preset" onclick="setPreset(this,'cyberpunk aesthetic, neon lights, rain, dark city, volumetric lighting')"><i class="ti ti-building-skyscraper" aria-hidden="true"></i> Cyberpunk</button>
-      <button class="pol-preset" onclick="setPreset(this,'3D render, Blender, octane render, soft studio lighting, product visualization')"><i class="ti ti-3d-cube-sphere" aria-hidden="true"></i> 3D Render</button>
-      <button class="pol-preset" onclick="setPreset(this,'watercolor illustration, soft washes, delicate lines, pastel colors, artistic')"><i class="ti ti-droplet" aria-hidden="true"></i> Watercolor</button>
-    </div>
-  </div>
-
-  <!-- SIZE + GENERATE BUTTON -->
-  <div style="margin-bottom:14px;">
-    <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Aspect Ratio</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button onclick="setAspectRatio('1024x1024',this)" class="ratio-btn active" title="Square — Instagram posts, profile pics">
-        <div class="ratio-preview" style="width:22px;height:22px;"></div>
-        <span>1:1</span>
-        <span class="ratio-label">Square</span>
-      </button>
-      <button onclick="setAspectRatio('720x1280',this)" class="ratio-btn" title="Portrait — TikTok, Instagram Stories & Reels">
-        <div class="ratio-preview" style="width:14px;height:22px;"></div>
-        <span>9:16</span>
-        <span class="ratio-label">TikTok / Reels</span>
-      </button>
-      <button onclick="setAspectRatio('1280x720',this)" class="ratio-btn" title="Landscape — YouTube thumbnails, Twitter">
-        <div class="ratio-preview" style="width:28px;height:16px;"></div>
-        <span>16:9</span>
-        <span class="ratio-label">YouTube</span>
-      </button>
-      <button onclick="setAspectRatio('1024x768',this)" class="ratio-btn" title="Classic 4:3">
-        <div class="ratio-preview" style="width:24px;height:18px;"></div>
-        <span>4:3</span>
-        <span class="ratio-label">Classic</span>
-      </button>
-    </div>
-    <input type="hidden" id="polSize" value="1024x1024"/>
-  </div>
-
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
-    <select id="polModel" style="padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:var(--ink2);font-size:12px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;" title="AI Model">
-      <option value="openai" selected>GPT Image — Best Quality</option>
-      <option value="nano-banana">Gemini Flash — Fast & Free</option>
-      <option value="nano-banana-pro">Gemini Pro — Ultra Quality</option>
-    </select>
-    <button id="polGenBtn" onclick="polGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Syne',serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;letter-spacing:.2px;">
-      <i class="ti ti-sparkles" id="polBtnIcon" style="font-size:16px;" aria-hidden="true"></i>
-      <span id="polBtnText">Generate Image</span>
-      <span class="gen-counter-badge" id="genCountBadge">3/3 left</span>
-    </button>
-    <button onclick="polClear()" style="padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:9px;color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink3)'">Clear</button>
-  </div>
-  <div style="font-size:10px;color:var(--ink3);margin-top:6px;display:flex;align-items:center;gap:5px;">
-    <i class="ti ti-photo-up" style="color:var(--orange);font-size:12px;"></i>
-    Love your image? Use <strong style="color:var(--ink2);">Submit to Vault</strong> after generating to share it with the community.
-  </div>
-
-  <!-- IMAGE OUTPUT AREA -->
-  <div id="polOutputWrap" style="position:relative;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);min-height:280px;display:flex;align-items:center;justify-content:center;">
-
-    <!-- EMPTY STATE -->
-    <div id="polEmpty" style="text-align:center;padding:40px 20px;">
-      <i class="ti ti-brush" style="font-size:48px;opacity:.25;display:block;margin-bottom:12px;" aria-hidden="true"></i>
-      <div style="font-size:13px;color:var(--ink3);line-height:1.6;">Your generated image will appear here<br/>
-      <span style="font-size:11px;opacity:.6;">Powered by GPT Image — completely free</span></div>
-    </div>
-
-    <!-- SPINNER -->
-    <div id="polSpinner" style="display:none;flex-direction:column;align-items:center;gap:16px;padding:40px;">
-      <!-- Animated gradient ring -->
-      <div style="position:relative;width:80px;height:80px;">
-        <div id="polRing" style="width:80px;height:80px;border-radius:50%;border:3px solid transparent;border-top-color:#7c3aed;border-right-color:#a855f7;animation:spinRing 1s linear infinite;"></div>
-        <div style="position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(168,85,247,.05));display:flex;align-items:center;justify-content:center;"><i class="ti ti-brush" style="font-size:24px;color:var(--orange);" aria-hidden="true"></i></div>
-      </div>
-      <div style="text-align:center;">
-        <div id="polStatus" style="font-size:13px;color:var(--ink2);font-weight:600;margin-bottom:4px;">Generating your image...</div>
-        <div style="font-size:11px;color:var(--ink3);">This takes 10-30 seconds</div>
-      </div>
-      <!-- Progress bar -->
-      <div style="width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;">
-        <div id="polProgress" style="height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:2px;width:0%;transition:width .5s;"></div>
-      </div>
-    </div>
-
-    <!-- GENERATED IMAGE -->
-    <img id="polImage" style="display:none;width:100%;height:auto;object-fit:contain;border-radius:14px;" alt="AI Generated Image"/>
-  </div>
-
-  <!-- ACTION BUTTONS (shown after generation) -->
-  <div id="polActions" style="display:none;margin-top:12px;display:none;gap:8px;flex-wrap:wrap;">
-    <a id="polDownloadBtn" href="#" download="promptaholics-ai-image.png" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;">
-      <i class="ti ti-download" aria-hidden="true"></i> Download
-    </a>
-    <button id="polCopyPromptBtn" onclick="polCopyPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
-      <i class="ti ti-copy" aria-hidden="true"></i> Copy Prompt
-    </button>
-    <button id="polVaultBtn" onclick="polSubmitToVault()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1));border:1px solid rgba(255,98,36,.4);color:var(--orange);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;" onmouseover="this.style.background='linear-gradient(135deg,rgba(255,98,36,.25),rgba(255,159,36,.18))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.1))'">
-      <i class="ti ti-photo-up" aria-hidden="true"></i> Submit to Vault ⚡
-    </button>
-    <button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;">
-      <i class="ti ti-refresh" aria-hidden="true"></i> Regenerate
-    </button>
-    <button id="polStoreBtn" onclick="sendToStore()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#ff6224,#ff9f24);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s;">
-      <i class="ti ti-shirt" aria-hidden="true"></i> Print on Hoodie
-    </button>
-  </div>
-
-  <!-- Vault share prompt (shown after generation) -->
-  <div id="vaultSharePrompt" style="display:none;margin-top:12px;background:rgba(255,98,36,.06);border:1px solid rgba(255,98,36,.15);border-radius:12px;padding:14px 16px;">
-    <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:6px;"><i class="ti ti-photo-up" style="color:var(--orange);"></i> Add to the community vault?</div>
-    <div style="font-size:11px;color:var(--ink3);margin-bottom:12px;">Share your image so others can use it and print it on apparel.</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button onclick="shareToVault()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:rgba(255,98,36,.1);border:1px solid rgba(255,98,36,.25);color:var(--orange);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-check"></i> Yes, share it</button>
-      <button onclick="document.getElementById('vaultSharePrompt').style.display='none'" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--glass);border:1px solid var(--border2);color:var(--ink3);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;"><i class="ti ti-x"></i> Keep private</button>
-    </div>
-  </div>
-
-  <div style="margin-top:10px;font-size:10px;color:var(--ink3);text-align:center;">
-    Free · No account needed · Powered by <a href="https://puter.com" target="_blank" rel="noopener" style="color:var(--ink3);">Puter.js</a> + GPT Image
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     TOOL 5 — 💰 AI COST CALCULATOR
-══════════════════════════════════════════ -->
-<div class="tool-sec">
+<div class="tool-sec" id="calculator">
   <div class="tool-sec-hdr">
-    <h2><i class="ti ti-calculator" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>AI Tool Cost Calculator</h2>
-    <span class="tool-built-badge">Built-in Tool</span>
+    <h2><i class="ti ti-stack-2" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>What's Your AI Stack Really Costing You?</h2>
+    <span class="tool-built-badge">Every Real Tier</span>
   </div>
-  <div class="calc-wrap">
-    <div class="calc-header">
+  <div class="tc-wrap">
+    <div class="tc-head">
       <div>
-        <div class="ipb-title">How much are you <span style="color:var(--orange);">really</span> spending on AI?</div>
-        <div class="ipb-subtitle">Toggle the tools you use, set your monthly hours — see the real total</div>
+        <h3>Tap the tier you're actually on <span style="color:var(--orange);">for each tool</span></h3>
+        <p>Every real published pricing tier — not just the headline price. Click to add it to your total.</p>
       </div>
-      <div style="font-family:'Syne',serif;font-size:13px;font-weight:700;color:var(--ink3);">Your stack ↓</div>
-    </div>
-    <div class="calc-body">
-      <div class="calc-left">
-        <div id="calcToolList">
-          <!-- injected by JS -->
-        </div>
-        <div class="calc-hours-wrap" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
-          <div class="calc-hours-label">
-            <span>⏱ Hours/month you use AI</span>
-            <span id="hoursVal" style="color:var(--orange);font-weight:700;">40h</span>
-          </div>
-          <input type="range" class="calc-slider" id="hoursSlider" min="1" max="200" value="40" oninput="calcUpdate()"/>
-        </div>
-      </div>
-      <div class="calc-right">
-        <div class="calc-total-box">
-          <div class="calc-total-label">Monthly Total</div>
-          <div class="calc-total-amount" id="calcTotal">$0</div>
-          <div class="calc-total-period">per month</div>
-        </div>
-        <div class="calc-breakdown" id="calcBreakdown">
-          <!-- filled by JS -->
-        </div>
-        <div class="calc-tip" id="calcTip">Toggle the tools you use on the left to see your cost breakdown.</div>
+      <div class="tc-total-box">
+        <div class="tc-total-label">Monthly Total</div>
+        <div class="tc-total-amount" id="tcTotal">$0</div>
+        <div class="tc-total-period">per month</div>
       </div>
     </div>
+    <div class="tc-tools" id="tcTools"><!-- injected by JS --></div>
+    <div class="tc-footnote">Pricing researched and verified July 2026 · Always confirm current pricing directly with each provider before budgeting.</div>
   </div>
 </div>
-<div class="section-divider"></div>
 
 <!-- ══════════════════════════════════════════
      TOOL 6 — 📰 WHAT'S NEW IN AI
@@ -1868,6 +2034,7 @@ img,video,iframe{max-width:100%;}
   </div>
 </div>
 
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1970,6 +2137,64 @@ function handleFlipClick(e, card, url){
     window.open(url, '_blank', 'noopener');
   }
 }
+
+// ── SUGGESTION BOX — Netlify Forms AJAX submit ────────────────
+function handleSuggSubmit(e){
+  e.preventDefault();
+  var form = e.target;
+  var data = new FormData(form);
+  fetch('/', {
+    method: 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(data).toString()
+  }).then(function(){
+    form.style.display = 'none';
+    var thanks = document.getElementById('suggThanks');
+    if(thanks) thanks.style.display = 'block';
+  }).catch(function(err){
+    console.error('Suggestion submit failed:', err);
+    alert('Something went wrong sending your suggestion — please try again.');
+  });
+  return false;
+}
+
+// ── COMMUNITY SHOWCASE — replace static fallback images with real,
+// recent vault submissions once Firestore responds. The 5 hardcoded
+// images already in the HTML stay visible immediately (real content
+// for crawlers/no-JS visitors, same pattern already proven on
+// vault.html) and are only swapped out on a successful query — if
+// the query fails or returns nothing, the fallback images just stay.
+function loadCommunityShowcase(){
+  if(!window._fbReady || !window._fb) return;
+  var fb = window._fb;
+  try {
+    var q = fb.query(
+      fb.collection(fb.db, 'vault-submissions'),
+      fb.where('status', '==', 'approved'),
+      fb.orderBy('createdAt', 'desc'),
+      fb.limit(5)
+    );
+    fb.getDocs(q).then(function(snap){
+      if(snap.empty) return; // keep fallback images
+      var items = [];
+      snap.forEach(function(docSnap){ items.push(docSnap.data()); });
+      var grid = document.querySelector('.chero-grid');
+      if(!grid || !items.length) return;
+      grid.innerHTML = items.map(function(d){
+        var title = (d.title || 'Community creation').replace(/"/g, '&quot;');
+        var url = d.imageUrl || '';
+        if(!url) return '';
+        return '<a href="vault.html"><img src="'+url+'" alt="'+title+'" loading="lazy"/></a>';
+      }).join('');
+    }).catch(function(err){
+      console.error('Community showcase live load failed, keeping fallback images:', err);
+    });
+  } catch(err){
+    console.error('Community showcase query error, keeping fallback images:', err);
+  }
+}
+if(window._fbReady){ loadCommunityShowcase(); }
+else { window.addEventListener('firebase-ready', loadCommunityShowcase); }
 
 // ── FILTER BY CATEGORY ────────────────────────────────────────
 function filterCat(cat, btn){
@@ -2109,6 +2334,89 @@ function calcUpdate(){
     tip.textContent = "$"+total+"/mo is serious spend. Make sure each tool earns its keep — free tiers exist for most.";
   }
 }
+
+// ══════════════════════════════════════════
+// NEW — AI STACK COST CALCULATOR (all tiers)
+var TC_TOOLS = [
+  { name:'ChatGPT', domain:'openai.com', tiers:[
+    {n:'Free',p:0},{n:'Go',p:8},{n:'Plus',p:20},{n:'Pro 100',p:100},{n:'Pro 200',p:200},{n:'Business',p:20}
+  ]},
+  { name:'Claude', domain:'claude.ai', tiers:[
+    {n:'Free',p:0},{n:'Pro',p:20},{n:'Max 5x',p:100},{n:'Max 20x',p:200},{n:'Team',p:25},{n:'Team+',p:150}
+  ]},
+  { name:'Gemini', domain:'gemini.google.com', tiers:[
+    {n:'Free',p:0},{n:'AI Pro',p:19.99},{n:'AI Ultra',p:199.99}
+  ]},
+  { name:'Perplexity', domain:'perplexity.ai', tiers:[
+    {n:'Free',p:0},{n:'Pro',p:20},{n:'Max',p:200},{n:'Ent. Pro',p:40},{n:'Ent. Max',p:325}
+  ]},
+  { name:'Midjourney', domain:'midjourney.com', tiers:[
+    {n:'Basic',p:10},{n:'Standard',p:30},{n:'Pro',p:60},{n:'Mega',p:120}
+  ]},
+  { name:'Runway', domain:'runwayml.com', tiers:[
+    {n:'Free',p:0},{n:'Standard',p:15},{n:'Pro',p:35},{n:'Unlimited',p:95}
+  ]},
+  { name:'ElevenLabs', domain:'elevenlabs.io', tiers:[
+    {n:'Free',p:0},{n:'Starter',p:6},{n:'Creator',p:22},{n:'Pro',p:99},{n:'Scale',p:299},{n:'Business',p:990}
+  ]},
+  { name:'Cursor', domain:'cursor.sh', tiers:[
+    {n:'Hobby',p:0},{n:'Pro',p:20},{n:'Pro+',p:60},{n:'Ultra',p:200},{n:'Teams',p:40}
+  ]},
+  { name:'Suno', domain:'suno.ai', tiers:[
+    {n:'Free',p:0},{n:'Pro',p:10},{n:'Premier',p:30}
+  ]},
+];
+var tcSelected = {};
+
+function tcInit(){
+  var wrap = document.getElementById('tcTools');
+  if(!wrap) return;
+  wrap.innerHTML = TC_TOOLS.map(function(t, ti){
+    var pills = t.tiers.map(function(tier, tj){
+      return '<button class="tc-tier-pill" data-t="'+ti+'" data-p="'+tj+'" onclick="tcSelect('+ti+','+tj+')">'+
+        '<span class="tc-tier-pill-name">'+tier.n+'</span>'+
+        '<span class="tc-tier-pill-price">'+(tier.p===0?'Free':'$'+tier.p)+'</span></button>';
+    }).join('');
+    return '<div class="tc-tool-row">'+
+      '<div class="tc-tool-head">'+
+        '<img class="tc-tool-logo" src="https://www.google.com/s2/favicons?domain='+t.domain+'&sz=64" alt=""/>'+
+        '<div class="tc-tool-name">'+t.name+'</div>'+
+        '<div class="tc-tool-selected" id="tc-sel-'+ti+'">Not using</div>'+
+      '</div>'+
+      '<div class="tc-tier-pills">'+pills+'</div>'+
+    '</div>';
+  }).join('');
+  tcUpdate();
+}
+
+window.tcSelect = function(ti, tj){
+  if(tcSelected[ti] === tj){ delete tcSelected[ti]; }
+  else { tcSelected[ti] = tj; }
+  tcUpdate();
+};
+
+function tcUpdate(){
+  var total = 0;
+  TC_TOOLS.forEach(function(t, ti){
+    document.querySelectorAll('.tc-tier-pill[data-t="'+ti+'"]').forEach(function(el){
+      el.classList.remove('active');
+    });
+    var sel = document.getElementById('tc-sel-'+ti);
+    if(ti in tcSelected){
+      var tier = t.tiers[tcSelected[ti]];
+      total += tier.p;
+      sel.textContent = tier.n + ' · $' + tier.p + '/mo';
+      var activeEl = document.querySelector('.tc-tier-pill[data-t="'+ti+'"][data-p="'+tcSelected[ti]+'"]');
+      if(activeEl) activeEl.classList.add('active');
+    } else {
+      sel.textContent = 'Not using';
+    }
+  });
+  var totalEl = document.getElementById('tcTotal');
+  if(totalEl) totalEl.textContent = '$' + total.toLocaleString(undefined,{minimumFractionDigits: total % 1 !== 0 ? 2 : 0});
+}
+
+tcInit();
 
 // ══════════════════════════════════════════
 // TOOL 5 — FREE AI IMAGE GENERATOR (Pollinations)
@@ -2590,7 +2898,7 @@ async function polGenerate(){
           : 'Puter.js may be busy or need a login.<br>Try again or switch to a different model.')
         +'</div>'
         +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">'
-        +'<button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">'
+        +'<button onclick="polGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">'
         +'<i class="ti ti-refresh" style="font-size:13px;" aria-hidden="true"></i> Try Again'
         +'</button>'
         +(isBlocked ? '<button onclick="switchToFlux()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;"><i class="ti ti-bolt"></i> Switch to Flux</button>' : '')
