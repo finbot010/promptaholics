@@ -2168,16 +2168,28 @@ function loadCommunityShowcase(){
   if(!window._fbReady || !window._fb) return;
   var fb = window._fb;
   try {
+    // NOTE: intentionally no server-side orderBy here. Combining a where()
+    // equality filter with orderBy() on a different field requires a
+    // Firestore composite index that doesn't exist for this collection —
+    // that caused this to silently fail before (caught by the catch below,
+    // falling back to the static images with no visible error). Pulling a
+    // batch by status alone needs no index, and sorting by createdAt
+    // happens client-side instead.
     var q = fb.query(
       fb.collection(fb.db, 'vault-submissions'),
       fb.where('status', '==', 'approved'),
-      fb.orderBy('createdAt', 'desc'),
-      fb.limit(5)
+      fb.limit(20)
     );
     fb.getDocs(q).then(function(snap){
       if(snap.empty) return; // keep fallback images
       var items = [];
       snap.forEach(function(docSnap){ items.push(docSnap.data()); });
+      items.sort(function(a, b){
+        var ta = (a.createdAt && a.createdAt.seconds) || 0;
+        var tb = (b.createdAt && b.createdAt.seconds) || 0;
+        return tb - ta; // newest first
+      });
+      items = items.slice(0, 5);
       var grid = document.querySelector('.chero-grid');
       if(!grid || !items.length) return;
       grid.innerHTML = items.map(function(d){
