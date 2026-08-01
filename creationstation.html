@@ -1122,7 +1122,7 @@ img,video,iframe{max-width:100%;}
 .tc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1;}
 .tc-head h3{font-family:'Syne',serif;font-weight:800;font-size:22px;margin-bottom:6px;color:var(--ink);}
 .tc-head p{color:var(--ink2);font-size:13.5px;max-width:440px;}
-.tc-total-box{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.28);border-radius:16px;padding:16px 26px;text-align:right;flex-shrink:0;}
+.tc-total-box{background:rgba(255,98,36,.08);border:1px solid rgba(255,98,36,.28);border-radius:16px;padding:20px 26px;max-width:280px;margin-left:auto;margin-right:auto;}
 .tc-total-label{font-size:10.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
 .tc-total-amount{font-family:'Syne',serif;font-weight:800;font-size:34px;color:var(--o2);line-height:1;}
 .tc-total-period{font-size:11px;color:var(--ink3);margin-top:2px;}
@@ -1653,13 +1653,13 @@ img,video,iframe{max-width:100%;}
         <h3>Tap the tier you're actually on <span style="color:var(--orange);">for each tool</span></h3>
         <p>Every real published pricing tier — not just the headline price. Click to add it to your total.</p>
       </div>
-      <div class="tc-total-box">
-        <div class="tc-total-label">Monthly Total</div>
-        <div class="tc-total-amount" id="tcTotal">$0</div>
-        <div class="tc-total-period">per month</div>
-      </div>
     </div>
     <div class="tc-tools" id="tcTools"><!-- injected by JS --></div>
+    <div class="tc-total-box" style="margin-top:24px;text-align:center;">
+      <div class="tc-total-label">Monthly Total</div>
+      <div class="tc-total-amount" id="tcTotal">$0</div>
+      <div class="tc-total-period">per month</div>
+    </div>
     <div class="tc-footnote">Pricing researched and verified July 2026 · Always confirm current pricing directly with each provider before budgeting.</div>
   </div>
 </div>
@@ -2199,28 +2199,23 @@ function loadCommunityShowcase(){
   if(!window._fbReady || !window._fb) return;
   var fb = window._fb;
   try {
-    // NOTE: intentionally no server-side orderBy here. Combining a where()
-    // equality filter with orderBy() on a different field requires a
-    // Firestore composite index that doesn't exist for this collection —
-    // that caused this to silently fail before (caught by the catch below,
-    // falling back to the static images with no visible error). Pulling a
-    // batch by status alone needs no index, and sorting by createdAt
-    // happens client-side instead.
+    // Proper server-side ordering - requires the Firestore composite index
+    // (status + createdAt) to be created once in the Firebase console.
+    // Without this, a where()+limit() query with no orderBy returns an
+    // ARBITRARY subset of matching documents - with 130+ approved images
+    // in this collection, a newly-approved one has no guarantee of being
+    // in whatever unordered batch gets fetched, which is exactly why only
+    // one of several newly-added images was showing up before this fix.
     var q = fb.query(
       fb.collection(fb.db, 'vault-submissions'),
       fb.where('status', '==', 'approved'),
-      fb.limit(20)
+      fb.orderBy('createdAt', 'desc'),
+      fb.limit(5)
     );
     fb.getDocs(q).then(function(snap){
       if(snap.empty) return; // keep fallback images
       var items = [];
       snap.forEach(function(docSnap){ items.push(docSnap.data()); });
-      items.sort(function(a, b){
-        var ta = (a.createdAt && a.createdAt.seconds) || 0;
-        var tb = (b.createdAt && b.createdAt.seconds) || 0;
-        return tb - ta; // newest first
-      });
-      items = items.slice(0, 5);
       var grid = document.querySelector('.chero-grid');
       if(!grid || !items.length) return;
       grid.innerHTML = items.map(function(d){
