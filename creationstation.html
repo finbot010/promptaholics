@@ -1513,6 +1513,114 @@ img,video,iframe{max-width:100%;}
 </section>
 
 <!-- ══════════════════════════════════════════
+     NEW — FREE AI VOICE GENERATOR (Puter.js txt2speech)
+     Client-side only: generated audio plays/downloads locally,
+     never uploaded to Cloudinary/Firestore - keeps storage costs at zero.
+══════════════════════════════════════════ -->
+<div class="tool-sec">
+  <div class="tool-sec-hdr">
+    <h2><i class="ti ti-microphone" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Free AI Voice Generator</h2>
+    <span class="tool-built-badge">New</span>
+  </div>
+
+  <div class="tool-sec always-visible generator-hero" style="margin:0;">
+    <div class="gen-orb gen-orb-1"></div>
+    <div class="gen-orb gen-orb-2"></div>
+    <div class="gen-orb gen-orb-3"></div>
+
+    <div class="tool-sec-hdr" style="position:relative;z-index:2;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--o2);margin-bottom:8px;padding:3px 10px;border-radius:20px;background:rgba(255,98,36,.12);border:1px solid rgba(255,98,36,.25);">
+          <i class="ti ti-sparkles"></i> Free Forever · No Account Needed · No API Key
+        </div>
+        <h2 style="font-family:'Syne',serif;font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-1px;color:var(--ink);margin:0;">
+          <span style="background:linear-gradient(135deg,var(--o2),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Free AI</span> Voice Generator
+        </h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--o2);background:rgba(255,98,36,.1);padding:5px 11px;border-radius:20px;border:1px solid rgba(255,98,36,.2);">
+          <i class="ti ti-zap" style="font-size:13px;"></i> Powered by ElevenLabs & OpenAI
+        </div>
+      </div>
+    </div>
+
+    <!-- TEXT INPUT -->
+    <div style="margin-bottom:14px;">
+      <div style="position:relative;">
+        <textarea
+          id="audText"
+          rows="4"
+          maxlength="3000"
+          placeholder="Type what you want spoken... e.g. Welcome to Promptaholics — free AI prompts, tools, and now, voices too."
+          style="width:100%;padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,98,36,.25);border-radius:12px;font-size:13px;color:var(--ink);font-family:'Instrument Sans',sans-serif;outline:none;resize:vertical;min-height:100px;line-height:1.6;transition:border .2s;"
+          onfocus="this.style.borderColor='rgba(255,98,36,.5)'"
+          onblur="this.style.borderColor='rgba(255,98,36,.25)'"
+          oninput="document.getElementById('audCharCount').textContent = this.value.length + ' / 3000'"
+        ></textarea>
+        <div id="audCharCount" style="position:absolute;bottom:10px;right:12px;font-size:10px;color:var(--ink3);">0 / 3000</div>
+      </div>
+    </div>
+
+    <!-- VOICE PRESETS -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Voice</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;" id="voicePresets">
+        <button class="pol-preset active" onclick="setAudVoice(this,'openai','alloy')"><i class="ti ti-microphone-2" aria-hidden="true"></i> Alloy (Neutral)</button>
+        <button class="pol-preset" onclick="setAudVoice(this,'openai','nova')"><i class="ti ti-microphone-2" aria-hidden="true"></i> Nova (Friendly)</button>
+        <button class="pol-preset" onclick="setAudVoice(this,'openai','onyx')"><i class="ti ti-microphone-2" aria-hidden="true"></i> Onyx (Deep)</button>
+        <button class="pol-preset" onclick="setAudVoice(this,'openai','shimmer')"><i class="ti ti-microphone-2" aria-hidden="true"></i> Shimmer (Warm)</button>
+        <button class="pol-preset" onclick="setAudVoice(this,'elevenlabs','21m00Tcm4TlvDq8ikWAM')"><i class="ti ti-sparkles" aria-hidden="true"></i> Rachel (ElevenLabs)</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+      <button id="audGenBtn" onclick="audGenerate()" style="flex:1;padding:11px 20px;background:linear-gradient(135deg,#ffb232,#ffd700);color:#0d0d0f;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Syne',serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;min-width:160px;letter-spacing:.2px;">
+        <i class="ti ti-sparkles" id="audBtnIcon" style="font-size:16px;" aria-hidden="true"></i>
+        <span id="audBtnText">Generate Voice</span>
+        <span class="gen-counter-badge" id="audGenCountBadge">3/3 left</span>
+      </button>
+      <button onclick="audClear()" style="padding:10px 14px;background:var(--glass);border:1px solid var(--border2);border-radius:9px;color:var(--ink3);font-size:12px;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .15s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink3)'">Clear</button>
+    </div>
+    <div style="font-size:10px;color:var(--ink3);margin-top:6px;display:flex;align-items:center;gap:5px;">
+      <i class="ti ti-device-floppy" style="color:var(--orange);font-size:12px;" aria-hidden="true"></i>
+      Generated audio plays and downloads locally in your browser — nothing is uploaded or stored on our servers.
+    </div>
+
+    <!-- AUDIO OUTPUT AREA -->
+    <div id="audOutputWrap" style="position:relative;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);min-height:120px;display:flex;align-items:center;justify-content:center;margin-top:16px;">
+
+      <!-- EMPTY STATE -->
+      <div id="audEmpty" style="text-align:center;padding:32px 20px;">
+        <i class="ti ti-microphone" style="font-size:32px;color:var(--ink3);display:block;margin-bottom:10px;" aria-hidden="true"></i>
+        <div style="font-size:12.5px;color:var(--ink3);">Your generated voice will appear here</div>
+      </div>
+
+      <!-- SPINNER STATE -->
+      <div id="audSpinner" style="display:none;text-align:center;padding:32px 20px;width:100%;">
+        <div style="width:36px;height:36px;border:3px solid rgba(255,98,36,.15);border-top-color:var(--orange);border-radius:50%;margin:0 auto 14px;animation:spin 0.8s linear infinite;"></div>
+        <div id="audStatus" style="font-size:12.5px;color:var(--ink2);margin-bottom:10px;">Synthesizing voice...</div>
+        <div style="width:100%;max-width:200px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin:0 auto;overflow:hidden;">
+          <div id="audProgress" style="width:0%;height:100%;background:linear-gradient(90deg,var(--orange),var(--o2));transition:width .3s;"></div>
+        </div>
+      </div>
+
+      <!-- RESULT STATE -->
+      <div id="audResult" style="display:none;width:100%;padding:20px;">
+        <audio id="audPlayer" controls style="width:100%;"></audio>
+        <div id="audActions" style="display:flex;gap:8px;margin-top:14px;justify-content:center;flex-wrap:wrap;">
+          <a id="audDownloadBtn" download="promptaholics-voice.mp3" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;font-family:inherit;">
+            <i class="ti ti-download" style="font-size:13px;" aria-hidden="true"></i> Download MP3
+          </a>
+          <button onclick="audGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">
+            <i class="ti ti-refresh" style="font-size:13px;" aria-hidden="true"></i> Regenerate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
      NEW — COMMUNITY SHOWCASE (below the builder)
 ══════════════════════════════════════════ -->
 <div class="tool-sec always-visible community-hero">
@@ -2633,6 +2741,9 @@ function updateGenCounterUI(count){
   // Update counter badge
   var badge = document.getElementById('genCountBadge');
   if(badge) badge.textContent = remaining + '/' + limit + ' left';
+  // Audio generator shares the same counter/limit
+  var audBadge = document.getElementById('audGenCountBadge');
+  if(audBadge) audBadge.textContent = remaining + '/' + limit + ' left';
 }
 
 // ── GATE ──────────────────────────────────────────────────────
@@ -2774,6 +2885,119 @@ function polCopyPrompt(){
     : (function(t){ var ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); })(lastPolPrompt);
   showToast('Prompt copied!');
 }
+
+// ══════════════════════════════════════════
+// FREE AI VOICE GENERATOR (Puter.js txt2speech)
+// Client-side only - never uploaded to Cloudinary/Firestore.
+// Reuses the same daily rate-limit counter as image generation
+// (getGenCount/incrementGenCount/getLimit/isUnlocked/openGate)
+// so the free tier is shared across both, not doubled.
+var audProvider = 'openai';
+var audVoice = 'alloy';
+
+function setAudVoice(btn, provider, voice){
+  document.querySelectorAll('#voicePresets .pol-preset').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  audProvider = provider;
+  audVoice = voice;
+}
+
+async function audGenerate(){
+  var text = (document.getElementById('audText').value||'').trim();
+  if(!text){ document.getElementById('audText').focus(); showToast('Enter some text first'); return; }
+
+  // Shares the same daily limit as image generation
+  var count = getGenCount();
+  var limit = getLimit();
+  if(count >= limit){
+    if(!isUnlocked()){ openGate(); }
+    else { showToast('Daily limit reached (' + limit + '/day). Resets at midnight.'); }
+    return;
+  }
+
+  var btn      = document.getElementById('audGenBtn');
+  var btnText  = document.getElementById('audBtnText');
+  var btnIcon  = document.getElementById('audBtnIcon');
+  var spinner  = document.getElementById('audSpinner');
+  var empty    = document.getElementById('audEmpty');
+  var result   = document.getElementById('audResult');
+  var player   = document.getElementById('audPlayer');
+  var dlBtn    = document.getElementById('audDownloadBtn');
+
+  btn.disabled = true; btn.style.opacity = '.6';
+  if(btnText) btnText.textContent = 'Generating...';
+  if(btnIcon) btnIcon.className = 'ti ti-loader-2';
+  if(empty)   empty.style.display  = 'none';
+  if(result)  result.style.display = 'none';
+  if(spinner) spinner.style.display = 'flex';
+
+  var progVal = 0;
+  var status  = document.getElementById('audStatus');
+  var prog    = document.getElementById('audProgress');
+  var msgs = ['Synthesizing voice...','Shaping tone...','Almost ready...'];
+  var mi = 0;
+  var progTimer = setInterval(function(){
+    progVal = Math.min(progVal + (progVal < 80 ? 5 : 1), 90);
+    if(prog) prog.style.width = progVal + '%';
+    mi = (mi+1) % msgs.length;
+    if(status) status.textContent = msgs[mi];
+  }, 500);
+
+  try{
+    var audioEl = await puter.ai.txt2speech(text, { provider: audProvider, voice: audVoice });
+
+    clearInterval(progTimer);
+    if(prog) prog.style.width = '100%';
+
+    if(audioEl && audioEl.src){
+      incrementGenCount();
+      if(player) player.src = audioEl.src;
+      if(dlBtn)  dlBtn.href = audioEl.src; // local blob URL - download only, no upload
+      if(spinner) spinner.style.display = 'none';
+      if(result)  result.style.display  = 'block';
+      showToast('Voice ready!');
+      var remaining = getLimit() - getGenCount();
+      if(remaining === 1 && !isUnlocked()){
+        setTimeout(function(){ showToast('1 generation left today — sign up for more!'); }, 2000);
+      }
+    } else {
+      throw new Error('No audio returned');
+    }
+  } catch(e){
+    clearInterval(progTimer);
+    if(spinner) spinner.style.display = 'none';
+    if(empty){
+      empty.style.display = 'block';
+      empty.innerHTML =
+        '<div style="text-align:center;padding:24px 16px;">'
+        +'<i class="ti ti-alert-triangle" style="font-size:32px;display:block;margin-bottom:10px;color:#f59e0b;" aria-hidden="true"></i>'
+        +'<div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;">Generation failed</div>'
+        +'<div style="font-size:11.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px;">Puter.js may be busy. Try again in a moment.</div>'
+        +'<button onclick="audGenerate()" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">'
+        +'<i class="ti ti-refresh" style="font-size:13px;" aria-hidden="true"></i> Try Again'
+        +'</button></div>';
+    }
+    console.error('Voice gen error:', e);
+  }
+
+  btn.disabled = false; btn.style.opacity = '1';
+  if(btnText) btnText.textContent = 'Generate Voice';
+  if(btnIcon) btnIcon.className = 'ti ti-sparkles';
+  var badge = document.getElementById('audGenCountBadge');
+  if(badge) badge.textContent = (getLimit() - getGenCount()) + '/' + getLimit() + ' left';
+}
+
+function audClear(){
+  document.getElementById('audText').value = '';
+  document.getElementById('audCharCount').textContent = '0 / 3000';
+  var result = document.getElementById('audResult');
+  var empty  = document.getElementById('audEmpty');
+  var player = document.getElementById('audPlayer');
+  if(result) result.style.display = 'none';
+  if(empty)  empty.style.display  = 'block';
+  if(player) player.src = '';
+}
+
 // Upload base64 image to Cloudinary and return URL
 async function uploadToCloudinary(dataUrl){
   var CLOUD = 'dgqbzarfw';
