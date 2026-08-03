@@ -1059,14 +1059,29 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  // ── URL PARAM PRE-FILL ──────────────────────────────────────
-  // Reads ?prompt=... from Prompt of the Day "Build It" button
-  var params = new URLSearchParams(window.location.search);
-  var incomingPrompt = params.get('prompt');
+  // ── INCOMING PROMPT PRE-FILL ──────────────────────────────────
+  // Checked in order: sessionStorage first (used by PA Agent's "Build It"
+  // button - avoids a 414 "URI Too Long" error that happened when long
+  // generated prompts, especially Full Campaign results, were passed as
+  // a raw URL query param instead), then falls back to the ?prompt= URL
+  // param for any other/older links still using that pattern directly.
+  var incomingPrompt = null;
+  var fromSessionStorage = false;
+  try {
+    incomingPrompt = sessionStorage.getItem('pa_incoming_prompt');
+    if(incomingPrompt){ sessionStorage.removeItem('pa_incoming_prompt'); fromSessionStorage = true; }
+  } catch(e){}
+
+  if(!incomingPrompt){
+    var params = new URLSearchParams(window.location.search);
+    incomingPrompt = params.get('prompt');
+  }
   if(incomingPrompt){
-    try {
-      incomingPrompt = decodeURIComponent(incomingPrompt);
-    } catch(e){}
+    if(!fromSessionStorage){
+      // Only URL-param values need decoding - sessionStorage already
+      // holds the raw, un-encoded text.
+      try { incomingPrompt = decodeURIComponent(incomingPrompt); } catch(e){}
+    }
 
     // Select RTF framework — best for pre-filled prompts
     var rtfFw = FRAMEWORKS.find(function(f){ return f.id === 'context'; });

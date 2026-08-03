@@ -1250,7 +1250,20 @@ function showResults(data, goal){
   document.querySelectorAll('[data-action="build"]').forEach(btn => {
     btn.addEventListener('click', function(){
       const p = promptStore.get('p'+this.dataset.idx);
-      if(p) window.location.href = 'prompt-builder.html?prompt=' + encodeURIComponent(p.text||'');
+      if(!p) return;
+      // Long generated prompts (especially Full Campaign results) were
+      // causing a 414 "URI Too Long" error - the full prompt text was
+      // being embedded directly in the URL as a query param, which
+      // servers/CDNs reject past a certain length. sessionStorage has
+      // no such limit, so the prompt travels that way instead and the
+      // URL stays clean.
+      try {
+        sessionStorage.setItem('pa_incoming_prompt', p.text || '');
+        window.location.href = 'prompt-builder.html';
+      } catch(e){
+        // Fallback if sessionStorage is unavailable for some reason
+        window.location.href = 'prompt-builder.html?prompt=' + encodeURIComponent(p.text||'');
+      }
     });
   });
   document.querySelectorAll('[data-action="share"]').forEach(btn => {
