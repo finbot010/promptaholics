@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-27T16:11:33.581Z",
-  "week": 31,
+  "generated_at": "2026-08-03T16:18:26.995Z",
+  "week": 32,
   "slot-1": {
-    "name": "Midnight Bakers",
-    "prompt": "Documentary photography inside a Parisian boulangerie at 3AM. Baker in flour-dusted whites pulling perfect baguettes from a 100-year-old wood-fired oven. The oven light is the only illumination. Every wrinkle on the baker face visible. Steam rising from perfect crust. 40 years of practice in his hands. Shot on Leica Q3 at ISO 6400. Black and white with orange firelight. The smell of bread implied."
+    "name": "Mountain Village Winter",
+    "prompt": "A remote mountain village in the Dolomites photographed from directly above by drone at 7PM in December. Every window in every chalet glowing warm amber. Snow on every roof perfectly undisturbed. A single set of footprints crossing the village square. Wood smoke from chimneys visible as blue-grey wisps. The village is a living painting. Complete silence implied. Shot on DJI Mavic 3 Pro. Makes you want to go there immediately."
   },
   "slot-2": {
-    "name": "Saturn from Titan",
-    "prompt": "Photorealistic visualization of Saturn viewed from the surface of Titan, its largest moon. Saturn fills 45 degrees of sky — its rings tilted at 26 degrees, individual ring bands visible, the shadow of the planet cutting across the rings. Titan atmosphere tints everything amber. Methane lakes in the foreground reflecting Saturn. No artistic license — NASA JPL scientific visualization standards. More surreal than any fantasy."
+    "name": "Glass Blower Portrait",
+    "prompt": "Environmental portrait of a 70-year-old Venetian glass master at his furnace on Murano island. He is shaping a piece of molten glass on the end of a 1.5 meter blowpipe. The glass glows orange, illuminating his face from below. 50 years of practice in his body language. His workshop is a museum of his work behind him. Shot on 85mm f/1.4. The tradition and the man and the material in one frame."
   },
   "slot-3": {
-    "name": "Protest As Art",
-    "prompt": "Documentary photography of 50,000 people holding candles in a perfect circle in a dark city plaza seen from a helicopter directly above at 200 meters. The formation is so precise it looks designed. Each person a dot of warm light. The geometry they create together is mathematical. Total darkness outside the circle. Shot at 1/4 second, enough motion blur to make the candles glow. Human coordination as fine art."
+    "name": "Bees Honeycomb Architecture",
+    "prompt": "Aerial macro photography directly above an active honeycomb showing thousands of bees in motion — some building, some depositing honey, some fanning the comb. The hexagonal geometry perfect. Honey in different stages of processing visible: fresh clear nectar to deep amber cured honey. Beeswax white and pale gold. Shot at 1/2000th of a second freezing bee wing motion. The engineering and the life together in one frame. 8K."
   },
   "slot-4": {
-    "name": "Iridescent Soap Bubble",
-    "prompt": "Extreme macro photography of a single soap bubble 10cm in diameter showing the entire electromagnetic spectrum visible in its surface — Newton rings of color, galaxies of interference patterns, the thin film creating colors that shift as you look at it. Shot against a pure black background. The bubble surface is 100nm thick. Individual water molecules implied. A physics textbook and a painting simultaneously. Ultra sharp."
+    "name": "City Rain Reflection",
+    "prompt": "Looking straight down from 20 stories at a New York City intersection at 11PM in heavy rain. The street is a perfect mirror of Times Square lights. Yellow cabs, crossing pedestrians with umbrellas, steam grates, traffic signals all reflected with dreamlike clarity. Shot from a window on 42nd street. The street looks more vivid than reality. Rain drops visible as circles in the reflection pools. Hiroshi Sugimoto meets street photography."
   }
 }
