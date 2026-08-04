@@ -1313,8 +1313,8 @@ img,video,iframe{max-width:100%;}
         <a class="btn-secondary" href="#tools"><i class="ti ti-apps"></i> Explore AI Tools</a>
       </div>
       <div class="cs-hero-stats">
-        <div><div class="chs-n">2,038+</div><div class="chs-l">Prompts in library</div></div>
-        <div><div class="chs-n">26</div><div class="chs-l">Tools tracked</div></div>
+        <div><div class="chs-n">2,000+</div><div class="chs-l">Prompts in library</div></div>
+        <div><div class="chs-n">34</div><div class="chs-l">Tools tracked</div></div>
         <div><div class="chs-n">Free</div><div class="chs-l">Forever, no paywall</div></div>
       </div>
       <div class="cs-search-wrap" style="margin:24px 0 0;max-width:100%;">
@@ -1334,7 +1334,7 @@ img,video,iframe{max-width:100%;}
       <div class="sugg-box">
         <div class="sugg-ribbon"><i class="ti ti-bulb"></i> Suggestion Box</div>
         <div class="sugg-sub">Missing a tool? Want a feature? Tell us — we actually read these.</div>
-        <form name="suggestions" method="POST" data-netlify="true" id="suggForm" onsubmit="return handleSuggSubmit(event)">
+        <form id='suggForm' method='POST' name='suggestions' onsubmit='return handleSuggSubmit(event)'>
           <input type="hidden" name="form-name" value="suggestions"/>
           <textarea class="sugg-textarea" name="suggestion" placeholder="e.g. Add Sora 2 to the video tools list..." required></textarea>
           <input class="sugg-email" type="email" name="email" placeholder="Your email (optional — only if you want a reply)"/>
