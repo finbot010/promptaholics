@@ -129,6 +129,22 @@ async function main() {
   console.log('prompts.js updated — added ' + newPrompts.length + ' prompts');
   console.log('New IDs: ' + promptsToAdd.map(function(p){ return p.id; }).join(', '));
 
+  // Keep prompt-count.json in sync automatically, every run. This is the
+  // tiny (~40 byte) file creationstation.html fetches to show a live,
+  // accurate prompt count without loading the full 1.2MB+ prompts.js just
+  // to read one number. Counting actual "{id:" occurrences in the final
+  // written content (not the running existingNames/newPrompts math) so
+  // this is self-verifying against what's really in the file, the same
+  // way the real count has been checked by hand throughout this project.
+  const finalCount = (updatedContent.match(/\{id:/g) || []).length;
+  const countFilePath = path.resolve(process.cwd(), 'prompt-count.json');
+  fs.writeFileSync(
+    countFilePath,
+    JSON.stringify({ count: finalCount, updated: new Date().toISOString().slice(0, 10) }, null, 0) + '\n',
+    'utf8'
+  );
+  console.log('prompt-count.json updated — count: ' + finalCount);
+
   // Mark as exported in Firestore
   const batch = db.batch();
   promptsToAdd.forEach(function(p) {

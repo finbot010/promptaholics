@@ -1313,7 +1313,7 @@ img,video,iframe{max-width:100%;}
         <a class="btn-secondary" href="#tools"><i class="ti ti-apps"></i> Explore AI Tools</a>
       </div>
       <div class="cs-hero-stats">
-        <div><div class="chs-n">2,000+</div><div class="chs-l">Prompts in library</div></div>
+        <div><div class="chs-n" id="csPromptCount">2,000+</div><div class="chs-l">Prompts in library</div></div>
         <div><div class="chs-n">34</div><div class="chs-l">Tools tracked</div></div>
         <div><div class="chs-n">Free</div><div class="chs-l">Forever, no paywall</div></div>
       </div>
@@ -2652,6 +2652,20 @@ function tcUpdate(){
 }
 
 tcInit();
+
+// Live prompt count - fetches a tiny (~40 byte) count-only file instead of
+// the full prompts.js (1.2MB+), so this page gets the real, accurate
+// number without paying the page-weight cost of loading every prompt's
+// full text just to read one number. "2,000+" stays as the instant,
+// honest fallback shown while this fetch is in flight or if it fails.
+fetch('prompt-count.json')
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(data){
+    if(!data || !data.count) return;
+    var el = document.getElementById('csPromptCount');
+    if(el) el.textContent = data.count.toLocaleString() + '+';
+  })
+  .catch(function(){ /* keep the 2,000+ fallback, no error surfaced to user */ });
 
 // ══════════════════════════════════════════
 // TOOL 5 — FREE AI IMAGE GENERATOR (Pollinations)
