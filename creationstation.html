@@ -200,6 +200,7 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 /* ── SECTION ── */
 .cs-section{max-width:1200px;margin:0 auto;padding:0 24px 64px;}
 .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.sec-sub{font-size:13px;color:var(--ink3);margin:-16px 0 24px;max-width:560px;line-height:1.6;}
 .sec-hdr h2{font-family:'Syne',serif;font-size:22px;font-weight:800;letter-spacing:-.5px;}
 .sec-count{font-size:11px;color:var(--ink3);background:var(--glass2);border:1px solid var(--border);padding:2px 8px;border-radius:5px;}
 
@@ -1307,7 +1308,9 @@ img,video,iframe{max-width:100%;}
     <div class="cs-hero-text">
       <div class="cs-eyebrow"><span class="cs-eyebrow-dot"></span> Welcome to Creation Station</div>
       <h1 class="cs-h1" style="text-align:left;">Your <span>creation</span><br/>station.</h1>
-      <p class="cs-sub" style="text-align:left;margin:0 0 28px;">One workspace to generate, discover, and compare every AI tool worth using — plus the real cost of running your whole stack.</p>
+      <p class="cs-sub" style="text-align:left;margin:0 0 28px;max-width:520px;">
+        Most people running an AI-powered workflow are quietly paying for three or four overlapping subscriptions without ever adding up the real total — a $20 plan here, a $30 plan there, until the monthly bill rivals a second software budget. Creation Station is our independent take on managing that: a single place to generate, compare every major AI tool honestly (including where free tiers genuinely cover you), and see the real combined cost of your stack before you commit to another subscription.
+      </p>
       <div class="cs-hero-ctas">
         <a class="btn-primary" href="#calculator"><i class="ti ti-calculator"></i> See Your Real Cost</a>
         <a class="btn-secondary" href="#tools"><i class="ti ti-apps"></i> Explore AI Tools</a>
@@ -1647,6 +1650,7 @@ img,video,iframe{max-width:100%;}
     <h2>⭐ Featured &amp; Partners</h2>
     <span class="sec-count">4 tools</span>
   </div>
+  <p class="sec-sub">The tools we personally use and vouch for — including a few affiliate partnerships that help keep this whole library free.</p>
   <div class="featured-grid">
 
     <!-- OpenArt — FLIP CARD -->
@@ -1818,6 +1822,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-message-circle" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Chat AI</h2>
     <span class="sec-count">5 tools</span>
   </div>
+  <p class="sec-sub">General-purpose assistants for research, writing, and everyday questions — the tools most people reach for first.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://chat.openai.com" target="_blank" rel="noopener" data-cat="chat" data-name="ChatGPT">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=openai.com&sz=128" alt="ChatGPT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1870,6 +1875,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-photo-ai" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Image AI</h2>
     <span class="sec-count">4 tools</span>
   </div>
+  <p class="sec-sub">Text-to-image generators, each with a genuinely different visual style — worth trying more than one before picking a favorite.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://midjourney.com" target="_blank" rel="noopener" data-cat="image" data-name="Midjourney">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=midjourney.com&sz=128" alt="Midjourney" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1914,6 +1920,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-video" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Video AI</h2>
     <span class="sec-count">5 tools</span>
   </div>
+  <p class="sec-sub">AI video generation is moving fast — these are the tools currently producing the most usable, least uncanny results.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://klingai.com" target="_blank" rel="noopener" data-cat="video" data-name="Kling AI">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=klingai.com&sz=128" alt="Kling AI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1966,6 +1973,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-code" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Code AI</h2>
     <span class="sec-count">4 tools</span>
   </div>
+  <p class="sec-sub">AI-assisted coding tools, from autocomplete-on-steroids to full agentic app builders — pick based on how much control you want to keep.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://cursor.sh" target="_blank" rel="noopener" data-cat="code" data-name="Cursor">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=cursor.sh&sz=128" alt="Cursor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -2010,6 +2018,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-music" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Audio AI</h2>
     <span class="sec-count">6 tools</span>
   </div>
+  <p class="sec-sub">Voice cloning, text-to-speech, and call-audio cleanup — increasingly good enough to replace a real recording booth for most use cases.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://suno.ai" target="_blank" rel="noopener" data-cat="audio" data-name="Suno">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=suno.ai&sz=128" alt="Suno" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -2070,6 +2079,7 @@ img,video,iframe{max-width:100%;}
     <h2><i class="ti ti-bolt" style="font-size:20px;vertical-align:-3px;margin-right:7px;" aria-hidden="true"></i>Productivity</h2>
     <span class="sec-count">6 tools</span>
   </div>
+  <p class="sec-sub">The tools that quietly save the most time day to day, even though they’re rarely the ones people talk about.</p>
   <div class="tool-grid">
     <a class="tool-card" href="https://promptmetheus.com/?via=fin" target="_blank" rel="noopener" data-cat="productivity" data-name="Promptmetheus">
       <img class="tc-logo" src="https://www.google.com/s2/favicons?domain=promptmetheus.com&sz=128" alt="Promptmetheus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>

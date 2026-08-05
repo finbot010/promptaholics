@@ -500,6 +500,43 @@ window.savePromptShareToFirestore = async function(promptData){
   </div>
 </main>
 
+<!-- HOW TO USE — editorial section below the interactive agent box -->
+<div style="max-width:720px;margin:0 auto 48px;padding:0 20px;">
+  <h2 style="font-family:'Syne',serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:14px;">How to Use PA Agent for Content Creation</h2>
+  <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:14px;">
+    PA Agent works best when you describe a real goal, not just a topic — "grow my fitness coaching business on Instagram" gives it far more to work with than "fitness content." Tell it who you're trying to reach and what you're trying to accomplish, and it writes a set of ready-to-use prompts built specifically around that goal, rather than one generic response.
+  </p>
+  <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;margin-bottom:14px;">
+    It's built for scaling a workflow, not replacing your judgment on any single piece of content. Use it to generate a week's worth of campaign angles at once, get a fast first draft of an email sequence, or turn one rough idea into several distinct prompt variations you can test against each other — then pick the direction that's actually working and refine it in Prompt Builder.
+  </p>
+  <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;">
+    Unlike browsing the static library, PA Agent writes a fresh set of prompts custom-built around what you actually typed — so the result is tailored to your specific goal, not a close match pulled from an existing list. You can copy any result directly, click "Build It" to keep refining it in Prompt Builder, or save it to your own library for reuse later.
+  </p>
+</div>
+
+<!-- FAQ — accordion, kept text-light for the dark UI -->
+<div style="max-width:720px;margin:0 auto 48px;padding:0 20px;">
+  <h2 style="font-family:'Syne',serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:16px;">Frequently Asked Questions</h2>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">How do free runs work?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      You get 3 free runs without signing in. Sign in with Google and that goes up to 10 free runs per day, resetting daily — no credit card, no account tier to pay for.
+    </p>
+  </details>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">What AI model powers PA Agent?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      PA Agent runs on Claude (Anthropic). If you'd rather use your own API key instead of the shared free tier, there's a bring-your-own-key option in settings that calls Claude directly from your browser — your key never touches our servers.
+    </p>
+  </details>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">How do I get better results out of it?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      Be as specific as you'd be briefing a real person — who's the audience, what platform or format, what's the actual goal (not just the topic). "Write Instagram captions" gives PA Agent almost nothing to work with; "Instagram captions for a fitness coach launching a 6-week program, aimed at busy parents" gives it a real brief to build from.
+    </p>
+  </details>
+</div>
+
 <!-- SIGN-IN GATE -->
 <div class="signin-gate hidden" id="signinGate">
   <div class="gate-card">

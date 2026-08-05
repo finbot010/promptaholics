@@ -618,6 +618,10 @@ img,video,iframe{max-width:100%;}
     <p class="pb-sub">Pick a framework, fill the blocks, copy to any AI tool. Voice dictation included.</p>
   </div>
 
+  <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;max-width:640px;margin:0 auto 24px;padding:0 20px;">
+    Select a proven prompt framework like CoSTAR or RTF below to structure your context, objective, and tone instead of guessing at a raw sentence — each one asks you to fill in a few short fields, then instantly assembles them into a complete, detailed prompt ready to paste into ChatGPT, Claude, or any AI model.
+  </p>
+
   <!-- FRAMEWORK PICKER — Collapsible Drawer -->
   <div class="fw-drawer open" id="fwDrawer">
     <div class="fw-drawer-header" onclick="toggleFwDrawer()">
@@ -776,6 +780,29 @@ img,video,iframe{max-width:100%;}
       Subscribe →
     </button>
   </div>
+</div>
+
+<!-- HOW IT WORKS — accordion explaining why prompt frameworks improve output -->
+<div style="max-width:680px;margin:0 auto 48px;padding:0 20px;">
+  <h2 style="font-family:'Syne',serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:16px;">How It Works</h2>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">Why does a framework produce better output than a plain question?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      A raw question leaves the model guessing at everything you didn't say — who the audience is, how long the answer should be, what tone fits, what to avoid. A framework forces those decisions upfront by breaking your request into fields you actually fill in, so the model gets a complete brief instead of a single ambiguous line. Same underlying AI model, meaningfully more consistent results.
+    </p>
+  </details>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">Which framework should I actually pick?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      <strong style="color:var(--ink);">CoSTAR</strong> (Context, Objective, Style, Tone, Audience, Response) is the most complete — good default for anything client-facing or brand-sensitive. <strong style="color:var(--ink);">RTF</strong> (Role, Task, Format) is faster and leaner — good for quick, internal, or one-off tasks where you don't need to fine-tune tone. The other 7 frameworks each specialize further (step-by-step reasoning, creative work, technical specs) — the picker above shows what each one is built for.
+    </p>
+  </details>
+  <details style="border:1px solid var(--border2);border-radius:10px;padding:14px 16px;background:var(--glass);">
+    <summary style="cursor:pointer;font-size:13.5px;font-weight:700;color:var(--ink);list-style:none;">Do I need to know these frameworks by heart to use this?</summary>
+    <p style="font-size:13px;color:var(--ink2);line-height:1.7;margin-top:10px;">
+      No — that's the point of this tool. You fill in a few short, clearly-labeled fields, and the builder assembles them into a properly structured prompt automatically. You get the benefit of a well-engineered framework without needing to memorize its structure or write it out by hand every time.
+    </p>
+  </details>
 </div>
 
 <footer class="site-footer">

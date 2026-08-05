@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Free AI Prompt Library | Promptaholics</title>
-<meta name="description" content="Browse a free, growing library of expert AI prompts for ChatGPT, Claude, Midjourney, Sora and more. Filter by category, tool, and framework. No signup required."/>
+<meta name="description" content="2,000+ free, expert-written AI prompts for ChatGPT, Claude, Midjourney, Sora and more — built on proven frameworks like CoSTAR and RTF. Filter by category, tool, and framework. No signup required."/>
 <link rel="canonical" href="https://promptaholics.com/library.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
@@ -252,6 +252,12 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 /* Smooth gradient fade for longer truncated text */
 .pcard-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to bottom,transparent,rgba(13,13,20,.96));pointer-events:none;}
 .pcard-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.pcard-customize{margin-top:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px;}
+.pcard-customize summary{cursor:pointer;font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:5px;user-select:none;list-style:none;}
+.pcard-customize summary::-webkit-details-marker{display:none;}
+.pcard-customize summary:hover{color:var(--orange);}
+.pcard-customize-body{font-size:11px;color:var(--ink2);line-height:1.6;margin-top:8px;padding:10px 12px;background:rgba(255,98,36,.04);border:1px solid rgba(255,98,36,.12);border-radius:8px;}
+.pcard-customize-body li{margin-bottom:3px;}
 .ctag{padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.55);font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
 .ctag:hover{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.25);color:rgba(255,98,36,.9);}
 .pcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:10px 14px 13px;border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.25);}
@@ -569,6 +575,9 @@ img,video,iframe{max-width:100%;}
   <div class="lib-eyebrow"><i class="ti ti-books"></i> Free AI Prompt Library</div>
   <h1 class="lib-h1"><span id="libCount">1,485</span> expert prompts.<br/>Zero paywalls.</h1>
   <p class="lib-sub">ChatGPT · Claude · Midjourney · Sora · Runway · Gemini · DeepSeek and more</p>
+  <p style="font-size:13.5px;color:var(--ink2);line-height:1.7;max-width:680px;margin:0 0 24px;">
+    Every prompt below is written for a specific AI model and use case, not a generic one-liner — copy it as-is, or swap the bracketed placeholders for your own details. Most work well across ChatGPT, Claude, and Gemini with no changes; a few are tuned specifically for tools like Midjourney or Sora, and we've labeled which one throughout.
+  </p>
   <div class="search-wrap">
     <i class="ti ti-search search-icon"></i>
     <input class="search-input" type="text" id="searchInput" placeholder="Search prompts... AI finds the best match" oninput="onSearch(this.value)" autocomplete="off"/>
@@ -1138,6 +1147,7 @@ function makeCard(p,i){
     +'</div>'
     +'<div class="pcard-preview">'+escHtml(prev)+'</div>'
     +(tags?'<div class="pcard-tags">'+tags+'</div>':'')
+    +(p.feat?('<details class="pcard-customize"><summary><i class="ti ti-adjustments-horizontal" style="font-size:12px;"></i> How to customize this prompt</summary><div class="pcard-customize-body">'+buildCustomizeGuide(p.text)+'</div></details>'):'')
     +'</div>'
     +'<div class="pcard-foot">'
     +'<button class="pcard-btn primary" data-id="'+p.id+'" onclick="copyPrompt(event,this)"><i class="ti ti-copy" style="font-size:13px;"></i><span class="btn-label"> Copy</span></button>'
@@ -1419,6 +1429,30 @@ function downloadSaved(){
 
 // UTILS
 function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── "HOW TO CUSTOMIZE" GUIDE (for Staff Pick cards) ─────────────
+// Parses the actual [BRACKETED PLACEHOLDER] tokens out of a prompt's
+// real text and turns them into specific, per-prompt guidance instead
+// of one generic tip repeated on every card.
+function buildCustomizeGuide(promptText){
+  var re = /\[([A-Z0-9 &\/\-]{2,40})\]/g;
+  var seen = {};
+  var placeholders = [];
+  var m;
+  while((m = re.exec(promptText)) !== null){
+    var ph = m[1].trim();
+    if(!seen[ph]){ seen[ph] = true; placeholders.push(ph); }
+  }
+  if(placeholders.length === 0){
+    return 'This prompt is ready to use as-is — no placeholders to fill in. Paste it directly, or add a sentence of your own context at the end if you want it more specific to your situation.';
+  }
+  var items = placeholders.slice(0, 6).map(function(ph){
+    return '<li><strong>[' + escHtml(ph) + ']</strong> — replace with your actual ' + escHtml(ph.toLowerCase()) + '.</li>';
+  }).join('');
+  var extra = placeholders.length > 6 ? '<li>...and ' + (placeholders.length - 6) + ' more — same idea, swap each bracket for your real detail.</li>' : '';
+  return 'Replace each bracketed placeholder with your own details before running this: <ul style="margin:6px 0 0;padding-left:18px;">' + items + extra + '</ul>';
+}
+
 function escAttr(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 function showToast(msg){
   var old=document.getElementById('mainToast'); if(old) old.remove();
