@@ -975,11 +975,35 @@ function signInAdminGoogle(){
 }
 
 async function continueAsGuest(){
-  var email = (document.getElementById('guestEmail')||{}).value.trim();
-  if(!email || !email.includes('@')){
-    var inp = document.getElementById('guestEmail');
+  var email = (document.getElementById('guestEmail')||{}).value.trim().toLowerCase();
+  var inp = document.getElementById('guestEmail');
+
+  function rejectEmail(msg){
     if(inp){ inp.style.borderColor='rgba(239,68,68,.6)'; setTimeout(function(){ inp.style.borderColor='rgba(255,255,255,.13)'; },2000); }
-    showToast('Please enter a valid email');
+    showToast(msg);
+  }
+
+  // Real email format check - the old check only required an "@" anywhere
+  // in the string, so "a@a" passed. This requires an actual local-part,
+  // domain, and TLD.
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if(!email || !EMAIL_RE.test(email)){
+    rejectEmail('Please enter a valid email address');
+    return;
+  }
+
+  // Block known disposable/temp-mail domains - the most common way people
+  // submit without giving a real, reachable inbox. Not exhaustive, but
+  // covers the large majority of throwaway-email services in practice.
+  var DISPOSABLE_DOMAINS = [
+    'mailinator.com','guerrillamail.com','10minutemail.com','tempmail.com',
+    'temp-mail.org','throwawaymail.com','yopmail.com','trashmail.com',
+    'getnada.com','fakeinbox.com','sharklasers.com','maildrop.cc',
+    'dispostable.com','mintemail.com','mohmal.com','tempinbox.com'
+  ];
+  var domain = email.split('@')[1] || '';
+  if(DISPOSABLE_DOMAINS.indexOf(domain) !== -1){
+    rejectEmail('Please use a real, non-disposable email address');
     return;
   }
 
