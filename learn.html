@@ -915,6 +915,73 @@ Please work through this in 5 reasoning steps, showing your logic at each stage 
     </div>
 
     <p class="learn-p">Try them all in the Prompt Builder — each framework has its own set of fields pre-built for you.</p>
+
+    <div class="learn-h3"><span class="accent">AETHER</span> — For Creative & Brand Work</div>
+    <p class="learn-p">Actor · Environment · Task · Hard Constraints · Examples · Refinement. Built for creative and brand-voice work where tone matters as much as content — the "Examples" field lets you show a good/bad pair so the model calibrates to your exact voice before it writes a word.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">AETHER Example</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Actor: Senior SaaS copywriter with 10 years of B2B experience.
+Environment: Fast-growing startup, tech-savvy audience, competitive market.
+Task: Write 3 cold email subject lines for a CRM tool targeting CMOs.
+Hard Constraints: No emojis, under 60 characters, no clickbait phrases.
+Examples: Good — "Double your pipeline in 30 days." Bad — "Check this out!"
+Refinement: Make version B more curiosity-driven, less feature-focused.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">RISEN</span> — For Detailed, Multi-Step Work</div>
+    <p class="learn-p">Role · Instructions · Steps · End Goal · Narrowing. When a task has real sequence to it — not just "do this," but "do this, then this, then this" — RISEN keeps the model from skipping ahead or collapsing the steps into one paragraph.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">RISEN Example</span><span class="ep-tag">Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Role: Onboarding specialist for a project management SaaS tool.
+Instructions: Write a 4-email onboarding sequence for a new free-trial signup.
+Steps: 1) Welcome + quick win in under 2 minutes. 2) Day 3 — feature they haven't tried yet. 3) Day 7 — social proof + upgrade nudge. 4) Day 13 — trial-ending urgency.
+End Goal: Convert free trial to paid before day 14.
+Narrowing: Each email under 120 words. No more than one CTA per email.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">SCQA</span> — For Persuasive Storytelling</div>
+    <p class="learn-p">Situation · Complication · Question · Answer. Borrowed from management consulting — it's how McKinsey decks are structured. Use it whenever you need the AI to build a case, not just answer a question: set the scene, introduce the tension, pose the real question, then resolve it.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">SCQA Example</span><span class="ep-tag">ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Situation: Our app has 50,000 free users and a 2% conversion rate to paid.
+Complication: Competitors with worse products convert at 5-8%. Our onboarding has a 60% drop-off at step 3.
+Question: Should we fix onboarding or add more premium features first?
+Answer Style: Argue for one option clearly, back it with the numbers above, and address the strongest counterargument to your position.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">CRISPE</span> — For Expert Personas</div>
+    <p class="learn-p">Capacity · Role · Insight · Statement · Personality · Experiment. A heavier-duty version of Role — it separates the AI's general capability ("act as an expert coder") from its specific role and personality, and the "Experiment" field lets you ask for multiple distinct approaches instead of just one answer.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">CRISPE Example</span><span class="ep-tag">Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Capacity: Act as an expert negotiation coach.
+Role: You're advising a freelancer negotiating a rate increase with a long-term client.
+Insight: The client has worked with this freelancer for 2 years, always pays on time, but hasn't had a rate increase mentioned once.
+Statement: Draft the opening line of the negotiation conversation.
+Personality: Confident but warm — not apologetic, not aggressive.
+Experiment: Give me 2 different opening lines with different levels of directness.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">PARA</span> — For Knowledge & Research Tasks</div>
+    <p class="learn-p">Projects · Areas · Resources · Task. Originally a personal knowledge-management system, adapted here for prompts that need to draw on a specific body of context you already have — active projects, ongoing responsibilities, and available reference material — rather than starting from a blank slate.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">PARA Example</span><span class="ep-tag">Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Active projects: Launching a Q4 content calendar. Migrating our blog to a new CMS.
+Area: Content marketing for a B2B fintech company.
+Resources available: Past 6 months of blog analytics, a list of 20 unused topic ideas from the team.
+Task: Recommend which 5 of the 20 unused topics to prioritize for Q4, using the analytics data to justify each choice.</div>
+    </div>
+
+    <div class="learn-h3"><span class="accent">RACI</span> — For Team & Stakeholder Communication</div>
+    <p class="learn-p">Responsible · Accountable · Consulted · Informed. Borrowed from project management — useful whenever the AI's output needs to speak to more than one audience at once, and you want it to stay aware of who's actually doing the work versus who just needs the summary.</p>
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">RACI Example</span><span class="ep-tag">ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Task: Write a project status update for a website redesign that's 2 weeks behind schedule.
+Responsible: You're writing as the project manager who owns this update.
+Accountable: The final output is for the VP of Marketing, who needs to decide whether to push the launch date.
+Consulted: The lead designer flagged that the delay is due to a scope change, not poor execution.
+Informed: The wider marketing team, who just need the new timeline, not the full backstory.</div>
+    </div>
+
     <div class="fw-badge-row">
       <a class='fw-badge' href='prompt-builder.html'>⭐ CoSTAR</a>
       <a class='fw-badge' href='prompt-builder.html'>📋 RTF</a>
@@ -1150,7 +1217,7 @@ Respond in the first person, as a trusted advisor would.</div>
 
 
     <div class="learn-h3">Stop reading. <span class="accent">Start prompting.</span></div>
-    <p class="learn-p">The fastest way to learn is to use real prompts on real tasks. Here are 5 prompts for the most common use cases. Copy any of them, replace the bracketed parts, and go.</p>
+    <p class="learn-p">The fastest way to learn is to use real prompts on real tasks. Here are 10 prompts for the most common use cases. Copy any of them, replace the bracketed parts, and go.</p>
 
     <div class="example-prompt">
       <div class="ep-header"><span class="ep-label">1. Email Writing</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
@@ -1177,6 +1244,31 @@ Respond in the first person, as a trusted advisor would.</div>
       <div class="ep-body">[YOUR SUBJECT], [ART STYLE], [LIGHTING], [MOOD], [CAMERA ANGLE], [COLOR PALETTE], hyperdetailed, professional photography --ar 16:9 --v 7 --stylize 750 --quality 2</div>
     </div>
 
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">6. Meeting Notes → Action Items</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Convert these raw meeting notes into a clean action item list. For each item, include: the task, who owns it (if mentioned, otherwise "unassigned"), and any deadline mentioned or implied. Group by owner. Notes: [PASTE YOUR NOTES]</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">7. Social Media Caption</span><span class="ep-tag">Any AI</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Write 3 caption options for a [PLATFORM] post about [TOPIC/PRODUCT]. Audience: [WHO YOU'RE TALKING TO]. Tone: [DESCRIBE YOUR BRAND VOICE]. Each caption under [X] characters, ending with a natural (not forced) call to action. Include 3 relevant hashtags per option.</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">8. Difficult Feedback</span><span class="ep-tag">Claude · ChatGPT</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Help me write feedback for [SITUATION, e.g. "a team member who consistently misses deadlines"]. The feedback needs to be direct and specific about the behavior, not personal — reference concrete examples, not vague impressions. End with a clear expectation going forward. Tone: firm but respectful, not harsh.</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">9. Brainstorm & Narrow</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Generate 15 ideas for [GOAL/PROBLEM]. Don't filter yourself yet — include obvious ideas and unconventional ones. Once you've listed all 15, go back and flag the 3 most promising ones, with one sentence explaining why each stands out from the rest.</div>
+    </div>
+
+    <div class="example-prompt">
+      <div class="ep-header"><span class="ep-label">10. Presentation Outline</span><span class="ep-tag">ChatGPT · Claude</span><button class="ep-copy" onclick="copyExample(this)">📋 Copy</button></div>
+      <div class="ep-body">Build a slide-by-slide outline for a [LENGTH]-minute presentation on [TOPIC] to [AUDIENCE]. For each slide: a one-line title, 2-3 bullet points (not full sentences), and a note on what visual would support it. End with a clear single takeaway slide, not a generic "thank you."</div>
+    </div>
+
     <div class="insight-box">
       <div class="insight-label">🎓 You're Done — What's Next?</div>
       <p>You now understand more about prompt engineering than 90% of AI users. The gap between knowing and doing is practice. Open the Prompt Builder, pick a framework, and write your first structured prompt in the next 5 minutes.</p>
@@ -1187,7 +1279,7 @@ Respond in the first person, as a trusted advisor would.</div>
         <i class="ti ti-tool"></i> Open Prompt Builder
       </a>
       <a href='library.html' style='display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);font-size:14px;font-weight:600;border-radius:12px;transition:all .2s;'>
-        <i class="ti ti-books"></i> Browse 1,642+ Prompts
+        <i class="ti ti-books"></i> Browse 2,000+ Prompts
       </a>
     </div>
 
