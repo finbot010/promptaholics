@@ -1016,24 +1016,13 @@ img,video,iframe{max-width:100%;}
     <div class="section-title" style="text-align:center;">Community AI images.<br/>Every prompt included.</div>
     <div class="section-sub">See what creators are making with AI tools. Copy any prompt and make it your own. No more bad renders — just pure eye candy.</div>
 
-    <!-- Preview Grid — loads from /images folder -->
-    <div class="vault-preview-grid">
-      <a class='vault-preview-card' href='vault.html'>
-        <img src="/images/slot-1.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(255,98,36,.1),rgba(255,98,36,.04))'"/>
-        <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
-      </a>
-      <a class='vault-preview-card' href='vault.html'>
-        <img src="/images/slot-2.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(139,92,246,.1),rgba(139,92,246,.04))'"/>
-        <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
-      </a>
-      <a class='vault-preview-card' href='vault.html'>
-        <img src="/images/slot-3.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(66,133,244,.1),rgba(66,133,244,.04))'"/>
-        <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
-      </a>
-      <a class='vault-preview-card' href='vault.html'>
-        <img src="/images/slot-4.jpg" alt="AI Generated Image" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,rgba(0,212,170,.1),rgba(0,212,170,.04))'"/>
-        <div class="vault-preview-overlay"><div class="vault-preview-prompt">Click to see prompt →</div></div>
-      </a>
+    <!-- Real, recent approved Image Vault submissions - not static
+         placeholders. Uses the Firestore REST runQuery endpoint (no
+         Firebase SDK needed just for 4 thumbnails on the highest-traffic
+         page on the site) with server-side status/createdAt filtering
+         and ordering, reusing the same composite index already created
+         and enabled for Creation Station's Community Showcase. -->
+    <div class="vault-preview-grid" id="homepageVaultGrid">
     </div>
 
     <div class="vault-cta-row" style="justify-content:center;">
@@ -1548,6 +1537,77 @@ document.addEventListener('DOMContentLoaded', function(){
     if(++tries > 60) clearInterval(poll);
   }, 50);
 });
+
+// ── Homepage Vault Preview — real, recent approved submissions ──
+async function loadHomepageVaultPreview(){
+  var grid = document.getElementById('homepageVaultGrid');
+  if(!grid) return;
+  try{
+    var res = await fetch('https://firestore.googleapis.com/v1/projects/promptaholics-534d3/databases/(default)/documents:runQuery', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        structuredQuery: {
+          from: [{collectionId: 'vault-submissions'}],
+          where: {
+            fieldFilter: {
+              field: {fieldPath: 'status'},
+              op: 'EQUAL',
+              value: {stringValue: 'approved'}
+            }
+          },
+          orderBy: [{field: {fieldPath: 'createdAt'}, direction: 'DESCENDING'}],
+          limit: 4
+        }
+      })
+    });
+    var data = await res.json();
+    var items = [];
+    (data || []).forEach(function(item){
+      if(!item.document) return;
+      var f = item.document.fields || {};
+      var imageUrl = f.imageUrl && f.imageUrl.stringValue;
+      var title = f.title && f.title.stringValue;
+      if(imageUrl && title) items.push({url: imageUrl, title: title});
+    });
+    if(!items.length) return; // grid stays empty rather than showing broken/unrelated placeholders
+
+    // Built with createElement/textContent, not innerHTML string
+    // concatenation - matches the same safe pattern used for Community
+    // Showcase on Creation Station and the Ready to Wear rotation on
+    // the store page. Firestore fields (title, imageUrl) are not fully
+    // trusted input, so this avoids any HTML/attribute injection risk.
+    items.forEach(function(item){
+      var thumbUrl = item.url.indexOf('res.cloudinary.com') > -1
+        ? item.url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_auto/')
+        : item.url;
+
+      var card = document.createElement('a');
+      card.className = 'vault-preview-card';
+      card.href = 'vault.html';
+
+      var img = document.createElement('img');
+      img.src = thumbUrl;
+      img.alt = item.title;
+      img.loading = 'lazy';
+
+      var overlay = document.createElement('div');
+      overlay.className = 'vault-preview-overlay';
+      var promptLine = document.createElement('div');
+      promptLine.className = 'vault-preview-prompt';
+      promptLine.textContent = item.title + ' — click to see prompt →';
+      overlay.appendChild(promptLine);
+
+      card.appendChild(img);
+      card.appendChild(overlay);
+      grid.appendChild(card);
+    });
+  }catch(e){
+    console.warn('Homepage vault preview failed to load:', e);
+    // Grid stays empty - the section heading/CTA still work fine on their own.
+  }
+}
+document.addEventListener('DOMContentLoaded', loadHomepageVaultPreview);
 </script>
 
 <!-- Brevo Exit Intent Modal -->
