@@ -488,8 +488,8 @@ footer{
   .tool-table th,.tool-table td,.comp-table th,.comp-table td{padding:10px 12px;}
 }
 </style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
+<!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<script src="cookie-consent.js"></script>
 </head>
 <body>
 
@@ -1000,6 +1000,7 @@ footer{
   <div class="footer-links">
     <a href="library.html">Library</a>
     <a href='https://promptaholics.com/privacy'>Privacy Policy</a>
+    <a href="javascript:void(0)" onclick="reopenCookieSettings()">Cookie Settings</a>
     <a href="https://www.instagram.com/promptaholics/" target="_blank" rel="noopener">Instagram</a>
   </div>
 </footer>
@@ -1023,23 +1024,7 @@ function toggleFaq(btn){
   }
 }
 
-// ── GOOGLE ANALYTICS ──
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-function loadGA(){
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921';
-  s.onerror = function(){};
-  document.head.appendChild(s);
-  gtag('js', new Date());
-  gtag('config', 'G-DRW8ZNX921');
-}
-if('requestIdleCallback' in window){
-  requestIdleCallback(loadGA, {timeout:3000});
-} else {
-  setTimeout(loadGA, 2000);
-}
+// GA4 is now loaded by cookie-consent.js only after real user consent
 </script>
 
 
