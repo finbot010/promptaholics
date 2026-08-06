@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<!-- Cookie Consent: this page currently sets no analytics/ad cookies itself
+     (correctly, per earlier review - no AdSense on the checkout/store flow),
+     but consent is a site-wide decision. Included here so (a) a visitor who
+     lands directly on the store page still gets the site-wide first-visit
+     prompt before any other page could set cookies later in their session,
+     and (b) the "Cookie Settings" footer link below actually works. -->
+<script src="cookie-consent.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 [data-theme="dark"]{--bg:#07070a;--bg2:#0d0d14;--card:#111118;--ink:#f0f0f8;--ink2:rgba(240,240,248,.65);--ink3:rgba(240,240,248,.35);--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--glass:rgba(255,255,255,.04);--shadow:rgba(0,0,0,.5);}
@@ -207,7 +214,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .prodigi-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:16px;}
 .prodigi-modal.open{display:flex;}
 .pm-inner{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:28px;position:relative;max-height:90dvh;overflow-y:auto;}
-.pm-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.pm-close{position:absolute;top:6px;right:6px;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
 .pm-close:hover{color:var(--orange);}
 .pm-title{font-family:'Syne',serif;font-size:20px;font-weight:900;margin-bottom:4px;}
 .pm-sub{font-size:12px;color:var(--ink3);margin-bottom:16px;}
@@ -215,7 +222,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pm-preview img{max-width:100%;max-height:100%;object-fit:contain;}
 .pm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:block;}
 .pm-options{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
-.pm-opt{padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:rgba(255,255,255,.03);color:var(--ink2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.pm-opt{padding:7px 14px;min-height:44px;border-radius:8px;border:1px solid var(--border2);background:rgba(255,255,255,.03);color:var(--ink2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
 .pm-opt.active,.pm-opt:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,98,36,.08);}
 
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
@@ -257,7 +264,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* Modal right */
 .modal-right{padding:22px;display:flex;flex-direction:column;gap:16px;position:relative;}
-.modal-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:7px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .15s;}
+.modal-close{position:absolute;top:6px;right:6px;width:44px;height:44px;border-radius:10px;background:var(--glass);border:1px solid var(--border2);color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .15s;}
 .modal-close:hover{background:rgba(255,98,36,.1);color:var(--orange);}
 .cfg-name{font-family:'Syne',serif;font-size:19px;font-weight:900;letter-spacing:-.5px;padding-right:32px;}
 .cfg-sub{font-size:11px;color:var(--ink3);margin-top:2px;}
@@ -277,7 +284,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* Size */
 .cfg-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;display:block;}
 .size-grid{display:flex;flex-wrap:wrap;gap:5px;}
-.size-btn{min-width:40px;height:36px;padding:0 8px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;justify-content:center;}
+.size-btn{min-width:44px;height:44px;padding:0 8px;border-radius:7px;border:1px solid var(--border2);background:var(--glass);color:var(--ink2);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;justify-content:center;}
 .size-btn:hover{border-color:rgba(255,98,36,.4);color:var(--ink);}
 .size-btn.active{background:rgba(255,98,36,.12);border-color:var(--orange);color:var(--orange);}
 
@@ -779,6 +786,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="footer-links">
     <a class='footer-link' href='index.html'>Home</a>
     <a class='footer-link' href='library.html'>Free Prompts</a>
+    <a class='footer-link' href='privacy.html'>Privacy</a>
+    <a class='footer-link' href="javascript:void(0)" onclick="reopenCookieSettings()">Cookie Settings</a>
   </div>
 </footer>
 
@@ -905,18 +914,47 @@ async function loadReadyToWearRotation(){
     }
 
     var tags = ['Hot', 'Fan Fav', 'Popular', 'Trending', 'New', 'New'];
-    grid.innerHTML = selected.map(function(item, i){
+    // Built with createElement + addEventListener, not innerHTML string
+    // concatenation with onclick="..." attributes. The previous version
+    // only escaped single-quotes on the URL before embedding it in an
+    // onclick="" attribute - a double-quote in imageUrl (a Firestore
+    // field, not fully trusted) could break out of the attribute and
+    // inject arbitrary HTML/JS. Real DOM construction + closures removes
+    // this whole vulnerability class instead of patching one more
+    // character.
+    grid.innerHTML = '';
+    selected.forEach(function(item, i){
       var thumbUrl = item.url.indexOf('res.cloudinary.com') > -1
         ? item.url.replace('/upload/', '/upload/w_300,h_300,c_fill/')
         : item.url;
-      var safeName = escHtml(item.title);
-      var safeUrlAttr = item.url.replace(/'/g, "\\'");
-      var safeNameAttr = item.title.replace(/'/g, "\\'").replace(/"/g, '');
-      return '<div class="premade-card" onclick="selectPremade(\'' + safeUrlAttr + '\',\'' + safeNameAttr + '\')">' +
-        '<div class="pm-img"><img src="' + thumbUrl + '" alt="' + safeName + '"/></div>' +
-        '<div class="pm-info"><div class="pm-tag">' + tags[i] + '</div><div class="pm-name">' + safeName + '</div></div>' +
-      '</div>';
-    }).join('');
+
+      var card = document.createElement('div');
+      card.className = 'premade-card';
+      card.addEventListener('click', function(){ selectPremade(item.url, item.title, card); });
+
+      var imgWrap = document.createElement('div');
+      imgWrap.className = 'pm-img';
+      var img = document.createElement('img');
+      img.src = thumbUrl;
+      img.alt = item.title;
+      imgWrap.appendChild(img);
+
+      var info = document.createElement('div');
+      info.className = 'pm-info';
+      var tagEl = document.createElement('div');
+      tagEl.className = 'pm-tag';
+      tagEl.textContent = tags[i];
+      var nameEl = document.createElement('div');
+      nameEl.className = 'pm-name';
+      nameEl.textContent = item.title;
+      info.appendChild(tagEl);
+      info.appendChild(nameEl);
+
+      card.appendChild(imgWrap);
+      card.appendChild(info);
+      grid.appendChild(card);
+      makeCardKeyboardAccessible(card);
+    });
   }catch(e){
     console.warn('Ready to Wear rotation fetch failed, keeping default designs:', e);
     // No action needed — the hardcoded fallback cards remain untouched in the HTML
@@ -924,14 +962,42 @@ async function loadReadyToWearRotation(){
 }
 document.addEventListener('DOMContentLoaded', loadReadyToWearRotation);
 
-function selectPremade(imageUrl, title){
+function selectPremade(imageUrl, title, cardEl){
   customImageData = imageUrl;
   customImageLabel = title;
   // Highlight selected card
   document.querySelectorAll('.premade-card').forEach(function(c){ c.classList.remove('selected'); });
-  if(event && event.currentTarget) event.currentTarget.classList.add('selected');
+  // cardEl is passed explicitly by the dynamic (Firestore-backed) cards.
+  // The hardcoded static cards still use inline onclick="" and rely on
+  // the legacy global `event` object - kept here only for that fallback.
+  var target = cardEl || (event && event.currentTarget);
+  if(target) target.classList.add('selected');
   showToast('\u2705 ' + title + ' selected \u2014 now pick a product!');
 }
+
+// ── Keyboard accessibility for clickable <div> product cards ────
+// .premade-card / .pc / .prodigi-card carry an onclick handler but are
+// plain <div>s, so they were unreachable and unusable via keyboard alone -
+// meaning the entire product-selection flow (the only way to start a
+// purchase) had no keyboard path. This makes every one of them behave
+// like a real button: focusable, in tab order, and Enter/Space-activated.
+// Runs on load for the existing static cards, and is also called for
+// each card the Firestore rotation creates dynamically at runtime.
+function makeCardKeyboardAccessible(el){
+  if(!el || el.hasAttribute('data-kb-fixed')) return;
+  el.setAttribute('data-kb-fixed', '1');
+  if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+  if(!el.hasAttribute('role')) el.setAttribute('role', 'button');
+  el.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+      e.preventDefault();
+      el.click();
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.premade-card, .pc, .prodigi-card').forEach(makeCardKeyboardAccessible);
+});
 
 // ── Theme ──────────────────────────────────────────────────────
 function toggleTheme(){
