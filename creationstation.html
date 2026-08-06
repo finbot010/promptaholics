@@ -14,7 +14,7 @@
   <script type="module">
     import { initializeApp, getApps, getApp }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut }
+    import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, signInAnonymously }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
     import { getFirestore, collection, addDoc, serverTimestamp, deleteDoc, doc, getDocs, query, where, orderBy, limit }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
@@ -35,7 +35,7 @@
     // Expose everything on window._fb
     window._fb = {
       auth, db, provider,
-      signInWithPopup, onAuthStateChanged, signOut,
+      signInWithPopup, onAuthStateChanged, signOut, signInAnonymously,
       collection, addDoc, serverTimestamp, deleteDoc, doc,
       getDocs, query, where, orderBy, limit
     };
@@ -2400,12 +2400,24 @@ function loadCommunityShowcase(){
       snap.forEach(function(docSnap){ items.push(docSnap.data()); });
       var grid = document.querySelector('.chero-grid');
       if(!grid || !items.length) return;
-      grid.innerHTML = items.map(function(d){
-        var title = (d.title || 'Community creation').replace(/"/g, '&quot;');
+      // Built with createElement/textContent, not innerHTML string
+      // concatenation - matches the safe pattern vault.html's own gallery
+      // already uses for user-submitted content. The previous version only
+      // escaped double-quotes on title and did nothing at all for url,
+      // which is a real gap for anything rendered via raw HTML strings.
+      grid.innerHTML = '';
+      items.forEach(function(d){
         var url = d.imageUrl || '';
-        if(!url) return '';
-        return '<a href="vault.html"><img src="'+url+'" alt="'+title+'" loading="lazy"/></a>';
-      }).join('');
+        if(!url) return;
+        var a = document.createElement('a');
+        a.href = 'vault.html';
+        var img = document.createElement('img');
+        img.src = url;
+        img.alt = d.title || 'Community creation';
+        img.loading = 'lazy';
+        a.appendChild(img);
+        grid.appendChild(a);
+      });
     }).catch(function(err){
       console.error('Community showcase live load failed, keeping fallback images:', err);
     });
@@ -3074,13 +3086,47 @@ async function polSubmitToVault(){
     // Guest submission — prompt for email
     var guestEmail = localStorage.getItem('pa_guest_email');
     if(!guestEmail){
-      guestEmail = prompt('Enter your email to submit to the Vault:');
-      if(!guestEmail || !guestEmail.includes('@')){ showToast('Valid email required'); if(btn){ btn.disabled=false; btn.innerHTML=orig; } return; }
+      guestEmail = (prompt('Enter your email to submit to the Vault:') || '').trim().toLowerCase();
+
+      // Same validation as vault.html's guest flow: real email format
+      // check (the old check only required an "@" anywhere in the
+      // string) plus a disposable-domain blocklist.
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if(!guestEmail || !EMAIL_RE.test(guestEmail)){
+        showToast('Please enter a valid email address');
+        if(btn){ btn.disabled=false; btn.innerHTML=orig; }
+        return;
+      }
+      var DISPOSABLE_DOMAINS = [
+        'mailinator.com','guerrillamail.com','10minutemail.com','tempmail.com',
+        'temp-mail.org','throwawaymail.com','yopmail.com','trashmail.com',
+        'getnada.com','fakeinbox.com','sharklasers.com','maildrop.cc',
+        'dispostable.com','mintemail.com','mohmal.com','tempinbox.com'
+      ];
+      if(DISPOSABLE_DOMAINS.indexOf(guestEmail.split('@')[1]||'') !== -1){
+        showToast('Please use a real, non-disposable email address');
+        if(btn){ btn.disabled=false; btn.innerHTML=orig; }
+        return;
+      }
+
       localStorage.setItem('pa_guest_email', guestEmail);
       // Subscribe to Brevo
       fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:guestEmail,source:'creation-station-vault'})}).catch(function(){});
     }
-    user = { email: guestEmail, displayName: guestEmail.split('@')[0], uid: 'guest_'+Date.now(), isGuest: true };
+    // Real Firebase Anonymous Auth instead of a fake self-assigned uid -
+    // gives guests a genuine request.auth so this actually passes the
+    // Firestore rules that now require authentication to write.
+    var uid;
+    try{
+      var result = await fb.signInAnonymously(fb.auth);
+      uid = result.user.uid;
+    }catch(e){
+      console.error('Anonymous sign-in failed:', e);
+      showToast('Could not start session — try again');
+      if(btn){ btn.disabled=false; btn.innerHTML=orig; }
+      return;
+    }
+    user = { email: guestEmail, displayName: guestEmail.split('@')[0], uid: uid, isGuest: true };
   }
 
   // Show spinner
