@@ -132,11 +132,11 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .cat-wrap{max-width:1400px;margin:0 auto;padding:0 24px 16px;display:flex;gap:6px;flex-wrap:wrap;}
 .cat-intro{max-width:1400px;margin:0 auto;padding:0 24px 20px;font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;}
 .cat-intro strong{color:rgba(255,255,255,.85);}
-.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:rgba(255,255,255,.72);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;}
+.cat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--glass);font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;}
 .cat-pill:hover{background:var(--glass2);color:var(--ink);}
 .cat-pill.active{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.4);color:var(--orange);}
 .cat-pill-icon{font-size:14px;line-height:1;}
-.cat-pill-count{font-size:10px;color:rgba(255,255,255,.55);background:var(--glass2);padding:1px 5px;border-radius:4px;}
+.cat-pill-count{font-size:10px;color:var(--ink2);background:var(--glass2);padding:1px 5px;border-radius:4px;}
 .cat-pill.active .cat-pill-count{background:rgba(255,98,36,.15);color:var(--orange);}
 
 /* TAGS */
@@ -535,7 +535,7 @@ img,video,iframe{max-width:100%;}
       <a class='nav-lnk' href='/vault'>Vault</a>
     </nav>
     <a class='nav-signin' href='/login'>Sign In</a>
-    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="nav-icon" id="themeBtn" onclick="toggleTheme()"><i class="ti ti-moon" aria-hidden="true"></i></button>
     <button class="nav-icon" onclick="toggleMenu()"><i class="ti ti-menu-2"></i></button>
   </div>
 </header>
@@ -567,7 +567,7 @@ img,video,iframe{max-width:100%;}
   </div>
   <div class="sm-foot">
     <a class='sm-signin' href='/login'><i class="ti ti-user"></i> Sign In / Register</a>
-    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon">🌙</span> Toggle Day / Night</button>
+    <button class="sm-theme" onclick="toggleTheme()"><span id="smThemeIcon"><i class="ti ti-moon" aria-hidden="true"></i></span> Toggle Day / Night</button>
   </div>
 </nav>
 
@@ -751,25 +751,29 @@ img,video,iframe{max-width:100%;}
 <script>
 if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)) window.PROMPTS=[];
 
+// Icons here are Tabler icon class names (matching the ti-* system used
+// everywhere else on the site - card buttons, nav, Creation Station's
+// section headers) rather than emoji, which read as visually inconsistent
+// next to the site's clean line-icon language.
 var CAT_CONFIG={
-  'All':{icon:'🔮'},'Business & Marketing':{icon:'📈'},'Writing & Content':{icon:'✍️'},
-  'Image Generation':{icon:'🎨'},'Marketing & Psychology':{icon:'🧠'},'Business & Offers':{icon:'💼'},
-  'Creative & Art':{icon:'🎭'},'Code & Tech':{icon:'💻'},'AI Agents':{icon:'🤖'},
-  'Productivity Systems & Agents':{icon:'⚙️'},
-  'Email, Sales & Communication':{icon:'✉️'},
-  'AI Agents, Finance & Learning':{icon:'💰'},
-  'Video & Film':{icon:'🎬'},
-  'Education & Learning':{icon:'📚'},
-  'Code & Tech':{icon:'💻'},
-  'Health':{icon:'❤️'},
-  'Video & Film':{icon:'🎬'},'Health':{icon:'❤️'},'Photography':{icon:'📸'},
-  'Real Estate':{icon:'🏡'},'Legal':{icon:'⚖️'},'Education & Learning':{icon:'📚'},
-  'Wellness':{icon:'🌿'},'Other':{icon:'✨'},'Social Media':{icon:'📱'},
-  'E-commerce':{icon:'🛒'},'Finance & Investing':{icon:'💰'},
+  'All':{icon:'ti-layout-grid'},'Business & Marketing':{icon:'ti-trending-up'},'Writing & Content':{icon:'ti-pencil'},
+  'Image Generation':{icon:'ti-photo-ai'},'Marketing & Psychology':{icon:'ti-brain'},'Business & Offers':{icon:'ti-briefcase'},
+  'Creative & Art':{icon:'ti-palette'},'Code & Tech':{icon:'ti-code'},'AI Agents':{icon:'ti-robot'},
+  'Productivity Systems & Agents':{icon:'ti-bolt'},
+  'Email, Sales & Communication':{icon:'ti-mail'},
+  'AI Agents, Finance & Learning':{icon:'ti-coin'},
+  'Video & Film':{icon:'ti-video'},
+  'Education & Learning':{icon:'ti-book'},
+  'Code & Tech':{icon:'ti-code'},
+  'Health':{icon:'ti-heart'},
+  'Video & Film':{icon:'ti-video'},'Health':{icon:'ti-heart'},'Photography':{icon:'ti-camera'},
+  'Real Estate':{icon:'ti-home'},'Legal':{icon:'ti-scale'},'Education & Learning':{icon:'ti-book'},
+  'Wellness':{icon:'ti-leaf'},'Other':{icon:'ti-sparkles'},'Social Media':{icon:'ti-device-mobile'},
+  'E-commerce':{icon:'ti-shopping-cart'},'Finance & Investing':{icon:'ti-chart-line'},
   // Standalone versions of existing compound categories - these prompts
   // were imported with a shorter/lowercase cat value instead of matching
   // an existing category exactly, so they had no icon entry at all before.
-  'Business':{icon:'💼'},'Marketing':{icon:'📣'},'Writing':{icon:'✍️'},'Education':{icon:'📚'}
+  'Business':{icon:'ti-briefcase'},'Marketing':{icon:'ti-speakerphone'},'Writing':{icon:'ti-pencil'},'Education':{icon:'ti-book'}
 };
 
 var TOOL_CONFIG={
@@ -802,11 +806,11 @@ function toggleTheme(){
   theme=theme==='dark'?'light':'dark';
   localStorage.setItem('pa_theme',theme);
   document.body.classList.toggle('light',theme==='light');
-  var icon=theme==='light'?'☀️':'🌙';
+  var icon=theme==='light'?'<i class="ti ti-sun" aria-hidden="true"></i>':'<i class="ti ti-moon" aria-hidden="true"></i>';
   var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon');
-  if(tb) tb.textContent=icon; if(sm) sm.textContent=icon;
+  if(tb) tb.innerHTML=icon; if(sm) sm.innerHTML=icon;
 }
-(function(){ var icon=theme==='light'?'☀️':'🌙'; var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon'); if(tb) tb.textContent=icon; if(sm) sm.textContent=icon; })();
+(function(){ var icon=theme==='light'?'<i class="ti ti-sun" aria-hidden="true"></i>':'<i class="ti ti-moon" aria-hidden="true"></i>'; var tb=document.getElementById('themeBtn'); var sm=document.getElementById('smThemeIcon'); if(tb) tb.innerHTML=icon; if(sm) sm.innerHTML=icon; })();
 
 // MENU
 function toggleMenu(){
@@ -831,8 +835,8 @@ function initPotw(){
   var p=featured[week % featured.length];
   curPotwId=p.id;
   document.getElementById('potwTitle').textContent=p.name;
-  var cfg=CAT_CONFIG[p.cat]||{icon:'✨'};
-  document.getElementById('potwCat').textContent=cfg.icon+' '+p.cat+' · '+getTC(p.tool).label;
+  var cfg=CAT_CONFIG[p.cat]||{icon:'ti-sparkles'};
+  document.getElementById('potwCat').innerHTML='<i class="ti '+cfg.icon+'" aria-hidden="true"></i> '+escHtml(p.cat)+' · '+getTC(p.tool).label;
   document.getElementById('potwPreview').textContent=p.text.slice(0,180)+(p.text.length>180?'...':'');
   document.getElementById('potwWeek').textContent='Week '+week+' pick';
 }
@@ -855,12 +859,12 @@ function renderCatPills(){
   var cats=['All'].concat(Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; }));
   wrap.innerHTML='';
   cats.forEach(function(cat){
-    var cfg=CAT_CONFIG[cat]||{icon:'✨'};
+    var cfg=CAT_CONFIG[cat]||{icon:'ti-sparkles'};
     var n=cat==='All'?PROMPTS.length:(counts[cat]||0);
     var btn=document.createElement('a');
     btn.href = cat==='All' ? 'library.html' : 'library.html?cat='+encodeURIComponent(cat);
     btn.className='cat-pill'+(activeCat===cat?' active':'');
-    btn.innerHTML='<span class="cat-pill-icon">'+cfg.icon+'</span>'+escHtml(cat)+'<span class="cat-pill-count">'+n+'</span>';
+    btn.innerHTML='<span class="cat-pill-icon"><i class="ti '+cfg.icon+'" aria-hidden="true"></i></span>'+escHtml(cat)+'<span class="cat-pill-count">'+n+'</span>';
     // Real, crawlable link for Google to discover each category page — but keep the
     // fast in-page filtering for actual visitors instead of a full navigation.
     btn.onclick=(function(c){ return function(e){ e.preventDefault(); setCat(c); }; })(cat);
@@ -1337,9 +1341,9 @@ function openModal(id){
   var p=PROMPTS.find(function(x){ return x.id===id; }); if(!p) return;
   curModal=p;
   if(typeof gtag !== 'undefined') gtag('event','view_prompt',{category:p.cat, tool:p.tool});
-  var tc=getTC(p.tool); var cfg=CAT_CONFIG[p.cat]||{icon:'✨'};
+  var tc=getTC(p.tool); var cfg=CAT_CONFIG[p.cat]||{icon:'ti-sparkles'};
   document.getElementById('modalTitle').textContent=p.name;
-  document.getElementById('modalMeta').innerHTML='<span class="pcard-badge '+tc.cls+'">'+tc.label+'</span><span class="pcard-badge badge-other">'+cfg.icon+' '+escHtml(p.cat)+'</span>';
+  document.getElementById('modalMeta').innerHTML='<span class="pcard-badge '+tc.cls+'">'+tc.label+'</span><span class="pcard-badge badge-other"><i class="ti '+cfg.icon+'" aria-hidden="true"></i> '+escHtml(p.cat)+'</span>';
   document.getElementById('modalText').textContent=p.text;
   var link=document.getElementById('modalLink');
   link.href='library.html?prompt='+p.id;
