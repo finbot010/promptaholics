@@ -49,6 +49,11 @@
   <script src="https://js.puter.com/v2/"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<!-- Sentry: error monitoring only, no Session Replay enabled -
+     legitimate-interest basis (debugging), not gated behind cookie
+     consent like GA4/AdSense. Loaded before cookie-consent.js so it
+     can also catch any error that script itself might throw. -->
+<script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
 <script src="cookie-consent.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -2412,9 +2417,11 @@ function loadCommunityShowcase(){
       });
     }).catch(function(err){
       console.error('Community showcase live load failed, keeping fallback images:', err);
+      if(typeof Sentry !== 'undefined') Sentry.captureException(err, {tags: {flow: 'community-showcase'}});
     });
   } catch(err){
     console.error('Community showcase query error, keeping fallback images:', err);
+    if(typeof Sentry !== 'undefined') Sentry.captureException(err, {tags: {flow: 'community-showcase'}});
   }
 }
 if(window._fbReady){ loadCommunityShowcase(); }
@@ -2861,7 +2868,13 @@ async function gateSignInGoogle(){
           source: 'image-generator-gate',
           joinedAt: window._fb.serverTimestamp ? window._fb.serverTimestamp() : new Date().toISOString()
         });
-      }catch(e){}
+      }catch(e){
+        // User sign-in still succeeds either way (localStorage.setItem
+        // below runs regardless), but this Firestore write is the actual
+        // subscriber/user record - a silent failure here means the sign-in
+        // "worked" for the visitor while quietly not recording them.
+        if(typeof Sentry !== 'undefined') Sentry.captureException(e, {tags: {flow: 'vault-users-write'}});
+      }
       localStorage.setItem('pa_user_email', user.email||'');
       unlockGenerations();
       localStorage.setItem(GEN_COUNT_KEY, '0');

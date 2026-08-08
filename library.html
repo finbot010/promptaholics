@@ -204,7 +204,7 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 /* PROMPT CARDS — HOLOGRAPHIC ORANGE */
 .pcard{
   position:relative;
-  background:linear-gradient(160deg,rgba(18,18,24,.95) 0%,rgba(10,10,14,.98) 100%);
+  background:linear-gradient(160deg,var(--glass2) 0%,var(--glass3) 100%);
   border:1px solid rgba(255,98,36,.12);
   border-radius:16px;overflow:hidden;
   transition:all .25s cubic-bezier(.16,1,.3,1);
@@ -226,15 +226,15 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
   opacity:0;transition:opacity .25s;
 }
 .pcard:hover::before{opacity:1;}
-.pcard.feat{border-color:rgba(255,98,36,.28);background:linear-gradient(160deg,rgba(255,98,36,.05),rgba(10,10,14,.98) 40%);}
+.pcard.feat{border-color:rgba(255,98,36,.28);background:linear-gradient(160deg,rgba(255,98,36,.05),var(--glass3) 40%);}
 .pcard.feat::before{opacity:.5;}
 .staff-pick-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(245,158,11,.08));border:1px solid rgba(251,191,36,.3);color:#fbbf24;vertical-align:middle;margin-left:5px;}
 .trending-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;}
 .pcard-inner{padding:18px 18px 12px;display:flex;flex-direction:column;flex:1;gap:10px;}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
-.pcard-name{font-size:14px;font-weight:700;color:#f0f0f8;line-height:1.35;letter-spacing:-.2px;flex:1;}
+.pcard-name{font-size:14px;font-weight:700;color:var(--ink);line-height:1.35;letter-spacing:-.2px;flex:1;}
 .pcard.feat .pcard-name::after{content:'★';display:inline-block;margin-left:5px;font-size:10px;color:#fbbf24;vertical-align:middle;}
-.pcard-fav{background:none;border:none;cursor:pointer;padding:4px;color:rgba(255,255,255,.25);font-size:16px;transition:all .15s;border-radius:6px;flex-shrink:0;}
+.pcard-fav{background:none;border:none;cursor:pointer;padding:4px;color:var(--ink3);font-size:16px;transition:all .15s;border-radius:6px;flex-shrink:0;}
 .pcard-fav:hover,.pcard-fav.on{color:#ff6224;transform:scale(1.15);}
 .pcard-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .pcard-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;border:1px solid;}
@@ -244,12 +244,13 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard-badge.gemini{background:rgba(66,133,244,.1);border-color:rgba(66,133,244,.25);color:#4285f4;}
 .pcard-badge.default{background:rgba(255,98,36,.08);border-color:rgba(255,98,36,.2);color:#ff8c5a;}
 /* Universal compatible label */
-.pcard-compat{font-size:9px;color:rgba(255,255,255,.4);margin-top:2px;letter-spacing:.2px;}
+.pcard-compat{font-size:9px;color:var(--ink2);margin-top:2px;letter-spacing:.2px;}
 .pcard-tool-logo{width:12px;height:12px;border-radius:2px;}
-.pcard-cat{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;letter-spacing:.3px;}
-.pcard-preview{font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;position:relative;}
-/* Smooth gradient fade for longer truncated text */
-.pcard-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to bottom,transparent,rgba(13,13,20,.96));pointer-events:none;}
+.pcard-cat{font-size:10px;color:var(--ink2);font-weight:600;letter-spacing:.3px;}
+.pcard-preview{font-size:13px;color:var(--ink2);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;position:relative;}
+/* Smooth gradient fade for longer truncated text - fades to page bg since the
+   card's own background is a translucent glass overlay, not a solid color */
+.pcard-preview::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none;}
 .pcard-tags{display:flex;flex-wrap:wrap;gap:4px;}
 .pcard-customize{margin-top:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px;}
 .pcard-customize summary{cursor:pointer;font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:5px;user-select:none;list-style:none;}
@@ -257,7 +258,7 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard-customize summary:hover{color:var(--orange);}
 .pcard-customize-body{font-size:11px;color:var(--ink2);line-height:1.6;margin-top:8px;padding:10px 12px;background:rgba(255,98,36,.04);border:1px solid rgba(255,98,36,.12);border-radius:8px;}
 .pcard-customize-body li{margin-bottom:3px;}
-.ctag{padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.55);font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+.ctag{padding:3px 8px;border-radius:4px;background:var(--glass);border:1px solid var(--border);font-size:10px;color:var(--ink2);font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
 .ctag:hover{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.25);color:rgba(255,98,36,.9);}
 .pcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:10px 14px 13px;border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.25);}
 .pcard-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;font-family:inherit;letter-spacing:.2px;}
@@ -814,7 +815,12 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeModa
 // POTW
 function initPotw(){
   if(!PROMPTS.length) return;
-  var d=new Date(); var jan1=new Date(d.getFullYear(),0,1);
+  // Normalized to midnight first - without this, the same calendar day
+  // could compute a different week number depending on what time someone
+  // checked (confirmed: Aug 8 gave week 32 at midnight but week 33 just
+  // 5 hours later), and since this runs in each visitor's local browser
+  // time, different timezones could genuinely see different picks too.
+  var d=new Date(); d.setHours(0,0,0,0); var jan1=new Date(d.getFullYear(),0,1);
   var week=Math.ceil(((d-jan1)/86400000+jan1.getDay()+1)/7);
   var featured=PROMPTS.filter(function(p){ return p.feat; });
   if(!featured.length) featured=PROMPTS;

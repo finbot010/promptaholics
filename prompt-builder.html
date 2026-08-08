@@ -12,6 +12,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
 <!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<!-- Sentry: error monitoring only, no Session Replay enabled -
+     legitimate-interest basis (debugging), not gated behind cookie
+     consent like GA4/AdSense. Loaded before cookie-consent.js so it
+     can also catch any error that script itself might throw. -->
+<script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
 <script src="cookie-consent.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -1336,7 +1341,10 @@ function autoSave(text){
       if(saved.length>50) saved=saved.slice(0,50);
       localStorage.setItem('pa_saved_text',JSON.stringify(saved));
     }
-  }catch(e){}
+  }catch(e){
+    // Same gap as library.html's autoSave - user believes the save worked.
+    if(typeof Sentry !== 'undefined') Sentry.captureException(e, {tags: {flow: 'save-favorite'}});
+  }
 }
 function savePrompt(){
   var text = getPrompt();
