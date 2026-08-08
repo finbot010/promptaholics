@@ -260,13 +260,13 @@ body.light .bottom-nav{background:rgba(245,245,247,.97);}
 .pcard-customize-body li{margin-bottom:3px;}
 .ctag{padding:3px 8px;border-radius:4px;background:var(--glass);border:1px solid var(--border);font-size:10px;color:var(--ink2);font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
 .ctag:hover{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.25);color:rgba(255,98,36,.9);}
-.pcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:10px 14px 13px;border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.25);}
+.pcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:10px 14px 13px;border-top:1px solid var(--border);background:var(--glass);}
 .pcard-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s;font-family:inherit;letter-spacing:.2px;}
 .pcard-btn.primary{background:rgba(255,98,36,.12);border-color:rgba(255,98,36,.3);color:#ff8c5a;}
 .pcard-btn.primary:hover{background:rgba(255,98,36,.22);border-color:rgba(255,98,36,.55);color:#ff6224;transform:translateY(-1px);}
-.pcard-btn:not(.primary){background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.4);}
-.pcard-btn:not(.primary):hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.8);}
-.pcard-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);cursor:pointer;transition:all .15s;font-size:14px;}
+.pcard-btn:not(.primary){background:var(--glass);border-color:var(--border);color:var(--ink2);}
+.pcard-btn:not(.primary):hover{background:var(--glass2);border-color:var(--border2);color:var(--ink);}
+.pcard-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--glass);border:1px solid var(--border);color:var(--ink3);cursor:pointer;transition:all .15s;font-size:14px;}
 .pcard-icon-btn:hover{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.25);color:#ff8c5a;transform:translateY(-1px);}
 .oa-btn{display:inline-flex;align-items:center;padding:6px 10px;border-radius:8px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:rgba(139,92,246,.8);font-size:11px;font-weight:700;text-decoration:none;transition:all .15s;font-family:inherit;}
 .oa-btn:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:#a78bfa;}
@@ -765,7 +765,11 @@ var CAT_CONFIG={
   'Video & Film':{icon:'🎬'},'Health':{icon:'❤️'},'Photography':{icon:'📸'},
   'Real Estate':{icon:'🏡'},'Legal':{icon:'⚖️'},'Education & Learning':{icon:'📚'},
   'Wellness':{icon:'🌿'},'Other':{icon:'✨'},'Social Media':{icon:'📱'},
-  'E-commerce':{icon:'🛒'},'Finance & Investing':{icon:'💰'}
+  'E-commerce':{icon:'🛒'},'Finance & Investing':{icon:'💰'},
+  // Standalone versions of existing compound categories - these prompts
+  // were imported with a shorter/lowercase cat value instead of matching
+  // an existing category exactly, so they had no icon entry at all before.
+  'Business':{icon:'💼'},'Marketing':{icon:'📣'},'Writing':{icon:'✍️'},'Education':{icon:'📚'}
 };
 
 var TOOL_CONFIG={
@@ -1479,9 +1483,24 @@ function handleUrlParams(){
   if(cat) activeCat=decodeURIComponent(cat.replace(/\+/g,' '));
 }
 
+// Merges known case-variant duplicate categories into one canonical name -
+// e.g. "marketing" and "Marketing" were two entirely separate pills/counts
+// before this, since object-key grouping and equality filtering are both
+// case-sensitive. Runs once, mutating PROMPTS in place, so every downstream
+// use (pill counts, icon lookups, click-to-filter) automatically agrees -
+// normalizing only at display time would have left the pills merged but
+// clicking one silently excluding whichever-case wasn't the active filter.
+var CAT_ALIASES={'business':'Business','marketing':'Marketing','writing':'Writing','education':'Education'};
+function normalizeCategoriesOnce(){
+  PROMPTS.forEach(function(p){
+    if(CAT_ALIASES[p.cat]) p.cat=CAT_ALIASES[p.cat];
+  });
+}
+
 // INIT
 function init(){
   if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)||!PROMPTS.length){ setTimeout(init,50); return; }
+  normalizeCategoriesOnce();
   var lc=document.getElementById('libCount'); if(lc) lc.textContent=PROMPTS.length.toLocaleString();
   var fc=document.getElementById('footerCount'); if(fc) fc.textContent=PROMPTS.length.toLocaleString();
   handleUrlParams();
