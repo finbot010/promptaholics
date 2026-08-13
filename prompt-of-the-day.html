@@ -8,11 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
-<!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1731098620016005" crossorigin="anonymous"></script>
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRW8ZNX921"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DRW8ZNX921');</script>
+<!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<!-- Sentry: error monitoring only, no Session Replay enabled -
+     legitimate-interest basis (debugging), not gated behind cookie
+     consent like GA4/AdSense. Loaded before cookie-consent.js so it
+     can also catch any error that script itself might throw. -->
+<script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
+<script src="cookie-consent.js"></script>
 <style>
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -469,7 +471,7 @@ html,body{
     <a href="prompt-builder.html" class="nav-link">Builder</a>
     <a href="agent.html" class="nav-link">PA Agent</a>
     <a href="vault.html" class="nav-link">Vault</a>
-    <a href="library.html" class="nav-cta" id="navPromptCount">2,038+ Prompts →</a>
+    <a href="library.html" class="nav-cta" id="navPromptCount">1,487+ Prompts →</a>
   </div>
 </nav>
 
@@ -535,7 +537,7 @@ html,body{
 
   <!-- Stats -->
   <div class="stats">
-    <div class="stat"><span class="n" id="statPromptCount">2,038</span><span class="l">Prompts</span></div>
+    <div class="stat"><span class="n" id="statPromptCount">1,485</span><span class="l">Prompts</span></div>
     <div class="stat-sep"></div>
     <div class="stat"><span class="n" id="statGen">0</span><span class="l">Generated Today</span></div>
     <div class="stat-sep"></div>
@@ -632,7 +634,7 @@ const CATS=[
 // ══════════════════════════════════════════
 //  PROMPT TEMPLATES (per category)
 // ══════════════════════════════════════════
-const PROMPTS={
+const POTD_TEMPLATES={
   business:[
     "Act as a Fortune 500 Chief Strategy Officer. Analyze the competitive landscape for [INDUSTRY] and build a 90-day market entry strategy. Include positioning, pricing anchors, and the one asymmetric advantage most founders miss.",
     "Simulate a board-level strategy session for a company that just lost its biggest client. 6 months of runway remain. Build the pivot framework: what to kill, what to double down on, and how to reframe the story for investors.",
@@ -773,7 +775,7 @@ The prompt must:
       : null;
 
     // Fallback to templates if API fails
-    const pool = PROMPTS[cat.id] || PROMPTS.business;
+    const pool = POTD_TEMPLATES[cat.id] || POTD_TEMPLATES.business;
     currentPrompt = generated || pool[Math.floor(Math.random()*pool.length)];
 
     // Update UI
@@ -811,7 +813,7 @@ The prompt must:
     // API failed — use template fallback silently
     clearInterval(loadTimer);
     btn.classList.remove('spinning');
-    const pool = PROMPTS[cat.id] || PROMPTS.business;
+    const pool = POTD_TEMPLATES[cat.id] || POTD_TEMPLATES.business;
     currentPrompt = pool[Math.floor(Math.random()*pool.length)];
 
     document.getElementById('catName').textContent = cat.name;
@@ -1171,5 +1173,6 @@ function submitBrevoInline(){
   });
 }
 </script>
+<a href="javascript:void(0)" onclick="reopenCookieSettings()" style="position:fixed;bottom:8px;left:8px;font-size:10px;color:var(--ink3,#7070a0);opacity:.6;z-index:100;text-decoration:underline;">Cookie Settings</a>
 </body>
 </html>

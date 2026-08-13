@@ -1247,13 +1247,19 @@ img,video,iframe{max-width:100%;}
 <script>
 if(typeof PROMPTS==='undefined'||!Array.isArray(PROMPTS)){window.PROMPTS=[];}
 
+// ── SAFE STORAGE (some mobile browsers/webviews deny all Storage API
+//    access — wrap every touch so one blocked visitor can't break the page) ──
+function paStorageGet(store,key){ try{ return store.getItem(key); }catch(e){ return null; } }
+function paStorageSet(store,key,val){ try{ store.setItem(key,val); }catch(e){} }
+function paStorageRemove(store,key){ try{ store.removeItem(key); }catch(e){} }
+
 // ── THEME ────────────────────────────────────────────────────
-var theme = localStorage.getItem('pa_theme') || 'dark';
+var theme = paStorageGet(localStorage,'pa_theme') || 'dark';
 if(theme === 'light') document.body.classList.add('light');
 
 function toggleTheme(){
   theme = theme === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('pa_theme', theme);
+  paStorageSet(localStorage,'pa_theme', theme);
   document.body.classList.toggle('light', theme === 'light');
   updateThemeBtn();
 }
@@ -1315,7 +1321,7 @@ function getSaved(){
   catch(e){ return []; }
 }
 function putSaved(arr){
-  localStorage.setItem('pa_saved_text', JSON.stringify(arr));
+  paStorageSet(localStorage,'pa_saved_text', JSON.stringify(arr));
 }
 function updateBadges(){
   var n = getSaved().length;
@@ -1496,7 +1502,7 @@ function renderSavedPanel(){
 function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function copySavedItem(i){ var items=getSaved(); if(!items[i]) return; copyToClipboard(items[i].text||''); showToast('✅ Copied!'); }
 function deleteSavedItem(i){ var items=getSaved(); items.splice(i,1); putSaved(items); renderSavedPanel(); updateBadges(); }
-function clearSaved(){ if(!confirm('Clear all saved prompts?')) return; localStorage.removeItem('pa_saved_text'); renderSavedPanel(); updateBadges(); }
+function clearSaved(){ if(!confirm('Clear all saved prompts?')) return; paStorageRemove(localStorage,'pa_saved_text'); renderSavedPanel(); updateBadges(); }
 function downloadSaved(){
   var items = getSaved();
   if(!items.length){ showToast('Nothing saved yet!'); return; }
@@ -1637,8 +1643,8 @@ document.addEventListener('DOMContentLoaded', loadHomepageVaultPreview);
 var BREVO_KEY='brevo_subscribed';
 var brevoModalShown=false;
 
-function brevoSubscribed(){return!!localStorage.getItem(BREVO_KEY);}
-function brevoMarkDone(){localStorage.setItem(BREVO_KEY,'1');}
+function brevoSubscribed(){return!!paStorageGet(localStorage,BREVO_KEY);}
+function brevoMarkDone(){paStorageSet(localStorage,BREVO_KEY,'1');}
 
 function brevoSend(email,onDone){
   fetch('https://dawn-thunder-a558.promptaholics1.workers.dev/api/brevo-subscribe',{
@@ -1649,13 +1655,13 @@ function brevoSend(email,onDone){
   .then(function(r){return r.json();})
   .then(function(d){
     if(d.success){
-      localStorage.setItem(BREVO_KEY,'1');
+      paStorageSet(localStorage,BREVO_KEY,'1');
       if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'api',page:location.pathname});
       onDone&&onDone();
     } else {
       console.warn('Brevo subscribe error:',d.error||d.message);
       // Still mark as done to avoid repeated prompts
-      localStorage.setItem(BREVO_KEY,'1');
+      paStorageSet(localStorage,BREVO_KEY,'1');
       onDone&&onDone();
     }
   })
@@ -1675,7 +1681,7 @@ function openBrevoModal(){
 function closeBrevoModal(){
   var m=document.getElementById('brevoModal');
   if(m) m.classList.remove('open');
-  sessionStorage.setItem('brevo_dismissed','1');
+  paStorageSet(sessionStorage,'brevo_dismissed','1');
 }
 function submitBrevoModal(){
   var email=(document.getElementById('brevoModalEmail')||{}).value.trim();
@@ -1694,18 +1700,18 @@ function submitBrevoModal(){
 
 // Desktop exit intent
 document.addEventListener('mouseleave',function(e){
-  if(e.clientY<=0&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+  if(e.clientY<=0&&!paStorageGet(sessionStorage,'brevo_dismissed')) openBrevoModal();
 });
 // Mobile: fast scroll up
 var _bLastY=0;
 window.addEventListener('scroll',function(){
   var y=window.scrollY;
-  if(_bLastY-y>60&&y>400&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+  if(_bLastY-y>60&&y>400&&!paStorageGet(sessionStorage,'brevo_dismissed')) openBrevoModal();
   _bLastY=y;
 },{passive:true});
 // Time fallback: 90s
 setTimeout(function(){
-  if(!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
+  if(!paStorageGet(sessionStorage,'brevo_dismissed')) openBrevoModal();
 },90000);
 // Close on overlay click
 document.addEventListener('click',function(e){
