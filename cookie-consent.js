@@ -20,13 +20,21 @@
   var ADSENSE_CLIENT = 'ca-pub-1731098620016005';
 
   function getConsent(){
-    if(localStorage.getItem(CONSENT_VERSION_KEY) !== CURRENT_VERSION) return null;
-    return localStorage.getItem(CONSENT_KEY);
+    try{
+      if(localStorage.getItem(CONSENT_VERSION_KEY) !== CURRENT_VERSION) return null;
+      return localStorage.getItem(CONSENT_KEY);
+    }catch(e){
+      return null; // storage blocked — same as "no decision yet", banner still shows safely
+    }
   }
 
   function setConsent(value){
-    localStorage.setItem(CONSENT_KEY, value);
-    localStorage.setItem(CONSENT_VERSION_KEY, CURRENT_VERSION);
+    try{
+      localStorage.setItem(CONSENT_KEY, value);
+      localStorage.setItem(CONSENT_VERSION_KEY, CURRENT_VERSION);
+    }catch(e){
+      // storage blocked — nothing to persist, but don't let it crash the page
+    }
   }
 
   function loadGA4(){
