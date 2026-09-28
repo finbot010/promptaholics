@@ -11,6 +11,29 @@
 //  for this to actually satisfy GDPR, not just "most" pages.
 // ═══════════════════════════════════════════════════════════
 
+// ── STORAGE SAFETY SHIM ─────────────────────────────────────
+// Some browsers, webviews and automated renderers deny ALL Web Storage
+// access: just referencing localStorage / sessionStorage throws a
+// SecurityError. This file loads first on every page that includes it,
+// so if storage is unreadable we swap in an in-memory stand-in before
+// any page script runs. Pages keep working; nothing persists across
+// page loads for that visitor. If storage works normally, this does nothing.
+(function(){
+  ['localStorage','sessionStorage'].forEach(function(name){
+    try{ window[name].getItem('__pa_probe__'); return; }catch(e){}
+    var mem = {};
+    var stub = {
+      getItem: function(k){ return Object.prototype.hasOwnProperty.call(mem,k) ? mem[k] : null; },
+      setItem: function(k,v){ mem[k] = String(v); },
+      removeItem: function(k){ delete mem[k]; },
+      clear: function(){ mem = {}; },
+      key: function(i){ var ks = Object.keys(mem); return i < ks.length ? ks[i] : null; }
+    };
+    Object.defineProperty(stub,'length',{ get:function(){ return Object.keys(mem).length; } });
+    try{ Object.defineProperty(window, name, { configurable:true, get:function(){ return stub; } }); }catch(e){}
+  });
+})();
+
 (function(){
   var CONSENT_KEY = 'pa_cookie_consent';       // 'accepted' | 'rejected'
   var CONSENT_VERSION_KEY = 'pa_cookie_consent_v';
