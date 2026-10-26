@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Sponsor a Slot — Feature Your AI Tool | Promptaholics</title>
+<meta name="description" content="Feature your AI tool on Promptaholics Creation Station. Clearly labeled sponsored slots, reviewed before listing, billed monthly through Stripe. Cancel anytime."/>
+<link rel="canonical" href="https://promptaholics.com/sponsor.html"/>
+<meta property="og:title" content="Sponsor a Slot on Promptaholics Creation Station"/>
+<meta property="og:description" content="Put your AI tool in front of creators. Reviewed, clearly labeled, cancel anytime."/>
+<meta property="og:url" content="https://promptaholics.com/sponsor.html"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<!-- Sentry: error monitoring only (no Session Replay). Loaded before cookie-consent.js. -->
+<script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
+<!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<script src="cookie-consent.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#07070a;--ink:#f0f0f8;--ink2:#7070a0;--ink3:#30304a;
+  --orange:#ff6224;--o2:#ff9f24;
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --surface:rgba(255,255,255,.05);
+  /* readable body-copy tone for this page (AA contrast on both themes) */
+  --text2:#a4a4c8;--text3:#8a8ab0;
+}
+body.light{
+  --bg:#f5f5f7;--ink:#1a1a2e;--ink2:#555570;--ink3:#aaaacc;
+  --glass:rgba(0,0,0,.04);--glass2:rgba(0,0,0,.07);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --surface:rgba(0,0,0,.04);
+  --text2:#45455e;--text3:#55556e;
+}
+body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s;}
+a{text-decoration:none;color:inherit;}
+button,input,select,textarea{font-family:'Instrument Sans',sans-serif;}
+:focus-visible{outline:2px solid var(--o2);outline-offset:2px;border-radius:6px;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.skip-link{position:absolute;left:-999px;top:8px;z-index:1000;background:var(--orange);color:#fff;padding:8px 14px;border-radius:8px;font-weight:700;}
+.skip-link:focus{left:8px;}
+
+/* ── TOP NAV ── */
+.topnav{position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;background:rgba(7,7,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s;max-width:100vw;}
+body.light .topnav{background:rgba(245,245,247,.95);}
+.nav-logo{display:flex;align-items:center;gap:8px;color:var(--ink);}
+.logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:11px;height:13px;}
+.logo-text{font-family:'Syne',serif;font-size:14px;font-weight:800;}
+.logo-text span{color:var(--orange);}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-desktop{display:flex;align-items:center;gap:2px;}
+@media(max-width:680px){.nav-desktop{display:none;}}
+.nav-lnk{font-size:12px;color:var(--text2);padding:5px 10px;border-radius:7px;transition:all .15s;}
+.nav-lnk:hover{color:var(--ink);background:var(--glass2);}
+.nav-lnk.active{color:var(--orange);}
+.nav-signin{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--orange);color:#fff;transition:all .15s;}
+.nav-signin:hover{background:#e84e0e;}
+@media(max-width:480px){.nav-signin{display:none !important;}}
+.nav-icon{width:34px;height:34px;border-radius:8px;background:var(--glass);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.nav-icon:hover{color:var(--orange);border-color:rgba(255,98,36,.3);}
+
+/* ── SLIDE MENU ── */
+.menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(4px);}
+.menu-overlay.open{display:block;}
+.slide-menu{position:fixed;top:0;left:0;bottom:0;width:270px;background:rgba(9,9,14,.98);border-right:1px solid var(--border2);z-index:601;transform:translateX(-100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;visibility:hidden;}
+body.light .slide-menu{background:rgba(248,248,252,.98);}
+.slide-menu.open{transform:translateX(0);visibility:visible;}
+.sm-head{display:flex;align-items:center;gap:8px;padding:16px;border-bottom:1px solid var(--border);}
+.sm-sec{padding:6px 8px 0;}
+.sm-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:8px 8px 4px;}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:var(--text2);transition:all .15s;margin-bottom:1px;}
+.sm-item:hover,.sm-item.active{background:rgba(255,98,36,.08);color:var(--orange);}
+.sm-item i{font-size:16px;width:18px;text-align:center;flex-shrink:0;}
+.sm-foot{margin-top:auto;padding:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.sm-signin{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:var(--orange);color:#fff;border-radius:9px;font-size:13px;font-weight:700;}
+.sm-theme{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px;background:var(--glass);border:1px solid var(--border2);color:var(--text2);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;width:100%;}
+
+/* ── MOBILE BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,10,.97);border-top:1px solid var(--border);z-index:500;height:60px;padding-bottom:env(safe-area-inset-bottom);}
+body.light .bottom-nav{background:rgba(245,245,247,.97);}
+@media(max-width:768px){.bottom-nav{display:flex;}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--text3);font-size:10px;font-weight:600;border-top:2px solid transparent;transition:color .15s;}
+.bn-item.active,.bn-item:hover{color:var(--orange);border-top-color:var(--orange);}
+.bn-item i{font-size:20px;line-height:1;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+section{scroll-margin-top:70px;}
+.sp-hero{position:relative;padding:80px 24px 56px;text-align:center;overflow:hidden;}
+.sp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,98,36,.13) 0%,transparent 65%);pointer-events:none;}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;margin-bottom:20px;border:1px solid var(--border2);border-radius:20px;background:var(--glass);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);}
+h1{font-family:'Syne',serif;font-size:clamp(36px,6vw,64px);font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:18px;position:relative;}
+h1 span{color:var(--orange);}
+.lead{font-size:16px;color:var(--text2);max-width:580px;margin:0 auto 30px;line-height:1.65;position:relative;}
+.ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-primary{background:var(--orange);color:#fff;padding:14px 26px;border-radius:11px;font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,98,36,.28);transition:transform .15s;border:none;cursor:pointer;}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-secondary{background:var(--glass);border:1px solid var(--border2);color:var(--ink);padding:14px 26px;border-radius:11px;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;}
+.stats{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;margin-top:40px;position:relative;}
+.stat-n{font-family:'Syne',serif;font-size:26px;font-weight:800;color:var(--o2);line-height:1.1;}
+.stat-l{font-size:11.5px;color:var(--text2);}
+
+.sec{padding:0 0 72px;}
+.sec-h{font-family:'Syne',serif;font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.8px;margin-bottom:8px;}
+.sec-p{font-size:14px;color:var(--text2);max-width:620px;margin-bottom:28px;}
+
+/* ── PLANS ── */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.plan{background:var(--glass);border:1px solid var(--border2);border-radius:18px;padding:28px;display:flex;flex-direction:column;position:relative;}
+.plan.pop{border-color:rgba(255,98,36,.45);background:linear-gradient(160deg,rgba(255,98,36,.07),var(--glass));box-shadow:0 16px 40px -12px rgba(255,98,36,.25);}
+.plan-badge{position:absolute;top:-12px;left:24px;background:linear-gradient(135deg,var(--orange),var(--o2));color:#fff;font-family:'Syne',serif;font-weight:800;font-size:11px;padding:5px 12px;border-radius:7px;}
+.plan h3{font-family:'Syne',serif;font-size:19px;font-weight:800;margin-bottom:4px;}
+.plan-for{font-size:13px;color:var(--text2);margin-bottom:18px;}
+.price{font-family:'Syne',serif;font-size:42px;font-weight:900;letter-spacing:-1.5px;line-height:1;}
+.price small{font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;color:var(--text2);letter-spacing:0;}
+.price-note{font-size:12px;color:var(--text3);margin:6px 0 20px;}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px;flex:1;}
+.plan li{display:flex;gap:9px;font-size:13.5px;color:var(--ink);}
+.plan li i{color:var(--orange);font-size:16px;margin-top:2px;flex-shrink:0;}
+.plan .btn-primary,.plan .btn-secondary{justify-content:center;}
+.slots-note{margin-top:16px;font-size:12.5px;color:var(--text2);display:flex;gap:8px;align-items:flex-start;}
+.slots-note i{color:var(--o2);font-size:16px;margin-top:1px;}
+
+/* ── PREVIEW ── */
+.preview{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;}
+@media(max-width:760px){.preview{grid-template-columns:1fr;}}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.tool-card{display:flex;flex-direction:column;background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:16px;position:relative;overflow:hidden;}
+.tool-card.sponsored{border-color:rgba(255,98,36,.5);background:linear-gradient(160deg,rgba(255,98,36,.08),var(--glass));}
+.tc-logo-fallback{width:40px;height:40px;border-radius:10px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;}
+.tc-name{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:4px;}
+.tc-desc{font-size:11.5px;color:var(--text2);line-height:1.5;flex:1;}
+.tc-tag{display:inline-block;margin-top:8px;font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);}
+.tc-sponsored{position:absolute;top:12px;right:12px;font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#fff;background:#c2410c;padding:3px 7px;border-radius:5px;}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.check-list li{display:flex;gap:10px;font-size:14px;color:var(--text2);}
+.check-list li strong{color:var(--ink);}
+.check-list i{color:var(--orange);font-size:18px;flex-shrink:0;margin-top:1px;}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:step;}
+.step{background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:20px;}
+.step-n{width:30px;height:30px;border-radius:8px;background:rgba(255,98,36,.12);border:1px solid rgba(255,98,36,.35);color:var(--o2);font-family:'Syne',serif;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.step h3{font-family:'Syne',serif;font-size:15px;font-weight:800;margin-bottom:4px;}
+.step p{font-size:13px;color:var(--text2);}
+
+/* ── RULES ── */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:760px){.rules{grid-template-columns:1fr;}}
+.rule-box{background:var(--glass);border:1px solid var(--border2);border-radius:16px;padding:24px;}
+.rule-box h3{font-family:'Syne',serif;font-size:16px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.rule-box.yes h3 i{color:#22c55e;}
+.rule-box.no h3 i{color:#ef4444;}
+.rule-box ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.rule-box li{font-size:13.5px;color:var(--text2);padding-left:18px;position:relative;}
+.rule-box li::before{content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--border2);}
+.rule-box.yes li::before{background:#22c55e;}
+.rule-box.no li::before{background:#ef4444;}
+
+/* ── FORM ── */
+.apply{background:linear-gradient(135deg,var(--surface),var(--glass2));border:1px solid rgba(255,98,36,.35);border-radius:20px;padding:32px;box-shadow:0 0 0 1px rgba(255,98,36,.08),0 18px 44px rgba(255,98,36,.1);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.apply{padding:22px 16px;}}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field.full{grid-column:1/-1;}
+.field label,.field legend{font-size:12.5px;font-weight:700;color:var(--ink);}
+.field .hint{font-size:11.5px;color:var(--text3);font-weight:500;}
+.req{color:var(--o2);}
+.inp{width:100%;padding:11px 13px;background:var(--glass);border:1px solid var(--border2);border-radius:10px;font-size:14px;color:var(--ink);transition:border .2s;}
+.inp:focus{outline:none;border-color:rgba(255,98,36,.7);box-shadow:0 0 0 3px rgba(255,98,36,.15);}
+select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--text2) 50%),linear-gradient(135deg,var(--text2) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px;}
+select.inp option{background:#15151d;color:#f0f0f8;}
+body.light select.inp option{background:#fff;color:#1a1a2e;}
+textarea.inp{resize:vertical;min-height:90px;}
+fieldset.field{border:none;}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap;}
+.radio-row label{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13.5px;color:var(--ink);background:var(--glass);border:1px solid var(--border2);padding:9px 14px;border-radius:9px;cursor:pointer;}
+.radio-row input{accent-color:var(--orange);}
+.field label.agree{display:flex;gap:10px;align-items:flex-start;font-size:13px;font-weight:500;color:var(--text2);}
+.agree input{margin-top:4px;accent-color:var(--orange);width:16px;height:16px;flex-shrink:0;}
+.agree a{color:var(--o2);text-decoration:underline;}
+.count{font-size:11px;color:var(--text3);text-align:right;}
+.form-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;}
+.form-foot p{font-size:12px;color:var(--text3);flex:1;min-width:220px;}
+.form-msg{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;font-size:13.5px;font-weight:600;}
+.form-msg.err{display:block;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.4);color:#fca5a5;}
+body.light .form-msg.err{color:#b91c1c;}
+.thanks{display:none;text-align:center;padding:30px 10px;}
+.thanks i{font-size:42px;color:#22c55e;}
+.thanks h3{font-family:'Syne',serif;font-size:22px;font-weight:800;margin:10px 0 6px;}
+.thanks p{color:var(--text2);font-size:14px;max-width:440px;margin:0 auto;}
+
+/* ── FAQ ── */
+.faq{display:flex;flex-direction:column;gap:10px;}
+.faq details{background:var(--glass);border:1px solid var(--border2);border-radius:12px;padding:0 18px;}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:700;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;gap:12px;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:'+';color:var(--orange);font-size:20px;line-height:1;}
+.faq details[open] summary::after{content:'–';}
+.faq details p{font-size:13.5px;color:var(--text2);padding:0 0 16px;}
+
+/* ── FOOTER ── */
+.site-footer{background:rgba(255,255,255,.02);border-top:1px solid var(--border);padding:32px 24px 80px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
+.footer-logo-mark{width:24px;height:24px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-mark svg{width:9px;height:10px;}
+.footer-logo-text{font-family:'Syne',serif;font-size:13px;font-weight:800;}
+.footer-logo-text span{color:var(--orange);}
+.footer-links{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-items:center;}
+.footer-lnk{font-size:12px;color:var(--text3);padding:4px 8px;border-radius:6px;transition:color .15s;background:none;border:none;cursor:pointer;}
+.footer-lnk:hover{color:var(--orange);}
+.footer-lnk.accent{color:var(--orange);font-weight:600;}
+.footer-sep{color:var(--border2);padding:0 2px;font-size:12px;}
+.footer-copy{font-size:11px;color:var(--text3);}
+
+@media(max-width:600px){
+  .sp-hero{padding:56px 16px 40px;}
+  .wrap{padding:0 16px;}
+  .sec{padding-bottom:56px;}
+  .stats{gap:22px;}
+  .ctas .btn-primary,.ctas .btn-secondary{width:100%;justify-content:center;}
+}
+/* light theme: amber text is too faint on light backgrounds, use a deeper orange */
+body.light .stat-n,body.light .step-n,body.light .req,body.light .slots-note i{color:#c2410c;}
+body.light a[style*="--o2"],body.light .agree a{color:#c2410c !important;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <a class="nav-logo" href="/" aria-label="Promptaholics home">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <div class="logo-text">Prompt<span>aholics</span></div>
+  </a>
+  <div class="nav-right">
+    <nav class="nav-desktop" aria-label="Main">
+      <a class="nav-lnk" href="library.html">Library</a>
+      <a class="nav-lnk" href="prompt-builder.html">Builder</a>
+      <a class="nav-lnk" href="agent.html">PA Agent</a>
+      <a class="nav-lnk active" href="creationstation.html">AI Tools</a>
+      <a class="nav-lnk" href="learn.html">Learn</a>
+      <a class="nav-lnk" href="vault.html">Image Vault</a>
+      <a class="nav-lnk" href="store-v2.html"><i class="ti ti-shirt" aria-hidden="true"></i> Store</a>
+    </nav>
+    <a class="nav-signin" href="login.html">Sign In</a>
+    <button class="nav-icon" id="themeBtn" type="button" onclick="toggleTheme()" aria-label="Toggle light and dark theme"><i class="ti ti-moon" aria-hidden="true"></i></button>
+    <button class="nav-icon" id="menuBtn" type="button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="slideMenu"><i class="ti ti-menu-2" aria-hidden="true"></i></button>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+<nav class="slide-menu" id="slideMenu" aria-label="Site menu">
+  <div class="sm-head">
+    <div class="logo-mark"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+    <span class="logo-text">Prompt<span>aholics</span></span>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Navigate</div>
+    <a class="sm-item" href="/"><i class="ti ti-home" aria-hidden="true"></i> Home</a>
+    <a class="sm-item" href="library.html"><i class="ti ti-books" aria-hidden="true"></i> Prompt Library</a>
+    <a class="sm-item" href="prompt-builder.html"><i class="ti ti-tool" aria-hidden="true"></i> Prompt Builder</a>
+    <a class="sm-item" href="agent.html"><i class="ti ti-sparkles" aria-hidden="true"></i> PA Agent</a>
+    <a class="sm-item" href="creationstation.html"><i class="ti ti-bolt" aria-hidden="true"></i> AI Tools</a>
+    <a class="sm-item active" href="sponsor.html"><i class="ti ti-rocket" aria-hidden="true"></i> Sponsor a Slot</a>
+    <a class="sm-item" href="learn.html"><i class="ti ti-school" aria-hidden="true"></i> Learn</a>
+    <a class="sm-item" href="vault.html"><i class="ti ti-photo" aria-hidden="true"></i> Image Vault</a>
+  </div>
+  <div class="sm-sec">
+    <div class="sm-lbl">Company</div>
+    <a class="sm-item" href="privacy.html"><i class="ti ti-lock" aria-hidden="true"></i> Privacy Policy</a>
+  </div>
+  <div class="sm-foot">
+    <a class="sm-signin" href="login.html"><i class="ti ti-user" aria-hidden="true"></i> Sign In / Register</a>
+    <button class="sm-theme" type="button" onclick="toggleTheme()"><span id="smThemeIcon"><i class="ti ti-moon" aria-hidden="true"></i></span> Toggle Day / Night</button>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="sp-hero">
+  <div class="eyebrow"><span class="eyebrow-dot"></span> Sponsor Creation Station</div>
+  <h1>Put your AI tool in front of <span>creators</span>.</h1>
+  <p class="lead">Creation Station is where Promptaholics visitors compare AI tools before they pick one. Sponsored slots put your tool at the top of its category, clearly labeled, next to the tools people already use. We review every application before we take payment.</p>
+  <div class="ctas">
+    <a class="btn-primary" href="#apply"><i class="ti ti-send" aria-hidden="true"></i> Apply for a slot</a>
+    <a class="btn-secondary" href="#rules"><i class="ti ti-list-check" aria-hidden="true"></i> See what we accept</a>
+  </div>
+  <div class="stats">
+    <div><div class="stat-n">2,000+</div><div class="stat-l">prompts in the library</div></div>
+    <div><div class="stat-n">35+</div><div class="stat-l">AI tools compared</div></div>
+    <div><div class="stat-n">Weekly</div><div class="stat-l">newsletter to subscribers</div></div>
+    <div><div class="stat-n">3</div><div class="stat-l">sponsored slots per category</div></div>
+  </div>
+</section>
+
+<div class="wrap">
+
+<!-- PLANS -->
+<section class="sec" id="plans" aria-labelledby="plans-h">
+  <h2 class="sec-h" id="plans-h">Pick a placement</h2>
+  <p class="sec-p">Monthly billing through Stripe. No contracts, cancel anytime. You only pay after we approve your tool.</p>
+  <div class="plans">
+    <div class="plan">
+      <h3>Featured Slot</h3>
+      <p class="plan-for">Top-of-category placement on Creation Station.</p>
+      <div class="price"><span class="js-price" data-plan="featured">$39</span><small> / month</small></div>
+      <p class="price-note">Launch pricing</p>
+      <ul>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Card at the top of your category, above the free listings</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Highlighted card with a visible "Sponsored" label</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Your logo, name, one-line pitch and link</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Change your copy once a month</li>
+      </ul>
+      <a class="btn-secondary" href="#apply" onclick="pickPlan('featured')">Apply for Featured</a>
+    </div>
+    <div class="plan pop">
+      <span class="plan-badge">Best reach</span>
+      <h3>Featured + Newsletter</h3>
+      <p class="plan-for">Everything in Featured, plus our weekly email.</p>
+      <div class="price"><span class="js-price" data-plan="newsletter">$79</span><small> / month</small></div>
+      <p class="price-note">Launch pricing</p>
+      <ul>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Everything in Featured Slot</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> One "Sponsored tool" spot in the weekly newsletter each month</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Short write-up in our voice, labeled as sponsored</li>
+        <li><i class="ti ti-check" aria-hidden="true"></i> Priority when slots open up</li>
+      </ul>
+      <a class="btn-primary" href="#apply" onclick="pickPlan('newsletter')">Apply for Featured + Newsletter</a>
+    </div>
+  </div>
+  <p class="slots-note"><i class="ti ti-info-circle" aria-hidden="true"></i> We cap each category at 3 sponsored slots so the page stays useful. If your category is full, we'll put you on the waitlist.</p>
+</section>
+
+<!-- PREVIEW -->
+<section class="sec" aria-labelledby="look-h">
+  <div class="preview">
+    <div>
+      <h2 class="sec-h" id="look-h">What your slot looks like</h2>
+      <p class="sec-p">Your card sits in the same grid as the tools we pick ourselves, styled to stand out and always marked as sponsored.</p>
+      <ul class="check-list">
+        <li><i class="ti ti-tag" aria-hidden="true"></i><span><strong>Always labeled.</strong> Every sponsored card shows a "Sponsored" badge. We never hide that a placement is paid.</span></li>
+        <li><i class="ti ti-link" aria-hidden="true"></i><span><strong>Sponsored links.</strong> Links use <code>rel="sponsored"</code>, as Google requires for paid placements. You're buying visibility, not SEO.</span></li>
+        <li><i class="ti ti-scale" aria-hidden="true"></i><span><strong>Our picks stay ours.</strong> Payment never changes our free listings, comparisons or reviews.</span></li>
+      </ul>
+    </div>
+    <div class="demo-grid" aria-label="Example of a sponsored card next to a regular card">
+      <div class="tool-card sponsored">
+        <span class="tc-sponsored">Sponsored</span>
+        <div class="tc-logo-fallback"><i class="ti ti-rocket" aria-hidden="true"></i></div>
+        <div class="tc-name">Your Tool</div>
+        <div class="tc-desc">Your one-line pitch goes here, up to 140 characters.</div>
+        <span class="tc-tag">Your category</span>
+      </div>
+      <div class="tool-card">
+        <div class="tc-logo-fallback"><i class="ti ti-robot" aria-hidden="true"></i></div>
+        <div class="tc-name">Regular listing</div>
+        <div class="tc-desc">Free listings we pick on merit, shown below the sponsored slots.</div>
+        <span class="tc-tag">Editor's pick</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec" aria-labelledby="how-h">
+  <h2 class="sec-h" id="how-h">How it works</h2>
+  <p class="sec-p">No payment up front. We check your tool first.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">1</div><h3>Apply</h3><p>Fill in the form below. It takes about two minutes.</p></div>
+    <div class="step"><div class="step-n">2</div><h3>We review</h3><p>We try your tool and reply within 3 business days with a yes, a no, or a waitlist spot.</p></div>
+    <div class="step"><div class="step-n">3</div><h3>Pay with Stripe</h3><p>If approved, you get a secure Stripe link for monthly billing. We never handle your card.</p></div>
+    <div class="step"><div class="step-n">4</div><h3>Go live</h3><p>Your card goes up within 48 hours of payment. Cancel anytime from your Stripe receipt.</p></div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="sec" id="rules" aria-labelledby="rules-h">
+  <h2 class="sec-h" id="rules-h">What we accept</h2>
+  <p class="sec-p">Our visitors trust this page because we're picky. Paying doesn't change that.</p>
+  <div class="rules">
+    <div class="rule-box yes">
+      <h3><i class="ti ti-circle-check" aria-hidden="true"></i> We say yes to</h3>
+      <ul>
+        <li>Real AI products for writing, images, video, audio, code or productivity</li>
+        <li>A named company or founder, an About page and a privacy policy</li>
+        <li>Clear pricing with a free tier or free trial</li>
+        <li>A tool our visitors can sign up for and use today</li>
+      </ul>
+    </div>
+    <div class="rule-box no">
+      <h3><i class="ti ti-circle-x" aria-hidden="true"></i> We say no to</h3>
+      <ul>
+        <li>Link swaps, backlink requests and SEO-only sites</li>
+        <li>Single-effect wrappers of features other tools already offer</li>
+        <li>Adult, gambling, crypto-signal or "get rich" tools</li>
+        <li>Tools that scrape accounts, ask for social logins or break platform rules</li>
+        <li>Anything misleading about what it does or what it costs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section class="sec" id="apply" aria-labelledby="apply-h">
+  <h2 class="sec-h" id="apply-h">Apply for a slot</h2>
+  <p class="sec-p">Tell us about your tool. We'll reply by email within 3 business days.</p>
+  <div class="apply">
+    <form id="sponsorForm" name="sponsor-applications" method="POST" data-netlify="true" netlify-honeypot="company_website" action="/sponsor.html?sent=1" novalidate>
+      <input type="hidden" name="form-name" value="sponsor-applications"/>
+      <p class="sr-only"><label>Leave this empty: <input name="company_website" tabindex="-1" autocomplete="off"/></label></p>
+      <div class="form-grid">
+        <div class="field">
+          <label for="f-name">Your name <span class="req" aria-hidden="true">*</span></label>
+          <input class="inp" id="f-name" name="name" type="text" autocomplete="name" required/>
+        </div>
+        <div class="field">
+          <label for="f-email">Work email <span class="req" aria-hidden="true">*</span></label>
+          <input class="inp" id="f-email" name="email" type="email" autocomplete="email" required/>
+        </div>
+        <div class="field">
+          <label for="f-tool">Tool name <span class="req" aria-hidden="true">*</span></label>
+          <input class="inp" id="f-tool" name="tool_name" type="text" required/>
+        </div>
+        <div class="field">
+          <label for="f-url">Tool website <span class="req" aria-hidden="true">*</span></label>
+          <input class="inp" id="f-url" name="tool_url" type="url" placeholder="https://" inputmode="url" required/>
+        </div>
+        <div class="field">
+          <label for="f-cat">Category <span class="req" aria-hidden="true">*</span></label>
+          <select class="inp" id="f-cat" name="category" required>
+            <option value="">Choose one</option>
+            <option>Chat AI</option>
+            <option>Image</option>
+            <option>Video</option>
+            <option>Code</option>
+            <option>Audio</option>
+            <option>Productivity</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-plan">Placement <span class="req" aria-hidden="true">*</span></label>
+          <select class="inp" id="f-plan" name="plan" required>
+            <option value="">Choose one</option>
+            <option value="featured">Featured Slot ($39/mo)</option>
+            <option value="newsletter">Featured + Newsletter ($79/mo)</option>
+          </select>
+        </div>
+        <fieldset class="field full">
+          <legend>Do you offer a free tier or free trial? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="free_tier" value="Free tier" required/> Free tier</label>
+            <label><input type="radio" name="free_tier" value="Free trial"/> Free trial</label>
+            <label><input type="radio" name="free_tier" value="Paid only"/> Paid only</label>
+          </div>
+        </fieldset>
+        <div class="field full">
+          <label for="f-pitch">One-line pitch for your card <span class="req" aria-hidden="true">*</span> <span class="hint">(this appears on the card, max 140 characters)</span></label>
+          <input class="inp" id="f-pitch" name="pitch" type="text" maxlength="140" required aria-describedby="pitchCount"/>
+          <div class="count" id="pitchCount" aria-live="polite">0 / 140</div>
+        </div>
+        <div class="field full">
+          <label for="f-msg">Anything else we should know? <span class="hint">(optional: who it's for, what makes it different)</span></label>
+          <textarea class="inp" id="f-msg" name="message"></textarea>
+        </div>
+        <div class="field full">
+          <label class="agree"><input type="checkbox" name="agree_terms" value="yes" required/> <span>I understand the placement is labeled "Sponsored", the link is marked <code>rel="sponsored"</code>, and Promptaholics can decline or remove a listing that breaks these rules (with a prorated refund).</span></label>
+        </div>
+      </div>
+      <div class="form-msg" id="formMsg" role="alert"></div>
+      <div class="form-foot">
+        <button class="btn-primary" type="submit" id="submitBtn"><i class="ti ti-send" aria-hidden="true"></i> Send application</button>
+        <p>No payment now. If approved, we'll email you a secure Stripe link. Questions? <a href="mailto:promptaholics1@gmail.com" style="color:var(--o2);text-decoration:underline;">promptaholics1@gmail.com</a></p>
+      </div>
+    </form>
+    <div class="thanks" id="thanks" tabindex="-1">
+      <i class="ti ti-circle-check" aria-hidden="true"></i>
+      <h3>Application received</h3>
+      <p>Thanks! We'll try your tool and email you within 3 business days. If it's a fit, you'll get a Stripe link to start your slot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" aria-labelledby="faq-h">
+  <h2 class="sec-h" id="faq-h">Questions</h2>
+  <div class="faq">
+    <details><summary>Will this give me a backlink for SEO?</summary><p>No. Paid links are marked <code>rel="sponsored"</code>, as Google requires. You're paying for visibility to people choosing an AI tool, not for search ranking.</p></details>
+    <details><summary>Can I get listed for free?</summary><p>Yes, if your tool earns a spot on merit. Use the Suggestion Box on <a href="creationstation.html" style="color:var(--o2);text-decoration:underline;">Creation Station</a>. We add free tools only when we'd recommend them ourselves, and we don't do link swaps.</p></details>
+    <details><summary>How do I cancel?</summary><p>Billing is monthly through Stripe. Cancel anytime from the link in your Stripe receipt, or email us. Your card stays up until the end of the period you paid for.</p></details>
+    <details><summary>What if you remove my listing?</summary><p>We only remove a listing if the tool breaks the rules above, for example by changing what it does or adding misleading pricing. If that happens, we refund the unused part of your month.</p></details>
+    <details><summary>What do you need from me?</summary><p>Your tool name, website and a one-line pitch. We use your site's logo, or you can send a square logo (at least 128×128) after approval.</p></details>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-mark"><svg viewBox="0 0 22 24" fill="none" aria-hidden="true"><path d="M3 2h8a5 5 0 0 1 0 10H3V2z" fill="white" fill-opacity=".9"/><path d="M14 13l-5 10 4.5-5.5H9.5L14 7l-4.5 5.5H14z" fill="white"/></svg></div>
+      <div class="footer-logo-text">Prompt<span>aholics</span></div>
+    </div>
+    <div class="footer-links">
+      <a class="footer-lnk" href="library.html">Library</a>
+      <a class="footer-lnk" href="prompt-builder.html">Builder</a>
+      <a class="footer-lnk" href="creationstation.html">AI Tools</a>
+      <a class="footer-lnk" href="sponsor.html">Sponsor</a>
+      <span class="footer-sep" aria-hidden="true">|</span>
+      <a class="footer-lnk accent" href="privacy.html">Privacy</a>
+      <button class="footer-lnk" type="button" onclick="if(window.reopenCookieSettings)reopenCookieSettings()">Cookie Settings</button>
+    </div>
+    <div class="footer-copy">© 2026 Promptaholics · Curated AI tools for creators</div>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Quick links">
+  <a class="bn-item" href="/"><i class="ti ti-home" aria-hidden="true"></i>Home</a>
+  <a class="bn-item" href="library.html"><i class="ti ti-books" aria-hidden="true"></i>Library</a>
+  <a class="bn-item" href="prompt-builder.html"><i class="ti ti-tool" aria-hidden="true"></i>Builder</a>
+  <a class="bn-item active" href="creationstation.html"><i class="ti ti-bolt" aria-hidden="true"></i>Tools</a>
+  <a class="bn-item" href="login.html"><i class="ti ti-user" aria-hidden="true"></i>Sign In</a>
+</nav>
+
+<script>
+// ── SAFE STORAGE (some browsers/webviews throw on any Storage access) ──
+function paStore(kind){ return kind==='session' ? sessionStorage : localStorage; }
+function paStorageGet(kind,key){ try{ return paStore(kind).getItem(key); }catch(e){ return null; } }
+function paStorageSet(kind,key,val){ try{ paStore(kind).setItem(key,val); }catch(e){} }
+
+// ── THEME ──
+var theme = paStorageGet('local','pa_theme') || 'dark';
+function applyThemeIcons(){
+  var icon = theme === 'light' ? '<i class="ti ti-sun" aria-hidden="true"></i>' : '<i class="ti ti-moon" aria-hidden="true"></i>';
+  var tb = document.getElementById('themeBtn'); if(tb) tb.innerHTML = icon;
+  var sm = document.getElementById('smThemeIcon'); if(sm) sm.innerHTML = icon;
+}
+if(theme === 'light') document.body.classList.add('light');
+applyThemeIcons();
+function toggleTheme(){
+  theme = theme === 'dark' ? 'light' : 'dark';
+  paStorageSet('local','pa_theme',theme);
+  document.body.classList.toggle('light', theme === 'light');
+  applyThemeIcons();
+}
+
+// ── MENU ──
+function toggleMenu(){
+  var m = document.getElementById('slideMenu');
+  var o = document.getElementById('menuOverlay');
+  var b = document.getElementById('menuBtn');
+  var open = !m.classList.contains('open');
+  m.classList.toggle('open', open);
+  o.classList.toggle('open', open);
+  if(b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if(open){ var first = m.querySelector('a'); if(first) first.focus(); }
+  else if(b){ b.focus(); }
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && document.getElementById('slideMenu').classList.contains('open')) toggleMenu();
+});
+
+// ── PLAN PRESELECT ──
+function pickPlan(p){
+  var s = document.getElementById('f-plan');
+  if(s) s.value = p;
+}
+(function(){
+  var p = new URLSearchParams(location.search).get('plan');
+  if(p === 'featured' || p === 'newsletter') pickPlan(p);
+})();
+
+// ── PITCH COUNTER ──
+(function(){
+  var inp = document.getElementById('f-pitch'), c = document.getElementById('pitchCount');
+  if(!inp || !c) return;
+  inp.addEventListener('input', function(){ c.textContent = inp.value.length + ' / 140'; });
+})();
+
+// ── FORM SUBMIT (Netlify Forms via AJAX; falls back to a normal POST without JS) ──
+function showThanks(){
+  var f = document.getElementById('sponsorForm'), t = document.getElementById('thanks');
+  if(f) f.style.display = 'none';
+  if(t){ t.style.display = 'block'; t.focus(); }
+}
+if(new URLSearchParams(location.search).get('sent') === '1'){
+  showThanks();
+  var ap = document.getElementById('apply'); if(ap) ap.scrollIntoView();
+}
+(function(){
+  var form = document.getElementById('sponsorForm');
+  var msg = document.getElementById('formMsg');
+  var btn = document.getElementById('submitBtn');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.className = 'form-msg'; msg.textContent = '';
+    if(!form.checkValidity()){
+      var bad = form.querySelector(':invalid');
+      msg.className = 'form-msg err';
+      msg.textContent = 'Please fill in every required field' + (bad && bad.type === 'url' ? ' (the website needs to start with https://).' : '.');
+      if(bad) bad.focus();
+      return;
+    }
+    btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" aria-hidden="true"></i> Sending…';
+    fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      showThanks();
+    }).catch(function(err){
+      if(window.Sentry && Sentry.captureException) Sentry.captureException(err);
+      msg.className = 'form-msg err';
+      msg.innerHTML = 'That didn’t send. Please try again, or email <a href="mailto:promptaholics1@gmail.com" style="text-decoration:underline;">promptaholics1@gmail.com</a>.';
+      btn.disabled = false; btn.innerHTML = '<i class="ti ti-send" aria-hidden="true"></i> Send application';
+    });
+  });
+})();
+</script>
+</body>
+</html>
