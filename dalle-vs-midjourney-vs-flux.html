@@ -36,6 +36,8 @@ ul,ol{margin:12px 0 20px 20px;}
 li{font-size:15px;color:var(--ink2);margin-bottom:8px;line-height:1.7;}
 li strong{color:var(--ink);}
 .comparison-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:12px;overflow:hidden;border:1px solid var(--border2);}
+.table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.table-scroll .comparison-table{min-width:520px;}
 .comparison-table th{background:var(--bg2);padding:14px 16px;text-align:left;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--border2);}
 .comparison-table td{padding:14px 16px;font-size:14px;color:var(--ink2);border-bottom:1px solid var(--border);vertical-align:top;}
 .comparison-table tr:last-child td{border-bottom:none;}
@@ -147,6 +149,10 @@ li strong{color:var(--ink);}
     ]
   }
 ]</script>
+<!-- Sentry: error monitoring only, no Session Replay. -->
+<script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
+<!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->
+<script src="cookie-consent.js"></script>
 </head>
 <body>
 <nav class="nav">
@@ -182,7 +188,7 @@ li strong{color:var(--ink);}
   <p>But that's a simplification. The right tool depends entirely on what you're making. Let's break it down properly.</p>
 
   <h2>Side-by-Side Comparison</h2>
-  <table class="comparison-table">
+  <div class="table-scroll" role="region" aria-label="Comparison table, scrolls sideways" tabindex="0"><table class="comparison-table">
     <thead>
       <tr>
         <th>Feature</th>
@@ -241,7 +247,7 @@ li strong{color:var(--ink);}
         <td class="win">Yes (via Replicate)</td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h2>DALL-E 3 — The Instruction Follower</h2>
 
@@ -332,7 +338,7 @@ li strong{color:var(--ink);}
 
   <h2>Which Should You Use? Decision Guide</h2>
 
-  <table class="comparison-table">
+  <div class="table-scroll" role="region" aria-label="Comparison table, scrolls sideways" tabindex="0"><table class="comparison-table">
     <thead>
       <tr><th>If you need...</th><th>Use this</th></tr>
     </thead>
@@ -348,7 +354,7 @@ li strong{color:var(--ink);}
       <tr><td>Quick experiments (free)</td><td class="win">Flux 1.1 Pro</td></tr>
       <tr><td>Following complex instructions</td><td class="win">DALL-E 3</td></tr>
     </tbody>
-  </table>
+  </table></div>
 
   <h2>The Prompting Differences That Matter</h2>
   <p>The biggest mistake people make is using the same prompt structure across all three tools. Each model has been trained differently and responds to different prompt styles.</p>
