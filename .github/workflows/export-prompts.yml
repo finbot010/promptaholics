@@ -35,5 +35,5 @@ jobs:
         run: |
           git config user.name "PA Agent"
           git config user.email "promptaholics1@gmail.com"
-          git add prompts.js
+          git add prompts.js prompt-count.json
           git diff --staged --quiet || git commit -m "Auto-export prompts $(date +'%Y-%m-%d')" && git push

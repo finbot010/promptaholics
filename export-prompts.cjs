@@ -121,9 +121,25 @@ async function main() {
     console.error('Could not find closing ]; in prompts.js — aborting');
     process.exit(1);
   }
-  const updatedContent = currentContent.slice(0, lastBracketPos)
+  // Strip any trailing whitespace/comma before appending. Without this, a file
+  // that already ended in "},\n];" became "},,\n{" — an empty array slot that
+  // made PROMPTS.find() throw for every prompt after it (View/Share broke for
+  // all newer prompts).
+  const head = currentContent.slice(0, lastBracketPos).replace(/[\s,]+$/, '');
+  const updatedContent = head
     + ',\n' + newEntries
     + '\n];\n';
+
+  // Safety check: the written file must parse and contain no empty slots.
+  try {
+    const check = new Function(updatedContent.replace('const PROMPTS', 'var PROMPTS') + '\nreturn PROMPTS;')();
+    for (let i = 0; i < check.length; i++) {
+      if (!check[i] || !check[i].id) throw new Error('empty or id-less entry at index ' + i);
+    }
+  } catch (e) {
+    console.error('prompts.js would be invalid (' + e.message + ') — aborting, nothing written');
+    process.exit(1);
+  }
 
   fs.writeFileSync(filePath, updatedContent, 'utf8');
   console.log('prompts.js updated — added ' + newPrompts.length + ' prompts');
