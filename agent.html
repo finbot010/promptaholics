@@ -346,7 +346,7 @@ onAuthStateChanged(auth, user => {
 
 // ── Save prompt to pending-prompts ──────────────────────────────
 window.savePromptToFirestore = async function(promptData){
-  const docRef = await addDoc(collection(db,'pending-prompts'),{
+  const base = {
     name:        promptData.name        || 'PA Prompt',
     text:        promptData.text        || '',
     category:    promptData.category    || 'General',
@@ -359,7 +359,26 @@ window.savePromptToFirestore = async function(promptData){
     submittedAt: serverTimestamp(),
     submittedBy: window._paUser ? window._paUser.uid  : 'anonymous',
     submitterEmail: window._paUser ? window._paUser.email : 'anonymous',
-  });
+  };
+  // Auto-graded prompts keep their source tag and score so the Agent Hub
+  // (stat tile + weekly email) can find them. Previously these were dropped.
+  const isAuto = promptData.source === 'pa-agent-auto';
+  if(isAuto){
+    try{
+      const ref = await addDoc(collection(db,'pending-prompts'),{
+        ...base,
+        source:    'pa-agent-auto',
+        autoGrade: Number(promptData.autoGrade) || 0,
+        tags:      ['ai-generated','pa-agent','auto-graded'],
+      });
+      return ref.id;
+    }catch(e){
+      // If Firestore rules only allow the original fields, fall back so the prompt isn't lost
+      if(e && e.code !== 'permission-denied') throw e;
+      console.warn('Auto-grade fields rejected by Firestore rules — saved without score. Allow source/autoGrade in rules to fix.');
+    }
+  }
+  const docRef = await addDoc(collection(db,'pending-prompts'), base);
   return docRef.id;
 };
 

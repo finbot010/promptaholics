@@ -113,6 +113,20 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .agent-2 .agent-icon{background:rgba(59,130,246,.1);color:var(--blue);}
 .agent-3 .agent-icon{background:rgba(34,197,94,.1);color:var(--green);}
 .agent-4 .agent-icon{background:rgba(20,184,166,.12);color:var(--teal);}
+.agent-6::before{background:linear-gradient(90deg,var(--red),var(--o2));}
+.agent-6 .agent-icon{background:rgba(239,68,68,.1);color:var(--red);}
+.agent-6 .a-stat-n{color:var(--red);}
+.agent-6 .agent-btn.pri{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:var(--red);}
+.agent-6 .exp-cmd:hover{border-color:rgba(239,68,68,.3);color:var(--red);}
+.agent-7::before{background:linear-gradient(90deg,var(--green),var(--o2));}
+.agent-7 .agent-icon{background:rgba(34,197,94,.1);color:var(--green);}
+.agent-7 .a-stat-n{color:var(--green);}
+.agent-7 .agent-btn.pri{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25);color:var(--green);}
+.agent-7 .exp-cmd:hover{border-color:rgba(34,197,94,.3);color:var(--green);}
+.agent-8{cursor:default;}
+.agent-8::before{background:linear-gradient(90deg,var(--cyan),var(--purple));}
+.agent-8 .agent-icon{background:rgba(6,182,212,.1);color:var(--cyan);}
+.agent-8 .agent-btn.pri{background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.25);color:var(--cyan);}
 .agent-name{font-family:'Syne',serif;font-size:14px;font-weight:800;margin-bottom:3px;}
 .agent-desc{font-size:11px;color:var(--ink3);line-height:1.5;margin-bottom:12px;}
 .agent-stats{display:flex;gap:14px;margin-bottom:12px;}
@@ -168,6 +182,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .browser-output .b-ok{color:var(--green);}
 .browser-output .b-err{color:var(--red);}
 .browser-output .b-info{color:var(--ink3);}
+.browser-output .bcopy{margin-left:8px;font-family:'Instrument Sans',sans-serif;font-size:10px;font-weight:700;padding:1px 8px;border-radius:5px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.3);color:var(--teal);cursor:pointer;}
 
 /* Quick command chips */
 .browser-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
@@ -246,26 +261,6 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(13,13,20,.97);border:1px solid var(--border2);color:var(--ink);font-size:12px;font-weight:600;padding:9px 18px;border-radius:10px;z-index:999;pointer-events:none;opacity:0;transition:all .25s;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ── Brevo Email Capture ── */
-.brevo-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;}
-.brevo-modal-overlay.open{display:flex;}
-.brevo-modal{background:#0d0d14;border:1px solid rgba(255,98,36,.25);border-radius:20px;padding:32px 28px;max-width:400px;width:100%;position:relative;box-shadow:0 0 80px rgba(255,98,36,.12),0 24px 48px rgba(0,0,0,.5);animation:bmoIn .3s cubic-bezier(.34,1.56,.64,1);}
-@keyframes bmoIn{from{opacity:0;transform:scale(.9) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
-.bmo-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(240,240,248,.5);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.bmo-close:hover{color:#fff;background:rgba(255,98,36,.15);border-color:rgba(255,98,36,.3);}
-.bmo-icon{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,rgba(255,98,36,.15),rgba(255,159,36,.08));border:1px solid rgba(255,98,36,.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px;}
-.bmo-title{font-family:'Syne',serif;font-size:22px;font-weight:900;letter-spacing:-.5px;color:#f0f0f8;text-align:center;margin-bottom:8px;}
-.bmo-sub{font-size:13px;color:rgba(240,240,248,.55);text-align:center;line-height:1.65;margin-bottom:22px;}
-.bmo-sub strong{color:#ff9f24;}
-.bmo-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:13px 16px;font-family:'Instrument Sans',sans-serif;font-size:14px;color:#f0f0f8;outline:none;transition:border .2s;margin-bottom:10px;box-sizing:border-box;}
-.bmo-input::placeholder{color:rgba(240,240,248,.3);}
-.bmo-input:focus{border-color:rgba(255,98,36,.4);box-shadow:0 0 0 3px rgba(255,98,36,.07);}
-.bmo-btn{width:100%;background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:11px;padding:14px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.bmo-btn:hover{opacity:.88;}
-.bmo-btn:disabled{opacity:.5;cursor:not-allowed;}
-.bmo-privacy{font-size:10px;color:rgba(240,240,248,.25);text-align:center;margin-top:10px;}
-.bmo-skip{display:block;font-size:11px;color:rgba(240,240,248,.3);text-align:center;margin-top:8px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%;}
-.bmo-skip:hover{color:rgba(240,240,248,.5);}
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -311,9 +306,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     <h1 class="aria-name">Hey, I'm <span>ARIA</span></h1>
     <p class="aria-tagline">Adaptive Response & Intelligence Agent — your Promptaholics command center</p>
     <div class="waveform" id="waveform"></div>
-    <div class="aria-transcript" id="ariaTranscript">Tap the mic or type to get started...</div>
+    <div class="aria-transcript" id="ariaTranscript" aria-live="polite">Tap the mic or type to get started...</div>
     <div class="voice-controls">
-      <button class="btn-mic" id="micBtn" onclick="toggleMic()"><i class="ti ti-microphone" id="micIcon"></i></button>
+      <button class="btn-mic" id="micBtn" onclick="toggleMic()" aria-label="Talk to ARIA"><i class="ti ti-microphone" id="micIcon"></i></button>
       <button class="ctrl-btn" onclick="toggleType()"><i class="ti ti-keyboard"></i> Type</button>
       <button class="ctrl-btn" id="autoBtn" onclick="toggleAuto()"><i class="ti ti-repeat"></i> Auto</button>
       <button class="ctrl-btn stop" id="stopBtn" style="display:none" onclick="stopTalking()"><i class="ti ti-player-stop"></i> Stop</button>
@@ -415,12 +410,12 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
         <button class="agent-btn sec" onclick="runBrowserQA();event.stopPropagation()"><i class="ti ti-checklist"></i> QA Site</button>
       </div>
       <div class="agent-expand" id="exp4">
-        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && screenshot');toggleExpand(4)"><i class="ti ti-camera"></i> Screenshot homepage</div>
-        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && snapshot -i');toggleExpand(4)"><i class="ti ti-scan"></i> Snapshot elements</div>
-        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && wait 2000 && screenshot --full');toggleExpand(4)"><i class="ti ti-photo-scan"></i> Full page capture</div>
-        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && get title');toggleExpand(4)"><i class="ti ti-tag"></i> Check page title</div>
-        <div class="exp-cmd" onclick="runBrowserQA();toggleExpand(4)"><i class="ti ti-shield-check"></i> Run full QA checklist</div>
-        <div class="exp-cmd" onclick="runBrowserCmd('open https://main--promptaholics.netlify.app && screenshot --annotate');toggleExpand(4)"><i class="ti ti-eye"></i> Annotate staging</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && screenshot')"><i class="ti ti-camera"></i> Screenshot homepage</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && snapshot -i')"><i class="ti ti-scan"></i> Snapshot elements</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && wait 2000 && screenshot --full')"><i class="ti ti-photo-scan"></i> Full page capture</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://promptaholics.com && get title')"><i class="ti ti-tag"></i> Check page title</div>
+        <div class="exp-cmd" onclick="runBrowserQA()"><i class="ti ti-shield-check"></i> Run full QA checklist</div>
+        <div class="exp-cmd" onclick="runBrowserCmd('open https://main--promptaholics.netlify.app && screenshot --annotate')"><i class="ti ti-eye"></i> Annotate staging</div>
       </div>
     </div>
 
@@ -501,7 +496,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 
   <!-- EMPTY SLOT -->
   <div class="add-grid">
-    <div class="add-card" onclick="showAddModal(8)"><i class="ti ti-plus"></i><span>Add Agent 8</span></div>
+    <div class="add-card" id="agentSlot8" onclick="showAddModal(8)"><i class="ti ti-plus"></i><span>Add Agent 8</span></div>
   </div>
 
   <!-- EMAIL OUTPUT PANEL -->
@@ -513,7 +508,11 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
         <button class="ctrl-btn" onclick="document.getElementById('emailPanel').style.display='none'" style="font-size:10px;padding:5px 10px;"><i class="ti ti-x"></i> Close</button>
       </div>
     </div>
-    <div id="emailOutput" style="background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;min-height:200px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:rgba(240,240,248,.8);line-height:1.8;white-space:pre-wrap;margin-bottom:10px;">Generating email draft...</div>
+    <div class="mfield" style="margin-bottom:10px;">
+      <label for="emailNews">What's new on the site this week (optional — saved for next time)</label>
+      <input id="emailNews" placeholder="e.g. 40 new marketing prompts, new Prompt Builder templates"/>
+    </div>
+    <div id="emailOutput" style="background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;min-height:200px;max-height:520px;overflow-y:auto;font-family:'Instrument Sans',sans-serif;font-size:13px;color:rgba(240,240,248,.8);line-height:1.8;white-space:pre-wrap;margin-bottom:10px;">Generating email draft...</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="ctrl-btn" onclick="copyEmailDraft()" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;"><i class="ti ti-copy"></i> Copy to Clipboard</button>
       <a href="https://app.brevo.com" target="_blank" class="ctrl-btn" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;"><i class="ti ti-external-link"></i> Open Brevo</button>
@@ -535,7 +534,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     <div class="setup-hint">
       <strong>Setup required:</strong> This panel generates <code>agent-browser</code> commands for your local terminal.
       Install with <code>npm i -g agent-browser</code> then run <code>agent-browser install</code> to download Chrome.
-      Commands shown below can be copied and run in your terminal, or use the backend bridge if you have one running.
+      With a local bridge on <code>localhost:5555</code> the hub runs commands for you; without it, nothing is executed and you get the command to copy.
     </div>
 
     <!-- Quick chips -->
@@ -609,7 +608,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
     <div class="act-item">
       <span class="act-time" id="initTime">--:--</span>
       <span class="act-ico" style="color:var(--green)">✓</span>
-      <span class="act-txt"><strong>ARIA initialized</strong> — All agents online. Browser Agent ready.</span>
+      <span class="act-txt"><strong>ARIA initialized</strong> — signed in, loading agents.</span>
     </div>
   </div>
 
@@ -641,6 +640,7 @@ import { getFirestore, collection, getDocs, query, where, doc, getDoc, setDoc, u
 import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
+const ADMIN_EMAIL = 'promptaholics1@gmail.com';
 const fbApp = initializeApp({
   apiKey:"AIzaSyCWuUZjRUKMUEFtUHz6LCeWFSYS-c7qndQ",
   authDomain:"promptaholics.com",
@@ -650,92 +650,105 @@ const fbApp = initializeApp({
 const db  = getFirestore(fbApp);
 const auth= getAuth(fbApp);
 const prov= new GoogleAuthProvider();
+const memRef = ()=>doc(db,'aria-memory',ADMIN_EMAIL);
 
 window.__fbSignIn  = ()=>signInWithRedirect(auth,prov);
 window.__fbSignOut = ()=>signOut(auth);
 
-// Handle redirect result on page load (desktop fix)
+// Handle redirect result on page load
 getRedirectResult(auth).then(result=>{
   if(result?.user) addLog('✓','Signed in via redirect: '+result.user.email,'var(--green)');
 }).catch(e=>{ if(e.code!=='auth/no-current-user') console.warn('Redirect result:',e); });
 
-// Get top auto-graded prompts from this week
+// Turn a Firestore timestamp (or anything date-like) into milliseconds
+function toMs(t){
+  if(!t) return 0;
+  if(typeof t.toMillis==='function') return t.toMillis();
+  const n=new Date(t).getTime();
+  return isNaN(n)?0:n;
+}
+
+// One read of the auto-graded prompts, shared by the stat tile and the weekly email
+async function loadAutoGraded(){
+  const snap = await getDocs(query(collection(db,'pending-prompts'),where('source','==','pa-agent-auto')));
+  const out=[];
+  snap.forEach(d=>out.push({...d.data(), id:d.id}));
+  return out;
+}
+
+// Top auto-graded prompts from the last 7 days (falls back to all-time if none are dated this week)
 window.__fbGetTopPrompts = async(limit=10)=>{
   try{
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate()-7);
-    const q = query(
-      collection(db,'pending-prompts'),
-      where('source','==','pa-agent-auto')
-    );
-    const snap = await getDocs(q);
-    const prompts = [];
-    snap.forEach(doc=>{
-      const d = doc.data();
-      const score = d.autoGrade||0;
-      if(score>=8) prompts.push({...d, id:doc.id});
-    });
-    // Sort by score descending, return top N
-    return prompts.sort((a,b)=>(b.autoGrade||0)-(a.autoGrade||0)).slice(0,limit);
+    const weekAgo = Date.now()-7*24*60*60*1000;
+    const all = (await loadAutoGraded()).filter(p=>(p.autoGrade||0)>=8);
+    const thisWeek = all.filter(p=>toMs(p.submittedAt)>=weekAgo);
+    const pool = thisWeek.length ? thisWeek : all;
+    return pool.sort((a,b)=>(b.autoGrade||0)-(a.autoGrade||0)).slice(0,limit);
   } catch(e){ console.warn('fbGetTopPrompts error:',e); return []; }
 };
 
-// Count auto-graded prompts this week
-window.__fbGetAutoCount = async()=>{
-  try{
-    const q = query(collection(db,'pending-prompts'),where('source','==','pa-agent-auto'));
-    const snap = await getDocs(q);
-    return snap.size;
-  } catch(e){ return 0; }
-};
-
 window.__fbLoadMem = async()=>{
-  try{ const s=await getDoc(doc(db,'aria-memory','promptaholics1@gmail.com')); return s.exists()?(s.data().facts||[]):[];}
-  catch(e){ return []; }
+  try{
+    const s=await getDoc(memRef());
+    const d=s.exists()?s.data():{};
+    return { facts:d.facts||[], agents:d.customAgents||[] };
+  } catch(e){ console.warn('Memory load failed:',e); return { facts:[], agents:[] }; }
 };
 window.__fbAddMem = async(f)=>{
-  try{ await setDoc(doc(db,'aria-memory','promptaholics1@gmail.com'),{facts:arrayUnion(f),updatedAt:new Date()},{merge:true}); return true;}
-  catch(e){ return false; }
+  try{ await setDoc(memRef(),{facts:arrayUnion(f),updatedAt:new Date()},{merge:true}); return true;}
+  catch(e){ console.warn('Memory save failed:',e); return false; }
 };
 window.__fbDelMem = async(f)=>{
-  try{ await updateDoc(doc(db,'aria-memory','promptaholics1@gmail.com'),{facts:arrayRemove(f)}); return true;}
-  catch(e){ return false; }
+  try{ await updateDoc(memRef(),{facts:arrayRemove(f)}); return true;}
+  catch(e){ console.warn('Memory delete failed:',e); return false; }
+};
+window.__fbSaveAgents = async(agents)=>{
+  try{ await setDoc(memRef(),{customAgents:agents,updatedAt:new Date()},{merge:true}); return true;}
+  catch(e){ console.warn('Agent save failed:',e); return false; }
 };
 
 onAuthStateChanged(auth, async user=>{
-  if(user && user.email==='promptaholics1@gmail.com'){
+  if(user && user.email===ADMIN_EMAIL){
     document.getElementById('authGate').style.display='none';
     document.getElementById('hubMain').style.display='block';
     document.getElementById('navUser').textContent=user.email;
     document.getElementById('signOutBtn').style.display='inline-block';
     document.getElementById('initTime').textContent=new Date().toLocaleTimeString();
-    // Load stats
-    try{
-      const ps=await getDocs(query(collection(db,'pending-prompts'),where('status','==','pending')));
-      document.getElementById('a1p').textContent=ps.size;
-      const vs=await getDocs(query(collection(db,'vault-submissions'),where('status','==','pending')));
-      document.getElementById('a1i').textContent=vs.size;
-      const autoCount=await window.__fbGetAutoCount();
-      document.getElementById('a1auto').textContent=autoCount;
-      addLog('✓','Stats: '+ps.size+' prompts, '+vs.size+' images pending, '+autoCount+' auto-graded','var(--green)');
-    }catch(e){ addLog('⚠','Could not load stats','var(--red)'); }
-    // Load memory
-    const facts=await window.__fbLoadMem();
-    window.__memFacts=facts||[];
+
+    // Load stats in parallel; each one fails on its own without blocking the others
+    const [ps,vs,auto] = await Promise.allSettled([
+      getDocs(query(collection(db,'pending-prompts'),where('status','==','pending'))),
+      getDocs(query(collection(db,'vault-submissions'),where('status','==','pending'))),
+      loadAutoGraded()
+    ]);
+    const setStat=(id,r,fn)=>{ document.getElementById(id).textContent = r.status==='fulfilled' ? fn(r.value) : '!'; };
+    setStat('a1p',ps,v=>v.size);
+    setStat('a1i',vs,v=>v.size);
+    setStat('a1auto',auto,v=>v.length);
+    if([ps,vs,auto].some(r=>r.status==='rejected')){
+      addLog('⚠','Some vault stats could not load (check Firestore rules) — shown as !','var(--red)');
+    } else {
+      addLog('✓','Stats: '+ps.value.size+' prompts, '+vs.value.size+' images pending, '+auto.value.length+' auto-graded','var(--green)');
+      window.__vaultStats='Pending prompts: '+ps.value.size+'. Pending vault images: '+vs.value.size+'. Auto-graded prompts (all time): '+auto.value.length+'.';
+    }
+
+    // Load memory + custom agents
+    const mem=await window.__fbLoadMem();
+    window.__memFacts=mem.facts;
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
-    addLog('🧠','Memory: '+facts.length+' facts loaded','var(--purple)');
-    addLog('🌐','Browser Agent: ready — click Launch to open panel','var(--teal)');
-    addLog('📊','Analytics Agent: online','var(--purple)');
-    // Load Brevo + Netlify stats for Analytics Agent
+    setCustomAgents(mem.agents);
+    addLog('🧠','Memory: '+mem.facts.length+' facts loaded','var(--purple)');
+
     loadLiveStats();
-    // Greet
+
+    // Greet. Browsers block speech until the page has had a click/tap,
+    // so after a sign-in redirect the greeting is shown but only spoken if allowed.
     setTimeout(()=>{
-      const g=facts.length>0
-        ?'Hey, ARIA online. Five agents active — vault, social, tech ops, browser, and analytics. I have '+facts.length+' things in memory. What do you need?'
-        :'Hey, ARIA online. Five agents active — vault, social, tech ops, browser, and the new analytics agent. What do you need?';
+      const n=agentCount();
+      const g='Hey, ARIA online. '+n+' agents active.'+(mem.facts.length?' I have '+mem.facts.length+' things in memory.':'')+' What do you need?';
       setTranscript(g,false);
-      speak(g);
+      if(!navigator.userActivation || navigator.userActivation.hasBeenActive) speak(g);
     },800);
   } else if(user){
     alert('Access denied.');
@@ -750,28 +763,30 @@ onAuthStateChanged(auth, async user=>{
 var WORKER='https://dawn-thunder-a558.promptaholics1.workers.dev';
 var ADMIN ='promptaholics1@gmail.com';
 var MAX_HIST=20;
+var MAX_FILE_CHARS=40000;          // cap what gets sent to the model from an uploaded file
 var BRIDGE_URL='http://localhost:5555'; // Local agent-browser bridge (optional)
+var BASE_AGENTS=7;
 
-var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate five sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, Browser Agent, and Analytics.
+var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate seven sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, Browser Agent, Analytics, Security, and Revenue.
 
-CAPABILITIES: Real-time news via Gemini search grounding, Firebase memory synced across devices, file analysis, browser automation via agent-browser CLI, weekly email generation, Substack drafting, analytics reporting.
+CAPABILITIES: Real-time news via Gemini search grounding, Firebase memory synced across devices, analysis of files the user uploads into this conversation, weekly email generation, Substack drafting.
 
 AGENTS:
 1. VAULT & APPROVALS — manages pending-prompts and vault-submissions in Firebase. Auto-grade pipeline scores every PA Agent prompt; scores 8-10 go to pending-prompts tagged source:pa-agent-auto. Monday 2PM UTC GitHub Action exports approved prompts to prompts.js.
 2. SOCIAL MEDIA — creates TikTok hooks, LinkedIn posts, Twitter threads, Reddit posts, 7-day content calendars, weekly email drafts, and Substack posts.
 3. TECH & SITE OPS — tracks build queue, feature upgrades, deployments, GitHub Actions, Cloudflare Worker status.
-4. BROWSER AGENT — automates site QA, scraping, screenshots, form fills via agent-browser CLI.
-5. ANALYTICS — tracks site performance, SEO rankings, AdSense status, email list growth, and prompt library metrics. Suggests content strategy based on what is working.
+4. BROWSER AGENT — site QA and screenshots via the agent-browser CLI. The hub runs these itself; you only describe what will happen.
+5. ANALYTICS — site performance, SEO, AdSense status, email list growth, prompt library metrics, content strategy.
+6. SECURITY — reviews exposed secrets, CORS, Firebase rules, webhook verification, admin page access, and dependency risk.
+7. REVENUE — Stripe sales, guide conversion, merch orders, Printful affiliate performance, pricing.
 
-SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev (v5.4, Gemini 2.5 Flash Lite for find/fast, Claude Sonnet 4-6 for create). Library: 1,896+ prompts and growing toward 2,000, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: post-launch store with apparel, eBooks, ARIA white-label, prompt packs (paused). Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026, sitemap submitted. Brevo email capture: live on all 10 pages. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. IMPORTANT: facts in this paragraph are a static snapshot from whenever this prompt was last edited — they will drift out of date. For subscriber counts, revenue, or deploy status, always prefer the LIVE DATA blocks below over anything stated here, and if a LIVE DATA block says unavailable, say so plainly instead of relying on this paragraph.
+SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 2,000+ prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
-BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume post-PH 9) Read-only Prompt Library API 10) ARIA Agent 6.
+DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. You have NO access to Google Analytics / GA4, Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
 
-WEEKLY EMAIL FORMAT: Subject line, greeting, 8-10 curated prompts with names and text, one tip or technique, what is new on the site this week, simple CTA to visit the library. Conversational tone, not corporate. Under 500 words.
+BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume 9) Read-only Prompt Library API 10) ARIA Agent 8.
 
-VOICE RULES: Natural spoken English only. No markdown, no bullets. 2-4 sentences max. End with a follow-up or next action. Reference conversation history naturally.
-
-BROWSER ROUTING: If the user says screenshot, take a screenshot, QA, check the site, open a page, test the homepage, scrape, or automate — respond with what you will do and tell them to check the Browser Agent panel.`;
+VOICE RULES: Your replies are read aloud. Natural spoken English only. No markdown, no bullets, no emoji. 2-4 sentences max unless the user asks for a document or file analysis. End with a follow-up or next action. Reference conversation history naturally.`;
 
 // ─── State ────────────────────────────────────────────────────────
 var chatHistory=[];
@@ -779,12 +794,16 @@ var synth=window.speechSynthesis;
 var recog=null;
 var listening=false;
 var speaking=false;
+var busy=false;
 var autoMode=false;
 var lastResp='';
 var fileContent='';
+var fileName='';
 var browserRunCount=0;
 var screenshotCount=0;
 var browserRunning=false;
+var customAgents=[];
+var speechId=0;
 
 // ─── Waveform ─────────────────────────────────────────────────────
 (function(){
@@ -837,49 +856,44 @@ function downloadResponsePDF(){
   if(!lastResp){ showToast('No response yet to export — ask ARIA something first'); return; }
   if(typeof window.jspdf === 'undefined'){ showToast('PDF library did not load — check your connection and try again'); return; }
 
-  var doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
-  var pageW = doc.internal.pageSize.getWidth();
+  var pdf = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
+  var pageW = pdf.internal.pageSize.getWidth();
+  var pageH = pdf.internal.pageSize.getHeight();
   var margin = 56;
   var maxW = pageW - margin*2;
   var y = 64;
 
-  // Header
-  doc.setFont('helvetica','bold'); doc.setFontSize(18);
-  doc.text('ARIA Report', margin, y);
+  pdf.setFont('helvetica','bold'); pdf.setFontSize(18);
+  pdf.text('ARIA Report', margin, y);
   y += 22;
-  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120);
-  doc.text('Promptaholics.com  \u2014  ' + new Date().toLocaleString(), margin, y);
+  pdf.setFont('helvetica','normal'); pdf.setFontSize(9); pdf.setTextColor(120);
+  pdf.text('Promptaholics.com  -  ' + new Date().toLocaleString(), margin, y);
   y += 8;
-  doc.setDrawColor(230); doc.line(margin, y, pageW-margin, y);
+  pdf.setDrawColor(230); pdf.line(margin, y, pageW-margin, y);
   y += 24;
 
-  // Body — word-wrapped, paginated
-  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(20);
-  var lines = doc.splitTextToSize(lastResp, maxW);
-  var lineHeight = 16;
-  var pageH = doc.internal.pageSize.getHeight();
-
+  pdf.setFont('helvetica','normal'); pdf.setFontSize(11); pdf.setTextColor(20);
+  // jsPDF's built-in fonts can't draw emoji/smart symbols — strip them so the PDF doesn't fill with garbage
+  var clean = lastResp.replace(/[^\x09\x0A\x0D\x20-\x7E -ÿ–—‘’“”•…]/g,'');
+  var lines = pdf.splitTextToSize(clean, maxW);
   for(var i=0; i<lines.length; i++){
-    if(y > pageH - margin){
-      doc.addPage();
-      y = margin;
-    }
-    doc.text(lines[i], margin, y);
-    y += lineHeight;
+    if(y > pageH - margin){ pdf.addPage(); y = margin; }
+    pdf.text(lines[i], margin, y);
+    y += 16;
   }
 
-  var filename = 'aria-report-' + new Date().toISOString().slice(0,10) + '.pdf';
-  doc.save(filename);
-  showToast('\ud83d\udcc4 PDF downloaded');
-  addLog('\ud83d\udcc4','Exported response to PDF','var(--blue)');
+  pdf.save('aria-report-' + new Date().toISOString().slice(0,10) + '.pdf');
+  showToast('📄 PDF downloaded');
+  addLog('📄','Exported response to PDF','var(--blue)');
   if(typeof gtag !== 'undefined') gtag('event','aria_pdf_export');
 }
 
-// ─── Voice ────────────────────────────────────────────────────────
+// ─── Voice output ─────────────────────────────────────────────────
 function getBestVoice(){
+  if(!synth) return null;
   var voices=synth.getVoices();
   var names=['Samantha','Karen','Moira','Tessa','Fiona','Victoria','Allison','Susan','Zoe',
-    'Google US English Female','Microsoft Zira','Microsoft Eva','Microsoft Jenny','Microsoft Aria',
+    'Google US English','Microsoft Jenny','Microsoft Aria','Microsoft Zira','Microsoft Eva',
     'Google UK English Female'];
   for(var i=0;i<names.length;i++){
     var v=voices.find(function(x){ return x.name.includes(names[i]); });
@@ -889,125 +903,171 @@ function getBestVoice(){
 }
 if(synth){ synth.getVoices(); synth.onvoiceschanged=function(){ synth.getVoices(); }; }
 
-function speak(text){
-  if(!synth) return;
-  synth.cancel();
-  var utt=new SpeechSynthesisUtterance(text);
-  utt.rate=1.05; utt.pitch=1.05; utt.volume=1.0;
-  var v=getBestVoice(); if(v) utt.voice=v;
-  utt.onstart=function(){ speaking=true; setState('speaking'); document.getElementById('stopBtn').style.display='inline-flex'; };
-  utt.onend=function(){
-    speaking=false;
-    setState('idle');
-    document.getElementById('stopBtn').style.display='none';
-    var typeOpen=document.getElementById('typeRow').classList.contains('show');
-    if(autoMode && !listening && !speaking && !typeOpen){
-      setTimeout(startMic,700);
-    }
-  };
-  synth.speak(utt);
+// Strip things that sound bad read aloud (markdown, URLs, emoji)
+function speechText(t){
+  return String(t)
+    .replace(/```[\s\S]*?```/g,' code block omitted. ')
+    .replace(/https?:\/\/\S+/g,'the link')
+    .replace(/[*_#`>|~]/g,'')
+    .replace(/\p{Extended_Pictographic}/gu,'')
+    .replace(/\s+/g,' ')
+    .trim();
 }
-function stopTalking(){ if(synth) synth.cancel(); speaking=false; setState('idle'); document.getElementById('stopBtn').style.display='none'; }
+// Chrome stops speaking long utterances after ~15s, so speak sentence by sentence
+function chunkText(t){
+  var parts=t.match(/[^.!?]+[.!?]+["')\]]*|[^.!?]+$/g)||[t];
+  var chunks=[], cur='';
+  parts.forEach(function(p){
+    if((cur+p).length>220 && cur){ chunks.push(cur.trim()); cur=p; }
+    else cur+=p;
+  });
+  if(cur.trim()) chunks.push(cur.trim());
+  return chunks;
+}
+function speechDone(){
+  speaking=false;
+  document.getElementById('stopBtn').style.display='none';
+  if(!busy && !listening) setState('idle');
+}
+function speak(text){
+  if(!synth){ maybeAutoListen(); return; }
+  synth.cancel();
+  var myId=++speechId;
+  var chunks=chunkText(speechText(text));
+  if(!chunks.length){ maybeAutoListen(); return; }
+  var v=getBestVoice();
+  speaking=true;
+  setState('speaking');
+  document.getElementById('stopBtn').style.display='inline-flex';
+  chunks.forEach(function(c,i){
+    var utt=new SpeechSynthesisUtterance(c);
+    utt.rate=1.05; utt.pitch=1.05; utt.volume=1.0;
+    if(v) utt.voice=v;
+    var last=i===chunks.length-1;
+    utt.onend=function(){ if(last && myId===speechId){ speechDone(); maybeAutoListen(); } };
+    utt.onerror=function(e){
+      if(myId!==speechId) return;
+      if(e.error==='not-allowed') showToast('Tap the page once to let ARIA speak');
+      if(last || e.error==='not-allowed'){ speechId++; synth.cancel(); speechDone(); }
+    };
+    synth.speak(utt);
+  });
+}
+function stopTalking(){
+  speechId++;
+  if(synth) synth.cancel();
+  speechDone();
+}
+function maybeAutoListen(){
+  var typeOpen=document.getElementById('typeRow').classList.contains('show');
+  if(autoMode && !listening && !speaking && !busy && !typeOpen) setTimeout(startMic,600);
+}
 
 // ─── Mic ──────────────────────────────────────────────────────────
-function toggleMic(){ if(speaking){ stopTalking(); return; } if(listening){ stopMic(); return; } startMic(); }
+function toggleMic(){
+  if(listening){ stopMic(); return; }
+  if(speaking) stopTalking(); // tap while ARIA talks = interrupt and listen
+  startMic();
+}
 function startMic(){
+  if(listening || busy) return;
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ showToast('Speech not supported — use Type mode'); return; }
+  if(!SR){ showToast('Speech not supported in this browser — use Type mode'); return; }
+  var heard='';
   recog=new SR();
   recog.continuous=false; recog.interimResults=true; recog.lang='en-US';
-  recog.onstart=function(){ listening=true; setState('listening'); document.getElementById('micBtn').classList.add('listening'); document.getElementById('micIcon').className='ti ti-microphone-off'; setTranscript('Listening...',false); };
-  recog.onresult=function(e){ var t=Array.from(e.results).map(function(r){ return r[0].transcript; }).join(''); setTranscript(t,true); };
+  recog.onstart=function(){
+    listening=true; setState('listening');
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('micIcon').className='ti ti-microphone-off';
+    setTranscript('Listening...',false);
+  };
+  recog.onresult=function(e){
+    heard=Array.from(e.results).map(function(r){ return r[0].transcript; }).join('').trim();
+    if(heard) setTranscript(heard,true);
+  };
   recog.onend=function(){
     listening=false;
     document.getElementById('micBtn').classList.remove('listening');
     document.getElementById('micIcon').className='ti ti-microphone';
-    var txt=document.getElementById('ariaTranscript').textContent;
-    if(txt && txt!=='Listening...') runCmd(txt);
-    else setState('idle');
+    if(heard) runCmd(heard);
+    else { setState('idle'); setTranscript('Didn’t catch that — tap the mic and try again.',false); }
   };
-  recog.onerror=function(e){ listening=false; document.getElementById('micBtn').classList.remove('listening'); document.getElementById('micIcon').className='ti ti-microphone'; setState('idle'); if(e.error!=='no-speech') showToast('Mic error: '+e.error); };
-  recog.start();
+  recog.onerror=function(e){
+    if(e.error==='not-allowed' || e.error==='service-not-allowed'){
+      showToast('Microphone blocked — allow mic access for this site');
+      if(autoMode) toggleAuto();
+    } else if(e.error!=='no-speech' && e.error!=='aborted'){
+      showToast('Mic error: '+e.error);
+    }
+  };
+  try{ recog.start(); }catch(err){ listening=false; setState('idle'); }
 }
-function stopMic(){ if(recog) recog.stop(); listening=false; }
+function stopMic(){ if(recog) recog.stop(); }
 
 // ─── Text input ───────────────────────────────────────────────────
-function toggleType(){ document.getElementById('typeRow').classList.toggle('show'); document.getElementById('typeInp').focus(); }
+function toggleType(){
+  var row=document.getElementById('typeRow');
+  row.classList.toggle('show');
+  if(row.classList.contains('show')) document.getElementById('typeInp').focus();
+}
 function sendTyped(){ var v=document.getElementById('typeInp').value.trim(); if(!v) return; document.getElementById('typeInp').value=''; setTranscript(v,true); runCmd(v); }
 function toggleAuto(){
   autoMode=!autoMode;
-  var b=document.getElementById('autoBtn');
-  b.classList.toggle('on',autoMode);
-  showToast(autoMode?'🔄 Auto-listen ON':'Auto-listen OFF');
+  document.getElementById('autoBtn').classList.toggle('on',autoMode);
+  showToast(autoMode?'🔄 Auto-listen ON — ARIA listens again after each reply':'Auto-listen OFF');
 }
 function sendCmd(cmd){ setTranscript(cmd,true); runCmd(cmd); }
 function resetChat(){ chatHistory=[]; stopTalking(); setTranscript('Conversation reset. Ready for your next command.',false); addLog('🔄','Conversation reset','var(--ink3)'); showToast('Reset'); }
 
-// ─── Command router ───────────────────────────────────────────────
-var browserKw=['screenshot','take a screenshot','open the site','test the site','scrape','snapshot','qa the','check the homepage','check the site','open a page','annotate','browser','automate','navigate to'];
-async function runCmd(text){
-  setState('thinking');
-  addLog('🎙','Command: '+text.slice(0,60),'var(--purple)');
+// Keep history valid for the model: bounded length, starts with a user turn
+function trimHistory(){
+  if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
+  while(chatHistory.length && chatHistory[0].role!=='user') chatHistory.shift();
+}
 
-  // ── Browser agent routing ──────────────────────────────────────
-  var lc=text.toLowerCase();
-  var isBrowser=browserKw.some(function(k){ return lc.includes(k); });
-  if(isBrowser){
-    var browserReply=parseBrowserIntent(text);
+// ─── Command router ───────────────────────────────────────────────
+// Word-boundary matching so "newsletter" isn't "news" and "browser extension advice" isn't a browser job
+var BROWSER_RE=/\b(take a screenshot|screenshot|snapshot|full[- ]page capture|qa (the )?(site|homepage)|run (the )?qa|test the (site|homepage)|check the (site|homepage)|open the (site|homepage)|annotate (the )?staging)\b/i;
+var NEWS_RE=/\b(news|headlines?|what happened|trending|breaking|top stories|current events)\b/i;
+var WEB_RE=/\b(weather|price of|stock price|search for|look up|right now|today'?s)\b/i;
+
+async function runCmd(text,opts){
+  opts=opts||{};
+  if(busy){ showToast('ARIA is still working on the last request'); return; }
+  if(speaking) stopTalking();
+
+  // ── Browser agent routing (never for uploaded files) ─────────
+  if(!opts.noRoute && BROWSER_RE.test(text)){
+    var intent=parseBrowserIntent(text);
     chatHistory.push({role:'user',content:text});
-    chatHistory.push({role:'assistant',content:browserReply});
-    setTranscript(browserReply,false);
-    speak(browserReply);
-    setState('speaking');
-    addLog('🌐','Browser Agent: '+browserReply.slice(0,60),'var(--teal)');
-    openBrowserPanel();
+    chatHistory.push({role:'assistant',content:intent.reply});
+    trimHistory();
+    setTranscript(intent.reply,false);
+    addLog('🌐','Browser Agent: '+intent.reply.slice(0,60),'var(--teal)');
+    speak(intent.reply);
+    if(intent.qa) runBrowserQA(); else runBrowserCmd(intent.cmd);
     return;
   }
 
+  busy=true;
+  setState('thinking');
+  addLog('🎙','Command: '+(opts.label||text).slice(0,60),'var(--purple)');
+
   chatHistory.push({role:'user',content:text});
-  if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
+  trimHistory();
 
-  var memBlock=window.__memBlock||'';
-
-  // Inject live stats into context
-  var liveBlock='';
-  if(window.__brevoStats){
-    var b=window.__brevoStats;
-    liveBlock+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
-    if(b.lastCampaign) liveBlock+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
-  } else {
-    liveBlock+='\n\nBREVO DATA: Unavailable this session (fetch failed or BREVO_API_KEY may be missing on the Worker). Do not state a subscriber number — tell the user the live connection failed and to check the Worker secret.';
-  }
-  if(window.__netlifyStats){
-    var n=window.__netlifyStats;
-    liveBlock+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
-  } else {
-    liveBlock+='\n\nNETLIFY DATA: Unavailable this session — do not guess deploy status.';
-  }
-  if(window.__revenueStats){
-    var r=window.__revenueStats;
-    liveBlock+='\n\nLIVE REVENUE DATA (Stripe, last 30 days): Total revenue: $'+(r.totalRevenue/100).toFixed(2)+'. Orders: '+r.chargeCount+' ('+r.guideSales+' guide sales, '+r.merchOrders+' merch/print orders).';
-  } else {
-    liveBlock+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
-  }
-
-  var sys=ARIA_SYS+memBlock+liveBlock;
-
-  var newsKw=['news','headlines','what happened','trending','latest','breaking','top stories','current events'];
-  var webKw=['weather','price of','stock','search for','look up','right now'];
-  var isNews=newsKw.some(function(k){ return lc.includes(k); });
-  var isWeb=webKw.some(function(k){ return lc.includes(k); });
-  var intent=(isNews||isWeb)?'find':'create';
-
+  var sys=ARIA_SYS+(window.__memBlock||'')+customAgentBlock()+liveDataBlock();
+  var intentType=(NEWS_RE.test(text)||WEB_RE.test(text))?'find':'create';
   var thinkT=setTimeout(function(){ setTranscript('Still thinking... 🧠',false); },4000);
 
   try{
     var ctrl=new AbortController();
-    var tId=setTimeout(function(){ ctrl.abort(); },25000);
+    var tId=setTimeout(function(){ ctrl.abort(); },opts.long?60000:30000);
     var res=await fetch(WORKER+'/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({intent:intent,max_tokens:300,system:sys,messages:chatHistory}),
+      body:JSON.stringify({intent:intentType,max_tokens:opts.long?1500:350,system:sys,messages:chatHistory}),
       signal:ctrl.signal
     });
     clearTimeout(tId);
@@ -1015,121 +1075,136 @@ async function runCmd(text){
     if(!res.ok) throw new Error('HTTP '+res.status);
     var data=await res.json();
     var reply=(data.text||'').trim();
-    if(!reply) throw new Error('Empty');
+    if(!reply) throw new Error('Empty reply');
     chatHistory.push({role:'assistant',content:reply});
+    trimHistory();
     lastResp=reply;
     document.getElementById('dlBtn').style.display='inline-flex';
     setTranscript(reply,false);
-    setState('speaking');
-    speak(reply);
     addLog('🤖','ARIA: '+reply.slice(0,80)+(reply.length>80?'...':''),'var(--cyan)');
+    busy=false;
+    speak(opts.long && reply.length>400 ? 'The full analysis is on screen. You can download it as a PDF or text file.' : reply);
   }catch(e){
     clearTimeout(thinkT);
-    var err=e.name==='AbortError'?'That took too long — try again.':'Something went wrong. Try again.';
+    chatHistory.pop(); // drop the failed user turn so the next request isn't broken by it
+    busy=false;
+    var err=e.name==='AbortError'?'That took too long — try again.'
+      :(/HTTP 4/.test(e.message)?'The Worker rejected that request ('+e.message+').':'Something went wrong reaching the Worker. Try again.');
     setTranscript(err,false);
+    addLog('⚠','Request failed: '+e.message,'var(--red)');
     speak(err);
-    setState('idle');
     console.error(e);
   }
 }
 
-// ─── Browser intent parser ────────────────────────────────────────
+function liveDataBlock(){
+  var out='';
+  var b=window.__brevoStats;
+  if(b){
+    out+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
+    if(b.lastCampaign) out+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
+  } else out+='\n\nBREVO DATA: Unavailable this session (fetch failed or BREVO_API_KEY may be missing on the Worker). Do not state a subscriber number.';
+  var n=window.__netlifyStats;
+  if(n) out+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
+  else out+='\n\nNETLIFY DATA: Unavailable this session — do not guess deploy status.';
+  var r=window.__revenueStats;
+  if(r && typeof r.totalRevenue==='number') out+='\n\nLIVE REVENUE DATA (Stripe, last 30 days): Total revenue: $'+(r.totalRevenue/100).toFixed(2)+'. Orders: '+(r.chargeCount||0)+' ('+(r.guideSales||0)+' guide sales, '+(r.merchOrders||0)+' merch/print orders).';
+  else out+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
+  var v=window.__vaultStats;
+  if(v) out+='\n\nLIVE VAULT DATA: '+v;
+  return out;
+}
+
+// ─── Browser intent parser → a real command ───────────────────────
 function parseBrowserIntent(text){
   var lc=text.toLowerCase();
-  if(lc.includes('screenshot') && lc.includes('full')) return 'On it. Running a full page screenshot of Promptaholics now — check the Browser Agent panel for the output.';
-  if(lc.includes('screenshot') || lc.includes('capture')) return 'Running a screenshot of the homepage now. Check the Browser Agent panel — results will appear there.';
-  if(lc.includes('snapshot') || lc.includes('elements')) return 'Snapshotting the page for interactive elements. The Browser Agent panel will show you all the refs.';
-  if(lc.includes('qa') || lc.includes('test')) return 'Kicking off the QA checklist for Promptaholics. Browser Agent is running through the checks — panel is open below.';
-  if(lc.includes('scrape') || lc.includes('extract')) return 'Starting a scrape run. Browser Agent is on it — check the panel below for the extracted data.';
-  if(lc.includes('staging')) return 'Opening the Netlify staging build now. Browser Agent panel will show the screenshot and any issues.';
-  return 'Browser Agent is handling that now. Check the panel below — commands and output will show up there.';
+  var site=lc.includes('staging')?'https://main--promptaholics.netlify.app':'https://promptaholics.com';
+  if(/\bqa\b|\btest the\b|\bcheck the\b/.test(lc)) return {qa:true, reply:'Running the QA checklist now. Results will show in the Browser Agent panel.'};
+  if(lc.includes('annotate')) return {cmd:'open '+site+' && screenshot --annotate', reply:'Taking an annotated screenshot now. Check the Browser Agent panel.'};
+  if(lc.includes('snapshot')) return {cmd:'open '+site+' && snapshot -i', reply:'Snapshotting the page for interactive elements. Check the Browser Agent panel.'};
+  if(/full/.test(lc)) return {cmd:'open '+site+' && wait 2000 && screenshot --full', reply:'Taking a full page screenshot now. Check the Browser Agent panel.'};
+  if(lc.includes('screenshot')) return {cmd:'open '+site+' && wait 1500 && screenshot', reply:'Taking a screenshot now. Check the Browser Agent panel.'};
+  return {cmd:'open '+site+' && get title && get url', reply:'Opening the site now. Check the Browser Agent panel.'};
 }
 
 // ─── Weekly Email Generator ───────────────────────────────────────
+(function(){
+  try{ var saved=localStorage.getItem('aria_whats_new'); if(saved) document.getElementById('emailNews').value=saved; }catch(e){}
+})();
 async function generateWeeklyEmail(){
-  // Show email panel
-  var panel = document.getElementById('emailPanel');
+  var panel=document.getElementById('emailPanel');
   panel.style.display='block';
   panel.scrollIntoView({behavior:'smooth',block:'start'});
-  var output = document.getElementById('emailOutput');
-  var status = document.getElementById('emailStatus');
+  var output=document.getElementById('emailOutput');
+  var status=document.getElementById('emailStatus');
+  var news=document.getElementById('emailNews').value.trim();
+  try{ localStorage.setItem('aria_whats_new',news); }catch(e){}
   output.textContent='Fetching top prompts from Firebase...';
   status.className='browser-status running';
   status.textContent='Generating...';
   addLog('📧','Generating weekly email draft','var(--blue)');
 
-  // Pull top prompts from Firebase
-  var topPrompts=[];
-  if(typeof window.__fbGetTopPrompts==='function'){
-    topPrompts = await window.__fbGetTopPrompts(10);
-  }
-
-  var promptBlock='';
-  if(topPrompts.length>0){
-    promptBlock='This week\'s top auto-graded prompts from the PA Agent (use these in the email):\n';
-    topPrompts.forEach((p,i)=>{
-      promptBlock+=`${i+1}. ${p.name||'Untitled'} (score: ${p.autoGrade||'?'})\n"${(p.text||'').slice(0,200)}..."\n\n`;
+  var topPrompts=typeof window.__fbGetTopPrompts==='function' ? await window.__fbGetTopPrompts(10) : [];
+  var promptBlock;
+  if(topPrompts.length){
+    promptBlock='Top auto-graded prompts from the PA Agent (use these, keep their full text):\n';
+    topPrompts.forEach(function(p,i){
+      promptBlock+=(i+1)+'. '+(p.name||'Untitled')+' (score '+(p.autoGrade||'?')+', '+(p.category||'General')+')\n'+(p.text||'').slice(0,600)+'\n\n';
     });
   } else {
-    promptBlock='No auto-graded prompts this week yet. Use your best judgment to pick 8 great prompts from the Promptaholics library across different categories.';
+    promptBlock='No auto-graded prompts were found. Write 8 strong, copy-paste-ready prompts across different categories (writing, marketing, business, coding, images).';
   }
+  addLog('📧','Using '+(topPrompts.length||'no')+' auto-graded prompts','var(--blue)');
 
-  var emailSys=`You are the email copywriter for Promptaholics.com, a free AI prompt library with 1,671 structured prompts. Write a weekly email newsletter.
+  var emailSys=`You are the email copywriter for Promptaholics.com, a free AI prompt library with 2,000+ structured prompts. Write a weekly email newsletter.
 
 FORMAT:
-Subject: [compelling subject line about the prompts theme]
+Subject: [specific, compelling subject line]
 
 Hey [First name] 👋
 
-[1-2 sentence intro about this week's theme — keep it conversational, not corporate]
+[1-2 sentence intro about this week's theme — conversational, not corporate]
 
 This week's top prompts:
-
-[List 8-10 prompts with their name as a bold header and the full prompt text below each]
+[8-10 prompts, each with its name as a bold header and the full prompt text below]
 
 This week's tip:
-[One actionable prompt engineering tip — specific and practical]
+[One specific, practical prompt engineering tip]
 
 New on Promptaholics:
-[One thing new or notable on the site this week]
+[Only from the "What's new" notes provided. If none are provided, leave this whole section out — never invent site news.]
 
 Happy prompting,
 The Promptaholics Team
 
-P.S. [Fun one-liner or teaser for next week]
+P.S. [Fun one-liner or teaser]
 
----
-RULES: Conversational tone. Under 500 words. No excessive exclamation marks. Prompts should be copy-paste ready. Subject line should be specific not generic.`;
+RULES: Conversational tone. Under 600 words. Few exclamation marks. Prompts must be copy-paste ready.`;
 
-  var userMsg=`Write this week's Promptaholics email newsletter.\n\n${promptBlock}\n\nNew this week: 5 new SEO blog articles just published, Google Search Console verified, Brevo email capture live on all pages, share button added to PA Agent.`;
+  var userMsg='Write this week\'s Promptaholics email newsletter.\n\n'+promptBlock+'\n\nWhat\'s new on the site this week: '+(news||'(none provided — skip that section)');
 
   try{
-    output.textContent='Writing email with Claude...';
+    output.textContent='Writing email...';
     var res=await fetch(WORKER+'/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        intent:'create',
-        max_tokens:1500,
-        system:emailSys,
-        messages:[{role:'user',content:userMsg}]
-      })
+      body:JSON.stringify({intent:'create',max_tokens:1800,system:emailSys,messages:[{role:'user',content:userMsg}]})
     });
     if(!res.ok) throw new Error('HTTP '+res.status);
     var data=await res.json();
     var email=(data.text||'').trim();
     if(!email) throw new Error('Empty response');
     output.textContent=email;
+    lastResp=email;
     status.className='browser-status';
     status.textContent='Done ✓';
-    // Track email count
-    var count=parseInt(document.getElementById('a2emails').textContent)||0;
-    document.getElementById('a2emails').textContent=count+1;
+    var el=document.getElementById('a2emails');
+    el.textContent=(parseInt(el.textContent)||0)+1;
     addLog('📧','Weekly email draft ready — '+email.length+' chars','var(--blue)');
     showToast('✅ Email draft ready — copy to Brevo');
-    speak('Your weekly email draft is ready. Check the email panel below and copy it into Brevo when you are happy with it.');
+    speak('Your weekly email draft is ready. Check the panel and copy it into Brevo when you are happy with it.');
   }catch(e){
-    output.textContent='Error generating email: '+e.message+'\n\nTry refreshing and signing in again.';
+    output.textContent='Error generating email: '+e.message+'\n\nTry again in a moment.';
     status.className='browser-status error';
     status.textContent='Error';
     addLog('⚠','Email generation failed: '+e.message,'var(--red)');
@@ -1138,6 +1213,8 @@ RULES: Conversational tone. Under 500 words. No excessive exclamation marks. Pro
 
 // ─── Substack Generator ───────────────────────────────────────────
 async function generateSubstack(){
+  if(busy){ showToast('ARIA is still working on the last request'); return; }
+  busy=true;
   setTranscript('Writing your Substack post now...',false);
   setState('thinking');
   addLog('✏️','Generating Substack post draft','var(--blue)');
@@ -1146,116 +1223,106 @@ async function generateSubstack(){
 
 FORMAT: Title, subtitle, opening hook (2-3 sentences), main body (3-4 sections with headers), practical section with 3-5 example prompts, closing thought, simple CTA.
 
-TONE: Conversational, opinionated, practical. Like a knowledgeable friend sharing what actually works. Not corporate. No fluff.
+TONE: Conversational, opinionated, practical. Like a knowledgeable friend sharing what actually works. No fluff.
 
 LENGTH: 600-900 words.`;
-
-  var userMsg='Write a Substack post for the Promptaholics newsletter. Topics to choose from this week: the auto-grade PA Agent pipeline, how structured prompts outperform vague ones, loop engineering and what it means for prompt libraries, or why free prompt libraries beat paid ones for most users. Pick the most interesting angle.';
+  var userMsg='Write a Substack post for the Promptaholics newsletter. Pick the most interesting angle: the auto-grade PA Agent pipeline, how structured prompts outperform vague ones, loop engineering and what it means for prompt libraries, or why free prompt libraries beat paid ones for most users.';
 
   try{
     var res=await fetch(WORKER+'/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({intent:'create',max_tokens:1500,system:substackSys,messages:[{role:'user',content:userMsg}]})
+      body:JSON.stringify({intent:'create',max_tokens:2000,system:substackSys,messages:[{role:'user',content:userMsg}]})
     });
     if(!res.ok) throw new Error('HTTP '+res.status);
     var data=await res.json();
     var post=(data.text||'').trim();
     if(!post) throw new Error('Empty');
-
-    // Show in email panel reusing it
     var panel=document.getElementById('emailPanel');
     panel.style.display='block';
-    document.getElementById('emailStatus').textContent='Substack ✓';
+    var st=document.getElementById('emailStatus');
+    st.className='browser-status'; st.textContent='Substack ✓';
     document.getElementById('emailOutput').textContent=post;
+    lastResp=post;
     panel.scrollIntoView({behavior:'smooth',block:'start'});
-
-    setTranscript('Substack post is ready in the panel below. Copy it and paste into your Substack editor.',false);
+    busy=false;
+    setTranscript('Substack post is ready in the panel below. Copy it into your Substack editor.',false);
     speak('Your Substack post is ready. Check the panel below and copy it into your Substack editor.');
     addLog('✏️','Substack post ready — '+post.length+' chars','var(--blue)');
     showToast('✅ Substack post ready');
   }catch(e){
-    setTranscript('Could not generate Substack post — try again.',false);
+    busy=false;
+    setTranscript('Could not generate the Substack post — try again.',false);
+    addLog('⚠','Substack failed: '+e.message,'var(--red)');
     speak('Something went wrong generating the Substack post. Try again.');
-    setState('idle');
   }
 }
 
 // ─── Copy email/substack draft ────────────────────────────────────
 async function copyEmailDraft(){
   var text=document.getElementById('emailOutput').textContent;
-  if(!text||text==='Generating email draft...') return;
+  if(!text||/^(Generating|Fetching|Writing)/.test(text)) return;
   try{
     await navigator.clipboard.writeText(text);
-    showToast('✅ Copied to clipboard — paste into Brevo');
-    addLog('📋','Email draft copied to clipboard','var(--blue)');
-  }catch(e){
-    showToast('Could not copy — try selecting and copying manually');
-  }
+    showToast('✅ Copied to clipboard');
+    addLog('📋','Draft copied to clipboard','var(--blue)');
+  }catch(e){ showToast('Could not copy — select the text and copy manually'); }
 }
 
-// ─── Live Stats (Brevo + Netlify) ────────────────────────────────
+// ─── Live Stats (Brevo + Netlify + Stripe) ───────────────────────
+async function fetchJSON(path){
+  var r=await fetch(WORKER+path,{signal:AbortSignal.timeout(15000)});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
 async function loadLiveStats(){
-  try{
-    // Brevo subscriber count
-    var brevoRes = await fetch(WORKER+'/api/brevo-stats');
-    if(brevoRes.ok){
-      var brevoData = await brevoRes.json();
-      var subs = brevoData.subscribers?.active || brevoData.subscribers?.total || 0;
-      document.getElementById('a5subs').textContent = subs.toLocaleString();
-      addLog('📧','Brevo: '+subs+' active subscribers','var(--blue)');
-      // Store in ARIA context
-      window.__brevoStats = brevoData;
-    }
-  }catch(e){ console.warn('Brevo stats failed:',e); }
+  var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary')]);
 
-  try{
-    // Netlify deploy status
-    var netlifyRes = await fetch(WORKER+'/api/netlify-status');
-    if(netlifyRes.ok){
-      var netlifyData = await netlifyRes.json();
-      var deployState = netlifyData.deploy?.state || 'unknown';
-      var deployTime  = netlifyData.deploy?.deployTime ? netlifyData.deploy.deployTime+'s' : '--';
-      var stateIcon   = deployState==='ready' ? '✓' : deployState==='error' ? '✗' : '~';
-      document.getElementById('a5deploy').textContent = stateIcon;
-      addLog('🚀','Netlify: deploy '+deployState+' ('+deployTime+')','var(--green)');
-      window.__netlifyStats = netlifyData;
-    }
-  }catch(e){ console.warn('Netlify stats failed:',e); }
+  if(results[0].status==='fulfilled'){
+    var bd=results[0].value;
+    var subs=bd.subscribers?.active || bd.subscribers?.total || 0;
+    document.getElementById('a5subs').textContent=Number(subs).toLocaleString();
+    addLog('📧','Brevo: '+subs+' active subscribers','var(--blue)');
+    window.__brevoStats=bd;
+  } else addLog('⚠','Brevo stats unavailable ('+results[0].reason.message+')','var(--red)');
 
-  try{
-    // Revenue summary (Stripe, last 30 days)
-    var revRes = await fetch(WORKER+'/api/revenue-summary');
-    if(revRes.ok){
-      var revData = await revRes.json();
-      var revDisplay = '$'+(revData.totalRevenue/100).toLocaleString(undefined,{maximumFractionDigits:0});
-      document.getElementById('a5rev').textContent = revDisplay;
-      document.getElementById('a7rev').textContent = revDisplay;
-      document.getElementById('a7orders').textContent = revData.chargeCount ?? '—';
-      addLog('💰','Revenue (30d): '+revDisplay+' across '+(revData.chargeCount||0)+' orders','var(--orange)');
-      window.__revenueStats = revData;
-    }
-  }catch(e){ console.warn('Revenue stats failed:',e); }
+  if(results[1].status==='fulfilled'){
+    var nd=results[1].value;
+    var state=nd.deploy?.state||'unknown';
+    document.getElementById('a5deploy').textContent=state==='ready'?'✓':state==='error'?'✗':'~';
+    addLog('🚀','Netlify: deploy '+state+(nd.deploy?.deployTime?' ('+nd.deploy.deployTime+'s)':''),'var(--green)');
+    window.__netlifyStats=nd;
+  } else addLog('⚠','Netlify status unavailable ('+results[1].reason.message+')','var(--red)');
+
+  if(results[2].status==='fulfilled' && typeof results[2].value.totalRevenue==='number'){
+    var rd=results[2].value;
+    var revDisplay='$'+(rd.totalRevenue/100).toLocaleString(undefined,{maximumFractionDigits:0});
+    document.getElementById('a5rev').textContent=revDisplay;
+    document.getElementById('a7rev').textContent=revDisplay;
+    document.getElementById('a7orders').textContent=rd.chargeCount ?? '—';
+    addLog('💰','Revenue (30d): '+revDisplay+' across '+(rd.chargeCount||0)+' orders','var(--orange)');
+    window.__revenueStats=rd;
+  } else addLog('⚠','Revenue summary unavailable','var(--red)');
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
 function openBrowserPanel(){
-  document.getElementById('browserPanel').classList.add('show');
-  document.getElementById('browserPanel').scrollIntoView({behavior:'smooth',block:'start'});
+  var p=document.getElementById('browserPanel');
+  var wasOpen=p.classList.contains('show');
+  p.classList.add('show');
+  if(!wasOpen) p.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function closeBrowserPanel(){
-  document.getElementById('browserPanel').classList.remove('show');
-}
+function closeBrowserPanel(){ document.getElementById('browserPanel').classList.remove('show'); }
 
 function setBrowserStatus(s){
   var el=document.getElementById('browserStatusBadge');
   el.className='browser-status';
   if(s==='running'){ el.className='browser-status running'; el.textContent='Running...'; }
   else if(s==='error'){ el.className='browser-status error'; el.textContent='Error'; }
+  else if(s==='offline'){ el.className='browser-status error'; el.textContent='Bridge offline'; }
   else if(s==='done'){ el.textContent='Done ✓'; }
   else { el.textContent='Ready'; }
 }
-
 function appendBrowserLine(text,cls){
   var out=document.getElementById('browserOutput');
   var sp=document.createElement('span');
@@ -1263,143 +1330,51 @@ function appendBrowserLine(text,cls){
   sp.textContent=text;
   out.appendChild(sp);
   out.scrollTop=out.scrollHeight;
+  return sp;
 }
-
+function appendCopyLine(cmd){
+  var out=document.getElementById('browserOutput');
+  var row=document.createElement('span');
+  row.className='b-line';
+  var code=document.createElement('span');
+  code.className='b-cmd';
+  code.textContent='agent-browser '+cmd.replace(/&&/g,'&& agent-browser');
+  var btn=document.createElement('button');
+  btn.className='bcopy';
+  btn.textContent='Copy';
+  btn.onclick=function(){
+    navigator.clipboard.writeText(code.textContent).then(function(){ showToast('✅ Command copied — paste in your terminal'); },function(){ showToast('Could not copy'); });
+  };
+  row.appendChild(code); row.appendChild(btn);
+  out.appendChild(row);
+  out.scrollTop=out.scrollHeight;
+}
 function clearBrowserOutput(){
   document.getElementById('browserOutput').innerHTML='<span class="b-info b-line">// Cleared.</span>';
   document.getElementById('screenshotFrame').innerHTML='<div class="screenshot-placeholder"><i class="ti ti-photo"></i><p>Screenshots will appear here</p></div>';
 }
-
+function showScreenshot(b64){
+  var frame=document.getElementById('screenshotFrame');
+  frame.innerHTML='';
+  var img=document.createElement('img');
+  img.alt='Screenshot';
+  img.src='data:image/png;base64,'+String(b64).replace(/[^A-Za-z0-9+/=]/g,'');
+  frame.appendChild(img);
+  screenshotCount++;
+  document.getElementById('a4shots').textContent=screenshotCount;
+}
 function sendBrowserCmd(){
   var inp=document.getElementById('browserCmdInp');
-  var cmd=inp.value.trim();
+  var cmd=inp.value.trim().replace(/^agent-browser\s+/,'');
   if(!cmd){ showToast('Enter a command'); return; }
   inp.value='';
   runBrowserCmd(cmd);
 }
 
+// Runs a command through the local bridge. Without the bridge, nothing is executed —
+// the panel says so and gives you the command to copy (no fake results).
 async function runBrowserCmd(cmd){
-  if(browserRunning){ showToast('Already running — please wait'); return; }
-  browserRunning=true;
-  browserRunCount++;
-  document.getElementById('a4runs').textContent=browserRunCount;
-  openBrowserPanel();
-  setBrowserStatus('running');
-  appendBrowserLine('$ agent-browser '+cmd,'b-cmd');
-  addLog('🌐','Browser: agent-browser '+cmd.slice(0,60),'var(--teal)');
-  document.getElementById('runBtn').disabled=true;
-
-  // Try the local bridge first
-  var bridgeOk=false;
-  try{
-    var r=await fetch(BRIDGE_URL+'/run',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({command:cmd}),
-      signal:AbortSignal.timeout(30000)
-    });
-    if(r.ok){
-      var d=await r.json();
-      bridgeOk=true;
-      if(d.output) appendBrowserLine(d.output,'b-ok');
-      if(d.screenshot){
-        // If bridge returns a base64 screenshot
-        document.getElementById('screenshotFrame').innerHTML='<img src="data:image/png;base64,'+d.screenshot+'" alt="Screenshot"/>';
-        screenshotCount++;
-        document.getElementById('a4shots').textContent=screenshotCount;
-      }
-      if(d.error) appendBrowserLine('Error: '+d.error,'b-err');
-      appendBrowserLine('✓ Done','b-ok');
-      setBrowserStatus('done');
-    }
-  }catch(e){ /* bridge not running — fall through to copy mode */ }
-
-  if(!bridgeOk){
-    // No bridge — show the command to copy + simulate output
-    simulateBrowserOutput(cmd);
-  }
-
-  browserRunning=false;
-  document.getElementById('runBtn').disabled=false;
-  setBrowserStatus('ready');
-}
-
-function simulateBrowserOutput(cmd){
-  // Decompose command and show what each step does
-  var parts=cmd.split('&&').map(function(p){ return p.trim(); });
-  var delay=0;
-  parts.forEach(function(part,i){
-    setTimeout(function(){
-      appendBrowserLine('→ '+part,'b-cmd');
-      if(part.startsWith('open')){ appendBrowserLine('  ✓ Navigated — page load complete','b-ok'); }
-      else if(part.includes('snapshot')){ appendBrowserLine('  ✓ Snapshot: found interactive elements (@e1, @e2, @e3 ...)','b-ok'); }
-      else if(part.includes('screenshot') && part.includes('annotate')){ appendBrowserLine('  ✓ Annotated screenshot saved with numbered labels','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('annotate'); }
-      else if(part.includes('screenshot --full')){ appendBrowserLine('  ✓ Full-page screenshot captured','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('full'); }
-      else if(part.includes('screenshot')){ appendBrowserLine('  ✓ Screenshot captured','b-ok'); screenshotCount++; document.getElementById('a4shots').textContent=screenshotCount; showMockScreenshot('normal'); }
-      else if(part.includes('get title')){ appendBrowserLine('  ✓ Title: "Promptaholics — Zero idea. Hero prompt."','b-ok'); }
-      else if(part.includes('get url')){ appendBrowserLine('  ✓ URL: https://promptaholics.com','b-ok'); }
-      else if(part.includes('wait')){ appendBrowserLine('  ✓ Waited','b-ok'); }
-      else if(part.includes('eval')){ appendBrowserLine('  ✓ JS evaluated — result below','b-ok'); }
-      else { appendBrowserLine('  ✓ Done','b-ok'); }
-      if(i===parts.length-1){
-        appendBrowserLine('─────────────────────────────────','b-info');
-        appendBrowserLine('↑ Copy command above and run in your terminal to execute.','b-info');
-        appendBrowserLine('  Or run: npm i -g agent-browser && agent-browser install','b-info');
-        setBrowserStatus('done');
-      }
-    },delay);
-    delay+=350;
-  });
-}
-
-function showMockScreenshot(type){
-  var frame=document.getElementById('screenshotFrame');
-  var teal='rgb(20,184,166)';
-  var label=type==='annotate'?'Annotated Screenshot Preview':type==='full'?'Full Page Screenshot Preview':'Screenshot Preview';
-  frame.innerHTML=`
-    <div style="width:100%;background:#0d0d14;border-radius:9px;padding:16px;text-align:center;">
-      <div style="width:100%;height:120px;background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(20,184,166,.06));border-radius:7px;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;margin-bottom:8px;position:relative;">
-        <span style="font-family:'Syne',serif;font-size:13px;font-weight:800;color:rgba(240,240,248,.5);">promptaholics.com</span>
-        ${type==='annotate'?'<div style="position:absolute;top:8px;left:8px;background:rgba(239,68,68,.8);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">[1]</div><div style="position:absolute;top:8px;left:32px;background:rgba(59,130,246,.8);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;">[2]</div>':''}
-      </div>
-      <p style="font-size:10px;color:rgba(240,240,248,.4);font-family:'JetBrains Mono',monospace;">${label} — install agent-browser to see real output</p>
-    </div>`;
-}
-
-// ─── Full QA checklist ────────────────────────────────────────────
-async function runBrowserQA(){
-  openBrowserPanel();
-  var cmds=[
-    'open https://promptaholics.com && get title && get url',
-    'open https://promptaholics.com && wait 2000 && screenshot',
-    'open https://promptaholics.com && snapshot -i',
-    'open https://promptaholics.com && screenshot --full',
-    'open https://main--promptaholics.netlify.app && screenshot --annotate'
-  ];
-  var labels=[
-    '① Check page title and URL',
-    '② Hero screenshot (with animation delay)',
-    '③ Snapshot interactive elements',
-    '④ Full page screenshot',
-    '⑤ Annotate staging build'
-  ];
-  appendBrowserLine('═══ QA CHECKLIST — PROMPTAHOLICS ═══','b-info');
-  addLog('🌐','Browser Agent: running full QA checklist','var(--teal)');
-  for(var i=0;i<cmds.length;i++){
-    appendBrowserLine('','b-info');
-    appendBrowserLine(labels[i],'b-info');
-    await runBrowserCmd(cmds[i]);
-    await new Promise(function(r){ setTimeout(r,600); });
-  }
-  appendBrowserLine('','b-info');
-  appendBrowserLine('═══ QA COMPLETE ═══','b-ok');
-  speak('QA checklist complete. All five checks ran. Check the Browser Agent panel for results.');
-  showToast('✅ QA checklist complete');
-}
-
-// ─── Browser cmd from ARIA voice ─────────────────────────────────
-function runBrowserCmd(cmd){
-  if(browserRunning){ showToast('Already running — please wait'); return Promise.resolve(); }
+  if(browserRunning){ showToast('Already running — please wait'); return false; }
   browserRunning=true;
   browserRunCount++;
   document.getElementById('a4runs').textContent=browserRunCount;
@@ -1409,37 +1384,61 @@ function runBrowserCmd(cmd){
   addLog('🌐','Browser: agent-browser '+cmd.slice(0,55),'var(--teal)');
   document.getElementById('runBtn').disabled=true;
 
-  return new Promise(async function(resolve){
-    var bridgeOk=false;
-    try{
-      var r=await fetch(BRIDGE_URL+'/run',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({command:cmd}),
-        signal:AbortSignal.timeout(30000)
-      });
-      if(r.ok){
-        var d=await r.json();
-        bridgeOk=true;
-        if(d.output) appendBrowserLine(d.output,'b-ok');
-        if(d.screenshot){
-          document.getElementById('screenshotFrame').innerHTML='<img src="data:image/png;base64,'+d.screenshot+'" alt="Screenshot"/>';
-          screenshotCount++;
-          document.getElementById('a4shots').textContent=screenshotCount;
-        }
-        if(d.error) appendBrowserLine('Error: '+d.error,'b-err');
-        appendBrowserLine('✓ Done','b-ok');
-        setBrowserStatus('done');
-      }
-    }catch(e){}
+  var ok=false;
+  try{
+    var r=await fetch(BRIDGE_URL+'/run',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({command:cmd}),
+      signal:AbortSignal.timeout(45000)
+    });
+    if(!r.ok) throw new Error('Bridge HTTP '+r.status);
+    var d=await r.json();
+    if(d.output) appendBrowserLine(String(d.output),'b-ok');
+    if(d.screenshot) showScreenshot(d.screenshot);
+    if(d.error){ appendBrowserLine('Error: '+d.error,'b-err'); setBrowserStatus('error'); }
+    else { appendBrowserLine('✓ Done','b-ok'); setBrowserStatus('done'); ok=true; }
+  }catch(e){
+    var timedOut=e.name==='TimeoutError';
+    appendBrowserLine(timedOut?'✗ Bridge did not answer within 45s.':'✗ Not executed — the local bridge at '+BRIDGE_URL+' is not running.','b-err');
+    appendBrowserLine('Run it yourself in a terminal:','b-info');
+    appendCopyLine(cmd);
+    setBrowserStatus('offline');
+  }
+  browserRunning=false;
+  document.getElementById('runBtn').disabled=false;
+  return ok;
+}
 
-    if(!bridgeOk) simulateBrowserOutput(cmd);
-
-    browserRunning=false;
-    document.getElementById('runBtn').disabled=false;
-    setBrowserStatus('ready');
-    resolve();
-  });
+// ─── Full QA checklist ────────────────────────────────────────────
+async function runBrowserQA(){
+  if(browserRunning){ showToast('Already running — please wait'); return; }
+  openBrowserPanel();
+  var steps=[
+    ['① Check page title and URL','open https://promptaholics.com && get title && get url'],
+    ['② Hero screenshot','open https://promptaholics.com && wait 2000 && screenshot'],
+    ['③ Snapshot interactive elements','open https://promptaholics.com && snapshot -i'],
+    ['④ Full page screenshot','open https://promptaholics.com && screenshot --full'],
+    ['⑤ Annotate staging build','open https://main--promptaholics.netlify.app && screenshot --annotate']
+  ];
+  appendBrowserLine('═══ QA CHECKLIST — PROMPTAHOLICS ═══','b-info');
+  addLog('🌐','Browser Agent: running QA checklist','var(--teal)');
+  var passed=0;
+  for(var i=0;i<steps.length;i++){
+    appendBrowserLine(steps[i][0],'b-info');
+    var ok=await runBrowserCmd(steps[i][1]);
+    if(ok) passed++;
+    else if(i===0){ // bridge is down — list the rest as copyable commands instead of failing five times
+      appendBrowserLine('Remaining checks (bridge offline):','b-info');
+      for(var j=1;j<steps.length;j++){ appendBrowserLine(steps[j][0],'b-info'); appendCopyLine(steps[j][1]); }
+      break;
+    }
+  }
+  appendBrowserLine('═══ QA DONE: '+passed+'/'+steps.length+' checks ran ═══',passed===steps.length?'b-ok':'b-err');
+  var msg=passed? 'QA finished. '+passed+' of '+steps.length+' checks ran. Results are in the Browser Agent panel.'
+               : 'The browser bridge isn’t running, so no checks ran. The commands are in the panel to run in your terminal.';
+  speak(msg);
+  showToast(passed?'✅ QA complete':'Bridge offline — commands ready to copy');
 }
 
 // ─── Memory ───────────────────────────────────────────────────────
@@ -1453,7 +1452,9 @@ function renderMem(facts){
   facts.forEach(function(f){
     var d=document.createElement('div');
     d.className='mem-item';
-    d.innerHTML='<i class="ti ti-brain"></i><span class="mem-item-txt">'+esc(f)+'</span><button class="mem-del" onclick="delMem(\''+escAttr(f)+'\')" title="Forget"><i class="ti ti-x"></i></button>';
+    d.innerHTML='<i class="ti ti-brain"></i><span class="mem-item-txt"></span><button class="mem-del" title="Forget"><i class="ti ti-x"></i></button>';
+    d.querySelector('.mem-item-txt').textContent=f;
+    d.querySelector('.mem-del').addEventListener('click',function(){ delMem(f); });
     list.appendChild(d);
   });
 }
@@ -1465,29 +1466,30 @@ async function addMem(){
   var inp=document.getElementById('memInp');
   var f=inp.value.trim();
   if(!f){ showToast('Enter something to remember'); return; }
+  window.__memFacts=window.__memFacts||[];
+  if(window.__memFacts.indexOf(f)!==-1){ showToast('ARIA already remembers that'); return; }
   setMemSt('saving');
   var ok=await window.__fbAddMem(f);
+  setMemSt('synced');
   if(ok){
-    window.__memFacts=window.__memFacts||[];
     window.__memFacts.push(f);
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
     inp.value='';
-    setMemSt('synced');
     showToast('✅ ARIA will remember that');
     addLog('🧠','Memory saved: '+f.slice(0,50),'var(--purple)');
-  } else { setMemSt('synced'); showToast('Could not save — try again'); }
+  } else showToast('Could not save — check your connection');
 }
 async function delMem(f){
   setMemSt('saving');
   var ok=await window.__fbDelMem(f);
+  setMemSt('synced');
   if(ok){
     window.__memFacts=(window.__memFacts||[]).filter(function(x){ return x!==f; });
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
-    setMemSt('synced');
     showToast('Memory removed');
-  } else { setMemSt('synced'); showToast('Could not remove'); }
+  } else showToast('Could not remove — try again');
 }
 function setMemSt(s){
   var el=document.getElementById('memStatus');
@@ -1505,19 +1507,30 @@ function readFile(f){
   var r=new FileReader();
   r.onload=function(e){
     fileContent=e.target.result;
+    fileName=f.name;
     var prev=document.getElementById('filePrev');
-    prev.textContent=fileContent.slice(0,400)+(fileContent.length>400?'\n...('+fileContent.length+' chars)':'');
+    prev.textContent=fileContent.slice(0,400)+(fileContent.length>400?'\n...('+fileContent.length.toLocaleString()+' chars)':'');
     prev.classList.add('show');
     document.getElementById('fileBtns').style.display='flex';
     document.getElementById('clrFileBtn').style.display='inline-flex';
     showToast('✅ '+f.name+' loaded');
-    addLog('📄','File: '+f.name+' ('+f.size+' bytes)','var(--cyan)');
+    addLog('📄','File: '+f.name+' ('+f.size.toLocaleString()+' bytes)','var(--cyan)');
   };
+  r.onerror=function(){ showToast('Could not read that file'); };
   r.readAsText(f);
 }
-function sendFileToARIA(){ if(!fileContent){ showToast('No file loaded'); return; } var msg='Please analyze this file:\n\n'+fileContent; setTranscript('Sending file to ARIA...',true); runCmd(msg); }
+function sendFileToARIA(){
+  if(!fileContent){ showToast('No file loaded'); return; }
+  var body=fileContent;
+  var cut=body.length>MAX_FILE_CHARS;
+  if(cut) body=body.slice(0,MAX_FILE_CHARS);
+  var msg='Please analyze this file ('+fileName+')'+(cut?' — only the first '+MAX_FILE_CHARS.toLocaleString()+' of '+fileContent.length.toLocaleString()+' characters are included':'')+'. Give a thorough written analysis; markdown is fine here.\n\n'+body;
+  if(cut) showToast('File is long — sending the first '+MAX_FILE_CHARS.toLocaleString()+' characters');
+  setTranscript('Sending '+fileName+' to ARIA...',true);
+  runCmd(msg,{noRoute:true,long:true,label:'Analyze file: '+fileName});
+}
 function copyFile(){ if(!fileContent) return; navigator.clipboard.writeText(fileContent).then(function(){ showToast('✅ Copied'); }); }
-function clearFile(){ fileContent=''; document.getElementById('filePrev').classList.remove('show'); document.getElementById('filePrev').textContent=''; document.getElementById('fileBtns').style.display='none'; document.getElementById('fileInp').value=''; document.getElementById('clrFileBtn').style.display='none'; }
+function clearFile(){ fileContent=''; fileName=''; document.getElementById('filePrev').classList.remove('show'); document.getElementById('filePrev').textContent=''; document.getElementById('fileBtns').style.display='none'; document.getElementById('fileInp').value=''; document.getElementById('clrFileBtn').style.display='none'; }
 function downloadResp(){
   if(!lastResp){ showToast('No response yet'); return; }
   var b=new Blob([lastResp],{type:'text/plain'});
@@ -1525,6 +1538,7 @@ function downloadResp(){
   a.href=URL.createObjectURL(b);
   a.download='aria-response-'+new Date().toISOString().slice(0,10)+'.txt';
   a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
   showToast('✅ Downloaded');
 }
 
@@ -1533,201 +1547,92 @@ function toggleExpand(n){
   var el=document.getElementById('exp'+n);
   if(el) el.classList.toggle('show');
 }
+// Clicks inside an expanded command list shouldn't bubble up and collapse the card
+document.querySelectorAll('.agent-expand').forEach(function(el){
+  el.addEventListener('click',function(e){ e.stopPropagation(); });
+});
 
-// ─── Add agent modal ───────────────────────────────────────────────
-var newSlot=null;
-function showAddModal(n){ newSlot=n; document.getElementById('addModal').classList.add('show'); }
-function closeModal(){ document.getElementById('addModal').classList.remove('show'); newSlot=null; }
-function saveAgent(){
+// ─── Custom agent (slot 8) ─────────────────────────────────────────
+function agentCount(){ return BASE_AGENTS+customAgents.length; }
+function customAgentBlock(){
+  if(!customAgents.length) return '';
+  return '\n\nCUSTOM AGENTS (added by the user):\n'+customAgents.map(function(a,i){
+    return (BASE_AGENTS+i+1)+'. '+a.name.toUpperCase()+' — triggers: '+a.triggers+'. Responsibilities: '+(a.resp||'not specified')+'.';
+  }).join('\n');
+}
+function setCustomAgents(list){
+  customAgents=Array.isArray(list)?list.slice(0,1):[];
+  renderCustomAgents();
+}
+function renderCustomAgents(){
+  var slot=document.getElementById('agentSlot8');
+  document.getElementById('agentCountLabel').textContent=agentCount()+' / 8 active';
+  slot.innerHTML='';
+  if(!customAgents.length){
+    slot.className='add-card';
+    slot.onclick=function(){ showAddModal(8); };
+    slot.innerHTML='<i class="ti ti-plus"></i><span>Add Agent 8</span>';
+    return;
+  }
+  var a=customAgents[0];
+  slot.className='agent-card agent-8';
+  slot.onclick=null;
+  slot.innerHTML='<div class="agent-icon"><i class="ti ti-robot"></i></div><div class="agent-name"></div><div class="agent-desc"></div>'
+    +'<div class="agent-btns"><button class="agent-btn pri" data-act="ask"><i class="ti ti-message"></i> Ask</button>'
+    +'<button class="agent-btn sec" data-act="remove"><i class="ti ti-trash"></i> Remove</button></div>';
+  slot.querySelector('.agent-name').textContent=a.name;
+  slot.querySelector('.agent-desc').textContent=a.resp||('Triggers: '+a.triggers);
+  slot.querySelector('[data-act="ask"]').onclick=function(){ sendCmd('Acting as the '+a.name+' agent, what should I focus on right now?'); };
+  slot.querySelector('[data-act="remove"]').onclick=async function(){
+    if(!confirm('Remove the '+a.name+' agent?')) return;
+    var prev=customAgents;
+    customAgents=[];
+    if(await window.__fbSaveAgents([])){ renderCustomAgents(); showToast('Agent removed'); addLog('➖','Agent 8 removed: '+a.name,'var(--ink3)'); }
+    else { customAgents=prev; showToast('Could not remove — try again'); }
+  };
+}
+function showAddModal(n){ document.getElementById('addModal').classList.add('show'); document.getElementById('mnName').focus(); }
+function closeModal(){ document.getElementById('addModal').classList.remove('show'); }
+async function saveAgent(){
   var name=document.getElementById('mnName').value.trim();
   var trig=document.getElementById('mnTriggers').value.trim();
+  var resp=document.getElementById('mnResp').value.trim();
   if(!name||!trig){ showToast('Name and triggers required'); return; }
-  showToast('✅ Agent '+newSlot+' — '+name+' added!');
-  addLog('➕','Agent '+newSlot+' added: '+name,'var(--green)');
+  var next=[{name:name.slice(0,60),triggers:trig.slice(0,200),resp:resp.slice(0,600)}];
+  if(typeof window.__fbSaveAgents!=='function' || !(await window.__fbSaveAgents(next))){ showToast('Could not save the agent — try again'); return; }
+  customAgents=next;
+  renderCustomAgents();
+  ['mnName','mnTriggers','mnResp'].forEach(function(id){ document.getElementById(id).value=''; });
   closeModal();
+  showToast('✅ Agent 8 — '+name+' added');
+  addLog('➕','Agent 8 added: '+name,'var(--green)');
 }
 
 // ─── Auth ──────────────────────────────────────────────────────────
-function doSignIn(){ if(window.__fbSignIn) window.__fbSignIn().catch(function(e){ if(e.code!=='auth/popup-closed-by-user') showToast('Sign in failed'); }); }
-function doSignOut(){ if(window.__fbSignOut) window.__fbSignOut().then(function(){ document.getElementById('authGate').style.display='flex'; document.getElementById('hubMain').style.display='none'; }); }
+function doSignIn(){ if(window.__fbSignIn) window.__fbSignIn().catch(function(e){ showToast('Sign in failed: '+(e.code||e.message)); }); }
+function doSignOut(){ stopTalking(); if(window.__fbSignOut) window.__fbSignOut().then(function(){ document.getElementById('authGate').style.display='flex'; document.getElementById('hubMain').style.display='none'; }); }
 
 // ─── Activity log ──────────────────────────────────────────────────
 function addLog(ico,txt,color){
   var log=document.getElementById('actLog');
   var d=document.createElement('div');
   d.className='act-item';
-  d.innerHTML='<span class="act-time">'+new Date().toLocaleTimeString()+'</span><span class="act-ico" style="color:'+color+'">'+ico+'</span><span class="act-txt">'+txt+'</span>';
+  var t=document.createElement('span'); t.className='act-time'; t.textContent=new Date().toLocaleTimeString();
+  var i=document.createElement('span'); i.className='act-ico'; i.style.color=color||''; i.textContent=ico;
+  var x=document.createElement('span'); x.className='act-txt'; x.textContent=txt; // textContent: model output and file text never become HTML
+  d.appendChild(t); d.appendChild(i); d.appendChild(x);
   log.appendChild(d);
+  while(log.children.length>200) log.removeChild(log.firstChild);
   log.scrollTop=log.scrollHeight;
 }
 
 // ─── Helpers ───────────────────────────────────────────────────────
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escAttr(s){ return String(s).replace(/'/g,'&#39;'); }
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   clearTimeout(t._t); t._t=setTimeout(function(){ t.classList.remove('show'); },3000);
 }
-</script>
-
-<!-- Brevo Exit Intent Modal -->
-<div class="brevo-modal-overlay" id="brevoModal">
-  <div class="brevo-modal">
-    <button class="bmo-close" onclick="closeBrevoModal()" aria-label="Close"><i class="ti ti-x"></i></button>
-    <div class="bmo-icon">⚡</div>
-    <div class="bmo-title">Get 10 New Prompts Weekly</div>
-    <div class="bmo-sub">Join <strong>prompt engineers, creators and founders</strong> getting the best AI prompts delivered every Monday. Free forever.</div>
-    <input class="bmo-input" type="email" id="brevoModalEmail" placeholder="your@email.com" autocomplete="email"/>
-    <button class="bmo-btn" id="brevoModalBtn" onclick="submitBrevoModal()">
-      <i class="ti ti-mail"></i> Get Free Weekly Prompts
-    </button>
-    <div class="bmo-privacy">No spam. Unsubscribe anytime.</div>
-    <button class="bmo-skip" onclick="closeBrevoModal()">No thanks, I'll miss out</button>
-  </div>
-</div>
-
-<script>
-/* ── Brevo Email Capture ── */
-var BREVO_URL='https://57fb05d6.sibforms.com/serve/MUIFAK___eN7RW93kcURKW5Y5A6iUVxF9nEFdYiRY0h438mZonyStuDdOjj4CCaSQvVE9IwGVe3nnxAaTu8aUG-p-UYSI48D6mUyTMrLG2ifgGRuPrF0AZSNhQXrlxNS4US8mWgIYksPm57jKocslUOx_F2AeRQmlRpB960ex-M1bABow3EynSQ_0TdBeJOD4HQg0TXsqFhcbfmchw==';
-var BREVO_KEY='brevo_subscribed';
-var brevoModalShown=false;
-
-function brevoSubscribed(){return!!localStorage.getItem(BREVO_KEY);}
-function brevoMarkDone(){localStorage.setItem(BREVO_KEY,'1');}
-
-function brevoSend(email,onDone){
-  var iframe=document.createElement('iframe');
-  iframe.style.display='none';
-  iframe.name='brevo_'+Date.now();
-  document.body.appendChild(iframe);
-  var form=document.createElement('form');
-  form.method='GET';form.action=BREVO_URL;
-  form.target=iframe.name;form.style.display='none';
-  var ei=document.createElement('input');
-  ei.name='EMAIL';ei.value=email;
-  form.appendChild(ei);
-  document.body.appendChild(form);
-  form.submit();
-  if(typeof gtag!=='undefined') gtag('event','email_capture',{method:'brevo'});
-  setTimeout(function(){brevoMarkDone();onDone&&onDone();},1500);
-}
-
-// ── EXIT INTENT MODAL ──
-function openBrevoModal(){
-  if(brevoModalShown||brevoSubscribed()) return;
-  brevoModalShown=true;
-  var m=document.getElementById('brevoModal');
-  if(m){m.classList.add('open');setTimeout(function(){var i=document.getElementById('brevoModalEmail');if(i)i.focus();},300);}
-}
-function closeBrevoModal(){
-  var m=document.getElementById('brevoModal');
-  if(m) m.classList.remove('open');
-  sessionStorage.setItem('brevo_dismissed','1');
-}
-function submitBrevoModal(){
-  var email=(document.getElementById('brevoModalEmail')||{}).value.trim();
-  var btn=document.getElementById('brevoModalBtn');
-  if(!email||!email.includes('@')){
-    if(btn){btn.style.background='#ef4444';btn.textContent='Enter a valid email';
-    setTimeout(function(){btn.style.background='';btn.innerHTML='<i class="ti ti-mail"></i> Get Free Weekly Prompts';btn.disabled=false;},2000);}
-    return;
-  }
-  if(btn){btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Subscribing…';}
-  brevoSend(email,function(){
-    if(btn){btn.innerHTML='✅ You\u2019re in! Check your inbox.';btn.style.background='#22c55e';}
-    setTimeout(closeBrevoModal,2500);
-  });
-}
-
-// Desktop exit intent
-document.addEventListener('mouseleave',function(e){
-  if(e.clientY<=0&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
-});
-// Mobile: fast scroll up
-var _bLastY=0;
-window.addEventListener('scroll',function(){
-  var y=window.scrollY;
-  if(_bLastY-y>60&&y>400&&!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
-  _bLastY=y;
-},{passive:true});
-// Time fallback: 90s
-setTimeout(function(){
-  if(!sessionStorage.getItem('brevo_dismissed')) openBrevoModal();
-},90000);
-// Close on overlay click
-document.addEventListener('click',function(e){
-  var m=document.getElementById('brevoModal');
-  if(m&&e.target===m) closeBrevoModal();
-});
-
-// ── FOOTER STRIP ──
-(function(){
-  var s=document.getElementById('brevoFooterStrip');
-  if(s&&brevoSubscribed()) s.style.display='none';
-})();
-function submitBrevoFooter(){
-  var email=(document.getElementById('brevoFooterEmail')||{}).value.trim();
-  var btn=document.getElementById('brevoFooterBtn');
-  if(!email||!email.includes('@')){
-    if(btn){btn.textContent='Invalid email';btn.style.background='#ef4444';
-    setTimeout(function(){btn.textContent='Subscribe →';btn.style.background='';btn.disabled=false;},2000);}
-    return;
-  }
-  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
-  brevoSend(email,function(){
-    var s=document.getElementById('brevoFooterStrip');
-    if(s) s.innerHTML='<div style="font-size:13px;color:#22c55e;font-weight:700;text-align:center;">✅ Subscribed! First email arrives Monday.</div>';
-  });
-}
-
-// ── POST-GENERATION HOOK (prompt-builder only) ──
-function brevoShowGenHook(){
-  if(brevoSubscribed()) return;
-  var h=document.getElementById('brevoGenHook');
-  if(h) h.style.display='block';
-}
-function submitBrevoGen(){
-  var email=(document.getElementById('brevoGenEmail')||{}).value.trim();
-  var btn=document.getElementById('brevoGenBtn');
-  if(!email||!email.includes('@')){
-    if(btn){btn.textContent='Bad email';btn.style.background='#ef4444';
-    setTimeout(function(){btn.textContent='Yes →';btn.style.background='';btn.disabled=false;},2000);}
-    return;
-  }
-  if(btn){btn.disabled=true;btn.textContent='…';}
-  brevoSend(email,function(){
-    var h=document.getElementById('brevoGenHook');
-    if(h) h.innerHTML='<div style="font-size:12px;color:#22c55e;font-weight:700;text-align:center;padding:12px;">✅ Subscribed! First email arrives Monday.</div>';
-  });
-}
-
-// ── INLINE LIBRARY CARD ──
-function brevoInlineCard(){
-  return '<div style="background:linear-gradient(135deg,rgba(255,98,36,.07),rgba(255,159,36,.04));border:1px solid rgba(255,98,36,.2);border-radius:16px;padding:24px;grid-column:1/-1;">'
-    +'<div style="font-size:22px;margin-bottom:8px;">⚡</div>'
-    +'<div style="font-family:Syne,serif;font-size:16px;font-weight:900;color:#f0f0f8;margin-bottom:6px;">Get 10 New Prompts Every Monday</div>'
-    +'<div style="font-size:12px;color:rgba(240,240,248,.55);line-height:1.6;margin-bottom:14px;">Join <strong style="color:#ff9f24;">prompt engineers and creators</strong> getting the best curated AI prompts delivered free every week.</div>'
-    +'<div style="display:flex;gap:8px;flex-wrap:wrap;">'
-    +'<input id="brevoInlineEmail" type="email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 14px;font-family:Instrument Sans,sans-serif;font-size:13px;color:#f0f0f8;outline:none;"/>'
-    +'<button onclick="submitBrevoInline()" id="brevoInlineBtn" style="background:linear-gradient(135deg,#ff6224,#ff9f24);border:none;border-radius:9px;padding:10px 18px;font-family:Instrument Sans,sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Get Weekly Prompts →</button>'
-    +'</div>'
-    +'<div style="font-size:10px;color:rgba(240,240,248,.25);margin-top:8px;">No spam. Unsubscribe anytime.</div>'
-    +'</div>';
-}
-function submitBrevoInline(){
-  var email=(document.getElementById('brevoInlineEmail')||{}).value.trim();
-  var btn=document.getElementById('brevoInlineBtn');
-  if(!email||!email.includes('@')){
-    if(btn){btn.textContent='Enter valid email';btn.style.background='#ef4444';
-    setTimeout(function(){btn.textContent='Get Weekly Prompts →';btn.style.background='';btn.disabled=false;},2000);}
-    return;
-  }
-  if(btn){btn.disabled=true;btn.textContent='Subscribing…';}
-  brevoSend(email,function(){
-    if(btn){btn.textContent='✅ You\u2019re in!';btn.style.background='#22c55e';}
-  });
-}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
 </script>
 </body>
 </html>
