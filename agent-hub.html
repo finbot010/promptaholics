@@ -654,6 +654,8 @@ const memRef = ()=>doc(db,'aria-memory',ADMIN_EMAIL);
 
 window.__fbSignIn  = ()=>signInWithRedirect(auth,prov);
 window.__fbSignOut = ()=>signOut(auth);
+// Firebase ID token for the Worker's admin check (auto-refreshes before expiry)
+window.__fbIdToken = async()=>auth.currentUser ? auth.currentUser.getIdToken() : null;
 
 // Handle redirect result on page load
 getRedirectResult(auth).then(result=>{
@@ -1020,6 +1022,19 @@ function toggleAuto(){
 function sendCmd(cmd){ setTranscript(cmd,true); runCmd(cmd); }
 function resetChat(){ chatHistory=[]; stopTalking(); setTranscript('Conversation reset. Ready for your next command.',false); addLog('🔄','Conversation reset','var(--ink3)'); showToast('Reset'); }
 
+// All Worker calls carry the admin's Firebase ID token; the Worker verifies it
+async function workerFetch(path,init){
+  init=init||{};
+  var headers=Object.assign({},init.headers||{});
+  try{ var t=window.__fbIdToken && await window.__fbIdToken(); if(t) headers['Authorization']='Bearer '+t; }catch(e){}
+  return fetch(WORKER+path,Object.assign({},init,{headers:headers}));
+}
+function workerErr(res){
+  if(res.status===401) return new Error('Not authorized — sign out and back in');
+  if(res.status===429) return new Error('Rate limited — wait a minute');
+  return new Error('HTTP '+res.status);
+}
+
 // Keep history valid for the model: bounded length, starts with a user turn
 function trimHistory(){
   if(chatHistory.length>MAX_HIST) chatHistory=chatHistory.slice(-MAX_HIST);
@@ -1064,7 +1079,7 @@ async function runCmd(text,opts){
   try{
     var ctrl=new AbortController();
     var tId=setTimeout(function(){ ctrl.abort(); },opts.long?60000:30000);
-    var res=await fetch(WORKER+'/api/generate',{
+    var res=await workerFetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({intent:intentType,max_tokens:opts.long?1500:350,system:sys,messages:chatHistory}),
@@ -1072,7 +1087,7 @@ async function runCmd(text,opts){
     });
     clearTimeout(tId);
     clearTimeout(thinkT);
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw workerErr(res);
     var data=await res.json();
     var reply=(data.text||'').trim();
     if(!reply) throw new Error('Empty reply');
@@ -1089,7 +1104,7 @@ async function runCmd(text,opts){
     chatHistory.pop(); // drop the failed user turn so the next request isn't broken by it
     busy=false;
     var err=e.name==='AbortError'?'That took too long — try again.'
-      :(/HTTP 4/.test(e.message)?'The Worker rejected that request ('+e.message+').':'Something went wrong reaching the Worker. Try again.');
+      :(/HTTP 4|authorized|Rate limited/.test(e.message)?'The Worker rejected that request: '+e.message+'.':'Something went wrong reaching the Worker. Try again.');
     setTranscript(err,false);
     addLog('⚠','Request failed: '+e.message,'var(--red)');
     speak(err);
@@ -1185,12 +1200,12 @@ RULES: Conversational tone. Under 600 words. Few exclamation marks. Prompts must
 
   try{
     output.textContent='Writing email...';
-    var res=await fetch(WORKER+'/api/generate',{
+    var res=await workerFetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({intent:'create',max_tokens:1800,system:emailSys,messages:[{role:'user',content:userMsg}]})
     });
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw workerErr(res);
     var data=await res.json();
     var email=(data.text||'').trim();
     if(!email) throw new Error('Empty response');
@@ -1229,12 +1244,12 @@ LENGTH: 600-900 words.`;
   var userMsg='Write a Substack post for the Promptaholics newsletter. Pick the most interesting angle: the auto-grade PA Agent pipeline, how structured prompts outperform vague ones, loop engineering and what it means for prompt libraries, or why free prompt libraries beat paid ones for most users.';
 
   try{
-    var res=await fetch(WORKER+'/api/generate',{
+    var res=await workerFetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({intent:'create',max_tokens:2000,system:substackSys,messages:[{role:'user',content:userMsg}]})
     });
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    if(!res.ok) throw workerErr(res);
     var data=await res.json();
     var post=(data.text||'').trim();
     if(!post) throw new Error('Empty');
@@ -1271,8 +1286,8 @@ async function copyEmailDraft(){
 
 // ─── Live Stats (Brevo + Netlify + Stripe) ───────────────────────
 async function fetchJSON(path){
-  var r=await fetch(WORKER+path,{signal:AbortSignal.timeout(15000)});
-  if(!r.ok) throw new Error('HTTP '+r.status);
+  var r=await workerFetch(path,{signal:AbortSignal.timeout(15000)});
+  if(!r.ok) throw workerErr(r);
   return r.json();
 }
 async function loadLiveStats(){
