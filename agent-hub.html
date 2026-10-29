@@ -183,6 +183,20 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .promo-check-link{font-size:11px;font-weight:700;color:var(--orange);white-space:nowrap;padding:4px 2px;}
 .promo-kit{display:none;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--ink2);white-space:pre-wrap;max-height:420px;overflow-y:auto;margin-top:8px;}
 .promo-kit.show{display:block;}
+.promo-conn{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--ink2);background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:12px;}
+.promo-conn .ok{color:var(--green);font-weight:700;}
+.promo-conn .no{color:var(--o2);font-weight:700;}
+.promo-conn button{margin-left:auto;}
+.promo-setup{display:none;background:var(--bg);border:1px solid rgba(255,98,36,.2);border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:12px;line-height:1.7;color:var(--ink2);}
+.promo-setup.show{display:block;}
+.promo-setup ol{padding-left:20px;display:flex;flex-direction:column;gap:6px;}
+.promo-setup code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--o2);background:rgba(255,98,36,.08);padding:1px 5px;border-radius:4px;word-break:break-all;}
+.promo-setup a{color:var(--orange);font-weight:700;}
+.promo-setup strong{color:var(--ink);}
+.promo-img{width:100%;max-width:260px;aspect-ratio:4/5;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);object-fit:cover;}
+.promo-postnow{background:rgba(34,197,94,.1)!important;border-color:rgba(34,197,94,.35)!important;color:var(--green)!important;}
+.promo-postnow.confirm{background:rgba(255,159,36,.15)!important;border-color:rgba(255,159,36,.5)!important;color:var(--o2)!important;}
+.promo-live{font-size:11px;font-weight:700;color:var(--green);}
 
 /* Browser agent special badge */
 .browser-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.25);color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
@@ -569,6 +583,19 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="ctrl-btn" onclick="closePromoPanel()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-x"></i> Close</button>
     </div>
     <div class="promo-stats" id="promoStats" aria-live="polite"></div>
+    <div class="promo-conn" id="promoConn" aria-live="polite"><span>Checking Facebook &amp; Instagram connection…</span></div>
+    <div class="promo-setup" id="promoSetup">
+      <strong>Connect Facebook &amp; Instagram (one time, about 10 minutes)</strong>
+      <ol>
+        <li>Make sure your Instagram is a <strong>Business</strong> or <strong>Creator</strong> account and is linked to your Facebook Page (Instagram app → Settings → Account type; Facebook Page → Settings → Linked accounts).</li>
+        <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" rel="noopener">developers.facebook.com/apps</a> → <strong>Create app</strong>. Choose the use cases for <strong>managing a Page</strong> and <strong>Instagram content</strong>. Your own account can use it right away in development mode; no app review needed to post to your own Page.</li>
+        <li>Open the <a href="https://developers.facebook.com/tools/explorer/" target="_blank" rel="noopener">Graph API Explorer</a>, pick your app, click <strong>Generate Access Token</strong>, and allow: <code>pages_show_list</code> <code>pages_read_engagement</code> <code>pages_manage_posts</code> <code>instagram_basic</code> <code>instagram_content_publish</code> <code>business_management</code>.</li>
+        <li>Click the <strong>ⓘ</strong> next to the token → <strong>Open in Access Token Tool</strong> → <strong>Extend Access Token</strong>. Copy the long-lived token back into the Explorer.</li>
+        <li>In the Explorer, run <code>me/accounts</code>. Find your Page and copy its <code>id</code> and its <code>access_token</code> (a Page token made this way doesn't expire).</li>
+        <li>In Cloudflare → Workers → <strong>dawn-thunder-a558</strong> → Settings → <strong>Variables and Secrets</strong>, add two <strong>Secrets</strong>: <code>META_PAGE_ID</code> (the id) and <code>META_PAGE_TOKEN</code> (the Page access_token). Never paste the token into a chat.</li>
+        <li>Come back here and click <strong>Check again</strong>.</li>
+      </ol>
+    </div>
     <div class="promo-toolbar">
       <label for="promoCat" class="promo-hint">Category</label>
       <select id="promoCat"><option value="">Any category</option></select>
@@ -873,7 +900,7 @@ AGENTS:
 5. ANALYTICS — site performance, SEO, AdSense status, email list growth, prompt library metrics, content strategy.
 6. SECURITY — reviews exposed secrets, CORS, Firebase rules, webhook verification, admin page access, and dependency risk.
 7. REVENUE — Stripe sales, guide conversion, merch orders, Printful affiliate performance, pricing.
-8. PROMOTER — grows traffic to promptaholics.com: daily promo packs (one real library prompt turned into posts for X, LinkedIn, Reddit, Facebook, Pinterest, Instagram, TikTok with UTM-tracked links), directory listings, community posting, SEO and outreach. The user posts manually; nothing is auto-posted. Favor genuinely useful, rule-abiding posts over spam.
+8. PROMOTER — grows traffic to promptaholics.com: daily promo packs (one real library prompt turned into posts for X, LinkedIn, Reddit, Facebook, Pinterest, Instagram, TikTok with UTM-tracked links), directory listings, community posting, SEO and outreach. Facebook Page and Instagram can be posted directly from the Promoter panel with a two-tap confirm once connected; other platforms are posted manually. Nothing posts without the user's tap. Favor genuinely useful, rule-abiding posts over spam.
 
 SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 2,000+ prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
@@ -1826,6 +1853,75 @@ async function pickPromoPrompt(){
   return pickFrom[Math.floor(Math.random()*pickFrom.length)];
 }
 
+var socialStatus=null, socialChecking=null;
+function checkSocial(force){
+  if(socialChecking && !force) return socialChecking;
+  var el=document.getElementById('promoConn');
+  el.innerHTML='<span>Checking Facebook &amp; Instagram connection…</span>';
+  socialChecking=workerFetch('/api/social-status',{signal:AbortSignal.timeout(20000)})
+    .then(function(r){ if(!r.ok) throw workerErr(r); return r.json(); })
+    .then(function(s){
+      var changed=!socialStatus || socialReady('facebook')!==!!(s.facebook&&s.facebook.connected) || socialReady('instagram')!==!!(s.instagram&&s.instagram.connected);
+      socialStatus=s; renderSocialStatus(); if(promoPack && changed) renderPromoPosts(); return s; })
+    .catch(function(e){
+      socialStatus={facebook:{connected:false,error:e.message},instagram:{connected:false,error:e.message}};
+      renderSocialStatus(); return socialStatus;
+    });
+  return socialChecking;
+}
+function renderSocialStatus(){
+  var el=document.getElementById('promoConn'), s=socialStatus||{};
+  el.innerHTML='';
+  function part(label,st,detail){
+    var sp=document.createElement('span');
+    var b=document.createElement('span'); b.className=st&&st.connected?'ok':'no'; b.textContent=(st&&st.connected?'✓ ':'○ ')+label;
+    sp.appendChild(b); sp.appendChild(document.createTextNode(st&&st.connected?(detail?' '+detail:''):' not connected'));
+    el.appendChild(sp);
+  }
+  var fb=s.facebook||{}, ig=s.instagram||{};
+  part('Facebook',fb,fb.name?'· '+fb.name:'');
+  part('Instagram',ig,ig.username?'· @'+ig.username+(ig.quota?' ('+ig.quota.used+'/'+ig.quota.total+' today)':''):'');
+  var err=(!fb.connected&&fb.error)||(!ig.connected&&ig.error);
+  if(err){ var e=document.createElement('span'); e.className='promo-hint'; e.textContent='— '+err; el.appendChild(e); }
+  var btn=document.createElement('button'); btn.className='ctrl-btn'; btn.type='button';
+  var setupOpen=document.getElementById('promoSetup').classList.contains('show');
+  if(fb.connected&&ig.connected){ btn.innerHTML='<i class="ti ti-refresh"></i> Recheck'; btn.onclick=function(){ checkSocial(true); }; }
+  else {
+    btn.innerHTML=setupOpen?'<i class="ti ti-refresh"></i> Check again':'<i class="ti ti-plug"></i> Set up auto-posting';
+    btn.onclick=function(){
+      var g=document.getElementById('promoSetup');
+      if(!g.classList.contains('show')){ g.classList.add('show'); renderSocialStatus(); } else checkSocial(true);
+    };
+  }
+  el.appendChild(btn);
+  if(fb.connected&&ig.connected) document.getElementById('promoSetup').classList.remove('show');
+}
+function socialReady(platform){ return !!(socialStatus && socialStatus[platform] && socialStatus[platform].connected); }
+
+// Same branded card the Worker posts to Instagram (preview only)
+function cldText(s){
+  return encodeURIComponent(String(s).replace(/[\u0000-\u001f]/g,' ').trim())
+    .replace(/%2C/g,'%252C').replace(/%2F/g,'%252F').replace(/!/g,'%21').replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29');
+}
+function promoCardUrl(name,cat,excerpt){
+  var title=String(name||'Free AI Prompt').slice(0,90);
+  var size=title.length>60?64:title.length>36?76:90;
+  return 'https://res.cloudinary.com/dgqbzarfw/image/upload/'
+    +'l_text:Montserrat_'+size+'_bold_line_spacing_-8:'+cldText(title)+',co_rgb:f0f0f8,w_820,c_fit/fl_layer_apply,g_north_west,x_120,y_300/'
+    +(cat?'l_text:Montserrat_34_bold:'+cldText(String(cat).toUpperCase().slice(0,40))+',co_rgb:ff9f24/fl_layer_apply,g_north_west,x_120,y_220/':'')
+    +(excerpt?'l_text:Montserrat_34_line_spacing_6:'+cldText('\u201C'+String(excerpt).replace(/\s+/g,' ').slice(0,150).trim()+'\u2026\u201D')+',co_rgb:c8c8d4,w_840,h_230,c_fit/fl_layer_apply,g_north_west,x_120,y_760/':'')
+    +'q_auto:good/promo/ig-card-base.jpg';
+}
+function promoCard(){ return {name:promoPrompt.name, cat:promoPrompt.cat||'', excerpt:promoPrompt.text}; }
+
+async function logPromo(platform,url){
+  var entry={t:Date.now(),platform:platform,id:promoPrompt.id,name:promoPrompt.name.slice(0,80)};
+  if(url) entry.url=url;
+  var next=promoLog.concat([entry]).slice(-300);
+  if(await window.__fbSavePromo({promoLog:next})){ promoLog=next; renderPromoStats(); return true; }
+  return false;
+}
+
 function openPromoPanel(){
   var p=document.getElementById('promoPanel');
   var was=p.classList.contains('show');
@@ -1833,6 +1929,7 @@ function openPromoPanel(){
   if(!was) p.scrollIntoView({behavior:'smooth',block:'start'});
   renderPromoStats();
   renderChecklist();
+  if(!socialStatus) checkSocial();
   loadLibrary().then(setPromoCats).catch(function(){});
 }
 function closePromoPanel(){ document.getElementById('promoPanel').classList.remove('show'); }
@@ -1956,6 +2053,12 @@ function renderPromoPosts(){
     }
     ta.oninput=updateCount; updateCount();
     card.appendChild(ta);
+    if(pl.key==='instagram'){
+      var img=document.createElement('img'); img.className='promo-img'; img.loading='lazy';
+      img.src=promoCardUrl(promoPrompt.name,promoPrompt.cat||'',promoPrompt.text);
+      img.alt='Instagram card preview for '+promoPrompt.name;
+      card.insertBefore(img,ta);
+    }
 
     var row=document.createElement('div'); row.className='promo-actions';
     var copy=document.createElement('button'); copy.className='agent-btn sec'; copy.type='button';
@@ -1966,9 +2069,50 @@ function renderPromoPosts(){
     };
     row.appendChild(copy);
     var share=promoShareUrl(pl.key,promoPrompt,post);
-    if(share){
-      var open=document.createElement('button'); open.className='agent-btn pri'; open.type='button';
-      open.innerHTML='<i class="ti ti-send" aria-hidden="true"></i> Post on '+pl.label.split(' ')[0];
+    var canAuto=(pl.key==='facebook'||pl.key==='instagram') && socialReady(pl.key);
+    var liveEntry=promoLog.find(function(l){ return l.id===promoPrompt.id && l.platform===pl.key && l.url; });
+    var alreadyLive=!!liveEntry;
+    if(canAuto){
+      var pn=document.createElement('button'); pn.className='agent-btn pri promo-postnow'; pn.type='button';
+      var label='<i class="ti ti-rocket" aria-hidden="true"></i> Post now to '+pl.label;
+      pn.innerHTML=alreadyLive?'<i class="ti ti-check" aria-hidden="true"></i> Live':label;
+      pn.disabled=alreadyLive;
+      var armT=null;
+      pn.onclick=async function(){
+        // Two taps: first arms, second posts (no accidental posts)
+        if(!pn.classList.contains('confirm')){
+          pn.classList.add('confirm'); pn.innerHTML='<i class="ti ti-alert-circle" aria-hidden="true"></i> Tap again to post publicly';
+          armT=setTimeout(function(){ pn.classList.remove('confirm'); pn.innerHTML=label; },5000);
+          return;
+        }
+        clearTimeout(armT); pn.classList.remove('confirm'); pn.disabled=true;
+        pn.innerHTML='<i class="ti ti-loader-2" aria-hidden="true"></i> Posting…';
+        try{
+          var body={platform:pl.key,message:ta.value};
+          if(pl.key==='facebook') body.link=link;
+          if(pl.key==='instagram') body.card=promoCard();
+          var r=await workerFetch('/api/social-post',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)});
+          var d=await r.json().catch(function(){ return {}; });
+          if(!r.ok) throw new Error(d.error||('HTTP '+r.status));
+          pn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Live';
+          await logPromo(pl.key,d.url||'');
+          done.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Posted'; done.disabled=true;
+          if(d.url){ var v=document.createElement('a'); v.className='promo-live'; v.href=d.url; v.target='_blank'; v.rel='noopener'; v.textContent='View post ↗'; row.appendChild(v); }
+          showToast('✅ Posted to '+pl.label);
+          addLog('🚀','Auto-posted to '+pl.label+': '+promoPrompt.name.slice(0,40),'var(--green)');
+          if(pl.key==='instagram') checkSocial(true);
+        }catch(e){
+          pn.disabled=false; pn.innerHTML=label;
+          showToast('Post failed: '+e.message);
+          addLog('⚠',pl.label+' post failed: '+e.message,'var(--red)');
+        }
+      };
+      row.appendChild(pn);
+      if(liveEntry){ var lv=document.createElement('a'); lv.className='promo-live'; lv.href=liveEntry.url; lv.target='_blank'; lv.rel='noopener'; lv.textContent='View post ↗'; setTimeout(function(){ row.appendChild(lv); }); }
+    }
+    if(share && !(canAuto && pl.key!=='facebook')){
+      var open=document.createElement('button'); open.className='agent-btn '+(canAuto?'sec':'pri'); open.type='button';
+      open.innerHTML='<i class="ti ti-send" aria-hidden="true"></i> '+(canAuto?'Share manually':'Post on '+pl.label.split(' ')[0]);
       open.onclick=function(){
         if(pl.key==='linkedin'||pl.key==='facebook'){
           navigator.clipboard.writeText(ta.value).then(function(){ showToast('Post text copied — paste it into the share box'); },function(){});
@@ -1976,9 +2120,9 @@ function renderPromoPosts(){
         window.open(promoShareUrl(pl.key,promoPrompt,post),'_blank','noopener');
       };
       row.appendChild(open);
-    } else {
+    } else if(!canAuto){
       var hint=document.createElement('span'); hint.className='promo-hint';
-      hint.textContent=pl.key==='tiktok'?'Film it, then post from the app':'Post from the app; put the library link in your bio';
+      hint.textContent=pl.key==='tiktok'?'Film it, then post from the app':'Connect Instagram above to post from here, or post from the app';
       row.appendChild(hint);
     }
     var done=document.createElement('button'); done.className='agent-btn sec promo-done'; done.type='button';
@@ -1987,11 +2131,9 @@ function renderPromoPosts(){
     done.disabled=already;
     done.onclick=async function(){
       done.disabled=true;
-      var entry={t:Date.now(),platform:pl.key,id:promoPrompt.id,name:promoPrompt.name.slice(0,80)};
-      var next=promoLog.concat([entry]).slice(-300);
-      if(await window.__fbSavePromo({promoLog:next})){
-        promoLog=next; done.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Posted';
-        renderPromoStats(); addLog('📣','Posted to '+pl.label+': '+entry.name.slice(0,40),'var(--orange)');
+      if(await logPromo(pl.key,'')){
+        done.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Posted';
+        addLog('📣','Posted to '+pl.label+': '+promoPrompt.name.slice(0,40),'var(--orange)');
       } else { done.disabled=false; showToast('Could not save — try again'); }
     };
     row.appendChild(done);
