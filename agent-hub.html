@@ -145,6 +145,45 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .agent-4 .exp-cmd:hover{border-color:rgba(20,184,166,.3);color:var(--teal);}
 .exp-cmd:last-child{margin-bottom:0;}
 
+/* Promoter agent */
+.agent-promo::before{background:linear-gradient(90deg,var(--orange),#ec4899);}
+.agent-promo .agent-icon{background:rgba(255,98,36,.1);color:var(--orange);}
+.agent-promo .exp-cmd:hover{border-color:rgba(255,98,36,.3);color:var(--orange);}
+.promo-panel{border-color:rgba(255,98,36,.22);}
+.promo-panel .browser-panel-title{color:var(--orange);}
+.promo-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+.promo-toolbar select{background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:12px;min-height:36px;}
+.promo-prompt{background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;}
+.promo-pname{font-family:'Syne',serif;font-weight:800;font-size:15px;margin-bottom:2px;}
+.promo-pmeta{font-size:11px;color:var(--ink2);margin-bottom:8px;font-family:'JetBrains Mono',monospace;}
+.promo-ptext{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:8px;white-space:pre-wrap;}
+.promo-plink{font-size:11px;font-weight:700;color:var(--orange);}
+.promo-empty{font-size:12px;color:var(--ink2);padding:6px 0;}
+.promo-stats{font-size:11px;color:var(--ink2);margin-bottom:12px;font-family:'JetBrains Mono',monospace;}
+.promo-posts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+@media(max-width:760px){.promo-posts{grid-template-columns:1fr;}}
+.promo-post{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;}
+.promo-post-hd{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.promo-post-name{font-size:12px;font-weight:700;color:var(--ink);}
+.promo-count{font-size:10px;color:var(--ink2);font-family:'JetBrains Mono',monospace;}
+.promo-count.over{color:var(--red);font-weight:700;}
+.promo-text,.promo-title{width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:9px 10px;color:var(--ink);font-family:'Instrument Sans',sans-serif;font-size:12px;line-height:1.55;outline:none;resize:vertical;}
+.promo-text:focus,.promo-title:focus{border-color:rgba(255,98,36,.45);}
+.promo-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.promo-actions .agent-btn{min-height:32px;padding:6px 11px;font-size:11px;}
+.promo-actions .agent-btn.pri{background:rgba(255,98,36,.1);border-color:rgba(255,98,36,.3);color:var(--o2);}
+.promo-actions .agent-btn:disabled{opacity:.6;cursor:default;}
+.promo-hint{font-size:11px;color:var(--ink2);}
+.promo-sub{font-family:'Syne',serif;font-size:13px;font-weight:800;margin:4px 0 8px;}
+.promo-checklist{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.promo-check{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--glass);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--ink2);cursor:pointer;}
+.promo-check input{width:16px;height:16px;accent-color:var(--orange);flex-shrink:0;}
+.promo-check-txt{flex:1;line-height:1.45;}
+.promo-check-txt strong{color:var(--ink);}
+.promo-check-link{font-size:11px;font-weight:700;color:var(--orange);white-space:nowrap;padding:4px 2px;}
+.promo-kit{display:none;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--ink2);white-space:pre-wrap;max-height:420px;overflow-y:auto;margin-top:8px;}
+.promo-kit.show{display:block;}
+
 /* Browser agent special badge */
 .browser-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;background:rgba(20,184,166,.1);border:1px solid rgba(20,184,166,.25);color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
 
@@ -324,7 +363,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
   <!-- AGENTS -->
   <div class="section-hdr">
     <div class="section-title">Active Agents</div>
-    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;" id="agentCountLabel">7 / 8 active</span>
+    <span style="font-size:11px;color:var(--ink3);font-family:'JetBrains Mono',monospace;" id="agentCountLabel">8 / 9 active</span>
   </div>
   <div class="agent-grid">
 
@@ -492,11 +531,59 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       </div>
     </div>
 
+    <!-- Agent 8: Promoter -->
+    <div class="agent-card agent-promo" onclick="toggleExpand(8)">
+      <div class="agent-icon"><i class="ti ti-speakerphone"></i></div>
+      <div class="agent-name">Promoter</div>
+      <div class="agent-desc">Turns a library prompt into ready-to-post content for every platform, with tracked links.</div>
+      <div class="agent-stats">
+        <div><div class="a-stat-n" id="a8week">0</div><div class="a-stat-l">Posts / 7d</div></div>
+        <div><div class="a-stat-n" id="a8streak">0</div><div class="a-stat-l">Day streak</div></div>
+        <div><div class="a-stat-n" id="a8dirs">—</div><div class="a-stat-l">Listings</div></div>
+      </div>
+      <div class="agent-btns">
+        <button class="agent-btn pri" onclick="generatePromoPack();event.stopPropagation()"><i class="ti ti-sparkles"></i> Today's Pack</button>
+        <button class="agent-btn sec" onclick="openPromoPanel();event.stopPropagation()"><i class="ti ti-checklist"></i> Growth</button>
+      </div>
+      <div class="agent-expand" id="exp8">
+        <div class="exp-cmd" onclick="generatePromoPack()"><i class="ti ti-sparkles"></i> Generate today's promo pack</div>
+        <div class="exp-cmd" onclick="generateSubmissionKit()"><i class="ti ti-file-text"></i> Write directory submission kit</div>
+        <div class="exp-cmd" onclick="sendCmd('Acting as the Promoter agent, give me a realistic 30-day plan to grow Promptaholics traffic with no ad budget, as a solo builder with about 30 minutes a day')"><i class="ti ti-message"></i> 30-day growth plan</div>
+        <div class="exp-cmd" onclick="sendCmd('Acting as the Promoter agent, which 5 subreddits fit Promptaholics best, and what kind of post works in each without breaking self-promotion rules?')"><i class="ti ti-message"></i> Reddit strategy</div>
+        <div class="exp-cmd" onclick="sendCmd('Acting as the Promoter agent, give me 5 SEO blog article ideas that target long-tail prompt keywords and link into specific library categories')"><i class="ti ti-message"></i> SEO article ideas</div>
+        <div class="exp-cmd" onclick="sendCmd('Acting as the Promoter agent, draft a short, friendly outreach email to an AI newsletter writer asking them to feature Promptaholics as a free resource')"><i class="ti ti-message"></i> Newsletter outreach email</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- EMPTY SLOT -->
   <div class="add-grid">
-    <div class="add-card" id="agentSlot8" onclick="showAddModal(8)"><i class="ti ti-plus"></i><span>Add Agent 8</span></div>
+    <div class="add-card" id="agentSlot8" onclick="showAddModal(9)"><i class="ti ti-plus"></i><span>Add Agent 9</span></div>
+  </div>
+
+  <!-- PROMOTER PANEL -->
+  <div class="browser-panel promo-panel" id="promoPanel">
+    <div class="browser-panel-hdr">
+      <div class="browser-panel-title"><i class="ti ti-speakerphone"></i> Promoter <span id="promoStatus" class="browser-status">Ready</span></div>
+      <button class="ctrl-btn" onclick="closePromoPanel()" style="font-size:10px;padding:5px 10px;"><i class="ti ti-x"></i> Close</button>
+    </div>
+    <div class="promo-stats" id="promoStats" aria-live="polite"></div>
+    <div class="promo-toolbar">
+      <label for="promoCat" class="promo-hint">Category</label>
+      <select id="promoCat"><option value="">Any category</option></select>
+      <button class="ctrl-btn" onclick="newPromoPrompt()"><i class="ti ti-arrows-shuffle"></i> New pack</button>
+      <button class="ctrl-btn on" id="promoGenBtn" onclick="generatePromoPack()"><i class="ti ti-sparkles"></i> Write posts</button>
+    </div>
+    <div class="promo-prompt" id="promoPrompt"><div class="promo-empty">Click <strong>New pack</strong> to pick a prompt from your library, then <strong>Write posts</strong>.</div></div>
+    <div class="promo-posts" id="promoPosts"></div>
+    <div class="promo-sub">Get listed — directories & communities</div>
+    <div class="promo-checklist" id="promoChecklist"></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button class="ctrl-btn" onclick="generateSubmissionKit()"><i class="ti ti-file-text"></i> Write submission kit</button>
+      <button class="ctrl-btn" onclick="copyKit()"><i class="ti ti-copy"></i> Copy kit</button>
+    </div>
+    <div class="promo-kit" id="promoKit" aria-live="polite"></div>
   </div>
 
   <!-- EMAIL OUTPUT PANEL -->
@@ -693,8 +780,8 @@ window.__fbLoadMem = async()=>{
   try{
     const s=await getDoc(memRef());
     const d=s.exists()?s.data():{};
-    return { facts:d.facts||[], agents:d.customAgents||[] };
-  } catch(e){ console.warn('Memory load failed:',e); return { facts:[], agents:[] }; }
+    return { facts:d.facts||[], agents:d.customAgents||[], promoLog:d.promoLog||[], promoChecklist:d.promoChecklist||{} };
+  } catch(e){ console.warn('Memory load failed:',e); return { facts:[], agents:[], promoLog:[], promoChecklist:{} }; }
 };
 window.__fbAddMem = async(f)=>{
   try{ await setDoc(memRef(),{facts:arrayUnion(f),updatedAt:new Date()},{merge:true}); return true;}
@@ -703,6 +790,10 @@ window.__fbAddMem = async(f)=>{
 window.__fbDelMem = async(f)=>{
   try{ await updateDoc(memRef(),{facts:arrayRemove(f)}); return true;}
   catch(e){ console.warn('Memory delete failed:',e); return false; }
+};
+window.__fbSavePromo = async(fields)=>{
+  try{ await setDoc(memRef(),{...fields,updatedAt:new Date()},{merge:true}); return true;}
+  catch(e){ console.warn('Promo save failed:',e); return false; }
 };
 window.__fbSaveAgents = async(agents)=>{
   try{ await setDoc(memRef(),{customAgents:agents,updatedAt:new Date()},{merge:true}); return true;}
@@ -740,6 +831,7 @@ onAuthStateChanged(auth, async user=>{
     renderMem(window.__memFacts);
     buildMemBlock(window.__memFacts);
     setCustomAgents(mem.agents);
+    setPromoData(mem.promoLog, mem.promoChecklist);
     addLog('🧠','Memory: '+mem.facts.length+' facts loaded','var(--purple)');
 
     loadLiveStats();
@@ -767,9 +859,9 @@ var ADMIN ='promptaholics1@gmail.com';
 var MAX_HIST=20;
 var MAX_FILE_CHARS=40000;          // cap what gets sent to the model from an uploaded file
 var BRIDGE_URL='http://localhost:5555'; // Local agent-browser bridge (optional)
-var BASE_AGENTS=7;
+var BASE_AGENTS=8;
 
-var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate seven sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, Browser Agent, Analytics, Security, and Revenue.
+var ARIA_SYS=`You are ARIA (Adaptive Response and Intelligence Agent), the master AI for Promptaholics.com. You coordinate eight sub-agents: Vault & Approvals, Social Media, Tech & Site Ops, Browser Agent, Analytics, Security, Revenue, and Promoter.
 
 CAPABILITIES: Real-time news via Gemini search grounding, Firebase memory synced across devices, analysis of files the user uploads into this conversation, weekly email generation, Substack drafting.
 
@@ -781,12 +873,13 @@ AGENTS:
 5. ANALYTICS — site performance, SEO, AdSense status, email list growth, prompt library metrics, content strategy.
 6. SECURITY — reviews exposed secrets, CORS, Firebase rules, webhook verification, admin page access, and dependency risk.
 7. REVENUE — Stripe sales, guide conversion, merch orders, Printful affiliate performance, pricing.
+8. PROMOTER — grows traffic to promptaholics.com: daily promo packs (one real library prompt turned into posts for X, LinkedIn, Reddit, Facebook, Pinterest, Instagram, TikTok with UTM-tracked links), directory listings, community posting, SEO and outreach. The user posts manually; nothing is auto-posted. Favor genuinely useful, rule-abiding posts over spam.
 
 SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 2,000+ prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
 DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. You have NO access to Google Analytics / GA4, Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
 
-BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume 9) Read-only Prompt Library API 10) ARIA Agent 8.
+BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume 9) Read-only Prompt Library API 10) ARIA Agent 9.
 
 VOICE RULES: Your replies are read aloud. Natural spoken English only. No markdown, no bullets, no emoji. 2-4 sentences max unless the user asks for a document or file analysis. End with a follow-up or next action. Reference conversation history naturally.`;
 
@@ -1043,6 +1136,7 @@ function trimHistory(){
 
 // ─── Command router ───────────────────────────────────────────────
 // Word-boundary matching so "newsletter" isn't "news" and "browser extension advice" isn't a browser job
+var PROMO_RE=/\b(promo pack|promotion pack|promote (the )?(site|website|promptaholics)|today'?s pack|write (the )?promo|social pack)\b/i;
 var BROWSER_RE=/\b(take a screenshot|screenshot|snapshot|full[- ]page capture|qa (the )?(site|homepage)|run (the )?qa|test the (site|homepage)|check the (site|homepage)|open the (site|homepage)|annotate (the )?staging)\b/i;
 var NEWS_RE=/\b(news|headlines?|what happened|trending|breaking|top stories|current events)\b/i;
 var WEB_RE=/\b(weather|price of|stock price|search for|look up|right now|today'?s)\b/i;
@@ -1053,6 +1147,13 @@ async function runCmd(text,opts){
   if(speaking) stopTalking();
 
   // ── Browser agent routing (never for uploaded files) ─────────
+  if(!opts.noRoute && PROMO_RE.test(text)){
+    var pr='On it. I\u2019m picking a prompt from the library and writing today\u2019s promo pack. It\u2019ll be in the Promoter panel.';
+    chatHistory.push({role:'user',content:text}); chatHistory.push({role:'assistant',content:pr}); trimHistory();
+    setTranscript(pr,false); speak(pr);
+    promoPrompt=null; generatePromoPack();
+    return;
+  }
   if(!opts.noRoute && BROWSER_RE.test(text)){
     var intent=parseBrowserIntent(text);
     chatHistory.push({role:'user',content:text});
@@ -1581,12 +1682,12 @@ function setCustomAgents(list){
 }
 function renderCustomAgents(){
   var slot=document.getElementById('agentSlot8');
-  document.getElementById('agentCountLabel').textContent=agentCount()+' / 8 active';
+  document.getElementById('agentCountLabel').textContent=agentCount()+' / 9 active';
   slot.innerHTML='';
   if(!customAgents.length){
     slot.className='add-card';
-    slot.onclick=function(){ showAddModal(8); };
-    slot.innerHTML='<i class="ti ti-plus"></i><span>Add Agent 8</span>';
+    slot.onclick=function(){ showAddModal(9); };
+    slot.innerHTML='<i class="ti ti-plus"></i><span>Add Agent 9</span>';
     return;
   }
   var a=customAgents[0];
@@ -1602,7 +1703,7 @@ function renderCustomAgents(){
     if(!confirm('Remove the '+a.name+' agent?')) return;
     var prev=customAgents;
     customAgents=[];
-    if(await window.__fbSaveAgents([])){ renderCustomAgents(); showToast('Agent removed'); addLog('➖','Agent 8 removed: '+a.name,'var(--ink3)'); }
+    if(await window.__fbSaveAgents([])){ renderCustomAgents(); showToast('Agent removed'); addLog('➖','Agent 9 removed: '+a.name,'var(--ink3)'); }
     else { customAgents=prev; showToast('Could not remove — try again'); }
   };
 }
@@ -1619,8 +1720,358 @@ async function saveAgent(){
   renderCustomAgents();
   ['mnName','mnTriggers','mnResp'].forEach(function(id){ document.getElementById(id).value=''; });
   closeModal();
-  showToast('✅ Agent 8 — '+name+' added');
-  addLog('➕','Agent 8 added: '+name,'var(--green)');
+  showToast('✅ Agent 9 — '+name+' added');
+  addLog('➕','Agent 9 added: '+name,'var(--green)');
+}
+
+// ─── Promoter agent ────────────────────────────────────────────────
+// Turns one real library prompt into ready-to-post content for each platform,
+// with tracked links. Nothing is posted automatically: you review, copy, and post.
+var SITE='https://promptaholics.com';
+var promoLog=[];          // [{t, platform, id, name}]
+var promoChecklist={};    // {itemId: true}
+var promoPrompt=null;     // featured prompt for the current pack
+var promoPack=null;       // generated posts
+var promoBusy=false;
+
+var PROMO_PLATFORMS=[
+  {key:'x',        label:'X / Twitter', icon:'ti-brand-x',        limit:280, src:'x'},
+  {key:'linkedin', label:'LinkedIn',    icon:'ti-brand-linkedin', limit:3000, src:'linkedin'},
+  {key:'reddit',   label:'Reddit',      icon:'ti-brand-reddit',   limit:40000, src:'reddit'},
+  {key:'facebook', label:'Facebook',    icon:'ti-brand-facebook', limit:5000, src:'facebook'},
+  {key:'pinterest',label:'Pinterest',   icon:'ti-brand-pinterest',limit:500, src:'pinterest'},
+  {key:'instagram',label:'Instagram',   icon:'ti-brand-instagram',limit:2200, src:'instagram'},
+  {key:'tiktok',   label:'TikTok script',icon:'ti-brand-tiktok',  limit:2200, src:'tiktok'}
+];
+
+// Directories and communities worth a listing. "Submit" opens the site; you do the submitting.
+var PROMO_CHECKLIST=[
+  {id:'taaft',   name:"There's An AI For That", url:'https://theresanaiforthat.com', note:'Biggest AI tool directory'},
+  {id:'futurepedia',name:'Futurepedia',        url:'https://www.futurepedia.io', note:'AI tool directory'},
+  {id:'toolify', name:'Toolify',               url:'https://www.toolify.ai', note:'AI tool directory'},
+  {id:'alternativeto',name:'AlternativeTo',    url:'https://alternativeto.net', note:'List as an alternative to paid prompt marketplaces'},
+  {id:'saashub', name:'SaaSHub',               url:'https://www.saashub.com', note:'Software directory with backlinks'},
+  {id:'betalist',name:'BetaList',              url:'https://betalist.com', note:'Early-adopter audience'},
+  {id:'showhn',  name:'Show HN (Hacker News)', url:'https://news.ycombinator.com/submit', note:'Post a "Show HN" — weekday morning US time'},
+  {id:'ih',      name:'Indie Hackers',         url:'https://www.indiehackers.com', note:'Share your build story, not an ad'},
+  {id:'sideproject',name:'r/SideProject',      url:'https://www.reddit.com/r/SideProject/', note:'Builder-friendly subreddit'},
+  {id:'promptengineering',name:'r/PromptEngineering',url:'https://www.reddit.com/r/PromptEngineering/', note:'Lead with a useful prompt; read the rules first'},
+  {id:'awesome', name:'awesome-chatgpt-prompts (GitHub)',url:'https://github.com/f/awesome-chatgpt-prompts', note:'Popular prompt list; check whether it accepts resource links'},
+  {id:'bing',    name:'Bing Webmaster Tools',  url:'https://www.bing.com/webmasters', note:'Submit sitemap.xml (also feeds ChatGPT search)'},
+  {id:'pinbiz',  name:'Pinterest business account',url:'https://business.pinterest.com', note:'Prompt pins drive long-tail traffic'},
+  {id:'ph',      name:'Product Hunt',          url:'https://www.producthunt.com', note:'Launched June 26 2026', done:true}
+];
+
+function promoUrl(p,platform){
+  var u=SITE+'/library.html?prompt='+encodeURIComponent(p.id)
+    +'&utm_source='+platform+'&utm_medium=social&utm_campaign=aria_promo';
+  return u;
+}
+
+function promoShareUrl(platform,p,post){
+  var link=promoUrl(p,platform);
+  var e=encodeURIComponent;
+  switch(platform){
+    case 'x': return 'https://twitter.com/intent/tweet?text='+e(post.text)+'&url='+e(link);
+    case 'linkedin': return 'https://www.linkedin.com/sharing/share-offsite/?url='+e(link);
+    case 'facebook': return 'https://www.facebook.com/sharer/sharer.php?u='+e(link);
+    case 'reddit': return 'https://www.reddit.com/'+(post.subreddit?('r/'+post.subreddit.replace(/^\/?r\//,'')+'/'):'')+'submit?type=TEXT&title='+e(post.title||p.name)+'&text='+e(post.text+'\n\n'+link);
+    case 'pinterest': return 'https://www.pinterest.com/pin/create/button/?url='+e(link)+'&description='+e(post.text);
+    default: return null; // Instagram / TikTok: copy and post from the app
+  }
+}
+
+// Load the library lazily (it's large) only when the Promoter is used
+var promptsLoading=null;
+function loadLibrary(){
+  if(typeof PROMPTS!=='undefined') return Promise.resolve(PROMPTS);
+  if(promptsLoading) return promptsLoading;
+  promptsLoading=new Promise(function(resolve,reject){
+    var s=document.createElement('script');
+    s.src='prompts.js?v='+new Date().toISOString().slice(0,10);
+    s.onload=function(){ typeof PROMPTS!=='undefined' ? resolve(PROMPTS) : reject(new Error('Library loaded but empty')); };
+    s.onerror=function(){ promptsLoading=null; reject(new Error('Could not load prompts.js')); };
+    document.head.appendChild(s);
+  });
+  return promptsLoading;
+}
+
+function setPromoCats(lib){
+  var sel=document.getElementById('promoCat');
+  if(sel.options.length>1) return;
+  // Group case-insensitively ("marketing" and "Marketing" are one category)
+  var counts={}, label={};
+  lib.forEach(function(p){
+    if(!p.cat) return; var k=p.cat.trim().toLowerCase();
+    counts[k]=(counts[k]||0)+1;
+    if(!label[k] || /^[A-Z]/.test(p.cat)) label[k]=p.cat.trim();
+  });
+  Object.keys(counts).filter(function(k){ return counts[k]>=5; })
+    .sort(function(a,b){ return label[a].localeCompare(label[b]); })
+    .forEach(function(k){
+      var o=document.createElement('option'); o.value=k; o.textContent=label[k]+' ('+counts[k]+')'; sel.appendChild(o);
+    });
+}
+
+// Pick a prompt that hasn't been promoted yet (weights toward meatier prompts)
+async function pickPromoPrompt(){
+  var lib=await loadLibrary();
+  setPromoCats(lib);
+  var cat=document.getElementById('promoCat').value;
+  var used={}; promoLog.forEach(function(l){ used[l.id]=1; });
+  var pool=lib.filter(function(p){ return p && p.text && p.text.length>120 && (!cat||(p.cat||'').trim().toLowerCase()===cat); });
+  var fresh=pool.filter(function(p){ return !used[p.id]; });
+  var pickFrom=fresh.length?fresh:pool;
+  if(!pickFrom.length) throw new Error('No prompts found in that category');
+  return pickFrom[Math.floor(Math.random()*pickFrom.length)];
+}
+
+function openPromoPanel(){
+  var p=document.getElementById('promoPanel');
+  var was=p.classList.contains('show');
+  p.classList.add('show');
+  if(!was) p.scrollIntoView({behavior:'smooth',block:'start'});
+  renderPromoStats();
+  renderChecklist();
+  loadLibrary().then(setPromoCats).catch(function(){});
+}
+function closePromoPanel(){ document.getElementById('promoPanel').classList.remove('show'); }
+
+function setPromoStatus(text,cls){
+  var el=document.getElementById('promoStatus');
+  el.className='browser-status'+(cls?' '+cls:'');
+  el.textContent=text;
+}
+
+async function newPromoPrompt(){
+  try{
+    setPromoStatus('Loading library…','running');
+    promoPrompt=await pickPromoPrompt();
+    promoPack=null;
+    renderPromoPrompt();
+    document.getElementById('promoPosts').innerHTML='';
+    setPromoStatus('Prompt picked');
+  }catch(e){ setPromoStatus('Error','error'); showToast(e.message); }
+}
+
+function renderPromoPrompt(){
+  var box=document.getElementById('promoPrompt');
+  box.innerHTML='';
+  if(!promoPrompt){ box.innerHTML='<div class="promo-empty">Click <strong>New pack</strong> to pick a prompt from your library.</div>'; return; }
+  var h=document.createElement('div'); h.className='promo-pname';
+  h.textContent=promoPrompt.name;
+  var m=document.createElement('div'); m.className='promo-pmeta';
+  m.textContent=(promoPrompt.cat||'General')+' · '+(promoPrompt.tool||'any AI')+' · #'+promoPrompt.id;
+  var a=document.createElement('a'); a.href=SITE+'/library.html?prompt='+encodeURIComponent(promoPrompt.id); a.target='_blank'; a.rel='noopener'; a.textContent='View in library ↗'; a.className='promo-plink';
+  var t=document.createElement('div'); t.className='promo-ptext';
+  t.textContent=promoPrompt.text.slice(0,320)+(promoPrompt.text.length>320?'…':'');
+  box.appendChild(h); box.appendChild(m); box.appendChild(t); box.appendChild(a);
+}
+
+function parseJSONLoose(s){
+  s=String(s).replace(/^```(?:json)?\s*/i,'').replace(/```\s*$/,'').trim();
+  var a=s.indexOf('{'), b=s.lastIndexOf('}');
+  if(a<0||b<a) throw new Error('No JSON in reply');
+  return JSON.parse(s.slice(a,b+1));
+}
+
+async function generatePromoPack(){
+  if(promoBusy) return;
+  openPromoPanel();
+  if(!promoPrompt){ await newPromoPrompt(); if(!promoPrompt) return; }
+  promoBusy=true;
+  document.getElementById('promoGenBtn').disabled=true;
+  setPromoStatus('Writing posts…','running');
+  addLog('📣','Promoter: writing posts for "'+promoPrompt.name.slice(0,40)+'"','var(--orange)');
+
+  var sys='You write organic social posts for Promptaholics.com, a free library of 2,000+ copy-paste AI prompts (no signup). '
+    +'Each post features ONE real prompt and gives genuine value first — the reader should be able to use the idea even without clicking. '
+    +'No hype words (game-changer, revolutionary, unlock), no fake stats, no claims you cannot back up. Sound like a person, not a brand. '
+    +'Do NOT include any URL in the text; the link is attached separately. '
+    +'Reply with ONLY valid JSON, no markdown, in exactly this shape: '
+    +'{"x":{"text":"max 230 chars, punchy, 0-2 hashtags"},'
+    +'"linkedin":{"text":"120-220 words, practical, short paragraphs, end with a question"},'
+    +'"reddit":{"subreddit":"best-fit subreddit name without r/","title":"useful, non-clickbait title","text":"helpful post that shares the full prompt and how to use it; mention the free library once, plainly, at the end"},'
+    +'"facebook":{"text":"60-120 words, friendly"},'
+    +'"pinterest":{"text":"pin description, 200-400 chars, keyword-rich"},'
+    +'"instagram":{"text":"caption with a hook line, the prompt idea, a call to use the link in bio, and 8-12 hashtags"},'
+    +'"tiktok":{"text":"20-30 second script: HOOK (first 2s), 3 quick beats showing the prompt in action, CTA. Include on-screen text cues in [brackets]"}}';
+  var user='Featured prompt:\nName: '+promoPrompt.name+'\nCategory: '+(promoPrompt.cat||'General')+'\nWorks with: '+(promoPrompt.tool||'any AI')+'\nPrompt text:\n'+promoPrompt.text.slice(0,2500);
+
+  try{
+    var res=await workerFetch('/api/generate',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({intent:'create',max_tokens:2500,system:sys,messages:[{role:'user',content:user}]}),
+      signal:AbortSignal.timeout(60000)
+    });
+    if(!res.ok) throw workerErr(res);
+    var data=await res.json();
+    promoPack=parseJSONLoose(data.text||'');
+    renderPromoPosts();
+    setPromoStatus('Ready ✓');
+    showToast('📣 Promo pack ready — review, then post');
+    speak('Your promo pack is ready. Review each post, then use the post buttons to share it.');
+  }catch(e){
+    setPromoStatus('Error','error');
+    document.getElementById('promoPosts').innerHTML='';
+    var err=document.createElement('div'); err.className='promo-empty'; err.textContent='Could not write the pack: '+e.message+'. Try again.';
+    document.getElementById('promoPosts').appendChild(err);
+    addLog('⚠','Promoter failed: '+e.message,'var(--red)');
+  }
+  promoBusy=false;
+  document.getElementById('promoGenBtn').disabled=false;
+}
+
+function renderPromoPosts(){
+  var wrap=document.getElementById('promoPosts');
+  wrap.innerHTML='';
+  PROMO_PLATFORMS.forEach(function(pl){
+    var post=promoPack && promoPack[pl.key];
+    if(!post || !post.text) return;
+    var card=document.createElement('div'); card.className='promo-post';
+
+    var hd=document.createElement('div'); hd.className='promo-post-hd';
+    var name=document.createElement('span'); name.className='promo-post-name';
+    name.innerHTML='<i class="ti '+pl.icon+'" aria-hidden="true"></i> ';
+    name.appendChild(document.createTextNode(pl.label+(pl.key==='reddit'&&post.subreddit?' · r/'+post.subreddit.replace(/^\/?r\//,''):'')));
+    var count=document.createElement('span'); count.className='promo-count';
+    hd.appendChild(name); hd.appendChild(count);
+    card.appendChild(hd);
+
+    var titleInp=null;
+    if(pl.key==='reddit'){
+      titleInp=document.createElement('input'); titleInp.className='promo-title'; titleInp.value=post.title||promoPrompt.name;
+      titleInp.setAttribute('aria-label','Reddit post title');
+      titleInp.oninput=function(){ post.title=titleInp.value; };
+      card.appendChild(titleInp);
+    }
+    var ta=document.createElement('textarea'); ta.className='promo-text'; ta.value=post.text;
+    ta.setAttribute('aria-label',pl.label+' post text');
+    ta.rows=pl.key==='x'?3:6;
+    var link=promoUrl(promoPrompt,pl.src);
+    function updateCount(){
+      post.text=ta.value;
+      if(pl.key==='x'){ var n=ta.value.length+24; count.textContent=n+' / 280'; count.classList.toggle('over',n>280); }
+      else count.textContent=ta.value.length.toLocaleString()+' chars';
+    }
+    ta.oninput=updateCount; updateCount();
+    card.appendChild(ta);
+
+    var row=document.createElement('div'); row.className='promo-actions';
+    var copy=document.createElement('button'); copy.className='agent-btn sec'; copy.type='button';
+    copy.innerHTML='<i class="ti ti-copy" aria-hidden="true"></i> Copy'+(pl.key==='instagram'||pl.key==='tiktok'?'':' with link');
+    copy.onclick=function(){
+      var txt=(pl.key==='reddit'?(post.title+'\n\n'):'')+ta.value+(pl.key==='instagram'||pl.key==='tiktok'?'':'\n\n'+link);
+      navigator.clipboard.writeText(txt).then(function(){ showToast('✅ Copied'); },function(){ showToast('Could not copy'); });
+    };
+    row.appendChild(copy);
+    var share=promoShareUrl(pl.key,promoPrompt,post);
+    if(share){
+      var open=document.createElement('button'); open.className='agent-btn pri'; open.type='button';
+      open.innerHTML='<i class="ti ti-send" aria-hidden="true"></i> Post on '+pl.label.split(' ')[0];
+      open.onclick=function(){
+        if(pl.key==='linkedin'||pl.key==='facebook'){
+          navigator.clipboard.writeText(ta.value).then(function(){ showToast('Post text copied — paste it into the share box'); },function(){});
+        }
+        window.open(promoShareUrl(pl.key,promoPrompt,post),'_blank','noopener');
+      };
+      row.appendChild(open);
+    } else {
+      var hint=document.createElement('span'); hint.className='promo-hint';
+      hint.textContent=pl.key==='tiktok'?'Film it, then post from the app':'Post from the app; put the library link in your bio';
+      row.appendChild(hint);
+    }
+    var done=document.createElement('button'); done.className='agent-btn sec promo-done'; done.type='button';
+    var already=promoLog.some(function(l){ return l.id===promoPrompt.id && l.platform===pl.key; });
+    done.innerHTML=already?'<i class="ti ti-check" aria-hidden="true"></i> Posted':'<i class="ti ti-circle-check" aria-hidden="true"></i> Mark posted';
+    done.disabled=already;
+    done.onclick=async function(){
+      done.disabled=true;
+      var entry={t:Date.now(),platform:pl.key,id:promoPrompt.id,name:promoPrompt.name.slice(0,80)};
+      var next=promoLog.concat([entry]).slice(-300);
+      if(await window.__fbSavePromo({promoLog:next})){
+        promoLog=next; done.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Posted';
+        renderPromoStats(); addLog('📣','Posted to '+pl.label+': '+entry.name.slice(0,40),'var(--orange)');
+      } else { done.disabled=false; showToast('Could not save — try again'); }
+    };
+    row.appendChild(done);
+    card.appendChild(row);
+    wrap.appendChild(card);
+  });
+}
+
+function renderPromoStats(){
+  var weekAgo=Date.now()-7*864e5;
+  var week=promoLog.filter(function(l){ return l.t>=weekAgo; });
+  var days={}; promoLog.forEach(function(l){ days[new Date(l.t).toDateString()]=1; });
+  var streak=0, d=new Date();
+  if(!days[d.toDateString()]) d.setDate(d.getDate()-1); // today not posted yet doesn't break the streak
+  while(days[d.toDateString()]){ streak++; d.setDate(d.getDate()-1); }
+  document.getElementById('a8week').textContent=week.length;
+  document.getElementById('a8streak').textContent=streak;
+  var done=PROMO_CHECKLIST.filter(function(c){ return c.done||promoChecklist[c.id]; }).length;
+  document.getElementById('a8dirs').textContent=done+'/'+PROMO_CHECKLIST.length;
+
+  var by={}; week.forEach(function(l){ by[l.platform]=(by[l.platform]||0)+1; });
+  var el=document.getElementById('promoStats');
+  if(!el) return;
+  el.textContent=week.length
+    ? 'This week: '+Object.keys(by).map(function(k){ var p=PROMO_PLATFORMS.find(function(x){return x.key===k;}); return (p?p.label.split(' ')[0]:k)+' '+by[k]; }).join(' · ')+' · streak '+streak+' day'+(streak===1?'':'s')
+    : 'Nothing posted this week yet. One pack a day keeps the streak going.';
+}
+
+function renderChecklist(){
+  var list=document.getElementById('promoChecklist');
+  list.innerHTML='';
+  PROMO_CHECKLIST.forEach(function(c){
+    var row=document.createElement('label'); row.className='promo-check';
+    var cb=document.createElement('input'); cb.type='checkbox';
+    cb.checked=!!(c.done||promoChecklist[c.id]); cb.disabled=!!c.done;
+    cb.onchange=async function(){
+      var next=Object.assign({},promoChecklist); next[c.id]=cb.checked; if(!cb.checked) delete next[c.id];
+      if(await window.__fbSavePromo({promoChecklist:next})){ promoChecklist=next; renderPromoStats(); }
+      else { cb.checked=!cb.checked; showToast('Could not save — try again'); }
+    };
+    var txt=document.createElement('span'); txt.className='promo-check-txt';
+    var b=document.createElement('strong'); b.textContent=c.name;
+    var n=document.createElement('span'); n.textContent=' — '+c.note;
+    txt.appendChild(b); txt.appendChild(n);
+    var a=document.createElement('a'); a.href=c.url; a.target='_blank'; a.rel='noopener'; a.textContent=c.done?'Done':'Open ↗'; a.className='promo-check-link';
+    row.appendChild(cb); row.appendChild(txt); row.appendChild(a);
+    list.appendChild(row);
+  });
+}
+
+// Reusable copy for directory submissions: tagline, short + long description, categories, tags
+async function generateSubmissionKit(){
+  openPromoPanel();
+  var out=document.getElementById('promoKit');
+  out.textContent='Writing your submission kit…';
+  out.classList.add('show');
+  var count=(typeof PROMPTS!=='undefined')?PROMPTS.length.toLocaleString():'2,000+';
+  var sys='You write directory listings for indie products. Be accurate and specific; never invent features, numbers, users, or awards. Plain text, clearly labelled sections.';
+  var user='Write a submission kit for Promptaholics.com.\nFacts: free AI prompt library with '+count+' copy-paste prompts across 18 categories (writing, marketing, business, coding, images and more) and 9 frameworks; no signup needed; works with ChatGPT, Claude, Gemini, Midjourney and other tools; includes a Prompt Builder, a PA Agent that writes custom prompts, a weekly email with new prompts, and a small store (a $4.99 guide and merch).\n\nSections: TAGLINE (under 60 chars, 3 options), SHORT DESCRIPTION (under 160 chars), LONG DESCRIPTION (120-180 words), KEY FEATURES (5 bullets), CATEGORIES (3-5 typical directory categories), TAGS (10), SHOW HN TITLE (Show HN: ... under 80 chars), MAKER COMMENT (first comment for HN/Product Hunt, 100-150 words, honest, first person, mentions it is a solo project).';
+  try{
+    var res=await workerFetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({intent:'create',max_tokens:1800,system:sys,messages:[{role:'user',content:user}]}),signal:AbortSignal.timeout(60000)});
+    if(!res.ok) throw workerErr(res);
+    var data=await res.json();
+    out.textContent=(data.text||'').trim()||'Empty reply — try again.';
+    lastResp=out.textContent;
+    document.getElementById('dlBtn').style.display='inline-flex';
+    addLog('📣','Submission kit ready','var(--orange)');
+  }catch(e){ out.textContent='Could not write the kit: '+e.message; }
+}
+function copyKit(){
+  var t=document.getElementById('promoKit').textContent;
+  if(!t||/^Writing/.test(t)) return;
+  navigator.clipboard.writeText(t).then(function(){ showToast('✅ Kit copied'); },function(){ showToast('Could not copy'); });
+}
+
+function setPromoData(log,checklist){
+  promoLog=Array.isArray(log)?log:[];
+  promoChecklist=(checklist&&typeof checklist==='object')?checklist:{};
+  renderPromoStats();
 }
 
 // ─── Auth ──────────────────────────────────────────────────────────
