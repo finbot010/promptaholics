@@ -71,28 +71,42 @@ async function main() {
   const filePath = path.resolve(process.cwd(), 'prompts.js');
   const currentContent = fs.readFileSync(filePath, 'utf8');
 
-  // Get existing names to avoid duplicates — handles both name:"x" and name:'x'
-  const existingNames = new Set();
-  let nameMatch;
-  const nameRe = /name:["']([^"']+)["']/g;
-  while ((nameMatch = nameRe.exec(currentContent)) !== null) {
-    existingNames.add(nameMatch[1].toLowerCase().trim());
+  // Parse prompts.js properly instead of regex-scraping it. The old regex
+  // (/name:["']([^"']+)["']/) stopped at the first apostrophe, so any name
+  // like "Children's Book Story Writer" never matched and was re-exported
+  // EVERY week — that's how some prompts ended up with 17-27 copies.
+  let existing;
+  try {
+    existing = new Function(currentContent.replace('const PROMPTS', 'var PROMPTS') + '\nreturn PROMPTS;')();
+  } catch (e) {
+    console.error('Could not parse prompts.js (' + e.message + ') — aborting');
+    process.exit(1);
   }
-  console.log('Current prompts.js has ' + existingNames.size + ' prompts');
+  const norm = function(t){ return String(t || '').toLowerCase().replace(/\s+/g, ' ').trim(); };
+  const existingNames = new Set(existing.map(function(p){ return norm(p && p.name); }));
+  const existingTexts = new Set(existing.map(function(p){ return norm(p && p.text); }));
+  console.log('Current prompts.js has ' + existing.length + ' prompts');
 
-  // Find highest existing numeric ID — handles both id:"1" and id:'1'
-  let maxId = 0;
-  let idMatch;
-  const idRe = /id:["']([^"']+)["']/g;
-  while ((idMatch = idRe.exec(currentContent)) !== null) {
-    const num = parseInt(idMatch[1], 10);
+  // Never reuse an ID. IDs up to RETIRED_MAX_ID were used by duplicate copies
+  // removed on 2026-10-28; library.html redirects those old links, so a new
+  // prompt must not take one of those numbers.
+  const RETIRED_MAX_ID = 2400;
+  let maxId = RETIRED_MAX_ID;
+  existing.forEach(function(p){
+    const num = parseInt(p && p.id, 10);
     if (!isNaN(num) && num > maxId) maxId = num;
-  }
+  });
   console.log('Highest existing ID: ' + maxId);
 
-  // Filter new prompts only
+  // New = not already exported, and not matching an existing name or text.
+  // Also de-dupe within this batch.
+  const seenNames = new Set(existingNames), seenTexts = new Set(existingTexts);
   const newPrompts = firestorePrompts.filter(function(p) {
-    return !existingNames.has((p.name || '').toLowerCase().trim());
+    const n = norm(p.name), t = norm(p.text);
+    if (!t) return false;
+    if (seenNames.has(n) || seenTexts.has(t)) return false;
+    seenNames.add(n); seenTexts.add(t);
+    return true;
   });
 
   if (newPrompts.length === 0) {

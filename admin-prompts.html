@@ -210,6 +210,20 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div id="fixCatResults" style="margin-top:14px;"></div>
     </div>
 
+    <!-- DUPLICATE CHECK -->
+    <div class="drop-section" id="dupeSection">
+      <h2><i class="ti ti-copy" style="color:var(--orange)"></i> Duplicate Check</h2>
+      <p style="font-size:13px;color:var(--ink2,#999);margin-bottom:12px;">
+        Scans the live library (<code>prompts.js</code>) for prompts with identical text, or the same title on different prompts.
+        Read-only: nothing is changed. Same-title prompts are usually different prompts that just need a new name.
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="btn-import" id="dupeBtn" onclick="scanDuplicates()"><i class="ti ti-scan"></i> Scan Library</button>
+        <button class="btn-import" id="dupeCopyBtn" onclick="copyDupeReport()" style="display:none;"><i class="ti ti-clipboard"></i> Copy Report</button>
+      </div>
+      <div id="dupeResults"></div>
+    </div>
+
     <!-- MANAGE / DELETE LIVE PROMPTS -->
     <div class="drop-section" id="manageLiveSection">
       <h2><i class="ti ti-search" style="color:var(--orange)"></i> Manage Live Prompts</h2>
@@ -457,6 +471,55 @@ window.deletePrompt = async function(id){
     showToast('❌ Error: '+e.message);
     if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-trash"></i> Delete'; }
   }
+};
+
+// ── DUPLICATE CHECK (read-only) ─────────────────────────────────
+let _dupeReport = '';
+window.scanDuplicates = async function(){
+  const btn = document.getElementById('dupeBtn');
+  const out = document.getElementById('dupeResults');
+  btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .7s linear infinite"></i> Scanning…';
+  out.innerHTML = '';
+  try {
+    const res = await fetch('/prompts.js?cb=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('could not load prompts.js (HTTP ' + res.status + ')');
+    const list = new Function((await res.text()).replace('const PROMPTS','var PROMPTS') + '\nreturn PROMPTS;')();
+    const norm = t => String(t||'').toLowerCase().replace(/\s+/g,' ').trim();
+    const holes = list.filter(p => !p || !p.id).length;
+    const prompts = list.filter(p => p && p.id);
+    const group = key => { const m = new Map(); prompts.forEach(p => { const k = key(p); if(!k) return; (m.get(k) || m.set(k, []).get(k)).push(p); }); return [...m.values()].filter(g => g.length > 1); };
+    const sameText  = group(p => norm(p.text));
+    const textIds   = new Set(sameText.flat().map(p => p.id));
+    const sameTitle = group(p => norm(p.name)).filter(g => !g.every(p => textIds.has(p.id)));
+    const row = p => `<div style="font-size:12px;padding:6px 0;border-top:1px solid var(--border,#222);">
+        <a href="/library.html?prompt=${encodeURIComponent(p.id)}" target="_blank" rel="noopener" style="color:var(--orange);font-weight:700;">#${esc(p.id)}</a>
+        <span style="color:var(--ink2,#999);">· ${esc(p.cat||'?')} · ${esc(p.tool||'?')}</span><br>
+        <span style="color:var(--ink2,#aaa);">${esc(String(p.text||'').slice(0,140))}${String(p.text||'').length>140?'…':''}</span></div>`;
+    const block = (title, groups, color) => groups.length ? `<h3 style="font-size:14px;margin:16px 0 8px;color:${color};">${title} (${groups.length})</h3>` +
+      groups.map(g => `<div class="prompt-card" style="margin-bottom:10px;"><strong>${esc(g[0].name)}</strong> <span style="font-size:11px;color:var(--ink2,#999);">× ${g.length}</span>${g.map(row).join('')}</div>`).join('') : '';
+    const ok = !holes && !sameText.length;
+    out.innerHTML =
+      `<p style="font-size:13px;margin-bottom:6px;">Scanned <strong>${prompts.length.toLocaleString()}</strong> prompts.</p>` +
+      (holes ? `<p style="color:#ef4444;">⚠ ${holes} empty entr${holes===1?'y':'ies'} in prompts.js. These break View/Share; fix before anything else.</p>` : '') +
+      (ok ? '<p style="color:#22c55e;">✅ No identical-text duplicates.</p>' : '') +
+      block('Identical text', sameText, '#ef4444') +
+      block('Same title, different prompt', sameTitle, '#f59e0b');
+    _dupeReport = [
+      'Promptaholics duplicate report, ' + new Date().toISOString().slice(0,10) + ', ' + prompts.length + ' prompts',
+      'Empty entries: ' + holes,
+      '', 'IDENTICAL TEXT (' + sameText.length + ')', ...sameText.map(g => '- "' + g[0].name + '": ' + g.map(p => '#' + p.id).join(', ')),
+      '', 'SAME TITLE, DIFFERENT PROMPT (' + sameTitle.length + ')', ...sameTitle.map(g => '- "' + g[0].name + '": ' + g.map(p => '#' + p.id + ' (' + (p.cat||'?') + ')').join(', '))
+    ].join('\n');
+    document.getElementById('dupeCopyBtn').style.display = '';
+  } catch(e){
+    out.innerHTML = `<p style="color:#ef4444;">❌ Scan failed: ${esc(e.message)}</p>`;
+  } finally {
+    btn.disabled = false; btn.innerHTML = '<i class="ti ti-scan"></i> Scan Library';
+  }
+};
+window.copyDupeReport = function(){
+  if(!_dupeReport) return;
+  navigator.clipboard.writeText(_dupeReport).then(() => showToast('📋 Report copied')).catch(() => showToast('Copy failed'));
 };
 
 // ── CLEAR EXPORTED LIVE ──────────────────────────────────────────
