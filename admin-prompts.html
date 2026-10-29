@@ -94,6 +94,9 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
 .btn-delete:disabled{opacity:.4;cursor:not-allowed;}
 .btn-clear-all{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Instrument Sans',sans-serif;}
 .btn-clear-all:hover{background:rgba(239,68,68,.16);}
+.btn-clear-live{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:var(--green);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.btn-clear-live:hover{background:rgba(34,197,94,.16);}
+.btn-clear-live:disabled{opacity:.5;cursor:wait;}
 
 /* JSON DROP ZONE */
 .drop-section{margin-bottom:28px;}
@@ -230,6 +233,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <button class="filter-btn" onclick="setFilter('live',this)">🟢 Live</button>
       <button class="filter-btn" onclick="setFilter('rejected',this)">🔴 Rejected</button>
       <button class="filter-btn" onclick="setFilter('all',this)">All</button>
+      <button class="btn-clear-live" id="clearLiveBtn" onclick="clearLive()" title="Removes Live entries from this queue once the GitHub export has added them to the library. Not-yet-exported ones are kept."><i class="ti ti-checks"></i> Clear Exported Live</button>
       <button class="btn-clear-all" onclick="clearRejected()"><i class="ti ti-trash"></i> Clear All Rejected</button>
     </div>
     <div class="prompt-list" id="promptList">
@@ -452,6 +456,57 @@ window.deletePrompt = async function(id){
   } catch(e){
     showToast('❌ Error: '+e.message);
     if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-trash"></i> Delete'; }
+  }
+};
+
+// ── CLEAR EXPORTED LIVE ──────────────────────────────────────────
+// Live entries in this queue are bookkeeping copies: approving already wrote
+// the prompt to the `prompts` collection, and the weekly GitHub export copies
+// it into prompts.js. Once a prompt is in prompts.js its queue entry can go.
+// We only delete entries whose name is already in the live prompts.js (same
+// lowercase-name match the exporter uses), so nothing that hasn't been
+// exported yet is ever removed. The library itself is not touched.
+window.clearLive = async function(){
+  const live = allPrompts.filter(p=>p.status==='live'||p.status==='approved');
+  if(!live.length){ showToast('No live prompts in the queue'); return; }
+  const btn = document.getElementById('clearLiveBtn');
+  const label = btn ? btn.innerHTML : '';
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader-2"></i> Checking export…'; }
+  try {
+    const res = await fetch('/prompts.js?cb=' + Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('could not load prompts.js (HTTP ' + res.status + ')');
+    const src = await res.text();
+    const exported = new Set();
+    src.replace(/name:\s*(["'])((?:\\.|(?!\1)[^\\])*)\1/g, function(_, q, raw){
+      let name = raw;
+      try { name = JSON.parse('"' + raw.replace(/\\'/g, "'").replace(/"/g, '\\"') + '"'); } catch(e){}
+      exported.add(name.toLowerCase().trim());
+      return _;
+    });
+    if(exported.size < 100) throw new Error('prompts.js looked incomplete (' + exported.size + ' names) — nothing deleted');
+    const ready   = live.filter(p => exported.has(String(p.name||'').toLowerCase().trim()));
+    const waiting = live.length - ready.length;
+    if(!ready.length){
+      showToast(`None of the ${live.length} live prompts are exported yet — run the GitHub export first`);
+      return;
+    }
+    const msg = `Remove ${ready.length} live prompt${ready.length===1?'':'s'} from this queue?\n\n`
+      + `They're already in the library (prompts.js), so the library is not affected.`
+      + (waiting ? `\n\n${waiting} not yet exported will be kept.` : '');
+    if(!confirm(msg)) return;
+    if(btn) btn.innerHTML = `<i class="ti ti-loader-2"></i> Clearing ${ready.length}…`;
+    const results = await Promise.allSettled(ready.map(p => deleteDoc(doc(db,'pending-prompts',p._id))));
+    const okIds = new Set(ready.filter((p,i)=>results[i].status==='fulfilled').map(p=>p._id));
+    const failed = ready.length - okIds.size;
+    allPrompts = allPrompts.filter(p => !okIds.has(p._id));
+    updateStats(); renderList();
+    showToast(`✅ Cleared ${okIds.size} exported live prompt${okIds.size===1?'':'s'}`
+      + (waiting ? ` · ${waiting} kept (not exported yet)` : '')
+      + (failed ? ` · ${failed} failed` : ''));
+  } catch(e){
+    showToast('❌ ' + e.message);
+  } finally {
+    if(btn){ btn.disabled=false; btn.innerHTML=label; }
   }
 };
 
