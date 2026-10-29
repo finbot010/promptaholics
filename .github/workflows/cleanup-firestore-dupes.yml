@@ -1,0 +1,36 @@
+name: Clean Firestore Duplicate Prompts
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'dry-run (report only) or delete'
+        required: true
+        default: 'dry-run'
+        type: choice
+        options: [dry-run, delete]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install firebase-admin
+      - name: Run cleanup
+        env:
+          MODE: ${{ inputs.mode }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+        run: node scripts/cleanup-firestore-dupes.cjs
+      - name: Save backup of affected docs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firestore-dupes-backup-${{ inputs.mode }}-${{ github.run_number }}
+          path: firestore-dupes-backup.json
+          retention-days: 90
