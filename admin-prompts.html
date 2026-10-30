@@ -538,24 +538,41 @@ window.clearLive = async function(){
   try {
     const res = await fetch('/prompts.js?cb=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('could not load prompts.js (HTTP ' + res.status + ')');
-    const src = await res.text();
-    const exported = new Set();
-    src.replace(/name:\s*(["'])((?:\\.|(?!\1)[^\\])*)\1/g, function(_, q, raw){
-      let name = raw;
-      try { name = JSON.parse('"' + raw.replace(/\\'/g, "'").replace(/"/g, '\\"') + '"'); } catch(e){}
-      exported.add(name.toLowerCase().trim());
-      return _;
-    });
-    if(exported.size < 100) throw new Error('prompts.js looked incomplete (' + exported.size + ' names) — nothing deleted');
-    const ready   = live.filter(p => exported.has(String(p.name||'').toLowerCase().trim()));
-    const waiting = live.length - ready.length;
+    const lib = new Function((await res.text()).replace('const PROMPTS','var PROMPTS') + '\nreturn PROMPTS;')();
+    if(!Array.isArray(lib) || lib.length < 100) throw new Error('prompts.js looked incomplete — nothing deleted');
+    // Match a queue entry to the library by title OR by prompt text. Title-only
+    // matching left entries stuck forever when the library already had the same
+    // prompt under a different title (the export skips same-text prompts).
+    const norm  = t => String(t||'').toLowerCase().replace(/\s+/g,' ').trim();
+    const words = t => new Set(norm(t).split(/[^a-z0-9]+/).filter(w => w.length > 3));
+    const libNames = new Set(lib.map(x => norm(x && x.name)));
+    const libTexts = new Set(lib.map(x => norm(x && x.text)));
+    const libWords = lib.map(x => ({ name: x && x.name, w: words(x && x.text) }));
+    const nearMatch = text => {
+      const w = words(text); if (w.size < 15) return null;
+      for (const l of libWords) {
+        let n = 0; w.forEach(x => { if (l.w.has(x)) n++; });
+        if (n / (w.size + l.w.size - n) >= 0.9) return l.name;
+      }
+      return null;
+    };
+    const matchOf = p => {
+      const t = p.text || p.desc || '';
+      if (libNames.has(norm(p.name))) return 'same title';
+      if (libTexts.has(norm(t)))      return 'same text';
+      const near = nearMatch(t);      return near ? 'same prompt as "' + near + '"' : null;
+    };
+    const ready = [], kept = [];
+    live.forEach(p => { const m = matchOf(p); (m ? ready : kept).push(p); });
+    const waiting = kept.length;
+    const keptList = kept.slice(0,8).map(p => '• ' + (p.name||'Untitled')).join('\n') + (kept.length > 8 ? '\n• …' : '');
     if(!ready.length){
-      showToast(`None of the ${live.length} live prompts are exported yet — run the GitHub export first`);
+      alert(`None of the ${live.length} live prompts are in the library yet, so nothing was cleared.\n\nNot in the library yet:\n${keptList}\n\nRun the GitHub export, or use Delete on a card if you don't want it.`);
       return;
     }
     const msg = `Remove ${ready.length} live prompt${ready.length===1?'':'s'} from this queue?\n\n`
       + `They're already in the library (prompts.js), so the library is not affected.`
-      + (waiting ? `\n\n${waiting} not yet exported will be kept.` : '');
+      + (waiting ? `\n\n${waiting} not in the library yet will be kept:\n${keptList}` : '');
     if(!confirm(msg)) return;
     if(btn) btn.innerHTML = `<i class="ti ti-loader-2"></i> Clearing ${ready.length}…`;
     const results = await Promise.allSettled(ready.map(p => deleteDoc(doc(db,'pending-prompts',p._id))));
