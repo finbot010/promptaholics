@@ -60,15 +60,51 @@
     }
   }
 
+  // ── Google Consent Mode v2 ──────────────────────────────────
+  // GA4 now loads for every visitor who has not clicked Reject, but in a
+  // restricted "denied" state until they click Accept: no analytics or ad
+  // cookies are set and Google receives only cookieless pings, which it uses
+  // to model visitors who never answer the banner. Accept upgrades the same
+  // tag to full measurement. Reject = nothing loads at all.
+  // AdSense still loads only after Accept.
+  function gtagBase(){
+    window.dataLayer = window.dataLayer || [];
+    if(typeof window.gtag !== 'function'){
+      window.gtag = function(){ dataLayer.push(arguments); };
+    }
+  }
+
+  function setConsentDefault(granted){
+    gtagBase();
+    var v = granted ? 'granted' : 'denied';
+    gtag('consent', 'default', {
+      ad_storage: v,
+      ad_user_data: v,
+      ad_personalization: v,
+      analytics_storage: v,
+      wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  }
+
+  function grantConsent(){
+    gtagBase();
+    gtag('consent', 'update', {
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      analytics_storage: 'granted'
+    });
+  }
+
   function loadGA4(){
     if(window._pa_ga4_loaded) return;
     window._pa_ga4_loaded = true;
+    gtagBase();
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
     document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){ dataLayer.push(arguments); };
     gtag('js', new Date());
     gtag('config', GA4_ID);
   }
@@ -84,6 +120,7 @@
   }
 
   function loadConsentedScripts(){
+    grantConsent();
     loadGA4();
     loadAdsense();
   }
@@ -118,6 +155,16 @@
     };
     document.getElementById('paCookieReject').onclick = function(){
       setConsent('rejected');
+      // If GA4 is already on the page (restricted mode, or an earlier Accept
+      // being withdrawn via Cookie Settings), switch everything to denied.
+      if(typeof window.gtag === 'function'){
+        gtag('consent', 'update', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied'
+        });
+      }
       wrap.remove();
     };
   }
@@ -134,10 +181,15 @@
   function init(){
     var consent = getConsent();
     if(consent === 'accepted'){
-      loadConsentedScripts();
+      setConsentDefault(true);
+      loadGA4();
+      loadAdsense();
     } else if(consent === 'rejected'){
-      // Respect the choice - do nothing
+      // Respect the choice - nothing loads
     } else {
+      // No decision yet: GA4 in restricted, cookieless mode until they choose
+      setConsentDefault(false);
+      loadGA4();
       // No decision yet (or policy changed since their last one) - ask
       if(document.body){
         buildBanner();
