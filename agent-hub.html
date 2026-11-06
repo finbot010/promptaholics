@@ -478,6 +478,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <div class="agent-name">Analytics</div>
       <div class="agent-desc">Tracks site performance, SEO rankings, email growth and revenue metrics.</div>
       <div class="agent-stats">
+        <div><div class="a-stat-n" id="a5users">—</div><div class="a-stat-l">Users 7d</div></div>
         <div><div class="a-stat-n" id="a5subs">—</div><div class="a-stat-l">Subscribers</div></div>
         <div><div class="a-stat-n" id="a5deploy">—</div><div class="a-stat-l">Deploy</div></div>
         <div><div class="a-stat-n" id="a5rev">—</div><div class="a-stat-l">30d Revenue</div></div>
@@ -904,7 +905,7 @@ AGENTS:
 
 SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 2,000+ prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
-DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. You have NO access to Google Analytics / GA4, Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
+DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. GA4 traffic, pages, locations, sources and events are available ONLY when a LIVE GA4 DATA block appears below; if it says GA4 is unavailable, do not state traffic numbers. City-level locations come from GA4 and are approximate (based on IP). You have NO access to Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
 
 BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume 9) Read-only Prompt Library API 10) ARIA Agent 9.
 
@@ -1240,6 +1241,24 @@ async function runCmd(text,opts){
   }
 }
 
+// GA4 numbers come from the Worker's /api/ga4-report (GA4 Data API, read-only service account)
+function ga4Block(g,label){
+  if(!g||!g.totals) return label==='last 7 days'?'\n\nGA4 DATA: Unavailable this session (the Worker could not reach GA4 or its secrets are not set). Do not state traffic numbers.':'';
+  var c=g.totals.current||{}, p=g.totals.previous||{};
+  var fmt=function(rows,cols){ return (rows||[]).map(function(r){ return cols.map(function(k){ return r[k]; }).join(' · '); }).join('; '); };
+  var out='\n\nLIVE GA4 DATA ('+label+', property '+g.propertyId+', as of '+g.generatedAt+'): ';
+  out+='Active users '+(c.activeUsers||0)+' (previous period '+(p.activeUsers||0)+'), new users '+(c.newUsers||0)+', sessions '+(c.sessions||0)+', page views '+(c.screenPageViews||0)+', engagement rate '+Math.round((c.engagementRate||0)*100)+'%, average session '+Math.round(c.averageSessionDuration||0)+'s.';
+  if(g.realtimeActiveUsers!=null && label==='last 7 days') out+=' On the site right now: '+g.realtimeActiveUsers+'.';
+  out+=' Top pages (path · views · users): '+fmt(g.topPages,['pagePath','screenPageViews','activeUsers'])+'.';
+  out+=' Countries (country · users): '+fmt(g.countries,['country','activeUsers'])+'.';
+  out+=' Cities (country · city · users): '+fmt(g.locations,['country','city','activeUsers'])+'.';
+  out+=' Traffic sources (channel · source · sessions): '+fmt(g.sources,['sessionDefaultChannelGroup','sessionSource','sessions'])+'.';
+  out+=' Devices: '+fmt(g.devices,['deviceCategory','activeUsers'])+'.';
+  out+=' Events (name · count · users): '+fmt(g.events,['eventName','eventCount','totalUsers'])+'.';
+  out+=' Note: '+g.note;
+  return out;
+}
+
 function liveDataBlock(){
   var out='';
   var b=window.__brevoStats;
@@ -1253,6 +1272,8 @@ function liveDataBlock(){
   var r=window.__revenueStats;
   if(r && typeof r.totalRevenue==='number') out+='\n\nLIVE REVENUE DATA (Stripe, last 30 days): Total revenue: $'+(r.totalRevenue/100).toFixed(2)+'. Orders: '+(r.chargeCount||0)+' ('+(r.guideSales||0)+' guide sales, '+(r.merchOrders||0)+' merch/print orders).';
   else out+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
+  out+=ga4Block(window.__ga4Stats,'last 7 days');
+  if(window.__ga4Stats28) out+=ga4Block(window.__ga4Stats28,'last 28 days');
   var v=window.__vaultStats;
   if(v) out+='\n\nLIVE VAULT DATA: '+v;
   return out;
@@ -1419,7 +1440,7 @@ async function fetchJSON(path){
   return r.json();
 }
 async function loadLiveStats(){
-  var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary')]);
+  var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary'),fetchJSON('/api/ga4-report?days=7'),fetchJSON('/api/ga4-report?days=28')]);
 
   if(results[0].status==='fulfilled'){
     var bd=results[0].value;
@@ -1446,6 +1467,15 @@ async function loadLiveStats(){
     addLog('💰','Revenue (30d): '+revDisplay+' across '+(rd.chargeCount||0)+' orders','var(--orange)');
     window.__revenueStats=rd;
   } else addLog('⚠','Revenue summary unavailable','var(--red)');
+
+  if(results[3].status==='fulfilled' && results[3].value.totals){
+    var g=results[3].value, gc=g.totals.current||{}, gp=g.totals.previous||{};
+    document.getElementById('a5users').textContent=Number(gc.activeUsers||0).toLocaleString();
+    var chg=gp.activeUsers?Math.round(((gc.activeUsers-gp.activeUsers)/gp.activeUsers)*100):null;
+    addLog('📈','GA4 (7d): '+(gc.activeUsers||0)+' users, '+(gc.screenPageViews||0)+' page views'+(chg!==null?' ('+(chg>=0?'+':'')+chg+'% vs prior 7d)':'')+(g.realtimeActiveUsers!=null?' · '+g.realtimeActiveUsers+' on site now':''),'var(--green)');
+    window.__ga4Stats=g;
+  } else addLog('⚠','GA4 unavailable ('+(results[3].reason?results[3].reason.message:'no data')+')','var(--red)');
+  if(results[4].status==='fulfilled' && results[4].value.totals) window.__ga4Stats28=results[4].value;
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
