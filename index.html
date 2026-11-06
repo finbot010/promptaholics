@@ -1620,7 +1620,11 @@ async function loadHomepageVaultPreview(){
     });
   }catch(e){
     console.warn('Homepage vault preview failed to load:', e);
-    if(typeof Sentry !== 'undefined') Sentry.captureException(e);
+    // Network failures (offline, flaky mobile data, ad blockers blocking
+    // firestore.googleapis.com) are expected and not actionable; only
+    // report real errors (WEBSITE-2 was all network noise).
+    var isNetwork = e && e.name === 'TypeError' && /fetch|network|load failed/i.test(e.message || '');
+    if(!isNetwork && typeof Sentry !== 'undefined') Sentry.captureException(e);
     // Grid stays empty - the section heading/CTA still work fine on their own.
   }
 }
