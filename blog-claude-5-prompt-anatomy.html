@@ -75,88 +75,91 @@ body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-se
 .footer-logo span{color:var(--orange);}
 .footer-copy{font-size:11px;color:var(--ink3);margin-top:6px;}
 </style>
-<script type="application/ld+json">[
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
-    "description": "Exactly what makes a great Claude prompt \u2014 role, context, constraints, format, and 7 more elements that consistently produce better results.",
-    "url": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html",
-    "datePublished": "2026-05-20",
-    "dateModified": "2026-07-12",
-    "author": {
-      "@type": "Organization",
-      "name": "Promptaholics",
-      "url": "https://promptaholics.com"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Promptaholics",
-      "url": "https://promptaholics.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://promptaholics.com/og-default.png"
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
+      "description": "Exactly what makes a great Claude prompt — role, context, constraints, format, and 7 more elements that consistently produce better results.",
+      "url": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html",
+      "datePublished": "2026-05-20",
+      "dateModified": "2026-07-12",
+      "author": {
+        "@type": "Organization",
+        "name": "Promptaholics",
+        "url": "https://promptaholics.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Promptaholics",
+        "url": "https://promptaholics.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://promptaholics.com/og-default.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://promptaholics.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://promptaholics.com/blog.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
+            "item": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
+          }
+        ]
       }
     },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
-    },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://promptaholics.com"
+          "@type": "Question",
+          "name": "What are the key elements of a good Claude prompt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 11 elements of an effective Claude prompt are: role, context, task, format, constraints, tone, examples, chain-of-thought instruction, output length, audience, and success criteria. Not every prompt needs all 11 — use what's relevant to your task."
+          }
         },
         {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Blog",
-          "item": "https://promptaholics.com/blog.html"
+          "@type": "Question",
+          "name": "How is prompting Claude different from prompting ChatGPT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Claude responds better to explicit format instructions, appreciates nuanced role definitions, and handles very long documents well. Claude also tends to ask clarifying questions when instructions are ambiguous — this is a feature, not a bug."
+          }
         },
         {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "The Anatomy of a Perfect Claude Prompt (11-Element Framework)",
-          "item": "https://promptaholics.com/blog-claude-5-prompt-anatomy.html"
+          "@type": "Question",
+          "name": "What is chain-of-thought prompting?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chain-of-thought prompting instructs the AI to show its reasoning step by step before giving a final answer. Add 'Think through this step by step' or 'Show your reasoning' to your prompt. This significantly improves accuracy on complex tasks."
+          }
         }
       ]
     }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What are the key elements of a good Claude prompt?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The 11 elements of an effective Claude prompt are: role, context, task, format, constraints, tone, examples, chain-of-thought instruction, output length, audience, and success criteria. Not every prompt needs all 11 \u2014 use what's relevant to your task."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is prompting Claude different from prompting ChatGPT?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Claude responds better to explicit format instructions, appreciates nuanced role definitions, and handles very long documents well. Claude also tends to ask clarifying questions when instructions are ambiguous \u2014 this is a feature, not a bug."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is chain-of-thought prompting?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Chain-of-thought prompting instructs the AI to show its reasoning step by step before giving a final answer. Add 'Think through this step by step' or 'Show your reasoning' to your prompt. This significantly improves accuracy on complex tasks."
-        }
-      }
-    ]
-  }
-]</script>
+  ]
+}
+</script>
 <!-- Sentry: error monitoring only, no Session Replay. -->
 <script src="https://js.sentry-cdn.com/0cb91bbce0b47a9bb3183abf70acaba7.min.js" crossorigin="anonymous"></script>
 <!-- Cookie Consent (gates GA4 + AdSense behind real user consent) -->

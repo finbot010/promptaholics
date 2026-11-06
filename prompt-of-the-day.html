@@ -876,10 +876,13 @@ function doShare(){
       title:'Prompt of the Day — Promptaholics',
       text:currentPrompt,
       url:window.location.href,
-    });
+    }).catch(function(){ /* user closed the share sheet; not an error */ });
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      showToast('Link copied!');
+    }).catch(function(){ showToast('Copy failed — please copy the address bar link'); });
   } else {
-    navigator.clipboard.writeText(window.location.href);
-    showToast('Link copied!');
+    showToast('Copy failed — please copy the address bar link');
   }
 }
 

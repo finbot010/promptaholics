@@ -1036,6 +1036,9 @@ function toggleFaq(btn){
 <script>
 // Dynamically load real prompt count from prompts.js
 (function(){
+  // Load prompts.js only once: loading it twice throws
+  // "Identifier 'PROMPTS' has already been declared" (Sentry WEBSITE-T).
+  if (typeof PROMPTS !== 'undefined' || document.querySelector('script[src="prompts.js"]')) return;
   var script = document.createElement('script');
   script.src = 'prompts.js';
   script.onload = function(){
