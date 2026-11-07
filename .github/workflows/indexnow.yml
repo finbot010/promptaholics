@@ -1,0 +1,36 @@
+name: IndexNow ping
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml', 'prompts.js']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Submit every URL in sitemap.xml'
+        type: boolean
+        default: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Wait for Netlify to publish
+        if: github.event_name == 'push'
+        run: sleep 120
+      - name: Submit changed pages
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            node scripts/indexnow.cjs --sitemap
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- '*.html' | grep -v '/' || true)
+          if git diff --name-only HEAD~1 HEAD | grep -qx 'prompts.js'; then CHANGED="$CHANGED library.html ai-prompt-library.html"; fi
+          if git diff --name-only HEAD~1 HEAD | grep -qx 'sitemap.xml'; then node scripts/indexnow.cjs --sitemap; exit 0; fi
+          node scripts/indexnow.cjs $CHANGED
