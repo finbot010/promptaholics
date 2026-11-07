@@ -1458,7 +1458,7 @@ async function loadLibStats(){
     var meta=res[0]||{}, src=res[1], arr=[];
     if(src){ try{ arr=new Function(src.replace('const PROMPTS','var PROMPTS')+'\nreturn PROMPTS;')()||[]; }catch(e){ arr=[]; } }
     var cats={}, tools={};
-    arr.forEach(function(p){ if(!p) return; cats[p.cat||'Other']=(cats[p.cat||'Other']||0)+1; tools[p.tool||'other']=(tools[p.tool||'other']||0)+1; });
+    arr.forEach(function(p){ if(!p) return; cats[p.cat||'Other']=(cats[p.cat||'Other']||0)+1; var tl=String(p.tool||'other').toLowerCase(); tools[tl]=(tools[tl]||0)+1; });
     var sortDesc=function(o){ return Object.keys(o).sort(function(a,b){return o[b]-o[a];}); };
     var count=arr.length||meta.count||0;
     if(!count) return;
