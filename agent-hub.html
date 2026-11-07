@@ -1263,9 +1263,11 @@ function liveDataBlock(){
   var out='';
   var b=window.__brevoStats;
   if(b){
-    out+='\n\nLIVE BREVO DATA: Active subscribers: '+(b.subscribers?.active||0)+'. Total: '+(b.subscribers?.total||0)+'.';
-    if(b.lastCampaign) out+=' Last campaign: "'+b.lastCampaign.subject+'" — open rate: '+(b.lastCampaign.stats?.openRate||0)+'%.';
-  } else out+='\n\nBREVO DATA: Unavailable this session (fetch failed or BREVO_API_KEY may be missing on the Worker). Do not state a subscriber number.';
+    out+='\n\nLIVE BREVO DATA: Total contacts: '+(b.subscribers?.total??0)+'. Active (not blocklisted): '+(b.subscribers?.active??0)+'.';
+    if(b.subscribers?.lists?.length) out+=' Lists: '+b.subscribers.lists.map(function(l){ return l.name+' '+l.subscribers; }).join('; ')+'.';
+    if(b.lastCampaign){ var st=b.lastCampaign.stats||{}; out+=' Last campaign: "'+b.lastCampaign.subject+'" sent '+(b.lastCampaign.sentAt||'?')+' — delivered '+(st.delivered||0)+', opens '+(st.opens||0)+' ('+(st.openRate||0)+'%), clicks '+(st.clicks||0)+' ('+(st.clickRate||0)+'%), unsubscribes '+(st.unsubscribed||0)+'.'; }
+    else if(b.campaignError) out+=' Campaign stats unavailable: '+b.campaignError+'.';
+  } else out+='\n\nBREVO DATA: Unavailable this session'+(window.__brevoError?' ('+window.__brevoError+')':'')+'. Do not state a subscriber number; tell the user what the error says to fix.';
   var n=window.__netlifyStats;
   if(n) out+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
   else out+='\n\nNETLIFY DATA: Unavailable this session — do not guess deploy status.';
@@ -1450,11 +1452,12 @@ async function loadLiveStats(){
 
   if(results[0].status==='fulfilled'){
     var bd=results[0].value;
-    var subs=bd.subscribers?.active || bd.subscribers?.total || 0;
+    var subs=bd.subscribers?.total ?? 0;
     document.getElementById('a5subs').textContent=Number(subs).toLocaleString();
-    addLog('📧','Brevo: '+subs+' active subscribers','var(--blue)');
+    var nl=bd.subscribers?.newsletterList;
+    addLog('📧','Brevo: '+subs+' contacts'+(nl?' ('+nl.subscribers+' on '+nl.name+')':'')+(bd.subscribers?.blocked?', '+bd.subscribers.blocked+' blocklisted':''),'var(--blue)');
     window.__brevoStats=bd;
-  } else addLog('⚠','Brevo stats unavailable ('+results[0].reason.message+')','var(--red)');
+  } else { window.__brevoError=results[0].reason.message; addLog('⚠','Brevo stats unavailable ('+results[0].reason.message+')','var(--red)'); }
 
   if(results[1].status==='fulfilled'){
     var nd=results[1].value;
