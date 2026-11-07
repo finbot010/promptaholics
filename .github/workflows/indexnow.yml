@@ -10,6 +10,10 @@ on:
         description: 'Submit every URL in sitemap.xml'
         type: boolean
         default: true
+      prompts:
+        description: 'Also submit every prompt page (sitemap-prompts.xml)'
+        type: boolean
+        default: false
 
 jobs:
   ping:
@@ -28,6 +32,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
             node scripts/indexnow.cjs --sitemap
+            if [ "${{ inputs.prompts }}" = "true" ]; then sleep 5; node scripts/indexnow.cjs --sitemap-prompts; fi
             exit 0
           fi
           CHANGED=$(git diff --name-only HEAD~1 HEAD -- '*.html' | grep -v '/' || true)
