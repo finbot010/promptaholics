@@ -1435,8 +1435,14 @@ async function copyEmailDraft(){
 
 // ─── Live Stats (Brevo + Netlify + Stripe) ───────────────────────
 async function fetchJSON(path){
-  var r=await workerFetch(path,{signal:AbortSignal.timeout(15000)});
-  if(!r.ok) throw workerErr(r);
+  var r=await workerFetch(path,{signal:AbortSignal.timeout(20000)});
+  if(!r.ok){
+    // Surface the Worker's own error message (e.g. which GA4 setup step failed)
+    var e=workerErr(r), detail='';
+    try{ var j=await r.json(); detail=j && j.error ? String(j.error) : ''; }catch(x){}
+    if(detail) e.message+=' — '+detail.slice(0,320);
+    throw e;
+  }
   return r.json();
 }
 async function loadLiveStats(){
