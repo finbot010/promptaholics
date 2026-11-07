@@ -1,0 +1,44 @@
+name: Build prompt pages
+
+# Rebuilds /p/ whenever prompts.js or the generator changes in a normal push.
+# (The Monday export builds them itself, because its own push can't trigger this.)
+on:
+  push:
+    branches: [main]
+    paths: ['prompts.js', 'scripts/build-prompt-pages.cjs']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-prompt-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build
+        run: node scripts/build-prompt-pages.cjs
+      - name: Commit if anything changed
+        id: commit
+        run: |
+          git config user.name "PA Agent"
+          git config user.email "promptaholics1@gmail.com"
+          git add p sitemap-prompts.xml
+          if git diff --staged --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -m "Rebuild prompt pages $(date +'%Y-%m-%d')"
+          git pull --rebase origin main && git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Tell Bing (IndexNow)
+        if: steps.commit.outputs.changed == 'true'
+        continue-on-error: true
+        run: |
+          sleep 120
+          NEW=$(git log -1 --name-only --diff-filter=AM --format= -- 'p/*.html' | head -9000)
+          node scripts/indexnow.cjs $NEW

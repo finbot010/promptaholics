@@ -31,21 +31,25 @@ jobs:
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
         run: node export-prompts.cjs
 
+      - name: Build static prompt pages
+        run: node scripts/build-prompt-pages.cjs
+
       - name: Commit and push
         run: |
           git config user.name "PA Agent"
           git config user.email "promptaholics1@gmail.com"
-          git add prompts.js prompt-count.json
+          git add prompts.js prompt-count.json p sitemap-prompts.xml
           git diff --staged --quiet || git commit -m "Auto-export prompts $(date +'%Y-%m-%d')" && git push
 
       # Pushes made with GITHUB_TOKEN don't trigger other workflows, so ping IndexNow here
-      - name: Tell Bing the library changed (IndexNow)
+      - name: Tell Bing about new and changed prompt pages (IndexNow)
         if: success()
         continue-on-error: true
         run: |
           if git log -1 --name-only --format= | grep -qx 'prompts.js'; then
             sleep 120
-            node scripts/indexnow.cjs library.html ai-prompt-library.html
+            NEW=$(git log -1 --name-only --diff-filter=AM --format= -- 'p/*.html' | head -9000)
+            node scripts/indexnow.cjs library.html ai-prompt-library.html $NEW
           else
             echo "No new prompts exported; skipping IndexNow"
           fi

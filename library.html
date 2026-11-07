@@ -734,6 +734,7 @@ img,video,iframe{max-width:100%;}
     </div>
     <div class="footer-links">
       <a class='footer-lnk' href='/library'>Library</a>
+      <a class='footer-lnk' href='/p/'>All prompts by category</a>
       <a class='footer-lnk' href='/prompt-builder'>Builder</a>
       <a class='footer-lnk' href='/creationstation'>AI Tools</a>
       <a class='footer-lnk' href='/learn'>Learn</a>
@@ -1360,10 +1361,16 @@ function openModal(id){
   var mb=document.querySelector('#promptModal .modal-body'); if(mb) mb.scrollTop=0;
   var link=document.getElementById('modalLink');
   link.href='library.html?prompt='+p.id;
+  pageSlug(p.id).then(function(s){ if(s && curModal===p) link.href='/p/'+s+'.html'; });
   document.title=p.name+' - Free AI Prompt | Promptaholics';
   history.pushState({promptId:p.id},'','/library.html?prompt='+p.id);
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+}
+var __slugs=null;
+function pageSlug(id){
+  if(!__slugs) __slugs=fetch('/p/slugs.json').then(function(r){return r.ok?r.json():{};}).catch(function(){return {};});
+  return __slugs.then(function(m){ return m[String(id)]||null; });
 }
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');

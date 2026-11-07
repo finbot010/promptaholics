@@ -62,3 +62,4 @@ Allow: /
 
 # ── Sitemap ───────────────────────────
 Sitemap: https://promptaholics.com/sitemap.xml
+Sitemap: https://promptaholics.com/sitemap-prompts.xml

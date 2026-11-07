@@ -143,7 +143,7 @@
       + '</div>'
       + '<div style="display:flex;gap:10px;flex-shrink:0;">'
       + '<button id="paCookieReject" style="padding:9px 18px;background:var(--glass,rgba(255,255,255,.04));border:1px solid var(--border2,rgba(255,255,255,.13));color:var(--ink,#f0f0f8);border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Reject</button>'
-      + '<button id="paCookieAccept" style="padding:9px 18px;background:var(--orange,#ff6224);border:none;color:#fff;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Accept</button>'
+      + '<button id="paCookieAccept" style="padding:9px 18px;background:var(--orange,#ff6224);border:none;color:#07070a;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Accept</button>'
       + '</div>';
 
     document.body.appendChild(wrap);

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LightweightDarkModeFirstMarkdownEditor — Free ChatGPT Prompt | Promptaholics</title>
+<meta name="description" content="## CONTEXT You are an expert frontend engineer specialising in browser-based cod. Free ChatGPT prompt: CONTEXT You are an expert frontend engineer…"/>
+<link rel="canonical" href="https://promptaholics.com/p/lightweightdarkmodefirstmarkdowneditor.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="Promptaholics"/>
+<meta property="og:title" content="LightweightDarkModeFirstMarkdownEditor — Free ChatGPT Prompt | Promptaholics"/>
+<meta property="og:description" content="## CONTEXT You are an expert frontend engineer specialising in browser-based cod. Free ChatGPT prompt: CONTEXT You are an expert frontend engineer…"/>
+<meta property="og:url" content="https://promptaholics.com/p/lightweightdarkmodefirstmarkdowneditor.html"/>
+<meta property="og:image" content="https://promptaholics.com/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@promptaholics"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<script src="/cookie-consent.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://promptaholics.com/"},{"@type":"ListItem","position":2,"name":"Prompts","item":"https://promptaholics.com/p/"},{"@type":"ListItem","position":3,"name":"Code & Tech","item":"https://promptaholics.com/p/c/code-and-tech.html"},{"@type":"ListItem","position":4,"name":"LightweightDarkModeFirstMarkdownEditor","item":"https://promptaholics.com/p/lightweightdarkmodefirstmarkdowneditor.html"}]},{"@type":"CreativeWork","name":"LightweightDarkModeFirstMarkdownEditor","description":"## CONTEXT You are an expert frontend engineer specialising in browser-based cod. Free ChatGPT prompt: CONTEXT You are an expert frontend engineer…","url":"https://promptaholics.com/p/lightweightdarkmodefirstmarkdowneditor.html","inLanguage":"en","isAccessibleForFree":true,"genre":"Code & Tech","keywords":"ai-generated, pa-agent","publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"}}]}</script>
+<link rel="stylesheet" href="/p/p.css?v=e8550ece"/>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="top-in">
+<a class="logo" href="/">Prompt<span>aholics</span></a>
+<nav aria-label="Main"><a href="/library.html">Library</a><a href="/p/">Browse by category</a><a href="/prompt-of-the-day.html">Prompt of the Day</a><a href="/vault.html">Vault</a><a href="/creationstation.html">AI Tools</a></nav>
+</div></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/p/">Prompts</a></li><li><a href="/p/c/code-and-tech.html">Code &amp; Tech</a></li><li aria-current="page">LightweightDarkModeFirstMarkdownEditor</li></ol></nav>
+<article>
+<h1>LightweightDarkModeFirstMarkdownEditor</h1>
+<p class="lede">## CONTEXT
+You are an expert frontend engineer specialising in browser-based cod</p>
+<div class="badges"><span class="badge tool">ChatGPT</span><a class="badge" href="/p/c/code-and-tech.html">Code &amp; Tech</a></div>
+<div class="box">
+<div class="box-head"><span>1,069 words · free to use</span>
+<div class="actions"><button class="btn primary" type="button" id="copyBtn">Copy prompt</button></div></div>
+<pre class="prompt" id="promptText">## CONTEXT
+You are an expert frontend engineer specialising in browser-based code and text editors. You are building a **lightweight, dark-mode-first markdown editor** that runs entirely in the browser (no backend required) using vanilla JavaScript, HTML, and CSS — or a minimal framework if strongly justified. The editor must feel snappy, have zero unnecessary dependencies, and load in under 2 seconds on a mid-range device. The project must be structured so that every major feature (syntax highlighting, theming, custom highlighter logic) is a discrete, replaceable module.
+
+## OBJECTIVE
+Design and implement a complete, production-quality, browser-based editor with ALL of the following capabilities:
+
+1. **Dark-mode-first UI** with an explicit toggle between a polished dark mode (default) and a polished light mode. Both modes must be fully styled — no half-finished light theme.
+2. **Multi-language support** for: Markdown, YAML, HTML, CSS, JavaScript, and Plain Text. The user can select the active language from a dropdown or tab bar.
+3. **Pre-made syntax highlighting themes** — supply at least THREE distinct built-in themes (e.g., &quot;Midnight&quot; dark, &quot;Solarized&quot; light, &quot;Dracula&quot; dark). Each theme must define token colors for every supported language.
+4. **Custom syntax highlighter builder** — a dedicated UI panel where the user can:
+   - Define named token types (keyword, string, comment, operator, number, tag, attribute, variable, etc.)
+   - Assign regex patterns to each token type
+   - Pick a foreground color, background color, font-weight, and font-style per token
+   - Preview the result live against the current editor content
+   - Export the custom theme as a JSON file
+   - Import a previously exported JSON theme file
+5. **Toolbar** with: New, Open (file), Save (download), Copy All, Word Count, Line Count, Toggle Word Wrap, Toggle Line Numbers, Language Selector, Theme Selector, Dark/Light Mode Toggle.
+6. **Editor core** features: line numbers, word wrap toggle, find-and-replace (Ctrl+H), go-to-line (Ctrl+G), auto-indent, bracket matching, undo/redo (native + extended history), and smooth scrolling.
+7. **Live Markdown preview** pane (side-by-side or toggleable) that renders sanitized HTML from the Markdown source when the language is set to Markdown.
+8. **Accessibility**: keyboard navigable, ARIA labels, sufficient color contrast in both modes (WCAG AA minimum).
+
+## STYLE
+- Code must be clean, modular, and commented at the module boundary level.
+- File structure should follow a clear separation: `index.html`, `css/themes.css`, `css/editor.css`, `js/editor.js`, `js/highlighter.js`, `js/languages/[lang].js`, `js/themeEngine.js`, `js/customHighlighterUI.js`, `js/markdownPreview.js`, `js/toolbar.js`.
+- Dark mode palette anchor: background `#1a1a2e`, surface `#16213e`, accent `#e94560`, text `#eaeaea`.
+- Light mode palette anchor: background `#f5f5f0`, surface `#ffffff`, accent `#0f3460`, text `#1a1a2e`.
+- Typography: monospace font for the editor (JetBrains Mono or system monospace fallback), sans-serif for UI chrome.
+- Animations: subtle only — mode toggle crossfade ≤ 200 ms, panel slide ≤ 150 ms.
+
+## TASK
+Deliver the following in sequence:
+
+### TASK 1 — Project Scaffold &amp; Core Editor
+- Produce the full `index.html` with all script/style references, the editor `&lt;textarea&gt;` or `contenteditable` div, toolbar skeleton, preview pane skeleton, and custom highlighter panel skeleton.
+- Produce `css/editor.css`: complete styling for the editor area, line numbers, scrollbars, selection highlight, cursor, and both dark/light mode variants using CSS custom properties.
+- Produce `js/editor.js`: initialise the editor, wire up keyboard shortcuts, implement line numbers, word wrap toggle, find-and-replace modal, go-to-line modal, undo/redo stack (min 200 steps), and auto-indent logic.
+
+### TASK 2 — Syntax Highlighting Engine
+- Produce `js/highlighter.js`: a tokenizer engine that accepts (a) a language definition object and (b) a theme object, then returns decorated HTML spans. It must handle overlapping token priorities gracefully (longest-match-first wins).
+- Produce `js/languages/markdown.js`, `js/languages/yaml.js`, `js/languages/html.js`, `js/languages/css.js`, `js/languages/javascript.js`, `js/languages/plaintext.js` — each exporting a language definition object with named token rules (regex + token type).
+- Produce `js/themeEngine.js`: manages loading, switching, and persisting (localStorage) the active theme; exposes `setTheme(themeObj)`, `getTheme()`, `listThemes()`, `registerTheme(name, themeObj)`.
+- Produce `css/themes.css`: the three built-in themes (Midnight, Solarized, Dracula) expressed as CSS custom property blocks, scoped to `[data-theme=&quot;midnight&quot;]`, `[data-theme=&quot;solarized&quot;]`, `[data-theme=&quot;dracula&quot;]`.
+
+### TASK 3 — Custom Syntax Highlighter UI
+- Produce `js/customHighlighterUI.js`: full implementation of the custom highlighter builder panel including:
+  - Dynamic token row add/remove
+  - Inline color pickers (native `&lt;input type=&quot;color&quot;&gt;`)
+  - Regex input with real-time validation (red border on invalid regex)
+  - Live preview updating within 300 ms of any change (debounced)
+  - Export to JSON (`Blob` + `URL.createObjectURL`)
+  - Import from JSON (file input → parse → validate schema → load)
+  - &quot;Apply as Active Theme&quot; button that calls `themeEngine.registerTheme` and `themeEngine.setTheme`
+
+### TASK 4 — Markdown Preview &amp; Toolbar
+- Produce `js/markdownPreview.js`: a zero-dependency Markdown-to-HTML renderer supporting headings, bold, italic, inline code, code fences (with language label), blockquotes, ordered/unordered lists, horizontal rules, links, images, and tables. Output must be sanitized (strip `&lt;script&gt;`, `javascript:` hrefs, event handler attributes).
+- Produce `js/toolbar.js`: wire up every toolbar button and dropdown described in the Objective, persist user preferences (word wrap, line numbers, language, theme, dark/light mode) to localStorage.
+
+### TASK 5 — Integration, Testing Checklist &amp; README
+- Provide a step-by-step integration guide confirming how all modules connect.
+- Provide a manual QA checklist covering: mode toggle, all six languages, all three themes, custom theme round-trip (build → export → reimport → apply), find-and-replace, markdown preview parity, keyboard shortcuts, and accessibility tab-order.
+- Provide a `README.md` with setup instructions (open `index.html` in browser — no build step), feature list, custom theme JSON schema documentation, and contribution guidelines.
+
+## ACTION
+- Work through TASK 1 through TASK 5 in order.
+- For each task, output the FULL file contents — no truncation, no placeholders like `// ... rest of code`. Every function must be implemented.
+- Before each file, print a comment header: `// FILE: path/to/filename.ext` so files are easy to identify and extract.
+- Where a design decision has multiple valid approaches, briefly note the chosen approach and why in a `// DESIGN:` comment at the top of the relevant function.
+- Validate that CSS custom properties are used consistently and never hard-code a color value outside of `css/themes.css` and `css/editor.css`.
+- Ensure the custom highlighter JSON schema is documented inline via a `SCHEMA` constant in `js/customHighlighterUI.js`.
+
+## RESULT
+The final deliverable is a complete, copy-paste-deployable set of source files that, when placed in the same directory and opened via `index.html` in any modern browser (Chrome 110+, Firefox 110+, Safari 16+), produce a fully functional dark-mode-first markdown editor meeting every requirement listed above. The editor must work offline with no CDN calls — all assets self-contained. Confirm completion by printing a `✅ DELIVERY COMPLETE` summary listing every file delivered and its line count.</pre>
+</div>
+<div class="tags" aria-label="Tags"><span>ai-generated</span><span>pa-agent</span></div>
+<h2>How to use this prompt</h2>
+<ol class="steps"><li>Copy the prompt with the button above.</li><li>Paste it into ChatGPT and send it. It also works in other AI chat tools.</li><li>Not quite right? Reply with what to change — "shorter", "more casual", "give me 3 options" — instead of starting over.</li></ol>
+</article>
+<h2>Related code &amp; tech prompts</h2>
+<ul class="grid"><li><a class="card" href="/p/markdown-notes-app-engineer.html"><strong>Markdown Notes App Engineer</strong><small>CONTEXT: You are a senior frontend engineer and UI/UX architect with 15+ years o</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/comprehensive-sih-annual-report-generator.html"><strong>Comprehensive SIH Annual Report Generator</strong><small>You are a data research specialist compiling an academic reference document on S</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/feature-rich-markdown-notes-application-master-prompt.html"><strong>Feature-Rich Markdown Notes Application Master Prompt</strong><small>CONTEXT: You are an expert frontend developer specializing in building rich text</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/step-by-step-automation-blueprint.html"><strong>Step-by-Step Automation Blueprint</strong><small>You are a no-code automation specialist. Create a detailed step-by-step implemen</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/smart-tv-ad-removal-guide.html"><strong>Smart TV Ad Removal Guide</strong><small>Role: You are a senior smart TV network engineer and cybersecurity expert with 1</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/website-monitor-orchestrator.html"><strong>Website Monitor Orchestrator</strong><small>CONTEXT: You are the Master Orchestrator Agent managing a coordinated group of s</small><em>ChatGPT</em></a></li></ul>
+<p style="margin-top:18px"><a href="/p/c/code-and-tech.html">See all 183 Code &amp; Tech prompts →</a></p>
+<section class="cta"><h2 style="margin:0">Get 10 new prompts every week</h2><p>Join the free Promptaholics newsletter, or search every prompt in the library.</p>
+<div class="actions"><a class="btn primary" href="/library.html?prompt=2278">Open in the library</a><a class="btn" href="/#brevoFooterEmail">Join the newsletter</a></div></section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var t=document.getElementById('promptText').textContent, toast=document.getElementById('toast');
+  function say(m){toast.textContent=m;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
+  function copy(){ if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);} var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}finally{a.remove();} return Promise.resolve(); }
+  function track(n){ try{ if(window.gtag) gtag('event',n,{prompt_id:"2278"}); }catch(e){} }
+  document.getElementById('copyBtn').addEventListener('click',function(){ copy().then(function(){say('Copied!');track('copy_prompt');},function(){say('Copy failed — select the text and copy it');}); });
+  var g=document.getElementById('openGpt'), c=document.getElementById('openClaude');
+  if(g) g.href='https://chatgpt.com/?q='+encodeURIComponent(t);
+  if(c) c.href='https://claude.ai/new?q='+encodeURIComponent(t);
+  [g,c].forEach(function(a){ if(a) a.addEventListener('click',function(){track('open_in_'+(a===g?'chatgpt':'claude'));}); });
+})();
+</script>
+</main>
+<footer><div class="foot-in">
+<span>© 2026 Promptaholics · Free AI prompts · No signup required</span>
+<a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/sponsor.html">Advertise</a>
+</div></footer>
+</body>
+</html>

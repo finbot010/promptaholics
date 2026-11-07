@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Markdown Notes App Engineer — Free ChatGPT Prompt | Promptaholics</title>
+<meta name="description" content="CONTEXT: You are a senior frontend engineer and UI/UX architect with 15+ years o. Free ChatGPT prompt: CONTEXT: You are a senior frontend engineer and UI/UX…"/>
+<link rel="canonical" href="https://promptaholics.com/p/markdown-notes-app-engineer.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:site_name" content="Promptaholics"/>
+<meta property="og:title" content="Markdown Notes App Engineer — Free ChatGPT Prompt | Promptaholics"/>
+<meta property="og:description" content="CONTEXT: You are a senior frontend engineer and UI/UX architect with 15+ years o. Free ChatGPT prompt: CONTEXT: You are a senior frontend engineer and UI/UX…"/>
+<meta property="og:url" content="https://promptaholics.com/p/markdown-notes-app-engineer.html"/>
+<meta property="og:image" content="https://promptaholics.com/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@promptaholics"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<script src="/cookie-consent.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://promptaholics.com/"},{"@type":"ListItem","position":2,"name":"Prompts","item":"https://promptaholics.com/p/"},{"@type":"ListItem","position":3,"name":"Code & Tech","item":"https://promptaholics.com/p/c/code-and-tech.html"},{"@type":"ListItem","position":4,"name":"Markdown Notes App Engineer","item":"https://promptaholics.com/p/markdown-notes-app-engineer.html"}]},{"@type":"CreativeWork","name":"Markdown Notes App Engineer","description":"CONTEXT: You are a senior frontend engineer and UI/UX architect with 15+ years o. Free ChatGPT prompt: CONTEXT: You are a senior frontend engineer and UI/UX…","url":"https://promptaholics.com/p/markdown-notes-app-engineer.html","inLanguage":"en","isAccessibleForFree":true,"genre":"Code & Tech","keywords":"ai-generated, pa-agent","publisher":{"@type":"Organization","name":"Promptaholics","url":"https://promptaholics.com"}}]}</script>
+<link rel="stylesheet" href="/p/p.css?v=e8550ece"/>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="top-in">
+<a class="logo" href="/">Prompt<span>aholics</span></a>
+<nav aria-label="Main"><a href="/library.html">Library</a><a href="/p/">Browse by category</a><a href="/prompt-of-the-day.html">Prompt of the Day</a><a href="/vault.html">Vault</a><a href="/creationstation.html">AI Tools</a></nav>
+</div></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/p/">Prompts</a></li><li><a href="/p/c/code-and-tech.html">Code &amp; Tech</a></li><li aria-current="page">Markdown Notes App Engineer</li></ol></nav>
+<article>
+<h1>Markdown Notes App Engineer</h1>
+<p class="lede">CONTEXT:
+You are a senior frontend engineer and UI/UX architect with 15+ years o</p>
+<div class="badges"><span class="badge tool">ChatGPT</span><a class="badge" href="/p/c/code-and-tech.html">Code &amp; Tech</a></div>
+<div class="box">
+<div class="box-head"><span>1,927 words · free to use</span>
+<div class="actions"><button class="btn primary" type="button" id="copyBtn">Copy prompt</button></div></div>
+<pre class="prompt" id="promptText">CONTEXT:
+You are a senior frontend engineer and UI/UX architect with 15+ years of experience building production-grade, single-page applications using vanilla HTML5, CSS3, and JavaScript (ES2022+). You have deep expertise in markdown parsing, syntax highlighting engines, real-time editor design, file system APIs, PDF generation in-browser, and CSS theming systems. You are building a fully self-contained markdown notes application delivered as a single HTML file (index.html) with embedded CSS and JavaScript — no build tools, no npm, no backend. All dependencies (marked.js, highlight.js, KaTeX, js-yaml, jsPDF, html2canvas) must be loaded via CDN links inside the file. The application must work entirely offline after first load by leveraging the Cache API or localStorage where possible.
+
+OBJECTIVE:
+Build the complete, fully functional markdown notes application described below. Every feature listed must be implemented and working. Do not stub, skip, or placeholder any feature. Output the entire application as a single self-contained index.html file.
+
+FEATURE SPECIFICATIONS:
+
+1. SPLIT-SCREEN EDITOR WITH LIVE PREVIEW
+   - Two-panel layout: left panel is a plain-text editor (textarea or contenteditable div with line numbers), right panel is the live rendered HTML preview.
+   - Panels are resizable via a draggable divider (click-and-drag to resize ratio).
+   - Three layout modes toggled by toolbar buttons: Editor Only, Preview Only, Split (default).
+   - Preview updates in real-time with debounce (150ms) as the user types.
+   - Editor must show line numbers in a fixed gutter on the left.
+   - Scroll synchronization: scrolling the editor scrolls the preview proportionally and vice versa.
+   - Markdown rendering must support: headings, bold, italic, strikethrough, blockquotes, ordered and unordered lists, task lists ([ ] and [x]), horizontal rules, inline code, fenced code blocks with language tags, tables with alignment, footnotes, definition lists, HTML passthrough (raw HTML renders), YAML front matter display (rendered as a styled metadata card at top of preview), LaTeX math (inline $...$ and block $$...$$), and embedded images via URL.
+
+2. CODE BLOCKS AND SYNTAX HIGHLIGHTING
+   - All fenced code blocks in preview are syntax-highlighted using highlight.js.
+   - Supported languages must include at minimum: javascript, typescript, python, bash, shell, sql, json, yaml, xml, html, css, scss, markdown, rust, go, java, c, cpp, php, ruby, swift, kotlin, r.
+   - Each code block in preview has: a language label badge top-right, a copy-to-clipboard button, and a line-number gutter.
+   - Editor panel itself has syntax highlighting for markdown syntax (bold, italic, headings, code spans, links, etc.) using a lightweight overlay technique or CSS-based approach without breaking cursor positioning.
+
+3. CUSTOM SYNTAX HIGHLIGHT THEME CREATOR
+   - Accessible from Settings panel: a &quot;Syntax Theme Editor&quot; UI.
+   - Displays a list of token types (keyword, string, number, comment, function, operator, variable, type, constant, tag, attribute, built-in, punctuation, meta).
+   - For each token type the user can set: foreground color (color picker), font-weight (normal/bold toggle), font-style (normal/italic toggle).
+   - User also sets: background color of code blocks, default text color, gutter background, gutter text color, selection highlight color.
+   - A live preview pane inside the theme editor shows a sample multi-language code snippet re-highlighted with the custom theme in real time.
+   - Custom themes can be named, saved to localStorage, and selected from a dropdown. Multiple custom themes can be saved simultaneously.
+   - Built-in themes from highlight.js (at minimum: github, github-dark, monokai, dracula, nord, solarized-light, solarized-dark, atom-one-dark, vs, vs2015) are also selectable from the same dropdown.
+   - Selected theme applies globally to all code blocks in the preview.
+
+4. HIERARCHICAL NOTES ORGANIZATION
+   - Left sidebar shows a tree of categories (folders) that can be nested to unlimited depth.
+   - Each category has: a name, an optional color indicator, collapse/expand toggle.
+   - Users can: create new root categories, create subcategories inside any category, rename categories (double-click), drag-and-drop categories to reorder or re-parent them, delete categories (with confirmation if notes exist inside).
+   - Each note belongs to exactly one category (or &quot;Uncategorized&quot; root).
+   - Notes appear under their category in the sidebar tree as leaf nodes.
+   - Notes list within a category shows: title (first H1 or filename), last modified date, first 80 chars of content as preview snippet, and tag chips.
+
+5. TAGS SYSTEM
+   - Each note can have unlimited tags.
+   - Tags are entered in a tag input bar below the editor toolbar (type tag name + Enter or comma to add).
+   - Tags are stored as an array in the note metadata.
+   - A &quot;Tags&quot; panel in the sidebar shows all unique tags across all notes with note counts.
+   - Clicking a tag filters the notes list to only notes with that tag.
+   - Tags autocomplete from existing tags as user types.
+
+6. POWERFUL SEARCH
+   - A search bar at the top of the sidebar (always visible).
+   - Full-text search across all note titles and content (searches raw markdown text).
+   - Results appear in real-time as user types (debounced 200ms).
+   - Results are ranked: title matches rank higher than body matches.
+   - Each result shows: note title, category breadcrumb, matched excerpt with matched term highlighted in yellow.
+   - Search supports: AND operator (space-separated terms all must match), exact phrase (&quot;quoted phrase&quot;), tag filter prefix tag:[tagname], category filter in:[category name].
+   - A keyboard shortcut (Ctrl+F or Cmd+F) focuses the search bar.
+
+7. EXPORT FUNCTIONALITY
+   - Export current note to:
+     a) Markdown (.md file download using Blob + anchor click)
+     b) HTML (full standalone HTML file with embedded CSS for styling and syntax highlighting, downloadable)
+     c) PDF (using jsPDF + html2canvas to render the preview panel to PDF, preserving formatting, code highlighting, tables, and math)
+   - Export all notes as a ZIP-like structure: since no JSZip is required, export as a single JSON backup file containing all notes, categories, tags, and settings, downloadable as .mdn backup file.
+   - Import from .mdn backup file restoring all notes, categories, tags, and settings.
+   - Export buttons in the toolbar with a dropdown menu.
+
+8. DARK / LIGHT MODE
+   - Toggle button in the header (sun/moon icon).
+   - Entire application switches between dark and light themes.
+   - All UI surfaces adapt: sidebar, editor, preview, modals, toolbar, scrollbars.
+   - Code block syntax highlight theme automatically switches to a dark variant when dark mode is active and a light variant when light mode is active (unless user has explicitly pinned a specific theme).
+   - Mode preference saved to localStorage and applied on load.
+   - CSS custom properties (variables) drive the entire color system — no hardcoded colors anywhere except in the variable definitions.
+
+9. AUTO-SAVE AND VERSION HISTORY
+   - Auto-save triggers 500ms after the user stops typing.
+   - A subtle status indicator in the status bar shows: &quot;Saving...&quot;, &quot;Saved [time]&quot;, or &quot;Unsaved changes&quot;.
+   - Version history: every time a note is saved, a snapshot (full markdown content + timestamp) is stored. Keep the last 50 versions per note.
+   - Version history accessible from a toolbar button: opens a panel listing all snapshots with timestamps.
+   - User can preview any historical version (opens in a read-only preview pane) and restore it (replaces current editor content with confirmation).
+   - All data (notes, categories, tags, settings, version history) stored in localStorage with a structured JSON schema.
+
+10. TOOLBAR AND KEYBOARD SHORTCUTS
+    - Rich formatting toolbar above the editor with buttons for: Bold (Ctrl+B), Italic (Ctrl+I), Strikethrough, Inline Code (Ctrl+`), Code Block (insert fenced block with language selector dropdown), Heading 1/2/3, Blockquote, Unordered List, Ordered List, Task List, Horizontal Rule, Link (Ctrl+K — opens mini dialog for URL and text), Image (insert image URL dialog), Table (insert table with configurable rows/columns dialog), LaTeX Inline, LaTeX Block.
+    - All toolbar actions insert/wrap markdown syntax at current cursor position correctly.
+    - Keyboard shortcuts: Ctrl+S (save), Ctrl+N (new note), Ctrl+Shift+N (new category), Ctrl+F (search focus), Ctrl+Z/Y (undo/redo via native textarea history), Ctrl+P (toggle preview only), Ctrl+E (toggle editor only), Tab (insert 2 spaces in editor, not lose focus).
+
+11. NOTE MANAGEMENT
+    - Create, rename, duplicate, delete notes.
+    - Rename: click note title in the top of editor area to edit it inline.
+    - Pin notes: a star/pin icon that keeps note at top of its category list.
+    - Sort notes within category by: last modified (default), created date, alphabetical, manual drag-and-drop reorder.
+    - Word count, character count, estimated reading time displayed in status bar.
+    - Focus mode: hides sidebar and toolbar, centers the editor with max-width 800px for distraction-free writing (Ctrl+Shift+F toggle).
+
+12. SETTINGS PANEL
+    - Accessible from gear icon in header.
+    - Settings:
+      * Editor font size (12px–24px slider)
+      * Editor font family (dropdown: Fira Code, JetBrains Mono, Source Code Pro, Cascadia Code, monospace generic — loaded via Google Fonts CDN)
+      * Editor line height (1.2–2.0 slider)
+      * Tab size (2 or 4 spaces)
+      * Word wrap toggle
+      * Preview font family (dropdown: system-ui, Georgia, Palatino)
+      * Spell check toggle (uses native browser spellcheck attribute)
+      * Auto-save interval (500ms, 1s, 2s, 5s)
+      * Syntax theme selector + Custom Theme Editor (feature #3)
+      * Export/Import settings as JSON
+      * Clear all data (with triple-confirmation)
+
+ARCHITECTURE REQUIREMENTS:
+- Organize JavaScript into clear ES2022 modules/classes using IIFE or module pattern within the single file: AppState, StorageManager, NoteManager, CategoryManager, TagManager, SearchEngine, MarkdownRenderer, SyntaxThemeManager, ExportManager, VersionHistoryManager, UIManager, EventBus.
+- AppState is a single source of truth — all state mutations go through it, all UI reads from it.
+- EventBus implements a pub/sub pattern for decoupled communication between modules.
+- StorageManager handles all localStorage reads/writes with error handling for quota exceeded.
+- No global variable pollution — wrap everything in an IIFE.
+- CSS: Use BEM-like naming convention. All colors via CSS custom properties. Smooth transitions (200ms ease) on all interactive elements. Responsive enough to work on tablets (min-width 768px breakpoint collapses sidebar).
+
+STYLE REQUIREMENTS:
+- Professional, minimal, clean aesthetic inspired by Notion and Typora.
+- Editor panel background: slightly warm off-white (#FAFAF8) in light mode, deep charcoal (#1E1E2E) in dark mode.
+- Preview panel has comfortable reading typography: system-ui or selected font, line-height 1.7, max readable width.
+- Sidebar: slightly different surface color from main content area.
+- All modals are centered with backdrop blur overlay.
+- Scrollbars are styled (thin, rounded, theme-colored).
+- Icons: use Unicode symbols or inline SVG — no external icon font dependencies.
+- Toolbar buttons have hover states, active states, and tooltips (title attribute).
+- Animations: sidebar slide-in, modal fade-in/scale-up, panel transitions.
+- Loading state: show a splash screen for 600ms on first load displaying app name and version.
+
+TONE:
+Write production-quality, well-commented code. Every function must have a JSDoc comment. Use meaningful variable names. Handle all edge cases (empty notes, storage full, invalid markdown, corrupted localStorage data). Code must be readable, maintainable, and demonstrate senior engineering standards.
+
+AUDIENCE:
+You are the implementer. Output the complete, fully working index.html file. Do not describe what you will do. Do not output pseudocode. Do not truncate. Output the full file from &lt;!DOCTYPE html&gt; to &lt;/html&gt;. Every single feature listed must be present and working in the output.
+
+RESULT FORMAT:
+Output ONLY the raw contents of index.html. Start with &lt;!DOCTYPE html&gt; and end with &lt;/html&gt;. No explanation before or after. No markdown code fences. The file must be immediately usable by opening in a modern browser.
+
+CDN DEPENDENCIES TO USE:
+- marked.js: https://cdn.jsdelivr.net/npm/marked/marked.min.js
+- highlight.js: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js
+- highlight.js CSS (default, swapped dynamically): https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/[THEME].min.css
+- KaTeX: https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js and katex.min.css
+- KaTeX auto-render: https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
+- js-yaml: https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js
+- jsPDF: https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js
+- html2canvas: https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js
+- Google Fonts: Fira Code, JetBrains Mono, Source Code Pro loaded via https://fonts.googleapis.com/css2?family=[FONT_NAME]&amp;display=swap
+
+[ADDITIONAL_FEATURES]: If you have room and capability, also implement: a Mermaid.js diagram renderer (load from CDN), a word-frequency word cloud display in the analytics panel accessible from the sidebar footer, and a Pomodoro-style focus timer (25min countdown) that appears in focus mode.</pre>
+</div>
+<div class="tags" aria-label="Tags"><span>ai-generated</span><span>pa-agent</span></div>
+<h2>How to use this prompt</h2>
+<ol class="steps"><li>Copy the prompt with the button above.</li><li>Replace the parts in brackets with your own details: [THEME], [FONT_NAME], [ADDITIONAL_FEATURES].</li><li>Paste it into ChatGPT and send it. It also works in other AI chat tools.</li><li>Not quite right? Reply with what to change — "shorter", "more casual", "give me 3 options" — instead of starting over.</li></ol>
+</article>
+<h2>Related code &amp; tech prompts</h2>
+<ul class="grid"><li><a class="card" href="/p/comprehensive-sih-annual-report-generator.html"><strong>Comprehensive SIH Annual Report Generator</strong><small>You are a data research specialist compiling an academic reference document on S</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/lightweightdarkmodefirstmarkdowneditor.html"><strong>LightweightDarkModeFirstMarkdownEditor</strong><small>## CONTEXT You are an expert frontend engineer specialising in browser-based cod</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/feature-rich-markdown-notes-application-master-prompt.html"><strong>Feature-Rich Markdown Notes Application Master Prompt</strong><small>CONTEXT: You are an expert frontend developer specializing in building rich text</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/smart-tv-ad-removal-guide.html"><strong>Smart TV Ad Removal Guide</strong><small>Role: You are a senior smart TV network engineer and cybersecurity expert with 1</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/step-by-step-automation-blueprint.html"><strong>Step-by-Step Automation Blueprint</strong><small>You are a no-code automation specialist. Create a detailed step-by-step implemen</small><em>ChatGPT</em></a></li><li><a class="card" href="/p/website-monitor-orchestrator.html"><strong>Website Monitor Orchestrator</strong><small>CONTEXT: You are the Master Orchestrator Agent managing a coordinated group of s</small><em>ChatGPT</em></a></li></ul>
+<p style="margin-top:18px"><a href="/p/c/code-and-tech.html">See all 183 Code &amp; Tech prompts →</a></p>
+<section class="cta"><h2 style="margin:0">Get 10 new prompts every week</h2><p>Join the free Promptaholics newsletter, or search every prompt in the library.</p>
+<div class="actions"><a class="btn primary" href="/library.html?prompt=2284">Open in the library</a><a class="btn" href="/#brevoFooterEmail">Join the newsletter</a></div></section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var t=document.getElementById('promptText').textContent, toast=document.getElementById('toast');
+  function say(m){toast.textContent=m;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},1800);}
+  function copy(){ if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t);} var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy');}finally{a.remove();} return Promise.resolve(); }
+  function track(n){ try{ if(window.gtag) gtag('event',n,{prompt_id:"2284"}); }catch(e){} }
+  document.getElementById('copyBtn').addEventListener('click',function(){ copy().then(function(){say('Copied!');track('copy_prompt');},function(){say('Copy failed — select the text and copy it');}); });
+  var g=document.getElementById('openGpt'), c=document.getElementById('openClaude');
+  if(g) g.href='https://chatgpt.com/?q='+encodeURIComponent(t);
+  if(c) c.href='https://claude.ai/new?q='+encodeURIComponent(t);
+  [g,c].forEach(function(a){ if(a) a.addEventListener('click',function(){track('open_in_'+(a===g?'chatgpt':'claude'));}); });
+})();
+</script>
+</main>
+<footer><div class="foot-in">
+<span>© 2026 Promptaholics · Free AI prompts · No signup required</span>
+<a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/sponsor.html">Advertise</a>
+</div></footer>
+</body>
+</html>

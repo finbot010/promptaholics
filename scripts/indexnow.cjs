@@ -4,10 +4,9 @@ const fs = require('fs');
 const HOST = 'promptaholics.com';
 const KEY = '04f36d572cca67d8ae8a48d3be6ba9e1';
 let args = process.argv.slice(2);
-if (args.includes('--sitemap')) {
-  const xml = fs.readFileSync('sitemap.xml', 'utf8');
-  args = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-}
+const fromMap = f => [...fs.readFileSync(f, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+if (args.includes('--sitemap')) args = fromMap('sitemap.xml');
+else if (args.includes('--sitemap-prompts')) args = fromMap('sitemap-prompts.xml');
 const urls = [...new Set(args.map(a => a.startsWith('http') ? a : 'https://' + HOST + '/' + a.replace(/^\.?\//, '')))]
   .filter(u => !/(admin|login|google[0-9a-f]+|BingSiteAuth|order-success)/i.test(u))
   .slice(0, 10000);
