@@ -693,6 +693,7 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sa
       <input class="mem-inp" id="memInp" placeholder='e.g. "Post on TikTok every Tuesday at 6PM"' onkeydown="if(event.key==='Enter')addMem()"/>
       <button class="mem-add-btn" onclick="addMem()"><i class="ti ti-plus"></i> Remember</button>
     </div>
+    <button class="mem-add-btn" id="memSeedBtn" onclick="seedMem()" style="margin-top:8px;width:100%;justify-content:center;" aria-label="Add the standing Promptaholics facts to ARIA memory"><i class="ti ti-sparkles"></i> Add standing facts</button>
   </div>
 
   <!-- FILES -->
@@ -903,11 +904,11 @@ AGENTS:
 7. REVENUE — Stripe sales, guide conversion, merch orders, Printful affiliate performance, pricing.
 8. PROMOTER — grows traffic to promptaholics.com: daily promo packs (one real library prompt turned into posts for X, LinkedIn, Reddit, Facebook, Pinterest, Instagram, TikTok with UTM-tracked links), directory listings, community posting, SEO and outreach. Facebook Page and Instagram can be posted directly from the Promoter panel with a two-tap confirm once connected; other platforms are posted manually. Nothing posts without the user's tap. Favor genuinely useful, rule-abiding posts over spam.
 
-SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library: 2,000+ prompts, 18 categories, 9 frameworks. GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense review: submitted June 2026. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
+SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library size and categories: use the LIVE LIBRARY DATA block below (never quote an older number). GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense: the first review was rejected for "low value content"; content and policy fixes are done (About, Contact, Terms, Consent Mode v2, duplicate cleanup) but a re-review has not been requested yet. Sponsor page live at /sponsor.html with Stripe links ($39/mo Featured, $79/mo Featured + Newsletter), apply first, payment link sent after approval. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
 DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. GA4 traffic, pages, locations, sources and events are available ONLY when a LIVE GA4 DATA block appears below; if it says GA4 is unavailable, do not state traffic numbers. City-level locations come from GA4 and are approximate (based on IP). You have NO access to Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
 
-BUILD QUEUE (priority order): 1) PA Agent nav link on all pages 2) JSON file drop on admin page 3) Prompt Builder swap Puter to Worker + add Kling 4) Free directory submissions GitHub awesome-lists, Hacker News, Indie Hackers 5) Merge 50 prompts-to-add.js into prompts.js 6) Inline prompt preview on library cards 7) Agent and Loop Prompts category 8) Store resume 9) Read-only Prompt Library API 10) ARIA Agent 9.
+BUILD QUEUE (priority order, updated Nov 2026): 1) Prompt batches 4 to 10 (goal: 1,000 new ChatGPT, Claude and Gemini prompts by month end; 300 live, 700 to go, uploaded 100 at a time through admin-prompts then the export action) 2) Open-in buttons on prompt cards (open in ChatGPT, Claude, Gemini) 3) Prompt Optimizer 4) Prompt Decks (curated packs) 5) Prompt Playground 6) Browser extension 7) AdSense re-review request 8) Learn chapter 7 video embed (waiting on a YouTube ID). Earlier items like the admin JSON drop, duplicate cleanup, Consent Mode v2 and GA4 in ARIA are done.
 
 VOICE RULES: Your replies are read aloud. Natural spoken English only. No markdown, no bullets, no emoji. 2-4 sentences max unless the user asks for a document or file analysis. End with a follow-up or next action. Reference conversation history naturally.`;
 
@@ -1268,9 +1269,12 @@ function liveDataBlock(){
     if(b.lastCampaign){ var st=b.lastCampaign.stats||{}; out+=' Last campaign: "'+b.lastCampaign.subject+'" sent '+(b.lastCampaign.sentAt||'?')+' — delivered '+(st.delivered||0)+', opens '+(st.opens||0)+' ('+(st.openRate||0)+'%), clicks '+(st.clicks||0)+' ('+(st.clickRate||0)+'%), unsubscribes '+(st.unsubscribed||0)+'.'; }
     else if(b.campaignError) out+=' Campaign stats unavailable: '+b.campaignError+'.';
   } else out+='\n\nBREVO DATA: Unavailable this session'+(window.__brevoError?' ('+window.__brevoError+')':'')+'. Do not state a subscriber number; tell the user what the error says to fix.';
+  var L=window.__libStats;
+  if(L) out+='\n\nLIVE LIBRARY DATA: '+L.count.toLocaleString()+' prompts across '+L.cats+' categories'+(L.updated?' (export updated '+L.updated+')':'')+'. By tool: '+L.tools+'. Top categories: '+L.top+'.';
+  else out+='\n\nLIBRARY DATA: Unavailable this session — say the library has over 2,000 prompts and do not give an exact count.';
   var n=window.__netlifyStats;
   if(n) out+='\n\nLIVE NETLIFY DATA: Deploy status: '+(n.deploy?.state||'unknown')+'. Last deploy time: '+(n.deploy?.deployTime||'?')+'s. Branch: '+(n.deploy?.branch||'main')+'.';
-  else out+='\n\nNETLIFY DATA: Unavailable this session — do not guess deploy status.';
+  else out+='\n\nNETLIFY DATA: Unavailable this session'+(window.__netlifyError?' ('+window.__netlifyError+')':'')+' — do not guess deploy status; tell the user what the error says to fix.';
   var r=window.__revenueStats;
   if(r && typeof r.totalRevenue==='number') out+='\n\nLIVE REVENUE DATA (Stripe, last 30 days): Total revenue: $'+(r.totalRevenue/100).toFixed(2)+'. Orders: '+(r.chargeCount||0)+' ('+(r.guideSales||0)+' guide sales, '+(r.merchOrders||0)+' merch/print orders).';
   else out+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
@@ -1447,7 +1451,25 @@ async function fetchJSON(path){
   }
   return r.json();
 }
+async function loadLibStats(){
+  try{
+    var res=await Promise.all([fetch('/prompt-count.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+                               fetch('/prompts.js',{cache:'no-store'}).then(function(r){return r.ok?r.text():'';})]);
+    var meta=res[0]||{}, src=res[1], arr=[];
+    if(src){ try{ arr=new Function(src.replace('const PROMPTS','var PROMPTS')+'\nreturn PROMPTS;')()||[]; }catch(e){ arr=[]; } }
+    var cats={}, tools={};
+    arr.forEach(function(p){ if(!p) return; cats[p.cat||'Other']=(cats[p.cat||'Other']||0)+1; tools[p.tool||'other']=(tools[p.tool||'other']||0)+1; });
+    var sortDesc=function(o){ return Object.keys(o).sort(function(a,b){return o[b]-o[a];}); };
+    var count=arr.length||meta.count||0;
+    if(!count) return;
+    window.__libStats={ count:count, updated:meta.updated||'', cats:Object.keys(cats).length||'?',
+      tools:sortDesc(tools).map(function(k){return k+' '+tools[k];}).join(', ')||'n/a',
+      top:sortDesc(cats).slice(0,8).map(function(k){return k+' '+cats[k];}).join(', ')||'n/a' };
+    addLog('📚','Library: '+count.toLocaleString()+' prompts, '+window.__libStats.cats+' categories','var(--orange)');
+  }catch(e){ console.warn('Library stats failed:',e); }
+}
 async function loadLiveStats(){
+  loadLibStats();
   var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary'),fetchJSON('/api/ga4-report?days=7'),fetchJSON('/api/ga4-report?days=28')]);
 
   if(results[0].status==='fulfilled'){
@@ -1465,7 +1487,7 @@ async function loadLiveStats(){
     document.getElementById('a5deploy').textContent=state==='ready'?'✓':state==='error'?'✗':'~';
     addLog('🚀','Netlify: deploy '+state+(nd.deploy?.deployTime?' ('+nd.deploy.deployTime+'s)':''),'var(--green)');
     window.__netlifyStats=nd;
-  } else addLog('⚠','Netlify status unavailable ('+results[1].reason.message+')','var(--red)');
+  } else { window.__netlifyError=results[1].reason.message; addLog('⚠','Netlify status unavailable ('+results[1].reason.message+')','var(--red)'); }
 
   if(results[2].status==='fulfilled' && typeof results[2].value.totalRevenue==='number'){
     var rd=results[2].value;
@@ -1672,6 +1694,31 @@ async function delMem(f){
     buildMemBlock(window.__memFacts);
     showToast('Memory removed');
   } else showToast('Could not remove — try again');
+}
+var MEM_SEED=[
+  'Weekly newsletter format: 10 library prompts with links, 4 Vault images, one good-read article, social icons; sent through Brevo to list 3 (newsletter).',
+  'Prompt export: the export-prompts GitHub Action runs every Monday 2PM UTC and can be run by hand; it moves approved prompts from Firestore into prompts.js and updates prompt-count.json.',
+  'New prompts go in through admin-prompts.html in batches of 100, then the export action, then Clear live to empty the queue.',
+  'Goal: 1,000 new prompts (mix of ChatGPT, Claude and Gemini) by end of November 2026, in 10 batches of 100.',
+  'Sponsor slots: $39/mo Featured and $79/mo Featured + Newsletter. Tools apply at /sponsor.html first; the Stripe link is sent only after approval.',
+  'Tool directory rule: free listings only for tools that fit the site; everything else gets the decline or the sponsor offer.',
+  'Brand: orange #ff6224 on dark #07070a; voice is friendly, practical and plain.',
+  'Every page change gets a WCAG 2.1 AA check and a light security check. Keys and secrets never go in chat, only into Cloudflare secrets or the Setup tab.',
+  'Admin pages only open for promptaholics1@gmail.com.',
+  'AdSense was rejected for low value content; fixes are done and a re-review is still to be requested.'
+];
+async function seedMem(){
+  window.__memFacts=window.__memFacts||[];
+  var todo=MEM_SEED.filter(function(f){ return window.__memFacts.indexOf(f)===-1; });
+  if(!todo.length){ showToast('ARIA already has all the standing facts'); return; }
+  var btn=document.getElementById('memSeedBtn'); if(btn) btn.disabled=true;
+  setMemSt('saving');
+  var added=0;
+  for(var i=0;i<todo.length;i++){ if(await window.__fbAddMem(todo[i])){ window.__memFacts.push(todo[i]); added++; } }
+  setMemSt('synced'); if(btn) btn.disabled=false;
+  renderMem(window.__memFacts); buildMemBlock(window.__memFacts);
+  showToast(added===todo.length?'✅ Added '+added+' standing facts':'Added '+added+' of '+todo.length+' — check your connection');
+  addLog('🧠','Memory seeded with '+added+' standing facts','var(--purple)');
 }
 function setMemSt(s){
   var el=document.getElementById('memStatus');
