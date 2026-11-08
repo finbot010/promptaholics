@@ -1202,7 +1202,8 @@ async function runCmd(text,opts){
   chatHistory.push({role:'user',content:text});
   trimHistory();
 
-  var sys=ARIA_SYS+(window.__memBlock||'')+customAgentBlock()+liveDataBlock();
+  var live=''; try{ live=liveDataBlock(); }catch(e){ console.warn('Live data block failed',e); live='\n\nLIVE DATA: Could not be assembled this session — do not state live numbers.'; }
+  var sys=ARIA_SYS+(window.__memBlock||'')+customAgentBlock()+live;
   var intentType=(NEWS_RE.test(text)||WEB_RE.test(text))?'find':'create';
   var thinkT=setTimeout(function(){ setTranscript('Still thinking... 🧠',false); },4000);
 
@@ -1249,7 +1250,7 @@ function bingBlock(b){
   var o='\n\nLIVE BING WEBMASTER DATA (Bing search; Bing data lags 2-3 days): Last 7 days: '+f(t.last7||{})+' (previous 7: '+f(t.prev7||{})+'). Last 28 days: '+f(t.last28||{})+' (previous 28: '+f(t.prev28||{})+').';
   if(b.topQueries&&b.topQueries.length) o+='\nTop Bing queries (28d): '+b.topQueries.slice(0,12).map(function(q){return '"'+q.query+'" '+q.clicks+' clicks/'+q.impressions+' impr'+(q.position?' pos '+q.position:'');}).join('; ')+'.';
   if(b.opportunities&&b.opportunities.length) o+='\nLow-CTR opportunities (many impressions, few clicks — improve title/description or add a matching page): '+b.opportunities.map(function(q){return '"'+q.query+'" '+q.impressions+' impr, CTR '+q.ctr+'%'+(q.position?', pos '+q.position:'');}).join('; ')+'.';
-  if(b.topPages&&b.topPages.length) o+='\nTop pages on Bing (28d): '+b.topPages.slice(0,8).map(function(p){return p.page.replace('https://promptaholics.com','')+' '+p.clicks+' clicks';}).join('; ')+'.';
+  if(b.topPages&&b.topPages.length) o+='\nTop pages on Bing (28d): '+b.topPages.slice(0,8).map(function(p){return String(p.page||p.query||'').replace('https://promptaholics.com','')+' '+p.clicks+' clicks';}).join('; ')+'.';
   if(b.crawl) o+='\nBing crawl: '+(b.crawl.inIndex!=null?b.crawl.inIndex+' pages in index, ':'')+(b.crawl.inLinks!=null?b.crawl.inLinks+' inbound links, ':'')+b.crawl.crawledPages7d+' pages crawled in 7d, '+b.crawl.crawlErrors7d+' crawl errors (4xx '+b.crawl.code4xx7d+', 5xx '+b.crawl.code5xx7d+').';
   return o;
 }
@@ -1292,7 +1293,7 @@ function liveDataBlock(){
   else out+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
   out+=ga4Block(window.__ga4Stats,'last 7 days');
   if(window.__ga4Stats28) out+=ga4Block(window.__ga4Stats28,'last 28 days');
-  out+=bingBlock(window.__bingStats);
+  try{ out+=bingBlock(window.__bingStats); }catch(e){ console.warn('Bing block failed',e); }
   var v=window.__vaultStats;
   if(v) out+='\n\nLIVE VAULT DATA: '+v;
   return out;
