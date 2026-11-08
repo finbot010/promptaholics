@@ -906,7 +906,7 @@ AGENTS:
 
 SITE: Promptaholics.com on Netlify, github.com/finbot010/promptaholics. Firebase: promptaholics-534d3. Cloudflare Worker: https://dawn-thunder-a558.promptaholics1.workers.dev. Library size and categories: use the LIVE LIBRARY DATA block below (never quote an older number). GitHub Action: export-prompts.cjs runs Monday 2PM UTC. Admin: promptaholics1@gmail.com. Operation Cha Ching: store with apparel, eBooks, ARIA white-label, prompt packs. Staging: https://main--promptaholics.netlify.app. Product Hunt launch: completed June 26 2026. AdSense: the first review was rejected for "low value content"; content and policy fixes are done (About, Contact, Terms, Consent Mode v2, duplicate cleanup) but a re-review has not been requested yet. Sponsor page live at /sponsor.html with Stripe links ($39/mo Featured, $79/mo Featured + Newsletter), apply first, payment link sent after approval. Google Search Console: verified July 2026. Digital guide product ($4.99 "Start Your Own Store") live via Stripe. These facts are a static snapshot and drift out of date; always prefer the LIVE DATA blocks below.
 
-DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. GA4 traffic, pages, locations, sources and events are available ONLY when a LIVE GA4 DATA block appears below; if it says GA4 is unavailable, do not state traffic numbers. City-level locations come from GA4 and are approximate (based on IP). You have NO access to Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
+DATA HONESTY (important): The only live numbers you have are in the LIVE DATA blocks below. GA4 traffic, pages, locations, sources and events are available ONLY when a LIVE GA4 DATA block appears below; if it says GA4 is unavailable, do not state traffic numbers. Bing search clicks, impressions, queries, low-CTR opportunities and index/crawl stats come ONLY from the LIVE BING WEBMASTER DATA block; Google Search Console is not connected, so never state Google search numbers. City-level locations come from GA4 and are approximate (based on IP). You have NO access to Search Console, AdSense, Firebase security rules, Worker source code, Stripe line items beyond the summary, or any file unless its content appears in this conversation. When asked for something you cannot see, say plainly that you don't have that data and tell the user exactly where to check it or what to paste in. Never invent numbers, rankings, or scan results. You can still give advice, checklists, and ideas — label them as suggestions, not findings.
 
 BUILD QUEUE (priority order, updated Nov 2026): 1) Prompt batches 4 to 10 (goal: 1,000 new ChatGPT, Claude and Gemini prompts by month end; 300 live, 700 to go, uploaded 100 at a time through admin-prompts then the export action) 2) Open-in buttons on prompt cards (open in ChatGPT, Claude, Gemini) 3) Prompt Optimizer 4) Prompt Decks (curated packs) 5) Prompt Playground 6) Browser extension 7) AdSense re-review request 8) Learn chapter 7 video embed (waiting on a YouTube ID). Earlier items like the admin JSON drop, duplicate cleanup, Consent Mode v2 and GA4 in ARIA are done.
 
@@ -1242,6 +1242,18 @@ async function runCmd(text,opts){
   }
 }
 
+// Bing numbers come from the Worker's /api/bing-report (Bing Webmaster API key, read-only)
+function bingBlock(b){
+  if(!b||!b.totals) return '\n\nBING WEBMASTER DATA: Unavailable this session'+(window.__bingError?' ('+window.__bingError+')':'')+' — do not guess Bing search numbers; tell the user what the error says to fix.';
+  var t=b.totals, f=function(x){return (x.clicks||0).toLocaleString()+' clicks, '+(x.impressions||0).toLocaleString()+' impressions, CTR '+(x.ctr||0)+'%';};
+  var o='\n\nLIVE BING WEBMASTER DATA (Bing search; Bing data lags 2-3 days): Last 7 days: '+f(t.last7||{})+' (previous 7: '+f(t.prev7||{})+'). Last 28 days: '+f(t.last28||{})+' (previous 28: '+f(t.prev28||{})+').';
+  if(b.topQueries&&b.topQueries.length) o+='\nTop Bing queries (28d): '+b.topQueries.slice(0,12).map(function(q){return '"'+q.query+'" '+q.clicks+' clicks/'+q.impressions+' impr'+(q.position?' pos '+q.position:'');}).join('; ')+'.';
+  if(b.opportunities&&b.opportunities.length) o+='\nLow-CTR opportunities (many impressions, few clicks — improve title/description or add a matching page): '+b.opportunities.map(function(q){return '"'+q.query+'" '+q.impressions+' impr, CTR '+q.ctr+'%'+(q.position?', pos '+q.position:'');}).join('; ')+'.';
+  if(b.topPages&&b.topPages.length) o+='\nTop pages on Bing (28d): '+b.topPages.slice(0,8).map(function(p){return p.page.replace('https://promptaholics.com','')+' '+p.clicks+' clicks';}).join('; ')+'.';
+  if(b.crawl) o+='\nBing crawl: '+(b.crawl.inIndex!=null?b.crawl.inIndex+' pages in index, ':'')+(b.crawl.inLinks!=null?b.crawl.inLinks+' inbound links, ':'')+b.crawl.crawledPages7d+' pages crawled in 7d, '+b.crawl.crawlErrors7d+' crawl errors (4xx '+b.crawl.code4xx7d+', 5xx '+b.crawl.code5xx7d+').';
+  return o;
+}
+
 // GA4 numbers come from the Worker's /api/ga4-report (GA4 Data API, read-only service account)
 function ga4Block(g,label){
   if(!g||!g.totals) return label==='last 7 days'?'\n\nGA4 DATA: Unavailable this session (the Worker could not reach GA4 or its secrets are not set). Do not state traffic numbers.':'';
@@ -1280,6 +1292,7 @@ function liveDataBlock(){
   else out+='\n\nREVENUE DATA: Unavailable this session — do not guess revenue numbers.';
   out+=ga4Block(window.__ga4Stats,'last 7 days');
   if(window.__ga4Stats28) out+=ga4Block(window.__ga4Stats28,'last 28 days');
+  out+=bingBlock(window.__bingStats);
   var v=window.__vaultStats;
   if(v) out+='\n\nLIVE VAULT DATA: '+v;
   return out;
@@ -1470,7 +1483,7 @@ async function loadLibStats(){
 }
 async function loadLiveStats(){
   loadLibStats();
-  var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary'),fetchJSON('/api/ga4-report?days=7'),fetchJSON('/api/ga4-report?days=28')]);
+  var results=await Promise.allSettled([fetchJSON('/api/brevo-stats'),fetchJSON('/api/netlify-status'),fetchJSON('/api/revenue-summary'),fetchJSON('/api/ga4-report?days=7'),fetchJSON('/api/ga4-report?days=28'),fetchJSON('/api/bing-report')]);
 
   if(results[0].status==='fulfilled'){
     var bd=results[0].value;
@@ -1507,6 +1520,13 @@ async function loadLiveStats(){
     window.__ga4Stats=g;
   } else addLog('⚠','GA4 unavailable ('+(results[3].reason?results[3].reason.message:'no data')+')','var(--red)');
   if(results[4].status==='fulfilled' && results[4].value.totals) window.__ga4Stats28=results[4].value;
+
+  if(results[5].status==='fulfilled' && results[5].value.totals){
+    var bw=results[5].value, b7=bw.totals.last7||{}, bp=bw.totals.prev7||{};
+    var bchg=bp.clicks?Math.round(((b7.clicks-bp.clicks)/bp.clicks)*100):null;
+    addLog('🔎','Bing (7d): '+(b7.clicks||0).toLocaleString()+' clicks, '+(b7.impressions||0).toLocaleString()+' impressions'+(bchg!==null?' ('+(bchg>=0?'+':'')+bchg+'% vs prior 7d)':'')+(bw.crawl&&bw.crawl.inIndex!=null?' · '+Number(bw.crawl.inIndex).toLocaleString()+' pages indexed':''),'var(--green)');
+    window.__bingStats=bw; window.__bingError=null;
+  } else { window.__bingError=results[5].reason?results[5].reason.message:'no data'; addLog('⚠','Bing Webmaster unavailable ('+window.__bingError+')','var(--red)'); }
 }
 
 // ─── Browser Panel ────────────────────────────────────────────────
