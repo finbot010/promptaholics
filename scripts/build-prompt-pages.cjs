@@ -316,4 +316,15 @@ fs.writeFileSync(path.join(ROOT, 'sitemap-prompts.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + `\n</urlset>\n`);
 
+// Keep the visible counts on the main pages in step with the library (crawlers don't run JS)
+const rounded = (Math.floor(byId.length / 100) * 100).toLocaleString('en-US') + '+';
+for (const f of ['library.html', 'index.html', 'ai-prompt-library.html']) {
+  const fp = path.join(ROOT, f);
+  if (!fs.existsSync(fp)) continue;
+  const before = fs.readFileSync(fp, 'utf8');
+  const after = before
+    .replace(/\b[1-9],\d00\+/g, rounded)
+    .replace(/(<span id="libCount">)[\d,]+(<\/span>)/, '$1' + byId.length.toLocaleString('en-US') + '$2');
+  if (after !== before) fs.writeFileSync(fp, after);
+}
 console.log(`Built ${byId.length} prompt pages, ${names.length} category pages and the index — ${(bytes / 1048576).toFixed(1)} MB, avg ${(bytes / (byId.length + names.length + 1) / 1024).toFixed(1)} KB/page.`);

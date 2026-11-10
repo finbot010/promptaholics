@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "PA Agent"
           git config user.email "promptaholics1@gmail.com"
-          git add p sitemap-prompts.xml
+          git add p sitemap-prompts.xml library.html index.html ai-prompt-library.html
           if git diff --staged --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
           git commit -m "Rebuild prompt pages $(date +'%Y-%m-%d')"
           git pull --rebase origin main && git push
